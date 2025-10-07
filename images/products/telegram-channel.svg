@@ -1,0 +1,32 @@
+<svg width="560" height="320" viewBox="0 0 560 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="560" height="320" rx="28" fill="url(#paint0_linear_tg)"/>
+  <g filter="url(#filter0_dd_tg)">
+    <path d="M412 80 180 148c-12.364 3.6-12.8 20.584-.664 24.78l83.712 29.42 28.272 64.168c4.552 10.342 19.276 11.5 25.624 1.992l33.784-51.244 65.88-116.08C420.864 92.092 418.688 78.02 412 80Z" fill="#F4F7FF"/>
+    <path d="m244.16 198.384 30.08 71.252c2.744 6.502 12.056 7.236 15.96 1.23l32.264-48.924 64.232-105.52c2.016-3.312-1.316-7.332-4.984-6.28l-149.3 43.512c-3.608 1.052-3.98 6.004-.592 7.452l42.34 18.278Z" fill="url(#paint1_linear_tg)"/>
+    <path d="m282.612 210.684 24.1 10.404 12.912-20.376-37.012 9.972Z" fill="#1F7EE6"/>
+  </g>
+  <g opacity="0.6">
+    <rect x="96" y="82" width="120" height="48" rx="24" fill="#FFFFFF" fill-opacity="0.25"/>
+    <rect x="342" y="222" width="128" height="44" rx="22" fill="#FFFFFF" fill-opacity="0.2"/>
+    <circle cx="114" cy="242" r="18" fill="#FFFFFF" fill-opacity="0.2"/>
+  </g>
+  <defs>
+    <linearGradient id="paint0_linear_tg" x1="112" y1="26" x2="472" y2="304" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38B3FF"/>
+      <stop offset="1" stop-color="#1762C2"/>
+    </linearGradient>
+    <linearGradient id="paint1_linear_tg" x1="256" y1="154" x2="352" y2="260" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2F80ED"/>
+      <stop offset="1" stop-color="#29D2FF"/>
+    </linearGradient>
+    <filter id="filter0_dd_tg" x="152" y="64" width="284" height="240" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="10"/>
+      <feGaussianBlur stdDeviation="12"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.0941176 0 0 0 0 0.360784 0 0 0 0 0.698039 0 0 0 0.24 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+  </defs>
+</svg>

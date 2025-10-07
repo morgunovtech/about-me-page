@@ -1,0 +1,39 @@
+<svg width="560" height="320" viewBox="0 0 560 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="560" height="320" rx="28" fill="url(#paint0_linear_witch)"/>
+  <g filter="url(#filter0_dd_witch)">
+    <path d="M280 74c-49.706 0-90 40.294-90 90s40.294 90 90 90 90-40.294 90-90-40.294-90-90-90Zm0 24c36.212 0 66 29.788 66 66s-29.788 66-66 66-66-29.788-66-66 29.788-66 66-66Z" fill="url(#paint1_linear_witch)"/>
+    <path d="M280 108c-28.167 0-51 22.833-51 51 0 28.166 22.833 51 51 51 28.166 0 51-22.834 51-51 0-28.167-22.834-51-51-51Zm0 20c17.12 0 31 13.88 31 31 0 17.12-13.88 31-31 31-17.12 0-31-13.88-31-31 0-17.12 13.88-31 31-31Z" fill="#0B1E3F" fill-opacity="0.85"/>
+    <path d="M280 94l46 26v52c0 29.823-19.557 56.47-46 64-26.443-7.53-46-34.177-46-64v-52l46-26Z" fill="#121C33"/>
+    <path d="M280 111l29 17v40c0 22.268-13.857 42.188-29 46-15.143-3.812-29-23.732-29-46v-40l29-17Z" fill="url(#paint2_linear_witch)"/>
+    <path d="M280 139c8.284 0 15-6.716 15-15s-6.716-15-15-15-15 6.716-15 15 6.716 15 15 15Z" fill="#F4F7FF"/>
+  </g>
+  <g fill="#F4F7FF" opacity="0.55">
+    <circle cx="118" cy="94" r="18"/>
+    <circle cx="460" cy="228" r="14"/>
+    <rect x="430" y="82" width="48" height="12" rx="6"/>
+    <rect x="80" y="212" width="66" height="12" rx="6"/>
+  </g>
+  <defs>
+    <linearGradient id="paint0_linear_witch" x1="64" y1="20" x2="496" y2="300" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2F80ED"/>
+      <stop offset="1" stop-color="#1B4BA3"/>
+    </linearGradient>
+    <linearGradient id="paint1_linear_witch" x1="214" y1="92" x2="352" y2="248" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#91C5FF"/>
+      <stop offset="1" stop-color="#2F80ED"/>
+    </linearGradient>
+    <linearGradient id="paint2_linear_witch" x1="280" y1="122" x2="280" y2="214" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5B8EFF"/>
+      <stop offset="1" stop-color="#2F80ED"/>
+    </linearGradient>
+    <filter id="filter0_dd_witch" x="166" y="60" width="228" height="232" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="6"/>
+      <feGaussianBlur stdDeviation="12"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.0470588 0 0 0 0 0.168627 0 0 0 0 0.380392 0 0 0 0.25 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+  </defs>
+</svg>
