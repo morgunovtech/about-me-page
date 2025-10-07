@@ -1,18 +1,18 @@
 :root {
   color-scheme: light dark;
   font-family: "Inter", "SF Pro Text", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --bg-page: #f6f7fb;
+  --bg-page: #f7f1ea;
   --bg-card: #ffffff;
-  --bg-hero: #eef1f8;
-  --bg-soft: rgba(30, 45, 80, 0.06);
-  --bg-chip: rgba(49, 80, 160, 0.12);
-  --bg-chip-active: rgba(39, 149, 106, 0.16);
-  --bg-chip-paused: rgba(209, 156, 32, 0.18);
-  --bg-chip-archived: rgba(88, 98, 122, 0.18);
-  --text-primary: #131722;
-  --text-secondary: #5b6273;
-  --text-muted: #7a8194;
-  --border: rgba(19, 23, 34, 0.08);
+  --bg-hero: #f1e6dc;
+  --bg-soft: #f2e4d8;
+  --bg-chip: rgba(200, 133, 101, 0.16);
+  --bg-chip-active: rgba(196, 84, 61, 0.18);
+  --bg-chip-paused: rgba(210, 148, 62, 0.2);
+  --bg-chip-archived: rgba(138, 120, 108, 0.24);
+  --text-primary: #2c1f18;
+  --text-secondary: #655347;
+  --text-muted: #8a7669;
+  --border: rgba(69, 45, 32, 0.1);
   --radius-lg: 20px;
   --radius-md: 14px;
   --radius-sm: 10px;
@@ -26,8 +26,8 @@
   --space-xl: 28px;
   --space-2xl: 40px;
   --space-3xl: 56px;
-  --accent: #3450d0;
-  --accent-strong: #273a9f;
+  --accent: #c4543d;
+  --accent-strong: #a13f2c;
   --transition: 0.18s ease;
   --max-width: min(1080px, calc(100% - 48px));
   line-height: 1.55;
@@ -35,22 +35,22 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-page: #10131d;
-    --bg-card: #161a26;
-    --bg-hero: #151b2c;
-    --bg-soft: rgba(255, 255, 255, 0.05);
-    --bg-chip: rgba(84, 118, 204, 0.28);
-    --bg-chip-active: rgba(70, 182, 136, 0.32);
-    --bg-chip-paused: rgba(223, 179, 68, 0.3);
-    --bg-chip-archived: rgba(156, 166, 194, 0.32);
-    --text-primary: #f8fbff;
-    --text-secondary: #b2bdd5;
-    --text-muted: #8790a8;
-    --border: rgba(248, 251, 255, 0.08);
+    --bg-page: #18120f;
+    --bg-card: #201713;
+    --bg-hero: #1d140f;
+    --bg-soft: rgba(237, 196, 174, 0.08);
+    --bg-chip: rgba(222, 156, 118, 0.28);
+    --bg-chip-active: rgba(226, 114, 82, 0.32);
+    --bg-chip-paused: rgba(216, 162, 82, 0.32);
+    --bg-chip-archived: rgba(168, 150, 138, 0.34);
+    --text-primary: #f9f4f0;
+    --text-secondary: #d4c3b8;
+    --text-muted: #ac988b;
+    --border: rgba(249, 244, 240, 0.08);
     --shadow-md: none;
     --shadow-sm: none;
-    --accent: #6784ff;
-    --accent-strong: #89a0ff;
+    --accent: #ff8a63;
+    --accent-strong: #ffb193;
   }
 }
 
@@ -86,6 +86,16 @@ a {
 a:hover,
 a:focus-visible {
   text-decoration: underline;
+}
+
+.text-link {
+  color: var(--accent);
+  transition: color var(--transition);
+}
+
+.text-link:hover,
+.text-link:focus-visible {
+  color: var(--accent-strong);
 }
 
 h1, h2, h3, p {
@@ -169,7 +179,7 @@ ul {
 .masthead__nav a:hover,
 .masthead__nav a:focus-visible {
   text-decoration: none;
-  background: rgba(52, 80, 208, 0.12);
+  background: rgba(196, 84, 61, 0.12);
   color: var(--accent);
   box-shadow: var(--shadow-sm);
 }
@@ -290,19 +300,19 @@ ul {
 .button:focus-visible {
   text-decoration: none;
   transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(39, 58, 159, 0.28);
+  box-shadow: 0 12px 24px rgba(161, 63, 44, 0.28);
 }
 
 .button--ghost {
   background: transparent;
-  border: 1px solid rgba(52, 80, 208, 0.4);
+  border: 1px solid rgba(196, 84, 61, 0.45);
   color: var(--accent);
   box-shadow: none;
 }
 
 .button--ghost:hover,
 .button--ghost:focus-visible {
-  background: rgba(52, 80, 208, 0.12);
+  background: rgba(196, 84, 61, 0.1);
 }
 
 .layout {
@@ -430,17 +440,17 @@ ul {
 
 .chip--active {
   background: var(--bg-chip-active);
-  color: #1c7e58;
+  color: #9a3a22;
 }
 
 .chip--paused {
   background: var(--bg-chip-paused);
-  color: #925400;
+  color: #7d4a0c;
 }
 
 .chip--archived {
   background: var(--bg-chip-archived);
-  color: #596073;
+  color: #5c524c;
 }
 
 .tile__link {
@@ -472,11 +482,11 @@ ul {
   width: 72px;
   height: 72px;
   border-radius: 18px;
-  background: rgba(52, 80, 208, 0.14);
+  background: rgba(196, 84, 61, 0.14);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: inset 0 0 0 1px rgba(39, 58, 159, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(161, 63, 44, 0.22);
 }
 
 .product__cover img {
