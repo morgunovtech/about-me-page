@@ -26,6 +26,11 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-padding-top: clamp(84px, 14vw, 128px);
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -141,13 +146,18 @@ ul {
 }
 
 .nav {
+  position: sticky;
+  top: clamp(12px, 4vw, 24px);
+  z-index: 10;
   margin: var(--space-lg) auto 0;
   padding: var(--space-xs) var(--space-lg);
   background: rgba(247, 245, 242, 0.9);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 1px solid var(--border);
   border-radius: 999px;
   max-width: 600px;
+  box-shadow: 0 10px 30px rgba(31, 27, 22, 0.12);
 }
 
 .nav ul {
@@ -173,6 +183,12 @@ ul {
   background: rgba(31, 27, 22, 0.08);
 }
 
+@supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
+  .nav {
+    background: rgba(247, 245, 242, 0.98);
+  }
+}
+
 .content {
   max-width: 900px;
   margin: 0 auto;
@@ -188,6 +204,7 @@ ul {
   padding: var(--space-xl);
   box-shadow: var(--shadow);
   border: 1px solid var(--border);
+  scroll-margin-top: clamp(96px, 12vw, 132px);
 }
 
 .card > :last-child {
@@ -405,6 +422,7 @@ ul {
   gap: var(--space-xs);
   align-items: center;
   font-weight: 500;
+  font-style: normal;
 }
 
 .contact-links span {
@@ -528,7 +546,8 @@ ul {
   }
 
   .nav {
-    background: rgba(29, 26, 23, 0.8);
+    background: rgba(29, 26, 23, 0.85);
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.4);
   }
 
   .career-item {
@@ -588,6 +607,7 @@ ul {
   }
 
   .nav {
+    top: var(--space-sm);
     padding-inline: var(--space-sm);
   }
 
@@ -625,5 +645,9 @@ ul {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }
