@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="ogTitle ogDesc">
+  <title id="ogTitle">Семён Моргунов — руководитель e-com и консультант</title>
+  <desc id="ogDesc">Обложка с именем и ключевыми направлениями</desc>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe4d6" />
+      <stop offset="1" stop-color="#dcd6ff" />
+    </linearGradient>
+    <linearGradient id="overlay" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="rgba(255,255,255,0.85)" />
+      <stop offset="1" stop-color="rgba(255,255,255,0.55)" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)" />
+  <rect x="80" y="80" width="1040" height="470" rx="64" fill="url(#overlay)" />
+  <text x="140" y="240" font-family="'Inter', 'Segoe UI', sans-serif" font-size="92" font-weight="700" fill="#241f1f">Семён Моргунов</text>
+  <text x="140" y="320" font-family="'Inter', 'Segoe UI', sans-serif" font-size="36" fill="#5a514c">Director of e-com @ Korzinka</text>
+  <text x="140" y="380" font-family="'Inter', 'Segoe UI', sans-serif" font-size="36" fill="#5a514c">Product · Growth · Cybersecurity</text>
+  <circle cx="960" cy="315" r="160" fill="#fdf5ed" />
+  <circle cx="970" cy="300" r="120" fill="#f0dedd" />
+  <path d="M880 420c20-76 74-118 110-118s90 42 110 118c-40 46-200 46-220 0z" fill="#e7cdd2" />
+</svg>
