@@ -69,7 +69,12 @@
           <button class="lang-button is-active" type="button" aria-pressed="true">RU</button>
           <button class="lang-button" type="button" aria-pressed="false" disabled title="Скоро">EN</button>
         </div>
-        <button class="theme-toggle" type="button" aria-label="Переключить тему" id="theme-toggle">Светлая / Тёмная</button>
+        <div class="theme-switch" role="group" aria-label="Настройки темы">
+          <button class="theme-button" type="button" data-theme="light" aria-pressed="true">Светлая</button>
+          <button class="theme-button" type="button" data-theme="dark" aria-pressed="false">Тёмная</button>
+          <button class="theme-button" type="button" data-theme="auto" aria-pressed="false">Авто</button>
+          <button class="theme-button" type="button" data-theme="accessible" aria-pressed="false">Для слабовидящих</button>
+        </div>
       </div>
     </div>
     <div class="container hero">
@@ -167,6 +172,13 @@
         <hr class="item-divider" />
 
         <article>
+          <p><strong>Fingerprint</strong></p>
+          <p><a href="https://fprint.morgunov.tech/">https://fprint.morgunov.tech/</a></p>
+        </article>
+
+        <hr class="item-divider" />
+
+        <article>
           <p><strong>Семён расправил плечи — авторский Telegram-канал</strong>  <code>820+ subscribers</code></p>
           <ul>
             <li>Публикации раз в 2 недели;</li>
@@ -249,17 +261,50 @@
     </div>
   </footer>
   <script>
-    (function() {
+    (function () {
       const body = document.body;
-      const toggle = document.getElementById('theme-toggle');
-      const storedTheme = localStorage.getItem('theme');
-      if (storedTheme === 'dark' || storedTheme === 'light') {
-        body.setAttribute('data-theme', storedTheme);
-      }
-      toggle.addEventListener('click', () => {
-        const current = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        body.setAttribute('data-theme', current);
-        localStorage.setItem('theme', current);
+      const themeButtons = Array.from(document.querySelectorAll('.theme-button'));
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+      const THEME_KEY = 'themePreference';
+
+      const setActiveButton = (preference) => {
+        themeButtons.forEach((button) => {
+          const isActive = button.dataset.theme === preference;
+          button.classList.toggle('is-active', isActive);
+          button.setAttribute('aria-pressed', isActive.toString());
+        });
+      };
+
+      const resolveTheme = (preference) => {
+        if (preference === 'accessible') return 'accessible';
+        if (preference === 'auto') return prefersDark.matches ? 'dark' : 'light';
+        return preference;
+      };
+
+      const applyTheme = (preference) => {
+        const effectiveTheme = resolveTheme(preference);
+        body.setAttribute('data-theme', effectiveTheme);
+        body.setAttribute('data-theme-preference', preference);
+        setActiveButton(preference);
+      };
+
+      const storedPreference = localStorage.getItem(THEME_KEY);
+      const initialPreference = storedPreference || 'light';
+      applyTheme(initialPreference);
+
+      prefersDark.addEventListener('change', () => {
+        const currentPreference = localStorage.getItem(THEME_KEY) || 'light';
+        if (currentPreference === 'auto') {
+          applyTheme('auto');
+        }
+      });
+
+      themeButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const preference = button.dataset.theme;
+          localStorage.setItem(THEME_KEY, preference);
+          applyTheme(preference);
+        });
       });
     })();
   </script>
