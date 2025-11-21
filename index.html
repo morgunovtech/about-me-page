@@ -42,7 +42,7 @@
   }
   </script>
 </head>
-<body data-theme="light" data-lang="ru">
+<body data-theme="light" data-lang="ru" data-accessibility="off">
   <a class="skip-link" href="#main">Перейти к содержанию</a>
   <header class="site-header" id="top">
     <div class="container header-bar">
@@ -57,17 +57,17 @@
           <li><a href="#contact">Связаться</a></li>
         </ul>
       </nav>
-      <div class="header-actions">
+      <div class="header-actions" aria-label="Настройки">
         <div class="lang-switch" aria-label="Переключатель языка">
           <button class="lang-button is-active" type="button" aria-pressed="true">RU</button>
           <button class="lang-button" type="button" aria-pressed="false" disabled title="Скоро">EN</button>
         </div>
         <div class="theme-switch" role="group" aria-label="Настройки темы">
-          <button class="theme-button" type="button" data-theme-value="light" aria-pressed="false" title="Светлая тема">☀️</button>
-          <button class="theme-button" type="button" data-theme-value="dark" aria-pressed="false" title="Тёмная тема">🌙</button>
-          <button class="theme-button" type="button" data-theme-value="auto" aria-pressed="false" title="Авто">🌓</button>
-          <button class="theme-button" type="button" data-theme-value="contrast" aria-pressed="false" title="Для слабовидящих">👁️</button>
+          <button class="theme-button" type="button" data-theme-value="light" aria-pressed="false" title="Светлая тема" aria-label="Светлая тема">☀️</button>
+          <button class="theme-button" type="button" data-theme-value="dark" aria-pressed="false" title="Тёмная тема" aria-label="Тёмная тема">🌙</button>
+          <button class="theme-button" type="button" data-theme-value="auto" aria-pressed="false" title="Авто" aria-label="Авто тема">🌓</button>
         </div>
+        <button class="a11y-toggle" type="button" aria-pressed="false" aria-label="Режим высокой доступности">👁️</button>
       </div>
     </div>
   </header>
@@ -79,7 +79,7 @@
           <p class="hero-lead">Строю крупнейший e-grocery сервис Узбекистана в роли e-com Director @ Korzinka · Создаю цифровые продукты и сервисы · Делюсь опытом в канале «<a class="text-link" href="https://t.me/raschet7">Семён расправил плечи</a>»</p>
         </div>
         <figure class="hero-figure">
-          <img src="https://resv2.craft.do/user/full/1679190e-834c-9f01-1d3a-3c9fa84f6ba1/doc/C4320EED-DD9A-44F4-92B9-B8A832993659/3BC5BCD5-2B19-44E6-A49A-57AF52AB816F_2/xEtMjehSUEillbUeGPYDGLLp4VSONoLRyLgO2pVy9zMz/IMG_6671_Clo.jpeg" alt="Семён Моргунов" loading="lazy" />
+          <img src="https://resv2.craft.do/user/full/1679190e-834c-9f01-1d3a-3c9fa84f6ba1/doc/C4320EED-DD9A-44F4-92B9-B8A832993659/3BC5BCD5-2B19-44E6-A49A-57AF52AB816F_2/xEtMjehSUEillbUeGPYDGLLp4VSONoLRyLgO2pVy9zMz/IMG_6671_Clo.jpeg" alt="Семён Моргунов" loading="lazy" width="800" height="1000" />
         </figure>
       </div>
     </section>
@@ -246,17 +246,20 @@
   <footer class="site-footer">
     <div class="container footer-content">
       <p>© 2025 Семён Моргунов</p>
-      <a class="back-to-top" href="#top">Вернуться наверх</a>
+      <a class="back-to-top" href="#top" aria-label="Вернуться наверх">Вернуться наверх</a>
     </div>
   </footer>
+  <button class="scroll-top" type="button" aria-label="Наверх">↑</button>
   <script>
     (() => {
       const body = document.body;
-      const buttons = Array.from(document.querySelectorAll('.theme-button'));
+      const themeButtons = Array.from(document.querySelectorAll('.theme-button'));
+      const accessibilityToggle = document.querySelector('.a11y-toggle');
+      const scrollTopButton = document.querySelector('.scroll-top');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
-      const setPressed = (value) => {
-        buttons.forEach((btn) => btn.setAttribute('aria-pressed', btn.dataset.themeValue === value ? 'true' : 'false'));
+      const setThemePressed = (value) => {
+        themeButtons.forEach((btn) => btn.setAttribute('aria-pressed', btn.dataset.themeValue === value ? 'true' : 'false'));
       };
 
       const applyTheme = (preference) => {
@@ -269,16 +272,29 @@
           body.dataset.themeResolved = preference;
         }
         localStorage.setItem('theme-preference', preference);
-        setPressed(preference);
+        setThemePressed(preference);
       };
 
-      const saved = localStorage.getItem('theme-preference') || 'light';
-      applyTheme(saved);
+      const applyAccessibility = (enabled) => {
+        body.setAttribute('data-accessibility', enabled ? 'on' : 'off');
+        accessibilityToggle.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+        localStorage.setItem('accessibility-mode', enabled ? 'on' : 'off');
+      };
 
-      buttons.forEach((button) => {
+      const savedTheme = localStorage.getItem('theme-preference') || 'auto';
+      const savedA11y = localStorage.getItem('accessibility-mode') === 'on';
+      applyTheme(savedTheme);
+      applyAccessibility(savedA11y);
+
+      themeButtons.forEach((button) => {
         button.addEventListener('click', () => {
           applyTheme(button.dataset.themeValue);
         });
+      });
+
+      accessibilityToggle.addEventListener('click', () => {
+        const isOn = body.getAttribute('data-accessibility') === 'on';
+        applyAccessibility(!isOn);
       });
 
       prefersDark.addEventListener('change', () => {
@@ -286,6 +302,21 @@
           applyTheme('auto');
         }
       });
+
+      const updateScrollTopVisibility = () => {
+        if (window.scrollY > 240) {
+          scrollTopButton.classList.add('is-visible');
+        } else {
+          scrollTopButton.classList.remove('is-visible');
+        }
+      };
+
+      scrollTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      window.addEventListener('scroll', updateScrollTopVisibility, { passive: true });
+      updateScrollTopVisibility();
     })();
   </script>
 </body>
