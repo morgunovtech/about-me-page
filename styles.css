@@ -190,7 +190,7 @@ p {
 .dropdown-menu {
   position: absolute;
   left: 0;
-  right: auto;
+  right: 0;
   top: calc(100% + var(--space-2));
   display: none;
   background: var(--surface);
@@ -199,8 +199,15 @@ p {
   padding: var(--space-3);
   box-shadow: var(--shadow);
   min-width: 220px;
-  max-width: min(380px, 90vw);
+  max-width: min(380px, calc(100vw - var(--space-6)));
   z-index: 11;
+}
+
+@media (max-width: 640px) {
+  .dropdown-menu {
+    max-width: calc(100vw - var(--space-6));
+    min-width: 100%;
+  }
 }
 
 .nav-dropdown.is-open .dropdown-menu,
@@ -274,6 +281,8 @@ p {
   gap: var(--space-3);
   align-items: stretch;
   flex-direction: column;
+  inset-inline: 0 auto;
+  min-width: 100%;
 }
 
 .theme-dropdown.is-open .dropdown-menu {
@@ -425,6 +434,11 @@ main {
   flex-wrap: wrap;
 }
 
+.product-top .product-meta,
+.media-heading .media-meta {
+  margin-left: var(--space-2);
+}
+
 .product-title {
   margin: 0;
   font-weight: 800;
@@ -434,11 +448,6 @@ main {
 .product-meta {
   color: var(--muted);
   font-size: 13px;
-}
-
-.product-top .product-meta::before {
-  content: "•";
-  margin: 0 var(--space-2);
 }
 
 .product-list {
@@ -497,11 +506,6 @@ blockquote {
 .media-heading .media-meta {
   font-size: 13px;
   color: var(--muted);
-}
-
-.media-heading .media-meta::before {
-  content: "•";
-  margin: 0 var(--space-2);
 }
 
 .btn {
@@ -600,7 +604,10 @@ blockquote {
   margin: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: var(--space-2);
+  text-align: center;
 }
 
 .changelog-toggle {
