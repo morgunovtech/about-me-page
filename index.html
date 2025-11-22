@@ -46,7 +46,8 @@
   <header class="site-header" id="top">
     <div class="container header-bar">
       <nav class="site-nav" aria-label="Основное">
-        <ul>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Навигация</button>
+        <ul id="nav-menu" hidden>
           <li><a href="#about">Обо мне</a></li>
           <li><a href="#career">Карьера</a></li>
           <li><a href="#entrepreneurship">Предпринимательство</a></li>
@@ -61,10 +62,13 @@
           <button class="lang-button is-active" type="button" aria-pressed="true">RU</button>
           <button class="lang-button" type="button" aria-pressed="false" disabled title="Скоро">EN</button>
         </div>
-        <div class="theme-switch" role="group" aria-label="Настройки отображения">
-          <button class="theme-button" type="button" data-theme-value="light" aria-pressed="false" title="Светлая тема" aria-label="Светлая тема">☀️</button>
-          <button class="theme-button" type="button" data-theme-value="dark" aria-pressed="false" title="Тёмная тема" aria-label="Тёмная тема">🌙</button>
-          <button class="theme-button" type="button" data-theme-value="auto" aria-pressed="false" title="Авто" aria-label="Авто тема">🌓</button>
+        <div class="theme-dropdown" aria-label="Настройки отображения">
+          <button class="theme-toggle" type="button" aria-expanded="false" aria-controls="theme-menu">Тема</button>
+          <div id="theme-menu" class="theme-menu" hidden role="group">
+            <button class="theme-button" type="button" data-theme-value="light" aria-pressed="false" title="Светлая тема" aria-label="Светлая тема">☀️</button>
+            <button class="theme-button" type="button" data-theme-value="dark" aria-pressed="false" title="Тёмная тема" aria-label="Тёмная тема">🌙</button>
+            <button class="theme-button" type="button" data-theme-value="auto" aria-pressed="false" title="Авто" aria-label="Авто тема">🌓</button>
+          </div>
           <button class="a11y-toggle" type="button" aria-pressed="false" aria-label="Режим высокой доступности" title="Высокая доступность">👁️</button>
         </div>
       </div>
@@ -151,9 +155,6 @@
               </ul>
               <div class="product-footer">
                 <a class="button" href="https://start.morgunov.tech/wiki">Изучить материалы</a>
-                <figure class="product-figure">
-                  <img src="https://share.cleanshot.com/lFTL7gPH/download" alt="Превью Wiki" loading="lazy" width="640" height="360" />
-                </figure>
               </div>
             </div>
           </article>
@@ -173,9 +174,6 @@
               </ul>
               <div class="product-footer">
                 <a class="button" href="https://t.me/raschet7">Подписаться на канал</a>
-                <figure class="product-figure">
-                  <img src="https://share.cleanshot.com/07JJK3PD/download" alt="Превью Telegram-канала" loading="lazy" width="640" height="360" />
-                </figure>
               </div>
             </div>
           </article>
@@ -195,9 +193,6 @@
               </ul>
               <div class="product-footer">
                 <a class="button" href="https://fprint.morgunov.tech/">Перейти к продукту</a>
-                <figure class="product-figure">
-                  <img src="https://share.cleanshot.com/gqtPRqMQ/download" alt="Превью Fingerprint" loading="lazy" width="640" height="360" />
-                </figure>
               </div>
             </div>
           </article>
@@ -260,21 +255,23 @@
             <a class="button ghost" href="mailto:s@morgunov.tech">Email</a>
             <a class="button ghost" href="https://www.linkedin.com/in/semyon-morgunov/">LinkedIn</a>
           </div>
-          <p class="footer-note">morgunov.tech <strong>·</strong> v0.3 <strong>·</strong> 2025 · Сделано вручную. Без трекеров и cookies. С щепоткой AI.</p>
         </div>
       </section>
     </div>
   </main>
   <footer class="site-footer">
     <div class="container footer-content">
-      <p>© 2025 Семён Моргунов</p>
-      <a class="back-to-top" href="#top" aria-label="Вернуться наверх">Вернуться наверх</a>
+      <p class="footer-note">morgunov.tech <strong>·</strong> v0.3 <strong>·</strong> 2025 · Сделано вручную. Без трекеров и cookies. С щепоткой AI.</p>
     </div>
   </footer>
   <button class="scroll-top" type="button" aria-label="Наверх">↑</button>
   <script>
     (() => {
       const body = document.body;
+      const navToggle = document.querySelector('.nav-toggle');
+      const navMenu = document.getElementById('nav-menu');
+      const themeToggle = document.querySelector('.theme-toggle');
+      const themeMenu = document.getElementById('theme-menu');
       const themeButtons = Array.from(document.querySelectorAll('.theme-button'));
       const accessibilityToggle = document.querySelector('.a11y-toggle');
       const scrollTopButton = document.querySelector('.scroll-top');
@@ -325,6 +322,27 @@
         }
       });
 
+      const toggleMenu = (button, menu) => {
+        const isOpen = button.getAttribute('aria-expanded') === 'true';
+        const next = !isOpen;
+        button.setAttribute('aria-expanded', String(next));
+        if (menu) {
+          menu.hidden = !next;
+        }
+      };
+
+      navToggle.addEventListener('click', () => {
+        toggleMenu(navToggle, navMenu);
+        themeMenu.hidden = true;
+        themeToggle.setAttribute('aria-expanded', 'false');
+      });
+
+      themeToggle.addEventListener('click', () => {
+        toggleMenu(themeToggle, themeMenu);
+        navMenu.hidden = true;
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+
       const updateScrollTopVisibility = () => {
         if (window.scrollY > 240) {
           scrollTopButton.classList.add('is-visible');
@@ -339,6 +357,26 @@
 
       window.addEventListener('scroll', updateScrollTopVisibility, { passive: true });
       updateScrollTopVisibility();
+
+      document.addEventListener('click', (event) => {
+        if (!navToggle.contains(event.target) && !navMenu.contains(event.target)) {
+          navMenu.hidden = true;
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+        if (!themeToggle.contains(event.target) && !themeMenu.contains(event.target)) {
+          themeMenu.hidden = true;
+          themeToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          navMenu.hidden = true;
+          navToggle.setAttribute('aria-expanded', 'false');
+          themeMenu.hidden = true;
+          themeToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
     })();
   </script>
 </body>
