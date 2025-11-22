@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Семён Моргунов — e-com Director @ Korzинка</title>
+  <title>Семён Моргунов — e-com Director @ Korzinka</title>
   <meta name="description" content="Строю крупнейший e-grocery сервис Узбекистана в роли e-com Director @ Korzinka · Создаю цифровые продукты и сервисы · Делюсь опытом в канале «Семён расправил плечи»" />
   <link rel="canonical" href="https://morgunov.tech/" />
   <meta property="og:type" content="website" />
@@ -43,7 +43,7 @@
   </script>
 </head>
 <body data-theme="light" data-lang="ru">
-    <header class="site-header" id="top">
+  <header class="site-header" id="top">
     <div class="container header-bar">
       <div class="nav-dropdown" aria-label="Навигация">
         <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-menu">Навигация ▾</button>
@@ -88,6 +88,13 @@
         <figure class="hero-figure">
           <img src="https://resv2.craft.do/user/full/1679190e-834c-9f01-1d3a-3c9fa84f6ba1/doc/C4320EED-DD9A-44F4-92B9-B8A832993659/3BC5BCD5-2B19-44E6-A49A-57AF52AB816F_2/xEtMjehSUEillbUeGPYDGLLp4VSONoLRyLgO2pVy9zMz/IMG_6671_Clo.jpeg" alt="Портрет Семёна Моргунова" loading="lazy" width="800" height="1000" />
         </figure>
+      </div>
+    </section>
+    <section class="status-bar" aria-label="Status bar">
+      <div class="container status-grid">
+        <div class="status-item status-online"><span class="status-dot" aria-hidden="true"></span><span>Status: online</span></div>
+        <div class="status-item">Location: Tashkent, Uzbekistan</div>
+        <div class="status-item" id="tz-time" aria-live="polite">Tashkent time: --:--</div>
       </div>
     </section>
     <div class="container content-layout">
@@ -144,7 +151,7 @@
         </header>
         <div class="content-card products">
           <article class="product-card">
-            <span class="product-pill">Wiki</span>
+            <span class="badge-pill">WIKI</span>
             <h3 class="product-title">Wiki — публичная база знаний</h3>
             <p class="product-sub">v0.1, WIP</p>
             <ul class="product-list">
@@ -157,7 +164,7 @@
             </div>
           </article>
           <article class="product-card">
-            <span class="product-pill">Telegram-канал</span>
+            <span class="badge-pill">CHANNEL</span>
             <h3 class="product-title">Семён расправил плечи — авторский Telegram-канал</h3>
             <p class="product-sub">820+ subscribers</p>
             <ul class="product-list">
@@ -170,7 +177,7 @@
             </div>
           </article>
           <article class="product-card">
-            <span class="product-pill">Web-service</span>
+            <span class="badge-pill">WEB-SERVICE</span>
             <h3 class="product-title">Fingerprint</h3>
             <p class="product-sub">MVP v0.4</p>
             <ul class="product-list">
@@ -205,6 +212,7 @@
         </header>
         <div class="content-card media-grid">
           <div class="media-column">
+            <div class="badge-line"><span class="badge-pill">ARTICLE</span></div>
             <p>📰 Статьи <code>75 000 просмотров</code></p>
             <ul>
               <li><a class="link-quiet" href="https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery" target="_blank" rel="noopener noreferrer">На чём зарабатывают авиакомпании-лоукостеры</a></li>
@@ -213,6 +221,7 @@
             </ul>
           </div>
           <div class="media-column">
+            <div class="badge-line"><span class="badge-pill">VIDEO</span></div>
             <p>📼 Видео <code>~ 5 000 просмотров</code></p>
             <ul>
               <li><a class="link-quiet" href="https://youtu.be/OJXtFmWNZMM" target="_blank" rel="noopener noreferrer">Критический разбор платформы крауд-инвестинга brainbox.vc</a></li>
@@ -221,6 +230,7 @@
             </ul>
           </div>
           <div class="media-column">
+            <div class="badge-line"><span class="badge-pill">POSTS</span></div>
             <p>📝 Посты  <code>&gt;5 000 подписчиков</code></p>
             <ul>
               <li><a class="link-quiet" href="https://t.me/raschet7" target="_blank" rel="noopener noreferrer">Читать канал "Семён расправил плечи"</a></li>
@@ -247,7 +257,17 @@
   </main>
   <footer class="site-footer">
     <div class="container footer-content">
-      <p>morgunov.tech · v0.3 · 2025 · Сделано вручную. Без трекеров и cookies. С щепоткой AI.</p>
+      <div class="footer-main">
+        <button class="footer-version" type="button" aria-expanded="false">morgunov.tech · <span class="footer-version-number">v0.3</span> · 2025</button>
+        <div class="footer-privacy">Сделано вручную. Без трекеров и cookies. С щепоткой AI.</div>
+      </div>
+      <div class="changelog" hidden aria-live="polite">
+        <ul>
+          <li>v0.3 — Layout and accessibility improvements</li>
+          <li>v0.2 — Content structure refinements</li>
+          <li>v0.1 — Initial release</li>
+        </ul>
+      </div>
     </div>
   </footer>
   <button class="scroll-top" type="button" aria-label="Наверх">↑</button>

@@ -4,6 +4,9 @@
   const scrollTopButton = document.querySelector('.scroll-top');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
   const dropdowns = Array.from(document.querySelectorAll('.nav-dropdown, .theme-dropdown'));
+  const tzDisplay = document.getElementById('tz-time');
+  const changelog = document.querySelector('.changelog');
+  const versionToggle = document.querySelector('.footer-version');
 
   const closeDropdowns = (except) => {
     dropdowns.forEach((dropdown) => {
@@ -89,4 +92,28 @@
 
   window.addEventListener('scroll', updateScrollTopVisibility, { passive: true });
   updateScrollTopVisibility();
+
+  const updateTashkentTime = () => {
+    if (!tzDisplay) return;
+    const now = new Date();
+    const formatter = new Intl.DateTimeFormat('en-GB', {
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'Asia/Tashkent',
+    });
+    tzDisplay.textContent = `Tashkent time: ${formatter.format(now)}`;
+  };
+
+  updateTashkentTime();
+  setInterval(updateTashkentTime, 60000);
+
+  versionToggle?.addEventListener('click', () => {
+    const isHidden = changelog?.hasAttribute('hidden');
+    if (isHidden) {
+      changelog?.removeAttribute('hidden');
+    } else {
+      changelog?.setAttribute('hidden', '');
+    }
+    versionToggle.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+  });
 })();
