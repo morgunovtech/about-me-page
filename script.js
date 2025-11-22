@@ -4,10 +4,8 @@
   const scrollTopButton = document.querySelector('.scroll-top');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
   const dropdowns = Array.from(document.querySelectorAll('.nav-dropdown, .theme-dropdown'));
-  const timeNode = document.getElementById('tashkent-time');
   const changelogToggle = document.querySelector('.changelog-toggle');
   const changelogPanel = document.getElementById('changelog-panel');
-  const statusBar = document.querySelector('.status-bar');
 
   const closeDropdowns = (except) => {
     dropdowns.forEach((dropdown) => {
@@ -80,34 +78,11 @@
     }
   });
 
-  const formatTashkentTime = () => {
-    const now = new Date();
-    return now.toLocaleTimeString('ru-RU', {
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZone: 'Asia/Tashkent',
-    });
-  };
-
-  const updateTime = () => {
-    if (!timeNode) return;
-    timeNode.textContent = `Tashkent time: ${formatTashkentTime()}`;
-  };
-
-  if (timeNode) {
-    updateTime();
-    setInterval(updateTime, 60000);
-  }
-
-  if (statusBar) {
-    requestAnimationFrame(() => statusBar.classList.add('is-visible'));
-  }
-
   if (changelogToggle && changelogPanel) {
     changelogToggle.addEventListener('click', () => {
-      const isOpen = !changelogPanel.hasAttribute('hidden');
+      const isOpen = !changelogPanel.hidden;
       const nextState = !isOpen;
-      changelogPanel.hidden = !nextState ? true : false;
+      changelogPanel.hidden = !nextState;
       changelogToggle.setAttribute('aria-expanded', nextState ? 'true' : 'false');
     });
   }

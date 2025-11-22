@@ -64,7 +64,10 @@
       <div class="header-actions" aria-label="Настройки">
         <div class="lang-switch" aria-label="Переключатель языка">
           <button class="lang-button is-active" type="button" aria-pressed="true">RU</button>
-          <button class="lang-button" type="button" aria-pressed="false" disabled title="Скоро">EN</button>
+          <div class="lang-tooltip-wrapper">
+            <button class="lang-button" type="button" aria-pressed="false" aria-disabled="true" aria-describedby="en-tooltip">EN</button>
+            <span class="tooltip" id="en-tooltip" role="tooltip">coming soon</span>
+          </div>
         </div>
         <div class="theme-dropdown" aria-label="Настройки темы">
           <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu">Тема ▾</button>
@@ -83,25 +86,12 @@
       <div class="container hero-grid">
         <div class="hero-content">
           <h1 id="hero-title">Семён Моргунов</h1>
-          <p class="hero-lead">Строю крупнейший e-grocery сервис Узбекистана в роли e-com Director @ Korzinka · Создаю цифровые продукты и сервисы · Делюсь опытом в канале «<a class="link-quiet" href="https://t.me/raschet7" target="_blank" rel="noopener noreferrer">Семён расправил плечи</a>»</p>
+          <p class="hero-lead">Строю крупнейший e-grocery сервис Узбекистана в роли e-com Director @ Korzinka<br />Создаю цифровые продукты и сервисы<br />Делюсь опытом в канале «<a class="link-quiet" href="https://t.me/raschet7" target="_blank" rel="noopener noreferrer">Семён расправил плечи</a>»</p>
+          <p class="hero-note">На этой странице обобщил свой опыт и проекты в структурированном виде.</p>
         </div>
         <figure class="hero-figure">
           <img src="https://resv2.craft.do/user/full/1679190e-834c-9f01-1d3a-3c9fa84f6ba1/doc/C4320EED-DD9A-44F4-92B9-B8A832993659/3BC5BCD5-2B19-44E6-A49A-57AF52AB816F_2/xEtMjehSUEillbUeGPYDGLLp4VSONoLRyLgO2pVy9zMz/IMG_6671_Clo.jpeg" alt="Портрет Семёна Моргунова" loading="lazy" width="800" height="1000" />
         </figure>
-      </div>
-    </section>
-    <section class="status-bar" aria-label="Статус">
-      <div class="container status-content">
-        <div class="status-item">
-          <span class="status-dot" aria-hidden="true"></span>
-          <span class="status-text">Status: online</span>
-        </div>
-        <div class="status-item">
-          <span class="status-text">Location: Tashkent, Uzbekistan</span>
-        </div>
-        <div class="status-item">
-          <span class="status-text" id="tashkent-time" aria-live="polite">Tashkent time: --:--</span>
-        </div>
       </div>
     </section>
     <div class="container content-layout">
@@ -115,12 +105,12 @@
             <li>Работал Head of Product @ Yandex; Head of Growth & Monetization @ Skysmart (Edu); Certified Sales Trainer @ Apple;</li>
             <li>4 x Co-Founder;</li>
             <li>Сейчас руковожу e-com @ Korzinka – крупнейшем ритейлере Узбекистана;</li>
-            <li>Автор Telegram бота Witchcraft и канала <a class="link-quiet" href="https://t.me/raschet7" target="_blank" rel="noopener noreferrer">“Семён расправил плечи”</a>;</li>
+            <li>Автор Telegram канала <a class="link-quiet" href="https://t.me/raschet7" target="_blank" rel="noopener noreferrer">“Семён расправил плечи”</a>;</li>
             <li>Изредка консультирую стартапы как инструктор <a class="link-quiet" href="https://www.nsf.gov/funding/initiatives/i-corps" target="_blank" rel="noopener noreferrer">I·Corps</a>;</li>
             <li>Живу в Ташкенте, воспитываю пса по кличке Тофс;</li>
             <li>Техногик, минималист, <a class="link-quiet" href="https://nomadmania.com/profile/33896/" target="_blank" rel="noopener noreferrer">посетил 48 стран</a>.</li>
+            <li>В свободное время разрабатываю <a class="link-quiet" href="#products">digital privacy сервисы</a>;</li>
           </ul>
-          <blockquote>На этой странице обобщил свой опыт и проекты в структурированном виде.</blockquote>
         </div>
       </section>
       <section id="career" class="section">
@@ -145,10 +135,10 @@
         </header>
         <div class="content-card">
           <ul class="list-tight">
-            <li><strong><a class="link-quiet" href="https://kids-safety.tb.ru/" target="_blank" rel="noopener noreferrer">Онлайн-школа детской безопасности</a></strong> · 2023 · Founder · Протестировал гипотезу → проект на паузе;</li>
-            <li><strong><a class="link-quiet" href="https://yandex.com/maps/-/CDF9VDo~" target="_blank" rel="noopener noreferrer">Салон этичного груминга «Хвост»</a></strong> <strong>·</strong> 2022 <strong>·</strong> Co-founder <strong>·</strong> Запустили → стабилизировали → продали сотрудникам → работает до сих пор;</li>
-            <li><strong>Сеть точек продажи снеков ·</strong> 2011 <strong>·</strong> Co-founder <strong>·</strong> Запустили → выросли до 3-х точек → закрыли;</li>
-            <li><strong>Онлайн-продажи аксессуаров для iPhone ·</strong> 2009 · Первый предпринимательский опыт <strong>·</strong> Запустил → продал ~ 5% от закупленного товара → закрыл.</li>
+            <li><strong><a class="link-quiet" href="https://kids-safety.tb.ru/" target="_blank" rel="noopener noreferrer">Онлайн-школа детской безопасности</a></strong> · 2023 · Founder · Запустили → Не нашли Product/Market Fit → Проект на паузе;</li>
+            <li><strong><a class="link-quiet" href="https://yandex.com/maps/-/CDF9VDo~" target="_blank" rel="noopener noreferrer">Салон этичного груминга «Хвост»</a></strong> <strong>·</strong> 2022 <strong>·</strong> Co-founder <strong>·</strong> Запустили → Стабилизировали → Продали сотрудникам → Работает до сих пор;</li>
+            <li><strong>Сеть точек продажи снеков ·</strong> 2011 <strong>·</strong> Co-founder <strong>·</strong> Запустили → Выросли до 3-х точек → Закрыли;</li>
+            <li><strong>Онлайн-продажи аксессуаров для iPhone ·</strong> 2009 · Первый предпринимательский опыт <strong>·</strong> Запустил → Продал ~ 5% от закупленного товара → Закрыл.</li>
           </ul>
         </div>
       </section>
@@ -158,42 +148,42 @@
         </header>
         <div class="content-card products">
           <article class="product-card">
-            <span class="badge-pill">WIKI</span>
-            <h3 class="product-title">Wiki — публичная база знаний</h3>
-            <p class="product-sub">v0.1, WIP</p>
+            <span class="badge-pill">WEB-SERVICE</span>
+            <h3 class="product-title">Fingerprint</h3>
+            <p class="product-sub">MVP v0.4</p>
             <ul class="product-list">
-              <li>Авторские фреймворки и практики;</li>
-              <li>Гайды и скидки на софт;</li>
-              <li>Ключевые темы: менеджмент, технологии, бизнес.</li>
+              <li>Показывает, какие технические данные браузер и устройство уже раскрывают о вас;</li>
+              <li>Делит сигналы на блоки «Без IP» и «С IP» и объясняет риски простым языком;</li>
+              <li>Даёт пошаговые рекомендации, как уменьшить цифровой след без потери удобства.</li>
             </ul>
             <div class="product-footer">
-              <a class="btn btn-secondary product-cta" href="https://start.morgunov.tech/wiki" target="_blank" rel="noopener noreferrer">Изучить материалы</a>
+              <a class="btn btn-secondary product-cta" href="https://fprint.morgunov.tech/" target="_blank" rel="noopener noreferrer">Перейти к продукту</a>
             </div>
           </article>
           <article class="product-card">
-            <span class="badge-pill">CHANNEL</span>
+            <span class="badge-pill">BLOG</span>
             <h3 class="product-title">Семён расправил плечи — авторский Telegram-канал</h3>
-            <p class="product-sub">820+ subscribers</p>
+            <p class="product-sub">1050+ subscribers</p>
             <ul class="product-list">
-              <li>Публикации раз в 2 недели;</li>
-              <li>Открытые реакции и комментарии;</li>
-              <li>Размышления о технологиях, бизнесе, управлении продуктами, командами и собой.</li>
+              <li>Публикации раз в 1–2 недели;</li>
+              <li>Размышления о технологиях, продуктах, управлении, карьере и личной жизни;</li>
+              <li>Открытые реакции и комментарии.</li>
             </ul>
             <div class="product-footer">
               <a class="btn btn-secondary product-cta" href="https://t.me/raschet7" target="_blank" rel="noopener noreferrer">Подписаться на канал</a>
             </div>
           </article>
           <article class="product-card">
-            <span class="badge-pill">WEB-SERVICE</span>
-            <h3 class="product-title">Fingerprint</h3>
-            <p class="product-sub">MVP v0.4</p>
+            <span class="badge-pill">WIKI</span>
+            <h3 class="product-title">Wiki — публичная база знаний</h3>
+            <p class="product-sub">v0.1, WIP</p>
             <ul class="product-list">
-              <li>Отпечаток цифровых материалов и контроль изменений;</li>
-              <li>Верификация источников и защитных меток;</li>
-              <li>Интеграция в рабочие процессы без лишних шагов.</li>
+              <li>Фреймворки и заметки о продуктивности и менеджменте;</li>
+              <li>Пошаговые гайды и подборки сервисов;</li>
+              <li>Материалы о технологиях, бизнесе и деньгах.</li>
             </ul>
             <div class="product-footer">
-              <a class="btn btn-secondary product-cta" href="https://fprint.morgunov.tech/" target="_blank" rel="noopener noreferrer">Перейти к продукту</a>
+              <a class="btn btn-secondary product-cta" href="https://start.morgunov.tech/wiki" target="_blank" rel="noopener noreferrer">Изучить материалы</a>
             </div>
           </article>
         </div>
@@ -219,7 +209,8 @@
         </header>
         <div class="content-card media-grid">
           <div class="media-column">
-            <div class="media-heading"><span class="badge-pill">ARTICLE</span><p>📰 Статьи <code>75 000 просмотров</code></p></div>
+            <span class="badge-pill">ARTICLE</span>
+            <p class="media-meta">75 000 просмотров</p>
             <ul>
               <li><a class="link-quiet" href="https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery" target="_blank" rel="noopener noreferrer">На чём зарабатывают авиакомпании-лоукостеры</a></li>
               <li><a class="link-quiet" href="https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery" target="_blank" rel="noopener noreferrer">На чём зарабатывают продуктовые дискаунтеры</a></li>
@@ -227,7 +218,8 @@
             </ul>
           </div>
           <div class="media-column">
-            <div class="media-heading"><span class="badge-pill">VIDEO</span><p>📼 Видео <code>~ 5 000 просмотров</code></p></div>
+            <span class="badge-pill">VIDEO</span>
+            <p class="media-meta">~5 000 просмотров</p>
             <ul>
               <li><a class="link-quiet" href="https://youtu.be/OJXtFmWNZMM" target="_blank" rel="noopener noreferrer">Критический разбор платформы крауд-инвестинга brainbox.vc</a></li>
               <li><a class="link-quiet" href="https://youtu.be/1aL2xFrcGkU" target="_blank" rel="noopener noreferrer">Как планировать жизнь на годы вперёд и добиваться задуманного (совместный эфир с Мишей Донским)</a></li>
@@ -235,7 +227,8 @@
             </ul>
           </div>
           <div class="media-column">
-            <div class="media-heading"><span class="badge-pill">POSTS</span><p>📝 Посты  <code>&gt;5 000 подписчиков</code></p></div>
+            <span class="badge-pill">POSTS</span>
+            <p class="media-meta">&gt;5 000 подписчиков</p>
             <ul>
               <li><a class="link-quiet" href="https://t.me/raschet7" target="_blank" rel="noopener noreferrer">Читать канал "Семён расправил плечи"</a></li>
               <li><a class="link-quiet" href="https://www.linkedin.com/in/semyon-morgunov/" target="_blank" rel="noopener noreferrer">Подписаться на LinkedIn</a></li>
@@ -249,11 +242,13 @@
           <h2>💬 Связаться</h2>
         </header>
         <div class="content-card contact-card">
-          <p><em>Обычно отвечаю в течение пары рабочих дней. Не всегда сразу, но читаю всё.</em></p>
-          <div class="contact-actions">
-            <a class="btn btn-primary" href="http://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Telegram</a>
-            <a class="btn btn-secondary" href="mailto:s@morgunov.tech">Email</a>
-            <a class="btn btn-secondary" href="https://www.linkedin.com/in/semyon-morgunov/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <div class="contact-layout">
+            <p class="contact-note"><em>Обычно отвечаю в течение пары рабочих дней. Не всегда сразу, но читаю всё.</em></p>
+            <div class="contact-actions">
+              <a class="btn btn-primary" href="http://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Telegram</a>
+              <a class="btn btn-secondary" href="mailto:s@morgunov.tech">Email</a>
+              <a class="btn btn-secondary" href="https://www.linkedin.com/in/semyon-morgunov/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </div>
           </div>
         </div>
       </section>
@@ -262,8 +257,7 @@
   <footer class="site-footer">
     <div class="container footer-content">
       <div class="footer-row">
-        <p class="footer-line">morgunov.tech · <button class="changelog-toggle" type="button" aria-expanded="false" aria-controls="changelog-panel">v0.3</button> · 2025</p>
-        <div class="privacy-badge">Сделано вручную. Без трекеров и cookies. С щепоткой AI.</div>
+        <p class="footer-line">morgunov.tech • <button class="changelog-toggle" type="button" aria-expanded="false" aria-controls="changelog-panel">v0.3</button> • 2025 • Сделано вручную. Без трекеров и cookies. С щепоткой AI.</p>
       </div>
       <div class="changelog-panel" id="changelog-panel" hidden>
         <ul>
