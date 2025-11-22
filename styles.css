@@ -4,7 +4,7 @@
   --muted: #4b4b4b;
   --text: #171513;
   --accent: #d2403c;
-  --accent-strong: #a42321;
+  --accent-strong: #b32f2c;
   --border: #e3dfd8;
   --shadow: 0 12px 32px rgba(17, 17, 17, 0.08);
   --radius-lg: 18px;
@@ -35,8 +35,8 @@
   --muted: #f3f0ea;
   --text: #ffffff;
   --accent: #ffb703;
-  --accent-strong: #ffd166;
-  --border: #ffffff;
+  --accent-strong: #d39100;
+  --border: #f0e6d8;
   --shadow: none;
 }
 
@@ -87,8 +87,8 @@ img {
 
 ul {
   padding-left: 20px;
-  margin: 0 0 12px;
-  gap: 8px;
+  margin: 0 0 10px;
+  gap: 6px;
 }
 
 li {
@@ -96,7 +96,7 @@ li {
 }
 
 p {
-  margin: 0 0 12px;
+  margin: 0 0 10px;
 }
 
 .container {
@@ -137,6 +137,7 @@ p {
   padding: 0;
   flex-wrap: wrap;
   justify-content: center;
+  overflow: hidden;
 }
 
 .site-nav a {
@@ -277,7 +278,7 @@ main {
 }
 
 .content-card:not(.products) article + article {
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .product-card {
@@ -287,7 +288,7 @@ main {
   padding: 16px;
   border-radius: var(--radius-md);
   border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
-  background: color-mix(in srgb, var(--surface) 94%, var(--accent) 6%);
+  background: color-mix(in srgb, var(--surface) 96%, var(--accent) 4%);
   align-items: center;
 }
 
@@ -310,6 +311,7 @@ main {
   width: 100%;
   height: auto;
   border: 1px solid var(--border);
+  background: var(--surface);
 }
 
 blockquote {
@@ -356,16 +358,16 @@ blockquote {
 }
 
 .button.ghost {
-  background: transparent;
-  color: var(--text);
-  border-color: var(--border);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent-strong);
+  border-color: var(--accent);
   box-shadow: none;
 }
 
 .button.ghost:hover,
 .button.ghost:focus-visible {
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
-  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  border-color: var(--accent-strong);
 }
 
 .action-row {
@@ -492,7 +494,8 @@ blockquote {
     flex-wrap: wrap;
     justify-content: flex-start;
     white-space: normal;
-    overflow-x: visible;
+    overflow: visible;
+    gap: 6px;
   }
 
   .header-bar {
@@ -523,6 +526,11 @@ blockquote {
   .theme-button,
   .a11y-toggle {
     padding: 6px 8px;
+  }
+
+  .site-nav a {
+    padding: 8px 10px;
+    font-size: 13px;
   }
 
   .scroll-top {
