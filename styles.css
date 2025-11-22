@@ -105,23 +105,6 @@ p {
   padding: 0 20px;
 }
 
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 12px;
-  background: var(--surface);
-  color: var(--text);
-  padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow);
-  transition: top 0.2s ease;
-  z-index: 11;
-}
-
-.skip-link:focus {
-  top: 12px;
-}
-
 .site-header {
   position: sticky;
   top: 0;
@@ -137,7 +120,7 @@ p {
   gap: 14px;
   padding: 12px 0;
   justify-content: space-between;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 .site-nav {
@@ -148,13 +131,12 @@ p {
 .site-nav ul {
   list-style: none;
   display: flex;
-  gap: 6px;
+  flex-wrap: wrap;
+  gap: 8px 10px;
   align-items: center;
   margin: 0;
   padding: 0;
-  white-space: nowrap;
-  overflow-x: auto;
-  scrollbar-width: thin;
+  justify-content: center;
 }
 
 .site-nav a {
@@ -293,18 +275,51 @@ main {
   gap: 12px;
 }
 
-.timeline article + article,
-.content-card article + article {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
+
+.stacked-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.stacked-list li {
+  margin: 0;
 }
 
 .products article {
-  padding: 16px;
+  padding: 0;
   border-radius: var(--radius-md);
   border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
   background: color-mix(in srgb, var(--surface) 94%, var(--accent) 6%);
+}
+
+.product-card {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+  align-items: center;
+  padding: 16px;
+}
+
+.product-body {
+  grid-column: span 7;
+  display: grid;
+  gap: 10px;
+}
+
+.product-media {
+  grid-column: span 5;
+  margin: 0;
+  justify-self: end;
+}
+
+.product-media img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
 }
 
 .products article + article {
@@ -480,6 +495,18 @@ blockquote {
   .hero-figure {
     grid-column: span 6;
   }
+
+  .product-card {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .product-body {
+    grid-column: span 4;
+  }
+
+  .product-media {
+    grid-column: span 2;
+  }
 }
 
 @media (max-width: 768px) {
@@ -507,6 +534,19 @@ blockquote {
 
   .hero-figure {
     order: -1;
+  }
+
+  .product-card {
+    grid-template-columns: 1fr;
+  }
+
+  .product-body,
+  .product-media {
+    grid-column: auto;
+  }
+
+  .product-media {
+    justify-self: stretch;
   }
 
   .lang-button,
