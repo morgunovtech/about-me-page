@@ -3,6 +3,7 @@
   const themeButtons = Array.from(document.querySelectorAll('.theme-button'));
   const scrollTopButton = document.querySelector('.scroll-top');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const dropdowns = Array.from(document.querySelectorAll('.nav-dropdown, .theme-dropdown'));
   const changelogToggle = document.querySelector('.changelog-toggle');
   const changelogPanel = document.getElementById('changelog-panel');
@@ -96,7 +97,7 @@
   };
 
   scrollTopButton?.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion.matches ? 'auto' : 'smooth' });
   });
 
   window.addEventListener('scroll', updateScrollTopVisibility, { passive: true });
