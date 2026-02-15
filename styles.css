@@ -56,10 +56,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   * {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
@@ -85,7 +81,7 @@ body {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-.u-link {
+a:not(.btn) {
   color: color-mix(in srgb, var(--text) 40%, var(--link));
   font-weight: 600;
   position: relative;
@@ -93,7 +89,7 @@ body {
   transition: color 0.2s ease;
 }
 
-.u-link::after {
+a:not(.btn)::after {
   content: "";
   position: absolute;
   left: 0;
@@ -106,13 +102,13 @@ body {
   transition: transform 0.16s ease-out;
 }
 
-.u-link:hover,
-.u-link:focus-visible {
+a:not(.btn):hover,
+a:not(.btn):focus-visible {
   color: var(--accent);
 }
 
-.u-link:hover::after,
-.u-link:focus-visible::after {
+a:not(.btn):hover::after,
+a:not(.btn):focus-visible::after {
   transform: scaleX(1);
 }
 
