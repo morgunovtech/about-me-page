@@ -3,9 +3,11 @@
   const themeButtons = Array.from(document.querySelectorAll('.theme-button'));
   const scrollTopButton = document.querySelector('.scroll-top');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const dropdowns = Array.from(document.querySelectorAll('.nav-dropdown, .theme-dropdown'));
   const changelogToggle = document.querySelector('.changelog-toggle');
   const changelogPanel = document.getElementById('changelog-panel');
+  const THEME_PREFERENCE_KEY = 'theme-preference';
 
   const closeDropdowns = (except) => {
     dropdowns.forEach((dropdown) => {
@@ -32,11 +34,11 @@
     const resolved = resolveTheme(preference);
     body.dataset.themePreference = preference;
     body.setAttribute('data-theme', resolved);
-    localStorage.setItem('theme-preference', preference);
+    localStorage.setItem(THEME_PREFERENCE_KEY, preference);
     setThemePressed(preference);
   };
 
-  const savedTheme = localStorage.getItem('theme-preference') || 'auto';
+  const savedTheme = localStorage.getItem(THEME_PREFERENCE_KEY) || 'auto';
   applyTheme(savedTheme);
 
   dropdowns.forEach((dropdown) => {
@@ -73,7 +75,7 @@
   });
 
   prefersDark.addEventListener('change', () => {
-    if (localStorage.getItem('theme-preference') === 'auto') {
+    if (localStorage.getItem(THEME_PREFERENCE_KEY) === 'auto') {
       applyTheme('auto');
     }
   });
@@ -82,7 +84,7 @@
     changelogToggle.addEventListener('click', () => {
       const isOpen = !changelogPanel.hasAttribute('hidden');
       const nextState = !isOpen;
-      changelogPanel.hidden = !nextState ? true : false;
+      changelogPanel.hidden = !nextState;
       changelogToggle.setAttribute('aria-expanded', nextState ? 'true' : 'false');
     });
   }
@@ -96,7 +98,7 @@
   };
 
   scrollTopButton?.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion.matches ? 'auto' : 'smooth' });
   });
 
   window.addEventListener('scroll', updateScrollTopVisibility, { passive: true });
