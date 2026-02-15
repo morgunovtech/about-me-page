@@ -8,7 +8,6 @@
   const changelogToggle = document.querySelector('.changelog-toggle');
   const changelogPanel = document.getElementById('changelog-panel');
   const THEME_PREFERENCE_KEY = 'theme-preference';
-  const COLLAB_URL = 'https://morgunov.craft.me/collab';
 
   const closeDropdowns = (except) => {
     dropdowns.forEach((dropdown) => {
