@@ -1,0 +1,5 @@
+/images/* /images/:splat 200
+/styles.css /styles.css 200
+/script.js /script.js 200
+/robots.txt /robots.txt 200
+/sitemap.xml /sitemap.xml 200
