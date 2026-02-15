@@ -41,6 +41,15 @@
   const savedTheme = localStorage.getItem(THEME_PREFERENCE_KEY) || 'auto';
   applyTheme(savedTheme);
 
+  const normalizeLegacyCollabLinks = () => {
+    const legacyCollabSelector = 'a[href*="start.morgunov.tech/collab"]';
+    document.querySelectorAll(legacyCollabSelector).forEach((link) => {
+      link.href = COLLAB_URL;
+    });
+  };
+
+  normalizeLegacyCollabLinks();
+
   dropdowns.forEach((dropdown) => {
     const toggle = dropdown.querySelector('.dropdown-toggle');
     const menu = dropdown.querySelector('.dropdown-menu');
