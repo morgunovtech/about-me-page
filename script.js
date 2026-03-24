@@ -1,4 +1,5 @@
 (() => {
+  const root = document.documentElement;
   const body = document.body;
   const themeButtons = Array.from(document.querySelectorAll('.theme-button'));
   const scrollTopButton = document.querySelector('.scroll-top');
@@ -8,7 +9,15 @@
   const changelogToggle = document.querySelector('.changelog-toggle');
   const changelogPanel = document.getElementById('changelog-panel');
   const THEME_PREFERENCE_KEY = 'theme-preference';
-  const COLLAB_URL = 'https://start.morgunov.tech/collab';
+
+  /* Remove no-transition class after first paint to enable CSS transitions */
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      body.classList.remove('no-transition');
+    });
+  });
+
+  /* --- Theme --- */
 
   const closeDropdowns = (except) => {
     dropdowns.forEach((dropdown) => {
@@ -21,35 +30,30 @@
   };
 
   const setThemePressed = (value) => {
-    themeButtons.forEach((btn) => btn.setAttribute('aria-pressed', btn.dataset.themeValue === value ? 'true' : 'false'));
+    themeButtons.forEach((btn) =>
+      btn.setAttribute('aria-pressed', btn.dataset.themeValue === value ? 'true' : 'false')
+    );
   };
 
   const resolveTheme = (preference) => {
-    if (preference === 'auto') {
-      return prefersDark.matches ? 'dark' : 'light';
-    }
+    if (preference === 'auto') return prefersDark.matches ? 'dark' : 'light';
     return preference;
   };
 
   const applyTheme = (preference) => {
     const resolved = resolveTheme(preference);
-    body.dataset.themePreference = preference;
-    body.setAttribute('data-theme', resolved);
+    root.setAttribute('data-theme', resolved);
+    root.setAttribute('data-theme-preference', preference);
     localStorage.setItem(THEME_PREFERENCE_KEY, preference);
     setThemePressed(preference);
   };
 
+  /* Inline script in <head> already applied the theme to <html>.
+     Only sync aria-pressed state here, without redundant DOM/storage writes. */
   const savedTheme = localStorage.getItem(THEME_PREFERENCE_KEY) || 'auto';
-  applyTheme(savedTheme);
+  setThemePressed(savedTheme);
 
-  const normalizeLegacyCollabLinks = () => {
-    const legacyCollabSelector = 'a[href*="start.morgunov.tech/collab"]';
-    document.querySelectorAll(legacyCollabSelector).forEach((link) => {
-      link.href = COLLAB_URL;
-    });
-  };
-
-  normalizeLegacyCollabLinks();
+  /* --- Dropdowns --- */
 
   dropdowns.forEach((dropdown) => {
     const toggle = dropdown.querySelector('.dropdown-toggle');
@@ -78,6 +82,8 @@
     if (event.key === 'Escape') closeDropdowns();
   });
 
+  /* --- Theme buttons --- */
+
   themeButtons.forEach((button) => {
     button.addEventListener('click', () => {
       applyTheme(button.dataset.themeValue);
@@ -90,28 +96,37 @@
     }
   });
 
+  /* --- Changelog toggle --- */
+
   if (changelogToggle && changelogPanel) {
     changelogToggle.addEventListener('click', () => {
-      const isOpen = !changelogPanel.hasAttribute('hidden');
-      const nextState = !isOpen;
-      changelogPanel.hidden = !nextState;
-      changelogToggle.setAttribute('aria-expanded', nextState ? 'true' : 'false');
+      const wasOpen = !changelogPanel.hidden;
+      changelogPanel.hidden = wasOpen;
+      changelogToggle.setAttribute('aria-expanded', wasOpen ? 'false' : 'true');
     });
   }
 
+  /* --- Scroll-to-top --- */
+
   const updateScrollTopVisibility = () => {
     if (!scrollTopButton) return;
-    if (window.scrollY > 240) {
-      scrollTopButton.classList.add('is-visible');
-    } else {
-      scrollTopButton.classList.remove('is-visible');
-    }
+    scrollTopButton.classList.toggle('is-visible', window.scrollY > 240);
   };
 
   scrollTopButton?.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: prefersReducedMotion.matches ? 'auto' : 'smooth' });
   });
 
-  window.addEventListener('scroll', updateScrollTopVisibility, { passive: true });
+  let scrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking) {
+      requestAnimationFrame(() => {
+        updateScrollTopVisibility();
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  }, { passive: true });
+
   updateScrollTopVisibility();
 })();
