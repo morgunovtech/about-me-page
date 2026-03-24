@@ -6,70 +6,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Семён Моргунов — e-com директор в Узбекистане | morgunov.tech</title>
   <meta name="description" content="Строю крупнейший e-grocery сервис Узбекистана в роли e-com Director @ Korzinka · Создаю цифровые продукты и сервисы · Делюсь опытом в канале «Семён расправил плечи»" />
-  <link rel="canonical" href="https://morgunov.tech/" />
+  <link rel="canonical" href="https://semyon.morgunov.tech/" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Семён Моргунов — e-com директор в Узбекистане | morgunov.tech" />
   <meta property="og:description" content="Строю крупнейший e-grocery сервис Узбекистана в роли e-com Director @ Korzinka · Создаю цифровые продукты и сервисы · Делюсь опытом в канале «Семён расправил плечи»" />
-  <meta property="og:url" content="https://s.morgunov.tech/" />
-  <meta property="og:image" content="/images/Hero_Photo.webp" />
+  <meta property="og:url" content="https://semyon.morgunov.tech/" />
+  <meta property="og:image" content="https://semyon.morgunov.tech/images/Hero_Photo.webp" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Семён Моргунов — e-com директор в Узбекистане | morgunov.tech" />
   <meta name="twitter:description" content="Строю крупнейший e-grocery сервис Узбекистана в роли e-com Director @ Korzinka · Создаю цифровые продукты и сервисы · Делюсь опытом в канале «Семён расправил плечи»" />
-  <meta name="twitter:image" content="/images/Hero_Photo.webp" />
+  <meta name="twitter:image" content="https://semyon.morgunov.tech/images/Hero_Photo.webp" />
+  <meta name="author" content="Семён Моргунов" />
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    .btn,
-    .btn:hover,
-    .btn:focus {
-      text-decoration: none;
-    }
-    .lang-button {
-      position: relative;
-    }
-    .lang-tooltip {
-      position: absolute;
-      bottom: -150%;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 6px 8px;
-      border-radius: 6px;
-      background: var(--surface-strong, #e5e7eb);
-      color: var(--text-primary, #111827);
-      font-size: 12px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.16s ease;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-      z-index: 10;
-    }
-    .lang-button:focus-visible .lang-tooltip,
-    .lang-button:hover .lang-tooltip {
-      opacity: 1;
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .lang-tooltip {
-        transition: none;
-      }
-    }
-  </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Семён Моргунов",
-    "jobTitle": "Director of e-com",
-    "url": "https://morgunov.tech/",
-    "image": "/images/Hero_Photo.webp",
+    "alternateName": "Semyon Morgunov",
+    "jobTitle": "Director of E-commerce",
+    "description": "E-commerce директор в Korzinka — крупнейшем ритейлере Узбекистана. Продуктовый менеджер с 8-летним опытом в IT, основатель 4 стартапов, автор Telegram-канала о технологиях и продуктах.",
+    "url": "https://semyon.morgunov.tech/",
+    "image": "https://semyon.morgunov.tech/images/Hero_Photo.webp",
+    "email": "s@morgunov.tech",
+    "knowsAbout": [
+      "E-commerce",
+      "Product Management",
+      "EdTech",
+      "RetailTech",
+      "FoodTech",
+      "Digital Privacy",
+      "Growth & Monetization",
+      "Startup Consulting"
+    ],
     "sameAs": [
       "https://t.me/raschet7",
       "https://www.linkedin.com/in/semyon-morgunov/",
-      "mailto:s@morgunov.tech",
-      "https://www.instagram.com/semyon.morgunov/"
+      "https://www.instagram.com/semyon.morgunov/",
+      "https://www.youtube.com/@semyon_morgunov"
     ],
     "worksFor": {
       "@type": "Organization",
-      "name": "Korzinka"
+      "name": "Korzinka",
+      "url": "https://korzinka.uz"
     },
     "address": {
       "@type": "PostalAddress",
@@ -80,6 +59,14 @@
   </script>
 </head>
 <body data-theme="light" data-lang="ru">
+  <script>
+    (function () {
+      var p = localStorage.getItem('theme-preference') || 'auto';
+      var t = p === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : p;
+      document.body.setAttribute('data-theme', t);
+      document.body.setAttribute('data-theme-preference', p);
+    })();
+  </script>
     <header class="site-header" id="top">
     <div class="container header-bar">
       <div class="nav-dropdown" aria-label="Навигация">
@@ -101,7 +88,7 @@
       <div class="header-actions" aria-label="Настройки">
         <div class="lang-switch" aria-label="Переключатель языка">
           <button class="lang-button is-active" type="button" aria-pressed="true">RU</button>
-          <button class="lang-button" type="button" aria-pressed="false" aria-disabled="true" aria-describedby="lang-en-tooltip" title="coming soon" disabled>EN
+          <button class="lang-button" type="button" aria-pressed="false" aria-describedby="lang-en-tooltip" title="coming soon" disabled>EN
             <span class="lang-tooltip" role="tooltip" id="lang-en-tooltip">coming soon</span>
           </button>
         </div>
@@ -130,7 +117,7 @@
           <p class="hero-note">На этой странице обобщил свой опыт и проекты в структурированном виде.</p>
         </div>
         <figure class="hero-figure">
-          <img src="/images/Hero_Photo.webp" alt="Портрет Семёна Моргунова" loading="lazy" width="800" height="1000" />
+          <img src="/images/Hero_Photo.webp" alt="Портрет Семёна Моргунова" loading="eager" fetchpriority="high" width="800" height="1000" />
         </figure>
       </div>
     </section>
@@ -282,7 +269,7 @@
       </section>
       <section id="contact" class="section">
         <header class="section-header">
-          <h2>💬 Связаться</h2>
+          <h2>Связаться</h2>
         </header>
         <div class="content-card contact-card">
           <p><em>Обычно отвечаю в течение пары рабочих дней. Не всегда сразу, но читаю всё.</em></p>

@@ -55,18 +55,6 @@
   text-decoration: underline;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  * {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
-}
-
 * {
   box-sizing: border-box;
 }
@@ -130,7 +118,6 @@ img {
 ul {
   padding-left: 20px;
   margin: 0 0 var(--space-4);
-  gap: var(--space-3);
 }
 
 li {
@@ -254,6 +241,10 @@ p {
   box-shadow: var(--shadow);
 }
 
+.lang-button {
+  position: relative;
+}
+
 .lang-button,
 .theme-button {
   border: none;
@@ -261,10 +252,35 @@ p {
   color: var(--muted);
   padding: 6px 10px;
   border-radius: 999px;
-  font-weight: 650;
+  font-weight: 700;
   cursor: pointer;
   min-width: 40px;
   transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+
+.lang-tooltip {
+  position: absolute;
+  bottom: -150%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--border);
+  z-index: 10;
+}
+
+.lang-button:focus-visible .lang-tooltip,
+.lang-button:hover .lang-tooltip {
+  opacity: 1;
 }
 
 .lang-button.is-active,
@@ -400,7 +416,6 @@ main {
   text-transform: uppercase;
 }
 
-.timeline,
 .list-tight {
   padding-left: 20px;
   margin: 0;
@@ -488,7 +503,7 @@ blockquote {
   .product-card:hover,
   .media-column:hover,
   .content-card:hover:not(.products) {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow);
   }
 }
 
@@ -518,6 +533,11 @@ blockquote {
   font-weight: 700;
   min-height: 44px;
   transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.btn:hover,
+.btn:focus {
+  text-decoration: none;
 }
 
 .btn-primary {
@@ -731,5 +751,22 @@ blockquote {
 
   .hero-figure {
     max-width: 360px;
+  }
+}
+
+/* --- Accessibility: Reduced motion (override must come last to win the cascade) --- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .lang-tooltip {
+    transition: none;
   }
 }

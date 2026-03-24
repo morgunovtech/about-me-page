@@ -8,6 +8,7 @@
   const changelogToggle = document.querySelector('.changelog-toggle');
   const changelogPanel = document.getElementById('changelog-panel');
   const THEME_PREFERENCE_KEY = 'theme-preference';
+  const COLLAB_URL = 'https://start.morgunov.tech/collab';
 
   const closeDropdowns = (except) => {
     dropdowns.forEach((dropdown) => {
@@ -99,6 +100,7 @@
   }
 
   const updateScrollTopVisibility = () => {
+    if (!scrollTopButton) return;
     if (window.scrollY > 240) {
       scrollTopButton.classList.add('is-visible');
     } else {
