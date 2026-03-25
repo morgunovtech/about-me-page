@@ -14,15 +14,17 @@ Personal homepage for Semyon Morgunov, deployed on Cloudflare Pages.
 ```
 about-me-page/
 ├── index.html          # Main page, Russian language (lang="ru")
+├── collaborate.html    # Collaboration page: consulting, advisory, angel investing (RU)
 ├── en/
-│   └── index.html      # English version (lang="en")
+│   ├── index.html      # English version (lang="en")
+│   └── collaborate.html # Collaboration page (EN)
 ├── styles.css          # All styles, token-based CSS variables
 ├── script.js           # Theme, dropdowns, scroll-to-top, changelog toggle
 ├── llms.txt            # AI/LLM navigation file (llmstxt.org convention), bilingual
 ├── _headers            # Cloudflare: X-Robots-Tag + Cache-Control headers
 ├── _redirects          # Cloudflare: 200 rewrites for static assets
 ├── robots.txt          # Allows all crawlers, references sitemap
-├── sitemap.xml         # Two-entry sitemap with hreflang alternates
+├── sitemap.xml         # Four-entry sitemap with hreflang alternates
 ├── yandex_c8faae431964bcca.html  # Yandex Search ownership verification
 └── images/
     ├── Hero_Photo.webp            # Main portrait (WebP, eager-loaded — LCP element)
@@ -113,6 +115,7 @@ There is no CI/CD pipeline, no GitHub Actions, no build scripts.
 
 ## Changelog
 
+- v0.7 — Collaboration page (`/collaborate.html` + `/en/collaborate.html`) with consulting, advisory, and angel investing details; replaced external Craft link on homepage
 - v0.6 — English version at `/en/`, language switcher (RU/EN), hreflang tags, bilingual llms.txt, sitemap with hreflang alternates
 - v0.5 — Performance optimization (preload LCP, content-visibility, rAF scroll, FOUC elimination), layout fixes (hover shadows, hero border-radius, media-grid), SEO (canonical, favicon, theme-color, JSON-LD), AI optimization (llms.txt)
 - v0.4 — Motion preference and link hygiene tweaks

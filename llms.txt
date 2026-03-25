@@ -14,6 +14,7 @@
 
 - Telegram: https://t.me/s_mrgnv
 - Email: s@morgunov.tech
+- Collaboration inquiries: ask@morgunov.tech
 - LinkedIn: https://www.linkedin.com/in/semyon-morgunov/
 
 ## Products
@@ -22,21 +23,24 @@
 - [Telegram channel "Semyon Shrugged" / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on technology, products, and career, 1100+ subscribers
 - [Public knowledge base](https://start.morgunov.tech/wiki) — frameworks, guides, and curated tool lists on productivity and management
 
+## Collaboration
+
+- [Consulting](https://s.morgunov.tech/collaborate.html) — single sessions ($250) or monthly retainer ($1,500) covering product, marketing, and strategy
+- [Advisory](https://s.morgunov.tech/collaborate.html#advisory) — regular 1–2x/month meetings for founders, CPOs, and CEOs
+- [Angel investing](https://s.morgunov.tech/collaborate.html#angel) — pre-seed/seed, from $5,000; sectors: RetailTech, e-com, EdTech, FinTech, PetTech; markets: CIS, MENA, Eastern Europe
+
 ## Publications
 
 - [How low-cost airlines make money](https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 75,000+ views
 - [How discount grocery stores make money](https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru
 - [Lessons from 3 years of personal finance management](https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami) — vc.ru
 
-## Collaboration
-
-- Startup consulting (e-com, FoodTech, RetailTech, FinTech): https://start.morgunov.tech/collab
-- Advisory and angel investing: https://start.morgunov.tech/collab
-
 ## Pages
 
 - Russian homepage: https://s.morgunov.tech/
 - English homepage: https://s.morgunov.tech/en/
+- Collaboration (RU): https://s.morgunov.tech/collaborate.html
+- Collaboration (EN): https://s.morgunov.tech/en/collaborate.html
 
 ## Key facts
 
