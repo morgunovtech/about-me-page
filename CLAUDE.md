@@ -14,13 +14,15 @@ Personal homepage for Semyon Morgunov, deployed on Cloudflare Pages.
 ```
 about-me-page/
 ├── index.html          # Main page, Russian language (lang="ru")
+├── en/
+│   └── index.html      # English version (lang="en")
 ├── styles.css          # All styles, token-based CSS variables
 ├── script.js           # Theme, dropdowns, scroll-to-top, changelog toggle
-├── llms.txt            # AI/LLM navigation file (llmstxt.org convention)
+├── llms.txt            # AI/LLM navigation file (llmstxt.org convention), bilingual
 ├── _headers            # Cloudflare: X-Robots-Tag + Cache-Control headers
 ├── _redirects          # Cloudflare: 200 rewrites for static assets
 ├── robots.txt          # Allows all crawlers, references sitemap
-├── sitemap.xml         # Single-entry sitemap (https://semyon.morgunov.tech/)
+├── sitemap.xml         # Two-entry sitemap with hreflang alternates
 ├── yandex_c8faae431964bcca.html  # Yandex Search ownership verification
 └── images/
     ├── Hero_Photo.webp            # Main portrait (WebP, eager-loaded — LCP element)
@@ -77,7 +79,7 @@ There is no CI/CD pipeline, no GitHub Actions, no build scripts.
 - **External links** must always have `rel="noopener noreferrer"` and `target="_blank"`.
 - **Hero image** uses `loading="eager" fetchpriority="high"` and is preloaded in `<head>` — it is the LCP element and must not be lazy-loaded. All other images should use `loading="lazy"`.
 - **Privacy.** No cookies, no trackers, no analytics scripts. The footer explicitly states this — don't break that contract.
-- **Russian primary.** Content is in Russian. An English version is planned but not yet built.
+- **Bilingual.** Russian is primary (`/`), English is at `/en/`. Both pages share the same `styles.css` and `script.js`. Keep content parity between them.
 - **Semantic HTML.** Use `<article>`, `<section>`, `<nav>`, `<main>`, `<footer>` appropriately. Maintain heading hierarchy.
 - **`_redirects` entries** are 200 rewrites (passthrough), not actual redirects. Add new static files here.
 - **Inline `<style>` blocks in HTML are forbidden** — all CSS lives in `styles.css`.
@@ -94,7 +96,7 @@ There is no CI/CD pipeline, no GitHub Actions, no build scripts.
 
 ## SEO / Meta
 
-- **Canonical URL:** `https://semyon.morgunov.tech/` — use this domain consistently everywhere
+- **Canonical URL:** `https://s.morgunov.tech/` — use this domain consistently everywhere
 - OG/Twitter images and JSON-LD images must use **absolute URLs**
 - `<meta name="theme-color">` set for both light and dark schemes
 - JSON-LD Person schema: keep `description`, `knowsAbout`, `worksFor`, and `sameAs` in sync
@@ -104,13 +106,14 @@ There is no CI/CD pipeline, no GitHub Actions, no build scripts.
 ## AI / Agentic Optimization
 
 - `llms.txt` follows the [llmstxt.org](https://llmstxt.org) convention
-- Available at `https://semyon.morgunov.tech/llms.txt`
+- Available at `https://s.morgunov.tech/llms.txt`
 - Keep it in sync with major content changes (roles, products, contact info)
 - `robots.txt` allows all crawlers including AI (GPTBot, ClaudeBot, PerplexityBot)
 - JSON-LD `description` and `knowsAbout` help AI search engines attribute content
 
 ## Changelog
 
+- v0.6 — English version at `/en/`, language switcher (RU/EN), hreflang tags, bilingual llms.txt, sitemap with hreflang alternates
 - v0.5 — Performance optimization (preload LCP, content-visibility, rAF scroll, FOUC elimination), layout fixes (hover shadows, hero border-radius, media-grid), SEO (canonical, favicon, theme-color, JSON-LD), AI optimization (llms.txt)
 - v0.4 — Motion preference and link hygiene tweaks
 - v0.3 — Layout and accessibility improvements

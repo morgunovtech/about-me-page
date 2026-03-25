@@ -257,6 +257,8 @@ p {
 
 .lang-button {
   position: relative;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .lang-button,
@@ -270,31 +272,6 @@ p {
   cursor: pointer;
   min-width: 40px;
   transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
-}
-
-.lang-tooltip {
-  position: absolute;
-  bottom: -150%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 6px 8px;
-  border-radius: 6px;
-  background: var(--surface);
-  color: var(--text);
-  font-size: 12px;
-  font-weight: 400;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.16s ease;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-  z-index: 10;
-}
-
-.lang-button:focus-visible .lang-tooltip,
-.lang-button:hover .lang-tooltip {
-  opacity: 1;
 }
 
 .lang-button.is-active,
@@ -314,11 +291,6 @@ p {
 
 .theme-dropdown.is-open .dropdown-menu {
   display: flex;
-}
-
-.lang-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
 }
 
 main {
@@ -774,7 +746,4 @@ main {
     transition-duration: 0.001ms !important;
   }
 
-  .lang-tooltip {
-    transition: none;
-  }
 }

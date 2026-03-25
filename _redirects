@@ -4,3 +4,5 @@
 /robots.txt /robots.txt 200
 /sitemap.xml /sitemap.xml 200
 /llms.txt /llms.txt 200
+/en/ /en/index.html 200
+/en/index.html /en/index.html 200

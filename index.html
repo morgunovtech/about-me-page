@@ -10,16 +10,18 @@
   <meta name="theme-color" content="#f6f4f2" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)" />
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
-  <link rel="canonical" href="https://semyon.morgunov.tech/" />
+  <link rel="canonical" href="https://s.morgunov.tech/" />
+  <link rel="alternate" hreflang="ru" href="https://s.morgunov.tech/" />
+  <link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Семён Моргунов — e-com директор в Узбекистане | morgunov.tech" />
   <meta property="og:description" content="Строю крупнейший e-grocery сервис Узбекистана в роли e-com Director @ Korzinka · Создаю цифровые продукты и сервисы · Делюсь опытом в канале «Семён расправил плечи»" />
-  <meta property="og:url" content="https://semyon.morgunov.tech/" />
-  <meta property="og:image" content="https://semyon.morgunov.tech/images/Hero_Photo.webp" />
+  <meta property="og:url" content="https://s.morgunov.tech/" />
+  <meta property="og:image" content="https://s.morgunov.tech/images/Hero_Photo.webp" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Семён Моргунов — e-com директор в Узбекистане | morgunov.tech" />
   <meta name="twitter:description" content="Строю крупнейший e-grocery сервис Узбекистана в роли e-com Director @ Korzinka · Создаю цифровые продукты и сервисы · Делюсь опытом в канале «Семён расправил плечи»" />
-  <meta name="twitter:image" content="https://semyon.morgunov.tech/images/Hero_Photo.webp" />
+  <meta name="twitter:image" content="https://s.morgunov.tech/images/Hero_Photo.webp" />
   <link rel="preload" as="image" href="/images/Hero_Photo.webp" type="image/webp" />
   <link rel="stylesheet" href="styles.css" />
   <script>
@@ -39,8 +41,8 @@
     "alternateName": "Semyon Morgunov",
     "jobTitle": "Director of E-commerce",
     "description": "E-commerce директор в Korzinka — крупнейшем ритейлере Узбекистана. Продуктовый менеджер с 8-летним опытом в IT, основатель 4 стартапов, автор Telegram-канала о технологиях и продуктах.",
-    "url": "https://semyon.morgunov.tech/",
-    "image": "https://semyon.morgunov.tech/images/Hero_Photo.webp",
+    "url": "https://s.morgunov.tech/",
+    "image": "https://s.morgunov.tech/images/Hero_Photo.webp",
     "email": "s@morgunov.tech",
     "knowsAbout": [
       "E-commerce",
@@ -92,10 +94,8 @@
       </div>
       <div class="header-actions" aria-label="Настройки">
         <div class="lang-switch" aria-label="Переключатель языка">
-          <button class="lang-button is-active" type="button" aria-pressed="true">RU</button>
-          <button class="lang-button" type="button" aria-pressed="false" aria-describedby="lang-en-tooltip" title="coming soon" disabled>EN
-            <span class="lang-tooltip" role="tooltip" id="lang-en-tooltip">coming soon</span>
-          </button>
+          <a class="lang-button is-active" href="/" aria-current="page" aria-label="Русский (текущий)">RU</a>
+          <a class="lang-button" href="/en/" aria-label="Switch to English">EN</a>
         </div>
         <div class="theme-dropdown" aria-label="Настройки темы">
           <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu">Тема ▾</button>
@@ -290,10 +290,11 @@
   <footer class="site-footer">
     <div class="container footer-content">
       <div class="footer-row">
-        <p class="footer-line">morgunov.tech • <button class="changelog-toggle" type="button" aria-expanded="false" aria-controls="changelog-panel">v0.5</button> • 2026 • Не собираю cookies • Не использую трекеры</p>
+        <p class="footer-line">morgunov.tech • <button class="changelog-toggle" type="button" aria-expanded="false" aria-controls="changelog-panel">v0.6</button> • 2026 • Не собираю cookies • Не использую трекеры</p>
       </div>
       <div class="changelog-panel" id="changelog-panel" hidden>
         <ul>
+          <li>v0.6 — Английская версия сайта (/en/), переключатель языка (RU/EN), hreflang-теги, двуязычный llms.txt, sitemap с hreflang-альтернативами</li>
           <li>v0.5 — Оптимизация скорости загрузки (preload LCP, content-visibility, rAF scroll, устранение FOUC), исправление вёрстки (hover-тени, border-radius hero, адаптив media-grid), SEO (canonical, favicon, theme-color, JSON-LD), AI-оптимизация (llms.txt)</li>
           <li>v0.4 — Motion preference and link hygiene tweaks</li>
           <li>v0.3 — Layout and accessibility improvements</li>

@@ -1,40 +1,45 @@
-# Семён Моргунов
+# Semyon Morgunov / Семён Моргунов
 
-> E-commerce директор в Korzinka (крупнейший ритейлер и e-grocery сервис Узбекистана). 8 лет в IT, 5 в product management, 3 в e-commerce. Основатель 4 стартапов. Живёт в Ташкенте. Консультирует стартапы в сферах e-com, FoodTech, RetailTech, FinTech.
+> E-commerce Director at Korzinka — Uzbekistan's largest retailer and e-grocery service. 8 years in tech, 5 in product management, 3 in e-commerce. Founded 4 startups. Based in Tashkent. Advises startups in e-com, FoodTech, RetailTech, and FinTech.
 
-## Об авторе
+## About
 
-- Имя: Семён Моргунов (Semyon Morgunov)
-- Текущая роль: Director of E-commerce @ Korzinka, Ташкент, Узбекистан
-- Опыт: Яндекс Услуги (Head of Product), Skysmart/Skyeng (Head of Growth & Monetization), Apple Russia (Certified Sales Trainer)
-- Сертификат: I·Corps instructor — консультирование стартапов по методологии lean
-- Интересы: digital privacy, технологии, продуктовый менеджмент, минимализм
+- Name: Semyon Morgunov (Семён Моргунов)
+- Current role: Director of E-commerce @ Korzinka, Tashkent, Uzbekistan
+- Experience: Yandex Services (Head of Product), Skysmart/Skyeng (Head of Growth & Monetization), Apple Russia (Certified Sales Trainer)
+- Certification: I·Corps instructor — lean startup methodology consulting
+- Interests: digital privacy, technology, product management, minimalism
 
-## Контакты
+## Contact
 
 - Telegram: https://t.me/s_mrgnv
 - Email: s@morgunov.tech
 - LinkedIn: https://www.linkedin.com/in/semyon-morgunov/
 
-## Собственные продукты
+## Products
 
-- [Fingerprint](https://fprint.morgunov.tech/) — веб-сервис, показывающий цифровой след браузера и устройства, объясняет риски и даёт рекомендации по privacy
-- [Telegram-канал «Семён расправил плечи»](https://t.me/raschet7) — авторский канал о технологиях, продуктах и карьере, 1100+ подписчиков
-- [Публичная база знаний](https://start.morgunov.tech/wiki) — фреймворки, гайды и подборки по продуктивности и менеджменту
+- [Fingerprint](https://fprint.morgunov.tech/) — web service that reveals your browser's digital fingerprint, explains the risks, and gives actionable privacy recommendations
+- [Telegram channel "Semyon Shrugged" / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on technology, products, and career, 1100+ subscribers
+- [Public knowledge base](https://start.morgunov.tech/wiki) — frameworks, guides, and curated tool lists on productivity and management
 
-## Публикации
+## Publications
 
-- [На чём зарабатывают авиакомпании-лоукостеры](https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 75 000+ просмотров
-- [На чём зарабатывают продуктовые дискаунтеры](https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru
-- [Опыт управления личными финансами](https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami) — vc.ru
+- [How low-cost airlines make money](https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 75,000+ views
+- [How discount grocery stores make money](https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru
+- [Lessons from 3 years of personal finance management](https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami) — vc.ru
 
-## Сотрудничество
+## Collaboration
 
-- Консультации по e-com, FoodTech, RetailTech, FinTech: https://start.morgunov.tech/collab
-- Адвайзинг и ангельское инвестирование: https://start.morgunov.tech/collab
+- Startup consulting (e-com, FoodTech, RetailTech, FinTech): https://start.morgunov.tech/collab
+- Advisory and angel investing: https://start.morgunov.tech/collab
 
-## Важные факты
+## Pages
 
-- Не собирает cookies, не использует трекеры на этом сайте
-- Язык страницы: русский (английская версия в разработке)
-- Сайт: https://semyon.morgunov.tech/
+- Russian homepage: https://s.morgunov.tech/
+- English homepage: https://s.morgunov.tech/en/
+
+## Key facts
+
+- No cookies, no trackers on this site
+- Languages: Russian (primary), English
+- Site: https://s.morgunov.tech/
