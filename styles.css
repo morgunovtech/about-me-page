@@ -579,6 +579,76 @@ main {
   justify-content: center;
 }
 
+/* --- Collaborate page: tighter layout --- */
+
+main.collab-page {
+  gap: var(--space-4);
+  padding: var(--space-4) 0 var(--space-6);
+}
+
+main.collab-page .hero {
+  padding: var(--space-5) 0 var(--space-4);
+}
+
+main.collab-page .content-layout {
+  gap: var(--space-5);
+}
+
+main.collab-page .section {
+  gap: var(--space-2);
+}
+
+main.collab-page .content-card {
+  padding: var(--space-4);
+  gap: var(--space-3);
+}
+
+main.collab-page .content-card > div > ul:last-child,
+main.collab-page .content-card > div > p:last-child {
+  margin-bottom: 0;
+}
+
+main.collab-page .collab-subtitle {
+  margin-bottom: var(--space-2);
+}
+
+main.collab-page .products {
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+main.collab-page .product-card {
+  padding: var(--space-4);
+  gap: var(--space-2);
+}
+
+main.collab-page .collab-price {
+  padding: var(--space-2) var(--space-4);
+  font-size: 14px;
+}
+
+main.collab-page .contact-card {
+  gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  main.collab-page .products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  main.collab-page .contact-card {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* Collaborate page: cap at 2-col (only 2 pricing cards) */
+@media (min-width: 1024px) {
+  main.collab-page .products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .contact-card {
   display: flex;
   flex-direction: column;
