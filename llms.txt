@@ -44,6 +44,6 @@
 
 ## Key facts
 
-- No cookies, no trackers on this site
+- No cookies. Analytics: Cloudflare Web Analytics only (cookie-free)
 - Languages: Russian (primary), English
 - Site: https://s.morgunov.tech/

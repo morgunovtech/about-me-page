@@ -18,12 +18,14 @@
   <meta property="og:description" content="Строю крупнейший e-grocery сервис Узбекистана в роли e-com Director @ Korzinka · Создаю цифровые продукты и сервисы · Делюсь опытом в канале «Семён расправил плечи»" />
   <meta property="og:url" content="https://s.morgunov.tech/" />
   <meta property="og:image" content="https://s.morgunov.tech/images/Hero_Photo.webp" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:locale:alternate" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Семён Моргунов — e-com директор в Узбекистане | morgunov.tech" />
   <meta name="twitter:description" content="Строю крупнейший e-grocery сервис Узбекистана в роли e-com Director @ Korzinka · Создаю цифровые продукты и сервисы · Делюсь опытом в канале «Семён расправил плечи»" />
   <meta name="twitter:image" content="https://s.morgunov.tech/images/Hero_Photo.webp" />
   <link rel="preload" as="image" href="/images/Hero_Photo.webp" type="image/webp" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/styles.css" />
   <script>
     (function () {
       var d = document.documentElement;
@@ -120,6 +122,9 @@
             <li>Делюсь опытом в канале «<a class="link-quiet u-link" href="https://t.me/raschet7" target="_blank" rel="noopener noreferrer">Семён расправил плечи</a>»;</li>
           </ul>
           <p class="hero-note">На этой странице обобщил свой опыт и проекты в структурированном виде.</p>
+          <div class="action-row">
+            <a class="btn btn-secondary" href="/collaborate.html">Обсудить сотрудничество</a>
+          </div>
         </div>
         <figure class="hero-figure">
           <img src="/images/Hero_Photo.webp" alt="Портрет Семёна Моргунова" loading="eager" fetchpriority="high" width="800" height="1000" />
@@ -290,10 +295,11 @@
   <footer class="site-footer">
     <div class="container footer-content">
       <div class="footer-row">
-        <p class="footer-line">morgunov.tech • <button class="changelog-toggle" type="button" aria-expanded="false" aria-controls="changelog-panel">v0.6</button> • 2026 • Не собираю cookies • Только Cloudflare Web Analytics (без cookies)</p>
+        <p class="footer-line">morgunov.tech • <button class="changelog-toggle" type="button" aria-expanded="false" aria-controls="changelog-panel">v0.7</button> • 2026 • Не собираю cookies • Только Cloudflare Web Analytics (без cookies)</p>
       </div>
       <div class="changelog-panel" id="changelog-panel" hidden>
         <ul>
+          <li>v0.7 — Страница сотрудничества (/collaborate.html) с консалтингом, эдвайзингом и ангельскими инвестициями</li>
           <li>v0.6 — Английская версия сайта (/en/), переключатель языка (RU/EN), hreflang-теги, двуязычный llms.txt, sitemap с hreflang-альтернативами</li>
           <li>v0.5 — Оптимизация скорости загрузки (preload LCP, content-visibility, rAF scroll, устранение FOUC), исправление вёрстки (hover-тени, border-radius hero, адаптив media-grid), SEO (canonical, favicon, theme-color, JSON-LD), AI-оптимизация (llms.txt)</li>
           <li>v0.4 — Настройки анимации и исправление ссылок</li>
@@ -305,6 +311,6 @@
     </div>
   </footer>
   <button class="scroll-top" type="button" aria-label="Наверх">↑</button>
-  <script defer src="script.js"></script>
+  <script defer src="/script.js"></script>
 </body>
 </html>

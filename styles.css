@@ -183,7 +183,7 @@ p {
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-5);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: var(--surface);
   color: var(--text);
@@ -225,7 +225,7 @@ p {
   display: flex;
   align-items: center;
   padding: var(--space-3) var(--space-4);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   color: var(--text);
   text-decoration: none;
   border: 1px solid var(--border);
@@ -247,10 +247,10 @@ p {
 
 .lang-switch {
   display: inline-flex;
-  gap: 4px;
+  gap: var(--space-2);
   border: 1px solid color-mix(in srgb, var(--border) 90%, var(--accent) 10%);
   border-radius: 999px;
-  padding: 4px;
+  padding: var(--space-2);
   background: var(--surface);
   box-shadow: var(--shadow);
 }
@@ -266,7 +266,7 @@ p {
   border: none;
   background: transparent;
   color: var(--muted);
-  padding: 6px 10px;
+  padding: var(--space-2) var(--space-4);
   border-radius: 999px;
   font-weight: 700;
   cursor: pointer;
@@ -503,7 +503,7 @@ main {
   justify-content: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-5);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   border: 1px solid transparent;
   background: transparent;
   color: var(--text);
