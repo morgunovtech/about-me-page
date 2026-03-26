@@ -106,6 +106,23 @@
     });
   }
 
+  /* --- Anchor navigation (handles repeated clicks on same anchor) --- */
+
+  const navLinks = Array.from(document.querySelectorAll('.site-nav a[href^="#"]'));
+  const scrollBehavior = prefersReducedMotion.matches ? 'auto' : 'smooth';
+
+  navLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
+        history.pushState(null, '', href);
+      }
+    });
+  });
+
   /* --- Scroll-to-top --- */
 
   const updateScrollTopVisibility = () => {
