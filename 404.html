@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 — Страница не найдена | morgunov.tech</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#f6f4f2" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>
+    (function () {
+      var d = document.documentElement;
+      var p = localStorage.getItem('theme-preference') || 'auto';
+      var t = p === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : p;
+      d.setAttribute('data-theme', t);
+      d.setAttribute('data-theme-preference', p);
+      var isEn = (navigator.language || '').startsWith('en') || location.pathname.startsWith('/en/');
+      if (isEn) {
+        d.lang = 'en';
+        document.title = '404 \u2014 Page not found | morgunov.tech';
+      }
+    })();
+  </script>
+</head>
+<body class="no-transition">
+  <header class="site-header" id="top">
+    <div class="container header-bar">
+      <div class="header-actions" aria-label="Settings">
+        <div class="lang-switch" aria-label="Language">
+          <a class="lang-button" href="/" id="lang-ru">RU</a>
+          <a class="lang-button" href="/en/" id="lang-en">EN</a>
+        </div>
+        <div class="theme-dropdown" aria-label="Theme">
+          <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu">
+            <span data-i18n-ru="Тема ▾" data-i18n-en="Theme ▾">Тема ▾</span>
+          </button>
+          <div class="dropdown-menu" id="theme-menu" role="menu">
+            <button class="theme-button" type="button" role="menuitem" data-theme-value="light" aria-pressed="false" title="Light" aria-label="Light theme">☀️</button>
+            <button class="theme-button" type="button" role="menuitem" data-theme-value="dark" aria-pressed="false" title="Dark" aria-label="Dark theme">🌙</button>
+            <button class="theme-button" type="button" role="menuitem" data-theme-value="auto" aria-pressed="false" title="Auto" aria-label="Auto theme">🌓</button>
+            <button class="theme-button" type="button" role="menuitem" data-theme-value="high-contrast" aria-pressed="false" title="High contrast" aria-label="High contrast">👁️</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1 id="hero-title" data-i18n-ru="Страница не найдена" data-i18n-en="Page not found">Страница не найдена</h1>
+          <p class="hero-note" data-i18n-ru="Такой страницы нет или она была перемещена." data-i18n-en="This page doesn't exist or has been moved.">Такой страницы нет или она была перемещена.</p>
+          <div class="action-row">
+            <a class="btn btn-primary" href="/" id="btn-home" data-i18n-ru="На главную" data-i18n-en="Go to homepage">На главную</a>
+            <a class="btn btn-secondary" href="/collaborate.html" id="btn-collab" data-i18n-ru="Сотрудничество" data-i18n-en="Collaborate">Сотрудничество</a>
+          </div>
+          <div class="action-row" style="margin-top: var(--space-3);">
+            <a class="btn btn-secondary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Telegram</a>
+            <a class="btn btn-secondary" href="mailto:s@morgunov.tech">Email</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-row">
+        <p class="footer-line">morgunov.tech</p>
+      </div>
+    </div>
+  </footer>
+  <script defer src="/script.js"></script>
+  <script>
+    (function () {
+      var isEn = document.documentElement.lang === 'en';
+      if (!isEn) return;
+      document.querySelectorAll('[data-i18n-en]').forEach(function (el) {
+        el.textContent = el.getAttribute('data-i18n-en');
+      });
+      document.getElementById('btn-home').href = '/en/';
+      document.getElementById('btn-collab').href = '/en/collaborate.html';
+    })();
+  </script>
+</body>
+</html>
