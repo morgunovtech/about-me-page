@@ -453,6 +453,7 @@ main {
   display: grid;
   gap: var(--space-4);
   grid-template-columns: repeat(var(--product-cols, 1), minmax(0, 1fr));
+  align-items: stretch;
 }
 
 .products > .action-row {
@@ -468,7 +469,6 @@ main {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  height: 100%;
 }
 
 .product-top {
