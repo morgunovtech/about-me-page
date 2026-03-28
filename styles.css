@@ -149,8 +149,8 @@ p {
 }
 
 .skip-link {
-  position: absolute;
-  top: -3rem;
+  position: fixed;
+  top: -10rem;
   left: var(--space-5);
   background: var(--accent);
   color: #fff;
@@ -207,6 +207,7 @@ p {
   font-weight: 700;
   cursor: pointer;
   box-shadow: var(--shadow);
+  min-height: 40px;
 }
 
 .dropdown-menu {
@@ -264,12 +265,14 @@ p {
 
 .lang-switch {
   display: inline-flex;
+  align-items: center;
   gap: var(--space-2);
   border: 1px solid color-mix(in srgb, var(--border) 90%, var(--accent) 10%);
   border-radius: 999px;
   padding: var(--space-2);
   background: var(--surface);
   box-shadow: var(--shadow);
+  min-height: 40px;
 }
 
 .lang-button {
@@ -618,6 +621,33 @@ main.collab-page .hero {
   padding: var(--space-6) 0 var(--space-4);
 }
 
+/* Hero: flex column with consistent rhythm */
+main.collab-page .hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+main.collab-page .hero-content h1 {
+  margin: 0;
+}
+
+/* Subtitle as plain muted text — no decorative box */
+main.collab-page .hero-note {
+  margin: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  width: auto;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+main.collab-page .action-row {
+  margin: 0;
+}
+
 main.collab-page .content-layout {
   gap: var(--space-5);
 }
@@ -657,6 +687,20 @@ main.collab-page .product-card {
 main.collab-page .collab-price {
   padding: var(--space-2) var(--space-4);
   font-size: 14px;
+  width: auto;
+}
+
+/* Product footer: price left, button right on desktop */
+main.collab-page .product-footer {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+main.collab-page .product-cta {
+  width: auto;
+  flex-shrink: 0;
 }
 
 main.collab-page .contact-card {
@@ -854,6 +898,17 @@ main.collab-page .contact-card {
 
   .hero-figure {
     max-width: 360px;
+  }
+}
+
+@media (max-width: 639px) {
+  main.collab-page .product-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  main.collab-page .product-cta {
+    width: 100%;
   }
 }
 
