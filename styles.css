@@ -500,6 +500,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
+  margin-top: auto;
 }
 
 .product-cta {
