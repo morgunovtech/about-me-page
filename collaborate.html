@@ -27,7 +27,7 @@
   <meta name="twitter:description" content="Консалтинг, стратегическое партнёрство и ангельские инвестиции. Помогаю компаниям в e-com, ритейле и digital найти точки роста и выстроить продукт." />
   <meta name="twitter:image" content="https://s.morgunov.tech/images/Hero_Photo.webp" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
-  <link rel="stylesheet" href="/styles.css?v=9" />
+  <link rel="stylesheet" href="/styles.css?v=10" />
   <script>
     (function () {
       var d = document.documentElement;
@@ -108,7 +108,7 @@
       </div>
     </div>
   </header>
-  <main id="main" class="collab-page">
+  <main id="main">
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-grid">
         <div class="hero-content">
@@ -136,7 +136,7 @@
             <li>Помогаю расставить приоритеты и превратить хаос в план с конкретными шагами.</li>
           </ul>
         </div>
-        <div class="content-card products">
+        <div class="products" style="--product-cols: 2">
           <article class="product-card">
             <div class="product-top">
               <span class="badge-pill">РАЗОВАЯ СЕССИЯ</span>
@@ -146,7 +146,7 @@
               <li>75 минут встреча + до 45 минут подготовки;</li>
               <li>Для тех, кому нужен свежий взгляд и конкретный план действий по одной задаче.</li>
             </ul>
-            <div class="product-footer">
+            <div class="product-footer product-footer-split">
               <span class="collab-price">$250 net за сессию</span>
               <a class="btn btn-primary product-cta" href="https://book.morgen.so/morgunov" target="_blank" rel="noopener noreferrer">Забронировать время</a>
             </div>
@@ -163,7 +163,7 @@
               <li>Async-поддержка между сессиями (отвечаю в течение 10 часов в рабочие дни);</li>
               <li>Для фаундеров и команд, которым важна динамика и системное развитие.</li>
             </ul>
-            <div class="product-footer">
+            <div class="product-footer product-footer-split">
               <span class="collab-price">$2 000 net в месяц</span>
               <a class="btn btn-primary product-cta" href="https://book.morgen.so/morgunov" target="_blank" rel="noopener noreferrer">Забронировать время</a>
             </div>
@@ -242,7 +242,18 @@
   <footer class="site-footer">
     <div class="container footer-content">
       <div class="footer-row">
-        <p class="footer-line">morgunov.tech • v0.7 • 2026</p>
+        <p class="footer-line">morgunov.tech • <a class="u-link" href="/">На главную</a> • <button class="changelog-toggle" type="button" aria-expanded="false" aria-controls="changelog-panel">v0.7</button> • 2026</p>
+      </div>
+      <div class="changelog-panel" id="changelog-panel" hidden>
+        <ul>
+          <li>v0.7 — Страница сотрудничества (/collaborate.html) с консалтингом, эдвайзингом и ангельскими инвестициями</li>
+          <li>v0.6 — Английская версия сайта (/en/), переключатель языка (RU/EN), hreflang-теги, двуязычный llms.txt, sitemap с hreflang-альтернативами</li>
+          <li>v0.5 — Оптимизация скорости загрузки (preload LCP, content-visibility, rAF scroll, устранение FOUC), исправление вёрстки (hover-тени, border-radius hero, адаптив media-grid), SEO (canonical, favicon, theme-color, JSON-LD), AI-оптимизация (llms.txt)</li>
+          <li>v0.4 — Настройки анимации и исправление ссылок</li>
+          <li>v0.3 — Улучшения вёрстки и доступности</li>
+          <li>v0.2 — Переключатель тем и стилизация кнопок</li>
+          <li>v0.1 — Первый запуск сайта</li>
+        </ul>
       </div>
     </div>
   </footer>

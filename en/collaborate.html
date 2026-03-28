@@ -27,7 +27,7 @@
   <meta name="twitter:description" content="Consulting, strategic partnership, and angel investing for companies in e-commerce and retail. Helping teams find growth levers and build great products." />
   <meta name="twitter:image" content="https://s.morgunov.tech/images/Hero_Photo.webp" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
-  <link rel="stylesheet" href="/styles.css?v=9" />
+  <link rel="stylesheet" href="/styles.css?v=10" />
   <script>
     (function () {
       var d = document.documentElement;
@@ -83,7 +83,6 @@
             <ul>
               <li><a href="/en/#about">About</a></li>
               <li><a href="/en/#career">Career</a></li>
-              <li><a href="/en/#products">Products</a></li>
               <li><a href="#consulting">Consulting</a></li>
               <li><a href="#strategic-consulting">Strategic consulting</a></li>
               <li><a href="#angel">Investing</a></li>
@@ -109,7 +108,7 @@
       </div>
     </div>
   </header>
-  <main id="main" class="collab-page">
+  <main id="main">
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-grid">
         <div class="hero-content">
@@ -140,7 +139,7 @@
             </ul>
           </div>
         </div>
-        <div class="content-card products">
+        <div class="products" style="--product-cols: 2">
           <article class="product-card">
             <div class="product-top">
               <span class="badge-pill">ONE-OFF SESSION</span>
@@ -150,7 +149,7 @@
               <li>75-minute meeting + up to 45 minutes of preparation;</li>
               <li>For those who need a fresh perspective and a concrete action plan for one specific challenge.</li>
             </ul>
-            <div class="product-footer">
+            <div class="product-footer product-footer-split">
               <span class="collab-price">$250 net per session</span>
               <a class="btn btn-primary product-cta" href="https://book.morgen.so/morgunov" target="_blank" rel="noopener noreferrer">Book a session</a>
             </div>
@@ -167,7 +166,7 @@
               <li>Async support between sessions (I respond within 10 hours on working days);</li>
               <li>For founders and teams who need momentum and systematic progress.</li>
             </ul>
-            <div class="product-footer">
+            <div class="product-footer product-footer-split">
               <span class="collab-price">$2,000 net per month</span>
               <a class="btn btn-primary product-cta" href="https://book.morgen.so/morgunov" target="_blank" rel="noopener noreferrer">Book a session</a>
             </div>
@@ -257,7 +256,18 @@
   <footer class="site-footer">
     <div class="container footer-content">
       <div class="footer-row">
-        <p class="footer-line">morgunov.tech &bull; <a class="u-link" href="/en/">Homepage</a> &bull; 2026 &bull; No cookies &bull; Only Cloudflare Web Analytics (cookie-free)</p>
+        <p class="footer-line">morgunov.tech &bull; <a class="u-link" href="/en/">Homepage</a> &bull; <button class="changelog-toggle" type="button" aria-expanded="false" aria-controls="changelog-panel">v0.7</button> &bull; 2026 &bull; No cookies &bull; Only Cloudflare Web Analytics (cookie-free)</p>
+      </div>
+      <div class="changelog-panel" id="changelog-panel" hidden>
+        <ul>
+          <li>v0.7 — Collaboration page (/collaborate.html) with consulting, advisory, and angel investing</li>
+          <li>v0.6 — English version of the site (/en/), language switcher (RU/EN), hreflang tags, bilingual llms.txt, sitemap with hreflang alternates</li>
+          <li>v0.5 — Performance optimization (preload LCP, content-visibility, rAF scroll, FOUC elimination), layout fixes (hover shadows, hero border-radius, responsive media-grid), SEO (canonical, favicon, theme-color, JSON-LD), AI optimization (llms.txt)</li>
+          <li>v0.4 — Motion preference and link hygiene tweaks</li>
+          <li>v0.3 — Layout and accessibility improvements</li>
+          <li>v0.2 — Added theme controls and calm CTA styling</li>
+          <li>v0.1 — Initial launch of the personal site</li>
+        </ul>
       </div>
     </div>
   </footer>

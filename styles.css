@@ -436,7 +436,7 @@ main {
 .products {
   display: grid;
   gap: var(--space-4);
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(var(--product-cols, 1), minmax(0, 1fr));
 }
 
 .product-card {
@@ -607,90 +607,53 @@ main {
   font-size: 14px;
   font-style: italic;
   color: var(--muted);
-  align-self: center;
 }
 
-/* --- Collaborate page --- */
-
-/* Hero: flex column with consistent rhythm (no photo on this page) */
-main.collab-page .hero-content {
+/* Product-footer with price + CTA side by side */
+.product-footer-split {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-}
-
-main.collab-page .hero-content h1 {
-  margin: 0;
-}
-
-/* Subtitle as plain muted text — no decorative box */
-main.collab-page .hero-note {
-  margin: 0;
-  background: none;
-  border: none;
-  padding: 0;
-  border-radius: 0;
-  width: auto;
-  color: var(--muted);
-  font-size: 16px;
-}
-
-main.collab-page .action-row {
-  margin: 0;
-}
-
-/* Last list item / paragraph inside cards — no extra bottom margin */
-main.collab-page .content-card li:last-child {
-  margin-bottom: 0;
-}
-
-/* Price badge in product-card footer */
-main.collab-page .collab-price {
-  padding: var(--space-2) var(--space-4);
-  font-size: 14px;
-  width: auto;
-}
-
-/* Product footer: price left, button right */
-main.collab-page .product-footer {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   flex-wrap: nowrap;
+  gap: var(--space-3);
 }
 
-main.collab-page .product-cta {
+.product-footer-split .collab-price {
   width: auto;
+  padding: var(--space-2) var(--space-4);
+  font-size: 14px;
+}
+
+.product-footer-split .product-cta {
   flex-shrink: 0;
 }
 
-/* Cap products grid at 2 columns (only 2 pricing cards) */
-@media (min-width: 768px) {
-  main.collab-page .products {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  main.collab-page .contact-card {
-    flex-direction: row;
-    align-items: center;
-  }
-}
-
-@media (min-width: 1024px) {
-  main.collab-page .products {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 @media (max-width: 639px) {
-  main.collab-page .product-footer {
+  .product-footer-split {
     flex-direction: column;
     align-items: stretch;
   }
 
-  main.collab-page .product-cta {
+  .product-footer-split .collab-price {
     width: 100%;
   }
+
+  .product-footer-split .product-cta {
+    width: 100%;
+  }
+}
+
+/* --- Content-card h3 subheadings --- */
+
+.content-card h3 {
+  font-size: clamp(17px, 3vw, 20px);
+  margin: var(--space-3) 0 var(--space-2);
+  font-weight: 700;
+}
+
+.content-card h3:first-child {
+  margin-top: 0;
 }
 
 .contact-card {
@@ -836,7 +799,7 @@ main.collab-page .product-cta {
   }
 
   .products {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    --product-cols: 2;
   }
 
   .contact-card {
@@ -855,7 +818,7 @@ main.collab-page .product-cta {
 
 @media (min-width: 1024px) {
   .products {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    --product-cols: 3;
   }
 }
 
@@ -866,17 +829,6 @@ main.collab-page .product-cta {
 
   .hero-figure {
     max-width: 360px;
-  }
-}
-
-@media (max-width: 639px) {
-  main.collab-page .product-footer {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  main.collab-page .product-cta {
-    width: 100%;
   }
 }
 
