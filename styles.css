@@ -455,6 +455,10 @@ main {
   grid-template-columns: repeat(var(--product-cols, 1), minmax(0, 1fr));
 }
 
+.products > .action-row {
+  grid-column: 1 / -1;
+}
+
 .product-card {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
