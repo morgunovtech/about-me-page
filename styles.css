@@ -389,7 +389,7 @@ main {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 12px;
+  padding: var(--space-2) var(--space-4);
   border-radius: 999px;
   background: color-mix(in srgb, var(--text) 8%, var(--surface));
   color: color-mix(in srgb, var(--text) 75%, var(--muted) 25%);
@@ -456,6 +456,8 @@ main {
 .product-footer {
   margin-top: auto;
   display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
 }
 
 .product-cta {
@@ -475,6 +477,7 @@ main {
   border: 1px solid var(--border);
   display: grid;
   gap: var(--space-3);
+  height: 100%;
 }
 
 @media (hover: hover) {
