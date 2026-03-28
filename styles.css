@@ -625,6 +625,10 @@ main.collab-page .content-card > div > p:last-child {
   margin-bottom: 0;
 }
 
+main.collab-page .content-card li:last-child {
+  margin-bottom: 0;
+}
+
 main.collab-page .collab-subtitle {
   margin-bottom: var(--space-2);
 }
