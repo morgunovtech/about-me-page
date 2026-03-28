@@ -399,7 +399,8 @@ main {
   gap: var(--space-4);
 }
 
-.content-card ul:last-child {
+.content-card > ul,
+.content-card > p {
   margin-bottom: 0;
 }
 
