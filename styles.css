@@ -269,7 +269,7 @@ p {
   gap: var(--space-2);
   border: 1px solid color-mix(in srgb, var(--border) 90%, var(--accent) 10%);
   border-radius: 999px;
-  padding: var(--space-2);
+  padding: 2px var(--space-2);
   background: var(--surface);
   box-shadow: var(--shadow);
   min-height: 40px;
@@ -477,7 +477,6 @@ main {
 }
 
 .product-footer {
-  margin-top: auto;
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
