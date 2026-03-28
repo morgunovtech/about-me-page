@@ -371,6 +371,22 @@ main {
   max-width: 100%;
 }
 
+.hero-subtitle {
+  margin: 0;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.hero-content--simple {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.hero-content--simple h1 {
+  margin: 0;
+}
+
 .content-layout {
   display: flex;
   flex-direction: column;
