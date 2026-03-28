@@ -611,18 +611,9 @@ main {
   align-self: center;
 }
 
-/* --- Collaborate page: tighter layout --- */
+/* --- Collaborate page --- */
 
-main.collab-page {
-  gap: var(--space-4);
-  padding: var(--space-4) 0 var(--space-6);
-}
-
-main.collab-page .hero {
-  padding: var(--space-6) 0 var(--space-4);
-}
-
-/* Hero: flex column with consistent rhythm */
+/* Hero: flex column with consistent rhythm (no photo on this page) */
 main.collab-page .hero-content {
   display: flex;
   flex-direction: column;
@@ -649,49 +640,19 @@ main.collab-page .action-row {
   margin: 0;
 }
 
-main.collab-page .content-layout {
-  gap: var(--space-5);
-}
-
-main.collab-page .section {
-  gap: var(--space-3);
-}
-
-main.collab-page .content-card {
-  padding: var(--space-4);
-  gap: var(--space-3);
-}
-
-main.collab-page .content-card > div > ul:last-child,
-main.collab-page .content-card > div > p:last-child {
-  margin-bottom: 0;
-}
-
+/* Last list item / paragraph inside cards — no extra bottom margin */
 main.collab-page .content-card li:last-child {
   margin-bottom: 0;
 }
 
-main.collab-page .collab-subtitle {
-  margin-bottom: var(--space-2);
-}
-
-main.collab-page .products {
-  grid-template-columns: 1fr;
-  gap: var(--space-3);
-}
-
-main.collab-page .product-card {
-  padding: var(--space-4);
-  gap: var(--space-2);
-}
-
+/* Price badge in product-card footer */
 main.collab-page .collab-price {
   padding: var(--space-2) var(--space-4);
   font-size: 14px;
   width: auto;
 }
 
-/* Product footer: price left, button right on desktop */
+/* Product footer: price left, button right */
 main.collab-page .product-footer {
   flex-direction: row;
   align-items: center;
@@ -704,10 +665,7 @@ main.collab-page .product-cta {
   flex-shrink: 0;
 }
 
-main.collab-page .contact-card {
-  gap: var(--space-3);
-}
-
+/* Cap products grid at 2 columns (only 2 pricing cards) */
 @media (min-width: 768px) {
   main.collab-page .products {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -719,10 +677,20 @@ main.collab-page .contact-card {
   }
 }
 
-/* Collaborate page: cap at 2-col (only 2 pricing cards) */
 @media (min-width: 1024px) {
   main.collab-page .products {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  main.collab-page .product-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  main.collab-page .product-cta {
+    width: 100%;
   }
 }
 
