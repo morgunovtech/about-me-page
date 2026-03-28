@@ -147,6 +147,22 @@ p {
   padding: 0 var(--space-5);
 }
 
+.skip-link {
+  position: absolute;
+  top: -3rem;
+  left: var(--space-5);
+  background: var(--accent);
+  color: #fff;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  z-index: 100;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+}
+
 .site-header {
   position: sticky;
   top: 0;

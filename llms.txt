@@ -21,7 +21,7 @@
 
 - [Fingerprint](https://fprint.morgunov.tech/) — web service that reveals your browser's digital fingerprint, explains the risks, and gives actionable privacy recommendations
 - [Telegram channel "Semyon Shrugged" / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on technology, products, and career, 1100+ subscribers
-- [Public knowledge base](https://start.morgunov.tech/wiki) — frameworks, guides, and curated tool lists on productivity and management
+
 
 ## Collaboration
 
