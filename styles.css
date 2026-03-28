@@ -484,7 +484,7 @@ main {
 }
 
 .product-cta {
-  width: 100%;
+  width: auto;
 }
 
 .media-grid {
