@@ -5,10 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>404 — Страница не найдена | morgunov.tech</title>
   <meta name="robots" content="noindex" />
-  <meta name="theme-color" content="#f6f4f2" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#edeae5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#807a6e;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-on-accent:#fff;--v4-on-fg:#f5f2ed;--v4-mono:"JetBrains Mono","IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"Inter","IBM Plex Sans",ui-sans-serif,-apple-system,sans-serif}
+    [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#6a6459;--v4-line:#2e2a24;--v4-line-soft:#232019;--v4-orange:#ff6a2e;--v4-on-fg:#14130f}
+    [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#fff;--v4-orange:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000}
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0}
+    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:14px;line-height:1.55;letter-spacing:-0.005em}
+    [data-theme="high-contrast"] body.v4-page{font-size:16px}
+    .v4-root{background:var(--v4-bg);color:var(--v4-fg);padding:36px 56px 56px;max-width:1280px;margin:0 auto}
+    .v4-bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 0 14px;margin-bottom:32px;border-bottom:1px solid var(--v4-fg);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .v4-bar-left{font-weight:500}
+    .v4-bar-left a{color:var(--v4-fg);text-decoration:none}
+    .v4-bar-mid{display:flex;gap:22px;justify-content:center;color:var(--v4-muted)}
+    .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;color:var(--v4-fg)}
+    .v4-lang{display:inline-flex;align-items:center;gap:6px}
+    .v4-lang-link{color:var(--v4-muted);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:8px 6px}
+    .v4-lang-sep{color:var(--v4-dim)}
+    .v4-hero{display:grid;grid-template-columns:1fr 280px;gap:40px;padding:4px 0 36px;margin:0 0 28px;border-bottom:1px solid var(--v4-line);align-items:start}
+    .v4-hero--simple{grid-template-columns:1fr;border-bottom:none;padding:24px 0 0}
+    .v4-hero-text{min-width:0}
+    .v4-hero-meta{font-family:var(--v4-mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--v4-muted);margin-bottom:16px;display:flex;flex-wrap:wrap;gap:14px}
+    .v4-h1{font-size:64px;line-height:1;letter-spacing:-.025em;font-weight:600;margin:0 0 16px}
+    .v4-tagline{font-size:18px;color:var(--v4-fg);line-height:1.45;max-width:52ch;margin:0 0 24px;font-weight:400}
+    .v4-cta-row{display:flex;gap:8px;flex-wrap:wrap}
+    .v4-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;min-height:40px;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;cursor:pointer;border:1px solid var(--v4-fg);background:transparent;color:var(--v4-fg);font-family:inherit}
+    .v4-btn-primary{background:var(--v4-orange);color:var(--v4-on-accent);border-color:var(--v4-orange)}
+    @media (max-width:960px){.v4-root{padding:28px 32px 40px}.v4-h1{font-size:52px}}
+    @media (max-width:640px){.v4-root{padding:20px 18px 32px;font-size:13.5px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}}
+  </style>
+  <link rel="preload" href="/styles.css?v=15" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/styles.css?v=15" /></noscript>
   <script>
     (function () {
       var d = document.documentElement;
@@ -19,59 +49,45 @@
       var isEn = (navigator.language || '').startsWith('en') || location.pathname.startsWith('/en/');
       if (isEn) {
         d.lang = 'en';
-        document.title = '404 \u2014 Page not found | morgunov.tech';
+        document.title = '404 — Page not found | morgunov.tech';
       }
     })();
   </script>
 </head>
-<body class="no-transition">
-  <header class="site-header" id="top">
-    <div class="container header-bar">
-      <div class="header-actions" aria-label="Settings">
-        <div class="lang-switch" aria-label="Language">
-          <a class="lang-button" href="/" id="lang-ru">RU</a>
-          <a class="lang-button" href="/en/" id="lang-en">EN</a>
-        </div>
-        <div class="theme-dropdown" aria-label="Theme">
-          <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu">
-            <span data-i18n-ru="Тема ▾" data-i18n-en="Theme ▾">Тема ▾</span>
-          </button>
-          <div class="dropdown-menu" id="theme-menu" role="menu">
-            <button class="theme-button" type="button" role="menuitem" data-theme-value="light" aria-pressed="false" title="Light" aria-label="Light theme">☀️</button>
-            <button class="theme-button" type="button" role="menuitem" data-theme-value="dark" aria-pressed="false" title="Dark" aria-label="Dark theme">🌙</button>
-            <button class="theme-button" type="button" role="menuitem" data-theme-value="auto" aria-pressed="false" title="Auto" aria-label="Auto theme">🌓</button>
-            <button class="theme-button" type="button" role="menuitem" data-theme-value="high-contrast" aria-pressed="false" title="High contrast" aria-label="High contrast">👁️</button>
-          </div>
+<body class="v4-page no-transition">
+  <div class="v4-root">
+    <header class="v4-bar">
+      <div class="v4-bar-left"><a href="/" data-i18n-ru="morgunov.tech" data-i18n-en="morgunov.tech">morgunov.tech</a></div>
+      <div class="v4-bar-mid"></div>
+      <div class="v4-bar-right">
+        <div class="v4-lang">
+          <a class="v4-lang-link" href="/" id="lang-ru">RU</a>
+          <span class="v4-lang-sep" aria-hidden="true">·</span>
+          <a class="v4-lang-link" href="/en/" id="lang-en">EN</a>
         </div>
       </div>
-    </div>
-  </header>
-  <main id="main">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <h1 id="hero-title" data-i18n-ru="Страница не найдена" data-i18n-en="Page not found">Страница не найдена</h1>
-          <p class="hero-note" data-i18n-ru="Такой страницы нет или она была перемещена." data-i18n-en="This page doesn't exist or has been moved.">Такой страницы нет или она была перемещена.</p>
-          <div class="action-row">
-            <a class="btn btn-primary" href="/" id="btn-home" data-i18n-ru="На главную" data-i18n-en="Go to homepage">На главную</a>
-            <a class="btn btn-secondary" href="/collaborate.html" id="btn-collab" data-i18n-ru="Сотрудничество" data-i18n-en="Collaborate">Сотрудничество</a>
-          </div>
-          <div class="action-row" style="margin-top: var(--space-3);">
-            <a class="btn btn-secondary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Telegram</a>
-            <a class="btn btn-secondary" href="mailto:s@morgunov.tech">Email</a>
+    </header>
+
+    <main id="main">
+      <section class="v4-hero v4-hero--simple" aria-labelledby="error-title">
+        <div class="v4-hero-text">
+          <p class="v4-hero-meta" data-i18n-ru="Ошибка 404" data-i18n-en="Error 404">Ошибка 404</p>
+          <h1 class="v4-h1" id="error-title" data-i18n-ru="Страница не найдена" data-i18n-en="Page not found">Страница не найдена</h1>
+          <p class="v4-tagline" data-i18n-ru="Такой страницы нет или она была перемещена." data-i18n-en="This page doesn't exist or has been moved.">Такой страницы нет или она была перемещена.</p>
+          <div class="v4-cta-row">
+            <a class="v4-btn v4-btn-primary" href="/" id="btn-home" data-i18n-ru="На главную →" data-i18n-en="Go to homepage →">На главную →</a>
+            <a class="v4-btn" href="/collaborate.html" id="btn-collab" data-i18n-ru="Сотрудничество" data-i18n-en="Collaborate">Сотрудничество</a>
+            <a class="v4-btn" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Telegram</a>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
-  <footer class="site-footer">
-    <div class="container footer-content">
-      <div class="footer-row">
-        <p class="footer-line">morgunov.tech</p>
-      </div>
-    </div>
-  </footer>
-  <script defer src="/script.js"></script>
+      </section>
+    </main>
+
+    <footer class="v4-foot">
+      <span>morgunov.tech · © 2026 <span data-i18n-ru="Семён Моргунов" data-i18n-en="Semyon Morgunov">Семён Моргунов</span></span>
+      <span class="v4-foot-privacy" data-i18n-ru="Без cookies, трекеров и аналитики" data-i18n-en="No cookies, no trackers, no analytics">Без cookies, трекеров и аналитики</span>
+    </footer>
+  </div>
   <script>
     (function () {
       var isEn = document.documentElement.lang === 'en';

@@ -19,18 +19,20 @@ about-me-page/
 │   ├── index.html      # English version (lang="en")
 │   └── collaborate.html # Collaboration page (EN)
 ├── styles.css          # All styles, token-based CSS variables
-├── script.js           # Theme, dropdowns, scroll-to-top, changelog toggle
+├── script.js           # Theme dropdown, anchor smooth-scroll, scroll-to-top
 ├── llms.txt            # AI/LLM navigation file (llmstxt.org convention), bilingual
 ├── _headers            # Cloudflare: X-Robots-Tag + Cache-Control headers
 ├── _redirects          # Cloudflare: 200 rewrites for static assets
 ├── robots.txt          # Allows all crawlers, references sitemap
 ├── sitemap.xml         # Four-entry sitemap with hreflang alternates
+├── 404.html            # V4-styled 404 page with i18n auto-detect
 ├── yandex_c8faae431964bcca.html  # Yandex Search ownership verification
 └── images/
-    ├── Hero_Photo.webp            # Main portrait (WebP, eager-loaded — LCP element)
-    ├── favicon.svg                # SVG favicon with initials "SM"
-    ├── og-cover.svg               # Open Graph social preview image
-    └── portrait-placeholder.svg  # Fallback while image loads
+    ├── Hero_Photo.webp            # Main portrait 1600x1067 (LCP element)
+    ├── Hero_Photo_320.webp        # 320w variant for srcset
+    ├── Hero_Photo_640.webp        # 640w variant for srcset (default src)
+    ├── Hero_Photo_960.webp        # 960w variant for srcset
+    └── favicon.svg                # SVG favicon with initials "SM"
 ```
 
 ## Deploy Process
@@ -115,6 +117,7 @@ There is no CI/CD pipeline, no GitHub Actions, no build scripts.
 
 ## Changelog
 
+- v0.8 — V4 Braun/Dieter Rams redesign across all pages (RU + EN): homepage with hero/portrait, 4-column stats strip, 7 numbered sections, monospace accents; collaborate page redesigned with 5 numbered sections (about, consulting tiers, strategy, angel investing, contact); 404 migrated to V4. Performance: inline critical CSS in `<head>` with non-blocking `<link rel="preload">` swap, `srcset` for hero (320/640/960/1600w variants generated), `content-visibility:auto` on below-fold sections. SEO/AI: expanded JSON-LD with `@graph` (`WebSite`, `WebPage`, `Person`, `ItemList`, `Service`), `knowsLanguage`, `hasOccupation`, `alumniOf`, sitemap `lastmod` updated. A11y: 4 themes work everywhere, tap targets ≥36px, semantic `<main>`/`<header>`/`<section>` landmarks, `.sr-only` utility, mobile nav as second row in top bar. CSP updated to `style-src 'self' 'unsafe-inline'` for inline critical CSS. Legacy CSS removed (styles.css 57KB → 23KB).
 - v0.7 — Collaboration page (`/collaborate.html` + `/en/collaborate.html`) with consulting, advisory, and angel investing details; replaced external Craft link on homepage
 - v0.6 — English version at `/en/`, language switcher (RU/EN), hreflang tags, bilingual llms.txt, sitemap with hreflang alternates
 - v0.5 — Performance optimization (preload LCP, content-visibility, rAF scroll, FOUC elimination), layout fixes (hover shadows, hero border-radius, media-grid), SEO (canonical, favicon, theme-color, JSON-LD), AI optimization (llms.txt)

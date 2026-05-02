@@ -1,14 +1,16 @@
 # Semyon Morgunov / Семён Моргунов
 
-> E-commerce Director at Korzinka — Uzbekistan's largest retailer and e-grocery service. 8 years in tech, 5 in product management, 3 in e-commerce. Founded 4 startups. Based in Tashkent. Advises startups in e-com, FoodTech, RetailTech, and FinTech.
+> Director of E-commerce at Korzinka — Uzbekistan's largest grocery retailer and e-grocery service. 8 years in tech, 5 in product management, 3 in e-commerce. Co-founder of 4 ventures. Based in Tashkent, Uzbekistan. Advises startups and angel-invests in e-com, FoodTech, RetailTech, FinTech, and EdTech.
 
 ## About
 
 - Name: Semyon Morgunov (Семён Моргунов)
 - Current role: Director of E-commerce @ Korzinka, Tashkent, Uzbekistan
-- Experience: Yandex Services (Head of Product), Skysmart/Skyeng (Head of Growth & Monetization), Apple Russia (Certified Sales Trainer)
-- Certification: I·Corps instructor — lean startup methodology consulting
-- Interests: digital privacy, technology, product management, minimalism
+- Past roles: Head of Product @ Yandex Services (2022–2023); Head of Growth & Monetization @ Skyeng/Skysmart (2017–2022); Certified Sales Trainer @ Apple Russia (2018–2019, contractor)
+- Skills: Product Management, Growth, Monetization, 0→1 Launches
+- Industries: e-com, FoodTech, RetailTech, FinTech, EdTech
+- Teaching: I-Corps instructor; one of five Apple-accredited sales trainers in Russia at the time
+- Languages: Russian (primary), English
 
 ## Contact
 
@@ -16,24 +18,34 @@
 - Email: s@morgunov.tech
 - Collaboration inquiries: ask@morgunov.tech
 - LinkedIn: https://www.linkedin.com/in/semyon-morgunov/
+- GitHub: https://github.com/morgunovtech
 
 ## Products
 
-- [Fingerprint](https://fprint.morgunov.tech/) — web service that reveals your browser's digital fingerprint, explains the risks, and gives actionable privacy recommendations
-- [Telegram channel "Semyon Shrugged" / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on technology, products, and career, 1100+ subscribers
+- [Fingerprint](https://fprint.morgunov.tech/) — web service that reveals your browser's digital fingerprint and gives actionable privacy recommendations; runs locally in the browser
+- [FoundYou](https://foundyou.morgunov.tech/) — web tool that reveals photo metadata (geolocation, time, device) and removes sensitive info; blurs faces, plates, documents; processes photos locally
+- [Telegram channel «Semyon raspravil plechi» / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on technology, products, management, and career; 1100+ subscribers; new posts every 1–2 weeks
 
+## Ventures (entrepreneurship)
+
+- 2023 — Online school for children's safety (Founder) — paused, no PMF
+- 2022 — Ethical grooming salon "Hvost" (Co-founder) — sold to employees, still operating
+- 2011 — Snack retail chain (Co-founder) — closed
+- 2009 — iPhone accessories online (first venture) — closed
 
 ## Collaboration
 
-- [Consulting](https://s.morgunov.tech/collaborate.html) — single sessions ($250) or monthly cycle ($2,000) covering product, marketing, and strategy
-- [Strategic consulting](https://s.morgunov.tech/collaborate.html#strategic-consulting) — long-term retainer; works as external strategist or advisory board member; terms individual
-- [Angel investing](https://s.morgunov.tech/collaborate.html#angel) — pre-seed/seed, from $5,000; sectors: RetailTech, e-com, EdTech, FinTech, PetTech; markets: CIS, MENA, Eastern Europe
+- [Consulting](https://s.morgunov.tech/collaborate.html) — single sessions or monthly cycle covering product, marketing, and strategy
+- [Strategic consulting](https://s.morgunov.tech/collaborate.html#strategic-consulting) — long-term retainer; works as external strategist or advisory board member
+- [Angel investing](https://s.morgunov.tech/collaborate.html#angel) — pre-seed/seed; sectors: RetailTech, e-com, EdTech, FinTech, PetTech; markets: CIS, MENA, Eastern Europe
 
 ## Publications
 
 - [How low-cost airlines make money](https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 75,000+ views
 - [How discount grocery stores make money](https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru
 - [Lessons from 3 years of personal finance management](https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami) — vc.ru
+- [Critical review of brainbox.vc crowd-investing platform](https://youtu.be/OJXtFmWNZMM) — YouTube
+- [Long-term life planning, with Misha Donskoy](https://youtu.be/1aL2xFrcGkU) — YouTube
 
 ## Pages
 
@@ -44,6 +56,7 @@
 
 ## Key facts
 
-- No cookies. Analytics: Cloudflare Web Analytics only (cookie-free)
-- Languages: Russian (primary), English
-- Site: https://s.morgunov.tech/
+- No cookies. No trackers. No analytics scripts.
+- Site is hosted on Cloudflare Pages, no build step, no JS framework.
+- Visited 48 countries (https://nomadmania.com/profile/33896/)
+- Lives in Tashkent, raises a dog named Tofs.

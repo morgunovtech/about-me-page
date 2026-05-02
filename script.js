@@ -1,11 +1,12 @@
 (() => {
   const root = document.documentElement;
   const body = document.body;
-  const themeButtons = Array.from(document.querySelectorAll('.theme-button'));
-  const scrollTopButton = document.querySelector('.scroll-top');
+  /* Theme buttons exist in both old (.theme-button) and new (.v4-theme-btn) markup. */
+  const themeButtons = Array.from(document.querySelectorAll('.theme-button, .v4-theme-btn'));
+  const scrollTopButton = document.querySelector('.scroll-top, .v4-scroll-top');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const dropdowns = Array.from(document.querySelectorAll('.nav-dropdown, .theme-dropdown'));
+  const dropdowns = Array.from(document.querySelectorAll('.nav-dropdown, .theme-dropdown, .v4-theme'));
   const changelogToggle = document.querySelector('.changelog-toggle');
   const changelogPanel = document.getElementById('changelog-panel');
   const THEME_PREFERENCE_KEY = 'theme-preference';
@@ -17,17 +18,19 @@
     });
   });
 
-  /* --- Theme --- */
+  /* --- Dropdowns (covers .nav-dropdown, .theme-dropdown, .v4-theme) --- */
 
   const closeDropdowns = (except) => {
     dropdowns.forEach((dropdown) => {
       if (dropdown !== except) {
         dropdown.classList.remove('is-open');
-        const toggle = dropdown.querySelector('.dropdown-toggle');
+        const toggle = dropdown.querySelector('.dropdown-toggle, .v4-icon-btn');
         if (toggle) toggle.setAttribute('aria-expanded', 'false');
       }
     });
   };
+
+  /* --- Theme --- */
 
   const setThemePressed = (value) => {
     themeButtons.forEach((btn) =>
@@ -53,11 +56,11 @@
   const savedTheme = localStorage.getItem(THEME_PREFERENCE_KEY) || 'auto';
   setThemePressed(savedTheme);
 
-  /* --- Dropdowns --- */
+  /* --- Dropdown wiring --- */
 
   dropdowns.forEach((dropdown) => {
-    const toggle = dropdown.querySelector('.dropdown-toggle');
-    const menu = dropdown.querySelector('.dropdown-menu');
+    const toggle = dropdown.querySelector('.dropdown-toggle, .v4-icon-btn');
+    const menu = dropdown.querySelector('.dropdown-menu, .v4-theme-menu');
     if (toggle) toggle.setAttribute('aria-expanded', 'false');
     toggle?.addEventListener('click', () => {
       const isOpen = dropdown.classList.toggle('is-open');
@@ -73,7 +76,11 @@
   });
 
   document.addEventListener('click', (event) => {
-    if (!event.target.closest('.nav-dropdown') && !event.target.closest('.theme-dropdown')) {
+    if (
+      !event.target.closest('.nav-dropdown') &&
+      !event.target.closest('.theme-dropdown') &&
+      !event.target.closest('.v4-theme')
+    ) {
       closeDropdowns();
     }
   });
@@ -96,7 +103,7 @@
     }
   });
 
-  /* --- Changelog toggle --- */
+  /* --- Changelog toggle (collaborate page only) --- */
 
   if (changelogToggle && changelogPanel) {
     changelogToggle.addEventListener('click', () => {
@@ -108,7 +115,9 @@
 
   /* --- Anchor navigation (handles repeated clicks on same anchor) --- */
 
-  const navLinks = Array.from(document.querySelectorAll('.site-nav a[href^="#"]'));
+  const navLinks = Array.from(
+    document.querySelectorAll('.site-nav a[href^="#"], .v4-bar-mid a[href^="#"]')
+  );
   const scrollBehavior = prefersReducedMotion.matches ? 'auto' : 'smooth';
 
   navLinks.forEach((link) => {

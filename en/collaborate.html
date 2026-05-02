@@ -6,8 +6,8 @@
   <title>Collaborate — Semyon Morgunov | morgunov.tech</title>
   <meta name="description" content="Consulting and angel investing for companies in e-com, retail, and FinTech. Helping teams find growth levers and build great products." />
   <meta name="author" content="Semyon Morgunov" />
-  <meta name="theme-color" content="#f6f4f2" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#edeae5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
   <link rel="canonical" href="https://s.morgunov.tech/en/collaborate.html" />
   <link rel="alternate" hreflang="ru" href="https://s.morgunov.tech/collaborate.html" />
@@ -27,7 +27,45 @@
   <meta name="twitter:description" content="Consulting and angel investing for companies in e-com, retail, and FinTech. Helping teams find growth levers and build great products." />
   <meta name="twitter:image" content="https://s.morgunov.tech/images/Hero_Photo.webp" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
-  <link rel="stylesheet" href="/styles.css?v=12" />
+  <style>
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#807a6e;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-on-accent:#fff;--v4-on-fg:#f5f2ed;--v4-mono:"JetBrains Mono","IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"Inter","IBM Plex Sans",ui-sans-serif,-apple-system,sans-serif}
+    [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#6a6459;--v4-line:#2e2a24;--v4-line-soft:#232019;--v4-orange:#ff6a2e;--v4-on-fg:#14130f}
+    [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#fff;--v4-orange:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000}
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0}
+    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:14px;line-height:1.55;letter-spacing:-0.005em}
+    [data-theme="high-contrast"] body.v4-page{font-size:16px}
+    .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:6px 12px;z-index:100;text-decoration:none;font-size:13px;transition:top .2s}
+    .v4-page .skip-link:focus{top:8px}
+    .v4-root{background:var(--v4-bg);color:var(--v4-fg);padding:36px 56px 56px;max-width:1280px;margin:0 auto}
+    .v4-bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 0 14px;margin-bottom:32px;border-bottom:1px solid var(--v4-fg);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .v4-bar-left{font-weight:500}
+    .v4-bar-left a{color:var(--v4-fg);text-decoration:none}
+    .v4-bar-mid{display:flex;gap:22px;justify-content:center;color:var(--v4-muted)}
+    .v4-bar-mid a{color:inherit;text-decoration:none;padding:8px 4px}
+    .v4-bar-mid a.is-active{color:var(--v4-fg);border-bottom:1px solid var(--v4-orange)}
+    .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;color:var(--v4-fg)}
+    .v4-lang{display:inline-flex;align-items:center;gap:6px}
+    .v4-lang-link{color:var(--v4-muted);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:8px 6px;border-bottom:1px solid transparent}
+    .v4-lang-link.is-active{color:var(--v4-fg);border-bottom-color:var(--v4-orange)}
+    .v4-lang-sep{color:var(--v4-dim)}
+    .v4-theme{position:relative}
+    .v4-icon-btn{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--v4-line);background:transparent;color:var(--v4-fg);cursor:pointer;padding:0;font:inherit}
+    .v4-icon-btn svg{width:14px;height:14px}
+    .v4-hero{display:grid;grid-template-columns:1fr 280px;gap:40px;padding:4px 0 36px;margin:0 0 28px;border-bottom:1px solid var(--v4-line);align-items:start}
+    .v4-hero--simple{grid-template-columns:1fr;border-bottom:none;padding:24px 0 0}
+    .v4-hero-text{min-width:0}
+    .v4-hero-meta{font-family:var(--v4-mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--v4-muted);margin-bottom:16px;display:flex;flex-wrap:wrap;gap:14px}
+    .v4-h1{font-size:64px;line-height:1;letter-spacing:-.025em;font-weight:600;margin:0 0 16px}
+    .v4-tagline{font-size:18px;color:var(--v4-fg);line-height:1.45;max-width:52ch;margin:0 0 24px;font-weight:400}
+    .v4-cta-row{display:flex;gap:8px;flex-wrap:wrap}
+    .v4-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;min-height:40px;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;cursor:pointer;border:1px solid var(--v4-fg);background:transparent;color:var(--v4-fg);font-family:inherit}
+    .v4-btn-primary{background:var(--v4-orange);color:var(--v4-on-accent);border-color:var(--v4-orange)}
+    @media (max-width:960px){.v4-root{padding:28px 32px 40px}.v4-h1{font-size:52px}}
+    @media (max-width:640px){.v4-root{padding:20px 18px 32px;font-size:13.5px}.v4-bar{grid-template-columns:1fr auto;grid-template-rows:auto auto;grid-template-areas:"left right" "mid mid";row-gap:10px;font-size:10px}.v4-bar-left{grid-area:left}.v4-bar-right{grid-area:right}.v4-bar-mid{grid-area:mid;justify-content:flex-start;flex-wrap:wrap;gap:4px 14px}.v4-bar-mid a{padding:10px 6px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}}
+  </style>
+  <link rel="preload" href="/styles.css?v=15" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/styles.css?v=15" /></noscript>
   <script>
     (function () {
       var d = document.documentElement;
@@ -40,213 +78,241 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Consulting — Semyon Morgunov",
-    "description": "Consulting and angel investing for companies in e-com, retail, and FinTech.",
-    "url": "https://s.morgunov.tech/en/collaborate.html",
-    "provider": {
-      "@type": "Person",
-      "name": "Semyon Morgunov",
-      "url": "https://s.morgunov.tech/en/"
-    },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Consulting services",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "name": "Single consultation",
-          "description": "75-minute meeting + up to 45 minutes of preparation",
-          "price": "250",
-          "priceCurrency": "USD"
-        },
-        {
-          "@type": "Offer",
-          "name": "Consulting cycle",
-          "description": "5 working sessions per month, async support",
-          "price": "2000",
-          "priceCurrency": "USD"
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://s.morgunov.tech/en/collaborate.html#webpage",
+        "url": "https://s.morgunov.tech/en/collaborate.html",
+        "name": "Collaborate — Semyon Morgunov",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://s.morgunov.tech/#website" },
+        "about": { "@id": "https://s.morgunov.tech/#person" }
+      },
+      {
+        "@type": "Service",
+        "@id": "https://s.morgunov.tech/en/collaborate.html#service",
+        "name": "Consulting and angel investing",
+        "description": "Consulting and angel investing for companies in e-com, retail, and FinTech.",
+        "url": "https://s.morgunov.tech/en/collaborate.html",
+        "provider": { "@id": "https://s.morgunov.tech/#person" },
+        "areaServed": ["Russia", "CIS", "MENA", "Eastern Europe"],
+        "serviceType": ["Product consulting", "Strategic advisory", "Angel investing"],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Consulting services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "name": "Single consultation",
+              "description": "75-minute meeting + up to 45 minutes of preparation",
+              "price": "250",
+              "priceCurrency": "USD"
+            },
+            {
+              "@type": "Offer",
+              "name": "Consulting cycle",
+              "description": "5 working sessions per month, async support",
+              "price": "2000",
+              "priceCurrency": "USD"
+            }
+          ]
         }
-      ]
-    }
+      }
+    ]
   }
   </script>
 </head>
-<body class="no-transition" data-lang="en">
+<body class="v4-page no-transition" data-lang="en">
   <a href="#main" class="skip-link">Skip to main content</a>
-  <header class="site-header" id="top">
-    <div class="container header-bar">
-      <div class="nav-dropdown" aria-label="Navigation">
-        <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-menu">Navigation ▾</button>
-        <div class="dropdown-menu" id="nav-menu">
-          <nav class="site-nav" aria-label="Main">
-            <ul>
-              <li><a href="/en/#about">About</a></li>
-              <li><a href="/en/#career">Career</a></li>
-              <li><a href="#consulting">Consulting</a></li>
-              <li><a href="#strategic-consulting">Strategic consulting</a></li>
-              <li><a href="#angel">Investing</a></li>
-              <li><a href="/en/#contact">Contact</a></li>
-            </ul>
-          </nav>
+  <div class="v4-root">
+    <header class="v4-bar" id="top">
+      <div class="v4-bar-left"><a href="/en/">morgunov.tech</a></div>
+      <nav class="v4-bar-mid" aria-label="Main navigation">
+        <a href="/en/">Home</a>
+        <a href="#consulting">Consulting</a>
+        <a href="#strategy">Strategy</a>
+        <a href="#angel">Investing</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="v4-bar-right">
+        <div class="v4-lang" aria-label="Language switcher">
+          <a class="v4-lang-link" href="/collaborate.html">RU</a>
+          <span class="v4-lang-sep" aria-hidden="true">·</span>
+          <a class="v4-lang-link is-active" href="/en/collaborate.html" aria-current="page">EN</a>
         </div>
-      </div>
-      <div class="header-actions" aria-label="Settings">
-        <div class="lang-switch" aria-label="Language switcher">
-          <a class="lang-button" href="/collaborate.html" aria-label="Switch to Russian">RU</a>
-          <a class="lang-button is-active" href="/en/collaborate.html" aria-current="page" aria-label="English (current)">EN</a>
-        </div>
-        <div class="theme-dropdown" aria-label="Theme settings">
-          <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu">Theme ▾</button>
-          <div class="dropdown-menu" id="theme-menu" role="menu">
-            <button class="theme-button" type="button" role="menuitem" data-theme-value="light" aria-pressed="false" title="Light theme" aria-label="Light theme">☀️</button>
-            <button class="theme-button" type="button" role="menuitem" data-theme-value="dark" aria-pressed="false" title="Dark theme" aria-label="Dark theme">🌙</button>
-            <button class="theme-button" type="button" role="menuitem" data-theme-value="auto" aria-pressed="false" title="Auto" aria-label="Auto theme">🌓</button>
-            <button class="theme-button" type="button" role="menuitem" data-theme-value="high-contrast" aria-pressed="false" title="High contrast" aria-label="High contrast">👁️</button>
+        <div class="v4-theme">
+          <button class="v4-icon-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu" aria-label="Switch theme">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+              <circle cx="8" cy="8" r="3"></circle>
+              <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"></path>
+            </svg>
+          </button>
+          <div class="v4-theme-menu" id="theme-menu">
+            <button class="v4-theme-btn" type="button" data-theme-value="light" aria-pressed="false">Light</button>
+            <button class="v4-theme-btn" type="button" data-theme-value="dark" aria-pressed="false">Dark</button>
+            <button class="v4-theme-btn" type="button" data-theme-value="auto" aria-pressed="false">Auto</button>
+            <button class="v4-theme-btn" type="button" data-theme-value="high-contrast" aria-pressed="false">High contrast</button>
           </div>
         </div>
       </div>
-    </div>
-  </header>
-  <main id="main">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="container hero-grid">
-        <div class="hero-content hero-content--simple">
-          <h1 id="hero-title">Collaborate</h1>
-          <p class="hero-subtitle">Consulting and angel investing for companies in e-com, retail, and FinTech.</p>
-          <div class="action-row">
-            <a class="btn btn-secondary" href="/en/">&larr; Back to homepage</a>
+    </header>
+
+    <main id="main">
+      <section class="v4-hero v4-hero--simple" aria-labelledby="hero-title">
+        <div class="v4-hero-text">
+          <p class="v4-hero-meta">Consulting · Advisory · Angel investing</p>
+          <h1 class="v4-h1" id="hero-title">Collaborate</h1>
+          <p class="v4-tagline">Helping companies in e-com, retail, and FinTech find growth levers and build great products. Consult one-off, partner long-term, or invest as an angel.</p>
+          <div class="v4-cta-row">
+            <a class="v4-btn" href="/en/">← Home</a>
+            <a class="v4-btn v4-btn-primary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Telegram →</a>
           </div>
         </div>
-      </div>
-    </section>
-    <div class="container content-layout">
-      <section id="consulting" class="section">
-        <header class="section-header">
-          <h2>Consulting</h2>
-        </header>
-        <div class="content-card">
-          <div>
-            <p>10+ years in product, e-com, and marketing. Launched experimental products at Skyeng (7 million users); managed P&amp;L at Yandex.Services (GMV ×2.2, reached positive EBITDA); led the largest e-grocery in Uzbekistan (orders ×23, expansion from 1 to 9 cities, reached positive EBITDA).</p>
-            <p>Consulted teams at UMAI Group 🇰🇬, Belissimo Pizza, Buildex 🇺🇿.</p>
-          </div>
-          <div>
-            <h3 class="collab-subtitle">What I do</h3>
-            <ul>
-              <li>Break down unit economics, funnels, and retention — find where you're losing money and growth;</li>
-              <li>Give honest, direct feedback on product, marketing, and strategy;</li>
-              <li>Help set priorities and turn chaos into a plan with concrete next steps.</li>
+      </section>
+
+      <section id="about" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">01</span>
+          <h2 class="v4-h2">What I do</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose">
+            <p>10+ years in product, e-com, and marketing. Launched experimental products at <strong>Skyeng</strong> (7M users); managed P&amp;L at <strong>Yandex.Services</strong> (GMV ×2.2, reached positive EBITDA); now leading the largest e-grocery in Uzbekistan (orders ×23, expansion from 1 to 9 cities, reached positive EBITDA).</p>
+            <ul class="v4-list" style="margin-top: 12px">
+              <li>Break down unit economics, funnels, and retention — find where you're losing money and growth</li>
+              <li>Give honest, direct feedback on product, marketing, and strategy</li>
+              <li>Help set priorities and turn chaos into a plan with concrete next steps</li>
             </ul>
+            <p class="v4-collab-clients">Clients: <b>UMAI Group · Belissimo Pizza · Buildex</b></p>
           </div>
         </div>
-        <div class="content-card products" style="--product-cols: 2">
-          <article class="product-card">
-            <h3 class="product-title">Single consultation</h3>
-            <ul class="product-list">
-              <li>75-minute meeting + up to 45 minutes of preparation;</li>
-              <li>For those who need a fresh perspective and a concrete action plan for one specific challenge;</li>
-              <li>$250 net per session.</li>
-            </ul>
-            <div class="product-footer">
-              <a class="btn btn-secondary product-cta" href="https://book.morgen.so/morgunov" target="_blank" rel="noopener noreferrer">Book a session</a>
+      </section>
+
+      <section id="consulting" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">02</span>
+          <h2 class="v4-h2">Consulting</h2>
+        </div>
+        <div class="v4-products" style="grid-template-columns: repeat(2, 1fr)">
+          <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">ONE-OFF</span>
+              <span class="v4-pricing">$250 / <strong>SESSION</strong></span>
             </div>
-          </article>
-          <article class="product-card">
-            <h3 class="product-title">Consulting cycle</h3>
-            <ul class="product-list">
-              <li>5 working sessions per month, 1.5 hours each;</li>
-              <li>Up to 1 hour of preparation per session;</li>
-              <li>Async support between sessions (I respond within 10 hours on working days);</li>
-              <li>For founders and teams who need momentum and systematic progress;</li>
-              <li>$2,000 net per month.</li>
+            <h3 class="v4-product-name">Single consultation</h3>
+            <ul class="v4-list v4-product-bullets">
+              <li>75-minute meeting + up to 45 minutes of preparation</li>
+              <li>Fresh perspective and a concrete action plan for one challenge</li>
+              <li>Best when you need pinpoint expertise</li>
             </ul>
-            <div class="product-footer">
-              <a class="btn btn-secondary product-cta" href="https://book.morgen.so/morgunov" target="_blank" rel="noopener noreferrer">Book a session</a>
+            <a class="v4-btn" href="https://book.morgen.so/morgunov" target="_blank" rel="noopener noreferrer">Book a session →</a>
+          </article>
+          <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">CYCLE</span>
+              <span class="v4-pricing">$2,000 / <strong>MONTH</strong></span>
             </div>
+            <h3 class="v4-product-name">Consulting cycle</h3>
+            <ul class="v4-list v4-product-bullets">
+              <li>5 working sessions per month, 1.5 hours each</li>
+              <li>Up to 1 hour of preparation per session</li>
+              <li>Async support between sessions (10-hour weekday response)</li>
+              <li>For founders and teams who need momentum and systematic progress</li>
+            </ul>
+            <a class="v4-btn" href="https://book.morgen.so/morgunov" target="_blank" rel="noopener noreferrer">Book a session →</a>
           </article>
         </div>
-        <article class="product-card" id="strategic-consulting">
-          <h3 class="product-title">Strategic consulting</h3>
-          <p>Long-term partnership: I work as an external strategist or advisory board member.</p>
-          <h3 class="product-title">What I do</h3>
-          <ul class="product-list">
-            <li>Participate in strategic sessions and key decisions at the CEO / board level;</li>
-            <li>Help systematically develop product, marketing, and operating model;</li>
-            <li>Track progress on key metrics and flag issues before they become problems;</li>
-            <li>Share contacts and help hire for senior roles.</li>
-          </ul>
-          <h3 class="product-title">Format</h3>
-          <ul class="product-list">
-            <li>Regular meetings 2–4 times per month;</li>
-            <li>Async access between meetings;</li>
-            <li>Option to join the board of directors / advisory board.</li>
-          </ul>
-          <h3 class="product-title">Best for</h3>
-          <p>Founders, CPOs, and CEOs in e-commerce, retail, fintech, and digital products who need a "second brain" with hands-on operating experience.</p>
-          <p class="collab-terms">Terms discussed individually.</p>
-          <div class="product-footer">
-            <a class="btn btn-secondary product-cta" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Get in touch</a>
-          </div>
-        </article>
       </section>
-      <section id="angel" class="section">
-        <header class="section-header">
-          <h2>Angel investing</h2>
-        </header>
-        <article class="product-card">
-          <h3 class="product-title">What I do</h3>
-          <ul class="product-list">
-            <li>Invest capital;</li>
-            <li>Share experience and connections;</li>
-            <li>Stay out of day-to-day operations unless asked.</li>
-          </ul>
-          <h3 class="product-title">Parameters</h3>
-          <ul class="product-list">
-            <li><strong>Stage:</strong> pre-seed / seed;</li>
-            <li><strong>Sectors:</strong> RetailTech, e-commerce, FinTech;</li>
-            <li><strong>Markets:</strong> CIS, MENA, Eastern Europe;</li>
-            <li><strong>Check size:</strong> from $5,000.</li>
-          </ul>
-          <h3 class="product-title">Best for</h3>
-          <p>Founders with realistic ambitions, a validated hypothesis, and a transparent jurisdiction.</p>
-          <p>A short note is enough: what you're building, what stage you're at, how much you're raising, link to MVP.</p>
-          <div class="product-footer">
-            <a class="btn btn-secondary product-cta" href="mailto:ask@morgunov.tech">Send a pitch</a>
-          </div>
-        </article>
-      </section>
-      <section id="contact" class="section">
-        <header class="section-header">
-          <h2>Not sure what you need?</h2>
-        </header>
-        <div class="content-card contact-card">
-          <p>Tell me about your situation — I'll suggest how I can help, or be upfront if I can't.</p>
-          <div class="contact-actions">
-            <a class="btn btn-primary" href="mailto:ask@morgunov.tech">Get in touch</a>
+
+      <section id="strategy" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">03</span>
+          <h2 class="v4-h2">Strategic consulting</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <p class="v4-tagline" style="font-size: 16px; margin-bottom: 18px">Long-term partnership: I work as an external strategist or advisory board member.</p>
+            <h3 class="v4-h3">What I do</h3>
+            <ul class="v4-list">
+              <li>Participate in strategic sessions and key decisions at the CEO / board level</li>
+              <li>Help systematically develop product, marketing, and operating model</li>
+              <li>Track progress on key metrics and flag issues before they become problems</li>
+              <li>Share contacts and help hire for senior roles</li>
+            </ul>
+            <h3 class="v4-h3">Format</h3>
+            <ul class="v4-list">
+              <li>Regular meetings 2–4 times per month</li>
+              <li>Async access between meetings</li>
+              <li>Option to join the board of directors / advisory board</li>
+            </ul>
+            <h3 class="v4-h3">Best for</h3>
+            <p class="v4-prose">Founders, CPOs, and CEOs in e-commerce, retail, fintech, and digital products who need a "second brain" with hands-on operating experience.</p>
+            <p class="v4-terms">Terms discussed individually.</p>
+            <div class="v4-help-cta">
+              <a class="v4-btn" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Get in touch →</a>
+            </div>
           </div>
         </div>
       </section>
-    </div>
-  </main>
-  <footer class="site-footer">
-    <div class="container footer-content">
-      <div class="footer-row">
-        <p class="footer-line">morgunov.tech &bull; <a class="u-link" href="/en/">Homepage</a> &bull; <button class="changelog-toggle" type="button" aria-expanded="false" aria-controls="changelog-panel">v0.7</button> &bull; 2026</p>
-      </div>
-      <div class="changelog-panel" id="changelog-panel" hidden>
-        <ul>
-          <li>v0.7 — Collaboration page (/collaborate.html) with consulting, advisory, and angel investing</li>
-          <li>v0.6 — English version of the site (/en/), language switcher (RU/EN), hreflang tags, bilingual llms.txt, sitemap with hreflang alternates</li>
-          <li>v0.5 — Performance optimization (preload LCP, content-visibility, rAF scroll, FOUC elimination), layout fixes (hover shadows, hero border-radius, responsive media-grid), SEO (canonical, favicon, theme-color, JSON-LD), AI optimization (llms.txt)</li>
-          <li>v0.4 — Motion preference and link hygiene tweaks</li>
-          <li>v0.3 — Layout and accessibility improvements</li>
-          <li>v0.2 — Added theme controls and calm CTA styling</li>
-          <li>v0.1 — Initial launch of the personal site</li>
-        </ul>
-      </div>
-    </div>
-  </footer>
-  <button class="scroll-top" type="button" aria-label="Back to top">↑</button>
-  <script defer src="/script.js"></script>
+
+      <section id="angel" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">04</span>
+          <h2 class="v4-h2">Angel investing</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <h3 class="v4-h3">What I do</h3>
+            <ul class="v4-list">
+              <li>Invest capital</li>
+              <li>Share experience and connections</li>
+              <li>Stay out of day-to-day operations unless asked</li>
+            </ul>
+            <h3 class="v4-h3">Parameters</h3>
+            <dl class="v4-spec">
+              <dt>Stage</dt><dd>pre-seed / seed</dd>
+              <dt>Sectors</dt><dd>RetailTech, e-com, FinTech, EdTech</dd>
+              <dt>Markets</dt><dd>CIS, MENA, Eastern Europe</dd>
+              <dt>Check size</dt><dd>from $5,000</dd>
+            </dl>
+            <h3 class="v4-h3">Best for</h3>
+            <div class="v4-prose">
+              <p>Founders with realistic ambitions, a validated hypothesis, and a transparent jurisdiction.</p>
+              <p>A short note is enough: what you're building, what stage you're at, how much you're raising, link to MVP.</p>
+            </div>
+            <div class="v4-help-cta">
+              <a class="v4-btn v4-btn-primary" href="mailto:ask@morgunov.tech">Send a pitch →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">05</span>
+          <h2 class="v4-h2">Not sure what you need?</h2>
+        </div>
+        <div class="v4-contact">
+          <div>
+            <p class="v4-contact-note">Tell me about your situation — I'll suggest how I can help, or be upfront if I can't.</p>
+          </div>
+          <div class="v4-cta-row">
+            <a class="v4-btn v4-btn-primary" href="mailto:ask@morgunov.tech">Get in touch →</a>
+            <a class="v4-btn" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Telegram</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="v4-foot">
+      <span>morgunov.tech · © 2026 Semyon Morgunov</span>
+      <span class="v4-foot-privacy">No cookies, no trackers, no analytics</span>
+    </footer>
+  </div>
+  <button class="v4-scroll-top" type="button" aria-label="Back to top">↑</button>
+  <script defer src="/script.js?v=14"></script>
 </body>
 </html>
