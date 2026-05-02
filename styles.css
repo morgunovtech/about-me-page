@@ -667,56 +667,6 @@ body.v4-page {
   margin: 12px 0 0;
 }
 
-/* --- About grid --- */
-
-.v4-about-grid {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 40px;
-}
-
-.v4-col-label {
-  font-size: 10px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--v4-muted);
-  margin: 0 0 14px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--v4-line);
-  font-family: var(--v4-mono);
-}
-
-.v4-skill-group {
-  margin-bottom: 20px;
-}
-
-.v4-skill-group:last-child {
-  margin-bottom: 0;
-}
-
-.v4-skill-group-label {
-  font-family: var(--v4-mono);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--v4-muted);
-  margin: 0 0 6px;
-}
-
-.v4-skill-list {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--v4-fg);
-  letter-spacing: -0.005em;
-}
-
-.v4-skill-list .sep {
-  color: var(--v4-dim);
-  margin: 0 4px;
-}
-
 /* --- Career --- */
 
 .v4-career-head,
@@ -1188,10 +1138,6 @@ body.v4-page {
   }
   .v4-stat:nth-last-child(-n + 2) {
     border-bottom: none;
-  }
-  .v4-about-grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
   }
   .v4-career-head,
   .v4-career-row {
