@@ -888,6 +888,13 @@ body.v4-page {
   font-family: var(--v4-mono);
 }
 
+.v4-product[data-kind="blog"] .v4-tag {
+  background: transparent;
+  color: var(--v4-fg);
+  border: 1px solid var(--v4-fg);
+  padding: 2px 7px;
+}
+
 .v4-product-name {
   font-size: 22px;
   font-weight: 600;
