@@ -645,6 +645,7 @@ body.v4-page {
 
 .v4-prose {
   max-width: 64ch;
+  text-wrap: pretty;
 }
 
 .v4-prose p {
@@ -822,6 +823,8 @@ body.v4-page {
   white-space: nowrap;
   justify-self: end;
   align-self: start;
+  min-width: 92px;
+  box-sizing: border-box;
 }
 
 .v4-status.active {
@@ -1042,6 +1045,7 @@ body.v4-page {
   max-width: 56ch;
   line-height: 1.5;
   margin: 0;
+  text-wrap: pretty;
 }
 
 /* --- Footer --- */
