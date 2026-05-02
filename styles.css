@@ -554,22 +554,20 @@ body.v4-page {
 }
 
 .v4-section-head {
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  gap: 16px;
-  align-items: baseline;
   padding-bottom: 12px;
   margin-bottom: 16px;
   border-bottom: 1px solid var(--v4-fg);
 }
 
 .v4-section-num {
+  display: block;
   font-family: var(--v4-mono);
   font-size: 11px;
   color: var(--v4-orange);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 500;
+  margin-bottom: 6px;
 }
 
 .v4-h2 {
@@ -593,13 +591,11 @@ body.v4-page {
 }
 
 .v4-body {
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  gap: 16px;
+  display: block;
 }
 
 .v4-body-aside {
-  padding-top: 2px;
+  display: none;
 }
 
 /* --- Lists --- */
@@ -1091,25 +1087,6 @@ body.v4-page {
   margin: 0;
 }
 
-.v4-contact-advisory {
-  color: var(--v4-muted);
-  font-size: 14px;
-  margin: 10px 0 0;
-}
-
-.v4-contact-advisory a {
-  color: var(--v4-muted);
-  border-bottom: 1px solid var(--v4-line);
-  text-decoration: none;
-  transition: color 0.15s ease, border-color 0.15s ease;
-}
-
-.v4-contact-advisory a:hover,
-.v4-contact-advisory a:focus-visible {
-  color: var(--v4-orange);
-  border-bottom-color: var(--v4-orange);
-}
-
 /* --- Footer --- */
 
 .v4-foot {
@@ -1130,6 +1107,11 @@ body.v4-page {
 
 .v4-foot-privacy {
   color: var(--v4-muted);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 11px;
+  max-width: 56ch;
+  text-align: right;
 }
 
 /* --- Scroll-to-top button --- */
@@ -1206,13 +1188,6 @@ body.v4-page {
   }
   .v4-stat:nth-last-child(-n + 2) {
     border-bottom: none;
-  }
-  .v4-section-head {
-    grid-template-columns: 56px 1fr;
-  }
-  .v4-body {
-    grid-template-columns: 56px 1fr;
-    gap: 12px;
   }
   .v4-about-grid {
     grid-template-columns: 1fr;
@@ -1299,20 +1274,15 @@ body.v4-page {
     margin-bottom: 28px;
   }
   .v4-section-head {
-    grid-template-columns: 40px 1fr;
-    gap: 10px;
     padding-bottom: 10px;
     margin-bottom: 12px;
   }
-  .v4-body {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-  .v4-body-aside {
-    display: none;
-  }
   .v4-h2 {
     font-size: 18px;
+  }
+  .v4-foot-privacy {
+    text-align: left;
+    max-width: none;
   }
   .v4-products {
     grid-template-columns: 1fr;

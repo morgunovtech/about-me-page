@@ -1,14 +1,14 @@
 # Semyon Morgunov / Семён Моргунов
 
-> Director of E-commerce at Korzinka — Uzbekistan's largest grocery retailer and e-grocery service. 10 years in tech across Russia, Uzbekistan, and Kyrgyzstan. Co-founder of 4 ventures. 5,772 readers across social channels. Based in Tashkent, Uzbekistan. Advises startups and angel-invests in e-com, FoodTech, RetailTech, FinTech, and EdTech.
+> Head of FinTech at Yandex Uzbekistan — building consumer fintech (BNPL, payments, credit) in one of the fastest-growing markets in the region. 10 years in tech across Russia, Uzbekistan, and Kyrgyzstan. Co-founder of 4 ventures. 5,772 readers across social channels. Based in Tashkent, Uzbekistan. Advises startups and angel-invests in e-com, FoodTech, RetailTech, FinTech, and EdTech.
 
 ## About
 
 - Name: Semyon Morgunov (Семён Моргунов)
-- Current role: Director of E-commerce @ Korzinka, Tashkent, Uzbekistan
-- Past roles: Head of Product @ Yandex Services (2022–2023); Head of Growth & Monetization @ Skyeng/Skysmart (2017–2022); Certified Sales Trainer @ Apple Russia (2018–2019, contractor)
-- Skills: Product Management, Growth, Monetization, 0→1 Launches
-- Industries: e-com, FoodTech, RetailTech, FinTech, EdTech
+- Current role: Head of FinTech @ Yandex Uzbekistan, Tashkent, Uzbekistan (since April 2026) — Yandex Split BNPL, FinTech for Yandex Pro, strategic fintech partnerships
+- Past roles: Director of E-commerce @ Korzinka (2023–2026, led Korzinka Go from 1 to 9 cities, orders ×23, positive EBITDA); Head of Product @ Yandex Services / Yandex.Uslugi (2022–2023, GMV ×2.2, positive EBITDA); Head of Growth & Monetization @ Skyeng/Skysmart (2017–2022); Certified Sales Trainer @ Apple Russia (2018–2019, contractor)
+- Skills: FinTech, P&L Management, Product Strategy, E-Commerce, Growth, Monetization, 0→1 Launches
+- Industries: FinTech, e-com, RetailTech, FoodTech, EdTech
 - Teaching: I-Corps instructor; one of five Apple-accredited sales trainers in Russia at the time
 - Languages: Russian (primary), English
 
@@ -24,7 +24,7 @@
 
 - [Fingerprint](https://fprint.morgunov.tech/) — web service that reveals your browser's digital fingerprint and gives actionable privacy recommendations; runs locally in the browser
 - [FoundYou](https://foundyou.morgunov.tech/) — web tool that reveals photo metadata (geolocation, time, device) and removes sensitive info; blurs faces, plates, documents; processes photos locally
-- [Telegram channel «Semyon raspravil plechi» / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on technology, products, management, and career; 1100+ subscribers; new posts every 1–2 weeks
+- [Telegram channel «Semyon raspravil plechi» / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on technology, products, management, and career; 1,137 readers; new posts every 1–2 weeks
 
 ## Ventures (entrepreneurship)
 
