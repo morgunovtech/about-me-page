@@ -27,6 +27,11 @@ about-me-page/
 ├── sitemap.xml         # Four-entry sitemap with hreflang alternates
 ├── 404.html            # V4-styled 404 page with i18n auto-detect
 ├── yandex_c8faae431964bcca.html  # Yandex Search ownership verification
+├── fonts/                         # Self-hosted IBM Plex woff2 (latin + cyrillic subsets)
+│   ├── plex-sans-latin-{400,500,600}.woff2
+│   ├── plex-sans-cyr-{400,500,600}.woff2
+│   ├── plex-mono-latin-{400,500}.woff2
+│   └── plex-mono-cyr-{400,500}.woff2
 └── images/
     ├── Hero_Photo.webp            # Main portrait 1600x1067 (LCP element)
     ├── Hero_Photo_320.webp        # 320w variant for srcset
@@ -117,6 +122,7 @@ There is no CI/CD pipeline, no GitHub Actions, no build scripts.
 
 ## Changelog
 
+- v0.9 — Type & content consistency pass. Full IBM Plex unification: self-hosted IBM Plex Sans + Plex Mono in `/fonts/` (10 woff2 files, latin + cyrillic via `unicode-range`, `font-display: swap`); Inter and JetBrains Mono removed from fallbacks; cyrillic 400/600 preloaded on RU pages, latin on EN. Mono usage tightened to numeric/technical labels only — `.v4-status`, `.v4-foot`, `.v4-stat-unit`, `.v4-h3` (collaborate sub-headings) moved to sans with tracking; `.role-tag` removed. Stats reframed: `10 yrs in tech / 3 countries / 5,772 readers / 4× co-founder`, with new `.v4-stat-aside` for the country breakdown `RU · UZ · KG` (always-visible mobile-friendly line, no hover dependency). About chips replaced with inline text + `·` separators (`.v4-skill-list`); orange `.v4-chip-accent` on Teaching removed. Apple Russia "по контракту" / "contractor" moved inline next to company name as small muted note (`.company-aside`). Portrait `<figcaption>` ("Семён Моргунов / 2026") removed — was duplicating the H1. Section #05 renamed `Собственные продукты → Продукты`. JSON-LD `description` updated to "10 years across Russia, Uzbekistan, Kyrgyzstan"; `knowsAbout` extended with "Central Asia markets", "CIS markets", "Cross-cultural product management"; `ItemList` name "Продукты Семёна Моргунова". `llms.txt` synced. Cache buster bumped `v=15 → v=16` across all 5 HTML files.
 - v0.8 — V4 Braun/Dieter Rams redesign across all pages (RU + EN): homepage with hero/portrait, 4-column stats strip, 7 numbered sections, monospace accents; collaborate page redesigned with 5 numbered sections (about, consulting tiers, strategy, angel investing, contact); 404 migrated to V4. Performance: inline critical CSS in `<head>` with non-blocking `<link rel="preload">` swap, `srcset` for hero (320/640/960/1600w variants generated), `content-visibility:auto` on below-fold sections. SEO/AI: expanded JSON-LD with `@graph` (`WebSite`, `WebPage`, `Person`, `ItemList`, `Service`), `knowsLanguage`, `hasOccupation`, `alumniOf`, sitemap `lastmod` updated. A11y: 4 themes work everywhere, tap targets ≥36px, semantic `<main>`/`<header>`/`<section>` landmarks, `.sr-only` utility, mobile nav as second row in top bar. CSP updated to `style-src 'self' 'unsafe-inline'` for inline critical CSS. Legacy CSS removed (styles.css 57KB → 23KB).
 - v0.7 — Collaboration page (`/collaborate.html` + `/en/collaborate.html`) with consulting, advisory, and angel investing details; replaced external Craft link on homepage
 - v0.6 — English version at `/en/`, language switcher (RU/EN), hreflang tags, bilingual llms.txt, sitemap with hreflang alternates

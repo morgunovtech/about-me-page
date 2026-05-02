@@ -30,7 +30,7 @@
   <link rel="preload" as="image" href="/images/Hero_Photo_640.webp" imagesrcset="/images/Hero_Photo_320.webp 320w, /images/Hero_Photo_640.webp 640w, /images/Hero_Photo_960.webp 960w, /images/Hero_Photo.webp 1600w" imagesizes="(max-width: 640px) 240px, 280px" type="image/webp" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
   <style>
-    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#807a6e;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-on-accent:#fff;--v4-on-fg:#f5f2ed;--v4-mono:"JetBrains Mono","IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"Inter","IBM Plex Sans",ui-sans-serif,-apple-system,sans-serif}
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#807a6e;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-on-accent:#fff;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif}
     [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#6a6459;--v4-line:#2e2a24;--v4-line-soft:#232019;--v4-orange:#ff6a2e;--v4-on-fg:#14130f}
     [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#fff;--v4-orange:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000}
     *,*::before,*::after{box-sizing:border-box}
@@ -70,12 +70,15 @@
     .v4-stat{padding:18px 16px;border-right:1px solid var(--v4-line)}
     .v4-stat:last-child{border-right:none}
     .v4-stat-value{font-size:36px;font-weight:600;line-height:1;letter-spacing:-.025em}
-    .v4-stat-unit{font-family:var(--v4-mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--v4-muted);margin-top:8px}
+    .v4-stat-unit{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--v4-muted);margin-top:8px;font-weight:500}
+    .v4-stat-aside{font-family:var(--v4-mono);font-size:10px;letter-spacing:.06em;color:var(--v4-dim);margin-top:6px}
     @media (max-width:960px){.v4-root{padding:28px 32px 40px}.v4-hero{grid-template-columns:1fr;gap:28px}.v4-portrait-wrap{max-width:280px}.v4-h1{font-size:52px}.v4-stats{grid-template-columns:repeat(2,1fr)}.v4-stat{border-right:1px solid var(--v4-line);border-bottom:1px solid var(--v4-line)}.v4-stat:nth-child(2n){border-right:none}.v4-stat:nth-last-child(-n+2){border-bottom:none}}
     @media (max-width:640px){.v4-root{padding:20px 18px 32px;font-size:13.5px}.v4-bar{grid-template-columns:1fr auto;grid-template-rows:auto auto;grid-template-areas:"left right" "mid mid";row-gap:10px;font-size:10px}.v4-bar-left{grid-area:left}.v4-bar-right{grid-area:right}.v4-bar-mid{grid-area:mid;justify-content:flex-start;flex-wrap:wrap;gap:4px 14px}.v4-bar-mid a{padding:10px 6px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}.v4-portrait-wrap{max-width:240px}.v4-stat-value{font-size:28px}.v4-stat{padding:14px 12px}}
   </style>
-  <link rel="preload" href="/styles.css?v=15" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/styles.css?v=15" /></noscript>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-cyr-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-cyr-600.woff2" crossorigin />
+  <link rel="preload" href="/styles.css?v=16" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/styles.css?v=16" /></noscript>
   <script>
     (function () {
       var d = document.documentElement;
@@ -113,7 +116,7 @@
         "name": "Семён Моргунов",
         "alternateName": "Semyon Morgunov",
         "jobTitle": "Director of E-commerce",
-        "description": "E-commerce директор в Korzinka — крупнейшем ритейлере Узбекистана. Продуктовый менеджер с 8-летним опытом в IT, со-основатель четырёх стартапов, эдвайзер и ангельский инвестор. Автор Telegram-канала «Семён расправил плечи».",
+        "description": "E-commerce директор в Korzinka — крупнейшем ритейлере Узбекистана. Продуктовый менеджер с 10-летним опытом в IT (Россия, Узбекистан, Кыргызстан), со-основатель четырёх стартапов, эдвайзер и ангельский инвестор. Автор Telegram-канала «Семён расправил плечи».",
         "url": "https://s.morgunov.tech/",
         "image": "https://s.morgunov.tech/images/Hero_Photo.webp",
         "email": "s@morgunov.tech",
@@ -130,7 +133,10 @@
           "FinTech",
           "Digital Privacy",
           "Startup Advisory",
-          "Angel Investing"
+          "Angel Investing",
+          "Central Asia markets",
+          "CIS markets",
+          "Cross-cultural product management"
         ],
         "sameAs": [
           "https://t.me/raschet7",
@@ -167,7 +173,7 @@
       {
         "@type": "ItemList",
         "@id": "https://s.morgunov.tech/#products",
-        "name": "Собственные продукты Семёна Моргунова",
+        "name": "Продукты Семёна Моргунова",
         "itemListElement": [
           {
             "@type": "ListItem",
@@ -266,25 +272,22 @@
              fetchpriority="high"
              width="1600"
              height="1067" />
-        <figcaption class="v4-portrait-cap">
-          <span>Семён Моргунов</span>
-          <span>2026</span>
-        </figcaption>
       </figure>
     </section>
 
     <div class="v4-stats" aria-label="Ключевые цифры">
       <div class="v4-stat">
-        <div class="v4-stat-value">8</div>
+        <div class="v4-stat-value">10</div>
         <div class="v4-stat-unit">лет в IT</div>
       </div>
       <div class="v4-stat">
-        <div class="v4-stat-value">5</div>
-        <div class="v4-stat-unit">в product</div>
+        <div class="v4-stat-value">3</div>
+        <div class="v4-stat-unit">страны</div>
+        <div class="v4-stat-aside">RU · UZ · KG</div>
       </div>
       <div class="v4-stat">
-        <div class="v4-stat-value">3</div>
-        <div class="v4-stat-unit">в e-com</div>
+        <div class="v4-stat-value">5&nbsp;772</div>
+        <div class="v4-stat-unit">читателей</div>
       </div>
       <div class="v4-stat">
         <div class="v4-stat-value">4×</div>
@@ -305,29 +308,15 @@
               <h3 class="v4-col-label">Профессионально</h3>
               <div class="v4-skill-group">
                 <div class="v4-skill-group-label">Продукт</div>
-                <div class="v4-chips">
-                  <span class="v4-chip">Product Management</span>
-                  <span class="v4-chip">Growth</span>
-                  <span class="v4-chip">Monetization</span>
-                  <span class="v4-chip">0→1 запуски</span>
-                </div>
+                <p class="v4-skill-list">Product Management<span class="sep">·</span>Growth<span class="sep">·</span>Monetization<span class="sep">·</span>0→1 запуски</p>
               </div>
               <div class="v4-skill-group">
                 <div class="v4-skill-group-label">Индустрии</div>
-                <div class="v4-chips">
-                  <span class="v4-chip">e-com</span>
-                  <span class="v4-chip">FoodTech</span>
-                  <span class="v4-chip">RetailTech</span>
-                  <span class="v4-chip">FinTech</span>
-                  <span class="v4-chip">EdTech</span>
-                </div>
+                <p class="v4-skill-list">e-com<span class="sep">·</span>FoodTech<span class="sep">·</span>RetailTech<span class="sep">·</span>FinTech<span class="sep">·</span>EdTech</p>
               </div>
               <div class="v4-skill-group">
                 <div class="v4-skill-group-label">Преподавание</div>
-                <div class="v4-chips">
-                  <span class="v4-chip v4-chip-accent">I-Corps инструктор</span>
-                  <span class="v4-chip v4-chip-accent">Apple Sales Trainer</span>
-                </div>
+                <p class="v4-skill-list">I-Corps инструктор<span class="sep">·</span>Apple Sales Trainer</p>
               </div>
             </div>
             <div>
@@ -388,8 +377,8 @@
           <div class="v4-career-row">
             <div class="period">2018 — 2019</div>
             <div>
-              <div class="company">Apple Russia</div>
-              <div class="role">Certified Sales Trainer <span class="role-tag">Contractor</span></div>
+              <div class="company">Apple Russia <span class="company-aside">по&nbsp;контракту</span></div>
+              <div class="role">Certified Sales Trainer</div>
             </div>
             <div class="ctx">Один из пяти аккредитованных тренеров в России на тот момент</div>
           </div>
@@ -464,7 +453,7 @@
     <section id="products" class="v4-section">
       <div class="v4-section-head">
         <span class="v4-section-num">05</span>
-        <h2 class="v4-h2">Собственные продукты</h2>
+        <h2 class="v4-h2">Продукты</h2>
       </div>
       <div class="v4-products">
         <article class="v4-product">
