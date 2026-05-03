@@ -15,9 +15,9 @@
   const scrollTopButton = document.querySelector('.v4-scroll-top');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const dropdowns = Array.from(document.querySelectorAll('.v4-theme'));
-  const changelogToggle = document.querySelector('.changelog-toggle');
-  const changelogPanel = document.getElementById('changelog-panel');
+  const themeDropdown = document.querySelector('.v4-theme');
+  const themeToggle = themeDropdown?.querySelector('.v4-icon-btn');
+  const themeMenu = themeDropdown?.querySelector('.v4-theme-menu');
   const THEME_PREFERENCE_KEY = 'theme-preference';
 
   /* Remove no-transition class after first paint to enable CSS transitions */
@@ -26,18 +26,6 @@
       body.classList.remove('no-transition');
     });
   });
-
-  /* --- Dropdowns (covers .nav-dropdown, .theme-dropdown, .v4-theme) --- */
-
-  const closeDropdowns = (except) => {
-    dropdowns.forEach((dropdown) => {
-      if (dropdown !== except) {
-        dropdown.classList.remove('is-open');
-        const toggle = dropdown.querySelector('.dropdown-toggle, .v4-icon-btn');
-        if (toggle) toggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-  };
 
   /* --- Theme --- */
 
@@ -65,32 +53,33 @@
   const savedTheme = localStorage.getItem(THEME_PREFERENCE_KEY) || 'auto';
   setThemePressed(savedTheme);
 
-  /* --- Dropdown wiring --- */
+  /* --- Theme dropdown wiring --- */
 
-  dropdowns.forEach((dropdown) => {
-    const toggle = dropdown.querySelector('.v4-icon-btn');
-    const menu = dropdown.querySelector('.v4-theme-menu');
-    if (toggle) toggle.setAttribute('aria-expanded', 'false');
-    toggle?.addEventListener('click', (event) => {
-      const isOpen = dropdown.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      if (isOpen) {
-        closeDropdowns(dropdown);
-        /* Move focus to first item when opened via keyboard (Enter/Space).
-           event.detail === 0 means the click came from a synthesised keyboard
-           activation; pointer activation reports a positive click count. */
-        if (event.detail === 0) menu?.querySelector('button, a')?.focus();
+  const closeThemeMenu = () => {
+    themeDropdown?.classList.remove('is-open');
+    themeToggle?.setAttribute('aria-expanded', 'false');
+  };
+
+  if (themeToggle && themeMenu) {
+    themeToggle.setAttribute('aria-expanded', 'false');
+    themeToggle.addEventListener('click', (event) => {
+      const isOpen = themeDropdown.classList.toggle('is-open');
+      themeToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      /* Move focus to first item when opened via keyboard (Enter/Space).
+         event.detail === 0 means a synthesised keyboard activation; pointer
+         activation reports a positive click count. */
+      if (isOpen && event.detail === 0) {
+        themeMenu.querySelector('button, a')?.focus();
       }
     });
-    menu?.addEventListener('click', (event) => {
+    themeMenu.addEventListener('click', (event) => {
       if (event.target.closest('a') || event.target.closest('button')) {
-        dropdown.classList.remove('is-open');
-        toggle?.setAttribute('aria-expanded', 'false');
-        toggle?.focus();
+        closeThemeMenu();
+        themeToggle.focus();
       }
     });
-    menu?.addEventListener('keydown', (event) => {
-      const items = Array.from(menu.querySelectorAll('button, a'));
+    themeMenu.addEventListener('keydown', (event) => {
+      const items = Array.from(themeMenu.querySelectorAll('button, a'));
       if (!items.length) return;
       const i = items.indexOf(document.activeElement);
       if (event.key === 'ArrowDown') {
@@ -107,16 +96,16 @@
         items[items.length - 1].focus();
       }
     });
-  });
+  }
 
   document.addEventListener('click', (event) => {
     if (!event.target.closest('.v4-theme')) {
-      closeDropdowns();
+      closeThemeMenu();
     }
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeDropdowns();
+    if (event.key === 'Escape') closeThemeMenu();
   });
 
   /* --- Theme buttons --- */
@@ -132,16 +121,6 @@
       applyTheme('auto');
     }
   });
-
-  /* --- Changelog toggle (collaborate page only) --- */
-
-  if (changelogToggle && changelogPanel) {
-    changelogToggle.addEventListener('click', () => {
-      const wasOpen = !changelogPanel.hidden;
-      changelogPanel.hidden = wasOpen;
-      changelogToggle.setAttribute('aria-expanded', wasOpen ? 'false' : 'true');
-    });
-  }
 
   /* --- Anchor navigation (handles repeated clicks on same anchor) --- */
 

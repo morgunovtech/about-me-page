@@ -99,11 +99,15 @@
   --v4-line: #c9c5bd;
   --v4-line-soft: #d8d4cc;
   --v4-orange: #d9531e;
+  /* Foreground-only orange. Brand orange #d9531e on light bg fails AA at 11px (3.36:1).
+     This token is darkened to 4.86:1 for use as text/link colour. Brand orange stays
+     for backgrounds/borders/badges where contrast rules don't apply the same way. */
+  --v4-orange-text: #b03e10;
   --v4-on-accent: #14110d;
   --v4-on-fg: #f5f2ed;
   --v4-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --v4-sans: "IBM Plex Sans", ui-sans-serif, -apple-system, "Segoe UI", sans-serif;
-  color-scheme: light;
+  color-scheme: light dark;
 }
 
 [data-theme="dark"] {
@@ -112,9 +116,10 @@
   --v4-fg: #ece7dd;
   --v4-muted: #b8b0a2;
   --v4-dim: #8a8378;
-  --v4-line: #2e2a24;
-  --v4-line-soft: #232019;
+  --v4-line: #3a3530;
+  --v4-line-soft: #2a2620;
   --v4-orange: #ff6a2e;
+  --v4-orange-text: #ff6a2e;
   --v4-on-accent: #14130f;
   --v4-on-fg: #14130f;
   color-scheme: dark;
@@ -127,8 +132,9 @@
   --v4-muted: #f1eee7;
   --v4-dim: #d6d0c8;
   --v4-line: #ffffff;
-  --v4-line-soft: #ffffff;
+  --v4-line-soft: #c8c8c8;
   --v4-orange: #ffd166;
+  --v4-orange-text: #ffd166;
   --v4-on-accent: #000000;
   --v4-on-fg: #000000;
   color-scheme: dark;
@@ -232,7 +238,7 @@ body.v4-page {
 
 .v4-bar-left a:hover,
 .v4-bar-left a:focus-visible {
-  color: var(--v4-orange);
+  color: var(--v4-orange-text);
 }
 
 .v4-bar-mid {
@@ -323,7 +329,7 @@ body.v4-page {
 .v4-icon-btn:hover,
 .v4-icon-btn:focus-visible {
   border-color: var(--v4-fg);
-  color: var(--v4-orange);
+  color: var(--v4-orange-text);
 }
 
 .v4-icon-btn svg {
@@ -366,11 +372,11 @@ body.v4-page {
 .v4-theme-btn:hover,
 .v4-theme-btn:focus-visible {
   background: var(--v4-bg);
-  color: var(--v4-orange);
+  color: var(--v4-orange-text);
 }
 
 .v4-theme-btn[aria-pressed="true"] {
-  color: var(--v4-orange);
+  color: var(--v4-orange-text);
   border-color: var(--v4-orange);
 }
 
@@ -428,6 +434,11 @@ body.v4-page {
   max-width: 52ch;
   margin: 0 0 24px;
   font-weight: 400;
+}
+
+.v4-tagline--compact {
+  font-size: 16px;
+  margin-bottom: 18px;
 }
 
 .v4-cta-row {
@@ -562,7 +573,7 @@ body.v4-page {
   display: block;
   font-family: var(--v4-mono);
   font-size: 11px;
-  color: var(--v4-orange);
+  color: var(--v4-orange-text);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 500;
@@ -636,8 +647,12 @@ body.v4-page {
 
 .v4-list a:hover,
 .v4-list a:focus-visible {
-  color: var(--v4-orange);
-  text-decoration-color: var(--v4-orange);
+  color: var(--v4-orange-text);
+  text-decoration-color: var(--v4-orange-text);
+}
+
+.v4-list--spaced {
+  margin-top: 12px;
 }
 
 /* --- Prose --- */
@@ -670,8 +685,8 @@ body.v4-page {
 
 .v4-prose a:hover,
 .v4-prose a:focus-visible {
-  color: var(--v4-orange);
-  text-decoration-color: var(--v4-orange);
+  color: var(--v4-orange-text);
+  text-decoration-color: var(--v4-orange-text);
 }
 
 .v4-terms {
@@ -747,15 +762,6 @@ body.v4-page {
   color: var(--v4-fg);
   font-size: 14px;
   max-width: 60ch;
-}
-
-.v4-career-row .company-aside {
-  color: var(--v4-muted);
-  font-weight: 400;
-  font-size: 11px;
-  margin-left: 6px;
-  letter-spacing: 0;
-  text-transform: none;
 }
 
 .v4-current-dot {
@@ -841,12 +847,6 @@ body.v4-page {
   box-sizing: border-box;
 }
 
-.v4-status.active {
-  background: var(--v4-orange);
-  color: var(--v4-on-accent);
-  border: 1px solid var(--v4-orange);
-}
-
 .v4-status.paused {
   border: 1px solid var(--v4-fg);
   color: var(--v4-fg);
@@ -871,17 +871,28 @@ body.v4-page {
   gap: 16px;
 }
 
+.v4-products--two-up {
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .v4-product {
   display: flex;
   flex-direction: column;
   background: var(--v4-paper);
   border: 1px solid var(--v4-line);
   padding: 22px;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, outline-color 0.15s ease;
 }
 
 .v4-product:hover {
   border-color: var(--v4-fg);
+}
+
+/* In high-contrast theme, --v4-line and --v4-fg are both #fff, so the default
+   border-color hover is invisible. Use an outline ring instead. */
+[data-theme="high-contrast"] .v4-product:hover {
+  outline: 2px solid var(--v4-orange);
+  outline-offset: -2px;
 }
 
 .v4-product-head {
@@ -951,7 +962,7 @@ body.v4-page {
 
 .v4-more a:hover,
 .v4-more a:focus-visible {
-  color: var(--v4-orange);
+  color: var(--v4-orange-text);
 }
 
 /* --- Collaborate page extras --- */
@@ -962,7 +973,7 @@ body.v4-page {
   gap: 4px;
   font-family: var(--v4-mono);
   font-size: 11px;
-  color: var(--v4-orange);
+  color: var(--v4-orange-text);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -1100,8 +1111,8 @@ body.v4-page {
 
 .v4-foot a:hover,
 .v4-foot a:focus-visible {
-  color: var(--v4-orange);
-  text-decoration-color: var(--v4-orange);
+  color: var(--v4-orange-text);
+  text-decoration-color: var(--v4-orange-text);
 }
 
 .v4-foot code {
@@ -1141,7 +1152,7 @@ body.v4-page {
 
 .v4-scroll-top:hover,
 .v4-scroll-top:focus-visible {
-  color: var(--v4-orange);
+  color: var(--v4-orange-text);
 }
 
 /* --- Focus ring --- */
@@ -1210,6 +1221,7 @@ body.v4-page {
     grid-column: 2;
     justify-self: start;
     margin-top: 4px;
+    min-width: 0;
   }
   .v4-pubs {
     grid-template-columns: 1fr;
@@ -1311,39 +1323,6 @@ body.v4-page {
   }
 }
 
-/* --- Link arrow markers (external ↗, internal anchor ↓) --- */
-
-/* External: any link that opens in a new tab gets a small ↗ marker.
-   Excludes .v4-btn (already arrowed in their text) and the icon-only theme button. */
-.v4-page a[target="_blank"]:not(.v4-btn):not(.v4-icon-btn)::after {
-  content: " \2197";
-  display: inline-block;
-  margin-left: 0.15em;
-  color: var(--v4-dim);
-  font-size: 0.85em;
-  font-weight: 400;
-  text-decoration: none;
-  vertical-align: baseline;
-  transition: color 0.15s ease;
-}
-
-.v4-page a[target="_blank"]:not(.v4-btn):not(.v4-icon-btn):hover::after,
-.v4-page a[target="_blank"]:not(.v4-btn):not(.v4-icon-btn):focus-visible::after {
-  color: var(--v4-orange);
-}
-
-/* Internal anchors: in-content links (inside <main>) to a same-page id get
-   a ↓ marker. Scoped to <main> so the top nav and skip-link, which are
-   anchor-based by design, stay clean. */
-.v4-page main a[href^="#"]:not(.v4-btn)::after {
-  content: " \2193";
-  display: inline-block;
-  margin-left: 0.15em;
-  color: var(--v4-dim);
-  font-size: 0.85em;
-  text-decoration: none;
-}
-
 /* --- Tabular figures (lined up columns of digits) --- */
 
 .v4-stat-value,
@@ -1354,8 +1333,21 @@ body.v4-page {
 .v4-foot time,
 .v4-foot code,
 time {
-  font-feature-settings: "tnum" 1, "lnum" 1;
   font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Below 480px the 3-button hero CTA-row wraps unevenly. Stack full-width
+   for stronger tap targets and a calmer rhythm. */
+@media (max-width: 480px) {
+  .v4-hero .v4-cta-row,
+  .v4-contact .v4-cta-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .v4-hero .v4-cta-row .v4-btn,
+  .v4-contact .v4-cta-row .v4-btn {
+    width: 100%;
+  }
 }
 
 /* --- Accessibility: Reduced motion (override must come last to win the cascade) --- */

@@ -24,7 +24,12 @@ PAIRS = [
     ("index.html", "en/index.html"),
     ("collaborate.html", "en/collaborate.html"),
 ]
-SKIP_SUBTREE = {"style", "script", "svg"}
+SKIP_SUBTREE = {"style", "script", "svg", "noscript"}
+# Tags that we ignore entirely (no enter/exit events recorded). These are
+# meta-level, not layout-defining: their counts can legitimately differ
+# between RU and EN (e.g. RU pages preload cyrillic + latin fonts; EN only
+# latin), and a structural-parity check shouldn't flag that.
+IGNORE_TAGS = {"link", "meta"}
 # Classes that mark dynamic / locale-specific state, not structure.
 # Filtered out before fingerprinting so RU/EN can legitimately differ on them
 # (e.g. active language tab, current nav item).
@@ -44,6 +49,8 @@ class FingerprintParser(HTMLParser):
         if tag in SKIP_SUBTREE:
             self.skip_depth = self.depth
             return
+        if tag in IGNORE_TAGS:
+            return
         a = dict(attrs)
         raw_classes = a.get("class", "").split()
         cls = tuple(sorted(c for c in raw_classes if c not in IGNORE_CLASSES))
@@ -55,7 +62,7 @@ class FingerprintParser(HTMLParser):
             return
         if self.skip_depth is not None:
             return
-        if tag in SKIP_SUBTREE:
+        if tag in SKIP_SUBTREE or tag in IGNORE_TAGS:
             return
         self.events.append(("close", self.depth, tag))
 
@@ -68,7 +75,7 @@ class FingerprintParser(HTMLParser):
         self._end(tag)
 
     def handle_startendtag(self, tag, attrs):
-        if self.skip_depth is not None or tag in SKIP_SUBTREE:
+        if self.skip_depth is not None or tag in SKIP_SUBTREE or tag in IGNORE_TAGS:
             return
         a = dict(attrs)
         raw_classes = a.get("class", "").split()
