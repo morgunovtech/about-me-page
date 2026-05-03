@@ -1091,6 +1091,27 @@ body.v4-page {
   text-align: right;
 }
 
+.v4-foot a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--v4-line);
+  text-underline-offset: 2px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.v4-foot a:hover,
+.v4-foot a:focus-visible {
+  color: var(--v4-orange);
+  text-decoration-color: var(--v4-orange);
+}
+
+.v4-foot code {
+  font-family: var(--v4-mono);
+  font-size: inherit;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 /* --- Scroll-to-top button --- */
 
 .v4-scroll-top {
