@@ -696,26 +696,11 @@ body.v4-page {
 
 /* --- Career --- */
 
-.v4-career-head,
 .v4-career-row {
   display: grid;
   grid-template-columns: 110px 220px 1fr;
   gap: 20px;
   align-items: baseline;
-}
-
-.v4-career-head {
-  padding: 6px 0;
-  font-size: 10px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--v4-muted);
-  border-bottom: 1px solid var(--v4-line);
-  font-family: var(--v4-mono);
-}
-
-.v4-career-row {
   padding: 14px 0;
   border-bottom: 1px solid var(--v4-line-soft);
 }
@@ -777,10 +762,6 @@ body.v4-page {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-}
-
-.v4-help-list li {
-  font-size: 15px;
 }
 
 /* --- Ventures --- */
@@ -1200,14 +1181,12 @@ body.v4-page {
   .v4-stat:nth-last-child(-n + 2) {
     border-bottom: none;
   }
-  .v4-career-head,
   .v4-career-row {
-    grid-template-columns: 92px 1fr;
+    grid-template-columns: 130px 1fr;
     gap: 14px;
   }
-  .v4-career-head > :last-child,
   .v4-career-row .ctx {
-    grid-column: 1 / -1;
+    grid-column: 2 / -1;
     padding-top: 4px;
     color: var(--v4-muted);
     font-size: 13px;
