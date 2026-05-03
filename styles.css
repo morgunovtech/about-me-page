@@ -1332,20 +1332,16 @@ body.v4-page {
   color: var(--v4-orange);
 }
 
-/* Internal anchors: in-content links to a same-page id get a ↓ marker.
-   Suppressed on the skip link, the morgunov.tech home anchor (#top), and the
-   nav menu (which is already understood as anchored navigation). */
-.v4-page a[href^="#"]:not(.v4-btn):not(.skip-link):not([href="#main"]):not([href="#top"])::after {
+/* Internal anchors: in-content links (inside <main>) to a same-page id get
+   a ↓ marker. Scoped to <main> so the top nav and skip-link, which are
+   anchor-based by design, stay clean. */
+.v4-page main a[href^="#"]:not(.v4-btn)::after {
   content: " \2193";
   display: inline-block;
   margin-left: 0.15em;
   color: var(--v4-dim);
   font-size: 0.85em;
   text-decoration: none;
-}
-
-.v4-bar-mid a[href^="#"]::after {
-  content: none;
 }
 
 /* --- Tabular figures (lined up columns of digits) --- */
