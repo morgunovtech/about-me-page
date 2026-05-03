@@ -1,6 +1,16 @@
 (() => {
   const root = document.documentElement;
   const body = document.body;
+
+  /* For anyone who opens DevTools — no CTA, just a hello. */
+  const greeting = root.lang === 'en'
+    ? 'Hi. No analytics, no cookies, no trackers — feel free to look around.'
+    : 'Привет. Тут нет аналитики, кук и трекеров — спокойно осмотрись.';
+  console.log(
+    '%c' + greeting,
+    'font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif; color: #d9531e; padding: 8px 0;'
+  );
+
   const themeButtons = Array.from(document.querySelectorAll('.v4-theme-btn'));
   const scrollTopButton = document.querySelector('.v4-scroll-top');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
