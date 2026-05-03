@@ -748,12 +748,21 @@ body.v4-page {
   max-width: 60ch;
 }
 
-.v4-current-dot {
+/* Live indicator dot (current role in #02 + active product in #05).
+   Pulses to suggest «вот это сейчас работает». Reduced-motion users get
+   a static dot via the global animation-duration: 0.001ms override. */
+.v4-live-dot {
   display: inline-block;
   width: 6px;
   height: 6px;
   background: var(--v4-orange);
   flex-shrink: 0;
+  animation: v4-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes v4-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
 /* --- Help section CTA --- */
@@ -860,6 +869,14 @@ body.v4-page {
   padding: 3px 8px;
   font-weight: 500;
   font-family: var(--v4-mono);
+}
+
+/* Groups WEB tag + live-dot together so they read as one unit; version
+   stays on the right via .v4-product-head's space-between. */
+.v4-product-tag-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .v4-product-name {
