@@ -1,11 +1,11 @@
 # Semyon Morgunov / Семён Моргунов
 
-> Head of FinTech at Yandex Uzbekistan — builds products in Central Asia, where product, operations, and unit economics are assembled in parallel. 10 years in tech: works in Russia and Uzbekistan, consults companies in Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees, three closed). 5,772 followers across social channels. Based in Tashkent, Uzbekistan. Advises startups and angel-invests in e-com, RetailTech, FinTech, and EdTech.
+> Head of FinTech at Yandex Uzbekistan — builds products in Central Asia's fast-growing markets, where product, operations, and unit economics are assembled in parallel. 10 years in tech: works in Russia and Uzbekistan, consults companies in Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees, three closed). 5,772 followers across social channels. Based in Tashkent, Uzbekistan. Advises startups and angel-invests in e-com, RetailTech, FinTech, and EdTech.
 
 ## About
 
 - Name: Semyon Morgunov (Семён Моргунов)
-- Positioning: builds products in Central Asia — places where there's no off-the-shelf infrastructure, and product, operations, and unit economics have to be assembled in parallel. Brings products to positive unit economics, not just to launch.
+- Positioning: builds products in Central Asia's fast-growing markets — assembles product, operations, and unit economics in parallel. Brings products to positive unit economics, not just to launch.
 - Current role: Head of FinTech @ Yandex Uzbekistan, Tashkent, Uzbekistan (since April 2026) — Yandex Split BNPL, FinTech for Yandex Pro, strategic fintech partnerships
 - Past roles: Director of E-commerce / CPO Korzinka Go @ Korzinka (2023–2026, orders 400 → 10,000/day, expansion 1 → 9 cities in 10 months, revenue ×2 YoY with positive EBITDA, payments module from scratch with 3 BNPL providers and PCI DSS 4.0, CSAT 4.2 → 4.5); Head of Product @ Yandex Services / Yandex.Uslugi (2022–2023, 30+ products in home services, ~6.5M MAU, GMV ×2.2, EBITDA turned positive); Head of Growth & Monetization @ Skyeng / Skysmart (2017–2022, activated 7M+ users, products that became top-3 acquisition channels with positive unit economics); Certified Sales Trainer @ Apple Russia (2018–2019, contractor)
 - Geography: works in Russia and Uzbekistan, consults companies in Kyrgyzstan
