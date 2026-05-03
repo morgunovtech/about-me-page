@@ -124,7 +124,7 @@
 
   /* --- Anchor navigation (handles repeated clicks on same anchor) --- */
 
-  const navLinks = Array.from(document.querySelectorAll('.v4-bar-mid a[href^="#"]'));
+  const navLinks = Array.from(document.querySelectorAll('.v4-bar-mid a[href^="#"], .v4-section-nav a[href^="#"]'));
   const scrollBehavior = prefersReducedMotion.matches ? 'auto' : 'smooth';
 
   navLinks.forEach((link) => {
@@ -150,11 +150,38 @@
     window.scrollTo({ top: 0, behavior: prefersReducedMotion.matches ? 'auto' : 'smooth' });
   });
 
+  /* --- Sticky section nav (right column, scroll-spy) --- */
+
+  const sectionNav = document.querySelector('.v4-section-nav');
+  const sectionNavLinks = Array.from(document.querySelectorAll('.v4-section-nav a[href^="#"]'));
+  const sectionNavTargets = sectionNavLinks.map((link) => document.querySelector(link.getAttribute('href')));
+
+  const updateSectionNav = () => {
+    if (!sectionNav) return;
+    const sy = window.scrollY;
+    const visible = sy > 300;
+    sectionNav.classList.toggle('is-visible', visible);
+    sectionNav.toggleAttribute('inert', !visible);
+    /* Active = the lowest section whose offsetTop is above (sy + 200).
+       Sections live inside the same scroll container, so plain offsetTop
+       comparison works. */
+    const trigger = sy + 200;
+    let activeIdx = -1;
+    for (let i = 0; i < sectionNavTargets.length; i++) {
+      const t = sectionNavTargets[i];
+      if (t && t.offsetTop <= trigger) activeIdx = i;
+    }
+    sectionNavLinks.forEach((link, i) => {
+      link.classList.toggle('is-active', i === activeIdx);
+    });
+  };
+
   let scrollTicking = false;
   window.addEventListener('scroll', () => {
     if (!scrollTicking) {
       requestAnimationFrame(() => {
         updateScrollTopVisibility();
+        updateSectionNav();
         scrollTicking = false;
       });
       scrollTicking = true;
@@ -162,4 +189,5 @@
   }, { passive: true });
 
   updateScrollTopVisibility();
+  updateSectionNav();
 })();
