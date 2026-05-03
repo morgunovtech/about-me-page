@@ -1055,9 +1055,6 @@ body.v4-page {
   grid-template-columns: 1fr auto;
   gap: 24px;
   align-items: center;
-  background: var(--v4-paper);
-  border: 1px solid var(--v4-line);
-  padding: 24px 28px;
 }
 
 .v4-contact-note {
@@ -1287,9 +1284,6 @@ body.v4-page {
   }
   .v4-product-name {
     font-size: 19px;
-  }
-  .v4-contact {
-    padding: 18px 18px;
   }
   .v4-foot {
     flex-direction: column;
