@@ -1,0 +1,16 @@
+{
+  "name": "Семён Моргунов — morgunov.tech",
+  "short_name": "Morgunov",
+  "description": "Head of FinTech @ Yandex Uzbekistan. Personal homepage.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#edeae5",
+  "theme_color": "#edeae5",
+  "lang": "ru",
+  "icons": [
+    { "src": "/images/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/images/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/images/favicon.svg",  "sizes": "any",     "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
