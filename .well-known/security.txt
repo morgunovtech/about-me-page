@@ -1,0 +1,7 @@
+# Security policy for s.morgunov.tech
+# Format: RFC 9116 (https://www.rfc-editor.org/rfc/rfc9116)
+
+Contact: mailto:ask@morgunov.tech
+Expires: 2027-05-03T00:00:00.000Z
+Preferred-Languages: ru, en
+Canonical: https://s.morgunov.tech/.well-known/security.txt

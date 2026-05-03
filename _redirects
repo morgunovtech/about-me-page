@@ -1,9 +1,14 @@
 /images/* /images/:splat 200
+/fonts/* /fonts/:splat 200
 /styles.css /styles.css 200
 /script.js /script.js 200
 /robots.txt /robots.txt 200
 /sitemap.xml /sitemap.xml 200
 /llms.txt /llms.txt 200
+/favicon.ico /favicon.ico 200
+/apple-touch-icon.png /apple-touch-icon.png 200
+/site.webmanifest /site.webmanifest 200
+/.well-known/security.txt /.well-known/security.txt 200
 /collaborate.html /collaborate.html 200
 /en/ /en/index.html 200
 /en/index.html /en/index.html 200

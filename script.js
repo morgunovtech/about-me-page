@@ -1,12 +1,21 @@
 (() => {
   const root = document.documentElement;
   const body = document.body;
-  /* Theme buttons exist in both old (.theme-button) and new (.v4-theme-btn) markup. */
-  const themeButtons = Array.from(document.querySelectorAll('.theme-button, .v4-theme-btn'));
-  const scrollTopButton = document.querySelector('.scroll-top, .v4-scroll-top');
+
+  /* For anyone who opens DevTools — no CTA, just a hello. */
+  const greeting = root.lang === 'en'
+    ? 'Hi. No analytics, no cookies, no trackers — feel free to look around.'
+    : 'Привет. Тут нет аналитики, кук и трекеров — спокойно осмотрись.';
+  console.log(
+    '%c' + greeting,
+    'font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif; color: #d9531e; padding: 8px 0;'
+  );
+
+  const themeButtons = Array.from(document.querySelectorAll('.v4-theme-btn'));
+  const scrollTopButton = document.querySelector('.v4-scroll-top');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const dropdowns = Array.from(document.querySelectorAll('.nav-dropdown, .theme-dropdown, .v4-theme'));
+  const dropdowns = Array.from(document.querySelectorAll('.v4-theme'));
   const changelogToggle = document.querySelector('.changelog-toggle');
   const changelogPanel = document.getElementById('changelog-panel');
   const THEME_PREFERENCE_KEY = 'theme-preference';
@@ -59,28 +68,49 @@
   /* --- Dropdown wiring --- */
 
   dropdowns.forEach((dropdown) => {
-    const toggle = dropdown.querySelector('.dropdown-toggle, .v4-icon-btn');
-    const menu = dropdown.querySelector('.dropdown-menu, .v4-theme-menu');
+    const toggle = dropdown.querySelector('.v4-icon-btn');
+    const menu = dropdown.querySelector('.v4-theme-menu');
     if (toggle) toggle.setAttribute('aria-expanded', 'false');
-    toggle?.addEventListener('click', () => {
+    toggle?.addEventListener('click', (event) => {
       const isOpen = dropdown.classList.toggle('is-open');
       toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      if (isOpen) closeDropdowns(dropdown);
+      if (isOpen) {
+        closeDropdowns(dropdown);
+        /* Move focus to first item when opened via keyboard (Enter/Space).
+           event.detail === 0 means the click came from a synthesised keyboard
+           activation; pointer activation reports a positive click count. */
+        if (event.detail === 0) menu?.querySelector('button, a')?.focus();
+      }
     });
     menu?.addEventListener('click', (event) => {
       if (event.target.closest('a') || event.target.closest('button')) {
         dropdown.classList.remove('is-open');
         toggle?.setAttribute('aria-expanded', 'false');
+        toggle?.focus();
+      }
+    });
+    menu?.addEventListener('keydown', (event) => {
+      const items = Array.from(menu.querySelectorAll('button, a'));
+      if (!items.length) return;
+      const i = items.indexOf(document.activeElement);
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        items[(i + 1 + items.length) % items.length].focus();
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        items[(i - 1 + items.length) % items.length].focus();
+      } else if (event.key === 'Home') {
+        event.preventDefault();
+        items[0].focus();
+      } else if (event.key === 'End') {
+        event.preventDefault();
+        items[items.length - 1].focus();
       }
     });
   });
 
   document.addEventListener('click', (event) => {
-    if (
-      !event.target.closest('.nav-dropdown') &&
-      !event.target.closest('.theme-dropdown') &&
-      !event.target.closest('.v4-theme')
-    ) {
+    if (!event.target.closest('.v4-theme')) {
       closeDropdowns();
     }
   });
@@ -115,9 +145,7 @@
 
   /* --- Anchor navigation (handles repeated clicks on same anchor) --- */
 
-  const navLinks = Array.from(
-    document.querySelectorAll('.site-nav a[href^="#"], .v4-bar-mid a[href^="#"]')
-  );
+  const navLinks = Array.from(document.querySelectorAll('.v4-bar-mid a[href^="#"]'));
   const scrollBehavior = prefersReducedMotion.matches ? 'auto' : 'smooth';
 
   navLinks.forEach((link) => {
