@@ -1082,6 +1082,51 @@ body.v4-page {
   color: var(--v4-orange-text);
 }
 
+/* --- Sticky section nav (right column, scroll-spy) --- */
+
+.v4-section-nav {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 9;
+  font-family: var(--v4-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.v4-section-nav.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.v4-section-nav a {
+  color: var(--v4-dim);
+  text-decoration: none;
+  padding: 2px 6px;
+  transition: color 0.15s ease;
+}
+
+.v4-section-nav a:hover,
+.v4-section-nav a:focus-visible {
+  color: var(--v4-fg);
+}
+
+.v4-section-nav a.is-active {
+  color: var(--v4-orange-text);
+}
+
+@media (max-width: 960px) {
+  .v4-section-nav {
+    display: none;
+  }
+}
+
 /* --- Focus ring --- */
 
 .v4-page :focus-visible {
