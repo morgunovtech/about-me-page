@@ -519,7 +519,6 @@ body.v4-page {
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.025em;
-  font-feature-settings: "tnum";
 }
 
 .v4-stat-unit {
@@ -1310,6 +1309,57 @@ body.v4-page {
     grid-template-columns: 100px 1fr;
     gap: 6px 12px;
   }
+}
+
+/* --- Link arrow markers (external ↗, internal anchor ↓) --- */
+
+/* External: any link that opens in a new tab gets a small ↗ marker.
+   Excludes .v4-btn (already arrowed in their text) and the icon-only theme button. */
+.v4-page a[target="_blank"]:not(.v4-btn):not(.v4-icon-btn)::after {
+  content: " \2197";
+  display: inline-block;
+  margin-left: 0.15em;
+  color: var(--v4-dim);
+  font-size: 0.85em;
+  font-weight: 400;
+  text-decoration: none;
+  vertical-align: baseline;
+  transition: color 0.15s ease;
+}
+
+.v4-page a[target="_blank"]:not(.v4-btn):not(.v4-icon-btn):hover::after,
+.v4-page a[target="_blank"]:not(.v4-btn):not(.v4-icon-btn):focus-visible::after {
+  color: var(--v4-orange);
+}
+
+/* Internal anchors: in-content links to a same-page id get a ↓ marker.
+   Suppressed on the skip link, the morgunov.tech home anchor (#top), and the
+   nav menu (which is already understood as anchored navigation). */
+.v4-page a[href^="#"]:not(.v4-btn):not(.skip-link):not([href="#main"]):not([href="#top"])::after {
+  content: " \2193";
+  display: inline-block;
+  margin-left: 0.15em;
+  color: var(--v4-dim);
+  font-size: 0.85em;
+  text-decoration: none;
+}
+
+.v4-bar-mid a[href^="#"]::after {
+  content: none;
+}
+
+/* --- Tabular figures (lined up columns of digits) --- */
+
+.v4-stat-value,
+.v4-career-row .period,
+.v4-venture .year,
+.v4-product-head,
+.v4-pub-head,
+.v4-foot time,
+.v4-foot code,
+time {
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 /* --- Accessibility: Reduced motion (override must come last to win the cascade) --- */
