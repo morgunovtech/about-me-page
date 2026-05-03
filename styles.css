@@ -748,6 +748,15 @@ body.v4-page {
   max-width: 60ch;
 }
 
+.v4-career-row .ctx p {
+  margin: 0 0 8px;
+  line-height: 1.55;
+}
+
+.v4-career-row .ctx p:last-child {
+  margin-bottom: 0;
+}
+
 /* Live indicator dot (current role in #02 + active product in #05).
    Pulses to suggest «вот это сейчас работает». Reduced-motion users get
    a static dot via the global animation-duration: 0.001ms override. */

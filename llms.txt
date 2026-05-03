@@ -1,13 +1,13 @@
 # Semyon Morgunov / Семён Моргунов
 
-> Head of FinTech at Yandex Uzbekistan — launches and scales digital products in emerging markets with positive unit economics. 10 years in tech: works in Russia and Uzbekistan, consults companies in Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees). 5,772 followers across social channels. Based in Tashkent, Uzbekistan. Advises startups and angel-invests in e-com, RetailTech, FinTech, and EdTech.
+> Head of FinTech at Yandex Uzbekistan — builds products in Central Asia, where product, operations, and unit economics are assembled in parallel. 10 years in tech: works in Russia and Uzbekistan, consults companies in Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees, three closed). 5,772 followers across social channels. Based in Tashkent, Uzbekistan. Advises startups and angel-invests in e-com, RetailTech, FinTech, and EdTech.
 
 ## About
 
 - Name: Semyon Morgunov (Семён Моргунов)
-- Positioning: launches and scales digital products in emerging markets — places where product, operations and unit economics have to be assembled in parallel, fitted to the local context. Brings products to positive unit economics, not just to launch.
+- Positioning: builds products in Central Asia — places where there's no off-the-shelf infrastructure, and product, operations, and unit economics have to be assembled in parallel. Brings products to positive unit economics, not just to launch.
 - Current role: Head of FinTech @ Yandex Uzbekistan, Tashkent, Uzbekistan (since April 2026) — Yandex Split BNPL, FinTech for Yandex Pro, strategic fintech partnerships
-- Past roles: Director of E-commerce @ Korzinka (2023–2026, led Korzinka Go from 1 to 9 cities, orders ×23, positive EBITDA); Head of Product @ Yandex Services / Yandex.Uslugi (2022–2023, GMV ×2.2, positive EBITDA); Head of Growth & Monetization @ Skyeng/Skysmart (2017–2022); Certified Sales Trainer @ Apple Russia (2018–2019, contractor)
+- Past roles: Director of E-commerce / CPO Korzinka Go @ Korzinka (2023–2026, orders 400 → 10,000/day, expansion 1 → 9 cities in 10 months, revenue ×2 YoY with positive EBITDA, payments module from scratch with 3 BNPL providers and PCI DSS 4.0, CSAT 4.2 → 4.5); Head of Product @ Yandex Services / Yandex.Uslugi (2022–2023, 30+ products in home services, ~6.5M MAU, GMV ×2.2, EBITDA turned positive); Head of Growth & Monetization @ Skyeng / Skysmart (2017–2022, activated 7M+ users, products that became top-3 acquisition channels with positive unit economics); Certified Sales Trainer @ Apple Russia (2018–2019, contractor)
 - Geography: works in Russia and Uzbekistan, consults companies in Kyrgyzstan
 - Skills: FinTech, P&L Management, Product Strategy, E-Commerce, Growth, Monetization, 0→1 Launches
 - Industries: FinTech, e-com, RetailTech, EdTech
@@ -26,14 +26,14 @@
 
 - [Fingerprint](https://fprint.morgunov.tech/) — web service that shows your browser's uniqueness percentage and explains the signals websites use to recognize you without cookies; every parameter has a plain-language explanation and a concrete action; runs locally, free, no signup
 - [FoundYou](https://foundyou.morgunov.tech/) — web service that strips EXIF metadata, blurs private areas (faces, plates, documents), and protects photos from reverse-image search; runs locally, original stays untouched
-- [Telegram channel «Semyon raspravil plechi» / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on product, team management, and career; working frameworks, case breakdowns, personal reflections; 1,137 followers; 1–2 posts per week, fourth year on the air
+- [Telegram channel «Semyon raspravil plechi» / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on product and career; writing what he'd want to read himself; case studies, working frameworks, personal observations; 1,137 followers; 1–2 posts per week, fourth year running
 
 ## Ventures (entrepreneurship)
 
 - 2023 — Online school for children's safety (Founder) — paused, no PMF
 - 2022 — Ethical grooming salon "Hvost" (Co-founder) — sold to employees, still operating
 - 2011 — Snack vending kiosks (Co-founder) — closed
-- 2009 — iPhone accessories online (first venture) — closed
+- 2009 — iPhone accessories online (Founder) — closed
 
 ## Collaboration
 
@@ -61,4 +61,4 @@
 - No cookies. No trackers. No analytics scripts.
 - Site is hosted on Cloudflare Pages, no build step, no JS framework.
 - Visited 48 countries (https://nomadmania.com/profile/33896/)
-- Lives in Tashkent, raises a dog named Tofs.
+- Lives in Tashkent with an Irish terrier named Tofs.
