@@ -918,6 +918,14 @@ body.v4-page {
   font-size: 13px;
 }
 
+.v4-product-desc {
+  flex: 1;
+  margin: 0 0 18px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--v4-fg);
+}
+
 .v4-product .v4-btn {
   align-self: flex-start;
 }
@@ -1073,10 +1081,6 @@ body.v4-page {
 }
 
 .v4-foot-privacy {
-  color: var(--v4-muted);
-  text-transform: none;
-  letter-spacing: 0;
-  font-size: 11px;
   text-align: right;
 }
 
