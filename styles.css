@@ -388,13 +388,11 @@ body.v4-page {
   gap: 40px;
   padding: 4px 0 36px;
   margin: 0 0 28px;
-  border-bottom: 1px solid var(--v4-line);
   align-items: start;
 }
 
 .v4-hero--simple {
   grid-template-columns: 1fr;
-  border-bottom: none;
   padding: 24px 0 0;
 }
 
