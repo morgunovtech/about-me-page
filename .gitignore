@@ -1,0 +1,20 @@
+# Local Claude Code config
+.claude/
+
+# Internal audit document — local only
+audit-about-2026-05-03.md
+
+# macOS metadata
+.DS_Store
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Logs
+*.log
+
+# Future-proof: never commit npm bits even though we don't use them
+node_modules/
+package-lock.json
