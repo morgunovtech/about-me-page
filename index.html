@@ -61,6 +61,11 @@
     .v4-theme{position:relative}
     .v4-icon-btn{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--v4-line);background:transparent;color:var(--v4-fg);cursor:pointer;padding:0;font:inherit}
     .v4-icon-btn svg{width:14px;height:14px}
+    .v4-icon-btn .v4-icon-moon,.v4-icon-btn .v4-icon-contrast{display:none}
+    [data-theme="dark"] .v4-icon-btn .v4-icon-sun{display:none}
+    [data-theme="dark"] .v4-icon-btn .v4-icon-moon{display:block}
+    [data-theme="high-contrast"] .v4-icon-btn .v4-icon-sun{display:none}
+    [data-theme="high-contrast"] .v4-icon-btn .v4-icon-contrast{display:block}
     .v4-hero{display:grid;grid-template-columns:1fr 280px;gap:40px;padding:4px 0 36px;margin:0 0 28px;align-items:start}
     .v4-hero-text{min-width:0}
     .v4-hero-meta{font-family:var(--v4-mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--v4-muted);margin-bottom:16px;display:flex;flex-wrap:wrap;gap:14px}
@@ -244,9 +249,16 @@
         </div>
         <div class="v4-theme">
           <button class="v4-icon-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu" aria-label="Сменить тему оформления">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+            <svg class="v4-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
               <circle cx="8" cy="8" r="3"></circle>
               <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"></path>
+            </svg>
+            <svg class="v4-icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M13.5 9A6 6 0 1 1 7 2.5a4.5 4.5 0 0 0 6.5 6.5z"></path>
+            </svg>
+            <svg class="v4-icon-contrast" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <circle cx="8" cy="8" r="6"></circle>
+              <path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path>
             </svg>
           </button>
           <div class="v4-theme-menu" id="theme-menu">
@@ -296,7 +308,7 @@
       </div>
       <div class="v4-stat">
         <div class="v4-stat-value">5&nbsp;772</div>
-        <div class="v4-stat-unit">читателей</div>
+        <div class="v4-stat-unit">подписчиков</div>
         <div class="v4-stat-aside">Telegram · LinkedIn · YouTube</div>
       </div>
       <div class="v4-stat">
@@ -462,15 +474,10 @@
         <article class="v4-product" data-kind="blog">
           <div class="v4-product-head">
             <span class="v4-tag">BLOG</span>
-            <span>1 137 читателей</span>
+            <span>1 137 подписчиков</span>
           </div>
           <h3 class="v4-product-name">Семён расправил плечи</h3>
-          <ul class="v4-list v4-product-bullets">
-            <li>О продуктах, управлении командой и карьере — без воды</li>
-            <li>Рабочие фреймворки, разборы кейсов, личные размышления</li>
-            <li>Голосования и открытые комментарии в каждом посте</li>
-            <li>1–2 поста в неделю, четвёртый год в эфире</li>
-          </ul>
+          <p class="v4-product-desc">Авторский Telegram-канал о продуктах, управлении командой и карьере — без воды. Рабочие фреймворки, разборы кейсов и личные размышления; голосования и открытые комментарии под каждым постом. 1–2 поста в неделю, четвёртый год в эфире.</p>
           <a class="v4-btn" href="https://t.me/raschet7/261" target="_blank" rel="noopener noreferrer">Избранные посты →</a>
         </article>
       </div>
@@ -525,8 +532,8 @@
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · © 2026 Семён Моргунов · v0.18 · build <a class="v4-foot-build" href="https://github.com/morgunovtech/about-me-page/commit/30e33b1" target="_blank" rel="noopener noreferrer"><code>30e33b1</code></a> · обновлено <time datetime="2026-05-03">3 мая 2026</time> · <a class="v4-foot-typo" href="mailto:ask@morgunov.tech?subject=Опечатка%20на%20morgunov.tech">нашли опечатку?</a></span>
-      <span class="v4-foot-privacy">Сайт без Cookies, трекеров и аналитики</span>
+      <span>morgunov.tech · 2026 · build <a class="v4-foot-build" href="https://github.com/morgunovtech/about-me-page/commit/30e33b1" target="_blank" rel="noopener noreferrer"><code>30e33b1</code></a> · <a class="v4-foot-typo" href="mailto:ask@morgunov.tech?subject=Опечатка%20на%20morgunov.tech">нашли опечатку?</a></span>
+      <span class="v4-foot-privacy">Без Cookies, трекеров и аналитики</span>
     </footer>
   </div>
   <button class="v4-scroll-top" type="button" aria-label="Наверх">↑</button>

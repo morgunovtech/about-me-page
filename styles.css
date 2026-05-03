@@ -337,6 +337,27 @@ body.v4-page {
   height: 14px;
 }
 
+/* Theme icons: only one visible at a time, driven by [data-theme] on <html>.
+   Sun is the fallback if no data-theme is set yet (e.g. JS disabled). */
+.v4-icon-btn .v4-icon-moon,
+.v4-icon-btn .v4-icon-contrast {
+  display: none;
+}
+
+[data-theme="dark"] .v4-icon-btn .v4-icon-sun {
+  display: none;
+}
+[data-theme="dark"] .v4-icon-btn .v4-icon-moon {
+  display: block;
+}
+
+[data-theme="high-contrast"] .v4-icon-btn .v4-icon-sun {
+  display: none;
+}
+[data-theme="high-contrast"] .v4-icon-btn .v4-icon-contrast {
+  display: block;
+}
+
 .v4-theme-menu {
   position: absolute;
   right: 0;
@@ -905,15 +926,6 @@ body.v4-page {
   letter-spacing: -0.015em;
 }
 
-.v4-product-bullets {
-  flex: 1;
-  margin-bottom: 18px;
-}
-
-.v4-product-bullets li {
-  font-size: 13px;
-}
-
 .v4-product-desc {
   flex: 1;
   margin: 0 0 18px;
@@ -1014,15 +1026,13 @@ body.v4-page {
 /* --- Publications --- */
 
 .v4-pubs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
 .v4-pub {
-  background: var(--v4-paper);
-  border: 1px solid var(--v4-line);
-  padding: 20px 22px;
+  padding: 0;
 }
 
 .v4-pub-head {
@@ -1198,9 +1208,6 @@ body.v4-page {
     margin-top: 4px;
     min-width: 0;
   }
-  .v4-pubs {
-    grid-template-columns: 1fr;
-  }
   .v4-contact {
     grid-template-columns: 1fr;
   }
@@ -1280,9 +1287,6 @@ body.v4-page {
   }
   .v4-product-name {
     font-size: 19px;
-  }
-  .v4-pub {
-    padding: 16px 18px;
   }
   .v4-contact {
     padding: 18px 18px;

@@ -1,6 +1,6 @@
 # Semyon Morgunov / Семён Моргунов
 
-> Head of FinTech at Yandex Uzbekistan — launches and scales digital products in emerging markets with positive economics. 10 years in tech: works in Russia and Uzbekistan, consults companies in Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees). 5,772 readers across social channels. Based in Tashkent, Uzbekistan. Advises startups and angel-invests in e-com, RetailTech, FinTech, and EdTech.
+> Head of FinTech at Yandex Uzbekistan — launches and scales digital products in emerging markets with positive economics. 10 years in tech: works in Russia and Uzbekistan, consults companies in Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees). 5,772 followers across social channels. Based in Tashkent, Uzbekistan. Advises startups and angel-invests in e-com, RetailTech, FinTech, and EdTech.
 
 ## About
 
@@ -26,7 +26,7 @@
 
 - [Fingerprint](https://fprint.morgunov.tech/) — web service that shows your browser's uniqueness percentage and explains the signals websites use to recognize you without cookies; every parameter has a plain-language explanation and a concrete action; runs locally, free, no signup
 - [FoundYou](https://foundyou.morgunov.tech/) — web service that strips EXIF metadata, blurs private areas (faces, plates, documents), and protects photos from reverse-image search; runs locally, original stays untouched
-- [Telegram channel «Semyon raspravil plechi» / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on product, team management, and career; working frameworks, case breakdowns, personal reflections; 1,137 readers; 1–2 posts per week, fourth year on the air
+- [Telegram channel «Semyon raspravil plechi» / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on product, team management, and career; working frameworks, case breakdowns, personal reflections; 1,137 followers; 1–2 posts per week, fourth year on the air
 
 ## Ventures (entrepreneurship)
 
