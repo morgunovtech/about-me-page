@@ -26,14 +26,14 @@ HTML_FILES = [
     "en/collaborate.html",
     "404.html",
 ]
-# Captures the SHA twice in one match: in the /commit/<SHA> URL and inside
-# the <code>SHA</code> label that sits inside the same <a class="v4-foot-build">.
-PATTERN = re.compile(
-    r'(href="https://github\.com/morgunovtech/about-me-page/commit/)'
-    r"([0-9a-f]{7,40})"
-    r'("[^>]*class="v4-foot-build"[^>]*>\s*<code>)'
-    r"([0-9a-f]{7,40})"
-    r"(</code>)"
+# Two patterns — order of attributes on <a> can vary, so we don't bind them
+# together in one match. The build link is the only place that uses either
+# of these patterns on the site.
+PATTERN_URL = re.compile(
+    r"(/morgunovtech/about-me-page/commit/)[0-9a-f]{7,40}"
+)
+PATTERN_CODE = re.compile(
+    r"(<code>)[0-9a-f]{7,40}(</code>)"
 )
 
 
@@ -53,15 +53,14 @@ def main() -> int:
             print(f"  SKIP    {rel}")
             continue
         text = path.read_text(encoding="utf-8")
-        new_text, n = PATTERN.subn(
-            rf"\1{sha}\3{sha}\5", text
-        )
-        if n == 0:
+        new_text, n_url = PATTERN_URL.subn(rf"\g<1>{sha}", text)
+        new_text, n_code = PATTERN_CODE.subn(rf"\g<1>{sha}\g<2>", new_text)
+        if n_url == 0 and n_code == 0:
             print(f"  NO-OP   {rel}")
             continue
         path.write_text(new_text, encoding="utf-8")
-        print(f"  STAMPED {rel} ({n} occurrence(s))")
-        total += n
+        print(f"  STAMPED {rel} (url:{n_url}, code:{n_code})")
+        total += n_url + n_code
 
     print(f"Done. {total} replacement(s).")
     return 0
