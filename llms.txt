@@ -24,9 +24,9 @@
 
 ## Products
 
-- [Fingerprint](https://fprint.morgunov.tech/) — web service that reveals your browser's digital fingerprint and gives actionable privacy recommendations; runs locally in the browser
-- [FoundYou](https://foundyou.morgunov.tech/) — web tool that reveals photo metadata (geolocation, time, device) and removes sensitive info; blurs faces, plates, documents; processes photos locally
-- [Telegram channel «Semyon raspravil plechi» / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on technology, products, management, and career; 1,137 readers; new posts every 1–2 weeks
+- [Fingerprint](https://fprint.morgunov.tech/) — web service that shows your browser's uniqueness percentage and explains the signals websites use to recognize you without cookies; every parameter has a plain-language explanation and a concrete action; runs locally, free, no signup
+- [FoundYou](https://foundyou.morgunov.tech/) — web service that strips EXIF metadata, blurs private areas (faces, plates, documents), and protects photos from reverse-image search; runs locally, original stays untouched
+- [Telegram channel «Semyon raspravil plechi» / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on product, team management, and career; working frameworks, case breakdowns, personal reflections; 1,137 readers; 1–2 posts per week, fourth year on the air
 
 ## Ventures (entrepreneurship)
 

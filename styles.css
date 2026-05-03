@@ -655,10 +655,6 @@ body.v4-page {
 
 /* --- Prose --- */
 
-.v4-prose {
-  max-width: 64ch;
-}
-
 .v4-prose p {
   margin: 0 0 12px;
   line-height: 1.55;
@@ -1057,7 +1053,6 @@ body.v4-page {
 .v4-contact-note {
   color: var(--v4-fg);
   font-size: 15px;
-  max-width: 56ch;
   line-height: 1.5;
   margin: 0;
 }
