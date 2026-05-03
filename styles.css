@@ -1067,7 +1067,6 @@ body.v4-page {
 .v4-foot {
   margin-top: 40px;
   padding-top: 16px;
-  border-top: 1px solid var(--v4-fg);
   display: flex;
   justify-content: space-between;
   align-items: center;
