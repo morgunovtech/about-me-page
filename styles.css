@@ -95,11 +95,11 @@
   --v4-paper: #f5f2ed;
   --v4-fg: #14110d;
   --v4-muted: #5a554c;
-  --v4-dim: #807a6e;
+  --v4-dim: #6c6759;
   --v4-line: #c9c5bd;
   --v4-line-soft: #d8d4cc;
   --v4-orange: #d9531e;
-  --v4-on-accent: #ffffff;
+  --v4-on-accent: #14110d;
   --v4-on-fg: #f5f2ed;
   --v4-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --v4-sans: "IBM Plex Sans", ui-sans-serif, -apple-system, "Segoe UI", sans-serif;
@@ -111,11 +111,11 @@
   --v4-paper: #1c1a16;
   --v4-fg: #ece7dd;
   --v4-muted: #b8b0a2;
-  --v4-dim: #6a6459;
+  --v4-dim: #8a8378;
   --v4-line: #2e2a24;
   --v4-line-soft: #232019;
   --v4-orange: #ff6a2e;
-  --v4-on-accent: #ffffff;
+  --v4-on-accent: #14130f;
   --v4-on-fg: #14130f;
   color-scheme: dark;
 }
@@ -660,6 +660,21 @@ body.v4-page {
   font-weight: 600;
 }
 
+.v4-prose a {
+  color: var(--v4-fg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--v4-line);
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.v4-prose a:hover,
+.v4-prose a:focus-visible {
+  color: var(--v4-orange);
+  text-decoration-color: var(--v4-orange);
+}
+
 .v4-terms {
   font-style: italic;
   color: var(--v4-muted);
@@ -732,6 +747,7 @@ body.v4-page {
 .v4-career-row .ctx {
   color: var(--v4-fg);
   font-size: 14px;
+  max-width: 60ch;
 }
 
 .v4-career-row .company-aside {
@@ -927,13 +943,16 @@ body.v4-page {
 }
 
 .v4-more a {
-  color: var(--v4-orange);
+  color: var(--v4-fg);
   text-decoration: none;
+  border-bottom: 1px solid var(--v4-orange);
+  padding-bottom: 1px;
+  transition: color 0.15s ease;
 }
 
 .v4-more a:hover,
 .v4-more a:focus-visible {
-  text-decoration: underline;
+  color: var(--v4-orange);
 }
 
 /* --- Collaborate page extras --- */
@@ -1118,6 +1137,11 @@ body.v4-page {
   .v4-products {
     grid-template-columns: repeat(2, 1fr);
   }
+  /* When only 2 columns are available, give the (longer) blog card the full row.
+     Avoids the asymmetric 2+1 layout where the third card sits alone. */
+  .v4-product[data-kind="blog"] {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 960px) {
@@ -1202,6 +1226,10 @@ body.v4-page {
   }
   .v4-bar-mid a {
     padding: 10px 6px;
+  }
+  .v4-icon-btn {
+    width: 44px;
+    height: 44px;
   }
   .v4-hero {
     padding-bottom: 26px;
