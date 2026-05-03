@@ -1,3 +1,17 @@
 User-agent: *
 Allow: /
+
+# AI / LLM crawlers — explicit allow so opt-in policies treat us as friendly.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://s.morgunov.tech/sitemap.xml

@@ -245,11 +245,6 @@ body.v4-page {
   color: var(--v4-fg);
 }
 
-.v4-bar-mid a.is-active {
-  color: var(--v4-fg);
-  border-bottom: 1px solid var(--v4-orange);
-}
-
 .v4-bar-right {
   display: flex;
   gap: 12px;
@@ -1110,6 +1105,12 @@ body.v4-page {
 
 /* --- Sticky section nav (right column, scroll-spy) --- */
 
+/* Hidden by default until the user has scrolled past 300px. We use
+   visibility (not the `inert` attribute) so JS doesn't need to toggle
+   anything beyond a single class — and so old WebKit doesn't choke on
+   inert-driven layer suppression. visibility transitions instantly on
+   show so the fade-in plays, and after the fade-out so links stop
+   accepting clicks/focus. */
 .v4-section-nav {
   position: fixed;
   top: 24px;
@@ -1122,13 +1123,14 @@ body.v4-page {
   font-size: 11px;
   letter-spacing: 0.08em;
   opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0s linear 0.2s;
 }
 
 .v4-section-nav.is-visible {
   opacity: 1;
-  pointer-events: auto;
+  visibility: visible;
+  transition: opacity 0.2s ease, visibility 0s linear 0s;
 }
 
 .v4-section-nav a {
@@ -1172,6 +1174,7 @@ body.v4-page {
   }
   .v4-portrait-wrap {
     max-width: 280px;
+    margin-inline: auto;
   }
   .v4-h1 {
     font-size: 52px;

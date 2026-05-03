@@ -2,6 +2,14 @@
   const root = document.documentElement;
   const body = document.body;
 
+  /* Browser scroll restoration default is 'auto' — it remembers scroll
+     position across reloads and back/forward. Combined with anchor links
+     that pushState a fragment, returning to the page would jump to the last
+     visited section. We manage scroll explicitly instead. */
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
   /* For anyone who opens DevTools — no CTA, just a hello. */
   const greeting = root.lang === 'en'
     ? 'Hi. No analytics, no cookies, no trackers — feel free to look around.'
@@ -105,7 +113,12 @@
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeThemeMenu();
+    if (event.key !== 'Escape') return;
+    /* Only restore focus to the toggle if focus was inside the menu — otherwise
+       Escape on the page background shouldn't yank focus around. */
+    const focusInsideMenu = themeDropdown && themeDropdown.contains(document.activeElement);
+    closeThemeMenu();
+    if (focusInsideMenu) themeToggle?.focus();
   });
 
   /* --- Theme buttons --- */
@@ -134,7 +147,10 @@
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
-        history.pushState(null, '', href);
+        /* Intentionally NOT writing the fragment to the URL: a hash sticks
+           in the address bar and on next visit the browser auto-scrolls to
+           that section. Anchor sharing still works for inbound links — the
+           browser handles those on initial paint without our help. */
       }
     });
   });
@@ -161,15 +177,17 @@
     const sy = window.scrollY;
     const visible = sy > 300;
     sectionNav.classList.toggle('is-visible', visible);
-    sectionNav.toggleAttribute('inert', !visible);
-    /* Active = the lowest section whose offsetTop is above (sy + 200).
-       Sections live inside the same scroll container, so plain offsetTop
-       comparison works. */
+    /* Active = the last section whose top edge is above the trigger line.
+       Using getBoundingClientRect() + scrollY works regardless of any
+       positioned ancestor (offsetTop is relative to the offsetParent, which
+       is fragile if .v4-root ever gets position: relative). */
     const trigger = sy + 200;
     let activeIdx = -1;
     for (let i = 0; i < sectionNavTargets.length; i++) {
       const t = sectionNavTargets[i];
-      if (t && t.offsetTop <= trigger) activeIdx = i;
+      if (!t) continue;
+      const top = t.getBoundingClientRect().top + sy;
+      if (top <= trigger) activeIdx = i;
     }
     sectionNavLinks.forEach((link, i) => {
       link.classList.toggle('is-active', i === activeIdx);
