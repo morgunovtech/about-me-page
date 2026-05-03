@@ -8,6 +8,7 @@
 /favicon.ico /favicon.ico 200
 /apple-touch-icon.png /apple-touch-icon.png 200
 /site.webmanifest /site.webmanifest 200
+/.well-known/security.txt /.well-known/security.txt 200
 /collaborate.html /collaborate.html 200
 /en/ /en/index.html 200
 /en/index.html /en/index.html 200
