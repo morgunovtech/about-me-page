@@ -104,14 +104,27 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    "@id": "https://s.morgunov.tech/en/uses.html#webpage",
-    "url": "https://s.morgunov.tech/en/uses.html",
-    "name": "Uses — Semyon Morgunov",
-    "inLanguage": "en",
-    "isPartOf": { "@id": "https://s.morgunov.tech/#website" },
-    "about": { "@id": "https://s.morgunov.tech/#person" },
-    "dateModified": "2026-05-11"
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://s.morgunov.tech/en/uses.html#webpage",
+        "url": "https://s.morgunov.tech/en/uses.html",
+        "name": "Uses — Semyon Morgunov",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://s.morgunov.tech/#website" },
+        "about": { "@id": "https://s.morgunov.tech/#person" },
+        "breadcrumb": { "@id": "https://s.morgunov.tech/en/uses.html#breadcrumb" },
+        "dateModified": "2026-05-11"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://s.morgunov.tech/en/uses.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://s.morgunov.tech/en/" },
+          { "@type": "ListItem", "position": 2, "name": "Uses", "item": "https://s.morgunov.tech/en/uses.html" }
+        ]
+      }
+    ]
   }
   </script>
 </head>

@@ -106,14 +106,27 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    "@id": "https://s.morgunov.tech/uses.html#webpage",
-    "url": "https://s.morgunov.tech/uses.html",
-    "name": "Стек — Семён Моргунов",
-    "inLanguage": "ru",
-    "isPartOf": { "@id": "https://s.morgunov.tech/#website" },
-    "about": { "@id": "https://s.morgunov.tech/#person" },
-    "dateModified": "2026-05-11"
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://s.morgunov.tech/uses.html#webpage",
+        "url": "https://s.morgunov.tech/uses.html",
+        "name": "Стек — Семён Моргунов",
+        "inLanguage": "ru",
+        "isPartOf": { "@id": "https://s.morgunov.tech/#website" },
+        "about": { "@id": "https://s.morgunov.tech/#person" },
+        "breadcrumb": { "@id": "https://s.morgunov.tech/uses.html#breadcrumb" },
+        "dateModified": "2026-05-11"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://s.morgunov.tech/uses.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://s.morgunov.tech/" },
+          { "@type": "ListItem", "position": 2, "name": "Стек", "item": "https://s.morgunov.tech/uses.html" }
+        ]
+      }
+    ]
   }
   </script>
 </head>
