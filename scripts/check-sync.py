@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PAIRS = [
     ("index.html", "en/index.html"),
     ("collaborate.html", "en/collaborate.html"),
+    ("uses.html", "en/uses.html"),
 ]
 SKIP_SUBTREE = {"style", "script", "svg", "noscript"}
 # Tags that we ignore entirely (no enter/exit events recorded). These are

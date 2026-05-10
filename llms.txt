@@ -49,12 +49,24 @@
 - [Critical review of brainbox.vc crowd-investing platform](https://youtu.be/OJXtFmWNZMM) — YouTube
 - [Two years of Korzinka Go: how we emerged, evolved, and ended up in a red ocean](https://youtu.be/BthlUR9eO1M) — YouTube
 
+## Uses / Stack
+
+Hardware in daily rotation:
+
+- **Compute**: MacBook Pro 16″ M3 Max (36 GB / 1 TB) — main work machine; Dell U3223QE — 32″ 4K IPS-Black with 90 W USB-C dock; Keychron K2 — 75% mechanical with aluminum frame, RGB, Bluetooth multi-pair; Razer DeathAdder V2 Pro — wireless HyperSpeed mouse
+- **Mobile**: iPhone 15 Pro Max — daily driver; Duoqin F22 Pro — Xiaomi-eco mini button phone, weekend detox
+- **Audio**: AirPods Pro 2 — ANC + transparency, call quality; Beyerdynamic DT 770 Pro 250 Ω — closed-back studio monitors for long focus
+- **Power**: Shargeek 170 — transparent 25 600 mAh power bank with status display; Ugreen Nexode 300 W — desktop charging station with 5 ports
+- **Health & Play**: Oura Ring Gen3 — sleep / HRV / cycles trackers; Anbernic RG405V — vertical Android retro emulator (PSP, Dreamcast, N64)
+
 ## Pages
 
 - Russian homepage: https://s.morgunov.tech/
 - English homepage: https://s.morgunov.tech/en/
 - Collaboration (RU): https://s.morgunov.tech/collaborate.html
 - Collaboration (EN): https://s.morgunov.tech/en/collaborate.html
+- Uses / Stack (RU): https://s.morgunov.tech/uses.html
+- Uses / Stack (EN): https://s.morgunov.tech/en/uses.html
 
 ## Key facts
 

@@ -29,4 +29,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/collaborate.html" />
     <lastmod>2026-05-04</lastmod>
   </url>
+  <url>
+    <loc>https://s.morgunov.tech/uses.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://s.morgunov.tech/uses.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/uses.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/uses.html" />
+    <lastmod>2026-05-11</lastmod>
+  </url>
+  <url>
+    <loc>https://s.morgunov.tech/en/uses.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://s.morgunov.tech/uses.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/uses.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/uses.html" />
+    <lastmod>2026-05-11</lastmod>
+  </url>
 </urlset>
