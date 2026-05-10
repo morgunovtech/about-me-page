@@ -578,7 +578,7 @@ body.v4-page {
   display: block;
   font-family: var(--v4-mono);
   font-size: 11px;
-  color: var(--v4-orange-text);
+  color: var(--v4-muted);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 500;
@@ -1110,6 +1110,29 @@ body.v4-page {
   color: var(--v4-orange-text);
 }
 
+/* --- Mobile scroll progress bar ---
+   On ≤960px the right-column section nav is hidden, so a thin top-anchored
+   bar takes over as a "where am I in the document" cue. Width is set in JS
+   from window.scrollY / (scrollHeight - clientHeight). Above .v4-scroll-top
+   (z:9) and .v4-section-nav (z:9), below .skip-link (z:100). */
+
+.v4-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--v4-orange);
+  z-index: 11;
+  pointer-events: none;
+}
+
+@media (min-width: 961px) {
+  .v4-scroll-progress {
+    display: none;
+  }
+}
+
 /* --- Sticky section nav (right column, scroll-spy) --- */
 
 /* Hidden by default until the user has scrolled past 300px. We use
@@ -1153,7 +1176,7 @@ body.v4-page {
 }
 
 .v4-section-nav a.is-active {
-  color: var(--v4-orange-text);
+  color: var(--v4-fg);
 }
 
 @media (max-width: 960px) {

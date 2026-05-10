@@ -166,6 +166,20 @@
     window.scrollTo({ top: 0, behavior: prefersReducedMotion.matches ? 'auto' : 'smooth' });
   });
 
+  /* --- Mobile scroll progress bar ---
+     Hidden ≥961px via CSS — only paints on viewports where the sticky
+     section-nav is gone. Width is scrollY / scrollable-height as a %. */
+
+  const scrollProgress = document.querySelector('.v4-scroll-progress');
+
+  const updateScrollProgress = () => {
+    if (!scrollProgress) return;
+    const doc = document.documentElement;
+    const scrollable = doc.scrollHeight - doc.clientHeight;
+    const ratio = scrollable > 0 ? Math.min(1, window.scrollY / scrollable) : 0;
+    scrollProgress.style.width = (ratio * 100) + '%';
+  };
+
   /* --- Sticky section nav (right column, scroll-spy) --- */
 
   const sectionNav = document.querySelector('.v4-section-nav');
@@ -200,6 +214,7 @@
       requestAnimationFrame(() => {
         updateScrollTopVisibility();
         updateSectionNav();
+        updateScrollProgress();
         scrollTicking = false;
       });
       scrollTicking = true;
@@ -208,4 +223,5 @@
 
   updateScrollTopVisibility();
   updateSectionNav();
+  updateScrollProgress();
 })();
