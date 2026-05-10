@@ -81,6 +81,9 @@
     .v4-stat-value{font-size:36px;font-weight:600;line-height:1;letter-spacing:-.025em}
     .v4-stat-unit{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--v4-muted);margin-top:8px;font-weight:500}
     .v4-stat-aside{font-family:var(--v4-mono);font-size:10px;letter-spacing:.06em;color:var(--v4-dim);margin-top:6px}
+    .v4-stat-channels{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
+    .v4-stat-channel{display:inline-flex;align-items:center;gap:5px}
+    .v4-stat-icon{width:11px;height:11px;flex-shrink:0}
     @media (max-width:960px){.v4-root{padding:28px 32px 40px}.v4-hero{grid-template-columns:1fr;gap:28px}.v4-portrait-wrap{max-width:280px}.v4-h1{font-size:52px}.v4-stats{grid-template-columns:repeat(2,1fr)}.v4-stat{border-right:1px solid var(--v4-line);border-bottom:1px solid var(--v4-line)}.v4-stat:nth-child(2n){border-right:none}.v4-stat:nth-last-child(-n+2){border-bottom:none}}
     @media (max-width:640px){.v4-root{padding:20px 18px 32px;font-size:13.5px}.v4-bar{flex-direction:column;align-items:stretch;row-gap:10px;font-size:10px}.v4-bar-right{align-self:flex-end}.v4-bar-mid{justify-content:flex-start;flex-wrap:wrap;gap:4px 14px}.v4-bar-mid a{padding:10px 6px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}.v4-portrait-wrap{max-width:240px}.v4-stat-value{font-size:28px}.v4-stat{padding:14px 12px}}
   </style>
@@ -265,8 +268,8 @@
         <h1 class="v4-h1" id="hero-title">Semyon Morgunov</h1>
         <p class="v4-tagline">Building products in Central Asia's fast-growing markets — product, operations, and unit economics assembled in parallel.</p>
         <div class="v4-cta-row">
-          <a class="v4-btn v4-btn-primary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Telegram</a>
-          <a class="v4-btn" href="/en/collaborate.html">Ways to collaborate</a>
+          <a class="v4-btn v4-btn-primary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Message me on Telegram</a>
+          <a class="v4-btn" href="/en/collaborate.html">How I can help</a>
         </div>
       </div>
       <figure class="v4-portrait-wrap">
@@ -294,9 +297,33 @@
         <div class="v4-stat-aside">RU · UZ · KG</div>
       </div>
       <div class="v4-stat">
-        <div class="v4-stat-value">5,772</div>
+        <div class="v4-stat-value">5,831</div>
         <div class="v4-stat-unit">followers</div>
-        <div class="v4-stat-aside">Telegram · LinkedIn · YouTube</div>
+        <div class="v4-stat-aside v4-stat-channels">
+          <span class="v4-stat-channel">
+            <svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14.5 1.5 7.5 8.5"/>
+              <path d="M14.5 1.5 10 14.5 7.5 8.5 1.5 6Z"/>
+            </svg>
+            <span class="sr-only">Telegram:</span>1,139
+          </span>
+          <span class="v4-stat-channel">
+            <svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="1.5" y="1.5" width="13" height="13" rx="1.5"/>
+              <path d="M4.5 7v4.5"/>
+              <circle cx="4.5" cy="4.5" r="0.6" fill="currentColor"/>
+              <path d="M8 11.5v-4.5M8 9c0-1.3.8-2 2-2s2 .7 2 2v2.5"/>
+            </svg>
+            <span class="sr-only">LinkedIn:</span>4,564
+          </span>
+          <span class="v4-stat-channel">
+            <svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true">
+              <rect x="1" y="3.5" width="14" height="9" rx="2"/>
+              <path d="M6.5 6 11 8 6.5 10Z" fill="currentColor" stroke="none"/>
+            </svg>
+            <span class="sr-only">YouTube:</span>128
+          </span>
+        </div>
       </div>
       <div class="v4-stat">
         <div class="v4-stat-value">4</div>
@@ -524,7 +551,7 @@
         <article class="v4-pub">
           <div class="v4-pub-head">
             <span class="v4-tag">CHANNEL</span>
-            <span>1,137 on Telegram</span>
+            <span>1,139 on Telegram</span>
           </div>
           <ul class="v4-list">
             <li><a href="https://t.me/raschet7" target="_blank" rel="noopener noreferrer">Telegram channel</a> on product and career — writing what I'd want to read myself. Case studies, working frameworks, and personal observations. 1–2 posts per week, fourth year running.</li>

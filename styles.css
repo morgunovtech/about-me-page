@@ -554,6 +554,25 @@ body.v4-page {
   margin-top: 6px;
 }
 
+.v4-stat-channels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: center;
+}
+
+.v4-stat-channel {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.v4-stat-icon {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+}
+
 /* --- Sections --- */
 
 .v4-section {
