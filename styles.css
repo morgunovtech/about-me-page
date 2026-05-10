@@ -250,6 +250,9 @@ body.v4-page {
 .v4-bar-mid a:hover,
 .v4-bar-mid a:focus-visible {
   color: var(--v4-fg);
+  text-decoration: underline;
+  text-decoration-color: var(--v4-orange);
+  text-underline-offset: 4px;
 }
 
 .v4-bar-right {
@@ -884,6 +887,8 @@ body.v4-page {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 12px;
   margin-bottom: 16px;
   font-size: 10px;
   font-weight: 500;
