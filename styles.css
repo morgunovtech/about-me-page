@@ -981,8 +981,6 @@ body.v4-page {
 
 .v4-use-image {
   aspect-ratio: 1 / 1;
-  background: var(--v4-bg);
-  border: 1px solid var(--v4-line-soft);
   margin-bottom: 14px;
   overflow: hidden;
   display: flex;
@@ -1015,6 +1013,28 @@ body.v4-page {
   font-size: 13px;
   line-height: 1.55;
   color: var(--v4-fg);
+}
+
+/* Software section on /uses — same card primitive as .v4-product
+   (paper bg, border, hover effect), denser 3-col grid since 6 items. */
+
+.v4-softs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 0 0 28px;
+}
+
+@media (max-width: 960px) {
+  .v4-softs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .v4-softs {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* --- Collaborate page extras --- */
