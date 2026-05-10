@@ -67,6 +67,8 @@ Hardware in daily rotation:
 - Collaboration (EN): https://s.morgunov.tech/en/collaborate.html
 - Uses / Stack (RU): https://s.morgunov.tech/uses.html
 - Uses / Stack (EN): https://s.morgunov.tech/en/uses.html
+- Principles / about the site (RU): https://s.morgunov.tech/about.html
+- Principles / about the site (EN): https://s.morgunov.tech/en/about.html
 
 ## Key facts
 

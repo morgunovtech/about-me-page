@@ -24,6 +24,7 @@ PAIRS = [
     ("index.html", "en/index.html"),
     ("collaborate.html", "en/collaborate.html"),
     ("uses.html", "en/uses.html"),
+    ("about.html", "en/about.html"),
 ]
 SKIP_SUBTREE = {"style", "script", "svg", "noscript"}
 # Tags that we ignore entirely (no enter/exit events recorded). These are

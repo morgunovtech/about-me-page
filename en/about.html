@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Principles — Semyon Morgunov</title>
+  <meta name="description" content="How this site is built. Ten Dieter Rams principles translated into a digital product: privacy, accessibility, transparency, honesty." />
+  <meta name="author" content="Semyon Morgunov" />
+  <meta name="theme-color" content="#edeae5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" media="(prefers-color-scheme: light)" />
+  <link rel="icon" href="/images/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="canonical" href="https://s.morgunov.tech/en/about.html" />
+  <link rel="alternate" hreflang="ru" href="https://s.morgunov.tech/about.html" />
+  <link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/about.html" />
+  <link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/about.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Principles — Semyon Morgunov" />
+  <meta property="og:description" content="How this site is built. Ten Dieter Rams principles translated into a digital product: privacy, accessibility, transparency, honesty." />
+  <meta property="og:url" content="https://s.morgunov.tech/en/about.html" />
+  <meta property="og:image" content="https://s.morgunov.tech/images/og-card-en.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Principles — Semyon Morgunov" />
+  <meta property="og:site_name" content="morgunov.tech" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ru_RU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Principles — Semyon Morgunov" />
+  <meta name="twitter:description" content="How this site is built. Ten Dieter Rams principles translated into a digital product: privacy, accessibility, transparency, honesty." />
+  <meta name="twitter:image" content="https://s.morgunov.tech/images/og-card-en.png" />
+  <meta name="twitter:image:alt" content="Principles — Semyon Morgunov" />
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
+  <style>
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif}
+    [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f}
+    [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000}
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0}
+    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:14px;line-height:1.55;letter-spacing:-0.005em}
+    [data-theme="high-contrast"] body.v4-page{font-size:16px}
+    .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:6px 12px;z-index:100;text-decoration:none;font-size:13px;transition:top .2s}
+    .v4-page .skip-link:focus{top:8px}
+    .v4-root{background:var(--v4-bg);color:var(--v4-fg);padding:36px 56px 56px;max-width:1280px;margin:0 auto}
+    .v4-bar{display:flex;justify-content:space-between;align-items:center;padding:0 0 14px;margin-bottom:32px;border-bottom:1px solid var(--v4-fg);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .v4-bar-mid{display:flex;gap:6px 22px;justify-content:center;color:var(--v4-muted);flex-wrap:wrap}
+    .v4-bar-mid a{color:inherit;text-decoration:none;padding:8px 4px;white-space:nowrap}
+    .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;color:var(--v4-fg)}
+    .v4-lang{display:inline-flex;align-items:center;gap:6px}
+    .v4-lang-link{color:var(--v4-muted);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:8px 6px;border-bottom:1px solid transparent}
+    .v4-lang-link.is-active{color:var(--v4-fg);border-bottom-color:var(--v4-orange)}
+    .v4-lang-sep{color:var(--v4-dim)}
+    .v4-theme{position:relative}
+    .v4-icon-btn{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--v4-fg);cursor:pointer;padding:0;font:inherit;border:none}
+    .v4-icon-btn svg{width:14px;height:14px}
+    .v4-icon-btn .v4-icon-moon,.v4-icon-btn .v4-icon-contrast{display:none}
+    [data-theme="dark"] .v4-icon-btn .v4-icon-sun{display:none}
+    [data-theme="dark"] .v4-icon-btn .v4-icon-moon{display:block}
+    [data-theme="high-contrast"] .v4-icon-btn .v4-icon-sun{display:none}
+    [data-theme="high-contrast"] .v4-icon-btn .v4-icon-contrast{display:block}
+    .v4-hero{display:grid;grid-template-columns:1fr 280px;gap:40px;padding:4px 0 36px;margin:0 0 28px;align-items:start}
+    .v4-hero--simple{grid-template-columns:1fr;padding:24px 0 0}
+    .v4-hero-text{min-width:0}
+    .v4-hero-meta{font-family:var(--v4-mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--v4-muted);margin-bottom:16px;display:flex;flex-wrap:wrap;gap:14px}
+    .v4-h1{font-size:64px;line-height:1;letter-spacing:-.025em;font-weight:600;margin:0 0 16px}
+    .v4-tagline{font-size:18px;color:var(--v4-fg);line-height:1.45;max-width:52ch;margin:0 0 24px;font-weight:400}
+    .v4-cta-row{display:flex;gap:8px;flex-wrap:wrap}
+    .v4-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;min-height:40px;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;cursor:pointer;border:1px solid var(--v4-fg);background:transparent;color:var(--v4-fg);font-family:inherit}
+    .v4-btn-primary{background:var(--v4-orange);color:var(--v4-on-accent);border-color:var(--v4-orange)}
+    .v4-section{margin-bottom:36px}
+    .v4-section-head{padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--v4-fg)}
+    .v4-section-num{display:block;font-family:var(--v4-mono);font-size:11px;color:var(--v4-muted);text-transform:uppercase;letter-spacing:.1em;font-weight:500;margin-bottom:6px}
+    .v4-h2{font-size:22px;font-weight:600;margin:0;letter-spacing:-.015em}
+    .v4-prose p{margin:0 0 12px;line-height:1.55}
+    .v4-prose p:last-child{margin-bottom:0}
+    .v4-prose strong{font-weight:600}
+    .v4-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+    .v4-list li{padding-left:18px;position:relative;line-height:1.5}
+    .v4-list li::before{content:"";position:absolute;left:0;top:.65em;width:8px;height:1px;background:var(--v4-fg)}
+    .v4-list strong{font-weight:600}
+    .v4-list--spaced{margin-top:12px}
+    .v4-list + .v4-prose{margin-top:18px}
+    @media (max-width:960px){.v4-root{padding:28px 32px 40px}.v4-h1{font-size:52px}}
+    @media (max-width:640px){.v4-root{padding:20px 18px 32px;font-size:13.5px}.v4-bar{flex-direction:column;align-items:stretch;row-gap:10px;font-size:10px}.v4-bar-right{align-self:flex-end}.v4-bar-mid{justify-content:flex-start;flex-wrap:wrap;gap:4px 14px}.v4-bar-mid a{padding:10px 6px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}}
+  </style>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-600.woff2" crossorigin />
+  <link rel="preload" href="/styles.css?v=0b43dc33" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/styles.css?v=0b43dc33" /></noscript>
+  <script>
+    (function () {
+      var d = document.documentElement;
+      var p = localStorage.getItem('theme-preference') || 'auto';
+      var t = p === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : p;
+      d.setAttribute('data-theme', t);
+      d.setAttribute('data-theme-preference', p);
+    })();
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://s.morgunov.tech/en/about.html#webpage",
+        "url": "https://s.morgunov.tech/en/about.html",
+        "name": "Principles — Semyon Morgunov",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://s.morgunov.tech/#website" },
+        "about": { "@id": "https://s.morgunov.tech/#person" },
+        "breadcrumb": { "@id": "https://s.morgunov.tech/en/about.html#breadcrumb" },
+        "dateModified": "2026-05-11"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://s.morgunov.tech/en/about.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://s.morgunov.tech/en/" },
+          { "@type": "ListItem", "position": 2, "name": "Principles", "item": "https://s.morgunov.tech/en/about.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="v4-page no-transition" data-lang="en">
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <div class="v4-root">
+    <header class="v4-bar" id="top">
+      <nav class="v4-bar-mid" aria-label="Main navigation">
+        <a href="#product">Product</a>
+        <a href="#principles">Principles</a>
+        <a href="#layers">Decisions</a>
+        <a href="#stack">Stack</a>
+        <a href="#omitted">Omitted</a>
+        <a href="#tool">Tool</a>
+        <a href="#ethics">Ethics</a>
+      </nav>
+      <div class="v4-bar-right">
+        <div class="v4-lang" aria-label="Language switcher">
+          <a class="v4-lang-link" href="/about.html">RU</a>
+          <span class="v4-lang-sep" aria-hidden="true">·</span>
+          <a class="v4-lang-link is-active" href="/en/about.html" aria-current="page">EN</a>
+        </div>
+        <div class="v4-theme">
+          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu" aria-label="Switch theme">
+            <svg class="v4-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+              <circle cx="8" cy="8" r="3"></circle>
+              <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"></path>
+            </svg>
+            <svg class="v4-icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M13.5 9A6 6 0 1 1 7 2.5a4.5 4.5 0 0 0 6.5 6.5z"></path>
+            </svg>
+            <svg class="v4-icon-contrast" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <circle cx="8" cy="8" r="6"></circle>
+              <path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path>
+            </svg>
+          </button>
+          <div class="v4-theme-menu" id="theme-menu">
+            <button class="v4-theme-btn" type="button" data-theme-value="light" aria-pressed="false">Light</button>
+            <button class="v4-theme-btn" type="button" data-theme-value="dark" aria-pressed="false">Dark</button>
+            <button class="v4-theme-btn" type="button" data-theme-value="auto" aria-pressed="false">Auto</button>
+            <button class="v4-theme-btn" type="button" data-theme-value="high-contrast" aria-pressed="false">High contrast</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="v4-hero v4-hero--simple" aria-labelledby="hero-title">
+        <div class="v4-hero-text">
+          <p class="v4-hero-meta">About the site · Principles · Decisions</p>
+          <h1 class="v4-h1" id="hero-title">Principles</h1>
+          <p class="v4-tagline">How this site is built. Ten Dieter Rams principles translated into a digital product.</p>
+          <div class="v4-cta-row">
+            <a class="v4-btn" href="/en/">← Home</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="v4-section" aria-label="Introduction">
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose">
+            <p>This site is a product. The product has a user — me. And like any product, it has principles it's built on. Here's a list of those principles and the decisions that follow from them.</p>
+            <p>Read this as an explanation, as a reference, or just as a cross-section of how I think about the things I build.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="product" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">01</span>
+          <h2 class="v4-h2">It's a product, not a landing page</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose">
+            <p>I didn't make a business card. I didn't make a portfolio site. I made a product.</p>
+            <p>That means it has a build (<code>BUILD&nbsp;3cd8687</code> in the footer, clickable through to the commit on GitHub), a backlog, releases, a user, and a success metric. The metric isn't visitors and isn't conversion — it's how accurately the site reflects how I think and work. When the site stops being accurate, I fix it.</p>
+            <p>That means product rules apply: every decision needs justification. No «because everyone does it», no «because it looks nice».</p>
+            <p>The build hash in the footer isn't decoration or flexing. It's the same idea as the version under iPhone's About screen or the serial number on the back of a Braun calculator. Click it — you see exactly what changed in this release. The site doesn't hide its history.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="principles" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">02</span>
+          <h2 class="v4-h2">The ten principles of Dieter Rams</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <p>The main architectural reference for this site isn't editorial web or the brutalist movement. It's <strong>Dieter Rams</strong>, chief designer at Braun from 1955–1995. Late in his career he formulated ten principles of good design. They were written for industrial products, but they translate to the digital medium with almost no loss.</p>
+              <p>Rams's principles aren't a checklist. They're a set of questions a designer asks themselves. If the answer is «no», that doesn't mean «everything's broken». It means «stop and think».</p>
+            </div>
+            <ul class="v4-list v4-list--spaced">
+              <li><strong>Innovative.</strong> Use new technological possibilities — but in service of function, not for the sake of novelty.</li>
+              <li><strong>Useful.</strong> Design should highlight usefulness and remove anything that weakens it.</li>
+              <li><strong>Aesthetic.</strong> Beauty as a consequence of correct structure, not decoration applied on top.</li>
+              <li><strong>Understandable.</strong> A product should explain itself. At best — self-evident.</li>
+              <li><strong>Unobtrusive.</strong> Products are tools, not works of art. They don't «shout».</li>
+              <li><strong>Honest.</strong> Don't make a product seem more innovative, powerful, or valuable than it is.</li>
+              <li><strong>Long-lasting.</strong> Don't get attached to trends. Don't look «modern today».</li>
+              <li><strong>Thorough down to the last detail.</strong> Nothing should be accidental. Respect for the user shows up in care.</li>
+              <li><strong>Environmentally friendly.</strong> Minimize resources, minimize visual noise.</li>
+              <li><strong>As little design as possible.</strong> <em>Weniger, aber besser</em> — less, but better. Not to be confused with minimalism as a style.</li>
+            </ul>
+            <div class="v4-prose">
+              <p>These ten points are the scaffolding for everything described below.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="layers" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">03</span>
+          <h2 class="v4-h2">Decisions, layer by layer</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose">
+            <p><strong>Visual language.</strong> Beige paper background, black headings, monospaced caps labels, no decoration. A direct nod to the industrial aesthetic of Braun — the ET66 calculator, the SK4 record player, the T1000 radio. One accent colour, clear grid, hierarchy through size and weight rather than ornamentation.</p>
+            <p><strong>Typography.</strong> <strong>IBM Plex</strong> — open source, released by IBM Design in 2017. Three things converge here: IBM's heritage as one of the main schools of 20th-century corporate modernism (Eliot Noyes, Paul Rand, the Eameses), an open licence (use it without budget concerns), and one of the best Cyrillic glyph sets in open source. Plex&nbsp;Sans for body, Plex&nbsp;Mono for caps labels. Mono in caps is terminal aesthetic — <code>git&nbsp;log</code>, README; the reader instantly reads «this is a technical document, not a marketing landing page».</p>
+            <p><strong>Colour.</strong> The orange accent isn't a brand colour — it's a state indicator. Same semantics as iPhone's mute switch, Hacker News's <code>#FF6600</code>, the orange power button on the Braun&nbsp;ET33. Lineage: industrial safety-orange → Braun → tech startups → this site. Orange = attention, utility, state — not «brand colour». It shows up in exactly four places: the primary CTA («Message me on Telegram»), the active language in the switcher («EN» underlined), the indicator of the current workplace (the dot next to «Yandex&nbsp;Uzbekistan»), and the active theme in the dropdown. One semantics everywhere: «this is what's active right now».</p>
+            <p><strong>CTA hierarchy.</strong> Two buttons next to each other — «Message me on Telegram» (filled orange) and «How I can help» (outline). Same size, different colour. Hierarchy through saturation, not size. If you've got one minute, you tap the orange one. If you've got ten, you tap the outline. The decision is yours, not mine.</p>
+            <p><strong>Content. Numbers instead of adjectives, with breakdowns.</strong> The metrics block reads: <code>10 yrs in tech</code>, <code>3 markets</code>, <code>5,831 followers</code>, <code>4 own ventures</code>. Each number unfolds into a second line of context: 10&nbsp;yrs — <code>EdTech · E-com · FinTech</code>; 3&nbsp;markets — <code>RU · UZ · KG</code>; 5,831 — <code>1,139</code> on Telegram, <code>4,564</code> on LinkedIn, <code>128</code> on YouTube; 4&nbsp;ventures — <code>since 2009 · 1 sold</code>. A number without context is an empty signal. A number plus breakdown is a verifiable claim. Nobody should take my word for it; every number is checkable against its source.</p>
+            <p>Same approach in the career section. Not «scaled an e-grocery», but <code>Orders: 400 → 10,000 per day in 3 years</code>, <code>Revenue: ×2 YoY with positive EBITDA</code>, <code>CSAT: 4.2 → 4.5</code>. Not «worked in EdTech», but <code>Activated 7M+ users</code>. Where there are no numbers, the line is just <code>Contract role</code> (Apple&nbsp;Russia, 2018–2019). Contract work doesn't have 7-year KPIs; stretching them into the format would be dishonest.</p>
+            <p>In «Own ventures» — statuses without repackaging: <code>Launched → no PMF → paused</code>, <code>Launched → stabilized → sold to employees</code>, <code>Launched → 3 kiosks → closed</code>. Four ventures, one sold, the rest closed or paused. That IS startup statistics; pretending otherwise would deceive the reader.</p>
+            <p><strong>Bilingual mirroring.</strong> RU and EN are two versions, not one translation. <code>Yandex Uslugi</code> on the RU side becomes <code>Yandex Services</code> on EN — because in Uzbekistan the service was called Услуги, and an English-speaking audience reads «services» immediately. «Своё дело» → <code>Ventures</code>, «Чем могу помочь» → <code>How I can help</code>, «наст. вр.» → <code>present</code>. Thousand separators follow the locale: <code>5&nbsp;831</code> ↔ <code>5,831</code>, <code>1&nbsp;139</code> ↔ <code>1,139</code>. <code>82&nbsp;600 просмотров</code> ↔ <code>82,600 views</code>. Translation is the import of meaning, not the substitution of words.</p>
+            <p><strong>Accessibility.</strong> Four themes: light, dark, auto (matches system setting), and high-contrast. The last is for people with low vision, dyslexia, light sensitivity, and also for reading outside in bright sun. Rare on a personal site; non-negotiable for me. The theme dropdown opens with one click on the sun/moon icon; the active theme is highlighted with an orange border — state semantics again, nothing new.</p>
+            <p><strong>Navigation.</strong> On scroll, a column <code>01–07</code> appears on the right — section numbers. The current one is highlighted, the rest are muted. Not a sticky menu, not a TOC — just a marker, like a page number in a book. No labels, no icons, no animated «back to top». The <code>↑</code> arrow lives in the bottom right, shows up when needed, scrolls without delay. In Rams's vocabulary, this is <em>as little design as possible</em>.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="stack" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">04</span>
+          <h2 class="v4-h2">/uses — the stack as a separate product</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose">
+            <p>The <a href="/en/uses.html">/uses</a> page is its own product with its own logic. In the <a href="https://uses.tech" target="_blank" rel="noopener noreferrer">uses.tech</a> tradition — public «what I use» lists kept by developers and designers since the early 2010s. But I reframed the genre to fit my principles.</p>
+            <p>The key difference: not a TOP-10, not «best of 2026», not a «what to buy» shopping list. It's a cross-section of what I actually have <strong>switched on</strong> every day. Page tagline: «Only the stuff that actually gets switched on — no shelf of forgotten gadgets».</p>
+            <p><strong>Structure.</strong> Two sections — Hardware and Software. A local nav (only two items, no main menu), a «← Home» button to get back. No anchored numbering column on the right — not needed here, two sections, both visible.</p>
+            <p><strong>Cards.</strong> Every card is strictly the same format: product photo on a light backdrop, category label in caps-mono (<code>Laptop</code>, <code>Monitor</code>, <code>Keyboard</code>, <code>Mouse</code>, <code>Phone</code>, <code>Earphones</code>, <code>Headphones</code>, <code>Powerbank</code>, <code>Charger</code>, <code>Health</code>, <code>Game console</code>), model name, 2–3&nbsp;sentences on <strong>why this specifically</strong>. Not specs (you can find those on the manufacturer's page), but context: <em>«Wireless HyperSpeed mouse, 20K&nbsp;DPI, shape I've been using for years. Charges weekly; two side buttons mapped to tab navigation»</em>. User experience, not specification.</p>
+            <p><strong>Grouping.</strong> Hardware — <code>COMPUTE</code> (laptop, monitor, keyboard), <code>MOUSE</code>, <code>MOBILE</code>, <code>AUDIO</code>, <code>POWER</code>, <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code>. Groups aren't «shop categories» — they're use scenarios. <code>POWER</code> is about travel: the power bank and the charging station sit together because they solve a related problem. <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code> is about not-work.</p>
+            <p><strong>Software.</strong> Price tags instead of descriptions: <code>$5 / mo</code>, <code>FREE</code>, <code>$10 / mo</code>, <code>$100 / mo</code>, <code>PAY-AS-YOU-GO</code>. Price is the main filter for software choice. Hiding the cost in the card means hiding the context.</p>
+            <p><strong>Affiliate links.</strong> /uses has affiliate links on Dashlane, SetApp, Airalo, and Claude&nbsp;Max. Under each is a CTA — «6 months premium →», «$3 off →». Above the whole section, in plain text: <em>«Services I use regularly. Paid ones — discounted via my link, if you sign up: a small bonus for both of us»</em>. The promo code (<code>SEMYON5076</code> for Airalo) is visible in the description body.</p>
+            <p>It's a position: if a link is affiliate, I say so honestly — and I share the bonus with the reader. Hidden UTM-partner links without disclosure are dishonest practice. A disclosed affiliate link with a real discount is win-win with nothing hidden. This extends the <code>honest</code> principle from Rams's list into a new, specific monetization context.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="omitted" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">05</span>
+          <h2 class="v4-h2">What's deliberately not here</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <ul class="v4-list">
+              <li>No analytics, cookies, trackers. Verifiable via DevTools&nbsp;→&nbsp;Network.</li>
+              <li>No popups, exit-intent, chatbots. No pattern interruptions.</li>
+              <li>No testimonials or client logos. «Trusted by» is an empty social signal.</li>
+              <li>No hero videos or animations. Animation eats attention and battery.</li>
+              <li>No tagline-marketing. «I help X do Y by Z» — no.</li>
+              <li>No social-icon clusters. Contacts are point-placed where they matter.</li>
+              <li>No «Subscribe to my newsletter». Want to read me — there's a Telegram channel; one link.</li>
+              <li>No dark patterns on /uses. Affiliate links are styled as <code>→ LINK</code>, not «urgent discount!». The bonus is stated calmly.</li>
+            </ul>
+            <div class="v4-prose">
+              <p>These aren't oversights — they're decisions. Each has a reason: either a Rams principle (<em>unobtrusive</em>, <em>honest</em>, <em>as little design as possible</em>), or my privacy stance.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tool" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">06</span>
+          <h2 class="v4-h2">Tool</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose">
+            <p>The site is built with <strong>Claude Code</strong>.</p>
+            <p>This lands on Rams's first principle literally: a new technological possibility applied in service of function. Before 2024, a site like this required either personal frontend-engineering skills or hiring a designer and a developer. Today — assembled in an evening or two, without loss of quality.</p>
+            <p>Important: AI doesn't substitute for the decision here, it executes it. The philosophy and principles were formulated before the first component was written. If I'd asked Claude «build me a personal site» without a brief, I'd have gotten something averagely decent. Instead I gave references (Rams, Braun, IBM&nbsp;Plex, Hacker&nbsp;News), values (privacy, accessibility, transparency), and tone (numbers instead of adjectives) — and the tool performed from a score.</p>
+            <p>This is the right use of new technology, Rams-style. The same way he used new plastics and electronic components at Braun — not to look futuristic, but because they made the product better.</p>
+            <p>The site doesn't wear a «Made with AI» badge. The innovation is hidden in the process, the result is functional. How exactly the site is built is written here — but as an engineering note, not marketing.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="ethics" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">07</span>
+          <h2 class="v4-h2">The ethical line</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <p>Take all the decisions together, and a consistent line emerges:</p>
+            </div>
+            <ul class="v4-list v4-list--spaced">
+              <li><strong>Privacy.</strong> No analytics, no trackers. I work in FinTech and run side-projects on digital privacy; I can't preach one thing and do another.</li>
+              <li><strong>A11y.</strong> High contrast as a dedicated mode. The site works for people with low vision.</li>
+              <li><strong>Transparency.</strong> Repo is open, the build hash in the footer links to the commit on GitHub. Anyone can see what changed and when. Affiliate links on /uses are marked and disclosed.</li>
+              <li><strong>Humility.</strong> The «Found a typo?» link in the footer is an invitation to correct, the opposite of «everything is perfect on my end».</li>
+              <li><strong>Honesty.</strong> Status tags «Closed / Sold / Paused» show the real context without repackaging. Follower counts are broken down by platform, not aggregated into one. Reply SLA isn't «I'll respond soon», it's <code>Usually reply within 10 business days</code>.</li>
+            </ul>
+            <div class="v4-prose">
+              <p>Five gestures aimed at one subject — the reader. Not me. That's probably the main thing I wanted to say with this site: the product is built in the interest of the person using it.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="living" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">08</span>
+          <h2 class="v4-h2">A living document</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose">
+            <p>The site keeps updating. If something looks broken, reads oddly, or just feels inaccurate — let me know. The «Found a typo?» link in the footer opens a direct channel. The repo is open; if you want to file an issue or a PR — welcome.</p>
+            <p>The site isn't a final artefact. It's a snapshot of how I think today. A year from now it might look different. Build <code>3cd8687</code> will switch to the next one — and the change will be visible in the commit. That's normal and right.</p>
+            <p>→ <a href="https://s.morgunov.tech">s.morgunov.tech</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="v4-foot">
+      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/495ad03" target="_blank" rel="noopener noreferrer"><code>495ad03</code></a> · <a href="/en/uses.html">uses</a> · <a href="mailto:ask@morgunov.tech?subject=Typo%20on%20morgunov.tech%3A%20%2Fen%2Fabout.html">found a typo?</a></span>
+      <span class="v4-foot-privacy">No cookies, no trackers, no analytics</span>
+    </footer>
+  </div>
+  <aside class="v4-section-nav" aria-label="Page progress">
+    <a href="#product">01</a>
+    <a href="#principles">02</a>
+    <a href="#layers">03</a>
+    <a href="#stack">04</a>
+    <a href="#omitted">05</a>
+    <a href="#tool">06</a>
+    <a href="#ethics">07</a>
+    <a href="#living">08</a>
+  </aside>
+  <button class="v4-scroll-top" type="button" aria-label="Back to top">↑</button>
+  <div class="v4-scroll-progress" aria-hidden="true"></div>
+  <script defer src="/script.js?v=81fe9712"></script>
+</body>
+</html>

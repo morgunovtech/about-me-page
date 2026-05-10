@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Принципы — Семён Моргунов</title>
+  <meta name="description" content="Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт: приватность, доступность, прозрачность, честность." />
+  <meta name="author" content="Семён Моргунов" />
+  <meta name="theme-color" content="#edeae5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" media="(prefers-color-scheme: light)" />
+  <link rel="icon" href="/images/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="canonical" href="https://s.morgunov.tech/about.html" />
+  <link rel="alternate" hreflang="ru" href="https://s.morgunov.tech/about.html" />
+  <link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/about.html" />
+  <link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/about.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Принципы — Семён Моргунов" />
+  <meta property="og:description" content="Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт: приватность, доступность, прозрачность, честность." />
+  <meta property="og:url" content="https://s.morgunov.tech/about.html" />
+  <meta property="og:image" content="https://s.morgunov.tech/images/og-card-ru.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Принципы — Семён Моргунов" />
+  <meta property="og:site_name" content="morgunov.tech" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Принципы — Семён Моргунов" />
+  <meta name="twitter:description" content="Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт: приватность, доступность, прозрачность, честность." />
+  <meta name="twitter:image" content="https://s.morgunov.tech/images/og-card-ru.png" />
+  <meta name="twitter:image:alt" content="Принципы — Семён Моргунов" />
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
+  <style>
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif}
+    [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f}
+    [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000}
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0}
+    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:14px;line-height:1.55;letter-spacing:-0.005em}
+    [data-theme="high-contrast"] body.v4-page{font-size:16px}
+    .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:6px 12px;z-index:100;text-decoration:none;font-size:13px;transition:top .2s}
+    .v4-page .skip-link:focus{top:8px}
+    .v4-root{background:var(--v4-bg);color:var(--v4-fg);padding:36px 56px 56px;max-width:1280px;margin:0 auto}
+    .v4-bar{display:flex;justify-content:space-between;align-items:center;padding:0 0 14px;margin-bottom:32px;border-bottom:1px solid var(--v4-fg);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .v4-bar-mid{display:flex;gap:6px 22px;justify-content:center;color:var(--v4-muted);flex-wrap:wrap}
+    .v4-bar-mid a{color:inherit;text-decoration:none;padding:8px 4px;white-space:nowrap}
+    .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;color:var(--v4-fg)}
+    .v4-lang{display:inline-flex;align-items:center;gap:6px}
+    .v4-lang-link{color:var(--v4-muted);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:8px 6px;border-bottom:1px solid transparent}
+    .v4-lang-link.is-active{color:var(--v4-fg);border-bottom-color:var(--v4-orange)}
+    .v4-lang-sep{color:var(--v4-dim)}
+    .v4-theme{position:relative}
+    .v4-icon-btn{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--v4-fg);cursor:pointer;padding:0;font:inherit;border:none}
+    .v4-icon-btn svg{width:14px;height:14px}
+    .v4-icon-btn .v4-icon-moon,.v4-icon-btn .v4-icon-contrast{display:none}
+    [data-theme="dark"] .v4-icon-btn .v4-icon-sun{display:none}
+    [data-theme="dark"] .v4-icon-btn .v4-icon-moon{display:block}
+    [data-theme="high-contrast"] .v4-icon-btn .v4-icon-sun{display:none}
+    [data-theme="high-contrast"] .v4-icon-btn .v4-icon-contrast{display:block}
+    .v4-hero{display:grid;grid-template-columns:1fr 280px;gap:40px;padding:4px 0 36px;margin:0 0 28px;align-items:start}
+    .v4-hero--simple{grid-template-columns:1fr;padding:24px 0 0}
+    .v4-hero-text{min-width:0}
+    .v4-hero-meta{font-family:var(--v4-mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--v4-muted);margin-bottom:16px;display:flex;flex-wrap:wrap;gap:14px}
+    .v4-h1{font-size:64px;line-height:1;letter-spacing:-.025em;font-weight:600;margin:0 0 16px}
+    .v4-tagline{font-size:18px;color:var(--v4-fg);line-height:1.45;max-width:52ch;margin:0 0 24px;font-weight:400}
+    .v4-cta-row{display:flex;gap:8px;flex-wrap:wrap}
+    .v4-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;min-height:40px;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;cursor:pointer;border:1px solid var(--v4-fg);background:transparent;color:var(--v4-fg);font-family:inherit}
+    .v4-btn-primary{background:var(--v4-orange);color:var(--v4-on-accent);border-color:var(--v4-orange)}
+    .v4-section{margin-bottom:36px}
+    .v4-section-head{padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--v4-fg)}
+    .v4-section-num{display:block;font-family:var(--v4-mono);font-size:11px;color:var(--v4-muted);text-transform:uppercase;letter-spacing:.1em;font-weight:500;margin-bottom:6px}
+    .v4-h2{font-size:22px;font-weight:600;margin:0;letter-spacing:-.015em}
+    .v4-prose p{margin:0 0 12px;line-height:1.55}
+    .v4-prose p:last-child{margin-bottom:0}
+    .v4-prose strong{font-weight:600}
+    .v4-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+    .v4-list li{padding-left:18px;position:relative;line-height:1.5}
+    .v4-list li::before{content:"";position:absolute;left:0;top:.65em;width:8px;height:1px;background:var(--v4-fg)}
+    .v4-list strong{font-weight:600}
+    .v4-list--spaced{margin-top:12px}
+    .v4-list + .v4-prose{margin-top:18px}
+    @media (max-width:960px){.v4-root{padding:28px 32px 40px}.v4-h1{font-size:52px}}
+    @media (max-width:640px){.v4-root{padding:20px 18px 32px;font-size:13.5px}.v4-bar{flex-direction:column;align-items:stretch;row-gap:10px;font-size:10px}.v4-bar-right{align-self:flex-end}.v4-bar-mid{justify-content:flex-start;flex-wrap:wrap;gap:4px 14px}.v4-bar-mid a{padding:10px 6px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}}
+  </style>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-cyr-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-cyr-600.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-600.woff2" crossorigin />
+  <link rel="preload" href="/styles.css?v=0b43dc33" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/styles.css?v=0b43dc33" /></noscript>
+  <script>
+    (function () {
+      var d = document.documentElement;
+      var p = localStorage.getItem('theme-preference') || 'auto';
+      var t = p === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : p;
+      d.setAttribute('data-theme', t);
+      d.setAttribute('data-theme-preference', p);
+    })();
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://s.morgunov.tech/about.html#webpage",
+        "url": "https://s.morgunov.tech/about.html",
+        "name": "Принципы — Семён Моргунов",
+        "inLanguage": "ru",
+        "isPartOf": { "@id": "https://s.morgunov.tech/#website" },
+        "about": { "@id": "https://s.morgunov.tech/#person" },
+        "breadcrumb": { "@id": "https://s.morgunov.tech/about.html#breadcrumb" },
+        "dateModified": "2026-05-11"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://s.morgunov.tech/about.html#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://s.morgunov.tech/" },
+          { "@type": "ListItem", "position": 2, "name": "Принципы", "item": "https://s.morgunov.tech/about.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="v4-page no-transition" data-lang="ru">
+  <a href="#main" class="skip-link">Перейти к основному содержимому</a>
+  <div class="v4-root">
+    <header class="v4-bar" id="top">
+      <nav class="v4-bar-mid" aria-label="Основная навигация">
+        <a href="#product">Продукт</a>
+        <a href="#principles">Принципы</a>
+        <a href="#layers">Решения</a>
+        <a href="#stack">Стек</a>
+        <a href="#omitted">Чего нет</a>
+        <a href="#tool">Инструмент</a>
+        <a href="#ethics">Этика</a>
+      </nav>
+      <div class="v4-bar-right">
+        <div class="v4-lang" aria-label="Переключатель языка">
+          <a class="v4-lang-link is-active" href="/about.html" aria-current="page">RU</a>
+          <span class="v4-lang-sep" aria-hidden="true">·</span>
+          <a class="v4-lang-link" href="/en/about.html">EN</a>
+        </div>
+        <div class="v4-theme">
+          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu" aria-label="Сменить тему оформления">
+            <svg class="v4-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+              <circle cx="8" cy="8" r="3"></circle>
+              <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"></path>
+            </svg>
+            <svg class="v4-icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M13.5 9A6 6 0 1 1 7 2.5a4.5 4.5 0 0 0 6.5 6.5z"></path>
+            </svg>
+            <svg class="v4-icon-contrast" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <circle cx="8" cy="8" r="6"></circle>
+              <path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path>
+            </svg>
+          </button>
+          <div class="v4-theme-menu" id="theme-menu">
+            <button class="v4-theme-btn" type="button" data-theme-value="light" aria-pressed="false">Светлая</button>
+            <button class="v4-theme-btn" type="button" data-theme-value="dark" aria-pressed="false">Тёмная</button>
+            <button class="v4-theme-btn" type="button" data-theme-value="auto" aria-pressed="false">Авто</button>
+            <button class="v4-theme-btn" type="button" data-theme-value="high-contrast" aria-pressed="false">Высокий контраст</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="v4-hero v4-hero--simple" aria-labelledby="hero-title">
+        <div class="v4-hero-text">
+          <p class="v4-hero-meta">О сайте · Принципы · Решения</p>
+          <h1 class="v4-h1" id="hero-title">Принципы</h1>
+          <p class="v4-tagline">Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт.</p>
+          <div class="v4-cta-row">
+            <a class="v4-btn" href="/">← На главную</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="v4-section" aria-label="Введение">
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose">
+            <p>Этот сайт — продукт. У продукта есть пользователь — я сам. И, как у любого продукта, у него есть принципы, по которым он построен. Здесь — список этих принципов и решений, на которые они опираются.</p>
+            <p>Текст можно читать как объяснение, как референс или просто как срез того, как я думаю о вещах, которые делаю.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="product" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">01</span>
+          <h2 class="v4-h2">Это продукт, не лендинг</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose">
+            <p>Я не делал визитку. Я не делал «сайт-портфолио». Я делал продукт.</p>
+            <p>Это значит, что у него есть билд (<code>BUILD&nbsp;3cd8687</code> в футере, кликабельный на коммит в GitHub), есть бэклог, есть релизы, есть пользователь и есть метрика успеха. Метрика не в посетителях и не в конверсии — она в том, насколько точно сайт отражает то, как я думаю и работаю. Если сайт перестаёт быть точным — я его правлю.</p>
+            <p>Это значит, что к нему применяются продуктовые правила: каждое решение должно быть оправданным, ничего «потому что у всех так», ничего «потому что красиво».</p>
+            <p>Хеш билда в футере — не украшение и не выпендрёж. Это та же сущность, что версия в About&nbsp;→&nbsp;iPhone или серийник на обороте калькулятора Braun. Кликнул — увидел, что именно было изменено в этом релизе. Сайт не прячет свою историю.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="principles" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">02</span>
+          <h2 class="v4-h2">Десять принципов Дитера Рамса</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <p>Главный архитектурный референс этого сайта — не редакторский веб и не brutalist-движение. Это <strong>Дитер Рамс</strong>, главный дизайнер Braun в 1955–1995&nbsp;годах. К концу карьеры он сформулировал десять принципов хорошего дизайна. Они написаны для индустриальных продуктов, но переводятся на цифровую среду почти без потерь.</p>
+              <p>Принципы Рамса — это не чек-лист. Это набор вопросов, которые дизайнер задаёт себе. Если ответ «нет» — это не значит «всё пропало». Это значит «остановись и подумай».</p>
+            </div>
+            <ul class="v4-list v4-list--spaced">
+              <li><strong>Innovative.</strong> Использовать новые технологические возможности — но в служении функции, не ради новизны.</li>
+              <li><strong>Useful.</strong> Дизайн должен подчёркивать пользу и убирать всё, что её ослабляет.</li>
+              <li><strong>Aesthetic.</strong> Красота как следствие правильной структуры, а не нанесённое поверх украшение.</li>
+              <li><strong>Understandable.</strong> Продукт должен сам объяснять, как им пользоваться. В лучшем случае — самоочевиден.</li>
+              <li><strong>Unobtrusive.</strong> Продукты — это инструменты, не художественные объекты. Они не «кричат».</li>
+              <li><strong>Honest.</strong> Не делать продукт инновационнее, мощнее или ценнее, чем он есть.</li>
+              <li><strong>Long-lasting.</strong> Не привязываться к моде. Не выглядеть «современно сегодня».</li>
+              <li><strong>Thorough down to the last detail.</strong> Ничто не должно быть случайным. Уважение к пользователю проявляется в тщательности.</li>
+              <li><strong>Environmentally friendly.</strong> Минимизировать ресурсы, минимизировать визуальный шум.</li>
+              <li><strong>As little design as possible.</strong> <em>Weniger, aber besser</em> — меньше, но лучше. Не путать с минимализмом как стилем.</li>
+            </ul>
+            <div class="v4-prose">
+              <p>Эти десять пунктов — каркас всего, что описано ниже.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="layers" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">03</span>
+          <h2 class="v4-h2">Решения по слоям</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose">
+            <p><strong>Визуальный язык.</strong> Бежевая бумажная подложка, чёрные заголовки, моноширинные caps-метки, никакой декорации. Это прямая отсылка к индустриальной эстетике Braun — калькулятор ET66, проигрыватель SK4, радиоприёмник T1000. Один акцентный цвет, ясная сетка, иерархия через размер и вес, а не через украшения.</p>
+            <p><strong>Типографика.</strong> Шрифт <strong>IBM Plex</strong> — open source, выпущен IBM Design в 2017 году. Здесь сходятся три вещи: наследие IBM как одной из главных школ корпоративного модернизма XX&nbsp;века (Эллиот Нойес, Пол Рэнд, Имс), открытость лицензии (можно использовать без оглядки на бюджет) и одна из лучших в open-source кириллица. Plex&nbsp;Sans для тела, Plex&nbsp;Mono для caps-меток. Mono в caps — это терминальная эстетика, <code>git&nbsp;log</code>, README; читатель сразу считывает «передо мной технический документ, не маркетинговый лендинг».</p>
+            <p><strong>Цвет.</strong> Оранжевый акцент — не бренд, а индикатор состояния. Та же семантика, что у переключателя mute на iPhone, у <code>#FF6600</code> Hacker News, у оранжевой кнопки питания на калькуляторе Braun&nbsp;ET33. Линия родословной: индустриальный safety-orange → Braun → tech-стартапы → этот сайт. Оранжевый = attention, utility, state — не «фирменный цвет». Он используется ровно в четырёх местах: главный CTA («Написать в Telegram»), активный язык в переключателе («RU» подчёркнут), индикатор текущего места работы (точка рядом с «Yandex&nbsp;Uzbekistan»), активная тема в дропдауне. Везде — одна семантика: «вот это сейчас активно».</p>
+            <p><strong>Иерархия CTA.</strong> Две кнопки рядом — «Написать в Telegram» (оранжевая, заливка) и «Чем могу помочь» (белая, обводка). Размер одинаковый, цвет разный. Иерархия через насыщенность, не через размер. Если у пользователя одна минута — он жмёт оранжевую. Если десять — белую. Решение за ним, не за мной.</p>
+            <p><strong>Контент. Цифры вместо прилагательных и разбивка цифр.</strong> В блоке метрик стоят: <code>10 лет в&nbsp;IT</code>, <code>3 рынка</code>, <code>5&nbsp;831 подписчик</code>, <code>4 своих проекта</code>. Каждая цифра разворачивается во вторую строку с контекстом: 10&nbsp;лет — <code>EdTech · E-com · FinTech</code>; 3&nbsp;рынка — <code>RU · UZ · KG</code>; 5&nbsp;831 — <code>1&nbsp;139</code> в Telegram, <code>4&nbsp;564</code> в LinkedIn, <code>128</code> на YouTube; 4&nbsp;проекта — <code>с 2009 года · 1 продан</code>. Цифра без контекста — пустой сигнал. Цифра плюс разбивка — проверяемое утверждение. Никто не должен верить мне на слово; все цифры можно сверить с источниками.</p>
+            <p>Тот же подход в карьере. Не «масштабировал e-grocery», а <code>Заказы: 400 → 10&nbsp;000 в день за 3 года</code>, <code>Выручка: ×2 год к году при положительной EBITDA</code>, <code>CSAT: 4.2 → 4.5</code>. Не «работал в EdTech», а <code>Активировал 7M+ пользователей</code>. Где нет цифр — там просто <code>По контракту</code> (Apple&nbsp;Russia, 2018–2019). Контрактная работа не имеет 7-летних KPI; натягивать их под формат — нечестно.</p>
+            <p>В разделе «Своё дело» — статусы без переупаковки: <code>Запустили → не нашли PMF → на паузе</code>, <code>Запустили → стабилизировали → продали сотрудникам</code>, <code>Запустили → выросли до 3-х точек → закрыли</code>. Четыре своих проекта, один продан, остальные — закрылись или на паузе. Это и есть статистика стартапов; имитировать что-то другое — обман читателя.</p>
+            <p><strong>Двуязычность.</strong> RU и EN — две версии, не одна с переводом. <code>Yandex Uslugi</code> на RU становится <code>Yandex Services</code> на EN — потому что в Узбекистане сервис назывался Услуги, а англоязычная аудитория увидит сразу «сервисы». «Своё дело» → <code>Ventures</code>, «Чем могу помочь» → <code>How I can help</code>, «наст. вр.» → <code>present</code>. Разделители тысяч скроены под локаль: <code>5&nbsp;831</code> ↔ <code>5,831</code>, <code>1&nbsp;139</code> ↔ <code>1,139</code>. <code>82&nbsp;600 просмотров</code> ↔ <code>82,600 views</code>. Перевод — это импорт смыслов, не подстановка слов.</p>
+            <p><strong>Доступность.</strong> Четыре темы: светлая, тёмная, авто (по системной настройке), высокий контраст. Последняя — для людей со слабым зрением, дислексией, светочувствительностью, а также для чтения на улице под ярким солнцем. Это редкое решение для personal-сайта; для меня — обязательное. Дропдаун с темами открывается одним кликом по иконке солнца/луны; активная тема подсвечена оранжевой обводкой — снова семантика state, ничего нового.</p>
+            <p><strong>Навигация.</strong> При скролле справа появляется столбик <code>01–07</code> — номера разделов. Текущий выделен, остальные приглушены. Это не sticky-меню и не TOC — это просто ориентир, как номер страницы в книге. Никаких подписей, никаких иконок, никакого «back to top» с анимацией. Стрелка <code>↑</code> живёт в правом нижнем углу, появляется когда нужно, скроллит без задержки. У Рамса это называется <em>as little design as possible</em>.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="stack" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">04</span>
+          <h2 class="v4-h2">/uses — стек как отдельный продукт</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose">
+            <p>Страница <a href="/uses.html">/uses</a> — отдельный продукт со своей логикой. В традиции <a href="https://uses.tech" target="_blank" rel="noopener noreferrer">uses.tech</a> — публичных списков «чем я пользуюсь», которые ведут разработчики и дизайнеры с начала 2010-х. Но я переосмыслил жанр под свои принципы.</p>
+            <p>Принципиальное отличие — это не TOP-10, не «best of 2026» и не подборка «что купить». Это срез того, что у меня <strong>реально включено</strong> в каждый день. Таглайн страницы: «Только то, что реально включаю — без полки забытых гаджетов».</p>
+            <p><strong>Структура.</strong> Две секции — «Железо» и «Софт». Своя локальная навигация (только два пункта, без главного меню), кнопка «← На главную» для возврата. На странице нет якорной нумерации справа — она здесь не нужна, секций две, обе видны.</p>
+            <p><strong>Карточки.</strong> Каждая — строго одного формата: продуктовое фото на светлой подложке, категорийная метка в caps-mono (<code>Laptop</code>, <code>Monitor</code>, <code>Keyboard</code>, <code>Mouse</code>, <code>Phone</code>, <code>Earphones</code>, <code>Headphones</code>, <code>Powerbank</code>, <code>Charger</code>, <code>Health</code>, <code>Game console</code>), название модели, 2–3&nbsp;предложения о том, <strong>почему именно это</strong>. Не характеристики (их можно найти у производителя), а контекст: <em>«Беспроводная HyperSpeed-мышь, 20K&nbsp;DPI, форма проверена годами. Заряжается раз в неделю, два боковых клавиша — под навигацию между вкладками»</em>. Это пользовательский опыт, не спецификация.</p>
+            <p><strong>Группировка.</strong> Железо — <code>COMPUTE</code> (ноутбук, монитор, клавиатура), <code>MOUSE</code>, <code>MOBILE</code>, <code>AUDIO</code>, <code>POWER</code>, <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code>. Группы — не «категории магазина», а сценарии использования. <code>POWER</code> — это про дорогу: пауэрбанк и зарядная станция стоят рядом, потому что решают связанную задачу. <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code> — про не-работу.</p>
+            <p><strong>Софт.</strong> Прайс-теги вместо описаний: <code>$5 / mo</code>, <code>FREE</code>, <code>$10 / mo</code>, <code>$100 / mo</code>, <code>PAY-AS-YOU-GO</code>. Цена — главный фильтр выбора софта. Скрыть стоимость в карточке — значит спрятать контекст.</p>
+            <p><strong>Аффилиатные ссылки.</strong> На страницу /uses встроены реферальные ссылки на Dashlane, SetApp, Airalo, Claude&nbsp;Max. Под каждой — кнопка-CTA вида «6 месяцев Premium →», «Скидка $3 →». Над всем разделом стоит дисклеймер прямым текстом: <em>«Сервисы, которыми пользуюсь регулярно. Платные — со скидками по моей ссылке, если оформите подписку: бонус и вам, и мне»</em>. Промокод (<code>SEMYON5076</code> для Airalo) виден в теле описания.</p>
+            <p>Это позиция: если ссылка партнёрская — я скажу честно, что получаю бонус. И одновременно дам бонус читателю. Скрытые UTM-партнёрки без раскрытия — нечестная практика. Раскрытая партнёрская ссылка с реальной скидкой — это win-win, в котором ничего не прячется. Это продолжение принципа <code>honest</code> из списка Рамса в новый, специфический контекст монетизации.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="omitted" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">05</span>
+          <h2 class="v4-h2">Чего здесь намеренно нет</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <ul class="v4-list">
+              <li>Нет аналитики, cookies, трекеров. Это проверяется через DevTools&nbsp;→&nbsp;Network.</li>
+              <li>Нет popup-окон, exit-intent, чатботов. Никаких pattern interruptions.</li>
+              <li>Нет testimonials и client logos. «Доверяют» — пустой социальный сигнал.</li>
+              <li>Нет hero-видео и анимаций. Анимация — пожиратель внимания и батареи.</li>
+              <li>Нет tagline-маркетинга. «I help X do Y by Z» — нет.</li>
+              <li>Нет иконного кластера соцсетей. Контакты — точечные, в нужных местах.</li>
+              <li>Нет «Subscribe to my newsletter». Хочешь читать — есть Telegram-канал; ссылка одна.</li>
+              <li>Нет dark patterns на /uses. Аффилиатные ссылки оформлены как <code>→ ССЫЛКА</code>, не как «срочно скидка!». Бонус озвучен спокойно.</li>
+            </ul>
+            <div class="v4-prose">
+              <p>Всё это — не упущения, а решения. У каждого есть причина: либо принцип Рамса (<em>unobtrusive</em>, <em>honest</em>, <em>as little design as possible</em>), либо моя позиция по приватности.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tool" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">06</span>
+          <h2 class="v4-h2">Инструмент</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose">
+            <p>Сайт сделан с помощью <strong>Claude Code</strong>.</p>
+            <p>Это попадает в первый принцип Рамса буквально: новая технологическая возможность применена в служении функции. До 2024&nbsp;года такой сайт требовал либо собственных навыков фронтенд-разработки, либо найма дизайнера и разработчика. Сегодня — собирается за вечер-два, без потери качества.</p>
+            <p>Важно: AI здесь не подменяет решение, а исполняет его. Философия и принципы были сформулированы до того, как был написан первый компонент. Если бы я попросил Claude «сделай мне personal-сайт» без брифа — получил бы что-то усреднённо-приличное. А я дал референсы (Рамс, Braun, IBM&nbsp;Plex, Hacker&nbsp;News), ценности (приватность, доступность, прозрачность) и тон (цифры вместо прилагательных) — и инструмент исполнил по партитуре.</p>
+            <p>Это правильное использование новой технологии в духе Рамса. Так же, как он использовал новые пластики и электронные компоненты в Braun — не ради того, чтобы выглядеть футуристично, а потому что они позволяли сделать продукт лучше.</p>
+            <p>Сайт не носит нашлёпки «Made with AI». Инновация спрятана в процессе, результат — функционален. О том, как именно сделан сайт, написано здесь — но это инженерная заметка, а не маркетинг.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="ethics" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">07</span>
+          <h2 class="v4-h2">Этическая линия</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <p>Если собрать решения вместе, получается одна последовательная линия:</p>
+            </div>
+            <ul class="v4-list v4-list--spaced">
+              <li><strong>Privacy.</strong> Никакой аналитики и трекеров. Я работаю в FinTech и веду сайд-проекты про цифровую приватность; не могу проповедовать одно и делать другое.</li>
+              <li><strong>A11y.</strong> Высокий контраст как отдельный режим. Сайт работает для людей со слабым зрением.</li>
+              <li><strong>Transparency.</strong> Репозиторий открыт, build hash в футере кликабельный на коммит в GitHub. Каждый может увидеть, что и когда менялось. Аффилиатные ссылки на /uses помечены и раскрыты.</li>
+              <li><strong>Humility.</strong> Ссылка «Нашли опечатку?» в футере — приглашение к коррекции, противоположность «у меня всё идеально».</li>
+              <li><strong>Honesty.</strong> Статусы «Закрыл / Продал / На паузе» показывают реальный контекст без переупаковки. Цифры подписчиков разложены по платформам, а не свалены в одну. Срок ответа — не «отвечу скоро», а <code>обычно отвечаю в течение 10 рабочих дней</code>.</li>
+            </ul>
+            <div class="v4-prose">
+              <p>Пять жестов, направленных на одного субъекта — читателя. Не на меня. Это, наверное, главное, что я хотел сказать этим сайтом: продукт устроен в интересах того, кто им пользуется.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="living" class="v4-section">
+        <div class="v4-section-head">
+          <span class="v4-section-num">08</span>
+          <h2 class="v4-h2">Это живой документ</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose">
+            <p>Сайт обновляется. Если что-то выглядит сломанным, читается странно или просто кажется неточным — напишите. Ссылка «Нашли опечатку?» в футере открывает прямой канал. Репозиторий открыт; если хотите завести issue или PR — добро пожаловать.</p>
+            <p>Сайт — не финальный артефакт. Это срез того, как я думаю сегодня. Через год он, возможно, будет выглядеть иначе. Build <code>3cd8687</code> сменится на следующий — и это будет видно по коммиту. Это нормально и правильно.</p>
+            <p>→ <a href="https://s.morgunov.tech">s.morgunov.tech</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="v4-foot">
+      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/495ad03" target="_blank" rel="noopener noreferrer"><code>495ad03</code></a> · <a href="/uses.html">стек</a> · <a href="mailto:ask@morgunov.tech?subject=Опечатка%20на%20morgunov.tech%3A%20%2Fabout.html">нашли опечатку?</a></span>
+      <span class="v4-foot-privacy">Без Cookies, трекеров и аналитики</span>
+    </footer>
+  </div>
+  <aside class="v4-section-nav" aria-label="Прогресс по странице">
+    <a href="#product">01</a>
+    <a href="#principles">02</a>
+    <a href="#layers">03</a>
+    <a href="#stack">04</a>
+    <a href="#omitted">05</a>
+    <a href="#tool">06</a>
+    <a href="#ethics">07</a>
+    <a href="#living">08</a>
+  </aside>
+  <button class="v4-scroll-top" type="button" aria-label="Наверх">↑</button>
+  <div class="v4-scroll-progress" aria-hidden="true"></div>
+  <script defer src="/script.js?v=81fe9712"></script>
+</body>
+</html>

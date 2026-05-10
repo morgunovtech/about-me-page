@@ -43,4 +43,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/uses.html" />
     <lastmod>2026-05-11</lastmod>
   </url>
+  <url>
+    <loc>https://s.morgunov.tech/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://s.morgunov.tech/about.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/about.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/about.html" />
+    <lastmod>2026-05-11</lastmod>
+  </url>
+  <url>
+    <loc>https://s.morgunov.tech/en/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://s.morgunov.tech/about.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/about.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/about.html" />
+    <lastmod>2026-05-11</lastmod>
+  </url>
 </urlset>

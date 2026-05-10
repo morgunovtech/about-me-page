@@ -44,6 +44,8 @@ HTML_FILES = [
     "en/collaborate.html",
     "uses.html",
     "en/uses.html",
+    "about.html",
+    "en/about.html",
     "404.html",
 ]
 ASSETS = [
