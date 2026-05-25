@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Стек — Семён Моргунов</title>
-  <meta name="description" content="Железо, которым пользуюсь каждый день: MacBook Pro 16, iPhone 15 Pro Max, Dell U3223QE, Oura Ring и другое. Только то, что реально включаю." />
+  <title data-cms-text="meta.title">Стек — Семён Моргунов</title>
+  <meta name="description" data-cms-content="meta.description" content="Железо, которым пользуюсь каждый день: MacBook Pro 16, iPhone 15 Pro Max, Dell U3223QE, Oura Ring и другое. Только то, что реально включаю." />
   <meta name="author" content="Семён Моргунов" />
   <meta name="theme-color" content="#edeae5" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
@@ -18,22 +18,22 @@
   <link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/uses.html" />
   <link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/uses.html" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Стек — Семён Моргунов" />
-  <meta property="og:description" content="Железо, которым пользуюсь каждый день: MacBook Pro 16, iPhone 15 Pro Max, Dell U3223QE, Oura Ring и другое." />
+  <meta property="og:title" data-cms-content="share.title" content="Стек — Семён Моргунов" />
+  <meta property="og:description" data-cms-content="share.description" content="Железо, которым пользуюсь каждый день: MacBook Pro 16, iPhone 15 Pro Max, Dell U3223QE, Oura Ring и другое." />
   <meta property="og:url" content="https://s.morgunov.tech/uses.html" />
-  <meta property="og:image" content="https://s.morgunov.tech/images/og-card-ru.png" />
+  <meta property="og:image" data-cms-abs="share.image" content="https://s.morgunov.tech/images/og-card-ru.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Стек — Семён Моргунов" />
+  <meta property="og:image:alt" data-cms-content="share.imageAlt" content="Стек — Семён Моргунов" />
   <meta property="og:site_name" content="morgunov.tech" />
   <meta property="og:locale" content="ru_RU" />
   <meta property="og:locale:alternate" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Стек — Семён Моргунов" />
-  <meta name="twitter:description" content="Железо, которым пользуюсь каждый день: MacBook Pro 16, iPhone 15 Pro Max, Dell U3223QE, Oura Ring и другое." />
-  <meta name="twitter:image" content="https://s.morgunov.tech/images/og-card-ru.png" />
-  <meta name="twitter:image:alt" content="Стек — Семён Моргунов" />
+  <meta name="twitter:title" data-cms-content="share.title" content="Стек — Семён Моргунов" />
+  <meta name="twitter:description" data-cms-content="share.description" content="Железо, которым пользуюсь каждый день: MacBook Pro 16, iPhone 15 Pro Max, Dell U3223QE, Oura Ring и другое." />
+  <meta name="twitter:image" data-cms-abs="share.image" content="https://s.morgunov.tech/images/og-card-ru.png" />
+  <meta name="twitter:image:alt" data-cms-content="share.imageAlt" content="Стек — Семён Моргунов" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
   <style>
     :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif}
@@ -171,16 +171,16 @@
     <main id="main">
       <section class="v4-hero v4-hero--simple" aria-labelledby="hero-title">
         <div class="v4-hero-text">
-          <p class="v4-hero-meta">Железо · Софт</p>
-          <h1 class="v4-h1" id="hero-title">Стек</h1>
-          <p class="v4-tagline">Чем пользуюсь каждый день. Только то, что реально включаю — без полки «забытых гаджетов».</p>
-          <div class="v4-cta-row">
+          <p class="v4-hero-meta" data-cms-text="hero.eyebrow">Железо · Софт</p>
+          <h1 class="v4-h1" id="hero-title" data-cms-text="hero.name">Стек</h1>
+          <p class="v4-tagline" data-cms-text="hero.tagline">Чем пользуюсь каждый день. Только то, что реально включаю — без полки «забытых гаджетов».</p>
+          <div class="v4-cta-row" data-cms-html="hero.ctas">
             <a class="v4-btn" href="/">← На главную</a>
           </div>
         </div>
       </section>
 
-      <section id="hardware" class="v4-section">
+      <section id="hardware" class="v4-section" data-cms-html="sections.hardware.body">
         <div class="v4-section-head">
           <span class="v4-section-num">01</span>
           <h2 class="v4-h2">Железо</h2>
@@ -323,7 +323,7 @@
         </div>
       </section>
 
-      <section id="software" class="v4-section">
+      <section id="software" class="v4-section" data-cms-html="sections.software.body">
         <div class="v4-section-head">
           <span class="v4-section-num">02</span>
           <h2 class="v4-h2">Софт</h2>

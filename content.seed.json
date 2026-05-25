@@ -1,0 +1,907 @@
+{
+  "home": {
+    "site": "s.morgunov.tech",
+    "page": "home",
+    "rev": 1,
+    "updatedAt": "2026-05-25T00:00:00Z",
+    "dateModified": "2026-05-11",
+    "meta": {
+      "title": {
+        "ru": "Семён Моргунов — Head of FinTech @ Yandex Uzbekistan",
+        "en": "Semyon Morgunov — Head of FinTech @ Yandex Uzbekistan"
+      },
+      "description": {
+        "ru": "Head of FinTech в Yandex Uzbekistan. Запускаю продукты на быстрорастущих рынках Центральной Азии — продукт, операционка и юнит-экономика параллельно.",
+        "en": "Head of FinTech at Yandex Uzbekistan. Building products in Central Asia: product, operations, and unit economics — in parallel."
+      }
+    },
+    "share": {
+      "title": {
+        "ru": "Семён Моргунов — Head of FinTech @ Yandex Uzbekistan",
+        "en": "Semyon Morgunov — Head of FinTech @ Yandex Uzbekistan"
+      },
+      "description": {
+        "ru": "Head of FinTech в Yandex Uzbekistan. Запускаю продукты на быстрорастущих рынках Центральной Азии — продукт, операционка и юнит-экономика параллельно.",
+        "en": "Head of FinTech at Yandex Uzbekistan. Building products in Central Asia: product, operations, and unit economics — in parallel."
+      },
+      "image": {
+        "ru": "/images/og-card-ru.png",
+        "en": "/images/og-card-en.png"
+      },
+      "imageAlt": {
+        "ru": "Семён Моргунов — Head of FinTech @ Yandex Uzbekistan, Ташкент",
+        "en": "Semyon Morgunov — Head of FinTech @ Yandex Uzbekistan, Tashkent"
+      }
+    },
+    "seo": {
+      "jobTitle": "Head of FinTech",
+      "alternateName": {
+        "ru": "Semyon Morgunov",
+        "en": "Семён Моргунов"
+      },
+      "personDescription": {
+        "ru": "Head of FinTech в Yandex Uzbekistan. Запускает продукты на быстрорастущих рынках Центральной Азии — продукт, операционку и юнит-экономику собирает параллельно. 10 лет в IT (EdTech, e-com, FinTech), работа в России и Узбекистане, консалтинг в Кыргызстане. С 2009 года запустил четыре собственных проекта (один продан сотрудникам, три закрыли). Эдвайзер и ангельский инвестор. Автор Telegram-канала «Семён расправил плечи».",
+        "en": "Head of FinTech at Yandex Uzbekistan. Builds products in Central Asia's fast-growing markets — product, operations, and unit economics assembled in parallel. 10 years in tech (EdTech, e-com, FinTech), worked in Russia and Uzbekistan, consults in Kyrgyzstan. Since 2009, launched four of his own ventures (one sold to employees, three closed). Advisor and angel investor. Author of the Telegram channel \"Semyon raspravil plechi\"."
+      },
+      "knowsAbout": [
+        "E-commerce",
+        "Product Management",
+        "Growth",
+        "Monetization",
+        "0-to-1 Launches",
+        "EdTech",
+        "RetailTech",
+        "FinTech",
+        "Digital Privacy",
+        "Startup Advisory",
+        "Angel Investing",
+        "Central Asia markets",
+        "CIS markets",
+        "Cross-cultural product management"
+      ],
+      "sameAs": [
+        "https://t.me/raschet7",
+        "https://t.me/s_mrgnv",
+        "https://www.linkedin.com/in/semyon-morgunov/",
+        "https://www.instagram.com/semyon.morgunov/",
+        "https://www.youtube.com/@semyon_morgunov",
+        "https://github.com/morgunovtech"
+      ],
+      "worksFor": {
+        "name": "Yandex Uzbekistan",
+        "url": "https://yandex.uz/"
+      },
+      "occupationStartDate": "2026-04",
+      "addressLocality": {
+        "ru": "Ташкент",
+        "en": "Tashkent"
+      }
+    },
+    "hero": {
+      "eyebrow": {
+        "ru": "Head of FinTech @ Yandex Uzbekistan",
+        "en": "Head of FinTech @ Yandex Uzbekistan"
+      },
+      "name": {
+        "ru": "Семён Моргунов",
+        "en": "Semyon Morgunov"
+      },
+      "tagline": {
+        "ru": "Запускаю продукты на быстрорастущих рынках Центральной Азии — продукт, операционка и юнит-экономика собираются параллельно.",
+        "en": "Building products in Central Asia's fast-growing markets — product, operations, and unit economics assembled in parallel."
+      },
+      "portrait": "",
+      "portraitAlt": {
+        "ru": "Портрет Семёна Моргунова",
+        "en": "Portrait of Semyon Morgunov"
+      },
+      "ctas": [
+        {
+          "label": {
+            "ru": "Написать в Telegram",
+            "en": "Message me on Telegram"
+          },
+          "href": "https://t.me/s_mrgnv",
+          "primary": true
+        },
+        {
+          "label": {
+            "ru": "Чем могу помочь",
+            "en": "How I can help"
+          },
+          "href": {
+            "ru": "/collaborate.html",
+            "en": "/en/collaborate.html"
+          }
+        }
+      ]
+    },
+    "stats": [
+      {
+        "value": {
+          "ru": "10",
+          "en": "10"
+        },
+        "unit": {
+          "ru": "лет в IT",
+          "en": "yrs in tech"
+        },
+        "aside": {
+          "ru": "EdTech · E-com · FinTech",
+          "en": "EdTech · E-com · FinTech"
+        }
+      },
+      {
+        "value": {
+          "ru": "3",
+          "en": "3"
+        },
+        "unit": {
+          "ru": "рынка",
+          "en": "markets"
+        },
+        "aside": {
+          "ru": "RU · UZ · KG",
+          "en": "RU · UZ · KG"
+        }
+      },
+      {
+        "kind": "subscribers",
+        "auto": true,
+        "value": {
+          "ru": "5 831",
+          "en": "5,831"
+        },
+        "unit": {
+          "ru": "подписчика",
+          "en": "followers"
+        },
+        "channels": {
+          "telegram": {
+            "ru": "1 139",
+            "en": "1,139"
+          },
+          "linkedin": {
+            "ru": "4 564",
+            "en": "4,564"
+          },
+          "youtube": {
+            "ru": "128",
+            "en": "128"
+          }
+        }
+      },
+      {
+        "value": {
+          "ru": "4",
+          "en": "4"
+        },
+        "unit": {
+          "ru": "своих проекта",
+          "en": "own ventures"
+        },
+        "aside": {
+          "ru": "с 2009 года · 1 продан",
+          "en": "since 2009 · 1 sold"
+        }
+      }
+    ],
+    "sections": {
+      "about": {
+        "num": "01",
+        "title": {
+          "ru": "Обо мне",
+          "en": "About"
+        },
+        "prose": {
+          "ru": "Запускаю цифровые продукты на развивающихся рынках — там, где продукт, операционку и юнит‑экономику необходимо собирать параллельно, под локальный контекст.\n\nКонсультирую компании в России, Узбекистане и Кыргызстане. Среди клиентов UMAI Group, Belissimo Pizza, Buildex, MediaPark и другие.\n\nС 2009 года запустил четыре бизнеса — один продали сотрудникам, три закрыли. Сейчас делаю два инструмента про цифровую приватность и веду [Telegram‑канал](https://t.me/raschet7) о том, что узнаю в работе. Живу в Ташкенте с ирландским терьером Тофсом.",
+          "en": "I launch digital products in emerging markets — places where product, operations, and unit economics have to be assembled in parallel, fitted to the local context.\n\nI consult companies in Russia, Uzbekistan, and Kyrgyzstan. Clients include UMAI Group, Belissimo Pizza, Buildex, MediaPark, and others.\n\nSince 2009 I've launched four businesses — one sold to employees, three closed. Currently building two tools on digital privacy and running a [Telegram channel](https://t.me/raschet7) about what I learn at work. I live in Tashkent with an Irish terrier named Tofs."
+        }
+      },
+      "career": {
+        "num": "02",
+        "title": {
+          "ru": "Карьера",
+          "en": "Career"
+        },
+        "items": [
+          {
+            "period": {
+              "ru": "Апр 2026 — наст. вр.",
+              "en": "Apr 2026 — present"
+            },
+            "company": {
+              "ru": "[Yandex Uzbekistan](https://yandex.uz/)",
+              "en": "[Yandex Uzbekistan](https://yandex.uz/)"
+            },
+            "current": true,
+            "role": {
+              "ru": "Head of FinTech",
+              "en": "Head of FinTech"
+            },
+            "ctx": {
+              "ru": "BNPL, платежи, кредитные продукты. Строю и масштабирую продуктовую линейку.",
+              "en": "BNPL, payments, credit products. Building and scaling the product line."
+            }
+          },
+          {
+            "period": {
+              "ru": "2023 — 2026",
+              "en": "2023 — 2026"
+            },
+            "company": {
+              "ru": "[Korzinka](https://korzinka.uz/go)",
+              "en": "[Korzinka](https://korzinka.uz/go)"
+            },
+            "role": {
+              "ru": "Director of e-commerce / CPO Korzinka Go",
+              "en": "Director of e-commerce / CPO Korzinka Go"
+            },
+            "ctx": {
+              "ru": "Три года в крупнейшем e-grocery Узбекистана — сначала строил продукт, потом отвечал за весь P&L.\n\n- Заказы: 400 → 10 000 в день за 3 года\n- Расширение: 1 → 9 городов за 10 месяцев\n- Выручка: ×2 год к году при положительной EBITDA\n- Платёжный модуль с нуля: 3 BNPL-провайдера, PCI DSS 4.0\n- CSAT: 4.2 → 4.5",
+              "en": "Three years at Uzbekistan's largest e-grocery — first building the product, then owning the full P&L.\n\n- Orders: 400 → 10,000 per day in 3 years\n- Expansion: 1 → 9 cities in 10 months\n- Revenue: ×2 YoY with positive EBITDA\n- Payments module from scratch: 3 BNPL providers, PCI DSS 4.0\n- CSAT: 4.2 → 4.5"
+            }
+          },
+          {
+            "period": {
+              "ru": "2022 — 2023",
+              "en": "2022 — 2023"
+            },
+            "company": {
+              "ru": "[Yandex Uslugi](https://uslugi.yandex.ru/)",
+              "en": "[Yandex Services](https://uslugi.yandex.ru/)"
+            },
+            "role": {
+              "ru": "Head of Product",
+              "en": "Head of Product"
+            },
+            "ctx": {
+              "ru": "Портфель 30+ продуктов в сегменте домашних услуг, ~6.5M пользователей в месяц.\n\n- GMV: ×2.2 за год\n- EBITDA: вывел в плюс за 10 месяцев",
+              "en": "Portfolio of 30+ products in home services, ~6.5M monthly users.\n\n- GMV: ×2.2 in a year\n- EBITDA: turned positive in 10 months"
+            }
+          },
+          {
+            "period": {
+              "ru": "2018 — 2019",
+              "en": "2018 — 2019"
+            },
+            "company": {
+              "ru": "Apple Russia",
+              "en": "Apple Russia"
+            },
+            "role": {
+              "ru": "Certified Sales Trainer",
+              "en": "Certified Sales Trainer"
+            },
+            "ctx": {
+              "ru": "По контракту.",
+              "en": "Contract role."
+            }
+          },
+          {
+            "period": {
+              "ru": "2017 — 2022",
+              "en": "2017 — 2022"
+            },
+            "company": {
+              "ru": "[Skyeng](https://skyeng.ru) / [Skysmart](https://skysmart.ru)",
+              "en": "[Skyeng](https://skyeng.ru) / [Skysmart](https://skysmart.ru)"
+            },
+            "role": {
+              "ru": "Head of Growth & Monetization",
+              "en": "Head of Growth & Monetization"
+            },
+            "ctx": {
+              "ru": "Крупнейшая EdTech-компания Восточной Европы.\n\n- Активировал 7M+ пользователей\n- Запустил продукты, которые вошли в топ-3 каналов привлечения пользователей с положительной юнит-экономикой",
+              "en": "Largest EdTech company in Eastern Europe.\n\n- Activated 7M+ users\n- Launched products that became top-3 user acquisition channels with positive unit economics"
+            }
+          }
+        ],
+        "more": {
+          "label": {
+            "ru": "→ Подробнее на LinkedIn",
+            "en": "→ More on LinkedIn"
+          },
+          "href": "https://www.linkedin.com/in/semyon-morgunov/"
+        }
+      },
+      "help": {
+        "num": "03",
+        "title": {
+          "ru": "Чем могу помочь",
+          "en": "How I can help"
+        },
+        "blocks": [
+          {
+            "type": "subhead",
+            "text": {
+              "ru": "Как работаю",
+              "en": "How I work"
+            }
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "ru": "Прихожу с числами, гипотезами и приоритетами.",
+                "en": "I come with numbers, hypotheses, and priorities."
+              },
+              {
+                "ru": "Говорю прямо. Не согласен — скажу. Не разбираюсь — скажу.",
+                "en": "I speak my mind. Disagree — I'll say so. Don't know — I'll say so."
+              },
+              {
+                "ru": "Не подменяю команду — вхожу в операционку, когда зовут или когда горит.",
+                "en": "I don't replace the team — I step into operations when invited or when something's on fire."
+              }
+            ]
+          },
+          {
+            "type": "subhead",
+            "text": {
+              "ru": "Чего не делаю",
+              "en": "What I don't do"
+            }
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "ru": "Не выполняю роль проджект-менеджера или мастера на все руки.",
+                "en": "I don't fill the role of project manager or jack-of-all-trades."
+              },
+              {
+                "ru": "Не пишу 80-страничные отчёты и не отправляю фреймворки в pdf.",
+                "en": "I don't write 80-page reports or send frameworks as PDFs."
+              },
+              {
+                "ru": "Не беру проект, если не вижу честного пути к результату.",
+                "en": "I don't take on a project without an honest path to results."
+              }
+            ]
+          }
+        ],
+        "cta": {
+          "label": {
+            "ru": "Узнать подробности →",
+            "en": "Learn more →"
+          },
+          "href": {
+            "ru": "/collaborate.html",
+            "en": "/en/collaborate.html"
+          }
+        }
+      },
+      "ventures": {
+        "num": "04",
+        "title": {
+          "ru": "Своё дело",
+          "en": "Own ventures"
+        },
+        "items": [
+          {
+            "year": "2023",
+            "name": {
+              "ru": "[Онлайн-школа детской безопасности](https://kids-safety.tb.ru/)",
+              "en": "[Kids' safety online school](https://kids-safety.tb.ru/)"
+            },
+            "role": {
+              "ru": "Founder",
+              "en": "Founder"
+            },
+            "arc": {
+              "ru": "Запустили → не нашли PMF → на паузе",
+              "en": "Launched → no PMF → paused"
+            }
+          },
+          {
+            "year": "2022",
+            "name": {
+              "ru": "[Салон этичного груминга «Хвост»](https://yandex.com/maps/-/CDF9VDo~)",
+              "en": "[Ethical grooming salon «Hvost»](https://yandex.com/maps/-/CDF9VDo~)"
+            },
+            "role": {
+              "ru": "Co-founder",
+              "en": "Co-founder"
+            },
+            "arc": {
+              "ru": "Запустили → стабилизировали → продали сотрудникам",
+              "en": "Launched → stabilized → sold to employees"
+            }
+          },
+          {
+            "year": "2011",
+            "name": {
+              "ru": "Сеть точек продажи снеков",
+              "en": "Snack vending kiosks"
+            },
+            "role": {
+              "ru": "Co-founder",
+              "en": "Co-founder"
+            },
+            "arc": {
+              "ru": "Запустили → выросли до 3-х точек → закрыли",
+              "en": "Launched → 3 kiosks → closed"
+            }
+          },
+          {
+            "year": "2009",
+            "name": {
+              "ru": "Онлайн-продажи аксессуаров для iPhone",
+              "en": "iPhone accessories online"
+            },
+            "role": {
+              "ru": "Founder",
+              "en": "Founder"
+            },
+            "arc": {
+              "ru": "Запустили → продали ~5% партии → закрыли",
+              "en": "Launched → sold ~5% of stock → closed"
+            }
+          }
+        ]
+      },
+      "products": {
+        "num": "05",
+        "title": {
+          "ru": "Продукты",
+          "en": "Products"
+        },
+        "items": [
+          {
+            "tag": "WEB",
+            "live": true,
+            "version": "v2.5",
+            "name": "Fingerprint",
+            "desc": {
+              "ru": "Покажет процент уникальности вашего браузера и объяснит, по каким сигналам сайты узнают вас без cookies. К каждому параметру — пояснение простым языком и конкретная рекомендация к действию. Локально, бесплатно, без регистрации.",
+              "en": "Shows your browser's uniqueness percentage and explains the signals websites use to recognize you without cookies. Every parameter comes with a plain-language explanation and a concrete action to take. Local, free, no signup."
+            },
+            "cta": {
+              "label": {
+                "ru": "Проверить браузер →",
+                "en": "Check browser →"
+              },
+              "href": "https://fprint.morgunov.tech/"
+            }
+          },
+          {
+            "tag": "WEB",
+            "live": true,
+            "version": "v1.0",
+            "name": "FoundYou",
+            "desc": {
+              "ru": "Загруженный в сеть снимок выдаёт ваше местоположение, время съёмки, модель устройства и лица посторонних людей. FoundYou вычистит EXIF, замажет приватные зоны и защитит фото от поиска по картинке. Локально, оригинал не трогаем.",
+              "en": "A photo posted online reveals your location, time taken, device model, and bystanders' faces. FoundYou strips EXIF, blurs private areas, and protects the photo from reverse-image search. Local — your original stays untouched."
+            },
+            "cta": {
+              "label": {
+                "ru": "Очистить фото →",
+                "en": "Clean photo →"
+              },
+              "href": "https://foundyou.morgunov.tech/"
+            }
+          }
+        ],
+        "more": {
+          "label": {
+            "ru": "→ Другие проекты на GitHub",
+            "en": "→ More projects on GitHub"
+          },
+          "href": "https://github.com/morgunovtech"
+        }
+      },
+      "publications": {
+        "num": "06",
+        "title": {
+          "ru": "Публикации и выступления",
+          "en": "Publications & talks"
+        },
+        "items": [
+          {
+            "kind": "links",
+            "tag": "ARTICLE",
+            "meta": {
+              "ru": "82 600 просмотров",
+              "en": "82,600 views"
+            },
+            "links": [
+              {
+                "label": {
+                  "ru": "На чём зарабатывают авиакомпании-лоукостеры",
+                  "en": "How low-cost airlines make money"
+                },
+                "href": "https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery"
+              },
+              {
+                "label": {
+                  "ru": "На чём зарабатывают продуктовые дискаунтеры",
+                  "en": "How discount grocers make money"
+                },
+                "href": "https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery"
+              }
+            ]
+          },
+          {
+            "kind": "links",
+            "tag": "VIDEO",
+            "meta": {
+              "ru": "7 200 просмотров",
+              "en": "7,200 views"
+            },
+            "links": [
+              {
+                "label": {
+                  "ru": "Критический разбор платформы крауд-инвестинга brainbox.vc",
+                  "en": "Critical review of crowd-investing platform brainbox.vc"
+                },
+                "href": "https://youtu.be/OJXtFmWNZMM"
+              },
+              {
+                "label": {
+                  "ru": "2 года Korzinka Go: как мы зарождались, менялись и оказались в алом океане",
+                  "en": "Two years of Korzinka Go: how we emerged, evolved, and ended up in a red ocean"
+                },
+                "href": "https://youtu.be/BthlUR9eO1M"
+              }
+            ]
+          },
+          {
+            "kind": "prose",
+            "tag": "CHANNEL",
+            "meta": {
+              "ru": "1 139 в Telegram",
+              "en": "1,139 on Telegram"
+            },
+            "prose": {
+              "ru": "[Telegram‑канал](https://t.me/raschet7) о продукте и карьере — пишу то, что сам хотел бы читать. Разборы кейсов, рабочие фреймворки и личные наблюдения. 1–2 поста в неделю, четвёртый год подряд.",
+              "en": "[Telegram channel](https://t.me/raschet7) on product and career — writing what I'd want to read myself. Case studies, working frameworks, and personal observations. 1–2 posts per week, fourth year running."
+            },
+            "more": {
+              "label": {
+                "ru": "→ Избранные посты",
+                "en": "→ Selected posts"
+              },
+              "href": "https://t.me/raschet7/261"
+            }
+          }
+        ]
+      },
+      "contact": {
+        "num": "07",
+        "title": {
+          "ru": "Связаться",
+          "en": "Get in touch"
+        },
+        "note": {
+          "ru": "Читаю всё. Обычно отвечаю в течение 10 рабочих дней.",
+          "en": "I read everything. Usually reply within 10 business days."
+        },
+        "ctas": [
+          {
+            "label": {
+              "ru": "Telegram",
+              "en": "Telegram"
+            },
+            "href": "https://t.me/s_mrgnv",
+            "primary": true
+          },
+          {
+            "label": {
+              "ru": "Email",
+              "en": "Email"
+            },
+            "href": "mailto:s@morgunov.tech"
+          }
+        ]
+      }
+    }
+  },
+  "about": {
+    "site": "s.morgunov.tech",
+    "page": "about",
+    "rev": 1,
+    "updatedAt": "2026-05-25T00:00:00Z",
+    "dateModified": "2026-05-11",
+    "meta": {
+      "title": {
+        "ru": "Принципы — Семён Моргунов",
+        "en": "Principles — Semyon Morgunov"
+      },
+      "description": {
+        "ru": "Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт: приватность, доступность, прозрачность, честность.",
+        "en": "How this site is built. Ten Dieter Rams principles translated into a digital product: privacy, accessibility, transparency, honesty."
+      }
+    },
+    "share": {
+      "title": {
+        "ru": "Принципы — Семён Моргунов",
+        "en": "Principles — Semyon Morgunov"
+      },
+      "description": {
+        "ru": "Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт: приватность, доступность, прозрачность, честность.",
+        "en": "How this site is built. Ten Dieter Rams principles translated into a digital product: privacy, accessibility, transparency, honesty."
+      },
+      "image": {
+        "ru": "/images/og-card-ru.png",
+        "en": "/images/og-card-en.png"
+      },
+      "imageAlt": {
+        "ru": "Принципы — Семён Моргунов",
+        "en": "Principles — Semyon Morgunov"
+      }
+    },
+    "hero": {
+      "eyebrow": {
+        "ru": "О сайте · Принципы · Решения",
+        "en": "About the site · Principles · Decisions"
+      },
+      "name": {
+        "ru": "Принципы",
+        "en": "Principles"
+      },
+      "tagline": {
+        "ru": "Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт.",
+        "en": "How this site is built. Ten Dieter Rams principles translated into a digital product."
+      },
+      "cta": {
+        "label": {
+          "ru": "← На главную",
+          "en": "← Home"
+        },
+        "href": {
+          "ru": "/",
+          "en": "/en/"
+        }
+      }
+    },
+    "sections": {
+      "intro": {
+        "body": {
+          "ru": "<p>Этот сайт — продукт. У продукта есть пользователь — я сам. И, как у любого продукта, у него есть принципы, по которым он построен. Здесь — список этих принципов и решений, на которые они опираются.</p>\n            <p>Текст можно читать как объяснение, как референс или просто как срез того, как я думаю о вещах, которые делаю.</p>",
+          "en": "<p>This site is a product. The product has a user — me. And like any product, it has principles it's built on. Here's a list of those principles and the decisions that follow from them.</p>\n            <p>Read this as an explanation, as a reference, or just as a cross-section of how I think about the things I build.</p>"
+        }
+      },
+      "product": {
+        "body": {
+          "ru": "<p>Я не делал визитку. Я не делал «сайт-портфолио». Я делал продукт.</p>\n            <p>Это значит, что у него есть билд (<code>BUILD&nbsp;3cd8687</code> в футере, кликабельный на коммит в GitHub), есть бэклог, есть релизы, есть пользователь и есть метрика успеха. Метрика не в посетителях и не в конверсии — она в том, насколько точно сайт отражает то, как я думаю и работаю. Если сайт перестаёт быть точным — я его правлю.</p>\n            <p>Это значит, что к нему применяются продуктовые правила: каждое решение должно быть оправданным, ничего «потому что у всех так», ничего «потому что красиво».</p>\n            <p>Хеш билда в футере — не украшение и не выпендрёж. Это та же сущность, что версия в About&nbsp;→&nbsp;iPhone или серийник на обороте калькулятора Braun. Кликнул — увидел, что именно было изменено в этом релизе. Сайт не прячет свою историю.</p>",
+          "en": "<p>I didn't make a business card. I didn't make a portfolio site. I made a product.</p>\n            <p>That means it has a build (<code>BUILD&nbsp;3cd8687</code> in the footer, clickable through to the commit on GitHub), a backlog, releases, a user, and a success metric. The metric isn't visitors and isn't conversion — it's how accurately the site reflects how I think and work. When the site stops being accurate, I fix it.</p>\n            <p>That means product rules apply: every decision needs justification. No «because everyone does it», no «because it looks nice».</p>\n            <p>The build hash in the footer isn't decoration or flexing. It's the same idea as the version under iPhone's About screen or the serial number on the back of a Braun calculator. Click it — you see exactly what changed in this release. The site doesn't hide its history.</p>"
+        },
+        "num": "01",
+        "title": {
+          "ru": "Это продукт, не лендинг",
+          "en": "It's a product, not a landing page"
+        }
+      },
+      "principles": {
+        "body": {
+          "ru": "<div class=\"v4-prose\">\n              <p>Главный архитектурный референс этого сайта — не редакторский веб и не brutalist-движение. Это <strong>Дитер Рамс</strong>, главный дизайнер Braun в 1955–1995&nbsp;годах. К концу карьеры он сформулировал десять принципов хорошего дизайна. Они написаны для индустриальных продуктов, но переводятся на цифровую среду почти без потерь.</p>\n              <p>Принципы Рамса — это не чек-лист. Это набор вопросов, которые дизайнер задаёт себе. Если ответ «нет» — это не значит «всё пропало». Это значит «остановись и подумай».</p>\n            </div>\n            <ul class=\"v4-list v4-list--spaced\">\n              <li><strong>Innovative.</strong> Использовать новые технологические возможности — но в служении функции, не ради новизны.</li>\n              <li><strong>Useful.</strong> Дизайн должен подчёркивать пользу и убирать всё, что её ослабляет.</li>\n              <li><strong>Aesthetic.</strong> Красота как следствие правильной структуры, а не нанесённое поверх украшение.</li>\n              <li><strong>Understandable.</strong> Продукт должен сам объяснять, как им пользоваться. В лучшем случае — самоочевиден.</li>\n              <li><strong>Unobtrusive.</strong> Продукты — это инструменты, не художественные объекты. Они не «кричат».</li>\n              <li><strong>Honest.</strong> Не делать продукт инновационнее, мощнее или ценнее, чем он есть.</li>\n              <li><strong>Long-lasting.</strong> Не привязываться к моде. Не выглядеть «современно сегодня».</li>\n              <li><strong>Thorough down to the last detail.</strong> Ничто не должно быть случайным. Уважение к пользователю проявляется в тщательности.</li>\n              <li><strong>Environmentally friendly.</strong> Минимизировать ресурсы, минимизировать визуальный шум.</li>\n              <li><strong>As little design as possible.</strong> <em>Weniger, aber besser</em> — меньше, но лучше. Не путать с минимализмом как стилем.</li>\n            </ul>\n            <div class=\"v4-prose\">\n              <p>Эти десять пунктов — каркас всего, что описано ниже.</p>\n            </div>",
+          "en": "<div class=\"v4-prose\">\n              <p>The main architectural reference for this site isn't editorial web or the brutalist movement. It's <strong>Dieter Rams</strong>, chief designer at Braun from 1955–1995. Late in his career he formulated ten principles of good design. They were written for industrial products, but they translate to the digital medium with almost no loss.</p>\n              <p>Rams's principles aren't a checklist. They're a set of questions a designer asks themselves. If the answer is «no», that doesn't mean «everything's broken». It means «stop and think».</p>\n            </div>\n            <ul class=\"v4-list v4-list--spaced\">\n              <li><strong>Innovative.</strong> Use new technological possibilities — but in service of function, not for the sake of novelty.</li>\n              <li><strong>Useful.</strong> Design should highlight usefulness and remove anything that weakens it.</li>\n              <li><strong>Aesthetic.</strong> Beauty as a consequence of correct structure, not decoration applied on top.</li>\n              <li><strong>Understandable.</strong> A product should explain itself. At best — self-evident.</li>\n              <li><strong>Unobtrusive.</strong> Products are tools, not works of art. They don't «shout».</li>\n              <li><strong>Honest.</strong> Don't make a product seem more innovative, powerful, or valuable than it is.</li>\n              <li><strong>Long-lasting.</strong> Don't get attached to trends. Don't look «modern today».</li>\n              <li><strong>Thorough down to the last detail.</strong> Nothing should be accidental. Respect for the user shows up in care.</li>\n              <li><strong>Environmentally friendly.</strong> Minimize resources, minimize visual noise.</li>\n              <li><strong>As little design as possible.</strong> <em>Weniger, aber besser</em> — less, but better. Not to be confused with minimalism as a style.</li>\n            </ul>\n            <div class=\"v4-prose\">\n              <p>These ten points are the scaffolding for everything described below.</p>\n            </div>"
+        },
+        "num": "02",
+        "title": {
+          "ru": "Десять принципов Дитера Рамса",
+          "en": "The ten principles of Dieter Rams"
+        }
+      },
+      "layers": {
+        "body": {
+          "ru": "<p><strong>Визуальный язык.</strong> Бежевая бумажная подложка, чёрные заголовки, моноширинные caps-метки, никакой декорации. Это прямая отсылка к индустриальной эстетике Braun — калькулятор ET66, проигрыватель SK4, радиоприёмник T1000. Один акцентный цвет, ясная сетка, иерархия через размер и вес, а не через украшения.</p>\n            <p><strong>Типографика.</strong> Шрифт <strong>IBM Plex</strong> — open source, выпущен IBM Design в 2017 году. Здесь сходятся три вещи: наследие IBM как одной из главных школ корпоративного модернизма XX&nbsp;века (Эллиот Нойес, Пол Рэнд, Имс), открытость лицензии (можно использовать без оглядки на бюджет) и одна из лучших в open-source кириллица. Plex&nbsp;Sans для тела, Plex&nbsp;Mono для caps-меток. Mono в caps — это терминальная эстетика, <code>git&nbsp;log</code>, README; читатель сразу считывает «передо мной технический документ, не маркетинговый лендинг».</p>\n            <p><strong>Цвет.</strong> Оранжевый акцент — не бренд, а индикатор состояния. Та же семантика, что у переключателя mute на iPhone, у <code>#FF6600</code> Hacker News, у оранжевой кнопки питания на калькуляторе Braun&nbsp;ET33. Линия родословной: индустриальный safety-orange → Braun → tech-стартапы → этот сайт. Оранжевый = attention, utility, state — не «фирменный цвет». Он используется ровно в четырёх местах: главный CTA («Написать в Telegram»), активный язык в переключателе («RU» подчёркнут), индикатор текущего места работы (точка рядом с «Yandex&nbsp;Uzbekistan»), активная тема в дропдауне. Везде — одна семантика: «вот это сейчас активно».</p>\n            <p><strong>Иерархия CTA.</strong> Две кнопки рядом — «Написать в Telegram» (оранжевая, заливка) и «Чем могу помочь» (белая, обводка). Размер одинаковый, цвет разный. Иерархия через насыщенность, не через размер. Если у пользователя одна минута — он жмёт оранжевую. Если десять — белую. Решение за ним, не за мной.</p>\n            <p><strong>Контент. Цифры вместо прилагательных и разбивка цифр.</strong> В блоке метрик стоят: <code>10 лет в&nbsp;IT</code>, <code>3 рынка</code>, <code>5&nbsp;831 подписчик</code>, <code>4 своих проекта</code>. Каждая цифра разворачивается во вторую строку с контекстом: 10&nbsp;лет — <code>EdTech · E-com · FinTech</code>; 3&nbsp;рынка — <code>RU · UZ · KG</code>; 5&nbsp;831 — <code>1&nbsp;139</code> в Telegram, <code>4&nbsp;564</code> в LinkedIn, <code>128</code> на YouTube; 4&nbsp;проекта — <code>с 2009 года · 1 продан</code>. Цифра без контекста — пустой сигнал. Цифра плюс разбивка — проверяемое утверждение. Никто не должен верить мне на слово; все цифры можно сверить с источниками.</p>\n            <p>Тот же подход в карьере. Не «масштабировал e-grocery», а <code>Заказы: 400 → 10&nbsp;000 в день за 3 года</code>, <code>Выручка: ×2 год к году при положительной EBITDA</code>, <code>CSAT: 4.2 → 4.5</code>. Не «работал в EdTech», а <code>Активировал 7M+ пользователей</code>. Где нет цифр — там просто <code>По контракту</code> (Apple&nbsp;Russia, 2018–2019). Контрактная работа не имеет 7-летних KPI; натягивать их под формат — нечестно.</p>\n            <p>В разделе «Своё дело» — статусы без переупаковки: <code>Запустили → не нашли PMF → на паузе</code>, <code>Запустили → стабилизировали → продали сотрудникам</code>, <code>Запустили → выросли до 3-х точек → закрыли</code>. Четыре своих проекта, один продан, остальные — закрылись или на паузе. Это и есть статистика стартапов; имитировать что-то другое — обман читателя.</p>\n            <p><strong>Двуязычность.</strong> RU и EN — две версии, не одна с переводом. <code>Yandex Uslugi</code> на RU становится <code>Yandex Services</code> на EN — потому что в Узбекистане сервис назывался Услуги, а англоязычная аудитория увидит сразу «сервисы». «Своё дело» → <code>Ventures</code>, «Чем могу помочь» → <code>How I can help</code>, «наст. вр.» → <code>present</code>. Разделители тысяч скроены под локаль: <code>5&nbsp;831</code> ↔ <code>5,831</code>, <code>1&nbsp;139</code> ↔ <code>1,139</code>. <code>82&nbsp;600 просмотров</code> ↔ <code>82,600 views</code>. Перевод — это импорт смыслов, не подстановка слов.</p>\n            <p><strong>Доступность.</strong> Четыре темы: светлая, тёмная, авто (по системной настройке), высокий контраст. Последняя — для людей со слабым зрением, дислексией, светочувствительностью, а также для чтения на улице под ярким солнцем. Это редкое решение для personal-сайта; для меня — обязательное. Дропдаун с темами открывается одним кликом по иконке солнца/луны; активная тема подсвечена оранжевой обводкой — снова семантика state, ничего нового.</p>\n            <p><strong>Навигация.</strong> При скролле справа появляется столбик <code>01–07</code> — номера разделов. Текущий выделен, остальные приглушены. Это не sticky-меню и не TOC — это просто ориентир, как номер страницы в книге. Никаких подписей, никаких иконок, никакого «back to top» с анимацией. Стрелка <code>↑</code> живёт в правом нижнем углу, появляется когда нужно, скроллит без задержки. У Рамса это называется <em>as little design as possible</em>.</p>",
+          "en": "<p><strong>Visual language.</strong> Beige paper background, black headings, monospaced caps labels, no decoration. A direct nod to the industrial aesthetic of Braun — the ET66 calculator, the SK4 record player, the T1000 radio. One accent colour, clear grid, hierarchy through size and weight rather than ornamentation.</p>\n            <p><strong>Typography.</strong> <strong>IBM Plex</strong> — open source, released by IBM Design in 2017. Three things converge here: IBM's heritage as one of the main schools of 20th-century corporate modernism (Eliot Noyes, Paul Rand, the Eameses), an open licence (use it without budget concerns), and one of the best Cyrillic glyph sets in open source. Plex&nbsp;Sans for body, Plex&nbsp;Mono for caps labels. Mono in caps is terminal aesthetic — <code>git&nbsp;log</code>, README; the reader instantly reads «this is a technical document, not a marketing landing page».</p>\n            <p><strong>Colour.</strong> The orange accent isn't a brand colour — it's a state indicator. Same semantics as iPhone's mute switch, Hacker News's <code>#FF6600</code>, the orange power button on the Braun&nbsp;ET33. Lineage: industrial safety-orange → Braun → tech startups → this site. Orange = attention, utility, state — not «brand colour». It shows up in exactly four places: the primary CTA («Message me on Telegram»), the active language in the switcher («EN» underlined), the indicator of the current workplace (the dot next to «Yandex&nbsp;Uzbekistan»), and the active theme in the dropdown. One semantics everywhere: «this is what's active right now».</p>\n            <p><strong>CTA hierarchy.</strong> Two buttons next to each other — «Message me on Telegram» (filled orange) and «How I can help» (outline). Same size, different colour. Hierarchy through saturation, not size. If you've got one minute, you tap the orange one. If you've got ten, you tap the outline. The decision is yours, not mine.</p>\n            <p><strong>Content. Numbers instead of adjectives, with breakdowns.</strong> The metrics block reads: <code>10 yrs in tech</code>, <code>3 markets</code>, <code>5,831 followers</code>, <code>4 own ventures</code>. Each number unfolds into a second line of context: 10&nbsp;yrs — <code>EdTech · E-com · FinTech</code>; 3&nbsp;markets — <code>RU · UZ · KG</code>; 5,831 — <code>1,139</code> on Telegram, <code>4,564</code> on LinkedIn, <code>128</code> on YouTube; 4&nbsp;ventures — <code>since 2009 · 1 sold</code>. A number without context is an empty signal. A number plus breakdown is a verifiable claim. Nobody should take my word for it; every number is checkable against its source.</p>\n            <p>Same approach in the career section. Not «scaled an e-grocery», but <code>Orders: 400 → 10,000 per day in 3 years</code>, <code>Revenue: ×2 YoY with positive EBITDA</code>, <code>CSAT: 4.2 → 4.5</code>. Not «worked in EdTech», but <code>Activated 7M+ users</code>. Where there are no numbers, the line is just <code>Contract role</code> (Apple&nbsp;Russia, 2018–2019). Contract work doesn't have 7-year KPIs; stretching them into the format would be dishonest.</p>\n            <p>In «Own ventures» — statuses without repackaging: <code>Launched → no PMF → paused</code>, <code>Launched → stabilized → sold to employees</code>, <code>Launched → 3 kiosks → closed</code>. Four ventures, one sold, the rest closed or paused. That IS startup statistics; pretending otherwise would deceive the reader.</p>\n            <p><strong>Bilingual mirroring.</strong> RU and EN are two versions, not one translation. <code>Yandex Uslugi</code> on the RU side becomes <code>Yandex Services</code> on EN — because in Uzbekistan the service was called Услуги, and an English-speaking audience reads «services» immediately. «Своё дело» → <code>Ventures</code>, «Чем могу помочь» → <code>How I can help</code>, «наст. вр.» → <code>present</code>. Thousand separators follow the locale: <code>5&nbsp;831</code> ↔ <code>5,831</code>, <code>1&nbsp;139</code> ↔ <code>1,139</code>. <code>82&nbsp;600 просмотров</code> ↔ <code>82,600 views</code>. Translation is the import of meaning, not the substitution of words.</p>\n            <p><strong>Accessibility.</strong> Four themes: light, dark, auto (matches system setting), and high-contrast. The last is for people with low vision, dyslexia, light sensitivity, and also for reading outside in bright sun. Rare on a personal site; non-negotiable for me. The theme dropdown opens with one click on the sun/moon icon; the active theme is highlighted with an orange border — state semantics again, nothing new.</p>\n            <p><strong>Navigation.</strong> On scroll, a column <code>01–07</code> appears on the right — section numbers. The current one is highlighted, the rest are muted. Not a sticky menu, not a TOC — just a marker, like a page number in a book. No labels, no icons, no animated «back to top». The <code>↑</code> arrow lives in the bottom right, shows up when needed, scrolls without delay. In Rams's vocabulary, this is <em>as little design as possible</em>.</p>"
+        },
+        "num": "03",
+        "title": {
+          "ru": "Решения по слоям",
+          "en": "Decisions, layer by layer"
+        }
+      },
+      "stack": {
+        "body": {
+          "ru": "<p>Страница <a href=\"/uses.html\">/uses</a> — отдельный продукт со своей логикой. В традиции <a href=\"https://uses.tech\" target=\"_blank\" rel=\"noopener noreferrer\">uses.tech</a> — публичных списков «чем я пользуюсь», которые ведут разработчики и дизайнеры с начала 2010-х. Но я переосмыслил жанр под свои принципы.</p>\n            <p>Принципиальное отличие — это не TOP-10, не «best of 2026» и не подборка «что купить». Это срез того, что у меня <strong>реально включено</strong> в каждый день. Таглайн страницы: «Только то, что реально включаю — без полки забытых гаджетов».</p>\n            <p><strong>Структура.</strong> Две секции — «Железо» и «Софт». Своя локальная навигация (только два пункта, без главного меню), кнопка «← На главную» для возврата. На странице нет якорной нумерации справа — она здесь не нужна, секций две, обе видны.</p>\n            <p><strong>Карточки.</strong> Каждая — строго одного формата: продуктовое фото на светлой подложке, категорийная метка в caps-mono (<code>Laptop</code>, <code>Monitor</code>, <code>Keyboard</code>, <code>Mouse</code>, <code>Phone</code>, <code>Earphones</code>, <code>Headphones</code>, <code>Powerbank</code>, <code>Charger</code>, <code>Health</code>, <code>Game console</code>), название модели, 2–3&nbsp;предложения о том, <strong>почему именно это</strong>. Не характеристики (их можно найти у производителя), а контекст: <em>«Беспроводная HyperSpeed-мышь, 20K&nbsp;DPI, форма проверена годами. Заряжается раз в неделю, два боковых клавиша — под навигацию между вкладками»</em>. Это пользовательский опыт, не спецификация.</p>\n            <p><strong>Группировка.</strong> Железо — <code>COMPUTE</code> (ноутбук, монитор, клавиатура), <code>MOUSE</code>, <code>MOBILE</code>, <code>AUDIO</code>, <code>POWER</code>, <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code>. Группы — не «категории магазина», а сценарии использования. <code>POWER</code> — это про дорогу: пауэрбанк и зарядная станция стоят рядом, потому что решают связанную задачу. <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code> — про не-работу.</p>\n            <p><strong>Софт.</strong> Прайс-теги вместо описаний: <code>$5 / mo</code>, <code>FREE</code>, <code>$10 / mo</code>, <code>$100 / mo</code>, <code>PAY-AS-YOU-GO</code>. Цена — главный фильтр выбора софта. Скрыть стоимость в карточке — значит спрятать контекст.</p>\n            <p><strong>Аффилиатные ссылки.</strong> На страницу /uses встроены реферальные ссылки на Dashlane, SetApp, Airalo, Claude&nbsp;Max. Под каждой — кнопка-CTA вида «6 месяцев Premium →», «Скидка $3 →». Над всем разделом стоит дисклеймер прямым текстом: <em>«Сервисы, которыми пользуюсь регулярно. Платные — со скидками по моей ссылке, если оформите подписку: бонус и вам, и мне»</em>. Промокод (<code>SEMYON5076</code> для Airalo) виден в теле описания.</p>\n            <p>Это позиция: если ссылка партнёрская — я скажу честно, что получаю бонус. И одновременно дам бонус читателю. Скрытые UTM-партнёрки без раскрытия — нечестная практика. Раскрытая партнёрская ссылка с реальной скидкой — это win-win, в котором ничего не прячется. Это продолжение принципа <code>honest</code> из списка Рамса в новый, специфический контекст монетизации.</p>",
+          "en": "<p>The <a href=\"/en/uses.html\">/uses</a> page is its own product with its own logic. In the <a href=\"https://uses.tech\" target=\"_blank\" rel=\"noopener noreferrer\">uses.tech</a> tradition — public «what I use» lists kept by developers and designers since the early 2010s. But I reframed the genre to fit my principles.</p>\n            <p>The key difference: not a TOP-10, not «best of 2026», not a «what to buy» shopping list. It's a cross-section of what I actually have <strong>switched on</strong> every day. Page tagline: «Only the stuff that actually gets switched on — no shelf of forgotten gadgets».</p>\n            <p><strong>Structure.</strong> Two sections — Hardware and Software. A local nav (only two items, no main menu), a «← Home» button to get back. No anchored numbering column on the right — not needed here, two sections, both visible.</p>\n            <p><strong>Cards.</strong> Every card is strictly the same format: product photo on a light backdrop, category label in caps-mono (<code>Laptop</code>, <code>Monitor</code>, <code>Keyboard</code>, <code>Mouse</code>, <code>Phone</code>, <code>Earphones</code>, <code>Headphones</code>, <code>Powerbank</code>, <code>Charger</code>, <code>Health</code>, <code>Game console</code>), model name, 2–3&nbsp;sentences on <strong>why this specifically</strong>. Not specs (you can find those on the manufacturer's page), but context: <em>«Wireless HyperSpeed mouse, 20K&nbsp;DPI, shape I've been using for years. Charges weekly; two side buttons mapped to tab navigation»</em>. User experience, not specification.</p>\n            <p><strong>Grouping.</strong> Hardware — <code>COMPUTE</code> (laptop, monitor, keyboard), <code>MOUSE</code>, <code>MOBILE</code>, <code>AUDIO</code>, <code>POWER</code>, <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code>. Groups aren't «shop categories» — they're use scenarios. <code>POWER</code> is about travel: the power bank and the charging station sit together because they solve a related problem. <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code> is about not-work.</p>\n            <p><strong>Software.</strong> Price tags instead of descriptions: <code>$5 / mo</code>, <code>FREE</code>, <code>$10 / mo</code>, <code>$100 / mo</code>, <code>PAY-AS-YOU-GO</code>. Price is the main filter for software choice. Hiding the cost in the card means hiding the context.</p>\n            <p><strong>Affiliate links.</strong> /uses has affiliate links on Dashlane, SetApp, Airalo, and Claude&nbsp;Max. Under each is a CTA — «6 months premium →», «$3 off →». Above the whole section, in plain text: <em>«Services I use regularly. Paid ones — discounted via my link, if you sign up: a small bonus for both of us»</em>. The promo code (<code>SEMYON5076</code> for Airalo) is visible in the description body.</p>\n            <p>It's a position: if a link is affiliate, I say so honestly — and I share the bonus with the reader. Hidden UTM-partner links without disclosure are dishonest practice. A disclosed affiliate link with a real discount is win-win with nothing hidden. This extends the <code>honest</code> principle from Rams's list into a new, specific monetization context.</p>"
+        },
+        "num": "04",
+        "title": {
+          "ru": "/uses — стек как отдельный продукт",
+          "en": "/uses — the stack as a separate product"
+        }
+      },
+      "omitted": {
+        "body": {
+          "ru": "<ul class=\"v4-list\">\n              <li>Нет аналитики, cookies, трекеров. Это проверяется через DevTools&nbsp;→&nbsp;Network.</li>\n              <li>Нет popup-окон, exit-intent, чатботов. Никаких pattern interruptions.</li>\n              <li>Нет testimonials и client logos. «Доверяют» — пустой социальный сигнал.</li>\n              <li>Нет hero-видео и анимаций. Анимация — пожиратель внимания и батареи.</li>\n              <li>Нет tagline-маркетинга. «I help X do Y by Z» — нет.</li>\n              <li>Нет иконного кластера соцсетей. Контакты — точечные, в нужных местах.</li>\n              <li>Нет «Subscribe to my newsletter». Хочешь читать — есть Telegram-канал; ссылка одна.</li>\n              <li>Нет dark patterns на /uses. Аффилиатные ссылки оформлены как <code>→ ССЫЛКА</code>, не как «срочно скидка!». Бонус озвучен спокойно.</li>\n            </ul>\n            <div class=\"v4-prose\">\n              <p>Всё это — не упущения, а решения. У каждого есть причина: либо принцип Рамса (<em>unobtrusive</em>, <em>honest</em>, <em>as little design as possible</em>), либо моя позиция по приватности.</p>\n            </div>",
+          "en": "<ul class=\"v4-list\">\n              <li>No analytics, cookies, trackers. Verifiable via DevTools&nbsp;→&nbsp;Network.</li>\n              <li>No popups, exit-intent, chatbots. No pattern interruptions.</li>\n              <li>No testimonials or client logos. «Trusted by» is an empty social signal.</li>\n              <li>No hero videos or animations. Animation eats attention and battery.</li>\n              <li>No tagline-marketing. «I help X do Y by Z» — no.</li>\n              <li>No social-icon clusters. Contacts are point-placed where they matter.</li>\n              <li>No «Subscribe to my newsletter». Want to read me — there's a Telegram channel; one link.</li>\n              <li>No dark patterns on /uses. Affiliate links are styled as <code>→ LINK</code>, not «urgent discount!». The bonus is stated calmly.</li>\n            </ul>\n            <div class=\"v4-prose\">\n              <p>These aren't oversights — they're decisions. Each has a reason: either a Rams principle (<em>unobtrusive</em>, <em>honest</em>, <em>as little design as possible</em>), or my privacy stance.</p>\n            </div>"
+        },
+        "num": "05",
+        "title": {
+          "ru": "Чего здесь намеренно нет",
+          "en": "What's deliberately not here"
+        }
+      },
+      "tool": {
+        "body": {
+          "ru": "<p>Сайт сделан с помощью <strong>Claude Code</strong>.</p>\n            <p>Это попадает в первый принцип Рамса буквально: новая технологическая возможность применена в служении функции. До 2024&nbsp;года такой сайт требовал либо собственных навыков фронтенд-разработки, либо найма дизайнера и разработчика. Сегодня — собирается за вечер-два, без потери качества.</p>\n            <p>Важно: AI здесь не подменяет решение, а исполняет его. Философия и принципы были сформулированы до того, как был написан первый компонент. Если бы я попросил Claude «сделай мне personal-сайт» без брифа — получил бы что-то усреднённо-приличное. А я дал референсы (Рамс, Braun, IBM&nbsp;Plex, Hacker&nbsp;News), ценности (приватность, доступность, прозрачность) и тон (цифры вместо прилагательных) — и инструмент исполнил по партитуре.</p>\n            <p>Это правильное использование новой технологии в духе Рамса. Так же, как он использовал новые пластики и электронные компоненты в Braun — не ради того, чтобы выглядеть футуристично, а потому что они позволяли сделать продукт лучше.</p>\n            <p>Сайт не носит нашлёпки «Made with AI». Инновация спрятана в процессе, результат — функционален. О том, как именно сделан сайт, написано здесь — но это инженерная заметка, а не маркетинг.</p>",
+          "en": "<p>The site is built with <strong>Claude Code</strong>.</p>\n            <p>This lands on Rams's first principle literally: a new technological possibility applied in service of function. Before 2024, a site like this required either personal frontend-engineering skills or hiring a designer and a developer. Today — assembled in an evening or two, without loss of quality.</p>\n            <p>Important: AI doesn't substitute for the decision here, it executes it. The philosophy and principles were formulated before the first component was written. If I'd asked Claude «build me a personal site» without a brief, I'd have gotten something averagely decent. Instead I gave references (Rams, Braun, IBM&nbsp;Plex, Hacker&nbsp;News), values (privacy, accessibility, transparency), and tone (numbers instead of adjectives) — and the tool performed from a score.</p>\n            <p>This is the right use of new technology, Rams-style. The same way he used new plastics and electronic components at Braun — not to look futuristic, but because they made the product better.</p>\n            <p>The site doesn't wear a «Made with AI» badge. The innovation is hidden in the process, the result is functional. How exactly the site is built is written here — but as an engineering note, not marketing.</p>"
+        },
+        "num": "06",
+        "title": {
+          "ru": "Инструмент",
+          "en": "Tool"
+        }
+      },
+      "ethics": {
+        "body": {
+          "ru": "<div class=\"v4-prose\">\n              <p>Если собрать решения вместе, получается одна последовательная линия:</p>\n            </div>\n            <ul class=\"v4-list v4-list--spaced\">\n              <li><strong>Privacy.</strong> Никакой аналитики и трекеров. Я работаю в FinTech и веду сайд-проекты про цифровую приватность; не могу проповедовать одно и делать другое.</li>\n              <li><strong>A11y.</strong> Высокий контраст как отдельный режим. Сайт работает для людей со слабым зрением.</li>\n              <li><strong>Transparency.</strong> Репозиторий открыт, build hash в футере кликабельный на коммит в GitHub. Каждый может увидеть, что и когда менялось. Аффилиатные ссылки на /uses помечены и раскрыты.</li>\n              <li><strong>Humility.</strong> Ссылка «Нашли опечатку?» в футере — приглашение к коррекции, противоположность «у меня всё идеально».</li>\n              <li><strong>Honesty.</strong> Статусы «Закрыл / Продал / На паузе» показывают реальный контекст без переупаковки. Цифры подписчиков разложены по платформам, а не свалены в одну. Срок ответа — не «отвечу скоро», а <code>обычно отвечаю в течение 10 рабочих дней</code>.</li>\n            </ul>\n            <div class=\"v4-prose\">\n              <p>Пять жестов, направленных на одного субъекта — читателя. Не на меня. Это, наверное, главное, что я хотел сказать этим сайтом: продукт устроен в интересах того, кто им пользуется.</p>\n            </div>",
+          "en": "<div class=\"v4-prose\">\n              <p>Take all the decisions together, and a consistent line emerges:</p>\n            </div>\n            <ul class=\"v4-list v4-list--spaced\">\n              <li><strong>Privacy.</strong> No analytics, no trackers. I work in FinTech and run side-projects on digital privacy; I can't preach one thing and do another.</li>\n              <li><strong>A11y.</strong> High contrast as a dedicated mode. The site works for people with low vision.</li>\n              <li><strong>Transparency.</strong> Repo is open, the build hash in the footer links to the commit on GitHub. Anyone can see what changed and when. Affiliate links on /uses are marked and disclosed.</li>\n              <li><strong>Humility.</strong> The «Found a typo?» link in the footer is an invitation to correct, the opposite of «everything is perfect on my end».</li>\n              <li><strong>Honesty.</strong> Status tags «Closed / Sold / Paused» show the real context without repackaging. Follower counts are broken down by platform, not aggregated into one. Reply SLA isn't «I'll respond soon», it's <code>Usually reply within 10 business days</code>.</li>\n            </ul>\n            <div class=\"v4-prose\">\n              <p>Five gestures aimed at one subject — the reader. Not me. That's probably the main thing I wanted to say with this site: the product is built in the interest of the person using it.</p>\n            </div>"
+        },
+        "num": "07",
+        "title": {
+          "ru": "Этическая линия",
+          "en": "The ethical line"
+        }
+      },
+      "living": {
+        "body": {
+          "ru": "<p>Сайт обновляется. Если что-то выглядит сломанным, читается странно или просто кажется неточным — напишите. Ссылка «Нашли опечатку?» в футере открывает прямой канал. Репозиторий открыт; если хотите завести issue или PR — добро пожаловать.</p>\n            <p>Сайт — не финальный артефакт. Это срез того, как я думаю сегодня. Через год он, возможно, будет выглядеть иначе. Build <code>cc8781e</code> сменится на следующий — и это будет видно по коммиту. Это нормально и правильно.</p>\n            <p>→ <a href=\"https://s.morgunov.tech\">s.morgunov.tech</a></p>",
+          "en": "<p>The site keeps updating. If something looks broken, reads oddly, or just feels inaccurate — let me know. The «Found a typo?» link in the footer opens a direct channel. The repo is open; if you want to file an issue or a PR — welcome.</p>\n            <p>The site isn't a final artefact. It's a snapshot of how I think today. A year from now it might look different. Build <code>cc8781e</code> will switch to the next one — and the change will be visible in the commit. That's normal and right.</p>\n            <p>→ <a href=\"https://s.morgunov.tech\">s.morgunov.tech</a></p>"
+        },
+        "num": "08",
+        "title": {
+          "ru": "Это живой документ",
+          "en": "A living document"
+        }
+      }
+    }
+  },
+  "uses": {
+    "site": "s.morgunov.tech",
+    "page": "uses",
+    "rev": 1,
+    "updatedAt": "2026-05-25T00:00:00Z",
+    "dateModified": "2026-05-11",
+    "meta": {
+      "title": {
+        "ru": "Стек — Семён Моргунов",
+        "en": "Uses — Semyon Morgunov"
+      },
+      "description": {
+        "ru": "Железо, которым пользуюсь каждый день: MacBook Pro 16, iPhone 15 Pro Max, Dell U3223QE, Oura Ring и другое. Только то, что реально включаю.",
+        "en": "The hardware I use every day: MacBook Pro 16, iPhone 15 Pro Max, Dell U3223QE, Oura Ring, and more. Only the stuff that actually gets switched on."
+      }
+    },
+    "share": {
+      "title": {
+        "ru": "Стек — Семён Моргунов",
+        "en": "Uses — Semyon Morgunov"
+      },
+      "description": {
+        "ru": "Железо, которым пользуюсь каждый день: MacBook Pro 16, iPhone 15 Pro Max, Dell U3223QE, Oura Ring и другое. Только то, что реально включаю.",
+        "en": "The hardware I use every day: MacBook Pro 16, iPhone 15 Pro Max, Dell U3223QE, Oura Ring, and more. Only the stuff that actually gets switched on."
+      },
+      "image": {
+        "ru": "/images/og-card-ru.png",
+        "en": "/images/og-card-en.png"
+      },
+      "imageAlt": {
+        "ru": "Стек — Семён Моргунов",
+        "en": "Uses — Semyon Morgunov"
+      }
+    },
+    "hero": {
+      "name": {
+        "ru": "Стек",
+        "en": "Uses"
+      },
+      "tagline": {
+        "ru": "Чем пользуюсь каждый день. Только то, что реально включаю — без полки «забытых гаджетов».",
+        "en": "What I actually use every day. Only the stuff that gets switched on — no shelf of forgotten gadgets."
+      },
+      "ctas": {
+        "ru": "<a class=\"v4-btn\" href=\"/\">← На главную</a>",
+        "en": "<a class=\"v4-btn\" href=\"/en/\">← Home</a>"
+      },
+      "eyebrow": {
+        "ru": "Железо · Софт",
+        "en": "Hardware · Software"
+      }
+    },
+    "sections": {
+      "hardware": {
+        "body": {
+          "ru": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">01</span>\n          <h2 class=\"v4-h2\">Железо</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <h3 class=\"v4-h3\">Compute</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/macbook-pro-16.webp?v=9626e64a\" alt=\"MacBook Pro 16″ M3 Max\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Laptop</span>\n                <h4 class=\"v4-use-name\">MacBook Pro 16″ M3 Max</h4>\n                <p class=\"v4-use-desc\">Основная рабочая машина — продакт-аналитика, видеомонтаж, виртуализация. 36&nbsp;GB unified memory + 1&nbsp;TB SSD, держит 18+ часов без розетки.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/dell-u3223qe.webp?v=9e5e997f\" alt=\"Dell U3223QE — 32-дюймовый 4K-монитор\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Monitor</span>\n                <h4 class=\"v4-use-name\">Dell U3223QE</h4>\n                <p class=\"v4-use-desc\">32 дюйма, 4K IPS-Black, встроенный USB-C-док на 90&nbsp;W. Один кабель в MacBook — питание, видео, 4×USB-A и Ethernet через монитор.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/keychron-k2.webp?v=0c00a578\" alt=\"Keychron K2 — механическая клавиатура с RGB и Bluetooth\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Keyboard</span>\n                <h4 class=\"v4-use-name\">Keychron K2</h4>\n                <p class=\"v4-use-desc\">75% механика в алюминиевом каркасе с RGB-подсветкой. По Bluetooth коннектится сразу к Mac, iPad и iPhone. Mac-раскладка с Cmd/Option в нужных местах.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/razer-deathadder-v2-pro.webp?v=5c3c287e\" alt=\"Razer DeathAdder V2 Pro — беспроводная игровая мышь\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Mouse</span>\n                <h4 class=\"v4-use-name\">Razer DeathAdder V2 Pro</h4>\n                <p class=\"v4-use-desc\">Беспроводная HyperSpeed-мышь, 20K DPI, форма проверена годами. Заряжается раз в неделю, два боковых клавиша — под навигацию между вкладками.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Mobile</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/iphone-15-pro-max.webp?v=0312398e\" alt=\"iPhone 15 Pro Max\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Phone</span>\n                <h4 class=\"v4-use-name\">iPhone 15 Pro Max</h4>\n                <p class=\"v4-use-desc\">Основной телефон. Тетрапризма с 5× зумом, USB-C, Action&nbsp;Button под фонарик. Главная фича — экосистема с Mac и часами без трения.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/duoqin-f22-pro.webp?v=db2c2b3f\" alt=\"Duoqin F22 Pro — кнопочный мини-телефон\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Phone</span>\n                <h4 class=\"v4-use-name\">Duoqin F22 Pro</h4>\n                <p class=\"v4-use-desc\">Кнопочный мини-телефон от Xiaomi-эко: 2.8″ OLED, T9, Android&nbsp;11 внутри. Включаю на выходных, чтобы отдохнуть от ленты — остаются только звонки и Telegram.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Audio</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/airpods-pro-2.webp?v=a02b755d\" alt=\"Apple AirPods Pro 2\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Earphones</span>\n                <h4 class=\"v4-use-name\">AirPods Pro 2</h4>\n                <p class=\"v4-use-desc\">Беспроводные затычки с активным шумодавом и transparency. Основная причина — качество звонков: в Zoom меня слышно нормально без отдельного микрофона.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/moondrop-chu-2.webp?v=4e163704\" alt=\"Moondrop Chu 2 — проводные IEM\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Earphones</span>\n                <h4 class=\"v4-use-name\">Moondrop Chu 2</h4>\n                <p class=\"v4-use-desc\">Проводные IEM, один динамический драйвер 10&nbsp;mm с латунным звуководом. Тёплый звук, целятся в Harman target. Беру, когда не хочется возиться с bluetooth и зарядкой.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/sony-mdr-7506.webp?v=2d4dc175\" alt=\"Sony MDR-7506 — студийные наушники\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Headphones</span>\n                <h4 class=\"v4-use-name\">Sony MDR-7506</h4>\n                <p class=\"v4-use-desc\">Классика студийных наушников с 1991 года, складные. Чуть подчёркнутые верхи — хороши для подкастов и интервью. В дорогу удобнее, чем DT&nbsp;770.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/beyerdynamic-dt-770-pro.webp?v=f90831b9\" alt=\"Beyerdynamic DT 770 Pro — студийные наушники\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Headphones</span>\n                <h4 class=\"v4-use-name\">Beyerdynamic DT 770 Pro</h4>\n                <p class=\"v4-use-desc\">Студийные мониторные накладки, 250&nbsp;Ω. Дома — за компом, для долгого фокуса. Звук ровный, велюровые подушки не давят за 5+ часов.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Power</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/shargeek-170.webp?v=1b4f07f0\" alt=\"Shargeek 170 — прозрачный пауэрбанк\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Powerbank</span>\n                <h4 class=\"v4-use-name\">Shargeek 170</h4>\n                <p class=\"v4-use-desc\">Прозрачный пауэрбанк на 25&nbsp;600&nbsp;mAh с экраном статуса и USB-C&nbsp;PD до 100&nbsp;W. Хватает заряжать MacBook в дороге без блока питания.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/ugreen-nexode-300w.webp?v=c284eede\" alt=\"Ugreen Nexode 300W — настольная зарядная станция\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Charger</span>\n                <h4 class=\"v4-use-name\">Ugreen Nexode 300W</h4>\n                <p class=\"v4-use-desc\">Настольная зарядная станция на 300&nbsp;W, 5 портов (4×USB-C + 1×USB-A). Тянет MacBook на 140&nbsp;W + iPhone + iPad + наушники одновременно с запасом.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Health &amp; Play</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/oura-ring-gen3.webp?v=da5a3c16\" alt=\"Oura Ring Gen3 — умное кольцо\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Health</span>\n                <h4 class=\"v4-use-name\">Oura Ring Gen3</h4>\n                <p class=\"v4-use-desc\">Кольцо-трекер: сон, ЧСС покоя, температура тела, циклы. Носится в воду, 5–7 дней без зарядки. Удобнее часов — не цепляется и не отвлекает уведомлениями.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/anbernic-rg405v.webp?v=1682d426\" alt=\"Anbernic RG405V — портативный ретро-эмулятор\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Game console</span>\n                <h4 class=\"v4-use-name\">Anbernic RG405V</h4>\n                <p class=\"v4-use-desc\">Вертикальный ретро-эмулятор на Android, 4-дюймовый OLED. Играет в PSP, Dreamcast, N64. Карманно, длинный аккумулятор — в дорогу самое то.</p>\n              </article>\n            </div>\n          </div>\n        </div>",
+          "en": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">01</span>\n          <h2 class=\"v4-h2\">Hardware</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <h3 class=\"v4-h3\">Compute</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/macbook-pro-16.webp?v=9626e64a\" alt=\"MacBook Pro 16″ M3 Max\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Laptop</span>\n                <h4 class=\"v4-use-name\">MacBook Pro 16″ M3 Max</h4>\n                <p class=\"v4-use-desc\">Main work machine — product analytics, video editing, virtualization. 36&nbsp;GB unified memory + 1&nbsp;TB SSD, 18+ hours unplugged.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/dell-u3223qe.webp?v=9e5e997f\" alt=\"Dell U3223QE — 32-inch 4K monitor\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Monitor</span>\n                <h4 class=\"v4-use-name\">Dell U3223QE</h4>\n                <p class=\"v4-use-desc\">32 inches, 4K IPS-Black, built-in 90&nbsp;W USB-C dock. Single cable to MacBook handles power, video, 4×USB-A, and Ethernet through the monitor.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/keychron-k2.webp?v=0c00a578\" alt=\"Keychron K2 — mechanical keyboard with RGB and Bluetooth\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Keyboard</span>\n                <h4 class=\"v4-use-name\">Keychron K2</h4>\n                <p class=\"v4-use-desc\">75% mechanical in an aluminum frame with RGB backlight. Bluetooth multi-pair to Mac, iPad, and iPhone. Mac-friendly layout with Cmd/Option where they belong.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/razer-deathadder-v2-pro.webp?v=5c3c287e\" alt=\"Razer DeathAdder V2 Pro — wireless gaming mouse\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Mouse</span>\n                <h4 class=\"v4-use-name\">Razer DeathAdder V2 Pro</h4>\n                <p class=\"v4-use-desc\">Wireless HyperSpeed mouse, 20K DPI, shape I've been using for years. Charges weekly; two side buttons mapped to tab navigation.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Mobile</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/iphone-15-pro-max.webp?v=0312398e\" alt=\"iPhone 15 Pro Max\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Phone</span>\n                <h4 class=\"v4-use-name\">iPhone 15 Pro Max</h4>\n                <p class=\"v4-use-desc\">Daily driver. Tetraprism 5× zoom, USB-C, Action&nbsp;Button mapped to flashlight. Killer feature is the friction-free ecosystem with Mac and the watch.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/duoqin-f22-pro.webp?v=db2c2b3f\" alt=\"Duoqin F22 Pro — mini button phone\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Phone</span>\n                <h4 class=\"v4-use-name\">Duoqin F22 Pro</h4>\n                <p class=\"v4-use-desc\">Xiaomi-eco mini button phone: 2.8″ OLED, T9 keypad, Android&nbsp;11 inside. Weekend detox device — just calls and Telegram, no doomscroll.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Audio</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/airpods-pro-2.webp?v=a02b755d\" alt=\"Apple AirPods Pro 2\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Earphones</span>\n                <h4 class=\"v4-use-name\">AirPods Pro 2</h4>\n                <p class=\"v4-use-desc\">Wireless earbuds with active noise cancellation and transparency. Real reason: call quality — Zoom hears me clearly without a separate mic.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/moondrop-chu-2.webp?v=4e163704\" alt=\"Moondrop Chu 2 — wired IEMs\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Earphones</span>\n                <h4 class=\"v4-use-name\">Moondrop Chu 2</h4>\n                <p class=\"v4-use-desc\">Wired IEMs, single 10&nbsp;mm dynamic driver with brass nozzle. Warm sound tuned to Harman target. For when I don't want to fuss with Bluetooth or charging.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/sony-mdr-7506.webp?v=2d4dc175\" alt=\"Sony MDR-7506 — studio headphones\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Headphones</span>\n                <h4 class=\"v4-use-name\">Sony MDR-7506</h4>\n                <p class=\"v4-use-desc\">Studio classic since 1991, foldable. Slightly hyped highs — great for podcasts and interviews. Better travel companion than the DT&nbsp;770.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/beyerdynamic-dt-770-pro.webp?v=f90831b9\" alt=\"Beyerdynamic DT 770 Pro — studio headphones\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Headphones</span>\n                <h4 class=\"v4-use-name\">Beyerdynamic DT 770 Pro</h4>\n                <p class=\"v4-use-desc\">Closed-back studio monitors, 250&nbsp;Ω. Home use at the desk for long-focus sessions. Flat sound; velour pads don't fatigue after 5+ hours.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Power</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/shargeek-170.webp?v=1b4f07f0\" alt=\"Shargeek 170 — transparent power bank\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Powerbank</span>\n                <h4 class=\"v4-use-name\">Shargeek 170</h4>\n                <p class=\"v4-use-desc\">Transparent 25,600&nbsp;mAh power bank with status display and USB-C&nbsp;PD up to 100&nbsp;W. Enough to charge the MacBook on the road without the brick.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/ugreen-nexode-300w.webp?v=c284eede\" alt=\"Ugreen Nexode 300W — desktop charging station\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Charger</span>\n                <h4 class=\"v4-use-name\">Ugreen Nexode 300W</h4>\n                <p class=\"v4-use-desc\">Desktop 300&nbsp;W charging station, 5 ports (4×USB-C + 1×USB-A). Charges MacBook at 140&nbsp;W + iPhone + iPad + earbuds in parallel, with headroom.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Health &amp; Play</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/oura-ring-gen3.webp?v=da5a3c16\" alt=\"Oura Ring Gen3 — smart ring\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Health</span>\n                <h4 class=\"v4-use-name\">Oura Ring Gen3</h4>\n                <p class=\"v4-use-desc\">Smart ring: sleep, resting heart rate, body temp, cycles. Waterproof; 5–7 days on a charge. Better than a watch — doesn't snag or distract with notifications.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/anbernic-rg405v.webp?v=1682d426\" alt=\"Anbernic RG405V — portable retro emulator\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Game console</span>\n                <h4 class=\"v4-use-name\">Anbernic RG405V</h4>\n                <p class=\"v4-use-desc\">Vertical retro emulator on Android, 4-inch OLED. Runs PSP, Dreamcast, N64. Pocketable, long battery — perfect travel companion.</p>\n              </article>\n            </div>\n          </div>\n        </div>"
+        }
+      },
+      "software": {
+        "body": {
+          "ru": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">02</span>\n          <h2 class=\"v4-h2\">Софт</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <div class=\"v4-prose\">\n              <p>Сервисы, которыми пользуюсь регулярно. Платные — со скидками по моей ссылке, если оформите подписку: бонус и вам, и мне.</p>\n            </div>\n            <div class=\"v4-softs\">\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">Password manager</span>\n                  <span>$5&nbsp;/&nbsp;mo</span>\n                </div>\n                <h4 class=\"v4-product-name\">Dashlane</h4>\n                <p class=\"v4-product-desc\">Менеджер паролей с 5-летним стажем без скандалов и утечек. Внутри Dark&nbsp;Web&nbsp;Monitoring и встроенный 2FA-аутентификатор.</p>\n                <a class=\"v4-btn\" href=\"https://www.dashlane.com/\" target=\"_blank\" rel=\"noopener noreferrer\">6 месяцев premium →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">Browser</span>\n                  <span>Free</span>\n                </div>\n                <h4 class=\"v4-product-name\">Arc Browser</h4>\n                <p class=\"v4-product-desc\">Браузер. Идеальная организация вкладок и рабочих пространств, аккуратно встроенный AI. Команда переключилась на Dia, но текущий релиз стабильно работает.</p>\n                <a class=\"v4-btn\" href=\"https://arc.net/\" target=\"_blank\" rel=\"noopener noreferrer\">Скачать →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">App bundle</span>\n                  <span>$10&nbsp;/&nbsp;mo</span>\n                </div>\n                <h4 class=\"v4-product-name\">SetApp</h4>\n                <p class=\"v4-product-desc\">Подписка на 250+&nbsp;Mac-приложений за фиксированную плату. Топ-5: Craft (Notion на стероидах), Numi (калькулятор-конвертер), CleanShot&nbsp;X, CleanMyMac, Dato.</p>\n                <a class=\"v4-btn\" href=\"https://setapp.com/\" target=\"_blank\" rel=\"noopener noreferrer\">7 дней бесплатно →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">AI</span>\n                  <span>$100&nbsp;/&nbsp;mo</span>\n                </div>\n                <h4 class=\"v4-product-name\">Claude Max</h4>\n                <p class=\"v4-product-desc\">Заменил Google для поиска, Stack&nbsp;Overflow для кода, иногда — психотерапевта. 3-4&nbsp;часа в день. Max снимает лимиты Pro — пишу столько, сколько нужно.</p>\n                <a class=\"v4-btn\" href=\"https://claude.ai/\" target=\"_blank\" rel=\"noopener noreferrer\">Оформить Max →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">eSIM</span>\n                  <span>Pay-as-you-go</span>\n                </div>\n                <h4 class=\"v4-product-name\">Airalo</h4>\n                <p class=\"v4-product-desc\">eSIM в любую страну за 2 минуты. Самые низкие цены среди известных мне сервисов, support всегда отзывался при шероховатостях. Промокод <code>SEMYON5076</code> даёт $3 на первую покупку.</p>\n                <a class=\"v4-btn\" href=\"https://www.airalo.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Скидка $3 →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">Notes</span>\n                  <span>Free</span>\n                </div>\n                <h4 class=\"v4-product-name\">Apple Notes</h4>\n                <p class=\"v4-product-desc\">Главный инструмент для захвата мыслей с 2014 года. Бесплатно, нативно, открывается за миллисекунды. Доступен на iOS, macOS и через iCloud&nbsp;web.</p>\n                <a class=\"v4-btn\" href=\"https://support.apple.com/guide/notes/welcome/mac\" target=\"_blank\" rel=\"noopener noreferrer\">Гайд по использованию →</a>\n              </article>\n            </div>\n          </div>\n        </div>",
+          "en": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">02</span>\n          <h2 class=\"v4-h2\">Software</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <div class=\"v4-prose\">\n              <p>Services I use regularly. Paid ones — discounted via my link, if you sign up: a small bonus for both of us.</p>\n            </div>\n            <div class=\"v4-softs\">\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">Password manager</span>\n                  <span>$5&nbsp;/&nbsp;mo</span>\n                </div>\n                <h4 class=\"v4-product-name\">Dashlane</h4>\n                <p class=\"v4-product-desc\">Password manager, 5&nbsp;years no breaches. Includes Dark&nbsp;Web&nbsp;Monitoring and a built-in 2FA authenticator.</p>\n                <a class=\"v4-btn\" href=\"https://www.dashlane.com/\" target=\"_blank\" rel=\"noopener noreferrer\">6 months premium →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">Browser</span>\n                  <span>Free</span>\n                </div>\n                <h4 class=\"v4-product-name\">Arc Browser</h4>\n                <p class=\"v4-product-desc\">Browser. Best-in-class tab and workspace management, AI features tastefully integrated. The team moved on to Dia, but the current release is stable.</p>\n                <a class=\"v4-btn\" href=\"https://arc.net/\" target=\"_blank\" rel=\"noopener noreferrer\">Download →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">App bundle</span>\n                  <span>$10&nbsp;/&nbsp;mo</span>\n                </div>\n                <h4 class=\"v4-product-name\">SetApp</h4>\n                <p class=\"v4-product-desc\">Subscription bundle of 250+&nbsp;Mac apps. Top&nbsp;5: Craft (Notion on steroids), Numi (calculator-converter), CleanShot&nbsp;X, CleanMyMac, Dato.</p>\n                <a class=\"v4-btn\" href=\"https://setapp.com/\" target=\"_blank\" rel=\"noopener noreferrer\">7 days free →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">AI</span>\n                  <span>$100&nbsp;/&nbsp;mo</span>\n                </div>\n                <h4 class=\"v4-product-name\">Claude Max</h4>\n                <p class=\"v4-product-desc\">Replaced Google for search, Stack&nbsp;Overflow for code, sometimes my therapist. 3-4&nbsp;hours a day. Max lifts Pro's usage caps — chat as much as I need.</p>\n                <a class=\"v4-btn\" href=\"https://claude.ai/\" target=\"_blank\" rel=\"noopener noreferrer\">Get Max →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">eSIM</span>\n                  <span>Pay-as-you-go</span>\n                </div>\n                <h4 class=\"v4-product-name\">Airalo</h4>\n                <p class=\"v4-product-desc\">eSIM for any country in 2&nbsp;minutes. Lowest prices I've seen, responsive support whenever something glitched. Promo code <code>SEMYON5076</code> gives $3&nbsp;off the first purchase.</p>\n                <a class=\"v4-btn\" href=\"https://www.airalo.com/\" target=\"_blank\" rel=\"noopener noreferrer\">$3 off →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">Notes</span>\n                  <span>Free</span>\n                </div>\n                <h4 class=\"v4-product-name\">Apple Notes</h4>\n                <p class=\"v4-product-desc\">Main thinking tool since 2014. Free, native, opens in milliseconds. Works on iOS, macOS, and via iCloud&nbsp;web.</p>\n                <a class=\"v4-btn\" href=\"https://support.apple.com/guide/notes/welcome/mac\" target=\"_blank\" rel=\"noopener noreferrer\">Read the guide →</a>\n              </article>\n            </div>\n          </div>\n        </div>"
+        }
+      }
+    }
+  },
+  "collaborate": {
+    "site": "s.morgunov.tech",
+    "page": "collaborate",
+    "rev": 1,
+    "updatedAt": "2026-05-25T00:00:00Z",
+    "dateModified": "2026-05-11",
+    "meta": {
+      "title": {
+        "ru": "Сотрудничество — Семён Моргунов | morgunov.tech",
+        "en": "Collaborate — Semyon Morgunov | morgunov.tech"
+      },
+      "description": {
+        "ru": "Консалтинг и ангельские инвестиции. Помогаю компаниям в e-com, ритейле и FinTech найти точки роста и выстроить продукт.",
+        "en": "Consulting and angel investing for companies in e-com, retail, and FinTech. Helping teams find growth levers and build great products."
+      }
+    },
+    "share": {
+      "title": {
+        "ru": "Сотрудничество — Семён Моргунов | morgunov.tech",
+        "en": "Collaborate — Semyon Morgunov | morgunov.tech"
+      },
+      "description": {
+        "ru": "Консалтинг и ангельские инвестиции. Помогаю компаниям в e-com, ритейле и FinTech найти точки роста и выстроить продукт.",
+        "en": "Consulting and angel investing for companies in e-com, retail, and FinTech. Helping teams find growth levers and build great products."
+      },
+      "image": {
+        "ru": "/images/og-card-ru.png",
+        "en": "/images/og-card-en.png"
+      },
+      "imageAlt": {
+        "ru": "Сотрудничество — Семён Моргунов",
+        "en": "Collaborate — Semyon Morgunov"
+      }
+    },
+    "hero": {
+      "name": {
+        "ru": "Сотрудничество",
+        "en": "Collaborate"
+      },
+      "tagline": {
+        "ru": "Помогаю компаниям в e-com, ритейле и FinTech найти точки роста и выстроить продукт. Консультирую разово, веду долгосрочно или вкладываюсь как ангел.",
+        "en": "Helping companies in e-com, retail, and FinTech find growth levers and build great products. Consult one-off, partner long-term, or invest as an angel."
+      },
+      "ctas": {
+        "ru": "<a class=\"v4-btn\" href=\"/\">← На главную</a>\n            <a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>",
+        "en": "<a class=\"v4-btn\" href=\"/en/\">← Home</a>\n            <a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>"
+      },
+      "eyebrow": {
+        "ru": "Консалтинг · Эдвайзинг · Ангельские инвестиции",
+        "en": "Consulting · Advisory · Angel investing"
+      }
+    },
+    "sections": {
+      "about": {
+        "body": {
+          "ru": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">01</span>\n          <h2 class=\"v4-h2\">Чем занимаюсь</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div class=\"v4-prose\">\n            <p>10 лет в продукте, e-com и FinTech. Сейчас — Head of FinTech в <strong>Yandex Uzbekistan</strong>: запускаю BNPL, платежи и кредит на одном из самых быстрорастущих&nbsp;рынков&nbsp;региона.</p>\n            <p>До этого 3&nbsp;года руководил крупнейшим e-grocery в Узбекистане в <strong>Korzinka</strong> (заказы&nbsp;×23, расширение в&nbsp;9&nbsp;городов, положительная EBITDA); управлял P&amp;L в <strong>Yandex Uslugi</strong> (GMV&nbsp;×2.2, положительная EBITDA); запускал эксперименты в <strong>Skyeng</strong> (7&nbsp;млн пользователей).</p>\n            <ul class=\"v4-list v4-list--spaced\">\n              <li>Разбираю юнит-экономику, воронки, retention — нахожу, где теряете деньги и рост</li>\n              <li>Даю честную обратную связь по продукту, маркетингу, стратегии</li>\n              <li>Помогаю расставить приоритеты и превратить хаос в план с конкретными шагами</li>\n            </ul>\n            <p class=\"v4-collab-clients\">Клиенты: <b>UMAI Group · Belissimo Pizza · Buildex · MediaPark</b></p>\n          </div>\n        </div>",
+          "en": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">01</span>\n          <h2 class=\"v4-h2\">What I do</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div class=\"v4-prose\">\n            <p>10 years in product, e-com, and FinTech. Currently Head of FinTech at <strong>Yandex Uzbekistan</strong> — shipping BNPL, payments, and credit in one of the fastest&#8209;growing markets in&nbsp;the&nbsp;region.</p>\n            <p>Before that: 3 years leading the largest e-grocery in Uzbekistan at <strong>Korzinka</strong> (orders ×23, expansion to 9 cities, positive EBITDA); managed P&amp;L at <strong>Yandex Services</strong> (GMV ×2.2, positive EBITDA); launched experiments at <strong>Skyeng</strong> (7M users).</p>\n            <ul class=\"v4-list v4-list--spaced\">\n              <li>Break down unit economics, funnels, and retention — find where you're losing money and growth</li>\n              <li>Give honest, direct feedback on product, marketing, and strategy</li>\n              <li>Help set priorities and turn chaos into a plan with concrete next steps</li>\n            </ul>\n            <p class=\"v4-collab-clients\">Clients: <b>UMAI Group · Belissimo Pizza · Buildex · MediaPark</b></p>\n          </div>\n        </div>"
+        }
+      },
+      "consulting": {
+        "body": {
+          "ru": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">02</span>\n          <h2 class=\"v4-h2\">Консалтинг</h2>\n        </div>\n        <div class=\"v4-products\">\n          <article class=\"v4-product\">\n            <div class=\"v4-product-head\">\n              <span class=\"v4-tag\">РАЗОВО</span>\n              <span class=\"v4-pricing\">$250 / <strong>SESSION</strong></span>\n            </div>\n            <h3 class=\"v4-product-name\">Разовая консультация</h3>\n            <ul class=\"v4-list\">\n              <li>75 минут встреча + до 45 минут подготовки</li>\n              <li>Свежий взгляд и конкретный план по одной задаче</li>\n              <li>Подходит, когда нужна точечная экспертиза</li>\n            </ul>\n            <a class=\"v4-btn\" href=\"https://book.morgen.so/morgunov\" target=\"_blank\" rel=\"noopener noreferrer\">Забронировать →</a>\n          </article>\n          <article class=\"v4-product\">\n            <div class=\"v4-product-head\">\n              <span class=\"v4-tag\">ЦИКЛ</span>\n              <span class=\"v4-pricing\">$2&nbsp;000 / <strong>MONTH</strong></span>\n            </div>\n            <h3 class=\"v4-product-name\">Консалтинговый цикл</h3>\n            <ul class=\"v4-list\">\n              <li>5 рабочих сессий в месяц по 1.5 часа</li>\n              <li>До 1 часа подготовки к каждой сессии</li>\n              <li>Async-поддержка между сессиями (ответ в течение 10 рабочих часов)</li>\n              <li>Для фаундеров и команд, которым важна динамика и системность</li>\n            </ul>\n            <a class=\"v4-btn\" href=\"https://book.morgen.so/morgunov\" target=\"_blank\" rel=\"noopener noreferrer\">Забронировать →</a>\n          </article>\n        </div>",
+          "en": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">02</span>\n          <h2 class=\"v4-h2\">Consulting</h2>\n        </div>\n        <div class=\"v4-products\">\n          <article class=\"v4-product\">\n            <div class=\"v4-product-head\">\n              <span class=\"v4-tag\">ONE-OFF</span>\n              <span class=\"v4-pricing\">$250 / <strong>SESSION</strong></span>\n            </div>\n            <h3 class=\"v4-product-name\">Single consultation</h3>\n            <ul class=\"v4-list\">\n              <li>75-minute meeting + up to 45 minutes of preparation</li>\n              <li>Fresh perspective and a concrete action plan for one challenge</li>\n              <li>Best when you need pinpoint expertise</li>\n            </ul>\n            <a class=\"v4-btn\" href=\"https://book.morgen.so/morgunov\" target=\"_blank\" rel=\"noopener noreferrer\">Book a session →</a>\n          </article>\n          <article class=\"v4-product\">\n            <div class=\"v4-product-head\">\n              <span class=\"v4-tag\">CYCLE</span>\n              <span class=\"v4-pricing\">$2,000 / <strong>MONTH</strong></span>\n            </div>\n            <h3 class=\"v4-product-name\">Consulting cycle</h3>\n            <ul class=\"v4-list\">\n              <li>5 working sessions per month, 1.5 hours each</li>\n              <li>Up to 1 hour of preparation per session</li>\n              <li>Async support between sessions (10-hour weekday response)</li>\n              <li>For founders and teams who need momentum and systematic progress</li>\n            </ul>\n            <a class=\"v4-btn\" href=\"https://book.morgen.so/morgunov\" target=\"_blank\" rel=\"noopener noreferrer\">Book a session →</a>\n          </article>\n        </div>"
+        }
+      },
+      "strategy": {
+        "body": {
+          "ru": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">03</span>\n          <h2 class=\"v4-h2\">Стратегический консалтинг</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <p class=\"v4-tagline v4-tagline--compact\">Долгосрочное партнёрство: работаю как внешний стратег или член advisory board.</p>\n            <h3 class=\"v4-h3\">Что делаю</h3>\n            <ul class=\"v4-list\">\n              <li>Участвую в стратегических сессиях и ключевых решениях на уровне CEO / совета директоров</li>\n              <li>Помогаю системно развивать продукт, маркетинг и операционную модель</li>\n              <li>Слежу за прогрессом по ключевым метрикам и сигнализирую, если что-то буксует</li>\n              <li>Делюсь контактами и помогаю с наймом на senior-позиции</li>\n            </ul>\n            <h3 class=\"v4-h3\">Формат</h3>\n            <ul class=\"v4-list\">\n              <li>Регулярные встречи 2–4 раза в месяц</li>\n              <li>Async-доступ между встречами</li>\n              <li>Возможность участия в совете директоров / advisory board</li>\n            </ul>\n            <h3 class=\"v4-h3\">Кому подойдёт</h3>\n            <p class=\"v4-prose\">Фаундерам, CPO/CEO в e-commerce, retail, fintech и digital-продуктах, которым важна «вторая голова» с операционным опытом.</p>\n            <p class=\"v4-terms\">Условия обсуждаются индивидуально.</p>\n            <div class=\"v4-help-cta\">\n              <a class=\"v4-btn\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Написать →</a>\n            </div>\n          </div>\n        </div>",
+          "en": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">03</span>\n          <h2 class=\"v4-h2\">Strategic consulting</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <p class=\"v4-tagline v4-tagline--compact\">Long-term partnership: I work as an external strategist or advisory board member.</p>\n            <h3 class=\"v4-h3\">What I do</h3>\n            <ul class=\"v4-list\">\n              <li>Participate in strategic sessions and key decisions at the CEO / board level</li>\n              <li>Help systematically develop product, marketing, and operating model</li>\n              <li>Track progress on key metrics and flag issues before they become problems</li>\n              <li>Share contacts and help hire for senior roles</li>\n            </ul>\n            <h3 class=\"v4-h3\">Format</h3>\n            <ul class=\"v4-list\">\n              <li>Regular meetings 2–4 times per month</li>\n              <li>Async access between meetings</li>\n              <li>Option to join the board of directors / advisory board</li>\n            </ul>\n            <h3 class=\"v4-h3\">Best for</h3>\n            <p class=\"v4-prose\">Founders, CPOs, and CEOs in e-commerce, retail, fintech, and digital products who need a \"second brain\" with hands-on operating experience.</p>\n            <p class=\"v4-terms\">Terms discussed individually.</p>\n            <div class=\"v4-help-cta\">\n              <a class=\"v4-btn\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Get in touch →</a>\n            </div>\n          </div>\n        </div>"
+        }
+      },
+      "angel": {
+        "body": {
+          "ru": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">04</span>\n          <h2 class=\"v4-h2\">Ангельские инвестиции</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <h3 class=\"v4-h3\">Что делаю</h3>\n            <ul class=\"v4-list\">\n              <li>Вкладываю деньги</li>\n              <li>Делюсь опытом и контактами</li>\n              <li>Не лезу в операционку, если не просят</li>\n            </ul>\n            <h3 class=\"v4-h3\">Параметры</h3>\n            <dl class=\"v4-spec\">\n              <dt>Стадия</dt><dd>pre-seed / seed</dd>\n              <dt>Направления</dt><dd>RetailTech, e-com, FinTech, EdTech</dd>\n              <dt>Рынки</dt><dd>СНГ, MENA, Восточная Европа</dd>\n              <dt>Чек</dt><dd>от $10&nbsp;000</dd>\n            </dl>\n            <h3 class=\"v4-h3\">Кому подойдёт</h3>\n            <div class=\"v4-prose\">\n              <p>Фаундерам с адекватными амбициями, валидированной гипотезой и прозрачной юрисдикцией.</p>\n              <p>Достаточно короткого письма: что делаете, на каком этапе, сколько ищете, ссылка на MVP.</p>\n            </div>\n            <div class=\"v4-help-cta\">\n              <a class=\"v4-btn v4-btn-primary\" href=\"mailto:ask@morgunov.tech\">Отправить питч →</a>\n            </div>\n          </div>\n        </div>",
+          "en": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">04</span>\n          <h2 class=\"v4-h2\">Angel investing</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <h3 class=\"v4-h3\">What I do</h3>\n            <ul class=\"v4-list\">\n              <li>Invest capital</li>\n              <li>Share experience and connections</li>\n              <li>Stay out of day-to-day operations unless asked</li>\n            </ul>\n            <h3 class=\"v4-h3\">Parameters</h3>\n            <dl class=\"v4-spec\">\n              <dt>Stage</dt><dd>pre-seed / seed</dd>\n              <dt>Sectors</dt><dd>RetailTech, e-com, FinTech, EdTech</dd>\n              <dt>Markets</dt><dd>CIS, MENA, Eastern Europe</dd>\n              <dt>Check size</dt><dd>from $10,000</dd>\n            </dl>\n            <h3 class=\"v4-h3\">Best for</h3>\n            <div class=\"v4-prose\">\n              <p>Founders with realistic ambitions, a validated hypothesis, and a transparent jurisdiction.</p>\n              <p>A short note is enough: what you're building, what stage you're at, how much you're raising, link to MVP.</p>\n            </div>\n            <div class=\"v4-help-cta\">\n              <a class=\"v4-btn v4-btn-primary\" href=\"mailto:ask@morgunov.tech\">Send a pitch →</a>\n            </div>\n          </div>\n        </div>"
+        }
+      },
+      "contact": {
+        "body": {
+          "ru": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">05</span>\n          <h2 class=\"v4-h2\">Не уверены, что вам нужно?</h2>\n        </div>\n        <div class=\"v4-contact\">\n          <div>\n            <p class=\"v4-contact-note\">Расскажите о вашей ситуации — подскажу, чем могу быть полезен. Или честно скажу, если не могу.</p>\n          </div>\n          <div class=\"v4-cta-row\">\n            <a class=\"v4-btn v4-btn-primary\" href=\"mailto:ask@morgunov.tech\">Написать →</a>\n            <a class=\"v4-btn\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n          </div>\n        </div>",
+          "en": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">05</span>\n          <h2 class=\"v4-h2\">Not sure what you need?</h2>\n        </div>\n        <div class=\"v4-contact\">\n          <div>\n            <p class=\"v4-contact-note\">Tell me about your situation — I'll suggest how I can help, or be upfront if I can't.</p>\n          </div>\n          <div class=\"v4-cta-row\">\n            <a class=\"v4-btn v4-btn-primary\" href=\"mailto:ask@morgunov.tech\">Get in touch →</a>\n            <a class=\"v4-btn\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n          </div>\n        </div>"
+        }
+      }
+    }
+  }
+}

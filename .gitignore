@@ -15,6 +15,10 @@ audit-about-2026-05-03.md
 # Logs
 *.log
 
+# Wrangler / Pages local dev state
+.wrangler/
+.dev.vars
+
 # Future-proof: never commit npm bits even though we don't use them
 node_modules/
 package-lock.json

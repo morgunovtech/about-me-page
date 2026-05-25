@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Принципы — Семён Моргунов</title>
-  <meta name="description" content="Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт: приватность, доступность, прозрачность, честность." />
+  <title data-cms-text="meta.title">Принципы — Семён Моргунов</title>
+  <meta name="description" data-cms-content="meta.description" content="Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт: приватность, доступность, прозрачность, честность." />
   <meta name="author" content="Семён Моргунов" />
   <meta name="theme-color" content="#edeae5" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
@@ -18,22 +18,22 @@
   <link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/about.html" />
   <link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/about.html" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Принципы — Семён Моргунов" />
-  <meta property="og:description" content="Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт: приватность, доступность, прозрачность, честность." />
+  <meta property="og:title" data-cms-content="share.title" content="Принципы — Семён Моргунов" />
+  <meta property="og:description" data-cms-content="share.description" content="Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт: приватность, доступность, прозрачность, честность." />
   <meta property="og:url" content="https://s.morgunov.tech/about.html" />
-  <meta property="og:image" content="https://s.morgunov.tech/images/og-card-ru.png" />
+  <meta property="og:image" data-cms-abs="share.image" content="https://s.morgunov.tech/images/og-card-ru.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Принципы — Семён Моргунов" />
+  <meta property="og:image:alt" data-cms-content="share.imageAlt" content="Принципы — Семён Моргунов" />
   <meta property="og:site_name" content="morgunov.tech" />
   <meta property="og:locale" content="ru_RU" />
   <meta property="og:locale:alternate" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Принципы — Семён Моргунов" />
-  <meta name="twitter:description" content="Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт: приватность, доступность, прозрачность, честность." />
-  <meta name="twitter:image" content="https://s.morgunov.tech/images/og-card-ru.png" />
-  <meta name="twitter:image:alt" content="Принципы — Семён Моргунов" />
+  <meta name="twitter:title" data-cms-content="share.title" content="Принципы — Семён Моргунов" />
+  <meta name="twitter:description" data-cms-content="share.description" content="Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт: приватность, доступность, прозрачность, честность." />
+  <meta name="twitter:image" data-cms-abs="share.image" content="https://s.morgunov.tech/images/og-card-ru.png" />
+  <meta name="twitter:image:alt" data-cms-content="share.imageAlt" content="Принципы — Семён Моргунов" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
   <style>
     :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif}
@@ -175,11 +175,11 @@
     <main id="main">
       <section class="v4-hero v4-hero--simple" aria-labelledby="hero-title">
         <div class="v4-hero-text">
-          <p class="v4-hero-meta">О сайте · Принципы · Решения</p>
-          <h1 class="v4-h1" id="hero-title">Принципы</h1>
-          <p class="v4-tagline">Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт.</p>
+          <p class="v4-hero-meta" data-cms-text="hero.eyebrow">О сайте · Принципы · Решения</p>
+          <h1 class="v4-h1" id="hero-title" data-cms-text="hero.name">Принципы</h1>
+          <p class="v4-tagline" data-cms-text="hero.tagline">Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт.</p>
           <div class="v4-cta-row">
-            <a class="v4-btn" href="/">← На главную</a>
+            <a class="v4-btn" data-cms-text="hero.cta.label" data-cms-href="hero.cta.href" href="/">← На главную</a>
           </div>
         </div>
       </section>
@@ -187,7 +187,7 @@
       <section class="v4-section" aria-label="Введение">
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div class="v4-prose">
+          <div class="v4-prose" data-cms-html="sections.intro.body">
             <p>Этот сайт — продукт. У продукта есть пользователь — я сам. И, как у любого продукта, у него есть принципы, по которым он построен. Здесь — список этих принципов и решений, на которые они опираются.</p>
             <p>Текст можно читать как объяснение, как референс или просто как срез того, как я думаю о вещах, которые делаю.</p>
           </div>
@@ -197,11 +197,11 @@
       <section id="product" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">01</span>
-          <h2 class="v4-h2">Это продукт, не лендинг</h2>
+          <h2 class="v4-h2" data-cms-text="sections.product.title">Это продукт, не лендинг</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div class="v4-prose">
+          <div class="v4-prose" data-cms-html="sections.product.body">
             <p>Я не делал визитку. Я не делал «сайт-портфолио». Я делал продукт.</p>
             <p>Это значит, что у него есть билд (<code>BUILD&nbsp;3cd8687</code> в футере, кликабельный на коммит в GitHub), есть бэклог, есть релизы, есть пользователь и есть метрика успеха. Метрика не в посетителях и не в конверсии — она в том, насколько точно сайт отражает то, как я думаю и работаю. Если сайт перестаёт быть точным — я его правлю.</p>
             <p>Это значит, что к нему применяются продуктовые правила: каждое решение должно быть оправданным, ничего «потому что у всех так», ничего «потому что красиво».</p>
@@ -213,11 +213,11 @@
       <section id="principles" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">02</span>
-          <h2 class="v4-h2">Десять принципов Дитера Рамса</h2>
+          <h2 class="v4-h2" data-cms-text="sections.principles.title">Десять принципов Дитера Рамса</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div>
+          <div data-cms-html="sections.principles.body">
             <div class="v4-prose">
               <p>Главный архитектурный референс этого сайта — не редакторский веб и не brutalist-движение. Это <strong>Дитер Рамс</strong>, главный дизайнер Braun в 1955–1995&nbsp;годах. К концу карьеры он сформулировал десять принципов хорошего дизайна. Они написаны для индустриальных продуктов, но переводятся на цифровую среду почти без потерь.</p>
               <p>Принципы Рамса — это не чек-лист. Это набор вопросов, которые дизайнер задаёт себе. Если ответ «нет» — это не значит «всё пропало». Это значит «остановись и подумай».</p>
@@ -244,11 +244,11 @@
       <section id="layers" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">03</span>
-          <h2 class="v4-h2">Решения по слоям</h2>
+          <h2 class="v4-h2" data-cms-text="sections.layers.title">Решения по слоям</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div class="v4-prose">
+          <div class="v4-prose" data-cms-html="sections.layers.body">
             <p><strong>Визуальный язык.</strong> Бежевая бумажная подложка, чёрные заголовки, моноширинные caps-метки, никакой декорации. Это прямая отсылка к индустриальной эстетике Braun — калькулятор ET66, проигрыватель SK4, радиоприёмник T1000. Один акцентный цвет, ясная сетка, иерархия через размер и вес, а не через украшения.</p>
             <p><strong>Типографика.</strong> Шрифт <strong>IBM Plex</strong> — open source, выпущен IBM Design в 2017 году. Здесь сходятся три вещи: наследие IBM как одной из главных школ корпоративного модернизма XX&nbsp;века (Эллиот Нойес, Пол Рэнд, Имс), открытость лицензии (можно использовать без оглядки на бюджет) и одна из лучших в open-source кириллица. Plex&nbsp;Sans для тела, Plex&nbsp;Mono для caps-меток. Mono в caps — это терминальная эстетика, <code>git&nbsp;log</code>, README; читатель сразу считывает «передо мной технический документ, не маркетинговый лендинг».</p>
             <p><strong>Цвет.</strong> Оранжевый акцент — не бренд, а индикатор состояния. Та же семантика, что у переключателя mute на iPhone, у <code>#FF6600</code> Hacker News, у оранжевой кнопки питания на калькуляторе Braun&nbsp;ET33. Линия родословной: индустриальный safety-orange → Braun → tech-стартапы → этот сайт. Оранжевый = attention, utility, state — не «фирменный цвет». Он используется ровно в четырёх местах: главный CTA («Написать в Telegram»), активный язык в переключателе («RU» подчёркнут), индикатор текущего места работы (точка рядом с «Yandex&nbsp;Uzbekistan»), активная тема в дропдауне. Везде — одна семантика: «вот это сейчас активно».</p>
@@ -266,11 +266,11 @@
       <section id="stack" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">04</span>
-          <h2 class="v4-h2">/uses — стек как отдельный продукт</h2>
+          <h2 class="v4-h2" data-cms-text="sections.stack.title">/uses — стек как отдельный продукт</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div class="v4-prose">
+          <div class="v4-prose" data-cms-html="sections.stack.body">
             <p>Страница <a href="/uses.html">/uses</a> — отдельный продукт со своей логикой. В традиции <a href="https://uses.tech" target="_blank" rel="noopener noreferrer">uses.tech</a> — публичных списков «чем я пользуюсь», которые ведут разработчики и дизайнеры с начала 2010-х. Но я переосмыслил жанр под свои принципы.</p>
             <p>Принципиальное отличие — это не TOP-10, не «best of 2026» и не подборка «что купить». Это срез того, что у меня <strong>реально включено</strong> в каждый день. Таглайн страницы: «Только то, что реально включаю — без полки забытых гаджетов».</p>
             <p><strong>Структура.</strong> Две секции — «Железо» и «Софт». Своя локальная навигация (только два пункта, без главного меню), кнопка «← На главную» для возврата. На странице нет якорной нумерации справа — она здесь не нужна, секций две, обе видны.</p>
@@ -286,11 +286,11 @@
       <section id="omitted" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">05</span>
-          <h2 class="v4-h2">Чего здесь намеренно нет</h2>
+          <h2 class="v4-h2" data-cms-text="sections.omitted.title">Чего здесь намеренно нет</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div>
+          <div data-cms-html="sections.omitted.body">
             <ul class="v4-list">
               <li>Нет аналитики, cookies, трекеров. Это проверяется через DevTools&nbsp;→&nbsp;Network.</li>
               <li>Нет popup-окон, exit-intent, чатботов. Никаких pattern interruptions.</li>
@@ -311,11 +311,11 @@
       <section id="tool" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">06</span>
-          <h2 class="v4-h2">Инструмент</h2>
+          <h2 class="v4-h2" data-cms-text="sections.tool.title">Инструмент</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div class="v4-prose">
+          <div class="v4-prose" data-cms-html="sections.tool.body">
             <p>Сайт сделан с помощью <strong>Claude Code</strong>.</p>
             <p>Это попадает в первый принцип Рамса буквально: новая технологическая возможность применена в служении функции. До 2024&nbsp;года такой сайт требовал либо собственных навыков фронтенд-разработки, либо найма дизайнера и разработчика. Сегодня — собирается за вечер-два, без потери качества.</p>
             <p>Важно: AI здесь не подменяет решение, а исполняет его. Философия и принципы были сформулированы до того, как был написан первый компонент. Если бы я попросил Claude «сделай мне personal-сайт» без брифа — получил бы что-то усреднённо-приличное. А я дал референсы (Рамс, Braun, IBM&nbsp;Plex, Hacker&nbsp;News), ценности (приватность, доступность, прозрачность) и тон (цифры вместо прилагательных) — и инструмент исполнил по партитуре.</p>
@@ -328,11 +328,11 @@
       <section id="ethics" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">07</span>
-          <h2 class="v4-h2">Этическая линия</h2>
+          <h2 class="v4-h2" data-cms-text="sections.ethics.title">Этическая линия</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div>
+          <div data-cms-html="sections.ethics.body">
             <div class="v4-prose">
               <p>Если собрать решения вместе, получается одна последовательная линия:</p>
             </div>
@@ -353,11 +353,11 @@
       <section id="living" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">08</span>
-          <h2 class="v4-h2">Это живой документ</h2>
+          <h2 class="v4-h2" data-cms-text="sections.living.title">Это живой документ</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div class="v4-prose">
+          <div class="v4-prose" data-cms-html="sections.living.body">
             <p>Сайт обновляется. Если что-то выглядит сломанным, читается странно или просто кажется неточным — напишите. Ссылка «Нашли опечатку?» в футере открывает прямой канал. Репозиторий открыт; если хотите завести issue или PR — добро пожаловать.</p>
             <p>Сайт — не финальный артефакт. Это срез того, как я думаю сегодня. Через год он, возможно, будет выглядеть иначе. Build <code>cc8781e</code> сменится на следующий — и это будет видно по коммиту. Это нормально и правильно.</p>
             <p>→ <a href="https://s.morgunov.tech">s.morgunov.tech</a></p>

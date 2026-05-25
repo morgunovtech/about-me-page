@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Principles — Semyon Morgunov</title>
-  <meta name="description" content="How this site is built. Ten Dieter Rams principles translated into a digital product: privacy, accessibility, transparency, honesty." />
+  <title data-cms-text="meta.title">Principles — Semyon Morgunov</title>
+  <meta name="description" data-cms-content="meta.description" content="How this site is built. Ten Dieter Rams principles translated into a digital product: privacy, accessibility, transparency, honesty." />
   <meta name="author" content="Semyon Morgunov" />
   <meta name="theme-color" content="#edeae5" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
@@ -18,22 +18,22 @@
   <link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/about.html" />
   <link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/about.html" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Principles — Semyon Morgunov" />
-  <meta property="og:description" content="How this site is built. Ten Dieter Rams principles translated into a digital product: privacy, accessibility, transparency, honesty." />
+  <meta property="og:title" data-cms-content="share.title" content="Principles — Semyon Morgunov" />
+  <meta property="og:description" data-cms-content="share.description" content="How this site is built. Ten Dieter Rams principles translated into a digital product: privacy, accessibility, transparency, honesty." />
   <meta property="og:url" content="https://s.morgunov.tech/en/about.html" />
-  <meta property="og:image" content="https://s.morgunov.tech/images/og-card-en.png" />
+  <meta property="og:image" data-cms-abs="share.image" content="https://s.morgunov.tech/images/og-card-en.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Principles — Semyon Morgunov" />
+  <meta property="og:image:alt" data-cms-content="share.imageAlt" content="Principles — Semyon Morgunov" />
   <meta property="og:site_name" content="morgunov.tech" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="ru_RU" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Principles — Semyon Morgunov" />
-  <meta name="twitter:description" content="How this site is built. Ten Dieter Rams principles translated into a digital product: privacy, accessibility, transparency, honesty." />
-  <meta name="twitter:image" content="https://s.morgunov.tech/images/og-card-en.png" />
-  <meta name="twitter:image:alt" content="Principles — Semyon Morgunov" />
+  <meta name="twitter:title" data-cms-content="share.title" content="Principles — Semyon Morgunov" />
+  <meta name="twitter:description" data-cms-content="share.description" content="How this site is built. Ten Dieter Rams principles translated into a digital product: privacy, accessibility, transparency, honesty." />
+  <meta name="twitter:image" data-cms-abs="share.image" content="https://s.morgunov.tech/images/og-card-en.png" />
+  <meta name="twitter:image:alt" data-cms-content="share.imageAlt" content="Principles — Semyon Morgunov" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
   <style>
     :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif}
@@ -173,11 +173,11 @@
     <main id="main">
       <section class="v4-hero v4-hero--simple" aria-labelledby="hero-title">
         <div class="v4-hero-text">
-          <p class="v4-hero-meta">About the site · Principles · Decisions</p>
-          <h1 class="v4-h1" id="hero-title">Principles</h1>
-          <p class="v4-tagline">How this site is built. Ten Dieter Rams principles translated into a digital product.</p>
+          <p class="v4-hero-meta" data-cms-text="hero.eyebrow">About the site · Principles · Decisions</p>
+          <h1 class="v4-h1" id="hero-title" data-cms-text="hero.name">Principles</h1>
+          <p class="v4-tagline" data-cms-text="hero.tagline">How this site is built. Ten Dieter Rams principles translated into a digital product.</p>
           <div class="v4-cta-row">
-            <a class="v4-btn" href="/en/">← Home</a>
+            <a class="v4-btn" data-cms-text="hero.cta.label" data-cms-href="hero.cta.href" href="/en/">← Home</a>
           </div>
         </div>
       </section>
@@ -185,7 +185,7 @@
       <section class="v4-section" aria-label="Introduction">
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div class="v4-prose">
+          <div class="v4-prose" data-cms-html="sections.intro.body">
             <p>This site is a product. The product has a user — me. And like any product, it has principles it's built on. Here's a list of those principles and the decisions that follow from them.</p>
             <p>Read this as an explanation, as a reference, or just as a cross-section of how I think about the things I build.</p>
           </div>
@@ -195,11 +195,11 @@
       <section id="product" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">01</span>
-          <h2 class="v4-h2">It's a product, not a landing page</h2>
+          <h2 class="v4-h2" data-cms-text="sections.product.title">It's a product, not a landing page</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div class="v4-prose">
+          <div class="v4-prose" data-cms-html="sections.product.body">
             <p>I didn't make a business card. I didn't make a portfolio site. I made a product.</p>
             <p>That means it has a build (<code>BUILD&nbsp;3cd8687</code> in the footer, clickable through to the commit on GitHub), a backlog, releases, a user, and a success metric. The metric isn't visitors and isn't conversion — it's how accurately the site reflects how I think and work. When the site stops being accurate, I fix it.</p>
             <p>That means product rules apply: every decision needs justification. No «because everyone does it», no «because it looks nice».</p>
@@ -211,11 +211,11 @@
       <section id="principles" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">02</span>
-          <h2 class="v4-h2">The ten principles of Dieter Rams</h2>
+          <h2 class="v4-h2" data-cms-text="sections.principles.title">The ten principles of Dieter Rams</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div>
+          <div data-cms-html="sections.principles.body">
             <div class="v4-prose">
               <p>The main architectural reference for this site isn't editorial web or the brutalist movement. It's <strong>Dieter Rams</strong>, chief designer at Braun from 1955–1995. Late in his career he formulated ten principles of good design. They were written for industrial products, but they translate to the digital medium with almost no loss.</p>
               <p>Rams's principles aren't a checklist. They're a set of questions a designer asks themselves. If the answer is «no», that doesn't mean «everything's broken». It means «stop and think».</p>
@@ -242,11 +242,11 @@
       <section id="layers" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">03</span>
-          <h2 class="v4-h2">Decisions, layer by layer</h2>
+          <h2 class="v4-h2" data-cms-text="sections.layers.title">Decisions, layer by layer</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div class="v4-prose">
+          <div class="v4-prose" data-cms-html="sections.layers.body">
             <p><strong>Visual language.</strong> Beige paper background, black headings, monospaced caps labels, no decoration. A direct nod to the industrial aesthetic of Braun — the ET66 calculator, the SK4 record player, the T1000 radio. One accent colour, clear grid, hierarchy through size and weight rather than ornamentation.</p>
             <p><strong>Typography.</strong> <strong>IBM Plex</strong> — open source, released by IBM Design in 2017. Three things converge here: IBM's heritage as one of the main schools of 20th-century corporate modernism (Eliot Noyes, Paul Rand, the Eameses), an open licence (use it without budget concerns), and one of the best Cyrillic glyph sets in open source. Plex&nbsp;Sans for body, Plex&nbsp;Mono for caps labels. Mono in caps is terminal aesthetic — <code>git&nbsp;log</code>, README; the reader instantly reads «this is a technical document, not a marketing landing page».</p>
             <p><strong>Colour.</strong> The orange accent isn't a brand colour — it's a state indicator. Same semantics as iPhone's mute switch, Hacker News's <code>#FF6600</code>, the orange power button on the Braun&nbsp;ET33. Lineage: industrial safety-orange → Braun → tech startups → this site. Orange = attention, utility, state — not «brand colour». It shows up in exactly four places: the primary CTA («Message me on Telegram»), the active language in the switcher («EN» underlined), the indicator of the current workplace (the dot next to «Yandex&nbsp;Uzbekistan»), and the active theme in the dropdown. One semantics everywhere: «this is what's active right now».</p>
@@ -264,11 +264,11 @@
       <section id="stack" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">04</span>
-          <h2 class="v4-h2">/uses — the stack as a separate product</h2>
+          <h2 class="v4-h2" data-cms-text="sections.stack.title">/uses — the stack as a separate product</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div class="v4-prose">
+          <div class="v4-prose" data-cms-html="sections.stack.body">
             <p>The <a href="/en/uses.html">/uses</a> page is its own product with its own logic. In the <a href="https://uses.tech" target="_blank" rel="noopener noreferrer">uses.tech</a> tradition — public «what I use» lists kept by developers and designers since the early 2010s. But I reframed the genre to fit my principles.</p>
             <p>The key difference: not a TOP-10, not «best of 2026», not a «what to buy» shopping list. It's a cross-section of what I actually have <strong>switched on</strong> every day. Page tagline: «Only the stuff that actually gets switched on — no shelf of forgotten gadgets».</p>
             <p><strong>Structure.</strong> Two sections — Hardware and Software. A local nav (only two items, no main menu), a «← Home» button to get back. No anchored numbering column on the right — not needed here, two sections, both visible.</p>
@@ -284,11 +284,11 @@
       <section id="omitted" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">05</span>
-          <h2 class="v4-h2">What's deliberately not here</h2>
+          <h2 class="v4-h2" data-cms-text="sections.omitted.title">What's deliberately not here</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div>
+          <div data-cms-html="sections.omitted.body">
             <ul class="v4-list">
               <li>No analytics, cookies, trackers. Verifiable via DevTools&nbsp;→&nbsp;Network.</li>
               <li>No popups, exit-intent, chatbots. No pattern interruptions.</li>
@@ -309,11 +309,11 @@
       <section id="tool" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">06</span>
-          <h2 class="v4-h2">Tool</h2>
+          <h2 class="v4-h2" data-cms-text="sections.tool.title">Tool</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div class="v4-prose">
+          <div class="v4-prose" data-cms-html="sections.tool.body">
             <p>The site is built with <strong>Claude Code</strong>.</p>
             <p>This lands on Rams's first principle literally: a new technological possibility applied in service of function. Before 2024, a site like this required either personal frontend-engineering skills or hiring a designer and a developer. Today — assembled in an evening or two, without loss of quality.</p>
             <p>Important: AI doesn't substitute for the decision here, it executes it. The philosophy and principles were formulated before the first component was written. If I'd asked Claude «build me a personal site» without a brief, I'd have gotten something averagely decent. Instead I gave references (Rams, Braun, IBM&nbsp;Plex, Hacker&nbsp;News), values (privacy, accessibility, transparency), and tone (numbers instead of adjectives) — and the tool performed from a score.</p>
@@ -326,11 +326,11 @@
       <section id="ethics" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">07</span>
-          <h2 class="v4-h2">The ethical line</h2>
+          <h2 class="v4-h2" data-cms-text="sections.ethics.title">The ethical line</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div>
+          <div data-cms-html="sections.ethics.body">
             <div class="v4-prose">
               <p>Take all the decisions together, and a consistent line emerges:</p>
             </div>
@@ -351,11 +351,11 @@
       <section id="living" class="v4-section">
         <div class="v4-section-head">
           <span class="v4-section-num">08</span>
-          <h2 class="v4-h2">A living document</h2>
+          <h2 class="v4-h2" data-cms-text="sections.living.title">A living document</h2>
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div class="v4-prose">
+          <div class="v4-prose" data-cms-html="sections.living.body">
             <p>The site keeps updating. If something looks broken, reads oddly, or just feels inaccurate — let me know. The «Found a typo?» link in the footer opens a direct channel. The repo is open; if you want to file an issue or a PR — welcome.</p>
             <p>The site isn't a final artefact. It's a snapshot of how I think today. A year from now it might look different. Build <code>cc8781e</code> will switch to the next one — and the change will be visible in the commit. That's normal and right.</p>
             <p>→ <a href="https://s.morgunov.tech">s.morgunov.tech</a></p>
