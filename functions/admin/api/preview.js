@@ -29,7 +29,7 @@ export async function onRequestPost({ request, env }) {
   const template = await env.ASSETS.fetch(new URL(tmplPath, request.url));
   const subs = await loadSubscribers(env);
   if (subs) doc._live = { subscribers: subs };
-  const rendered = overlay(template, doc, lang);
+  const rendered = overlay(template, doc, lang, true);
   return new Response(rendered.body, {
     status: 200,
     headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' },

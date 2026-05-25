@@ -6,7 +6,7 @@
 //   data-cms-content="path"  → set the content attribute (meta/og/twitter tags)
 //   data-cms-list="slot"     → replace inner HTML via the named renderer
 
-import { renderers } from './render.js';
+import { renderers, LIST_PATHS } from './render.js';
 import { pick, resolvePath } from './i18n.js';
 import { renderProse } from './markdown.js';
 import { renderJsonLd } from './jsonld.js';
@@ -14,7 +14,7 @@ import { renderJsonLd } from './jsonld.js';
 const ORIGIN = 'https://s.morgunov.tech';
 const absolutize = (p) => (!p ? p : /^https?:\/\//i.test(p) ? p : ORIGIN + p);
 
-export function overlay(response, doc, lang) {
+export function overlay(response, doc, lang, edit = false) {
   return new HTMLRewriter()
     .on('[data-cms-text]', {
       element(el) {
@@ -49,8 +49,11 @@ export function overlay(response, doc, lang) {
     })
     .on('[data-cms-list]', {
       element(el) {
-        const fn = renderers[el.getAttribute('data-cms-list')];
-        if (fn) el.setInnerContent(fn(doc, lang), { html: true });
+        const slot = el.getAttribute('data-cms-list');
+        const fn = renderers[slot];
+        if (fn) el.setInnerContent(fn(doc, lang, edit), { html: true });
+        // Mark the container so the editor knows where "+ add" appends.
+        if (edit && LIST_PATHS[slot]) el.setAttribute('data-edit-list', LIST_PATHS[slot]);
       },
     })
     .on('[data-cms-jsonld]', {

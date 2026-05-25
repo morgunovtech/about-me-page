@@ -1,5 +1,6 @@
 // Editor shell. The data APIs (/admin/api/*) are session-gated; this page and
-// the referenced /admin-app.* assets carry no secrets.
+// the referenced /admin-app.* assets carry no secrets. The page itself is the
+// editor: the live preview fills the stage and content is edited inline.
 const SHELL = `<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -7,7 +8,7 @@ const SHELL = `<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
 <title>Редактор — morgunov.tech</title>
-<link rel="stylesheet" href="/admin-app.css?v=4" />
+<link rel="stylesheet" href="/admin-app.css?v=10" />
 </head>
 <body>
   <header class="ed-bar">
@@ -22,8 +23,20 @@ const SHELL = `<!DOCTYPE html>
       </select>
       <span id="sync-note" class="ed-sync"></span>
     </div>
+    <div class="ed-bar-c">
+      <div class="ed-seg" id="lang-seg" role="group" aria-label="Язык">
+        <button type="button" data-lang="ru" class="on">RU</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <div class="ed-seg" id="theme-seg" role="group" aria-label="Тема">
+        <button type="button" data-theme="light" class="on" aria-label="Светлая">☀</button>
+        <button type="button" data-theme="dark" aria-label="Тёмная">☾</button>
+      </div>
+      <span id="en-empty" class="ed-badge" hidden></span>
+    </div>
     <div class="ed-bar-r">
       <span id="status" class="ed-status">—</span>
+      <button id="btn-settings" type="button">Настройки</button>
       <button id="btn-translate-en" type="button">Перевести EN</button>
       <button id="btn-export" type="button">Экспорт</button>
       <label class="ed-import">Импорт<input id="file-import" type="file" accept="application/json,.json" hidden /></label>
@@ -31,29 +44,19 @@ const SHELL = `<!DOCTYPE html>
       <a href="/admin/logout">Выйти</a>
     </div>
   </header>
-  <main class="ed-main">
-    <section class="ed-form-pane"><div id="form"></div></section>
-    <section class="ed-preview-pane">
-      <div class="ed-preview-bar">
-        <div class="ed-seg" id="mode-seg" role="group" aria-label="Режим превью">
-          <button type="button" data-mode="page" class="on">Страница</button>
-          <button type="button" data-mode="card">Карточка</button>
-        </div>
-        <div class="ed-seg" id="lang-seg" role="group" aria-label="Язык превью">
-          <button type="button" data-lang="ru" class="on">RU</button>
-          <button type="button" data-lang="en">EN</button>
-        </div>
-        <div class="ed-seg" id="theme-seg" role="group" aria-label="Тема превью">
-          <button type="button" data-theme="light" class="on">☀</button>
-          <button type="button" data-theme="dark">☾</button>
-        </div>
-        <span id="en-empty" class="ed-badge" hidden></span>
-      </div>
-      <iframe id="preview" title="Живой превью"></iframe>
-      <div id="share-card" class="ed-card" hidden></div>
-    </section>
+  <main class="ed-stage">
+    <iframe id="preview" title="Страница — редактирование на месте"></iframe>
+    <div id="ed-loading" class="ed-loading">Загрузка…</div>
   </main>
-  <script src="/admin-app.js?v=4"></script>
+  <div class="ed-scrim" id="scrim" hidden></div>
+  <aside class="ed-drawer" id="drawer" hidden aria-hidden="true" aria-label="Настройки страницы">
+    <div class="ed-drawer-head">
+      <strong>Настройки страницы</strong>
+      <button id="drawer-close" type="button" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="ed-drawer-body" id="settings"></div>
+  </aside>
+  <script src="/admin-app.js?v=10"></script>
 </body>
 </html>`;
 
