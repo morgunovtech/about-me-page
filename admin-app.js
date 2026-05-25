@@ -90,6 +90,9 @@
     .cms-mdbtn{font:inherit;font-size:12px;font-weight:600;color:#fff;background:transparent;border:1px solid rgba(255,255,255,.3);padding:5px 11px;border-radius:3px;cursor:pointer;-webkit-user-select:none;user-select:none}
     .cms-mdbtn:hover{background:var(--v4-orange,#d9531e);border-color:var(--v4-orange,#d9531e);color:#14110d}
     .cms-mdbtn.cms-ai{font-weight:500;font-size:11px}
+    .cms-bar:not(.has-href) .cms-href-only{display:none}
+    /* keep empty leaves clickable (e.g. a just-added list item) */
+    [data-cms-text]:empty::before,[data-cms-md]:empty::before{content:"+ текст";color:var(--v4-dim,#6c6759);opacity:.55;cursor:text}
   `;
 
   let pendingEl = null, pendingPath = null, commitTimer = null;
@@ -119,7 +122,10 @@
     html = html.replace(/<script\b[^>]*\bsrc="[^"]*\/script\.js[^"]*"[^>]*><\/script>/gi, '');
     frame = $('#preview');
     await new Promise((res) => {
-      frame.onload = () => res();
+      let done = false;
+      const finish = () => { if (!done) { done = true; res(); } };
+      frame.onload = finish;
+      setTimeout(finish, 5000); // fallback: never hang the editor on a stuck load
       frame.srcdoc = html;
     });
     fdoc = frame.contentDocument;
@@ -374,17 +380,39 @@
       sep,
       mk('RU→EN', 'Перевести это поле', aiTranslateLeaf, 'cms-ai'),
       mk('Причесать', 'Типографика', aiTidyLeaf, 'cms-ai'),
-      mk('Вычитать', 'Проверить орфографию/пунктуацию', aiProofreadLeaf, 'cms-ai')
+      mk('Вычитать', 'Проверить орфографию/пунктуацию', aiProofreadLeaf, 'cms-ai'),
+      mk('🔗 URL', 'Изменить ссылку', editHrefLeaf, 'cms-href-only')
     );
     fdoc.body.appendChild(bar);
     try { fdoc.execCommand('styleWithCSS', false, false); } catch (e) { /* ignore */ }
     return bar;
   }
+  // A label leaf (path ends in .label) usually has an .href sibling — that's how
+  // we offer link-URL editing without a dedicated hook in the template.
+  function hrefSiblingOf(path) {
+    if (!path || !path.endsWith('.label')) return null;
+    const hp = path.slice(0, -'.label'.length) + '.href';
+    const [p, k] = parentOf(hp);
+    return p != null && k in p ? hp : null;
+  }
   function showBar(node, path, kind) {
     barLeaf = node; barPath = path; barKind = kind;
-    ensureBar().className = 'cms-bar on' + (kind === 'text' ? ' kind-text' : '');
+    const hasHref = !!hrefSiblingOf(path);
+    ensureBar().className = 'cms-bar on' + (kind === 'text' ? ' kind-text' : '') + (hasHref ? ' has-href' : '');
   }
   function hideBar() { const bar = fdoc.getElementById('cms-bar'); if (bar) bar.classList.remove('on'); }
+  function editHrefLeaf() {
+    const hp = hrefSiblingOf(barPath);
+    if (!hp) return;
+    const [p, k] = parentOf(hp);
+    const node = p && p[k];
+    const cur = isLoc(node) ? (node[lang] || '') : (node || '');
+    const u = prompt('Ссылка (URL):', cur);
+    if (u === null || u === cur) return;
+    setLeaf(hp, u); // localized href → current lang; scalar → set directly
+    markDirty();
+    renderPreview();
+  }
 
   function attachMd(node) {
     const path = node.getAttribute('data-cms-md');
@@ -580,6 +608,22 @@
     drop.addEventListener('dragleave', () => drop.classList.remove('drag'));
     drop.addEventListener('drop', (e) => { e.preventDefault(); drop.classList.remove('drag'); if (e.dataTransfer.files[0]) onFile(e.dataTransfer.files[0]); });
     body.append(img, drop, file);
+    // alt text (accessibility) for the current language, if the doc has one
+    const altPath = path === 'hero.portrait' ? 'hero.portraitAlt' : null;
+    if (altPath) {
+      const [ap, ak] = parentOf(altPath);
+      const altNode = ap && ap[ak];
+      if (isLoc(altNode)) {
+        const wrap = el('div', 'ed-field');
+        wrap.append(Object.assign(el('div', 'ed-field-label'), { textContent: 'Alt · ' + lang.toUpperCase() }));
+        const inp = el('input', 'ed-input');
+        inp.type = 'text';
+        inp.value = altNode[lang] || '';
+        inp.addEventListener('input', () => { altNode[lang] = inp.value; markDirty(); });
+        wrap.append(inp);
+        body.append(wrap);
+      }
+    }
     box.append(body);
     const ctrls = el('div', 'ed-modal-ctrls');
     const apply = el('button', 'primary');
@@ -750,10 +794,11 @@
     }
     if (!did) setStatus('Нет текста для вычитки', 'error');
   }
-  // Markdown-safe deterministic typography (shown with confirm). NBSP via  .
+  // Typography (deterministic, markdown-safe; shown with confirm). The \uE000
+  // sentinels shield md links/bold from the rules; \u00a0 is the RU NBSP.
   function typography(text, L) {
     const tokens = [];
-    let s = String(text).replace(/\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*/g, (m) => { tokens.push(m); return '' + (tokens.length - 1) + ''; });
+    let s = String(text).replace(/\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*/g, (m) => { tokens.push(m); return '\uE000' + (tokens.length - 1) + '\uE000'; });
     if (L === 'en') {
       s = s.replace(/(^|[\s(])"/g, '$1“').replace(/"/g, '”');
       s = s.replace(/(\w)'(\w)/g, '$1’$2');
@@ -761,9 +806,9 @@
     } else {
       s = s.replace(/(^|[\s(])"/g, '$1«').replace(/"/g, '»');
       s = s.replace(/\.\.\./g, '…').replace(/ - /g, ' — ');
-      s = s.replace(/(^|\s)(во|со|об|для|что|как|где|это|или|при|на|по|из|от|до|за|не|но|и|о|у|в|к|с|а|я)\s+/gi, (m, p1, p2) => p1 + p2 + ' ');
+      s = s.replace(/(^|\s)(во|со|об|для|что|как|где|это|или|при|на|по|из|от|до|за|не|но|и|о|у|в|к|с|а|я)\s+/gi, (m, p1, p2) => p1 + p2 + '\u00a0');
     }
-    return s.replace(/(\d+)/g, (m, i) => tokens[+i]);
+    return s.replace(/\uE000(\d+)\uE000/g, (m, i) => tokens[+i]);
   }
   function localizedInput(value, key) {
     const box = el('div', 'f-loc');

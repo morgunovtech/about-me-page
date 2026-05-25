@@ -8,7 +8,7 @@ const SHELL = `<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
 <title>Редактор — morgunov.tech</title>
-<link rel="stylesheet" href="/admin-app.css?v=10" />
+<link rel="stylesheet" href="/admin-app.css?v=11" />
 </head>
 <body>
   <header class="ed-bar">
@@ -56,7 +56,7 @@ const SHELL = `<!DOCTYPE html>
     </div>
     <div class="ed-drawer-body" id="settings"></div>
   </aside>
-  <script src="/admin-app.js?v=10"></script>
+  <script src="/admin-app.js?v=11"></script>
 </body>
 </html>`;
 
