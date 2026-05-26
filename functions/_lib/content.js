@@ -5,6 +5,10 @@ import seed from '../../content.seed.json';
 
 const SITE = 's.morgunov.tech';
 
+// The only page keys the CMS manages. Used to validate untrusted ?page params
+// so an authed request can't probe arbitrary site-scoped KV keys.
+export const PAGES = new Set(['home', 'about', 'collaborate', 'uses']);
+
 export async function loadDoc(env, page) {
   const key = `${SITE}:${page}`;
   if (env && env.CONTENT) {

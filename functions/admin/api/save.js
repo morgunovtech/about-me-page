@@ -1,4 +1,5 @@
 import { json, sameOrigin } from '../../_lib/http.js';
+import { PAGES } from '../../_lib/content.js';
 
 const SITE = 's.morgunov.tech';
 const SECTION_IDS = ['about', 'career', 'help', 'ventures', 'products', 'publications', 'contact'];
@@ -28,6 +29,7 @@ export async function onRequestPost({ request, env }) {
 
   const { page, doc } = body || {};
   if (!page || !doc) return json({ error: 'missing page or doc' }, 400);
+  if (!PAGES.has(page)) return json({ error: 'unknown page' }, 400);
 
   const errors = page === 'home' ? validateHome(doc) : [];
   if (errors.length) return json({ error: 'validation failed', details: errors }, 400);
