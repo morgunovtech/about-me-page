@@ -968,8 +968,11 @@
     personDescription: 'Описание (SEO)', knowsAbout: 'Знает о', sameAs: 'Профили', worksFor: 'Работает в',
     occupationStartDate: 'Дата начала', addressLocality: 'Город', name: 'Имя', url: 'URL', value: 'Значение',
     unit: 'Подпись', channels: 'Каналы', telegram: 'Telegram', linkedin: 'LinkedIn', youtube: 'YouTube', auto: 'Авто-обновление',
-    hardware: 'Железо', software: 'Софт', groups: 'Группы', cards: 'Карточки', heading: 'Заголовок группы',
+    hardware: 'Железо', software: 'Софт', groups: 'Блоки', cards: 'Карточки', heading: 'Заголовок',
     desc: 'Описание', tag: 'Тег', price: 'Цена', alt: 'Alt', intro: 'Вступление', cta: 'Кнопка', num: 'Номер', href: 'Ссылка', label: 'Текст',
+    about: 'О себе', consulting: 'Консалтинг', strategy: 'Стратегия', angel: 'Инвестиции', contact: 'Контакт',
+    prose: 'Текст', points: 'Пункты', clients: 'Клиенты', tiers: 'Тарифы', features: 'Пункты', kind: 'Тип',
+    rows: 'Строки', term: 'Термин', def: 'Определение', terms: 'Условия', note: 'Заметка', tagline: 'Подзаголовок', ctas: 'Кнопки',
   };
   const MULTILINE = new Set(['description', 'personDescription', 'tagline', 'prose', 'desc', 'note']);
   const labelOf = (k) => LABELS[k] || k;
@@ -1487,6 +1490,17 @@
         if (!doc.sections[k]) continue;
         const node = fieldRow(doc.sections, k);
         if (node.tagName === 'DETAILS') node.open = true;
+        box.append(node);
+      }
+      box.append(ctrlBtn('Обновить превью', () => renderPreview()));
+    }
+    // /collaborate: structured sections edited via the generic form engine
+    // (tiers/groups/ctas add-reorder-delete + per-field). Re-render on demand.
+    if (page === 'collaborate' && doc.sections && doc.sections.consulting && doc.sections.consulting.tiers) {
+      for (const k of ['about', 'consulting', 'strategy', 'angel', 'contact']) {
+        if (!doc.sections[k]) continue;
+        const node = fieldRow(doc.sections, k);
+        if (node.tagName === 'DETAILS') node.open = false;
         box.append(node);
       }
       box.append(ctrlBtn('Обновить превью', () => renderPreview()));
