@@ -64,13 +64,18 @@ test('renderJsonLd produces valid JSON', () => {
 });
 
 test('sameOrigin allows same origin and missing Origin, blocks cross', () => {
-  const req = (origin, url = 'https://s.morgunov.tech/admin/api/save') => ({
-    headers: { get: (h) => (h === 'Origin' ? origin : null) },
+  const req = (headers, url = 'https://s.morgunov.tech/admin/api/save') => ({
+    headers: { get: (h) => headers[h] ?? null },
     url,
   });
-  assert.equal(sameOrigin(req('https://s.morgunov.tech')), true);
-  assert.equal(sameOrigin(req(null)), true);
-  assert.equal(sameOrigin(req('https://evil.com')), false);
+  assert.equal(sameOrigin(req({ Origin: 'https://s.morgunov.tech' })), true);
+  assert.equal(sameOrigin(req({})), true); // no Origin, no Sec-Fetch-Site
+  assert.equal(sameOrigin(req({ Origin: 'https://evil.com' })), false);
+  // Sec-Fetch-Site gate
+  assert.equal(sameOrigin(req({ 'Sec-Fetch-Site': 'same-origin' })), true);
+  assert.equal(sameOrigin(req({ 'Sec-Fetch-Site': 'none' })), true);
+  assert.equal(sameOrigin(req({ 'Sec-Fetch-Site': 'cross-site' })), false);
+  assert.equal(sameOrigin(req({ 'Sec-Fetch-Site': 'same-site' })), false);
 });
 
 test('auth: password verify + session round-trip', async () => {

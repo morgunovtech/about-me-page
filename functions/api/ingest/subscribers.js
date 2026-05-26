@@ -38,11 +38,16 @@ export async function onRequestPost({ request, env }) {
     return json({ error: 'telegram, youtube, linkedin must be non-negative numbers' }, 400);
   }
 
+  // Accept a client-supplied ISO-8601 timestamp, but only if it's well-formed
+  // and short — never store an arbitrary unbounded string.
+  const ua = body.updatedAt;
+  const validUpdatedAt =
+    typeof ua === 'string' && ua.length <= 40 && !Number.isNaN(Date.parse(ua));
   const record = {
     telegram,
     youtube,
     linkedin,
-    updatedAt: typeof body.updatedAt === 'string' ? body.updatedAt : new Date().toISOString(),
+    updatedAt: validUpdatedAt ? ua : new Date().toISOString(),
   };
   await env.CONTENT.put('stats:subscribers', JSON.stringify(record));
   return json({ ok: true, stored: record });
