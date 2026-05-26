@@ -26,7 +26,16 @@ export async function loadDoc(env, page) {
   if (env && env.CONTENT) {
     try {
       const fromKv = await env.CONTENT.get(key, 'json');
-      if (fromKv) return fromKv;
+      if (fromKv) {
+        // Migration guard: a `uses` doc saved before the cards migration lacks
+        // the new structure (sections.hardware.groups). Fall back to the
+        // migrated seed so the renderer never sees the old shape — until the
+        // admin re-saves uses, which writes the new structure to KV.
+        if (page === 'uses' && !(fromKv.sections && fromKv.sections.hardware && fromKv.sections.hardware.groups)) {
+          return (seed && seed[page]) || fromKv;
+        }
+        return fromKv;
+      }
     } catch (e) {
       // KV unavailable — fall through to seed
     }

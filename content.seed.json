@@ -806,16 +806,424 @@
     },
     "sections": {
       "hardware": {
-        "body": {
-          "ru": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">01</span>\n          <h2 class=\"v4-h2\">Железо</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <h3 class=\"v4-h3\">Compute</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/macbook-pro-16.webp?v=9626e64a\" alt=\"MacBook Pro 16″ M3 Max\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Laptop</span>\n                <h4 class=\"v4-use-name\">MacBook Pro 16″ M3 Max</h4>\n                <p class=\"v4-use-desc\">Основная рабочая машина — продакт-аналитика, видеомонтаж, виртуализация. 36&nbsp;GB unified memory + 1&nbsp;TB SSD, держит 18+ часов без розетки.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/dell-u3223qe.webp?v=9e5e997f\" alt=\"Dell U3223QE — 32-дюймовый 4K-монитор\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Monitor</span>\n                <h4 class=\"v4-use-name\">Dell U3223QE</h4>\n                <p class=\"v4-use-desc\">32 дюйма, 4K IPS-Black, встроенный USB-C-док на 90&nbsp;W. Один кабель в MacBook — питание, видео, 4×USB-A и Ethernet через монитор.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/keychron-k2.webp?v=0c00a578\" alt=\"Keychron K2 — механическая клавиатура с RGB и Bluetooth\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Keyboard</span>\n                <h4 class=\"v4-use-name\">Keychron K2</h4>\n                <p class=\"v4-use-desc\">75% механика в алюминиевом каркасе с RGB-подсветкой. По Bluetooth коннектится сразу к Mac, iPad и iPhone. Mac-раскладка с Cmd/Option в нужных местах.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/razer-deathadder-v2-pro.webp?v=5c3c287e\" alt=\"Razer DeathAdder V2 Pro — беспроводная игровая мышь\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Mouse</span>\n                <h4 class=\"v4-use-name\">Razer DeathAdder V2 Pro</h4>\n                <p class=\"v4-use-desc\">Беспроводная HyperSpeed-мышь, 20K DPI, форма проверена годами. Заряжается раз в неделю, два боковых клавиша — под навигацию между вкладками.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Mobile</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/iphone-15-pro-max.webp?v=0312398e\" alt=\"iPhone 15 Pro Max\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Phone</span>\n                <h4 class=\"v4-use-name\">iPhone 15 Pro Max</h4>\n                <p class=\"v4-use-desc\">Основной телефон. Тетрапризма с 5× зумом, USB-C, Action&nbsp;Button под фонарик. Главная фича — экосистема с Mac и часами без трения.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/duoqin-f22-pro.webp?v=db2c2b3f\" alt=\"Duoqin F22 Pro — кнопочный мини-телефон\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Phone</span>\n                <h4 class=\"v4-use-name\">Duoqin F22 Pro</h4>\n                <p class=\"v4-use-desc\">Кнопочный мини-телефон от Xiaomi-эко: 2.8″ OLED, T9, Android&nbsp;11 внутри. Включаю на выходных, чтобы отдохнуть от ленты — остаются только звонки и Telegram.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Audio</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/airpods-pro-2.webp?v=a02b755d\" alt=\"Apple AirPods Pro 2\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Earphones</span>\n                <h4 class=\"v4-use-name\">AirPods Pro 2</h4>\n                <p class=\"v4-use-desc\">Беспроводные затычки с активным шумодавом и transparency. Основная причина — качество звонков: в Zoom меня слышно нормально без отдельного микрофона.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/moondrop-chu-2.webp?v=4e163704\" alt=\"Moondrop Chu 2 — проводные IEM\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Earphones</span>\n                <h4 class=\"v4-use-name\">Moondrop Chu 2</h4>\n                <p class=\"v4-use-desc\">Проводные IEM, один динамический драйвер 10&nbsp;mm с латунным звуководом. Тёплый звук, целятся в Harman target. Беру, когда не хочется возиться с bluetooth и зарядкой.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/sony-mdr-7506.webp?v=2d4dc175\" alt=\"Sony MDR-7506 — студийные наушники\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Headphones</span>\n                <h4 class=\"v4-use-name\">Sony MDR-7506</h4>\n                <p class=\"v4-use-desc\">Классика студийных наушников с 1991 года, складные. Чуть подчёркнутые верхи — хороши для подкастов и интервью. В дорогу удобнее, чем DT&nbsp;770.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/beyerdynamic-dt-770-pro.webp?v=f90831b9\" alt=\"Beyerdynamic DT 770 Pro — студийные наушники\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Headphones</span>\n                <h4 class=\"v4-use-name\">Beyerdynamic DT 770 Pro</h4>\n                <p class=\"v4-use-desc\">Студийные мониторные накладки, 250&nbsp;Ω. Дома — за компом, для долгого фокуса. Звук ровный, велюровые подушки не давят за 5+ часов.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Power</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/shargeek-170.webp?v=1b4f07f0\" alt=\"Shargeek 170 — прозрачный пауэрбанк\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Powerbank</span>\n                <h4 class=\"v4-use-name\">Shargeek 170</h4>\n                <p class=\"v4-use-desc\">Прозрачный пауэрбанк на 25&nbsp;600&nbsp;mAh с экраном статуса и USB-C&nbsp;PD до 100&nbsp;W. Хватает заряжать MacBook в дороге без блока питания.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/ugreen-nexode-300w.webp?v=c284eede\" alt=\"Ugreen Nexode 300W — настольная зарядная станция\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Charger</span>\n                <h4 class=\"v4-use-name\">Ugreen Nexode 300W</h4>\n                <p class=\"v4-use-desc\">Настольная зарядная станция на 300&nbsp;W, 5 портов (4×USB-C + 1×USB-A). Тянет MacBook на 140&nbsp;W + iPhone + iPad + наушники одновременно с запасом.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Health &amp; Play</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/oura-ring-gen3.webp?v=da5a3c16\" alt=\"Oura Ring Gen3 — умное кольцо\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Health</span>\n                <h4 class=\"v4-use-name\">Oura Ring Gen3</h4>\n                <p class=\"v4-use-desc\">Кольцо-трекер: сон, ЧСС покоя, температура тела, циклы. Носится в воду, 5–7 дней без зарядки. Удобнее часов — не цепляется и не отвлекает уведомлениями.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/anbernic-rg405v.webp?v=1682d426\" alt=\"Anbernic RG405V — портативный ретро-эмулятор\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Game console</span>\n                <h4 class=\"v4-use-name\">Anbernic RG405V</h4>\n                <p class=\"v4-use-desc\">Вертикальный ретро-эмулятор на Android, 4-дюймовый OLED. Играет в PSP, Dreamcast, N64. Карманно, длинный аккумулятор — в дорогу самое то.</p>\n              </article>\n            </div>\n          </div>\n        </div>",
-          "en": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">01</span>\n          <h2 class=\"v4-h2\">Hardware</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <h3 class=\"v4-h3\">Compute</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/macbook-pro-16.webp?v=9626e64a\" alt=\"MacBook Pro 16″ M3 Max\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Laptop</span>\n                <h4 class=\"v4-use-name\">MacBook Pro 16″ M3 Max</h4>\n                <p class=\"v4-use-desc\">Main work machine — product analytics, video editing, virtualization. 36&nbsp;GB unified memory + 1&nbsp;TB SSD, 18+ hours unplugged.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/dell-u3223qe.webp?v=9e5e997f\" alt=\"Dell U3223QE — 32-inch 4K monitor\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Monitor</span>\n                <h4 class=\"v4-use-name\">Dell U3223QE</h4>\n                <p class=\"v4-use-desc\">32 inches, 4K IPS-Black, built-in 90&nbsp;W USB-C dock. Single cable to MacBook handles power, video, 4×USB-A, and Ethernet through the monitor.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/keychron-k2.webp?v=0c00a578\" alt=\"Keychron K2 — mechanical keyboard with RGB and Bluetooth\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Keyboard</span>\n                <h4 class=\"v4-use-name\">Keychron K2</h4>\n                <p class=\"v4-use-desc\">75% mechanical in an aluminum frame with RGB backlight. Bluetooth multi-pair to Mac, iPad, and iPhone. Mac-friendly layout with Cmd/Option where they belong.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/razer-deathadder-v2-pro.webp?v=5c3c287e\" alt=\"Razer DeathAdder V2 Pro — wireless gaming mouse\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Mouse</span>\n                <h4 class=\"v4-use-name\">Razer DeathAdder V2 Pro</h4>\n                <p class=\"v4-use-desc\">Wireless HyperSpeed mouse, 20K DPI, shape I've been using for years. Charges weekly; two side buttons mapped to tab navigation.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Mobile</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/iphone-15-pro-max.webp?v=0312398e\" alt=\"iPhone 15 Pro Max\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Phone</span>\n                <h4 class=\"v4-use-name\">iPhone 15 Pro Max</h4>\n                <p class=\"v4-use-desc\">Daily driver. Tetraprism 5× zoom, USB-C, Action&nbsp;Button mapped to flashlight. Killer feature is the friction-free ecosystem with Mac and the watch.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/duoqin-f22-pro.webp?v=db2c2b3f\" alt=\"Duoqin F22 Pro — mini button phone\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Phone</span>\n                <h4 class=\"v4-use-name\">Duoqin F22 Pro</h4>\n                <p class=\"v4-use-desc\">Xiaomi-eco mini button phone: 2.8″ OLED, T9 keypad, Android&nbsp;11 inside. Weekend detox device — just calls and Telegram, no doomscroll.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Audio</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/airpods-pro-2.webp?v=a02b755d\" alt=\"Apple AirPods Pro 2\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Earphones</span>\n                <h4 class=\"v4-use-name\">AirPods Pro 2</h4>\n                <p class=\"v4-use-desc\">Wireless earbuds with active noise cancellation and transparency. Real reason: call quality — Zoom hears me clearly without a separate mic.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/moondrop-chu-2.webp?v=4e163704\" alt=\"Moondrop Chu 2 — wired IEMs\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Earphones</span>\n                <h4 class=\"v4-use-name\">Moondrop Chu 2</h4>\n                <p class=\"v4-use-desc\">Wired IEMs, single 10&nbsp;mm dynamic driver with brass nozzle. Warm sound tuned to Harman target. For when I don't want to fuss with Bluetooth or charging.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/sony-mdr-7506.webp?v=2d4dc175\" alt=\"Sony MDR-7506 — studio headphones\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Headphones</span>\n                <h4 class=\"v4-use-name\">Sony MDR-7506</h4>\n                <p class=\"v4-use-desc\">Studio classic since 1991, foldable. Slightly hyped highs — great for podcasts and interviews. Better travel companion than the DT&nbsp;770.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/beyerdynamic-dt-770-pro.webp?v=f90831b9\" alt=\"Beyerdynamic DT 770 Pro — studio headphones\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Headphones</span>\n                <h4 class=\"v4-use-name\">Beyerdynamic DT 770 Pro</h4>\n                <p class=\"v4-use-desc\">Closed-back studio monitors, 250&nbsp;Ω. Home use at the desk for long-focus sessions. Flat sound; velour pads don't fatigue after 5+ hours.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Power</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/shargeek-170.webp?v=1b4f07f0\" alt=\"Shargeek 170 — transparent power bank\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Powerbank</span>\n                <h4 class=\"v4-use-name\">Shargeek 170</h4>\n                <p class=\"v4-use-desc\">Transparent 25,600&nbsp;mAh power bank with status display and USB-C&nbsp;PD up to 100&nbsp;W. Enough to charge the MacBook on the road without the brick.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/ugreen-nexode-300w.webp?v=c284eede\" alt=\"Ugreen Nexode 300W — desktop charging station\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Charger</span>\n                <h4 class=\"v4-use-name\">Ugreen Nexode 300W</h4>\n                <p class=\"v4-use-desc\">Desktop 300&nbsp;W charging station, 5 ports (4×USB-C + 1×USB-A). Charges MacBook at 140&nbsp;W + iPhone + iPad + earbuds in parallel, with headroom.</p>\n              </article>\n            </div>\n\n            <h3 class=\"v4-h3\">Health &amp; Play</h3>\n            <div class=\"v4-uses\">\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/oura-ring-gen3.webp?v=da5a3c16\" alt=\"Oura Ring Gen3 — smart ring\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Health</span>\n                <h4 class=\"v4-use-name\">Oura Ring Gen3</h4>\n                <p class=\"v4-use-desc\">Smart ring: sleep, resting heart rate, body temp, cycles. Waterproof; 5–7 days on a charge. Better than a watch — doesn't snag or distract with notifications.</p>\n              </article>\n              <article class=\"v4-use\">\n                <div class=\"v4-use-image\">\n                  <img src=\"/images/uses/anbernic-rg405v.webp?v=1682d426\" alt=\"Anbernic RG405V — portable retro emulator\" loading=\"lazy\" width=\"800\" height=\"800\" />\n                </div>\n                <span class=\"v4-tag\">Game console</span>\n                <h4 class=\"v4-use-name\">Anbernic RG405V</h4>\n                <p class=\"v4-use-desc\">Vertical retro emulator on Android, 4-inch OLED. Runs PSP, Dreamcast, N64. Pocketable, long battery — perfect travel companion.</p>\n              </article>\n            </div>\n          </div>\n        </div>"
-        }
+        "num": "01",
+        "title": {
+          "ru": "Железо",
+          "en": "Hardware"
+        },
+        "kind": "gear",
+        "groups": [
+          {
+            "heading": {
+              "ru": "Compute",
+              "en": "Compute"
+            },
+            "cards": [
+              {
+                "image": "/images/uses/macbook-pro-16.webp",
+                "name": "MacBook Pro 16″ M3 Max",
+                "alt": {
+                  "ru": "MacBook Pro 16″ M3 Max",
+                  "en": "MacBook Pro 16″ M3 Max"
+                },
+                "tag": {
+                  "ru": "Laptop",
+                  "en": "Laptop"
+                },
+                "desc": {
+                  "ru": "Основная рабочая машина — продакт-аналитика, видеомонтаж, виртуализация. 36&nbsp;GB unified memory + 1&nbsp;TB SSD, держит 18+ часов без розетки.",
+                  "en": "Main work machine — product analytics, video editing, virtualization. 36&nbsp;GB unified memory + 1&nbsp;TB SSD, 18+ hours unplugged."
+                }
+              },
+              {
+                "image": "/images/uses/dell-u3223qe.webp",
+                "name": "Dell U3223QE",
+                "alt": {
+                  "ru": "Dell U3223QE — 32-дюймовый 4K-монитор",
+                  "en": "Dell U3223QE — 32-inch 4K monitor"
+                },
+                "tag": {
+                  "ru": "Monitor",
+                  "en": "Monitor"
+                },
+                "desc": {
+                  "ru": "32 дюйма, 4K IPS-Black, встроенный USB-C-док на 90&nbsp;W. Один кабель в MacBook — питание, видео, 4×USB-A и Ethernet через монитор.",
+                  "en": "32 inches, 4K IPS-Black, built-in 90&nbsp;W USB-C dock. Single cable to MacBook handles power, video, 4×USB-A, and Ethernet through the monitor."
+                }
+              },
+              {
+                "image": "/images/uses/keychron-k2.webp",
+                "name": "Keychron K2",
+                "alt": {
+                  "ru": "Keychron K2 — механическая клавиатура с RGB и Bluetooth",
+                  "en": "Keychron K2 — mechanical keyboard with RGB and Bluetooth"
+                },
+                "tag": {
+                  "ru": "Keyboard",
+                  "en": "Keyboard"
+                },
+                "desc": {
+                  "ru": "75% механика в алюминиевом каркасе с RGB-подсветкой. По Bluetooth коннектится сразу к Mac, iPad и iPhone. Mac-раскладка с Cmd/Option в нужных местах.",
+                  "en": "75% mechanical in an aluminum frame with RGB backlight. Bluetooth multi-pair to Mac, iPad, and iPhone. Mac-friendly layout with Cmd/Option where they belong."
+                }
+              },
+              {
+                "image": "/images/uses/razer-deathadder-v2-pro.webp",
+                "name": "Razer DeathAdder V2 Pro",
+                "alt": {
+                  "ru": "Razer DeathAdder V2 Pro — беспроводная игровая мышь",
+                  "en": "Razer DeathAdder V2 Pro — wireless gaming mouse"
+                },
+                "tag": {
+                  "ru": "Mouse",
+                  "en": "Mouse"
+                },
+                "desc": {
+                  "ru": "Беспроводная HyperSpeed-мышь, 20K DPI, форма проверена годами. Заряжается раз в неделю, два боковых клавиша — под навигацию между вкладками.",
+                  "en": "Wireless HyperSpeed mouse, 20K DPI, shape I've been using for years. Charges weekly; two side buttons mapped to tab navigation."
+                }
+              }
+            ]
+          },
+          {
+            "heading": {
+              "ru": "Mobile",
+              "en": "Mobile"
+            },
+            "cards": [
+              {
+                "image": "/images/uses/iphone-15-pro-max.webp",
+                "name": "iPhone 15 Pro Max",
+                "alt": {
+                  "ru": "iPhone 15 Pro Max",
+                  "en": "iPhone 15 Pro Max"
+                },
+                "tag": {
+                  "ru": "Phone",
+                  "en": "Phone"
+                },
+                "desc": {
+                  "ru": "Основной телефон. Тетрапризма с 5× зумом, USB-C, Action&nbsp;Button под фонарик. Главная фича — экосистема с Mac и часами без трения.",
+                  "en": "Daily driver. Tetraprism 5× zoom, USB-C, Action&nbsp;Button mapped to flashlight. Killer feature is the friction-free ecosystem with Mac and the watch."
+                }
+              },
+              {
+                "image": "/images/uses/duoqin-f22-pro.webp",
+                "name": "Duoqin F22 Pro",
+                "alt": {
+                  "ru": "Duoqin F22 Pro — кнопочный мини-телефон",
+                  "en": "Duoqin F22 Pro — mini button phone"
+                },
+                "tag": {
+                  "ru": "Phone",
+                  "en": "Phone"
+                },
+                "desc": {
+                  "ru": "Кнопочный мини-телефон от Xiaomi-эко: 2.8″ OLED, T9, Android&nbsp;11 внутри. Включаю на выходных, чтобы отдохнуть от ленты — остаются только звонки и Telegram.",
+                  "en": "Xiaomi-eco mini button phone: 2.8″ OLED, T9 keypad, Android&nbsp;11 inside. Weekend detox device — just calls and Telegram, no doomscroll."
+                }
+              }
+            ]
+          },
+          {
+            "heading": {
+              "ru": "Audio",
+              "en": "Audio"
+            },
+            "cards": [
+              {
+                "image": "/images/uses/airpods-pro-2.webp",
+                "name": "AirPods Pro 2",
+                "alt": {
+                  "ru": "Apple AirPods Pro 2",
+                  "en": "Apple AirPods Pro 2"
+                },
+                "tag": {
+                  "ru": "Earphones",
+                  "en": "Earphones"
+                },
+                "desc": {
+                  "ru": "Беспроводные затычки с активным шумодавом и transparency. Основная причина — качество звонков: в Zoom меня слышно нормально без отдельного микрофона.",
+                  "en": "Wireless earbuds with active noise cancellation and transparency. Real reason: call quality — Zoom hears me clearly without a separate mic."
+                }
+              },
+              {
+                "image": "/images/uses/moondrop-chu-2.webp",
+                "name": "Moondrop Chu 2",
+                "alt": {
+                  "ru": "Moondrop Chu 2 — проводные IEM",
+                  "en": "Moondrop Chu 2 — wired IEMs"
+                },
+                "tag": {
+                  "ru": "Earphones",
+                  "en": "Earphones"
+                },
+                "desc": {
+                  "ru": "Проводные IEM, один динамический драйвер 10&nbsp;mm с латунным звуководом. Тёплый звук, целятся в Harman target. Беру, когда не хочется возиться с bluetooth и зарядкой.",
+                  "en": "Wired IEMs, single 10&nbsp;mm dynamic driver with brass nozzle. Warm sound tuned to Harman target. For when I don't want to fuss with Bluetooth or charging."
+                }
+              },
+              {
+                "image": "/images/uses/sony-mdr-7506.webp",
+                "name": "Sony MDR-7506",
+                "alt": {
+                  "ru": "Sony MDR-7506 — студийные наушники",
+                  "en": "Sony MDR-7506 — studio headphones"
+                },
+                "tag": {
+                  "ru": "Headphones",
+                  "en": "Headphones"
+                },
+                "desc": {
+                  "ru": "Классика студийных наушников с 1991 года, складные. Чуть подчёркнутые верхи — хороши для подкастов и интервью. В дорогу удобнее, чем DT&nbsp;770.",
+                  "en": "Studio classic since 1991, foldable. Slightly hyped highs — great for podcasts and interviews. Better travel companion than the DT&nbsp;770."
+                }
+              },
+              {
+                "image": "/images/uses/beyerdynamic-dt-770-pro.webp",
+                "name": "Beyerdynamic DT 770 Pro",
+                "alt": {
+                  "ru": "Beyerdynamic DT 770 Pro — студийные наушники",
+                  "en": "Beyerdynamic DT 770 Pro — studio headphones"
+                },
+                "tag": {
+                  "ru": "Headphones",
+                  "en": "Headphones"
+                },
+                "desc": {
+                  "ru": "Студийные мониторные накладки, 250&nbsp;Ω. Дома — за компом, для долгого фокуса. Звук ровный, велюровые подушки не давят за 5+ часов.",
+                  "en": "Closed-back studio monitors, 250&nbsp;Ω. Home use at the desk for long-focus sessions. Flat sound; velour pads don't fatigue after 5+ hours."
+                }
+              }
+            ]
+          },
+          {
+            "heading": {
+              "ru": "Power",
+              "en": "Power"
+            },
+            "cards": [
+              {
+                "image": "/images/uses/shargeek-170.webp",
+                "name": "Shargeek 170",
+                "alt": {
+                  "ru": "Shargeek 170 — прозрачный пауэрбанк",
+                  "en": "Shargeek 170 — transparent power bank"
+                },
+                "tag": {
+                  "ru": "Powerbank",
+                  "en": "Powerbank"
+                },
+                "desc": {
+                  "ru": "Прозрачный пауэрбанк на 25&nbsp;600&nbsp;mAh с экраном статуса и USB-C&nbsp;PD до 100&nbsp;W. Хватает заряжать MacBook в дороге без блока питания.",
+                  "en": "Transparent 25,600&nbsp;mAh power bank with status display and USB-C&nbsp;PD up to 100&nbsp;W. Enough to charge the MacBook on the road without the brick."
+                }
+              },
+              {
+                "image": "/images/uses/ugreen-nexode-300w.webp",
+                "name": "Ugreen Nexode 300W",
+                "alt": {
+                  "ru": "Ugreen Nexode 300W — настольная зарядная станция",
+                  "en": "Ugreen Nexode 300W — desktop charging station"
+                },
+                "tag": {
+                  "ru": "Charger",
+                  "en": "Charger"
+                },
+                "desc": {
+                  "ru": "Настольная зарядная станция на 300&nbsp;W, 5 портов (4×USB-C + 1×USB-A). Тянет MacBook на 140&nbsp;W + iPhone + iPad + наушники одновременно с запасом.",
+                  "en": "Desktop 300&nbsp;W charging station, 5 ports (4×USB-C + 1×USB-A). Charges MacBook at 140&nbsp;W + iPhone + iPad + earbuds in parallel, with headroom."
+                }
+              }
+            ]
+          },
+          {
+            "heading": {
+              "ru": "Health &amp; Play",
+              "en": "Health &amp; Play"
+            },
+            "cards": [
+              {
+                "image": "/images/uses/oura-ring-gen3.webp",
+                "name": "Oura Ring Gen3",
+                "alt": {
+                  "ru": "Oura Ring Gen3 — умное кольцо",
+                  "en": "Oura Ring Gen3 — smart ring"
+                },
+                "tag": {
+                  "ru": "Health",
+                  "en": "Health"
+                },
+                "desc": {
+                  "ru": "Кольцо-трекер: сон, ЧСС покоя, температура тела, циклы. Носится в воду, 5–7 дней без зарядки. Удобнее часов — не цепляется и не отвлекает уведомлениями.",
+                  "en": "Smart ring: sleep, resting heart rate, body temp, cycles. Waterproof; 5–7 days on a charge. Better than a watch — doesn't snag or distract with notifications."
+                }
+              },
+              {
+                "image": "/images/uses/anbernic-rg405v.webp",
+                "name": "Anbernic RG405V",
+                "alt": {
+                  "ru": "Anbernic RG405V — портативный ретро-эмулятор",
+                  "en": "Anbernic RG405V — portable retro emulator"
+                },
+                "tag": {
+                  "ru": "Game console",
+                  "en": "Game console"
+                },
+                "desc": {
+                  "ru": "Вертикальный ретро-эмулятор на Android, 4-дюймовый OLED. Играет в PSP, Dreamcast, N64. Карманно, длинный аккумулятор — в дорогу самое то.",
+                  "en": "Vertical retro emulator on Android, 4-inch OLED. Runs PSP, Dreamcast, N64. Pocketable, long battery — perfect travel companion."
+                }
+              }
+            ]
+          }
+        ]
       },
       "software": {
-        "body": {
-          "ru": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">02</span>\n          <h2 class=\"v4-h2\">Софт</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <div class=\"v4-prose\">\n              <p>Сервисы, которыми пользуюсь регулярно. Платные — со скидками по моей ссылке, если оформите подписку: бонус и вам, и мне.</p>\n            </div>\n            <div class=\"v4-softs\">\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">Password manager</span>\n                  <span>$5&nbsp;/&nbsp;mo</span>\n                </div>\n                <h4 class=\"v4-product-name\">Dashlane</h4>\n                <p class=\"v4-product-desc\">Менеджер паролей с 5-летним стажем без скандалов и утечек. Внутри Dark&nbsp;Web&nbsp;Monitoring и встроенный 2FA-аутентификатор.</p>\n                <a class=\"v4-btn\" href=\"https://www.dashlane.com/\" target=\"_blank\" rel=\"noopener noreferrer\">6 месяцев premium →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">Browser</span>\n                  <span>Free</span>\n                </div>\n                <h4 class=\"v4-product-name\">Arc Browser</h4>\n                <p class=\"v4-product-desc\">Браузер. Идеальная организация вкладок и рабочих пространств, аккуратно встроенный AI. Команда переключилась на Dia, но текущий релиз стабильно работает.</p>\n                <a class=\"v4-btn\" href=\"https://arc.net/\" target=\"_blank\" rel=\"noopener noreferrer\">Скачать →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">App bundle</span>\n                  <span>$10&nbsp;/&nbsp;mo</span>\n                </div>\n                <h4 class=\"v4-product-name\">SetApp</h4>\n                <p class=\"v4-product-desc\">Подписка на 250+&nbsp;Mac-приложений за фиксированную плату. Топ-5: Craft (Notion на стероидах), Numi (калькулятор-конвертер), CleanShot&nbsp;X, CleanMyMac, Dato.</p>\n                <a class=\"v4-btn\" href=\"https://setapp.com/\" target=\"_blank\" rel=\"noopener noreferrer\">7 дней бесплатно →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">AI</span>\n                  <span>$100&nbsp;/&nbsp;mo</span>\n                </div>\n                <h4 class=\"v4-product-name\">Claude Max</h4>\n                <p class=\"v4-product-desc\">Заменил Google для поиска, Stack&nbsp;Overflow для кода, иногда — психотерапевта. 3-4&nbsp;часа в день. Max снимает лимиты Pro — пишу столько, сколько нужно.</p>\n                <a class=\"v4-btn\" href=\"https://claude.ai/\" target=\"_blank\" rel=\"noopener noreferrer\">Оформить Max →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">eSIM</span>\n                  <span>Pay-as-you-go</span>\n                </div>\n                <h4 class=\"v4-product-name\">Airalo</h4>\n                <p class=\"v4-product-desc\">eSIM в любую страну за 2 минуты. Самые низкие цены среди известных мне сервисов, support всегда отзывался при шероховатостях. Промокод <code>SEMYON5076</code> даёт $3 на первую покупку.</p>\n                <a class=\"v4-btn\" href=\"https://www.airalo.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Скидка $3 →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">Notes</span>\n                  <span>Free</span>\n                </div>\n                <h4 class=\"v4-product-name\">Apple Notes</h4>\n                <p class=\"v4-product-desc\">Главный инструмент для захвата мыслей с 2014 года. Бесплатно, нативно, открывается за миллисекунды. Доступен на iOS, macOS и через iCloud&nbsp;web.</p>\n                <a class=\"v4-btn\" href=\"https://support.apple.com/guide/notes/welcome/mac\" target=\"_blank\" rel=\"noopener noreferrer\">Гайд по использованию →</a>\n              </article>\n            </div>\n          </div>\n        </div>",
-          "en": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">02</span>\n          <h2 class=\"v4-h2\">Software</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <div class=\"v4-prose\">\n              <p>Services I use regularly. Paid ones — discounted via my link, if you sign up: a small bonus for both of us.</p>\n            </div>\n            <div class=\"v4-softs\">\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">Password manager</span>\n                  <span>$5&nbsp;/&nbsp;mo</span>\n                </div>\n                <h4 class=\"v4-product-name\">Dashlane</h4>\n                <p class=\"v4-product-desc\">Password manager, 5&nbsp;years no breaches. Includes Dark&nbsp;Web&nbsp;Monitoring and a built-in 2FA authenticator.</p>\n                <a class=\"v4-btn\" href=\"https://www.dashlane.com/\" target=\"_blank\" rel=\"noopener noreferrer\">6 months premium →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">Browser</span>\n                  <span>Free</span>\n                </div>\n                <h4 class=\"v4-product-name\">Arc Browser</h4>\n                <p class=\"v4-product-desc\">Browser. Best-in-class tab and workspace management, AI features tastefully integrated. The team moved on to Dia, but the current release is stable.</p>\n                <a class=\"v4-btn\" href=\"https://arc.net/\" target=\"_blank\" rel=\"noopener noreferrer\">Download →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">App bundle</span>\n                  <span>$10&nbsp;/&nbsp;mo</span>\n                </div>\n                <h4 class=\"v4-product-name\">SetApp</h4>\n                <p class=\"v4-product-desc\">Subscription bundle of 250+&nbsp;Mac apps. Top&nbsp;5: Craft (Notion on steroids), Numi (calculator-converter), CleanShot&nbsp;X, CleanMyMac, Dato.</p>\n                <a class=\"v4-btn\" href=\"https://setapp.com/\" target=\"_blank\" rel=\"noopener noreferrer\">7 days free →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">AI</span>\n                  <span>$100&nbsp;/&nbsp;mo</span>\n                </div>\n                <h4 class=\"v4-product-name\">Claude Max</h4>\n                <p class=\"v4-product-desc\">Replaced Google for search, Stack&nbsp;Overflow for code, sometimes my therapist. 3-4&nbsp;hours a day. Max lifts Pro's usage caps — chat as much as I need.</p>\n                <a class=\"v4-btn\" href=\"https://claude.ai/\" target=\"_blank\" rel=\"noopener noreferrer\">Get Max →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">eSIM</span>\n                  <span>Pay-as-you-go</span>\n                </div>\n                <h4 class=\"v4-product-name\">Airalo</h4>\n                <p class=\"v4-product-desc\">eSIM for any country in 2&nbsp;minutes. Lowest prices I've seen, responsive support whenever something glitched. Promo code <code>SEMYON5076</code> gives $3&nbsp;off the first purchase.</p>\n                <a class=\"v4-btn\" href=\"https://www.airalo.com/\" target=\"_blank\" rel=\"noopener noreferrer\">$3 off →</a>\n              </article>\n              <article class=\"v4-product\">\n                <div class=\"v4-product-head\">\n                  <span class=\"v4-tag\">Notes</span>\n                  <span>Free</span>\n                </div>\n                <h4 class=\"v4-product-name\">Apple Notes</h4>\n                <p class=\"v4-product-desc\">Main thinking tool since 2014. Free, native, opens in milliseconds. Works on iOS, macOS, and via iCloud&nbsp;web.</p>\n                <a class=\"v4-btn\" href=\"https://support.apple.com/guide/notes/welcome/mac\" target=\"_blank\" rel=\"noopener noreferrer\">Read the guide →</a>\n              </article>\n            </div>\n          </div>\n        </div>"
-        }
+        "num": "02",
+        "title": {
+          "ru": "Софт",
+          "en": "Software"
+        },
+        "kind": "products",
+        "intro": {
+          "ru": "Сервисы, которыми пользуюсь регулярно. Платные — со скидками по моей ссылке, если оформите подписку: бонус и вам, и мне.",
+          "en": "Services I use regularly. Paid ones — discounted via my link, if you sign up: a small bonus for both of us."
+        },
+        "cards": [
+          {
+            "name": "Dashlane",
+            "tag": {
+              "ru": "Password manager",
+              "en": "Password manager"
+            },
+            "price": {
+              "ru": "$5&nbsp;/&nbsp;mo",
+              "en": "$5&nbsp;/&nbsp;mo"
+            },
+            "desc": {
+              "ru": "Менеджер паролей с 5-летним стажем без скандалов и утечек. Внутри Dark&nbsp;Web&nbsp;Monitoring и встроенный 2FA-аутентификатор.",
+              "en": "Password manager, 5&nbsp;years no breaches. Includes Dark&nbsp;Web&nbsp;Monitoring and a built-in 2FA authenticator."
+            },
+            "cta": {
+              "label": {
+                "ru": "6 месяцев premium →",
+                "en": "6 months premium →"
+              },
+              "href": "https://www.dashlane.com/"
+            }
+          },
+          {
+            "name": "Arc Browser",
+            "tag": {
+              "ru": "Browser",
+              "en": "Browser"
+            },
+            "price": {
+              "ru": "Free",
+              "en": "Free"
+            },
+            "desc": {
+              "ru": "Браузер. Идеальная организация вкладок и рабочих пространств, аккуратно встроенный AI. Команда переключилась на Dia, но текущий релиз стабильно работает.",
+              "en": "Browser. Best-in-class tab and workspace management, AI features tastefully integrated. The team moved on to Dia, but the current release is stable."
+            },
+            "cta": {
+              "label": {
+                "ru": "Скачать →",
+                "en": "Download →"
+              },
+              "href": "https://arc.net/"
+            }
+          },
+          {
+            "name": "SetApp",
+            "tag": {
+              "ru": "App bundle",
+              "en": "App bundle"
+            },
+            "price": {
+              "ru": "$10&nbsp;/&nbsp;mo",
+              "en": "$10&nbsp;/&nbsp;mo"
+            },
+            "desc": {
+              "ru": "Подписка на 250+&nbsp;Mac-приложений за фиксированную плату. Топ-5: Craft (Notion на стероидах), Numi (калькулятор-конвертер), CleanShot&nbsp;X, CleanMyMac, Dato.",
+              "en": "Subscription bundle of 250+&nbsp;Mac apps. Top&nbsp;5: Craft (Notion on steroids), Numi (calculator-converter), CleanShot&nbsp;X, CleanMyMac, Dato."
+            },
+            "cta": {
+              "label": {
+                "ru": "7 дней бесплатно →",
+                "en": "7 days free →"
+              },
+              "href": "https://setapp.com/"
+            }
+          },
+          {
+            "name": "Claude Max",
+            "tag": {
+              "ru": "AI",
+              "en": "AI"
+            },
+            "price": {
+              "ru": "$100&nbsp;/&nbsp;mo",
+              "en": "$100&nbsp;/&nbsp;mo"
+            },
+            "desc": {
+              "ru": "Заменил Google для поиска, Stack&nbsp;Overflow для кода, иногда — психотерапевта. 3-4&nbsp;часа в день. Max снимает лимиты Pro — пишу столько, сколько нужно.",
+              "en": "Replaced Google for search, Stack&nbsp;Overflow for code, sometimes my therapist. 3-4&nbsp;hours a day. Max lifts Pro's usage caps — chat as much as I need."
+            },
+            "cta": {
+              "label": {
+                "ru": "Оформить Max →",
+                "en": "Get Max →"
+              },
+              "href": "https://claude.ai/"
+            }
+          },
+          {
+            "name": "Airalo",
+            "tag": {
+              "ru": "eSIM",
+              "en": "eSIM"
+            },
+            "price": {
+              "ru": "Pay-as-you-go",
+              "en": "Pay-as-you-go"
+            },
+            "desc": {
+              "ru": "eSIM в любую страну за 2 минуты. Самые низкие цены среди известных мне сервисов, support всегда отзывался при шероховатостях. Промокод <code>SEMYON5076</code> даёт $3 на первую покупку.",
+              "en": "eSIM for any country in 2&nbsp;minutes. Lowest prices I've seen, responsive support whenever something glitched. Promo code <code>SEMYON5076</code> gives $3&nbsp;off the first purchase."
+            },
+            "cta": {
+              "label": {
+                "ru": "Скидка $3 →",
+                "en": "$3 off →"
+              },
+              "href": "https://www.airalo.com/"
+            }
+          },
+          {
+            "name": "Apple Notes",
+            "tag": {
+              "ru": "Notes",
+              "en": "Notes"
+            },
+            "price": {
+              "ru": "Free",
+              "en": "Free"
+            },
+            "desc": {
+              "ru": "Главный инструмент для захвата мыслей с 2014 года. Бесплатно, нативно, открывается за миллисекунды. Доступен на iOS, macOS и через iCloud&nbsp;web.",
+              "en": "Main thinking tool since 2014. Free, native, opens in milliseconds. Works on iOS, macOS, and via iCloud&nbsp;web."
+            },
+            "cta": {
+              "label": {
+                "ru": "Гайд по использованию →",
+                "en": "Read the guide →"
+              },
+              "href": "https://support.apple.com/guide/notes/welcome/mac"
+            }
+          }
+        ]
       }
     }
   },

@@ -35,6 +35,8 @@ export const LIST_PATHS = {
   products: 'sections.products.items',
   publications: 'sections.publications.items',
   contact: 'sections.contact.ctas',
+  usesGear: 'sections.hardware.groups',
+  usesProducts: 'sections.software.cards',
 };
 
 // Channel icons for the subscribers stat — verbatim from the template.
@@ -190,6 +192,38 @@ function pubItem(it, lang, edit, path) {
         </article>`;
 }
 
+// --- /uses cards (structured, replaces the old verbatim-HTML blocks) ---
+// Text fields (tag/name/desc/heading/intro/price/label) are stored as verbatim
+// HTML fragments (they carry &nbsp; and inline <code>), so they're emitted RAW.
+// alt + href + image are attribute-escaped.
+function gearCard(c, lang) {
+  return `<article class="v4-use">
+                <div class="v4-use-image">
+                  <img src="${escapeAttr(c.image)}" alt="${escapeAttr(pick(c.alt, lang))}" loading="lazy" width="800" height="800" />
+                </div>
+                <span class="v4-tag">${pick(c.tag, lang)}</span>
+                <h4 class="v4-use-name">${c.name}</h4>
+                <p class="v4-use-desc">${pick(c.desc, lang)}</p>
+              </article>`;
+}
+function gearGroup(g, lang) {
+  return `<h3 class="v4-h3">${pick(g.heading, lang)}</h3>
+            <div class="v4-uses">
+              ${g.cards.map((c) => gearCard(c, lang)).join('\n              ')}
+            </div>`;
+}
+function softCard(c, lang) {
+  return `<article class="v4-product">
+                <div class="v4-product-head">
+                  <span class="v4-tag">${pick(c.tag, lang)}</span>
+                  <span>${pick(c.price, lang)}</span>
+                </div>
+                <h4 class="v4-product-name">${c.name}</h4>
+                <p class="v4-product-desc">${pick(c.desc, lang)}</p>
+                <a class="v4-btn" href="${escapeAttr(safeHref(c.cta.href))}" target="_blank" rel="noopener noreferrer">${pick(c.cta.label, lang)}</a>
+              </article>`;
+}
+
 export const renderers = {
   heroCtas: (doc, lang, edit) =>
     doc.hero.ctas.map((c, i) => btn(c, lang, edit, 'hero.ctas.' + i, true)).join('\n          '),
@@ -225,5 +259,18 @@ export const renderers = {
         <div class="v4-cta-row">
           ${ctas}
         </div>`;
+  },
+
+  usesGear: (doc, lang) =>
+    ((doc.sections.hardware && doc.sections.hardware.groups) || []).map((g) => gearGroup(g, lang)).join('\n\n            '),
+
+  usesProducts: (doc, lang) => {
+    const sec = doc.sections.software || {};
+    return `<div class="v4-prose">
+              <p>${pick(sec.intro, lang)}</p>
+            </div>
+            <div class="v4-softs">
+              ${(sec.cards || []).map((c) => softCard(c, lang)).join('\n              ')}
+            </div>`;
   },
 };
