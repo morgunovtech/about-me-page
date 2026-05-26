@@ -1491,6 +1491,23 @@
       }
       box.append(ctrlBtn('Обновить превью', () => renderPreview()));
     }
+    // /about: per-section visibility toggle (hide removes the section + its nav
+    // links via the data-cms-omit overlay hook).
+    if (page === 'about' && doc.sections && !Array.isArray(doc.sections)) {
+      const d = el('details', 'f-group'); d.open = false;
+      d.append(Object.assign(el('summary'), { textContent: 'Секции (видимость)' }));
+      const body = el('div', 'f-group-body');
+      for (const k of Object.keys(doc.sections)) {
+        const sec = doc.sections[k];
+        if (!sec || !sec.title) continue; // intro (lead, no title) isn't hideable
+        const lab = el('label', 'f-bool');
+        const cb = el('input'); cb.type = 'checkbox'; cb.checked = !sec.hidden;
+        cb.addEventListener('change', () => { sec.hidden = !cb.checked; markDirty(); renderPreview(); });
+        lab.append(cb, document.createTextNode(' ' + ((sec.title.ru || sec.title.en) || k)));
+        body.append(lab);
+      }
+      d.append(body); box.append(d);
+    }
     if (doc.share) box.append(renderCardPreview());
     for (const k of ['meta', 'share', 'seo']) {
       if (!doc[k]) continue;

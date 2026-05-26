@@ -56,6 +56,13 @@ export function overlay(response, doc, lang, edit = false, jsonld = renderJsonLd
         if (edit && LIST_PATHS[slot]) el.setAttribute('data-edit-list', LIST_PATHS[slot]);
       },
     })
+    // Remove the element entirely when the doc flag at the path is truthy
+    // (e.g. a hidden about section + its nav links).
+    .on('[data-cms-omit]', {
+      element(el) {
+        if (resolvePath(doc, el.getAttribute('data-cms-omit'))) el.remove();
+      },
+    })
     .on('[data-cms-jsonld]', {
       element(el) {
         el.setInnerContent(jsonld(doc, lang), { html: true });
