@@ -2,6 +2,7 @@ import { json, sameOrigin } from '../../_lib/http.js';
 
 const SITE = 's.morgunov.tech';
 const SECTION_IDS = ['about', 'career', 'help', 'ventures', 'products', 'publications', 'contact'];
+const HISTORY_MAX = 20; // keep the last N revisions per page
 
 // Light structural validation so a malformed import can't break the public page.
 function validateHome(doc) {
@@ -31,11 +32,34 @@ export async function onRequestPost({ request, env }) {
   const errors = page === 'home' ? validateHome(doc) : [];
   if (errors.length) return json({ error: 'validation failed', details: errors }, 400);
 
-  // Maintain freshness signals automatically.
-  doc.rev = (typeof doc.rev === 'number' ? doc.rev : 0) + 1;
+  // Monotonic rev: bump past whatever is currently stored, so saving a restored
+  // older revision can't collide with a newer rev number.
+  let base = typeof doc.rev === 'number' ? doc.rev : 0;
+  try {
+    const cur = await env.CONTENT.get(`${SITE}:${page}`, 'json');
+    if (cur && typeof cur.rev === 'number') base = Math.max(base, cur.rev);
+  } catch (e) {
+    /* fall back to doc.rev */
+  }
+  doc.rev = base + 1;
   doc.updatedAt = new Date().toISOString();
   doc.dateModified = doc.updatedAt.slice(0, 10);
 
   await env.CONTENT.put(`${SITE}:${page}`, JSON.stringify(doc));
+
+  // Archive this revision for version history (best-effort — never fail a save).
+  try {
+    await env.CONTENT.put(`${SITE}:${page}:rev:${doc.rev}`, JSON.stringify(doc));
+    const idxKey = `${SITE}:${page}:revs`;
+    let idx = (await env.CONTENT.get(idxKey, 'json')) || [];
+    idx.unshift({ rev: doc.rev, updatedAt: doc.updatedAt });
+    const pruned = idx.slice(HISTORY_MAX);
+    idx = idx.slice(0, HISTORY_MAX);
+    await env.CONTENT.put(idxKey, JSON.stringify(idx));
+    for (const old of pruned) await env.CONTENT.delete(`${SITE}:${page}:rev:${old.rev}`);
+  } catch (e) {
+    /* history is best-effort; the save itself already succeeded */
+  }
+
   return json({ ok: true, rev: doc.rev, updatedAt: doc.updatedAt });
 }

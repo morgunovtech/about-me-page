@@ -132,8 +132,8 @@ function helpBlock(b, lang, edit, path) {
   if (b.type === 'subhead')
     return `<h3 class="v4-h3"${eItem(edit, path)}${eText(edit, path + '.text')}>${escapeHtml(pick(b.text, lang))}</h3>`;
   if (b.type === 'list') {
-    return `<ul class="v4-list"${eItem(edit, path)}>${b.items
-      .map((i, j) => `<li${eMd(edit, path + '.items.' + j)}>${renderInline(pick(i, lang))}</li>`)
+    return `<ul class="v4-list"${eItem(edit, path)}${edit ? ` data-edit-list="${path}.items"` : ''}>${b.items
+      .map((i, j) => `<li${eItem(edit, path + '.items.' + j)}${eMd(edit, path + '.items.' + j)}>${renderInline(pick(i, lang))}</li>`)
       .join('')}</ul>`;
   }
   return '';
@@ -173,7 +173,7 @@ function pubItem(it, lang, edit, path) {
     const lis = it.links
       .map(
         (l, j) =>
-          `<li><a href="${attrEsc(l.href)}" target="_blank" rel="noopener noreferrer"${eText(
+          `<li${eItem(edit, path + '.links.' + j)}><a href="${attrEsc(l.href)}" target="_blank" rel="noopener noreferrer"${eText(
             edit,
             path + '.links.' + j + '.label'
           )}>${escapeHtml(pick(l.label, lang))}</a></li>`
@@ -181,7 +181,7 @@ function pubItem(it, lang, edit, path) {
       .join('');
     return `<article class="v4-pub"${eItem(edit, path)}>
           ${head}
-          <ul class="v4-list">${lis}</ul>
+          <ul class="v4-list"${edit ? ` data-edit-list="${path}.links"` : ''}>${lis}</ul>
         </article>`;
   }
   const prose = `<p class="v4-prose"${eMd(edit, path + '.prose')}>${renderInline(pick(it.prose, lang))}</p>`;
