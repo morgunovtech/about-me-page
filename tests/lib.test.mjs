@@ -63,6 +63,16 @@ test('renderJsonLd produces valid JSON', () => {
   assert.doesNotThrow(() => JSON.parse(out));
 });
 
+test('renderJsonLd escapes </script> so it cannot break out of the tag', () => {
+  const out = renderJsonLd(docFor('Head</script><img src=x onerror=alert(1)>'), 'ru');
+  assert.doesNotMatch(out, /<\/script>/i);
+  assert.doesNotMatch(out, /<img/i);
+  // Still parses and round-trips to the original value.
+  const parsed = JSON.parse(out);
+  const person = parsed['@graph'].find((n) => n['@type'] === 'Person');
+  assert.match(person.jobTitle, /<\/script>/);
+});
+
 test('sameOrigin allows same origin and missing Origin, blocks cross', () => {
   const req = (headers, url = 'https://s.morgunov.tech/admin/api/save') => ({
     headers: { get: (h) => headers[h] ?? null },

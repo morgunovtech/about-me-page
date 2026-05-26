@@ -95,5 +95,13 @@ export function renderJsonLd(doc, lang) {
     ],
   };
 
-  return JSON.stringify(graph, null, 2);
+  // Escape characters that could break out of the <script> element this JSON
+  // is injected into. JSON.stringify does not escape `<`, `>`, `&` or the
+  // U+2028/U+2029 line separators, so do it here.
+  return JSON.stringify(graph, null, 2)
+    .replace(/</g, "\\u003c")
+    .replace(/>/g, "\\u003e")
+    .replace(/&/g, "\\u0026")
+    .replace(/\u2028/g, "\\u2028")
+    .replace(/\u2029/g, "\\u2029");
 }
