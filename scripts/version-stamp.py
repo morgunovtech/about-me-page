@@ -154,6 +154,38 @@ def main() -> int:
         else:
             print("  NO-OP   functions/_lib/article-template.js")
 
+    # Pass 5: /uses card images now live in content.seed.json (structured cards),
+    # not in the static HTML, so stamp their ?v=<hash> here too — otherwise the
+    # immutable-cached /images/uses/* can't be busted when their bytes change.
+    seed_path = ROOT / "content.seed.json"
+    if seed_path.exists() and image_hashes:
+        import json as _json
+        seed = _json.loads(seed_path.read_text(encoding="utf-8"))
+        n = 0
+
+        def stamp_img(val):
+            nonlocal n
+            m = re.match(r"^(/images/uses/)([^?\s]+\.webp)(\?v=[0-9a-fA-F]+)?$", str(val or ""))
+            if not m:
+                return val
+            h = image_hashes.get(m.group(2))
+            if not h:
+                return val
+            n += 1
+            return f"{m.group(1)}{m.group(2)}?v={h}"
+
+        groups = (((seed.get("uses") or {}).get("sections") or {}).get("hardware") or {}).get("groups") or []
+        for g in groups:
+            for card in g.get("cards") or []:
+                if "image" in card:
+                    card["image"] = stamp_img(card["image"])
+        if n:
+            seed_path.write_text(_json.dumps(seed, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            print(f"  STAMPED content.seed.json (uses images:{n})")
+            total += n
+        else:
+            print("  NO-OP   content.seed.json")
+
     print(f"Done. {total} replacement(s).")
     return 0
 

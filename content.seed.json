@@ -820,7 +820,7 @@
             },
             "cards": [
               {
-                "image": "/images/uses/macbook-pro-16.webp",
+                "image": "/images/uses/macbook-pro-16.webp?v=9626e64a",
                 "name": "MacBook Pro 16″ M3 Max",
                 "alt": {
                   "ru": "MacBook Pro 16″ M3 Max",
@@ -836,7 +836,7 @@
                 }
               },
               {
-                "image": "/images/uses/dell-u3223qe.webp",
+                "image": "/images/uses/dell-u3223qe.webp?v=9e5e997f",
                 "name": "Dell U3223QE",
                 "alt": {
                   "ru": "Dell U3223QE — 32-дюймовый 4K-монитор",
@@ -852,7 +852,7 @@
                 }
               },
               {
-                "image": "/images/uses/keychron-k2.webp",
+                "image": "/images/uses/keychron-k2.webp?v=0c00a578",
                 "name": "Keychron K2",
                 "alt": {
                   "ru": "Keychron K2 — механическая клавиатура с RGB и Bluetooth",
@@ -868,7 +868,7 @@
                 }
               },
               {
-                "image": "/images/uses/razer-deathadder-v2-pro.webp",
+                "image": "/images/uses/razer-deathadder-v2-pro.webp?v=5c3c287e",
                 "name": "Razer DeathAdder V2 Pro",
                 "alt": {
                   "ru": "Razer DeathAdder V2 Pro — беспроводная игровая мышь",
@@ -892,7 +892,7 @@
             },
             "cards": [
               {
-                "image": "/images/uses/iphone-15-pro-max.webp",
+                "image": "/images/uses/iphone-15-pro-max.webp?v=0312398e",
                 "name": "iPhone 15 Pro Max",
                 "alt": {
                   "ru": "iPhone 15 Pro Max",
@@ -908,7 +908,7 @@
                 }
               },
               {
-                "image": "/images/uses/duoqin-f22-pro.webp",
+                "image": "/images/uses/duoqin-f22-pro.webp?v=db2c2b3f",
                 "name": "Duoqin F22 Pro",
                 "alt": {
                   "ru": "Duoqin F22 Pro — кнопочный мини-телефон",
@@ -932,7 +932,7 @@
             },
             "cards": [
               {
-                "image": "/images/uses/airpods-pro-2.webp",
+                "image": "/images/uses/airpods-pro-2.webp?v=a02b755d",
                 "name": "AirPods Pro 2",
                 "alt": {
                   "ru": "Apple AirPods Pro 2",
@@ -948,7 +948,7 @@
                 }
               },
               {
-                "image": "/images/uses/moondrop-chu-2.webp",
+                "image": "/images/uses/moondrop-chu-2.webp?v=4e163704",
                 "name": "Moondrop Chu 2",
                 "alt": {
                   "ru": "Moondrop Chu 2 — проводные IEM",
@@ -964,7 +964,7 @@
                 }
               },
               {
-                "image": "/images/uses/sony-mdr-7506.webp",
+                "image": "/images/uses/sony-mdr-7506.webp?v=2d4dc175",
                 "name": "Sony MDR-7506",
                 "alt": {
                   "ru": "Sony MDR-7506 — студийные наушники",
@@ -980,7 +980,7 @@
                 }
               },
               {
-                "image": "/images/uses/beyerdynamic-dt-770-pro.webp",
+                "image": "/images/uses/beyerdynamic-dt-770-pro.webp?v=f90831b9",
                 "name": "Beyerdynamic DT 770 Pro",
                 "alt": {
                   "ru": "Beyerdynamic DT 770 Pro — студийные наушники",
@@ -1004,7 +1004,7 @@
             },
             "cards": [
               {
-                "image": "/images/uses/shargeek-170.webp",
+                "image": "/images/uses/shargeek-170.webp?v=1b4f07f0",
                 "name": "Shargeek 170",
                 "alt": {
                   "ru": "Shargeek 170 — прозрачный пауэрбанк",
@@ -1020,7 +1020,7 @@
                 }
               },
               {
-                "image": "/images/uses/ugreen-nexode-300w.webp",
+                "image": "/images/uses/ugreen-nexode-300w.webp?v=c284eede",
                 "name": "Ugreen Nexode 300W",
                 "alt": {
                   "ru": "Ugreen Nexode 300W — настольная зарядная станция",
@@ -1044,7 +1044,7 @@
             },
             "cards": [
               {
-                "image": "/images/uses/oura-ring-gen3.webp",
+                "image": "/images/uses/oura-ring-gen3.webp?v=da5a3c16",
                 "name": "Oura Ring Gen3",
                 "alt": {
                   "ru": "Oura Ring Gen3 — умное кольцо",
@@ -1060,7 +1060,7 @@
                 }
               },
               {
-                "image": "/images/uses/anbernic-rg405v.webp",
+                "image": "/images/uses/anbernic-rg405v.webp?v=1682d426",
                 "name": "Anbernic RG405V",
                 "alt": {
                   "ru": "Anbernic RG405V — портативный ретро-эмулятор",
