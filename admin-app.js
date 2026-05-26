@@ -1263,11 +1263,100 @@
     wrap.append(sel);
     return wrap;
   }
+  // --- cross-post to Telegram (Flow B) ---
+  const TG_STRATS = [['auto', 'Авто'], ['teaser', 'Тизер + ссылка'], ['split', 'Серия (1/N)'], ['truncate', 'Обрезка + ссылка']];
+  async function fetchTgPlan(slug, strategy) {
+    try {
+      const r = await fetch(API + '/tg-preview', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ slug, strategy }) });
+      return await r.json().catch(() => ({ error: 'preview failed' }));
+    } catch (e) { return { error: 'сеть' }; }
+  }
+  function openTgPublish() {
+    if (!isArticle() || !doc) return;
+    if (dirty) return setStatus('Сначала сохраните изменения', 'error');
+    const slug = doc.slug;
+    let strategy = 'auto';
+    let current = null;
+    closeModal();
+    const scrim = el('div', 'ed-modal-scrim'); scrim.id = 'ed-modal-scrim';
+    const box = el('div', 'ed-modal ed-modal-wide');
+    box.append(Object.assign(el('div', 'ed-modal-head'), { textContent: 'Публикация в Telegram' }));
+    const ctlRow = el('div', 'ed-field');
+    ctlRow.append(Object.assign(el('div', 'ed-field-label'), { textContent: 'Стратегия' }));
+    const sel = el('select', 'ed-input');
+    TG_STRATS.forEach(([v, l]) => sel.append(Object.assign(el('option'), { value: v, textContent: l })));
+    ctlRow.append(sel); box.append(ctlRow);
+    const note = el('div', 'ed-sugg-notes'); box.append(note);
+    const msgsWrap = el('div', 'ed-tg-msgs'); box.append(msgsWrap);
+    const ctrls = el('div', 'ed-modal-ctrls');
+    const sendBtn = el('button', 'primary'); sendBtn.textContent = 'Отправить в канал';
+    const cancel = el('button'); cancel.textContent = 'Отмена'; cancel.addEventListener('click', closeModal);
+    ctrls.append(sendBtn, cancel); box.append(ctrls);
+    scrim.append(box); document.body.append(scrim);
+    scrim.addEventListener('click', (e) => { if (e.target === scrim) closeModal(); });
+
+    const renderPlan = async () => {
+      msgsWrap.textContent = 'Загрузка превью…'; note.textContent = '';
+      const res = await fetchTgPlan(slug, strategy);
+      if (res.error) { msgsWrap.textContent = 'Ошибка превью: ' + res.error; current = null; return; }
+      current = res.plan;
+      msgsWrap.textContent = '';
+      if (res.already) note.append(Object.assign(el('div'), { textContent: '⚠ Уже отправлялось: ' + (res.already.url || res.already.postedAt || '') }));
+      (current.warnings || []).forEach((w) => note.append(Object.assign(el('div'), { textContent: '⚠ ' + w })));
+      current.messages.forEach((m, i) => {
+        const card = el('div', 'ed-tg-msg');
+        card.append(Object.assign(el('div', 'f-lang'), { textContent: `Сообщение ${i + 1} · ${m.kind}` }));
+        if (m.kind === 'text' || m.kind === 'photo') {
+          const ta = el('textarea', 'ed-modal-ta'); ta.value = m.kind === 'text' ? m.text : (m.caption || ''); ta.dataset.idx = i;
+          card.append(ta);
+        } else if (m.kind === 'album') {
+          const ta = el('textarea', 'ed-modal-ta'); ta.value = (m.items[0] && m.items[0].caption) || ''; ta.dataset.idx = i;
+          card.append(ta);
+        }
+        if (m.kind === 'photo') card.append(Object.assign(el('div', 'f-img-path'), { textContent: '🖼 ' + m.photoUrl }));
+        if (m.kind === 'album') m.items.forEach((it) => card.append(Object.assign(el('div', 'f-img-path'), { textContent: '🖼 ' + it.photoUrl })));
+        msgsWrap.append(card);
+      });
+    };
+    sel.addEventListener('change', () => { strategy = sel.value; renderPlan(); });
+    sendBtn.addEventListener('click', async () => {
+      if (!current) return;
+      if (!confirm('Отправить ' + current.messages.length + ' сообщ. в канал?')) return;
+      const edited = current.messages.map((m, i) => {
+        const ta = msgsWrap.querySelector('textarea[data-idx="' + i + '"]');
+        if (m.kind === 'text') return { kind: 'text', text: ta ? ta.value : m.text };
+        if (m.kind === 'photo') return { kind: 'photo', caption: ta ? ta.value : m.caption };
+        if (m.kind === 'album') return { kind: 'album', items: [{ caption: ta ? ta.value : '' }] };
+        return { kind: m.kind };
+      });
+      sendBtn.disabled = true; setStatus('Отправка в Telegram…', 'saving');
+      try {
+        const r = await fetch(API + '/tg-publish', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ slug, strategy, messages: edited }) });
+        const res = await r.json().catch(() => ({}));
+        if (r.ok && res.ok) {
+          setStatus('Отправлено в Telegram' + (res.mock ? ' (mock)' : '') + (res.url ? ' · ' + res.url : ''), 'ok');
+          closeModal(); renderSettings();
+        } else { sendBtn.disabled = false; setStatus('Telegram: ' + (res.error || r.status), 'error'); }
+      } catch (e) { sendBtn.disabled = false; setStatus('Telegram: ошибка сети', 'error'); }
+    });
+    renderPlan();
+  }
+
   function renderArticleHead(box) {
     const head = el('div', 'f-field');
     head.append(Object.assign(el('div', 'f-label'), { textContent: 'Статья · /notes/' + doc.slug }));
     head.append(ctrlBtn('Удалить статью', deleteArticle, 'danger'));
     box.append(head);
+    if (doc.status === 'published') {
+      const tg = el('div', 'f-field');
+      tg.append(Object.assign(el('div', 'f-label'), { textContent: 'Telegram' }));
+      const trow = el('div', 'f-item-ctrls');
+      trow.append(ctrlBtn('Опубликовать в Telegram', openTgPublish));
+      tg.append(trow);
+      const dist = doc.distribution && doc.distribution.telegram;
+      if (dist) tg.append(Object.assign(el('div', 'f-img-path'), { textContent: '✓ ' + (dist.url || dist.postedAt || '') + (dist.mock ? ' (mock)' : '') }));
+      box.append(tg);
+    }
     const tools = el('div', 'f-field');
     tools.append(Object.assign(el('div', 'f-label'), { textContent: 'Тело' }));
     const row = el('div', 'f-item-ctrls');
