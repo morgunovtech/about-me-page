@@ -18,6 +18,34 @@ const DROP = new Set([
   'input', 'button', 'select', 'textarea', 'audio', 'video', 'canvas',
 ]);
 
+// Button/CTA markup (uses/collaborate hero.ctas) is stored as styled HTML —
+// `<a class="v4-btn" …>`. The article allowlist above would strip the class and
+// break styling, so buttons get their own narrow allowlist: only <a> with
+// class/href/target/rel survive, everything else is dropped/unwrapped and the
+// href is run through safeHref (kills javascript:/data:).
+const BTN_ALLOWED = { a: ['class', 'href', 'target', 'rel'], br: [] };
+
+export function sanitizeButtons(html) {
+  if (html == null) return Promise.resolve('');
+  const rw = new HTMLRewriter().on('*', {
+    element(el) {
+      const tag = el.tagName.toLowerCase();
+      if (DROP.has(tag)) return el.remove();
+      const allowed = BTN_ALLOWED[tag];
+      if (!allowed) return el.removeAndKeepContent();
+      for (const [name] of [...el.attributes]) {
+        if (!allowed.includes(name)) el.removeAttribute(name);
+      }
+      if (tag === 'a') {
+        const href = safeHref(el.getAttribute('href'));
+        if (!href || href === '#') el.removeAttribute('href');
+        else el.setAttribute('href', href);
+      }
+    },
+  });
+  return rw.transform(new Response(html)).text();
+}
+
 export function sanitizeHtml(html) {
   if (html == null) return Promise.resolve('');
   const rw = new HTMLRewriter().on('*', {

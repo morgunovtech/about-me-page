@@ -8,7 +8,7 @@
 
 import { renderers, LIST_PATHS } from './render.js';
 import { pick, resolvePath } from './i18n.js';
-import { renderProse } from './markdown.js';
+import { renderProse, safeHref } from './markdown.js';
 import { renderJsonLd } from './jsonld.js';
 
 const ORIGIN = 'https://s.morgunov.tech';
@@ -38,7 +38,7 @@ export function overlay(response, doc, lang, edit = false, jsonld = renderJsonLd
     .on('[data-cms-href]', {
       element(el) {
         const val = pick(resolvePath(doc, el.getAttribute('data-cms-href')), lang);
-        if (val != null) el.setAttribute('href', String(val));
+        if (val != null) el.setAttribute('href', safeHref(String(val)));
       },
     })
     .on('[data-cms-content]', {

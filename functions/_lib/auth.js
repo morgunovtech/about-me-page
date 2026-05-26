@@ -73,17 +73,18 @@ export async function createSession(secret) {
 
 export async function verifySession(secret, token) {
   if (!secret || !token || token.indexOf('.') < 0) return null;
-  const [body, sig] = token.split('.');
-  const expected = await hmac(secret, body);
-  if (!timingSafeEqual(b64urlDecode(sig), expected)) return null;
-  let payload;
+  // A malformed cookie must fail closed (→ login), never throw: b64urlDecode
+  // calls atob, which throws on non-base64 input, so wrap the whole verify.
   try {
-    payload = JSON.parse(new TextDecoder().decode(b64urlDecode(body)));
+    const [body, sig] = token.split('.');
+    const expected = await hmac(secret, body);
+    if (!timingSafeEqual(b64urlDecode(sig), expected)) return null;
+    const payload = JSON.parse(new TextDecoder().decode(b64urlDecode(body)));
+    if (!payload.exp || payload.exp < Math.floor(Date.now() / 1000)) return null;
+    return payload;
   } catch {
     return null;
   }
-  if (!payload.exp || payload.exp < Math.floor(Date.now() / 1000)) return null;
-  return payload;
 }
 
 // Reissue when the session is past half its lifetime, for a sliding window.

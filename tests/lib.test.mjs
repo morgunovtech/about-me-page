@@ -115,9 +115,10 @@ test('sameOrigin allows same origin and missing Origin, blocks cross', () => {
   assert.equal(sameOrigin(req({ Origin: 'https://s.morgunov.tech' })), true);
   assert.equal(sameOrigin(req({})), true); // no Origin, no Sec-Fetch-Site
   assert.equal(sameOrigin(req({ Origin: 'https://evil.com' })), false);
-  // Sec-Fetch-Site gate
+  // Sec-Fetch-Site gate: only same-origin passes. 'none' (direct navigation /
+  // non-browser client) is rejected — a mutation API should never be hit that way.
   assert.equal(sameOrigin(req({ 'Sec-Fetch-Site': 'same-origin' })), true);
-  assert.equal(sameOrigin(req({ 'Sec-Fetch-Site': 'none' })), true);
+  assert.equal(sameOrigin(req({ 'Sec-Fetch-Site': 'none' })), false);
   assert.equal(sameOrigin(req({ 'Sec-Fetch-Site': 'cross-site' })), false);
   assert.equal(sameOrigin(req({ 'Sec-Fetch-Site': 'same-site' })), false);
 });
@@ -137,4 +138,7 @@ test('auth: password verify + session round-trip', async () => {
   assert.ok(await verifySession(secret, token));
   assert.equal(await verifySession('other-secret', token), null);
   assert.equal(await verifySession(secret, 'garbage'), null);
+  // Malformed cookie must fail closed, not throw (b64 decode of '@@@' would throw).
+  assert.equal(await verifySession(secret, 'a.@@@'), null);
+  assert.equal(await verifySession(secret, '@@@.@@@'), null);
 });

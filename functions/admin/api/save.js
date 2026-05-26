@@ -1,9 +1,33 @@
 import { json, sameOrigin } from '../../_lib/http.js';
 import { validPageKey, isArticlePage } from '../../_lib/content.js';
 import { INDEX_KEY, indexEntry } from '../../_lib/articles.js';
-import { sanitizeHtml } from '../../_lib/sanitize.js';
+import { sanitizeHtml, sanitizeButtons } from '../../_lib/sanitize.js';
 
 const SITE = 's.morgunov.tech';
+// Keys whose values are bound to attributes (href/src) or already escaped at
+// render time (alt) — never run them through the HTML sanitizer, or they'd be
+// double-encoded. Everything else under sections/* is emitted raw by render.js
+// and IS a trust boundary.
+const SANITIZE_SKIP_KEYS = new Set(['href', 'image', 'src', 'url', 'alt']);
+
+// Recursively sanitize every string leaf, skipping url/alt keys. Used for the
+// uses/collaborate structured docs, whose text fields (tag/name/desc/prose/…)
+// render.js emits as raw HTML (they legitimately carry &nbsp; / <strong> / <code>).
+async function sanitizeLeaves(node) {
+  if (typeof node === 'string') return sanitizeHtml(node);
+  if (Array.isArray(node)) {
+    for (let i = 0; i < node.length; i++) node[i] = await sanitizeLeaves(node[i]);
+    return node;
+  }
+  if (node && typeof node === 'object') {
+    for (const k of Object.keys(node)) {
+      if (SANITIZE_SKIP_KEYS.has(k)) continue;
+      node[k] = await sanitizeLeaves(node[k]);
+    }
+    return node;
+  }
+  return node;
+}
 const SECTION_IDS = ['about', 'career', 'help', 'ventures', 'products', 'publications', 'contact'];
 const HISTORY_MAX = 20; // keep the last N revisions per page
 
@@ -74,9 +98,7 @@ export async function onRequestPost({ request, env }) {
   }
 
   // about edits its section bodies inline (contenteditable), so those HTML
-  // fields are a trust boundary — sanitize them on save. (collaborate keeps its
-  // verbatim-HTML blocks untouched: it carries structural layout the allowlist
-  // would flatten; it'll get a structured model separately.)
+  // fields are a trust boundary — sanitize them on save.
   if (page === 'about') {
     for (const sk of Object.keys(doc.sections || {})) {
       const body = doc.sections[sk] && doc.sections[sk].body;
@@ -85,6 +107,22 @@ export async function onRequestPost({ request, env }) {
           if (typeof body[l] === 'string') body[l] = await sanitizeHtml(body[l]);
         }
       }
+    }
+  }
+
+  // uses/collaborate are structured docs whose text fields render.js emits RAW
+  // (they carry inline HTML), so they're a trust boundary too. Sanitize every
+  // string leaf under sections/*; the hero.ctas are styled <a> markup, so they
+  // get the button-aware sanitizer (keeps class, strips scripts/handlers).
+  if (page === 'uses' || page === 'collaborate') {
+    const ctas = doc.hero && doc.hero.ctas;
+    if (ctas && typeof ctas === 'object') {
+      for (const l of ['ru', 'en']) {
+        if (typeof ctas[l] === 'string') ctas[l] = await sanitizeButtons(ctas[l]);
+      }
+    }
+    if (doc.sections && typeof doc.sections === 'object') {
+      doc.sections = await sanitizeLeaves(doc.sections);
     }
   }
 
