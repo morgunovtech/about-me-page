@@ -10,7 +10,10 @@ if (!password) {
   process.exit(1);
 }
 
-const iterations = 100000;
+// OWASP 2023 guidance for PBKDF2-HMAC-SHA256. verifyPassword reads the iteration
+// count from the stored hash, so raising this is backward-compatible — existing
+// hashes keep verifying; re-run this script to upgrade to the new work factor.
+const iterations = 600000;
 const salt = randomBytes(16);
 const hash = pbkdf2Sync(password, salt, iterations, 32, 'sha256');
 const stored = `pbkdf2$sha256$${iterations}$${salt.toString('hex')}$${hash.toString('hex')}`;
