@@ -1177,14 +1177,63 @@
       const og = document.createElement('optgroup');
       og.label = 'Статьи';
       for (const a of articles) {
-        const label = (a.status === 'draft' ? '• ' : '') + ((a.title && (a.title.ru || a.title.en)) || a.slug);
+        const label = (a.status !== 'published' ? '• ' : '') + ((a.title && (a.title.ru || a.title.en)) || a.slug);
         og.append(Object.assign(el('option'), { value: 'article:' + a.slug, textContent: label }));
       }
       sel.append(og);
     }
     sel.append(Object.assign(el('option'), { value: '__new_article__', textContent: '＋ Новая статья…' }));
     sel.append(Object.assign(el('option'), { value: '__import_tme__', textContent: '＋ Импорт из t.me…' }));
+    sel.append(Object.assign(el('option'), { value: '__import_archive__', textContent: '＋ Импорт архива канала…' }));
     sel.value = page;
+  }
+  // Batch import a Telegram Desktop export (result.json) into needs-review drafts.
+  function importArchive() {
+    if (dirty && !confirm('Несохранённые изменения пропадут. Импортировать архив?')) return;
+    closeModal();
+    const scrim = el('div', 'ed-modal-scrim'); scrim.id = 'ed-modal-scrim';
+    const box = el('div', 'ed-modal ed-modal-wide');
+    box.append(Object.assign(el('div', 'ed-modal-head'), { textContent: 'Импорт архива канала (result.json)' }));
+    const body = el('div', 'ed-modal-imgbody');
+    const fileInp = el('input'); fileInp.type = 'file'; fileInp.accept = '.json,application/json';
+    const chRow = el('div', 'ed-field');
+    chRow.append(Object.assign(el('div', 'ed-field-label'), { textContent: 'Канал (@handle, для дедупа и медиа)' }));
+    const chInp = el('input', 'ed-input'); chInp.type = 'text'; chInp.placeholder = '@raschet7';
+    chRow.append(chInp);
+    const relink = el('label', 'f-bool'); const relinkCb = el('input'); relinkCb.type = 'checkbox'; relinkCb.checked = true;
+    relink.append(relinkCb, document.createTextNode(' Подтянуть картинки из публичного канала'));
+    const note = el('div', 'ed-sugg-notes');
+    body.append(fileInp, chRow, relink, note);
+    box.append(body);
+    const ctrls = el('div', 'ed-modal-ctrls');
+    const go = el('button', 'primary'); go.textContent = 'Импортировать';
+    const cancel = el('button'); cancel.textContent = 'Закрыть'; cancel.addEventListener('click', closeModal);
+    ctrls.append(go, cancel); box.append(ctrls);
+    scrim.append(box); document.body.append(scrim);
+    scrim.addEventListener('click', (e) => { if (e.target === scrim) closeModal(); });
+    const say = (t) => { note.textContent = t; };
+    go.addEventListener('click', async () => {
+      const file = fileInp.files && fileInp.files[0];
+      if (!file) return say('Выберите файл result.json');
+      let exp;
+      try { exp = JSON.parse(await file.text()); } catch { return say('Это не валидный JSON'); }
+      go.disabled = true;
+      let created = 0, skipped = 0, rounds = 0, remaining = 0;
+      do {
+        const payload = { export: exp, relinkMedia: relinkCb.checked, limit: 40 };
+        if (chInp.value.trim()) payload.channel = chInp.value.trim();
+        let res;
+        try {
+          res = await (await fetch(API + '/tg-archive-import', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) })).json();
+        } catch { say('Ошибка сети'); go.disabled = false; return; }
+        if (!res.ok) { say('Ошибка: ' + (res.error || '?')); go.disabled = false; return; }
+        created += res.created; skipped += res.skipped; remaining = res.remaining;
+        say(`Создано ${created}, пропущено ${skipped}, осталось ${remaining}…`);
+      } while (remaining > 0 && ++rounds < 200);
+      say(`Готово: создано ${created}, пропущено ${skipped} (черновики в очереди needs-review).`);
+      go.disabled = false;
+      await populatePageSelect();
+    });
   }
   async function importArticle() {
     if (dirty && !confirm('Несохранённые изменения пропадут. Импортировать пост?')) return;
@@ -1552,6 +1601,7 @@
       const val = e.target.value;
       if (val === '__new_article__') { e.target.value = page; return createArticle(); }
       if (val === '__import_tme__') { e.target.value = page; return importArticle(); }
+      if (val === '__import_archive__') { e.target.value = page; return importArchive(); }
       if (dirty && !confirm('Несохранённые изменения пропадут. Сменить страницу?')) {
         e.target.value = page;
         return;
