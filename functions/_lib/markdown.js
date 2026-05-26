@@ -18,6 +18,18 @@ export function isExternal(href) {
   return /^https?:\/\//i.test(href);
 }
 
+// Reject dangerous URL schemes (javascript:, data:, vbscript:, …). Relative
+// paths, anchors, and http/https/mailto/tel pass through. Tabs/newlines are
+// stripped first because browsers ignore them when parsing the scheme, so
+// "java\tscript:x" would otherwise slip past a naive check.
+export function safeHref(href) {
+  const h = String(href == null ? '' : href).replace(/[\t\n\r]/g, '').trim();
+  if (h === '') return h;
+  const scheme = h.match(/^([a-z][a-z0-9+.-]*):/i);
+  if (scheme && !/^(https?|mailto|tel)$/i.test(scheme[1])) return '#';
+  return h;
+}
+
 // Escape a text run, then apply inline emphasis (**bold**).
 function fmt(text) {
   return escapeHtml(text).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
@@ -33,7 +45,7 @@ export function renderInline(md) {
   while ((m = linkRe.exec(md)) !== null) {
     out += fmt(md.slice(last, m.index));
     const label = fmt(m[1]);
-    const href = m[2];
+    const href = safeHref(m[2]);
     const ext = isExternal(href);
     out += `<a href="${escapeAttr(href)}"${
       ext ? ' target="_blank" rel="noopener noreferrer"' : ''

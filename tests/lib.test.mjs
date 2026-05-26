@@ -5,7 +5,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { escapeHtml, renderInline } from '../functions/_lib/markdown.js';
+import { escapeHtml, renderInline, safeHref } from '../functions/_lib/markdown.js';
 import { isLocalized, pick, resolvePath } from '../functions/_lib/i18n.js';
 import { renderJsonLd } from '../functions/_lib/jsonld.js';
 import { sameOrigin } from '../functions/_lib/http.js';
@@ -27,6 +27,22 @@ test('renderInline keeps mailto/internal links without target/rel', () => {
   assert.match(renderInline('[m](mailto:a@b.com)'), /href="mailto:a@b.com"/);
   assert.doesNotMatch(renderInline('[m](mailto:a@b.com)'), /target=/);
   assert.match(renderInline('[anchor](#contact)'), /href="#contact"/);
+});
+
+test('renderInline blocks javascript: scheme in links', () => {
+  const out = renderInline('[click](javascript:alert(1))');
+  assert.doesNotMatch(out, /javascript:/i);
+});
+
+test('safeHref allowlists safe schemes and rejects the rest', () => {
+  for (const ok of ['https://e.com', 'http://e.com', 'mailto:a@b.com', 'tel:+1', '#x', '/path', 'rel/path', '']) {
+    assert.equal(safeHref(ok), ok, `should allow: ${ok}`);
+  }
+  for (const bad of ['javascript:alert(1)', 'JavaScript:x', ' javascript:x', 'data:text/html,x', 'vbscript:x']) {
+    assert.equal(safeHref(bad), '#', `should reject: ${bad}`);
+  }
+  // Browsers ignore tabs/newlines when parsing the scheme — strip them first.
+  assert.equal(safeHref('java\tscript:alert(1)'), '#');
 });
 
 test('isLocalized / pick / resolvePath', () => {

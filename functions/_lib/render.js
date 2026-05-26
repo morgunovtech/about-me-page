@@ -12,7 +12,7 @@
 // edit=false (the public render) emits none of these → output is byte-identical.
 
 import { pick } from './i18n.js';
-import { escapeHtml, escapeAttr, isExternal, renderInline, renderCtx } from './markdown.js';
+import { escapeHtml, escapeAttr, isExternal, safeHref, renderInline, renderCtx } from './markdown.js';
 
 // Edit-anchor emitters — all yield '' unless edit is true.
 const eItem = (edit, path) => (edit ? ` data-edit-item="${path}"` : '');
@@ -45,7 +45,7 @@ const YT_SVG = `<svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke
 // A single CTA / button anchor. Primary styling and target/rel are derived.
 // `path` points at the cta object; `asItem` marks it as a reorderable list item.
 function btn(cta, lang, edit, path, asItem) {
-  const href = pick(cta.href, lang);
+  const href = safeHref(pick(cta.href, lang));
   const label = escapeHtml(pick(cta.label, lang));
   const cls = 'v4-btn' + (cta.primary === true ? ' v4-btn-primary' : '');
   const ext = isExternal(href);
@@ -56,7 +56,7 @@ function btn(cta, lang, edit, path, asItem) {
 
 // A "→ ..." footer link (always external in home content).
 function moreLink(more, lang, edit, path) {
-  const href = pick(more.href, lang);
+  const href = safeHref(pick(more.href, lang));
   const label = escapeHtml(pick(more.label, lang));
   const ext = isExternal(href);
   return `<div class="v4-more"><a href="${escapeAttr(href)}"${
@@ -170,7 +170,7 @@ function pubItem(it, lang, edit, path) {
     const lis = it.links
       .map(
         (l, j) =>
-          `<li${eItem(edit, path + '.links.' + j)}><a href="${escapeAttr(l.href)}" target="_blank" rel="noopener noreferrer"${eText(
+          `<li${eItem(edit, path + '.links.' + j)}><a href="${escapeAttr(safeHref(l.href))}" target="_blank" rel="noopener noreferrer"${eText(
             edit,
             path + '.links.' + j + '.label'
           )}>${escapeHtml(pick(l.label, lang))}</a></li>`
