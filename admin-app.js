@@ -160,6 +160,13 @@
 
   async function renderPreview() {
     flushPending();
+    // Remember scroll position + the focused field so a structural re-render or
+    // language switch doesn't fling the page back to the top.
+    const prevScroll = fdoc && fdoc.defaultView ? fdoc.defaultView.scrollY : 0;
+    const prevFocusPath =
+      fdoc && fdoc.activeElement
+        ? fdoc.activeElement.getAttribute('data-cms-text') || fdoc.activeElement.getAttribute('data-cms-md')
+        : null;
     $('#ed-loading').hidden = false;
     let html;
     try {
@@ -188,6 +195,14 @@
     });
     fdoc = frame.contentDocument;
     instrument();
+    // Restore scroll, then best-effort re-focus the field that was being edited.
+    if (fdoc.defaultView) fdoc.defaultView.scrollTo(0, prevScroll);
+    if (prevFocusPath) {
+      const again = fdoc.querySelector(
+        `[data-cms-text="${prevFocusPath}"],[data-cms-md="${prevFocusPath}"]`
+      );
+      if (again) again.focus();
+    }
     $('#ed-loading').hidden = true;
   }
 
@@ -523,11 +538,16 @@
     const [p, k] = parentOf(hp);
     const node = p && p[k];
     const cur = isLoc(node) ? (node[lang] || '') : (node || '');
-    const u = prompt('Ссылка (URL):', cur);
-    if (u === null || u === cur) return;
-    setLeaf(hp, u); // localized href → current lang; scalar → set directly
-    markDirty();
-    renderPreview();
+    textPrompt({
+      title: 'Ссылка (URL) · ' + lang.toUpperCase(),
+      value: cur,
+      onApply: (u) => {
+        if (u === cur) return;
+        setLeaf(hp, u); // localized href → current lang; scalar → set directly
+        markDirty();
+        renderPreview();
+      },
+    });
   }
 
   function attachMd(node) {
@@ -648,6 +668,34 @@
 
   // --- generic source modal (in the editor document, not the iframe) ---
   function closeModal() { const m = $('#ed-modal-scrim'); if (m) m.remove(); }
+  // Single-line text prompt (replaces window.prompt for in-editor URL editing).
+  function textPrompt({ title, value, onApply }) {
+    closeModal();
+    const scrim = el('div', 'ed-modal-scrim');
+    scrim.id = 'ed-modal-scrim';
+    const box = el('div', 'ed-modal');
+    box.append(Object.assign(el('div', 'ed-modal-head'), { textContent: title }));
+    const inp = el('input', 'ed-input');
+    inp.type = 'text';
+    inp.value = value || '';
+    box.append(inp);
+    const ctrls = el('div', 'ed-modal-ctrls');
+    const apply = el('button', 'primary');
+    apply.textContent = 'Применить';
+    const done = () => { onApply(inp.value.trim()); closeModal(); };
+    apply.addEventListener('click', done);
+    inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); done(); } else if (e.key === 'Escape') closeModal(); });
+    const cancel = el('button');
+    cancel.textContent = 'Отмена';
+    cancel.addEventListener('click', closeModal);
+    ctrls.append(apply, cancel);
+    box.append(ctrls);
+    scrim.append(box);
+    document.body.append(scrim);
+    scrim.addEventListener('click', (e) => { if (e.target === scrim) closeModal(); });
+    inp.focus();
+    inp.select();
+  }
   function openModal({ title, value, onApply }) {
     closeModal();
     const scrim = el('div', 'ed-modal-scrim');
@@ -1218,7 +1266,27 @@
     else if (e.key === 'Escape') { if ($('#ed-modal-scrim')) closeModal(); else if (!$('#drawer').hidden) toggleDrawer(false); }
   }
 
+  // Keep Tab focus inside the topmost open chrome surface (modal > drawer).
+  // The inline-edit iframe is a separate document, so this never traps editing.
+  function focusables(root) {
+    return [...root.querySelectorAll(
+      'a[href],button:not([disabled]),input:not([disabled]),textarea:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])'
+    )].filter((e) => e.offsetParent !== null);
+  }
+  function trapFocus(e) {
+    if (e.key !== 'Tab') return;
+    const surface = $('#ed-modal-scrim') || (!$('#drawer').hidden ? $('#drawer') : null);
+    if (!surface) return;
+    const f = focusables(surface);
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (!surface.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+    else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+
   function init() {
+    document.addEventListener('keydown', trapFocus, true);
     $('#btn-save').addEventListener('click', save);
     $('#btn-settings').addEventListener('click', () => toggleDrawer());
     $('#btn-undo').addEventListener('click', undo);
