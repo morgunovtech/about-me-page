@@ -7,7 +7,7 @@ import assert from 'node:assert/strict';
 
 import { escapeHtml, renderInline, safeHref } from '../functions/_lib/markdown.js';
 import { isLocalized, pick, resolvePath } from '../functions/_lib/i18n.js';
-import { renderJsonLd } from '../functions/_lib/jsonld.js';
+import { renderJsonLd, renderArticleJsonLd } from '../functions/_lib/jsonld.js';
 import { sameOrigin } from '../functions/_lib/http.js';
 import { verifyPassword, createSession, verifySession } from '../functions/_lib/auth.js';
 
@@ -87,6 +87,24 @@ test('renderJsonLd escapes </script> so it cannot break out of the tag', () => {
   const parsed = JSON.parse(out);
   const person = parsed['@graph'].find((n) => n['@type'] === 'Person');
   assert.match(person.jobTitle, /<\/script>/);
+});
+
+test('renderArticleJsonLd builds an Article linked to the Person', () => {
+  const doc = {
+    _url: 'https://s.morgunov.tech/notes/hello',
+    date: '2026-05-26', dateModified: '2026-05-26',
+    title: { ru: 'Привет', en: 'Hi' },
+    excerpt: { ru: 'кратко', en: 'short' },
+    cover: { src: { ru: '/assets/x.webp' } },
+  };
+  const out = renderArticleJsonLd(doc, 'en');
+  assert.doesNotMatch(out, /<\/script>/i);
+  const g = JSON.parse(out)['@graph'];
+  const art = g.find((n) => n['@type'] === 'Article');
+  assert.equal(art.headline, 'Hi');
+  assert.equal(art.datePublished, '2026-05-26');
+  assert.equal(art.author['@id'], 'https://s.morgunov.tech/#person');
+  assert.ok(g.find((n) => n['@type'] === 'Person' && n['@id'] === 'https://s.morgunov.tech/#person'));
 });
 
 test('sameOrigin allows same origin and missing Origin, blocks cross', () => {

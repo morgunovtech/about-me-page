@@ -14,7 +14,7 @@ import { renderJsonLd } from './jsonld.js';
 const ORIGIN = 'https://s.morgunov.tech';
 const absolutize = (p) => (!p ? p : /^https?:\/\//i.test(p) ? p : ORIGIN + p);
 
-export function overlay(response, doc, lang, edit = false) {
+export function overlay(response, doc, lang, edit = false, jsonld = renderJsonLd) {
   return new HTMLRewriter()
     .on('[data-cms-text]', {
       element(el) {
@@ -58,7 +58,7 @@ export function overlay(response, doc, lang, edit = false) {
     })
     .on('[data-cms-jsonld]', {
       element(el) {
-        el.setInnerContent(renderJsonLd(doc, lang), { html: true });
+        el.setInnerContent(jsonld(doc, lang), { html: true });
       },
     })
     .on('[data-cms-alt]', {

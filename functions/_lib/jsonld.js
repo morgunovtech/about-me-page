@@ -8,6 +8,17 @@ const ORIGIN = 'https://s.morgunov.tech';
 const HERO_IMAGE = ORIGIN + '/images/Hero_Photo.webp';
 const EMAIL = 's@morgunov.tech';
 
+// Serialize a JSON-LD graph and escape characters that could break out of the
+// <script> element it's injected into (JSON.stringify escapes none of these).
+function serializeLd(graph) {
+  return JSON.stringify(graph, null, 2)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, "\\u0026")
+    .replace(/\u2028/g, "\\u2028")
+    .replace(/\u2029/g, "\\u2029");
+}
+
 // Alumni history is append-only and rarely changes — kept here as a constant.
 const ALUMNI = [
   { '@type': 'Organization', name: 'Korzinka', url: 'https://korzinka.uz' },
@@ -95,13 +106,41 @@ export function renderJsonLd(doc, lang) {
     ],
   };
 
-  // Escape characters that could break out of the <script> element this JSON
-  // is injected into. JSON.stringify does not escape `<`, `>`, `&` or the
-  // U+2028/U+2029 line separators, so do it here.
-  return JSON.stringify(graph, null, 2)
-    .replace(/</g, "\\u003c")
-    .replace(/>/g, "\\u003e")
-    .replace(/&/g, "\\u0026")
-    .replace(/\u2028/g, "\\u2028")
-    .replace(/\u2029/g, "\\u2029");
+  return serializeLd(graph);
+}
+
+// JSON-LD for a single article: schema.org/Article, authored by the same
+// Person @id the rest of the site publishes, so an LLM/crawler links the piece
+// to the author identity. `doc._url` is the canonical article URL (set by the
+// route, language-specific).
+export function renderArticleJsonLd(doc, lang) {
+  const url = doc._url;
+  const image = pick(doc.cover && doc.cover.src, lang) || HERO_IMAGE;
+  const graph = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Article',
+        '@id': url + '#article',
+        headline: pick(doc.title, lang),
+        description: pick(doc.excerpt, lang),
+        inLanguage: lang,
+        url,
+        mainEntityOfPage: url,
+        datePublished: doc.date,
+        dateModified: doc.dateModified || doc.date,
+        image: /^https?:/i.test(image) ? image : ORIGIN + image,
+        author: { '@id': ORIGIN + '/#person' },
+        publisher: { '@id': ORIGIN + '/#person' },
+        isPartOf: { '@id': ORIGIN + '/#website' },
+      },
+      {
+        '@type': 'Person',
+        '@id': ORIGIN + '/#person',
+        name: lang === 'en' ? 'Semyon Morgunov' : '\u0421\u0435\u043c\u0451\u043d \u041c\u043e\u0440\u0433\u0443\u043d\u043e\u0432',
+        url: ORIGIN + (lang === 'en' ? '/en/' : '/'),
+      },
+    ],
+  };
+  return serializeLd(graph);
 }
