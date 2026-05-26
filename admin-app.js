@@ -962,6 +962,8 @@
     personDescription: 'Описание (SEO)', knowsAbout: 'Знает о', sameAs: 'Профили', worksFor: 'Работает в',
     occupationStartDate: 'Дата начала', addressLocality: 'Город', name: 'Имя', url: 'URL', value: 'Значение',
     unit: 'Подпись', channels: 'Каналы', telegram: 'Telegram', linkedin: 'LinkedIn', youtube: 'YouTube', auto: 'Авто-обновление',
+    hardware: 'Железо', software: 'Софт', groups: 'Группы', cards: 'Карточки', heading: 'Заголовок группы',
+    desc: 'Описание', tag: 'Тег', price: 'Цена', alt: 'Alt', intro: 'Вступление', cta: 'Кнопка', num: 'Номер', href: 'Ссылка', label: 'Текст',
   };
   const MULTILINE = new Set(['description', 'personDescription', 'tagline', 'prose', 'desc', 'note']);
   const labelOf = (k) => LABELS[k] || k;
@@ -1471,6 +1473,18 @@
     box.textContent = '';
     if (!doc) return;
     if (isArticle()) renderArticleHead(box);
+    // /uses: structured cards edited via the generic form engine (groups/cards
+    // add-reorder-delete + per-field + image upload). Re-render the preview on
+    // change so the page reflects edits before save.
+    if (page === 'uses' && doc.sections) {
+      for (const k of ['hardware', 'software']) {
+        if (!doc.sections[k]) continue;
+        const node = fieldRow(doc.sections, k);
+        if (node.tagName === 'DETAILS') node.open = true;
+        box.append(node);
+      }
+      box.append(ctrlBtn('Обновить превью', () => renderPreview()));
+    }
     if (doc.share) box.append(renderCardPreview());
     for (const k of ['meta', 'share', 'seo']) {
       if (!doc[k]) continue;
