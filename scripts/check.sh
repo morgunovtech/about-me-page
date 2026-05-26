@@ -19,4 +19,16 @@ node --test tests/*.test.mjs
 echo "→ check-sync.py (RU/EN parity)"
 python3 scripts/check-sync.py >/dev/null && echo "  ok"
 
+# Bundle Functions the way Pages does — catches cross-module import errors that
+# node --check (per-file syntax only) misses. Opt out with NO_BUILD=1 (offline).
+if [ "${NO_BUILD:-0}" != "1" ]; then
+  echo "→ wrangler pages functions build"
+  rm -rf /tmp/fnbuild
+  if npx --offline wrangler pages functions build --outdir /tmp/fnbuild >/tmp/fnbuild.log 2>&1; then
+    echo "  ok"
+  else
+    echo "  BUILD FAILED:"; tail -20 /tmp/fnbuild.log; exit 1
+  fi
+fi
+
 echo "✓ all checks passed"

@@ -75,7 +75,7 @@ export async function renderArticlePage(env, slug, lang, request, opts = {}) {
   };
 
   const res = new Response(articleShell(lang), { headers: { 'content-type': 'text/html; charset=utf-8' } });
-  const transformed = overlay(res, doc, lang, false, renderArticleJsonLd);
+  const transformed = overlay(res, doc, lang, !!opts.edit, renderArticleJsonLd);
   const headers = new Headers(transformed.headers);
   headers.set('Cache-Control', opts.preview ? 'no-store' : 'public, max-age=120, stale-while-revalidate=86400');
   if (opts.preview) headers.set('x-robots-tag', 'noindex');

@@ -1,6 +1,7 @@
 import { overlay } from '../../_lib/overlay.js';
 import { json, sameOrigin } from '../../_lib/http.js';
-import { loadSubscribers } from '../../_lib/content.js';
+import { loadSubscribers, isArticlePage } from '../../_lib/content.js';
+import { renderArticlePage } from '../../_lib/render-article.js';
 
 // Maps a page+lang to its static template. The raw template (fetched via the
 // ASSETS binding, bypassing the public middleware) is overlaid with the DRAFT
@@ -23,6 +24,15 @@ export async function onRequestPost({ request, env }) {
   }
 
   const { page = 'home', lang = 'ru', doc } = body || {};
+  if (!doc) return json({ error: 'bad page/lang/doc' }, 400);
+
+  // Articles render from the embedded shell, with edit anchors + draft gates off.
+  if (isArticlePage(page)) {
+    const slug = page.slice('article:'.length);
+    const res = await renderArticlePage(env, slug, lang, request, { doc, preview: true, edit: true });
+    return res || json({ error: 'article render failed' }, 500);
+  }
+
   const tmplPath = TEMPLATES[page] && TEMPLATES[page][lang];
   if (!tmplPath || !doc) return json({ error: 'bad page/lang/doc' }, 400);
 

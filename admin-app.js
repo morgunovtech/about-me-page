@@ -879,6 +879,7 @@
         updateUndoUi();
         setStatus('Сохранено ✓ (rev ' + res.rev + ')' + (synced ? ' · EN +' + synced : ''), 'ok');
         renderSettings();
+        if (isArticle()) populatePageSelect(); // title/status in the picker may have changed
         if (synced) renderPreview(); // surface the freshly-translated EN
       } else {
         setStatus('Ошибка: ' + (res.error || r.status), 'error');
@@ -1126,10 +1127,112 @@
     card.append(body); wrap.append(card);
     return wrap;
   }
+  // --- articles ---
+  const isArticle = () => page.startsWith('article:');
+  const TRANSLIT = { а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'h',ц:'ts',ч:'ch',ш:'sh',щ:'sch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya' };
+  function slugify(s) {
+    return String(s || '').toLowerCase().replace(/[а-яё]/g, (c) => TRANSLIT[c] ?? '')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80);
+  }
+  async function populatePageSelect() {
+    const sel = $('#page-select');
+    let articles = [];
+    try { articles = (await fetch(API + '/articles').then((r) => r.json())).articles || []; } catch { /* ignore */ }
+    sel.textContent = '';
+    for (const p of ['home', 'collaborate', 'about', 'uses']) {
+      sel.append(Object.assign(el('option'), { value: p, textContent: p }));
+    }
+    if (articles.length) {
+      const og = document.createElement('optgroup');
+      og.label = 'Статьи';
+      for (const a of articles) {
+        const label = (a.status === 'draft' ? '• ' : '') + ((a.title && (a.title.ru || a.title.en)) || a.slug);
+        og.append(Object.assign(el('option'), { value: 'article:' + a.slug, textContent: label }));
+      }
+      sel.append(og);
+    }
+    sel.append(Object.assign(el('option'), { value: '__new_article__', textContent: '＋ Новая статья…' }));
+    sel.value = page;
+  }
+  async function createArticle() {
+    if (dirty && !confirm('Несохранённые изменения пропадут. Создать статью?')) return;
+    const title = prompt('Заголовок новой статьи (RU):');
+    if (title === null) return;
+    const slug = slugify(title);
+    if (!slug) return setStatus('Не удалось сделать slug из заголовка', 'error');
+    setStatus('Создание статьи…', 'saving');
+    try {
+      const r = await fetch(API + '/articles', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ op: 'create', slug, title }) });
+      const res = await r.json().catch(() => ({}));
+      if (!r.ok || !res.ok) return setStatus('Создание: ' + (res.error || r.status), 'error');
+      page = 'article:' + res.slug;
+      await populatePageSelect();
+      $('#page-select').value = page;
+      load();
+    } catch (e) { setStatus('Создание: ошибка сети', 'error'); }
+  }
+  async function deleteArticle() {
+    if (!isArticle() || !doc) return;
+    const slug = doc.slug;
+    if (!confirm('Удалить статью «' + slug + '»? Это необратимо.')) return;
+    setStatus('Удаление…', 'saving');
+    try {
+      const r = await fetch(API + '/articles', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ op: 'delete', slug }) });
+      const res = await r.json().catch(() => ({}));
+      if (!r.ok || !res.ok) return setStatus('Удаление: ' + (res.error || r.status), 'error');
+      dirty = false; page = 'home';
+      await populatePageSelect();
+      $('#page-select').value = 'home';
+      load();
+      setStatus('Статья удалена', 'ok');
+    } catch (e) { setStatus('Удаление: ошибка сети', 'error'); }
+  }
+  function articleStatusField() {
+    const wrap = el('div', 'f-field');
+    wrap.append(Object.assign(el('div', 'f-label'), { textContent: 'Статус' }));
+    const sel = el('select', 'f-input');
+    for (const [v, l] of [['draft', 'Черновик'], ['published', 'Опубликовано']]) {
+      const o = Object.assign(el('option'), { value: v, textContent: l });
+      if ((doc.status || 'draft') === v) o.selected = true;
+      sel.append(o);
+    }
+    sel.addEventListener('change', () => { doc.status = sel.value; markDirty(); });
+    wrap.append(sel);
+    return wrap;
+  }
+  function renderArticleHead(box) {
+    const head = el('div', 'f-field');
+    head.append(Object.assign(el('div', 'f-label'), { textContent: 'Статья · /notes/' + doc.slug }));
+    head.append(ctrlBtn('Удалить статью', deleteArticle, 'danger'));
+    box.append(head);
+    box.append(articleStatusField());
+    const dwrap = el('div', 'f-field');
+    dwrap.append(Object.assign(el('div', 'f-label'), { textContent: 'Дата (YYYY-MM-DD)' }));
+    dwrap.append(scalarInput(doc, 'date'));
+    box.append(dwrap);
+    if (doc.excerpt) {
+      const ew = el('div', 'f-field');
+      ew.append(Object.assign(el('div', 'f-label'), { textContent: 'Анонс' }));
+      ew.append(localizedInput(doc.excerpt, 'excerpt'));
+      box.append(ew);
+    }
+    if (doc.cover) {
+      const cw = el('div', 'f-field');
+      cw.append(Object.assign(el('div', 'f-label'), { textContent: 'Обложка' }));
+      cw.append(imageWidget(() => (typeof doc.cover.src === 'string' ? doc.cover.src : ''), (x) => { doc.cover.src = x; }, 'covers'));
+      if (doc.cover.alt) {
+        cw.append(Object.assign(el('div', 'f-label'), { textContent: 'Alt обложки' }));
+        cw.append(localizedInput(doc.cover.alt, 'alt'));
+      }
+      box.append(cw);
+    }
+  }
+
   function renderSettings() {
     const box = $('#settings');
     box.textContent = '';
     if (!doc) return;
+    if (isArticle()) renderArticleHead(box);
     if (doc.share) box.append(renderCardPreview());
     for (const k of ['meta', 'share', 'seo']) {
       if (!doc[k]) continue;
@@ -1288,18 +1391,20 @@
     $('#drawer-close').addEventListener('click', () => toggleDrawer(false));
     $('#scrim').addEventListener('click', () => toggleDrawer(false));
     $('#page-select').addEventListener('change', (e) => {
+      const val = e.target.value;
+      if (val === '__new_article__') { e.target.value = page; return createArticle(); }
       if (dirty && !confirm('Несохранённые изменения пропадут. Сменить страницу?')) {
         e.target.value = page;
         return;
       }
-      page = e.target.value;
+      page = val;
       load();
     });
     document.addEventListener('keydown', handleHotkeys);
     window.addEventListener('beforeunload', (e) => {
       if (dirty) { e.preventDefault(); e.returnValue = ''; }
     });
-    load();
+    populatePageSelect().then(load);
     loadSyncNote();
   }
 

@@ -9,6 +9,18 @@ const SITE = 's.morgunov.tech';
 // so an authed request can't probe arbitrary site-scoped KV keys.
 export const PAGES = new Set(['home', 'about', 'collaborate', 'uses']);
 
+// Articles are addressed as the page key `article:<slug>` (so the existing
+// content/save/history machinery keys them at `<site>:article:<slug>` and
+// archives revisions under `<site>:article:<slug>:rev:<n>` for free).
+const ARTICLE_PAGE_RE = /^article:[a-z0-9]+(?:-[a-z0-9]+)*$/;
+export function isArticlePage(page) {
+  return typeof page === 'string' && ARTICLE_PAGE_RE.test(page);
+}
+// A page key the admin APIs accept (static page or an article).
+export function validPageKey(page) {
+  return PAGES.has(page) || isArticlePage(page);
+}
+
 export async function loadDoc(env, page) {
   const key = `${SITE}:${page}`;
   if (env && env.CONTENT) {
