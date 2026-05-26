@@ -664,42 +664,48 @@
     scrim.addEventListener('click', (e) => { if (e.target === scrim) closeModal(); });
   }
 
-  // --- verbatim HTML blocks: raw-source popover ---
+  // --- verbatim HTML blocks → inline rich editing ---
+  // Every data-cms-html block (article body, about/collaborate section bodies)
+  // edits inline: contenteditable + the block toolbar (B/I/link/H2/H3/quote/
+  // image/hr). innerHTML is committed on blur and sanitized server-side on save,
+  // so messy contenteditable output is fine.
   function attachHtmlBlock(node) {
     const path = node.getAttribute('data-cms-html');
-    // The article body edits inline (light edits); other verbatim blocks
-    // (about/uses sections) keep the raw-source popover.
-    if (path === 'body') return attachArticleBody(node);
+    // Inline rich editing only where the content is prose: the article body and
+    // about's section bodies. collaborate carries structural layout (cards, dl,
+    // classed divs) that the sanitizer would flatten — it keeps the raw-HTML
+    // popover until it gets its own structured model.
+    if (path === 'body' || page === 'about') return attachInlineHtml(node, path);
     node.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); openSourceModal(path, 'html'); });
-    attachHtmlImages(node, path); // embedded images become click-to-upload
+    attachHtmlImages(node, path);
   }
-  // Article body: inline contenteditable with Bold/Italic/Link. innerHTML is
-  // committed on blur and sanitized server-side on save, so messy DOM is fine.
   function cleanBodyHtml(node) {
     const c = node.cloneNode(true);
     c.querySelectorAll('.cms-tools,.cms-add,#cms-bar').forEach((n) => n.remove());
     return c.innerHTML.trim();
   }
-  function commitBody(node) {
+  function commitBody(node, path) {
+    path = path || node.getAttribute('data-cms-html');
     const html = cleanBodyHtml(node);
-    const cur = resolve('body');
+    const cur = resolve(path);
     const prev = isLoc(cur) ? (cur[lang] ?? '') : (cur ?? '');
     if (String(prev) === html) return;
-    setLeaf('body', html);
+    setLeaf(path, html);
     markDirty();
   }
-  function attachArticleBody(node) {
+  function attachInlineHtml(node, path) {
     node.classList.add('cms-edit');
     node.setAttribute('contenteditable', 'true');
-    node.addEventListener('focus', () => { node.classList.add('cms-focus'); showBar(node, 'body', 'htmlbody'); });
-    node.addEventListener('blur', () => { node.classList.remove('cms-focus'); hideBar(); commitBody(node); });
+    node.addEventListener('focus', () => { node.classList.add('cms-focus'); showBar(node, path, 'htmlbody'); });
+    node.addEventListener('blur', () => { node.classList.remove('cms-focus'); hideBar(); commitBody(node, path); });
     node.addEventListener('keydown', (e) => { if (e.key === 'Escape') node.blur(); });
-    attachHtmlImages(node, 'body'); // click an embedded image to replace it
+    attachHtmlImages(node, path); // click an embedded image to replace it
   }
-  // Upload an image and insert it at the caret inside the article body.
+  // Upload an image and insert it at the caret inside the focused HTML block.
   function insertBodyImage() {
     const bodyNode = barLeaf;
     if (!bodyNode) return;
+    const path = bodyNode.getAttribute('data-cms-html') || barPath;
     const sel = fdoc.getSelection();
     const range = sel && sel.rangeCount ? sel.getRangeAt(0).cloneRange() : null;
     const inp = document.createElement('input');
@@ -707,14 +713,14 @@
     inp.addEventListener('change', async () => {
       const f = inp.files && inp.files[0];
       if (!f) return;
-      const path = await doUpload(f, 'notes');
-      if (!path) return;
+      const p = await doUpload(f, 'notes');
+      if (!p) return;
       const img = fdoc.createElement('img');
-      img.src = path; img.setAttribute('loading', 'lazy');
+      img.src = p; img.setAttribute('loading', 'lazy');
       if (range && bodyNode.contains(range.startContainer)) { range.collapse(false); range.insertNode(img); }
       else bodyNode.appendChild(img);
-      attachHtmlImages(bodyNode, 'body'); // make the new image click-to-replace too
-      commitBody(bodyNode);
+      attachHtmlImages(bodyNode, path);
+      commitBody(bodyNode, path);
     });
     inp.click();
   }

@@ -86,6 +86,21 @@ export async function onRequestPost({ request, env }) {
     }
   }
 
+  // about edits its section bodies inline (contenteditable), so those HTML
+  // fields are a trust boundary — sanitize them on save. (collaborate keeps its
+  // verbatim-HTML blocks untouched: it carries structural layout the allowlist
+  // would flatten; it'll get a structured model separately.)
+  if (page === 'about') {
+    for (const sk of Object.keys(doc.sections || {})) {
+      const body = doc.sections[sk] && doc.sections[sk].body;
+      if (body && typeof body === 'object') {
+        for (const l of ['ru', 'en']) {
+          if (typeof body[l] === 'string') body[l] = await sanitizeHtml(body[l]);
+        }
+      }
+    }
+  }
+
   // Monotonic rev: bump past whatever is currently stored, so saving a restored
   // older revision can't collide with a newer rev number.
   let base = typeof doc.rev === 'number' ? doc.rev : 0;
