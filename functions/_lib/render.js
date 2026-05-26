@@ -12,7 +12,7 @@
 // edit=false (the public render) emits none of these → output is byte-identical.
 
 import { pick } from './i18n.js';
-import { escapeHtml, renderInline, renderProse, renderCtx } from './markdown.js';
+import { escapeHtml, renderInline, renderCtx } from './markdown.js';
 
 const isExternal = (href) => /^https?:\/\//i.test(String(href));
 const attrEsc = (s) => escapeHtml(s).replace(/"/g, '&quot;');
@@ -230,6 +230,3 @@ export const renderers = {
         </div>`;
   },
 };
-
-// Re-exported for the about prose (block markdown overlay).
-export { renderProse };
