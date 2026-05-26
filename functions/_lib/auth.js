@@ -110,7 +110,10 @@ export function getCookie(request, name) {
 }
 
 export function clientIp(request) {
-  return request.headers.get('CF-Connecting-IP') || request.headers.get('X-Forwarded-For') || 'local';
+  // CF-Connecting-IP is set by Cloudflare's edge on every request and cannot be
+  // spoofed by the client. Do NOT fall back to X-Forwarded-For (client-supplied
+  // → would let an attacker rotate the rate-limit key). 'local' covers dev only.
+  return request.headers.get('CF-Connecting-IP') || 'local';
 }
 
 // Login rate limit: max attempts per rolling window, counter in KV (rl:login:<ip>).
