@@ -27,7 +27,7 @@ test('publish sends a text message and derives the public URL', async () => {
   assert.equal(res.refs[0].url, 'https://t.me/raschet7/42');
   assert.match(calls[0].url, /\/botT\/sendMessage$/);
   assert.equal(calls[0].body.parse_mode, 'HTML');
-  assert.equal(calls[0].body.disable_web_page_preview, false);
+  assert.equal(calls[0].body.link_preview_options.is_disabled, false);
 });
 
 test('publish honors 429 retry_after then succeeds', async () => {

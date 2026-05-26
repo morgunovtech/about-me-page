@@ -134,6 +134,26 @@ def main() -> int:
         )
         total += n_url + n_code + n_assets + n_images
 
+    # Pass 4: the article/notes shell embeds the same cache-busters as JS string
+    # constants (functions/_lib/article-template.js). It isn't an HTML file, so
+    # stamp it here too — otherwise /notes pages serve stale CSS/JS after a change.
+    tmpl = ROOT / "functions/_lib/article-template.js"
+    if tmpl.exists() and asset_hashes:
+        text = tmpl.read_text(encoding="utf-8")
+        n = 0
+        if asset_hashes.get("styles.css"):
+            text, k = re.subn(r"(STYLES_VER = 'v=)[0-9a-fA-F]+(')", rf"\g<1>{asset_hashes['styles.css']}\g<2>", text)
+            n += k
+        if asset_hashes.get("script.js"):
+            text, k = re.subn(r"(SCRIPT_VER = 'v=)[0-9a-fA-F]+(')", rf"\g<1>{asset_hashes['script.js']}\g<2>", text)
+            n += k
+        if n:
+            tmpl.write_text(text, encoding="utf-8")
+            print(f"  STAMPED functions/_lib/article-template.js (assets:{n})")
+            total += n
+        else:
+            print("  NO-OP   functions/_lib/article-template.js")
+
     print(f"Done. {total} replacement(s).")
     return 0
 

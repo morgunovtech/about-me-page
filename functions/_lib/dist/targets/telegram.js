@@ -56,7 +56,7 @@ export const telegram = {
         const m = plan.messages[i];
         let result;
         if (m.kind === 'text') {
-          result = await callApi('sendMessage', { chat_id: chat, text: m.text, parse_mode: m.parseMode || 'HTML', disable_web_page_preview: !m.linkPreview }, cfg);
+          result = await callApi('sendMessage', { chat_id: chat, text: m.text, parse_mode: m.parseMode || 'HTML', link_preview_options: { is_disabled: !m.linkPreview } }, cfg);
         } else if (m.kind === 'photo') {
           result = await callApi('sendPhoto', { chat_id: chat, photo: m.photoUrl, caption: m.caption || '', parse_mode: m.parseMode || 'HTML' }, cfg);
         } else if (m.kind === 'album') {

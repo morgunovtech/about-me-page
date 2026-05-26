@@ -67,6 +67,13 @@ test('plan: 3 images → album, caption on first', () => {
   assert.equal(plan.messages[0].items[1].caption, undefined);
 });
 
+test('plan: split hard-splits a single oversized paragraph under the limit', () => {
+  const html = '<p>' + 'x'.repeat(9000) + '</p>'; // one paragraph > 4000
+  const plan = buildPlan(makeSourcePost({ lang: 'ru', html, url: 'u' }), { strategy: 'split' });
+  assert.ok(plan.messages.length >= 3);
+  for (const m of plan.messages) assert.ok(m.text.length <= 4096, 'each message ≤ 4096');
+});
+
 test('plan: split strategy numbers a long post into a series', () => {
   const html = Array.from({ length: 6 }, (_, i) => `<p>${'абзац '.repeat(200)}${i}</p>`).join('');
   const plan = buildPlan(makeSourcePost({ lang: 'ru', html, url: 'u' }), { strategy: 'split' });

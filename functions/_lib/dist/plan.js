@@ -18,13 +18,34 @@ function splitByParagraph(tgHtml, max) {
   const paras = tgHtml.split('\n\n');
   const chunks = [];
   let cur = '';
+  const push = () => { if (cur) { chunks.push(cur); cur = ''; } };
   for (const p of paras) {
+    // A single paragraph longer than the limit must be hard-split, or the
+    // resulting message would exceed Telegram's 4096 and 400.
+    if (plainLength(p) > max) {
+      push();
+      for (const piece of hardSplit(p, max)) chunks.push(piece);
+      continue;
+    }
     const candidate = cur ? cur + '\n\n' + p : p;
     if (plainLength(candidate) <= max || !cur) cur = candidate;
-    else { chunks.push(cur); cur = p; }
+    else { push(); cur = p; }
   }
-  if (cur) chunks.push(cur);
+  push();
   return chunks;
+}
+// Last-resort split of one oversized block on a whitespace boundary near `max`.
+function hardSplit(text, max) {
+  const out = [];
+  let rest = text;
+  while (rest.length > max) {
+    let cut = rest.lastIndexOf(' ', max);
+    if (cut < max * 0.5) cut = max; // no good boundary → hard cut
+    out.push(rest.slice(0, cut).trim());
+    rest = rest.slice(cut);
+  }
+  if (rest.trim()) out.push(rest.trim());
+  return out;
 }
 function truncatePlain(text, max) {
   if ([...text].length <= max) return text;

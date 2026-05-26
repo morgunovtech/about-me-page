@@ -23,8 +23,14 @@ export async function onRequestPost({ request, env }) {
 
   const channel = String((body && body.channel) || env.TELEGRAM_CHANNEL || '').trim();
   const handle = channel.replace(/^@/, '');
+  // Validate the handle before it ever reaches a KV key or a fetch URL.
+  if (handle && !/^[A-Za-z0-9_]{3,64}$/.test(handle)) return json({ error: 'bad channel handle' }, 400);
   const relinkMedia = body.relinkMedia !== false && !!handle;
-  const limit = Math.min(Math.max(parseInt(body.limit, 10) || 40, 1), 200);
+  // Each relink does 2 fetch subrequests (embed + photo); Cloudflare's free tier
+  // caps fetch subrequests at 50/request, so keep the batch well under that when
+  // relinking. Without relink we can take a bigger bite.
+  const cap = relinkMedia ? 15 : 100;
+  const limit = Math.min(Math.max(parseInt(body.limit, 10) || cap, 1), cap);
 
   const posts = parseArchive(body.export || body);
   const idx = (await loadArticleIndex(env)) || [];

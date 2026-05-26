@@ -111,10 +111,11 @@ function block(node, images) {
   }
 }
 
-// Plain text length (Telegram counts the text, not the markup) in code points.
+// Plain text length as Telegram counts it: the message text (not the markup),
+// in UTF-16 code units (so an emoji counts as 2) — matches the 4096/1024 limits.
 function plainLength(tgHtml) {
   const text = tgHtml.replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
-  return [...text].length;
+  return text.length;
 }
 
 export function renderTgHtml(html) {
