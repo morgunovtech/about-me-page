@@ -149,6 +149,8 @@
     .cms-mdbtn.cms-ai{font-weight:500;font-size:11px}
     .cms-bar:not(.has-href) .cms-href-only{display:none}
     .cms-bar:not(.ml) .cms-ml-only{display:none}
+    .cms-mdbtn.cms-em{font-style:italic;font-weight:400}
+    .cms-bar.kind-body .cms-ai,.cms-bar.kind-body .cms-href-only{display:none}
     /* keep empty leaves clickable (e.g. a just-added list item) */
     [data-cms-text]:empty::before,[data-cms-md]:empty::before{content:"+ текст";color:var(--v4-dim,#6c6759);opacity:.55;cursor:text}
   `;
@@ -481,6 +483,7 @@
     sep.className = 'cms-sep';
     bar.append(
       mk('B', 'Полужирный', () => fdoc.execCommand('bold'), 'cms-md-only'),
+      mk('I', 'Курсив', () => fdoc.execCommand('italic'), 'cms-md-only cms-em'),
       mk('🔗', 'Ссылка в тексте (пусто — убрать)', () => {
         const u = prompt('URL ссылки (пусто — убрать):');
         if (u === null) return;
@@ -508,9 +511,11 @@
   function showBar(node, path, kind) {
     barLeaf = node; barPath = path; barKind = kind;
     const hasHref = !!hrefSiblingOf(path);
-    const ml = kind === 'md' && node.tagName === 'DIV'; // prose block → paragraphs + bullets
+    const body = kind === 'htmlbody'; // article body: bold/italic/link/bullets, no AI/href
+    const ml = body || (kind === 'md' && node.tagName === 'DIV'); // paragraphs + bullets
     const bar = ensureBar();
-    bar.className = 'cms-bar on' + (kind === 'text' ? ' kind-text' : '') + (hasHref ? ' has-href' : '') + (ml ? ' ml' : '');
+    bar.className = 'cms-bar on' + (kind === 'text' ? ' kind-text' : '') +
+      (hasHref ? ' has-href' : '') + (ml ? ' ml' : '') + (body ? ' kind-body' : '');
     positionBar(node);
   }
   // Float the bar just above the focused field (below it if there's no room),
@@ -653,8 +658,34 @@
   // --- verbatim HTML blocks: raw-source popover ---
   function attachHtmlBlock(node) {
     const path = node.getAttribute('data-cms-html');
+    // The article body edits inline (light edits); other verbatim blocks
+    // (about/uses sections) keep the raw-source popover.
+    if (path === 'body') return attachArticleBody(node);
     node.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); openSourceModal(path, 'html'); });
     attachHtmlImages(node, path); // embedded images become click-to-upload
+  }
+  // Article body: inline contenteditable with Bold/Italic/Link. innerHTML is
+  // committed on blur and sanitized server-side on save, so messy DOM is fine.
+  function cleanBodyHtml(node) {
+    const c = node.cloneNode(true);
+    c.querySelectorAll('.cms-tools,.cms-add,#cms-bar').forEach((n) => n.remove());
+    return c.innerHTML.trim();
+  }
+  function commitBody(node) {
+    const html = cleanBodyHtml(node);
+    const cur = resolve('body');
+    const prev = isLoc(cur) ? (cur[lang] ?? '') : (cur ?? '');
+    if (String(prev) === html) return;
+    setLeaf('body', html);
+    markDirty();
+  }
+  function attachArticleBody(node) {
+    node.classList.add('cms-edit');
+    node.setAttribute('contenteditable', 'true');
+    node.addEventListener('focus', () => { node.classList.add('cms-focus'); showBar(node, 'body', 'htmlbody'); });
+    node.addEventListener('blur', () => { node.classList.remove('cms-focus'); hideBar(); commitBody(node); });
+    node.addEventListener('keydown', (e) => { if (e.key === 'Escape') node.blur(); });
+    attachHtmlImages(node, 'body'); // click an embedded image to replace it
   }
   function openSourceModal(path, kind) {
     const [parent, key] = parentOf(path);
@@ -1152,7 +1183,39 @@
       sel.append(og);
     }
     sel.append(Object.assign(el('option'), { value: '__new_article__', textContent: '＋ Новая статья…' }));
+    sel.append(Object.assign(el('option'), { value: '__import_tme__', textContent: '＋ Импорт из t.me…' }));
     sel.value = page;
+  }
+  async function importArticle() {
+    if (dirty && !confirm('Несохранённые изменения пропадут. Импортировать пост?')) return;
+    const url = prompt('Ссылка на пост: https://t.me/<канал>/<id>');
+    if (!url) return;
+    setStatus('Импорт из t.me…', 'saving');
+    try {
+      const r = await fetch(API + '/import', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ url }) });
+      const res = await r.json().catch(() => ({}));
+      if (!r.ok || !res.ok) return setStatus('Импорт: ' + (res.error || r.status), 'error');
+      page = 'article:' + res.slug;
+      await populatePageSelect();
+      $('#page-select').value = page;
+      load();
+      setStatus('Импортировано — черновик создан', 'ok');
+    } catch (e) { setStatus('Импорт: ошибка сети', 'error'); }
+  }
+  async function translateBody() {
+    const cur = resolve('body');
+    if (!isLoc(cur)) return setStatus('Тело не локализовано', 'error');
+    if (!String(cur.ru || '').trim()) return setStatus('RU тело пусто', 'error');
+    setStatus('Перевод тела…', 'saving');
+    try {
+      const r = await fetch(API + '/translate', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ text: cur.ru }) });
+      const res = await r.json().catch(() => ({}));
+      if (!r.ok || res.error) return setStatus('Перевод: ' + (res.error || r.status), 'error');
+      cur.en = res.translation || '';
+      markDirty();
+      if (lang === 'en') renderPreview();
+      setStatus('EN тело обновлено — проверьте', 'ok');
+    } catch (e) { setStatus('Перевод: ошибка сети', 'error'); }
   }
   async function createArticle() {
     if (dirty && !confirm('Несохранённые изменения пропадут. Создать статью?')) return;
@@ -1205,6 +1268,12 @@
     head.append(Object.assign(el('div', 'f-label'), { textContent: 'Статья · /notes/' + doc.slug }));
     head.append(ctrlBtn('Удалить статью', deleteArticle, 'danger'));
     box.append(head);
+    const tools = el('div', 'f-field');
+    tools.append(Object.assign(el('div', 'f-label'), { textContent: 'Тело' }));
+    const row = el('div', 'f-item-ctrls');
+    row.append(ctrlBtn('Перевести RU→EN', translateBody), ctrlBtn('HTML-исходник', () => openSourceModal('body', 'html')));
+    tools.append(row);
+    box.append(tools);
     box.append(articleStatusField());
     const dwrap = el('div', 'f-field');
     dwrap.append(Object.assign(el('div', 'f-label'), { textContent: 'Дата (YYYY-MM-DD)' }));
@@ -1393,6 +1462,7 @@
     $('#page-select').addEventListener('change', (e) => {
       const val = e.target.value;
       if (val === '__new_article__') { e.target.value = page; return createArticle(); }
+      if (val === '__import_tme__') { e.target.value = page; return importArticle(); }
       if (dirty && !confirm('Несохранённые изменения пропадут. Сменить страницу?')) {
         e.target.value = page;
         return;
