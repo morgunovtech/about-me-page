@@ -807,12 +807,16 @@
     }
   }
 
+  let saving = false;
   async function save() {
-    if (!doc) return;
+    if (!doc || saving) return; // guard against double-submit (rev bump + history write)
+    saving = true;
+    const saveBtn = $('#btn-save');
+    if (saveBtn) saveBtn.disabled = true;
     flushPending();
-    const synced = await syncStaleEn(); // re-translate changed RU → EN before persisting
-    setStatus('Сохранение…', 'saving');
     try {
+      const synced = await syncStaleEn(); // re-translate changed RU → EN before persisting
+      setStatus('Сохранение…', 'saving');
       const r = await fetch(API + '/save', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -833,6 +837,9 @@
       }
     } catch (e) {
       setStatus('Ошибка сети: ' + e.message, 'error');
+    } finally {
+      saving = false;
+      if (saveBtn) saveBtn.disabled = false;
     }
   }
 
