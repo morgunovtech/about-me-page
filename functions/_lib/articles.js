@@ -36,3 +36,38 @@ export function publishedSorted(index) {
     .filter((a) => a && a.status === 'published')
     .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
 }
+
+const today = () => new Date().toISOString().slice(0, 10);
+const loc = () => ({ ru: '', en: '' });
+
+// Single source of truth for the article doc shape — used by create (blank),
+// t.me import, and archive import, so the three paths can't drift.
+export function makeArticleDoc(p = {}) {
+  return {
+    slug: p.slug,
+    status: p.status || 'draft',
+    date: p.date || today(),
+    title: p.title || loc(),
+    excerpt: p.excerpt || loc(),
+    cover: p.cover || { src: '', alt: loc() },
+    body: p.body || loc(),
+    meta: p.meta || { title: loc(), description: loc() },
+    share: p.share || { image: loc(), title: loc(), description: loc() },
+    ...(p.source ? { source: p.source } : {}),
+    rev: 0,
+  };
+}
+
+// The feed/sitemap index row derived from a doc. One definition (was duplicated
+// in save.js and three endpoints).
+export function indexEntry(doc) {
+  return {
+    slug: doc.slug,
+    title: doc.title,
+    excerpt: doc.excerpt || loc(),
+    date: doc.date || '',
+    status: doc.status || 'draft',
+    cover: doc.cover && doc.cover.src ? { src: doc.cover.src } : null,
+    updatedAt: doc.updatedAt || new Date().toISOString(),
+  };
+}

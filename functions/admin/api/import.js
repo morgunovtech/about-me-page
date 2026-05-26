@@ -4,7 +4,7 @@
 // channel+id), extract the message text + photo, sanitize, and create a draft.
 import { json, sameOrigin } from '../../_lib/http.js';
 import { sanitizeHtml } from '../../_lib/sanitize.js';
-import { articleKey, INDEX_KEY, loadArticleIndex } from '../../_lib/articles.js';
+import { articleKey, INDEX_KEY, loadArticleIndex, makeArticleDoc, indexEntry } from '../../_lib/articles.js';
 import { sniffType } from './upload.js';
 
 const TME_RE = /^https?:\/\/(?:www\.)?t\.me\/([A-Za-z0-9_]{3,64})\/(\d{1,12})\b/;
@@ -124,22 +124,17 @@ export async function onRequestPost({ request, env }) {
   const coverSrc = await storePhoto(env, extractPhoto(pageHtml));
   const slug = await uniqueSlug(env, slugify(title), id);
 
-  const doc = {
+  const doc = makeArticleDoc({
     slug,
-    status: 'draft',
     date: extractDate(pageHtml),
     title: { ru: title, en: '' },
-    excerpt: { ru: '', en: '' },
     cover: { src: coverSrc, alt: { ru: '', en: '' } },
     body: { ru: bodyHtml, en: '' },
-    meta: { title: { ru: '', en: '' }, description: { ru: '', en: '' } },
-    share: { image: { ru: '', en: '' }, title: { ru: '', en: '' }, description: { ru: '', en: '' } },
-    source: { tme: `https://t.me/${channel}/${id}`, importedAt: new Date().toISOString() },
-    rev: 0,
-  };
+    source: { kind: 'imported', tme: `https://t.me/${channel}/${id}`, importedAt: new Date().toISOString() },
+  });
   await env.CONTENT.put(articleKey(slug), JSON.stringify(doc));
   const idx = (await loadArticleIndex(env)) || [];
-  idx.unshift({ slug, title: doc.title, excerpt: doc.excerpt, date: doc.date, status: 'draft', cover: coverSrc ? { src: coverSrc } : null, updatedAt: new Date().toISOString() });
+  idx.unshift(indexEntry(doc));
   await env.CONTENT.put(INDEX_KEY, JSON.stringify(idx));
 
   return json({ ok: true, slug });

@@ -6,7 +6,7 @@
 import { json, sameOrigin } from '../../_lib/http.js';
 import { parseArchive } from '../../_lib/dist/tg-import.js';
 import { sanitizeHtml } from '../../_lib/sanitize.js';
-import { articleKey, INDEX_KEY, loadArticleIndex } from '../../_lib/articles.js';
+import { articleKey, INDEX_KEY, loadArticleIndex, makeArticleDoc, indexEntry } from '../../_lib/articles.js';
 import { relinkChannelPhoto, slugify } from './import.js';
 
 const SITE = 's.morgunov.tech';
@@ -50,22 +50,18 @@ export async function onRequestPost({ request, env }) {
     let coverSrc = '';
     if (relinkMedia && p.photo) coverSrc = await relinkChannelPhoto(env, channel, p.messageId);
 
-    const doc = {
+    const doc = makeArticleDoc({
       slug,
       status: 'needs-review',
-      date: p.date || new Date().toISOString().slice(0, 10),
+      date: p.date,
       title: { ru: p.title || `${handle || 'tg'}/${p.messageId}`, en: '' },
-      excerpt: { ru: '', en: '' },
       cover: { src: coverSrc, alt: { ru: '', en: '' } },
       body: { ru: bodyHtml, en: '' },
-      meta: { title: { ru: '', en: '' }, description: { ru: '', en: '' } },
-      share: { image: { ru: '', en: '' }, title: { ru: '', en: '' }, description: { ru: '', en: '' } },
       source: { kind: 'imported', tg: { channel: handle, messageId: p.messageId } },
-      rev: 0,
-    };
+    });
     await env.CONTENT.put(articleKey(slug), JSON.stringify(doc));
     if (handle) await env.CONTENT.put(guardKey(handle, p.messageId), slug);
-    idx.unshift({ slug, title: doc.title, excerpt: doc.excerpt, date: doc.date, status: 'needs-review', cover: coverSrc ? { src: coverSrc } : null, updatedAt: new Date().toISOString() });
+    idx.unshift(indexEntry(doc));
     known.add(slug);
     created++;
   }

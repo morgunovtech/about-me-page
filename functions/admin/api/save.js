@@ -1,6 +1,6 @@
 import { json, sameOrigin } from '../../_lib/http.js';
 import { validPageKey, isArticlePage } from '../../_lib/content.js';
-import { INDEX_KEY } from '../../_lib/articles.js';
+import { INDEX_KEY, indexEntry } from '../../_lib/articles.js';
 import { sanitizeHtml } from '../../_lib/sanitize.js';
 
 const SITE = 's.morgunov.tech';
@@ -27,19 +27,6 @@ function validateArticle(doc, slug) {
   if (!['draft', 'needs-review', 'published'].includes(doc.status)) e.push('status must be draft|needs-review|published');
   if (doc.slug && doc.slug !== slug) e.push('slug mismatch');
   return e;
-}
-
-// Index entry surfaced in the feed/sitemap — derived from the saved doc.
-function indexEntry(doc) {
-  return {
-    slug: doc.slug,
-    title: doc.title,
-    excerpt: doc.excerpt || { ru: '', en: '' },
-    date: doc.date || '',
-    status: doc.status || 'draft',
-    cover: doc.cover && doc.cover.src ? { src: doc.cover.src } : null,
-    updatedAt: doc.updatedAt,
-  };
 }
 
 async function upsertIndex(env, doc) {
