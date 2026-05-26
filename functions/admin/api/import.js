@@ -65,6 +65,24 @@ async function storePhoto(env, url) {
   }
 }
 
+// Relink a public channel post's photo by message id (archive import has no
+// media bytes, but the channel is public): fetch the t.me embed → store in R2.
+// Best-effort — returns '' on any failure.
+export async function relinkChannelPhoto(env, channel, messageId) {
+  try {
+    const handle = String(channel || '').replace(/^@/, '');
+    if (!/^[A-Za-z0-9_]{3,64}$/.test(handle)) return '';
+    const r = await fetch(`https://t.me/${handle}/${messageId}?embed=1&mode=tme`, {
+      headers: { 'user-agent': 'Mozilla/5.0 (compatible; morgunov.tech import)' },
+    });
+    if (!r.ok) return '';
+    const photo = extractPhoto(await r.text());
+    return photo ? await storePhoto(env, photo) : '';
+  } catch {
+    return '';
+  }
+}
+
 async function uniqueSlug(env, base, id) {
   let slug = base || 'post-' + id;
   if (!(await env.CONTENT.get(articleKey(slug)))) return slug;
