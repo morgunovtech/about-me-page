@@ -40,9 +40,12 @@ const CRITICAL_CSS = `
     .v4-article-byline{font-family:var(--v4-mono);font-size:12px;color:var(--v4-dim);margin:0 0 28px}
     .v4-article-cover{margin:0 0 28px}
     .v4-article-cover img{width:100%;height:auto;display:block}
-    .v4-article-body{font-size:17px;line-height:1.65}
+    .v4-article-body{font-size:17px;line-height:1.65;counter-reset:sec}
     .v4-article-body p{margin:0 0 18px}
-    .v4-article-body h2{font-size:26px;font-weight:600;letter-spacing:-.015em;margin:34px 0 12px}
+    /* H2 renders like an /about numbered section: mono 01/02 + a top divider. */
+    .v4-article-body h2{counter-increment:sec;border-top:1px solid var(--v4-fg);padding-top:14px;margin:40px 0 14px;font-size:22px;font-weight:600;letter-spacing:-.015em}
+    .v4-article-body h2::before{content:counter(sec,decimal-leading-zero);display:block;font-family:var(--v4-mono);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--v4-muted);margin-bottom:6px}
+    .v4-article-body h2:first-child{border-top:none;padding-top:0;margin-top:0}
     .v4-article-body h3{font-size:20px;font-weight:600;margin:28px 0 10px}
     .v4-article-body blockquote{margin:0 0 18px;padding:2px 0 2px 18px;border-left:2px solid var(--v4-orange);color:var(--v4-muted)}
     .v4-article-body ul,.v4-article-body ol{margin:0 0 18px;padding-left:22px}
