@@ -12,10 +12,7 @@
 // edit=false (the public render) emits none of these → output is byte-identical.
 
 import { pick } from './i18n.js';
-import { escapeHtml, renderInline, renderCtx } from './markdown.js';
-
-const isExternal = (href) => /^https?:\/\//i.test(String(href));
-const attrEsc = (s) => escapeHtml(s).replace(/"/g, '&quot;');
+import { escapeHtml, escapeAttr, isExternal, renderInline, renderCtx } from './markdown.js';
 
 // Edit-anchor emitters — all yield '' unless edit is true.
 const eItem = (edit, path) => (edit ? ` data-edit-item="${path}"` : '');
@@ -52,7 +49,7 @@ function btn(cta, lang, edit, path, asItem) {
   const label = escapeHtml(pick(cta.label, lang));
   const cls = 'v4-btn' + (cta.primary === true ? ' v4-btn-primary' : '');
   const ext = isExternal(href);
-  return `<a class="${cls}" href="${attrEsc(href)}"${
+  return `<a class="${cls}" href="${escapeAttr(href)}"${
     ext ? ' target="_blank" rel="noopener noreferrer"' : ''
   }${asItem ? eItem(edit, path) : ''}${path ? eText(edit, path + '.label') : ''}>${label}</a>`;
 }
@@ -62,7 +59,7 @@ function moreLink(more, lang, edit, path) {
   const href = pick(more.href, lang);
   const label = escapeHtml(pick(more.label, lang));
   const ext = isExternal(href);
-  return `<div class="v4-more"><a href="${attrEsc(href)}"${
+  return `<div class="v4-more"><a href="${escapeAttr(href)}"${
     ext ? ' target="_blank" rel="noopener noreferrer"' : ''
   }${path ? eText(edit, path + '.label') : ''}>${label}</a></div>`;
 }
@@ -173,7 +170,7 @@ function pubItem(it, lang, edit, path) {
     const lis = it.links
       .map(
         (l, j) =>
-          `<li${eItem(edit, path + '.links.' + j)}><a href="${attrEsc(l.href)}" target="_blank" rel="noopener noreferrer"${eText(
+          `<li${eItem(edit, path + '.links.' + j)}><a href="${escapeAttr(l.href)}" target="_blank" rel="noopener noreferrer"${eText(
             edit,
             path + '.links.' + j + '.label'
           )}>${escapeHtml(pick(l.label, lang))}</a></li>`

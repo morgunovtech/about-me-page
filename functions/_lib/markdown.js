@@ -10,11 +10,11 @@ export function escapeHtml(s) {
     .replace(/>/g, '&gt;');
 }
 
-function escapeAttr(s) {
+export function escapeAttr(s) {
   return escapeHtml(s).replace(/"/g, '&quot;');
 }
 
-function isExternal(href) {
+export function isExternal(href) {
   return /^https?:\/\//i.test(href);
 }
 
