@@ -43,10 +43,11 @@ export const telegram = {
 
   // cfg: { token, channel, fetch?, sleep?, mock? }
   async publish(plan, cfg) {
-    if (!cfg || !cfg.token || !cfg.channel) return { ok: false, error: 'нет TELEGRAM_BOT_TOKEN / TELEGRAM_CHANNEL', refs: [] };
-    if (cfg.mock) {
+    // Mock first: it needs no token (only a channel, for the fake permalink).
+    if (cfg && cfg.mock) {
       return { ok: true, mock: true, refs: plan.messages.map((_, i) => ({ messageId: 1000 + i, url: channelToUrl(cfg.channel, 1000 + i) })) };
     }
+    if (!cfg || !cfg.token || !cfg.channel) return { ok: false, error: 'нет TELEGRAM_BOT_TOKEN / TELEGRAM_CHANNEL', refs: [] };
     const chat = cfg.channel;
     const sleep = cfg.sleep || ((ms) => new Promise((r) => setTimeout(r, ms)));
     const refs = [];

@@ -24,7 +24,7 @@ function validateArticle(doc, slug) {
   if (!doc || typeof doc !== 'object') return ['doc is not an object'];
   if (!doc.title || typeof doc.title !== 'object') e.push('missing title');
   if (!doc.body || typeof doc.body !== 'object') e.push('missing body');
-  if (doc.status !== 'draft' && doc.status !== 'published') e.push('status must be draft|published');
+  if (!['draft', 'needs-review', 'published'].includes(doc.status)) e.push('status must be draft|needs-review|published');
   if (doc.slug && doc.slug !== slug) e.push('slug mismatch');
   return e;
 }
