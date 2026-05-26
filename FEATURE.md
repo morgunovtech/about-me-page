@@ -6,8 +6,10 @@ The blog (`/notes`) is the **source of truth**. Telegram (and later LinkedIn) ar
 - **Flow B — blog → Telegram** (built): one-click publish of a *published* article
   to the channel, with an editable per-message preview. After sending we store a
   `distribution.telegram` mark on the post — metadata, not sync.
-- **Flow A — Telegram → blog** (Phase 3, pending): batch import of a channel
-  archive into the `needs-review` draft queue.
+- **Flow A — Telegram → blog** (built): batch import of a Telegram Desktop export
+  (`result.json`) into the `needs-review` draft queue — `text_entities` → blog
+  HTML, dates preserved, idempotent dedup by source message id, best-effort media
+  relink from the public channel. Drafts read thin → need a manual touch-up.
 
 ## Architecture & the extraction seam
 
@@ -107,4 +109,19 @@ Telegram (no re-upload). The adapter absolutizes site-relative `src`/`href`.
 - `distribution.telegram = { chatId, messageId, url, count, postedAt, mock }` — set
   after a successful send; never changes blog status.
 - `source = { kind:'native'|'imported', tg:{ channel, messageId } }` — Flow A
-  dedups by `tg.messageId` (planned).
+  dedups by a guard key `<site>:tgimport:<handle>:<messageId>` so re-import resumes
+  instead of duplicating.
+
+## Flow A — archive import (Telegram → blog)
+`_lib/dist/tg-import.js` (portable): `parseArchive(result.json)` → normalized
+posts (`text_entities` → blog HTML via `entitiesToHtml`, dates, photo path).
+`POST /admin/api/tg-archive-import` (session + same-origin): sanitizes each body,
+creates `needs-review` drafts, dedups by source message id, best-effort relinks
+the photo from the public channel post (reuses the t.me embed puller), processes
+`limit` new posts per call and returns `remaining` so the UI loops to completion.
+Editor: page-select → "＋ Импорт архива канала…" (file + @handle + relink toggle).
+
+## Phase 4 — not built (requires a separate go)
+Single-post puller by t.me link already exists (`/admin/api/import`, used by the
+editor's "＋ Импорт из t.me…"). The LinkedIn target is a stub. Both are out of
+scope until explicitly requested.
