@@ -1,8 +1,9 @@
 # Local Claude Code config
 .claude/
 
-# Internal audit document — local only
+# Internal audit documents — local only
 audit-about-2026-05-03.md
+AUDIT.md
 
 # macOS metadata
 .DS_Store
