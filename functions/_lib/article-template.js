@@ -53,6 +53,15 @@ const CRITICAL_CSS = `
     .v4-article-body code{font-family:var(--v4-mono);font-size:.9em}
     .v4-article-body hr{border:none;border-top:1px solid var(--v4-line);margin:30px 0}
     .v4-article-foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--v4-line)}
+    .v4-notes-title{font-size:40px;line-height:1.05;letter-spacing:-.02em;font-weight:600;margin:0 0 8px}
+    .v4-notes-intro{color:var(--v4-muted);margin:0 0 32px}
+    .v4-note-item{padding:0 0 22px;margin:0 0 22px;border-bottom:1px solid var(--v4-line-soft)}
+    .v4-note-item:last-child{border-bottom:none}
+    .v4-note-date{font-family:var(--v4-mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--v4-dim)}
+    .v4-note-title{font-size:22px;font-weight:600;letter-spacing:-.015em;margin:6px 0 6px}
+    .v4-note-title a{color:var(--v4-fg);text-decoration:none}
+    .v4-note-title a:hover{color:var(--v4-orange-text)}
+    .v4-note-excerpt{color:var(--v4-muted);margin:0}
     .v4-foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:48px;padding-top:18px;border-top:1px solid var(--v4-line);font-family:var(--v4-mono);font-size:11px;color:var(--v4-dim)}
     .v4-foot a{color:inherit}
     @media (max-width:960px){.v4-root{padding:28px 32px 40px}.v4-article-title{font-size:36px}}
@@ -180,6 +189,98 @@ export function articleShell(lang) {
     </main>
     <footer class="v4-foot">
       <span>morgunov.tech · 2026 · <a href="${notesHref}">${t.notes}</a></span>
+      <span class="v4-foot-privacy">${t.privacy}</span>
+    </footer>
+  </div>
+  <button class="v4-scroll-top" type="button" aria-label="↑">↑</button>
+  <script defer src="/script.js?${SCRIPT_VER}"></script>
+</body>
+</html>`;
+}
+
+const ORIGIN = 'https://s.morgunov.tech';
+
+// The /notes feed/index page. Server-built (no KV overlay): listHtml and jsonLd
+// are assembled by render-notes.js. Reuses the same chrome as articleShell.
+export function notesIndexHtml(lang, listHtml, jsonLd) {
+  const t = T[lang] || T.ru;
+  const ruActive = lang === 'ru' ? ' is-active' : '';
+  const enActive = lang === 'en' ? ' is-active' : '';
+  const self = ORIGIN + (lang === 'en' ? '/en' : '') + '/notes';
+  const intro = lang === 'en'
+    ? 'Notes and essays — also on my Telegram channel, here without the platform lock-in.'
+    : 'Заметки и эссе — то же, что в Telegram-канале, но без привязки к платформе.';
+  return `<!DOCTYPE html>
+<html lang="${lang}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${t.notes} — Semyon Morgunov</title>
+  <meta name="description" content="${intro}" />
+  <meta name="author" content="Semyon Morgunov" />
+  <meta name="theme-color" content="#edeae5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" media="(prefers-color-scheme: light)" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="canonical" href="${self}" />
+  <link rel="alternate" hreflang="ru" href="${ORIGIN}/notes" />
+  <link rel="alternate" hreflang="en" href="${ORIGIN}/en/notes" />
+  <link rel="alternate" hreflang="x-default" href="${ORIGIN}/notes" />
+  <link rel="alternate" type="application/rss+xml" title="${t.notes}" href="/notes/feed.xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="${t.notes} — Semyon Morgunov" />
+  <meta property="og:description" content="${intro}" />
+  <meta property="og:url" content="${self}" />
+  <meta property="og:site_name" content="morgunov.tech" />
+  <meta property="og:locale" content="${t.locale}" />
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
+  <style>${CRITICAL_CSS}</style>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-${lang === 'en' ? 'latin' : 'cyr'}-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-${lang === 'en' ? 'latin' : 'cyr'}-600.woff2" crossorigin />
+  <link rel="preload" href="/styles.css?${STYLES_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/styles.css?${STYLES_VER}" /></noscript>
+  <script>${THEME_SCRIPT}</script>
+  <script type="application/ld+json">${jsonLd}</script>
+</head>
+<body class="v4-page no-transition" data-lang="${lang}">
+  <a href="#main" class="skip-link">${t.skip}</a>
+  <div class="v4-root">
+    <header class="v4-bar" id="top">
+      <nav class="v4-bar-mid" aria-label="${t.notes}">
+        <a href="${lang === 'en' ? '/en/' : '/'}">${t.home}</a>
+        <a href="${lang === 'en' ? '/en/notes' : '/notes'}">${t.notes}</a>
+      </nav>
+      <div class="v4-bar-right">
+        <div class="v4-lang" aria-label="Language">
+          <a class="v4-lang-link${ruActive}" href="${ORIGIN}/notes">RU</a>
+          <span class="v4-lang-sep" aria-hidden="true">·</span>
+          <a class="v4-lang-link${enActive}" href="${ORIGIN}/en/notes">EN</a>
+        </div>
+        <div class="v4-theme">
+          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu" aria-label="${t.themeLabel}">
+            <svg class="v4-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3"></circle><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"></path></svg>
+            <svg class="v4-icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 9A6 6 0 1 1 7 2.5a4.5 4.5 0 0 0 6.5 6.5z"></path></svg>
+            <svg class="v4-icon-contrast" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="8" cy="8" r="6"></circle><path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path></svg>
+          </button>
+          <div class="v4-theme-menu" id="theme-menu">
+            <button class="v4-theme-btn" type="button" data-theme-value="light" aria-pressed="false">${t.themes[0]}</button>
+            <button class="v4-theme-btn" type="button" data-theme-value="dark" aria-pressed="false">${t.themes[1]}</button>
+            <button class="v4-theme-btn" type="button" data-theme-value="auto" aria-pressed="false">${t.themes[2]}</button>
+            <button class="v4-theme-btn" type="button" data-theme-value="high-contrast" aria-pressed="false">${t.themes[3]}</button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="v4-article">
+        <h1 class="v4-notes-title">${t.notes}</h1>
+        <p class="v4-notes-intro">${intro}</p>
+        ${listHtml}
+      </div>
+    </main>
+    <footer class="v4-foot">
+      <span>morgunov.tech · 2026 · <a href="${lang === 'en' ? '/en/' : '/'}">${t.home}</a></span>
       <span class="v4-foot-privacy">${t.privacy}</span>
     </footer>
   </div>

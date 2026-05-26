@@ -22,6 +22,11 @@
 - LinkedIn: https://www.linkedin.com/in/semyon-morgunov/
 - GitHub: https://github.com/morgunovtech
 
+## Notes
+
+- [Notes / Заметки](https://s.morgunov.tech/notes) — essays and notes (bilingual RU/EN), the same writing as the Telegram channel but platform-independent and citable; English at https://s.morgunov.tech/en/notes
+- RSS feed: https://s.morgunov.tech/notes/feed.xml
+
 ## Products
 
 - [Fingerprint](https://fprint.morgunov.tech/) — web service that shows your browser's uniqueness percentage and explains the signals websites use to recognize you without cookies; every parameter has a plain-language explanation and a concrete action; runs locally, free, no signup

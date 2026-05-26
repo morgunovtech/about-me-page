@@ -10,7 +10,7 @@ const EMAIL = 's@morgunov.tech';
 
 // Serialize a JSON-LD graph and escape characters that could break out of the
 // <script> element it's injected into (JSON.stringify escapes none of these).
-function serializeLd(graph) {
+export function serializeLd(graph) {
   return JSON.stringify(graph, null, 2)
     .replace(/</g, '\\u003c')
     .replace(/>/g, '\\u003e')
