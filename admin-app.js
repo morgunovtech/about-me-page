@@ -1020,13 +1020,6 @@
     inp.addEventListener('input', () => { obj[key] = inp.value; markDirty(); });
     return inp;
   }
-  function blankLike(t) {
-    if (t == null || typeof t === 'string') return '';
-    if (typeof t === 'boolean') return false;
-    if (typeof t === 'number') return 0;
-    if (Array.isArray(t)) return [];
-    const o = {}; for (const k of Object.keys(t)) o[k] = blankLike(t[k]); return o;
-  }
   function imageWidget(get, set, folder) {
     const box = el('div', 'f-img');
     const preview = el('div', 'f-img-preview');
@@ -1088,7 +1081,7 @@
         else card.append(scalarInput(arr, i));
         box.append(card);
       });
-      box.append(ctrlBtn('+ добавить', () => { arr.push(blankLike(arr.length ? arr[arr.length - 1] : '')); markDirty(); render(); }, 'add'));
+      box.append(ctrlBtn('+ добавить', () => { arr.push(blankItem(arr.length ? arr[arr.length - 1] : '')); markDirty(); render(); }, 'add'));
     };
     render();
     return box;
