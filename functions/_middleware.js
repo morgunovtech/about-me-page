@@ -37,8 +37,12 @@ export async function onRequest(context) {
   const doc = await loadDoc(env, route.page);
   if (!doc) return response; // no content anywhere → serve the static template
 
-  const subs = await loadSubscribers(env);
-  if (subs) doc._live = { subscribers: subs };
+  // Only the home page renders the live subscribers stat — skip the extra KV
+  // read on about/collaborate/uses.
+  if (route.page === 'home') {
+    const subs = await loadSubscribers(env);
+    if (subs) doc._live = { subscribers: subs };
+  }
 
   const transformed = overlay(response, doc, route.lang);
   const headers = new Headers(transformed.headers);

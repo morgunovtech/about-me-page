@@ -27,8 +27,10 @@ export async function onRequestPost({ request, env }) {
   if (!tmplPath || !doc) return json({ error: 'bad page/lang/doc' }, 400);
 
   const template = await env.ASSETS.fetch(new URL(tmplPath, request.url));
-  const subs = await loadSubscribers(env);
-  if (subs) doc._live = { subscribers: subs };
+  if (page === 'home') {
+    const subs = await loadSubscribers(env);
+    if (subs) doc._live = { subscribers: subs };
+  }
   const rendered = overlay(template, doc, lang, true);
   return new Response(rendered.body, {
     status: 200,
