@@ -1281,34 +1281,319 @@
     },
     "sections": {
       "about": {
-        "body": {
-          "ru": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">01</span>\n          <h2 class=\"v4-h2\">Чем занимаюсь</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div class=\"v4-prose\">\n            <p>10 лет в продукте, e-com и FinTech. Сейчас — Head of FinTech в <strong>Yandex Uzbekistan</strong>: запускаю BNPL, платежи и кредит на одном из самых быстрорастущих&nbsp;рынков&nbsp;региона.</p>\n            <p>До этого 3&nbsp;года руководил крупнейшим e-grocery в Узбекистане в <strong>Korzinka</strong> (заказы&nbsp;×23, расширение в&nbsp;9&nbsp;городов, положительная EBITDA); управлял P&amp;L в <strong>Yandex Uslugi</strong> (GMV&nbsp;×2.2, положительная EBITDA); запускал эксперименты в <strong>Skyeng</strong> (7&nbsp;млн пользователей).</p>\n            <ul class=\"v4-list v4-list--spaced\">\n              <li>Разбираю юнит-экономику, воронки, retention — нахожу, где теряете деньги и рост</li>\n              <li>Даю честную обратную связь по продукту, маркетингу, стратегии</li>\n              <li>Помогаю расставить приоритеты и превратить хаос в план с конкретными шагами</li>\n            </ul>\n            <p class=\"v4-collab-clients\">Клиенты: <b>UMAI Group · Belissimo Pizza · Buildex · MediaPark</b></p>\n          </div>\n        </div>",
-          "en": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">01</span>\n          <h2 class=\"v4-h2\">What I do</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div class=\"v4-prose\">\n            <p>10 years in product, e-com, and FinTech. Currently Head of FinTech at <strong>Yandex Uzbekistan</strong> — shipping BNPL, payments, and credit in one of the fastest&#8209;growing markets in&nbsp;the&nbsp;region.</p>\n            <p>Before that: 3 years leading the largest e-grocery in Uzbekistan at <strong>Korzinka</strong> (orders ×23, expansion to 9 cities, positive EBITDA); managed P&amp;L at <strong>Yandex Services</strong> (GMV ×2.2, positive EBITDA); launched experiments at <strong>Skyeng</strong> (7M users).</p>\n            <ul class=\"v4-list v4-list--spaced\">\n              <li>Break down unit economics, funnels, and retention — find where you're losing money and growth</li>\n              <li>Give honest, direct feedback on product, marketing, and strategy</li>\n              <li>Help set priorities and turn chaos into a plan with concrete next steps</li>\n            </ul>\n            <p class=\"v4-collab-clients\">Clients: <b>UMAI Group · Belissimo Pizza · Buildex · MediaPark</b></p>\n          </div>\n        </div>"
+        "num": "01",
+        "title": {
+          "ru": "Чем занимаюсь",
+          "en": "What I do"
+        },
+        "prose": {
+          "ru": "10 лет в продукте, e-com и FinTech. Сейчас — Head of FinTech в <strong>Yandex Uzbekistan</strong>: запускаю BNPL, платежи и кредит на одном из самых быстрорастущих&nbsp;рынков&nbsp;региона.\n\nДо этого 3&nbsp;года руководил крупнейшим e-grocery в Узбекистане в <strong>Korzinka</strong> (заказы&nbsp;×23, расширение в&nbsp;9&nbsp;городов, положительная EBITDA); управлял P&amp;L в <strong>Yandex Uslugi</strong> (GMV&nbsp;×2.2, положительная EBITDA); запускал эксперименты в <strong>Skyeng</strong> (7&nbsp;млн пользователей).",
+          "en": "10 years in product, e-com, and FinTech. Currently Head of FinTech at <strong>Yandex Uzbekistan</strong> — shipping BNPL, payments, and credit in one of the fastest&#8209;growing markets in&nbsp;the&nbsp;region.\n\nBefore that: 3 years leading the largest e-grocery in Uzbekistan at <strong>Korzinka</strong> (orders ×23, expansion to 9 cities, positive EBITDA); managed P&amp;L at <strong>Yandex Services</strong> (GMV ×2.2, positive EBITDA); launched experiments at <strong>Skyeng</strong> (7M users)."
+        },
+        "points": [
+          {
+            "ru": "Разбираю юнит-экономику, воронки, retention — нахожу, где теряете деньги и рост",
+            "en": "Break down unit economics, funnels, and retention — find where you're losing money and growth"
+          },
+          {
+            "ru": "Даю честную обратную связь по продукту, маркетингу, стратегии",
+            "en": "Give honest, direct feedback on product, marketing, and strategy"
+          },
+          {
+            "ru": "Помогаю расставить приоритеты и превратить хаос в план с конкретными шагами",
+            "en": "Help set priorities and turn chaos into a plan with concrete next steps"
+          }
+        ],
+        "clients": {
+          "ru": "Клиенты: <b>UMAI Group · Belissimo Pizza · Buildex · MediaPark</b>",
+          "en": "Clients: <b>UMAI Group · Belissimo Pizza · Buildex · MediaPark</b>"
         }
       },
       "consulting": {
-        "body": {
-          "ru": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">02</span>\n          <h2 class=\"v4-h2\">Консалтинг</h2>\n        </div>\n        <div class=\"v4-products\">\n          <article class=\"v4-product\">\n            <div class=\"v4-product-head\">\n              <span class=\"v4-tag\">РАЗОВО</span>\n              <span class=\"v4-pricing\">$250 / <strong>SESSION</strong></span>\n            </div>\n            <h3 class=\"v4-product-name\">Разовая консультация</h3>\n            <ul class=\"v4-list\">\n              <li>75 минут встреча + до 45 минут подготовки</li>\n              <li>Свежий взгляд и конкретный план по одной задаче</li>\n              <li>Подходит, когда нужна точечная экспертиза</li>\n            </ul>\n            <a class=\"v4-btn\" href=\"https://book.morgen.so/morgunov\" target=\"_blank\" rel=\"noopener noreferrer\">Забронировать →</a>\n          </article>\n          <article class=\"v4-product\">\n            <div class=\"v4-product-head\">\n              <span class=\"v4-tag\">ЦИКЛ</span>\n              <span class=\"v4-pricing\">$2&nbsp;000 / <strong>MONTH</strong></span>\n            </div>\n            <h3 class=\"v4-product-name\">Консалтинговый цикл</h3>\n            <ul class=\"v4-list\">\n              <li>5 рабочих сессий в месяц по 1.5 часа</li>\n              <li>До 1 часа подготовки к каждой сессии</li>\n              <li>Async-поддержка между сессиями (ответ в течение 10 рабочих часов)</li>\n              <li>Для фаундеров и команд, которым важна динамика и системность</li>\n            </ul>\n            <a class=\"v4-btn\" href=\"https://book.morgen.so/morgunov\" target=\"_blank\" rel=\"noopener noreferrer\">Забронировать →</a>\n          </article>\n        </div>",
-          "en": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">02</span>\n          <h2 class=\"v4-h2\">Consulting</h2>\n        </div>\n        <div class=\"v4-products\">\n          <article class=\"v4-product\">\n            <div class=\"v4-product-head\">\n              <span class=\"v4-tag\">ONE-OFF</span>\n              <span class=\"v4-pricing\">$250 / <strong>SESSION</strong></span>\n            </div>\n            <h3 class=\"v4-product-name\">Single consultation</h3>\n            <ul class=\"v4-list\">\n              <li>75-minute meeting + up to 45 minutes of preparation</li>\n              <li>Fresh perspective and a concrete action plan for one challenge</li>\n              <li>Best when you need pinpoint expertise</li>\n            </ul>\n            <a class=\"v4-btn\" href=\"https://book.morgen.so/morgunov\" target=\"_blank\" rel=\"noopener noreferrer\">Book a session →</a>\n          </article>\n          <article class=\"v4-product\">\n            <div class=\"v4-product-head\">\n              <span class=\"v4-tag\">CYCLE</span>\n              <span class=\"v4-pricing\">$2,000 / <strong>MONTH</strong></span>\n            </div>\n            <h3 class=\"v4-product-name\">Consulting cycle</h3>\n            <ul class=\"v4-list\">\n              <li>5 working sessions per month, 1.5 hours each</li>\n              <li>Up to 1 hour of preparation per session</li>\n              <li>Async support between sessions (10-hour weekday response)</li>\n              <li>For founders and teams who need momentum and systematic progress</li>\n            </ul>\n            <a class=\"v4-btn\" href=\"https://book.morgen.so/morgunov\" target=\"_blank\" rel=\"noopener noreferrer\">Book a session →</a>\n          </article>\n        </div>"
-        }
+        "num": "02",
+        "title": {
+          "ru": "Консалтинг",
+          "en": "Consulting"
+        },
+        "tiers": [
+          {
+            "tag": {
+              "ru": "РАЗОВО",
+              "en": "ONE-OFF"
+            },
+            "price": {
+              "ru": "$250 / <strong>SESSION</strong>",
+              "en": "$250 / <strong>SESSION</strong>"
+            },
+            "name": "Разовая консультация",
+            "features": [
+              {
+                "ru": "75 минут встреча + до 45 минут подготовки",
+                "en": "75-minute meeting + up to 45 minutes of preparation"
+              },
+              {
+                "ru": "Свежий взгляд и конкретный план по одной задаче",
+                "en": "Fresh perspective and a concrete action plan for one challenge"
+              },
+              {
+                "ru": "Подходит, когда нужна точечная экспертиза",
+                "en": "Best when you need pinpoint expertise"
+              }
+            ],
+            "cta": {
+              "href": "https://book.morgen.so/morgunov",
+              "label": {
+                "ru": "Забронировать →",
+                "en": "Book a session →"
+              }
+            }
+          },
+          {
+            "tag": {
+              "ru": "ЦИКЛ",
+              "en": "CYCLE"
+            },
+            "price": {
+              "ru": "$2&nbsp;000 / <strong>MONTH</strong>",
+              "en": "$2,000 / <strong>MONTH</strong>"
+            },
+            "name": "Консалтинговый цикл",
+            "features": [
+              {
+                "ru": "5 рабочих сессий в месяц по 1.5 часа",
+                "en": "5 working sessions per month, 1.5 hours each"
+              },
+              {
+                "ru": "До 1 часа подготовки к каждой сессии",
+                "en": "Up to 1 hour of preparation per session"
+              },
+              {
+                "ru": "Async-поддержка между сессиями (ответ в течение 10 рабочих часов)",
+                "en": "Async support between sessions (10-hour weekday response)"
+              },
+              {
+                "ru": "Для фаундеров и команд, которым важна динамика и системность",
+                "en": "For founders and teams who need momentum and systematic progress"
+              }
+            ],
+            "cta": {
+              "href": "https://book.morgen.so/morgunov",
+              "label": {
+                "ru": "Забронировать →",
+                "en": "Book a session →"
+              }
+            }
+          }
+        ]
       },
       "strategy": {
-        "body": {
-          "ru": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">03</span>\n          <h2 class=\"v4-h2\">Стратегический консалтинг</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <p class=\"v4-tagline v4-tagline--compact\">Долгосрочное партнёрство: работаю как внешний стратег или член advisory board.</p>\n            <h3 class=\"v4-h3\">Что делаю</h3>\n            <ul class=\"v4-list\">\n              <li>Участвую в стратегических сессиях и ключевых решениях на уровне CEO / совета директоров</li>\n              <li>Помогаю системно развивать продукт, маркетинг и операционную модель</li>\n              <li>Слежу за прогрессом по ключевым метрикам и сигнализирую, если что-то буксует</li>\n              <li>Делюсь контактами и помогаю с наймом на senior-позиции</li>\n            </ul>\n            <h3 class=\"v4-h3\">Формат</h3>\n            <ul class=\"v4-list\">\n              <li>Регулярные встречи 2–4 раза в месяц</li>\n              <li>Async-доступ между встречами</li>\n              <li>Возможность участия в совете директоров / advisory board</li>\n            </ul>\n            <h3 class=\"v4-h3\">Кому подойдёт</h3>\n            <p class=\"v4-prose\">Фаундерам, CPO/CEO в e-commerce, retail, fintech и digital-продуктах, которым важна «вторая голова» с операционным опытом.</p>\n            <p class=\"v4-terms\">Условия обсуждаются индивидуально.</p>\n            <div class=\"v4-help-cta\">\n              <a class=\"v4-btn\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Написать →</a>\n            </div>\n          </div>\n        </div>",
-          "en": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">03</span>\n          <h2 class=\"v4-h2\">Strategic consulting</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <p class=\"v4-tagline v4-tagline--compact\">Long-term partnership: I work as an external strategist or advisory board member.</p>\n            <h3 class=\"v4-h3\">What I do</h3>\n            <ul class=\"v4-list\">\n              <li>Participate in strategic sessions and key decisions at the CEO / board level</li>\n              <li>Help systematically develop product, marketing, and operating model</li>\n              <li>Track progress on key metrics and flag issues before they become problems</li>\n              <li>Share contacts and help hire for senior roles</li>\n            </ul>\n            <h3 class=\"v4-h3\">Format</h3>\n            <ul class=\"v4-list\">\n              <li>Regular meetings 2–4 times per month</li>\n              <li>Async access between meetings</li>\n              <li>Option to join the board of directors / advisory board</li>\n            </ul>\n            <h3 class=\"v4-h3\">Best for</h3>\n            <p class=\"v4-prose\">Founders, CPOs, and CEOs in e-commerce, retail, fintech, and digital products who need a \"second brain\" with hands-on operating experience.</p>\n            <p class=\"v4-terms\">Terms discussed individually.</p>\n            <div class=\"v4-help-cta\">\n              <a class=\"v4-btn\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Get in touch →</a>\n            </div>\n          </div>\n        </div>"
+        "num": "03",
+        "title": {
+          "ru": "Стратегический консалтинг",
+          "en": "Strategic consulting"
+        },
+        "groups": [
+          {
+            "heading": {
+              "ru": "Что делаю",
+              "en": "What I do"
+            },
+            "kind": "list",
+            "items": [
+              {
+                "ru": "Участвую в стратегических сессиях и ключевых решениях на уровне CEO / совета директоров",
+                "en": "Participate in strategic sessions and key decisions at the CEO / board level"
+              },
+              {
+                "ru": "Помогаю системно развивать продукт, маркетинг и операционную модель",
+                "en": "Help systematically develop product, marketing, and operating model"
+              },
+              {
+                "ru": "Слежу за прогрессом по ключевым метрикам и сигнализирую, если что-то буксует",
+                "en": "Track progress on key metrics and flag issues before they become problems"
+              },
+              {
+                "ru": "Делюсь контактами и помогаю с наймом на senior-позиции",
+                "en": "Share contacts and help hire for senior roles"
+              }
+            ]
+          },
+          {
+            "heading": {
+              "ru": "Формат",
+              "en": "Format"
+            },
+            "kind": "list",
+            "items": [
+              {
+                "ru": "Регулярные встречи 2–4 раза в месяц",
+                "en": "Regular meetings 2–4 times per month"
+              },
+              {
+                "ru": "Async-доступ между встречами",
+                "en": "Async access between meetings"
+              },
+              {
+                "ru": "Возможность участия в совете директоров / advisory board",
+                "en": "Option to join the board of directors / advisory board"
+              }
+            ]
+          },
+          {
+            "heading": {
+              "ru": "Кому подойдёт",
+              "en": "Best for"
+            },
+            "kind": "prose",
+            "prose": {
+              "ru": "Фаундерам, CPO/CEO в e-commerce, retail, fintech и digital-продуктах, которым важна «вторая голова» с операционным опытом.",
+              "en": "Founders, CPOs, and CEOs in e-commerce, retail, fintech, and digital products who need a \"second brain\" with hands-on operating experience."
+            }
+          }
+        ],
+        "terms": {
+          "ru": "Условия обсуждаются индивидуально.",
+          "en": "Terms discussed individually."
+        },
+        "cta": {
+          "href": "https://t.me/s_mrgnv",
+          "label": {
+            "ru": "Написать →",
+            "en": "Get in touch →"
+          }
+        },
+        "tagline": {
+          "ru": "Долгосрочное партнёрство: работаю как внешний стратег или член advisory board.",
+          "en": "Long-term partnership: I work as an external strategist or advisory board member."
         }
       },
       "angel": {
-        "body": {
-          "ru": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">04</span>\n          <h2 class=\"v4-h2\">Ангельские инвестиции</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <h3 class=\"v4-h3\">Что делаю</h3>\n            <ul class=\"v4-list\">\n              <li>Вкладываю деньги</li>\n              <li>Делюсь опытом и контактами</li>\n              <li>Не лезу в операционку, если не просят</li>\n            </ul>\n            <h3 class=\"v4-h3\">Параметры</h3>\n            <dl class=\"v4-spec\">\n              <dt>Стадия</dt><dd>pre-seed / seed</dd>\n              <dt>Направления</dt><dd>RetailTech, e-com, FinTech, EdTech</dd>\n              <dt>Рынки</dt><dd>СНГ, MENA, Восточная Европа</dd>\n              <dt>Чек</dt><dd>от $10&nbsp;000</dd>\n            </dl>\n            <h3 class=\"v4-h3\">Кому подойдёт</h3>\n            <div class=\"v4-prose\">\n              <p>Фаундерам с адекватными амбициями, валидированной гипотезой и прозрачной юрисдикцией.</p>\n              <p>Достаточно короткого письма: что делаете, на каком этапе, сколько ищете, ссылка на MVP.</p>\n            </div>\n            <div class=\"v4-help-cta\">\n              <a class=\"v4-btn v4-btn-primary\" href=\"mailto:ask@morgunov.tech\">Отправить питч →</a>\n            </div>\n          </div>\n        </div>",
-          "en": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">04</span>\n          <h2 class=\"v4-h2\">Angel investing</h2>\n        </div>\n        <div class=\"v4-body\">\n          <div class=\"v4-body-aside\"></div>\n          <div>\n            <h3 class=\"v4-h3\">What I do</h3>\n            <ul class=\"v4-list\">\n              <li>Invest capital</li>\n              <li>Share experience and connections</li>\n              <li>Stay out of day-to-day operations unless asked</li>\n            </ul>\n            <h3 class=\"v4-h3\">Parameters</h3>\n            <dl class=\"v4-spec\">\n              <dt>Stage</dt><dd>pre-seed / seed</dd>\n              <dt>Sectors</dt><dd>RetailTech, e-com, FinTech, EdTech</dd>\n              <dt>Markets</dt><dd>CIS, MENA, Eastern Europe</dd>\n              <dt>Check size</dt><dd>from $10,000</dd>\n            </dl>\n            <h3 class=\"v4-h3\">Best for</h3>\n            <div class=\"v4-prose\">\n              <p>Founders with realistic ambitions, a validated hypothesis, and a transparent jurisdiction.</p>\n              <p>A short note is enough: what you're building, what stage you're at, how much you're raising, link to MVP.</p>\n            </div>\n            <div class=\"v4-help-cta\">\n              <a class=\"v4-btn v4-btn-primary\" href=\"mailto:ask@morgunov.tech\">Send a pitch →</a>\n            </div>\n          </div>\n        </div>"
+        "num": "04",
+        "title": {
+          "ru": "Ангельские инвестиции",
+          "en": "Angel investing"
+        },
+        "groups": [
+          {
+            "heading": {
+              "ru": "Что делаю",
+              "en": "What I do"
+            },
+            "kind": "list",
+            "items": [
+              {
+                "ru": "Вкладываю деньги",
+                "en": "Invest capital"
+              },
+              {
+                "ru": "Делюсь опытом и контактами",
+                "en": "Share experience and connections"
+              },
+              {
+                "ru": "Не лезу в операционку, если не просят",
+                "en": "Stay out of day-to-day operations unless asked"
+              }
+            ]
+          },
+          {
+            "heading": {
+              "ru": "Параметры",
+              "en": "Parameters"
+            },
+            "kind": "spec",
+            "rows": [
+              {
+                "term": {
+                  "ru": "Стадия",
+                  "en": "Stage"
+                },
+                "def": {
+                  "ru": "pre-seed / seed",
+                  "en": "pre-seed / seed"
+                }
+              },
+              {
+                "term": {
+                  "ru": "Направления",
+                  "en": "Sectors"
+                },
+                "def": {
+                  "ru": "RetailTech, e-com, FinTech, EdTech",
+                  "en": "RetailTech, e-com, FinTech, EdTech"
+                }
+              },
+              {
+                "term": {
+                  "ru": "Рынки",
+                  "en": "Markets"
+                },
+                "def": {
+                  "ru": "СНГ, MENA, Восточная Европа",
+                  "en": "CIS, MENA, Eastern Europe"
+                }
+              },
+              {
+                "term": {
+                  "ru": "Чек",
+                  "en": "Check size"
+                },
+                "def": {
+                  "ru": "от $10&nbsp;000",
+                  "en": "from $10,000"
+                }
+              }
+            ]
+          },
+          {
+            "heading": {
+              "ru": "Кому подойдёт",
+              "en": "Best for"
+            },
+            "kind": "prose",
+            "prose": {
+              "ru": "Фаундерам с адекватными амбициями, валидированной гипотезой и прозрачной юрисдикцией.\n\nДостаточно короткого письма: что делаете, на каком этапе, сколько ищете, ссылка на MVP.",
+              "en": "Founders with realistic ambitions, a validated hypothesis, and a transparent jurisdiction.\n\nA short note is enough: what you're building, what stage you're at, how much you're raising, link to MVP."
+            }
+          }
+        ],
+        "terms": {
+          "ru": "",
+          "en": ""
+        },
+        "cta": {
+          "href": "mailto:ask@morgunov.tech",
+          "label": {
+            "ru": "Отправить питч →",
+            "en": "Send a pitch →"
+          }
         }
       },
       "contact": {
-        "body": {
-          "ru": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">05</span>\n          <h2 class=\"v4-h2\">Не уверены, что вам нужно?</h2>\n        </div>\n        <div class=\"v4-contact\">\n          <div>\n            <p class=\"v4-contact-note\">Расскажите о вашей ситуации — подскажу, чем могу быть полезен. Или честно скажу, если не могу.</p>\n          </div>\n          <div class=\"v4-cta-row\">\n            <a class=\"v4-btn v4-btn-primary\" href=\"mailto:ask@morgunov.tech\">Написать →</a>\n            <a class=\"v4-btn\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n          </div>\n        </div>",
-          "en": "<div class=\"v4-section-head\">\n          <span class=\"v4-section-num\">05</span>\n          <h2 class=\"v4-h2\">Not sure what you need?</h2>\n        </div>\n        <div class=\"v4-contact\">\n          <div>\n            <p class=\"v4-contact-note\">Tell me about your situation — I'll suggest how I can help, or be upfront if I can't.</p>\n          </div>\n          <div class=\"v4-cta-row\">\n            <a class=\"v4-btn v4-btn-primary\" href=\"mailto:ask@morgunov.tech\">Get in touch →</a>\n            <a class=\"v4-btn\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n          </div>\n        </div>"
-        }
+        "num": "05",
+        "title": {
+          "ru": "Не уверены, что вам нужно?",
+          "en": "Not sure what you need?"
+        },
+        "note": {
+          "ru": "Расскажите о вашей ситуации — подскажу, чем могу быть полезен. Или честно скажу, если не могу.",
+          "en": "Tell me about your situation — I'll suggest how I can help, or be upfront if I can't."
+        },
+        "ctas": [
+          {
+            "href": "mailto:ask@morgunov.tech",
+            "label": {
+              "ru": "Написать →",
+              "en": "Get in touch →"
+            }
+          },
+          {
+            "href": "https://t.me/s_mrgnv",
+            "label": {
+              "ru": "Telegram",
+              "en": "Telegram"
+            }
+          }
+        ]
       }
     }
   }

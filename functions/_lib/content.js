@@ -34,6 +34,11 @@ export async function loadDoc(env, page) {
         if (page === 'uses' && !(fromKv.sections && fromKv.sections.hardware && fromKv.sections.hardware.groups)) {
           return (seed && seed[page]) || fromKv;
         }
+        // Same migration guard for collaborate (old verbatim-HTML sections lack
+        // the structured shape — e.g. consulting.tiers).
+        if (page === 'collaborate' && !(fromKv.sections && fromKv.sections.consulting && fromKv.sections.consulting.tiers)) {
+          return (seed && seed[page]) || fromKv;
+        }
         return fromKv;
       }
     } catch (e) {

@@ -224,6 +224,25 @@ function softCard(c, lang) {
               </article>`;
 }
 
+// --- /collaborate (structured, replaces verbatim-HTML blocks) ---
+// Text fields carry inline HTML (&nbsp;, <strong>, <b>) → emitted raw; hrefs
+// via safeHref. Multi-paragraph prose is stored \n\n-joined.
+const paras = (md, lang) => (pick(md, lang) || '').split(/\n{2,}/).map((p) => p.trim()).filter(Boolean).map((p) => `<p>${p}</p>`).join('\n            ');
+const liList = (items, lang, cls = 'v4-list') => `<ul class="${cls}">${(items || []).map((i) => `<li>${pick(i, lang)}</li>`).join('')}</ul>`;
+function collabCta(cta, lang, primary) {
+  const href = safeHref(pick(cta.href, lang) || cta.href);
+  return `<a class="v4-btn${primary ? ' v4-btn-primary' : ''}" href="${escapeAttr(href)}"${isExternal(href) ? ' target="_blank" rel="noopener noreferrer"' : ''}>${pick(cta.label, lang)}</a>`;
+}
+function collabGroups(groups, lang) {
+  return (groups || []).map((g) => {
+    let inner = '';
+    if (g.kind === 'list') inner = liList(g.items, lang);
+    else if (g.kind === 'spec') inner = `<dl class="v4-spec">${(g.rows || []).map((r) => `<dt>${pick(r.term, lang)}</dt><dd>${pick(r.def, lang)}</dd>`).join('')}</dl>`;
+    else inner = `<div class="v4-prose">${paras(g.prose, lang)}</div>`;
+    return `<h3 class="v4-h3">${pick(g.heading, lang)}</h3>\n            ${inner}`;
+  }).join('\n            ');
+}
+
 export const renderers = {
   heroCtas: (doc, lang, edit) =>
     doc.hero.ctas.map((c, i) => btn(c, lang, edit, 'hero.ctas.' + i, true)).join('\n          '),
@@ -272,5 +291,68 @@ export const renderers = {
             <div class="v4-softs">
               ${(sec.cards || []).map((c) => softCard(c, lang)).join('\n              ')}
             </div>`;
+  },
+
+  collabAbout: (doc, lang) => {
+    const s = doc.sections.about;
+    return `<div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose">
+            ${paras(s.prose, lang)}
+            ${liList(s.points, lang, 'v4-list v4-list--spaced')}
+            <p class="v4-collab-clients">${pick(s.clients, lang)}</p>
+          </div>
+        </div>`;
+  },
+
+  collabConsulting: (doc, lang) => {
+    const s = doc.sections.consulting;
+    return `<div class="v4-products">
+          ${(s.tiers || []).map((t) => `<article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">${pick(t.tag, lang)}</span>
+              <span class="v4-pricing">${pick(t.price, lang)}</span>
+            </div>
+            <h3 class="v4-product-name">${t.name}</h3>
+            ${liList(t.features, lang)}
+            ${collabCta(t.cta, lang, false)}
+          </article>`).join('\n          ')}
+        </div>`;
+  },
+
+  collabStrategy: (doc, lang) => {
+    const s = doc.sections.strategy;
+    return `<div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <p class="v4-tagline v4-tagline--compact">${pick(s.tagline, lang)}</p>
+            ${collabGroups(s.groups, lang)}
+            <p class="v4-terms">${pick(s.terms, lang)}</p>
+            <div class="v4-help-cta">${collabCta(s.cta, lang, false)}</div>
+          </div>
+        </div>`;
+  },
+
+  collabAngel: (doc, lang) => {
+    const s = doc.sections.angel;
+    return `<div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            ${collabGroups(s.groups, lang)}
+            <div class="v4-help-cta">${collabCta(s.cta, lang, true)}</div>
+          </div>
+        </div>`;
+  },
+
+  collabContact: (doc, lang) => {
+    const s = doc.sections.contact;
+    return `<div class="v4-contact">
+          <div>
+            <p class="v4-contact-note">${pick(s.note, lang)}</p>
+          </div>
+          <div class="v4-cta-row">
+            ${(s.ctas || []).map((c, i) => collabCta(c, lang, i === 0)).join('\n            ')}
+          </div>
+        </div>`;
   },
 };
