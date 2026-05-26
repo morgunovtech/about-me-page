@@ -8,7 +8,7 @@ const SHELL = `<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
 <title>Редактор — morgunov.tech</title>
-<link rel="stylesheet" href="/admin-app.css?v=11" />
+<link rel="stylesheet" href="/admin-app.css?v=22" />
 </head>
 <body>
   <header class="ed-bar">
@@ -23,23 +23,13 @@ const SHELL = `<!DOCTYPE html>
       </select>
       <span id="sync-note" class="ed-sync"></span>
     </div>
-    <div class="ed-bar-c">
-      <div class="ed-seg" id="lang-seg" role="group" aria-label="Язык">
-        <button type="button" data-lang="ru" class="on">RU</button>
-        <button type="button" data-lang="en">EN</button>
-      </div>
-      <div class="ed-seg" id="theme-seg" role="group" aria-label="Тема">
-        <button type="button" data-theme="light" class="on" aria-label="Светлая">☀</button>
-        <button type="button" data-theme="dark" aria-label="Тёмная">☾</button>
-      </div>
-      <span id="en-empty" class="ed-badge" hidden></span>
-    </div>
     <div class="ed-bar-r">
+      <span id="en-empty" class="ed-badge" hidden></span>
       <span id="status" class="ed-status">—</span>
+      <button id="btn-undo" type="button" title="Отменить (⌘Z)" disabled>↶</button>
+      <button id="btn-redo" type="button" title="Вернуть (⌘⇧Z)" disabled>↷</button>
+      <button id="btn-revert" type="button" title="Вернуться к последнему сохранению" disabled>Откатить</button>
       <button id="btn-settings" type="button">Настройки</button>
-      <button id="btn-translate-en" type="button">Перевести EN</button>
-      <button id="btn-export" type="button">Экспорт</button>
-      <label class="ed-import">Импорт<input id="file-import" type="file" accept="application/json,.json" hidden /></label>
       <button id="btn-save" class="primary" type="button">Сохранить</button>
       <a href="/admin/logout">Выйти</a>
     </div>
@@ -56,7 +46,7 @@ const SHELL = `<!DOCTYPE html>
     </div>
     <div class="ed-drawer-body" id="settings"></div>
   </aside>
-  <script src="/admin-app.js?v=11"></script>
+  <script src="/admin-app.js?v=22"></script>
 </body>
 </html>`;
 

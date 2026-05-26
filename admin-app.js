@@ -15,6 +15,15 @@
   let dirty = false;
   let frame = null;
   let fdoc = null;
+  const enStale = new Set();  // localized objs whose RU changed → re-translate EN on save
+  const enManual = new Set(); // localized objs whose EN was hand-edited → protected (sticky)
+  const THEMES = ['light', 'dark', 'auto', 'high-contrast'];
+  // Undo/redo + revert: full-doc snapshots (the doc is small; coarse but robust).
+  const clone = (o) => JSON.parse(JSON.stringify(o));
+  let savedSnapshot = null; // last-saved (or last-loaded) doc, for «Откатить»
+  let history = [];         // committed states; hIdx points at the current one
+  let hIdx = -1;
+  let histTimer = null;
 
   const $ = (s) => document.querySelector(s);
   const el = (tag, cls) => {
@@ -50,6 +59,54 @@
   function markDirty() {
     dirty = true;
     setStatus('Есть несохранённые изменения', 'dirty');
+    updateUndoUi(); // enable undo/revert immediately (snapshot itself is debounced)
+    clearTimeout(histTimer);
+    histTimer = setTimeout(pushHistory, 400); // coalesce a burst of edits into one undo step
+  }
+
+  // --- undo / redo / revert (Phase C) ---
+  function pushHistory() {
+    clearTimeout(histTimer);
+    if (!doc) return;
+    const snap = clone(doc);
+    if (hIdx >= 0 && JSON.stringify(history[hIdx]) === JSON.stringify(snap)) return;
+    history = history.slice(0, hIdx + 1);
+    history.push(snap);
+    hIdx = history.length - 1;
+    if (history.length > 60) { history.shift(); hIdx--; }
+    updateUndoUi();
+  }
+  function resetHistory() { history = doc ? [clone(doc)] : []; hIdx = history.length - 1; updateUndoUi(); }
+  function restoreState(state) {
+    doc = clone(state);
+    // The doc object tree is replaced, so reference-based EN tracking is now
+    // stale — clear it (a later edit re-tracks; nothing auto-translates blindly).
+    enStale.clear();
+    enManual.clear();
+    renderSettings();
+    renderPreview();
+    dirty = JSON.stringify(doc) !== JSON.stringify(savedSnapshot);
+    setStatus(dirty ? 'Есть несохранённые изменения' : 'Без изменений', dirty ? 'dirty' : 'ok');
+    updateUndoUi();
+  }
+  function undo() { flushPending(); pushHistory(); if (hIdx > 0) { hIdx--; restoreState(history[hIdx]); } }
+  function redo() { if (hIdx < history.length - 1) { hIdx++; restoreState(history[hIdx]); } }
+  function revertToSaved() {
+    if (!savedSnapshot) return;
+    if (dirty && !confirm('Отменить все несохранённые изменения и вернуться к сохранённому?')) return;
+    doc = clone(savedSnapshot);
+    enStale.clear(); enManual.clear();
+    renderSettings();
+    renderPreview();
+    dirty = false;
+    resetHistory();
+    setStatus('Откачено к сохранённому', 'ok');
+  }
+  function updateUndoUi() {
+    const u = $('#btn-undo'), r = $('#btn-redo'), rv = $('#btn-revert');
+    if (u) u.disabled = hIdx <= 0 && !dirty; // dirty = an un-snapshotted edit to undo
+    if (r) r.disabled = hIdx >= history.length - 1;
+    if (rv) rv.disabled = !dirty;
   }
 
   // --- preview + inline instrumentation ---
@@ -65,7 +122,7 @@
     [data-edit-item]{position:relative}
     [data-edit-item]:hover{outline:1px dotted var(--v4-line,#c9c5bd);outline-offset:4px}
     .cms-tools{position:absolute;top:-12px;right:0;display:none;gap:1px;z-index:50;background:var(--v4-paper,#f5f2ed);border:1px solid var(--v4-line,#c9c5bd);padding:2px;border-radius:3px;box-shadow:0 1px 6px rgba(0,0,0,.18)}
-    [data-edit-item]:hover>.cms-tools{display:flex}
+    .cms-tools.show{display:flex}
     .cms-tool{font:inherit;font-size:11px;line-height:1;padding:4px 7px;border:1px solid transparent;background:transparent;color:var(--v4-fg,#14110d);cursor:pointer;border-radius:2px;-webkit-user-select:none;user-select:none}
     .cms-tool:hover{border-color:var(--v4-orange,#d9531e);color:var(--v4-orange,#d9531e)}
     .cms-tool.is-off{opacity:.3;pointer-events:none}
@@ -82,15 +139,16 @@
     [data-cms-img]{cursor:pointer;outline:2px solid transparent;outline-offset:3px;transition:outline-color .12s}
     [data-cms-img]:hover{outline-color:var(--v4-orange,#d9531e)}
     /* floating leaf toolbar: bold/link (markdown) + AI (localized leaves) */
-    .cms-bar{position:fixed;top:8px;left:50%;transform:translateX(-50%);display:none;gap:4px;z-index:9999;background:var(--v4-fg,#14110d);padding:4px;border-radius:4px;box-shadow:0 2px 10px rgba(0,0,0,.28);align-items:center;flex-wrap:wrap;max-width:94vw}
+    .cms-bar{position:absolute;display:none;gap:4px;z-index:9999;background:var(--v4-fg,#14110d);padding:4px;border-radius:4px;box-shadow:0 2px 10px rgba(0,0,0,.28);align-items:center;width:max-content}
     .cms-bar.on{display:flex}
     .cms-bar.kind-text .cms-md-only{display:none}
     .cms-sep{width:1px;align-self:stretch;background:rgba(255,255,255,.22);margin:0 2px}
     .cms-bar.kind-text .cms-sep{display:none}
-    .cms-mdbtn{font:inherit;font-size:12px;font-weight:600;color:#fff;background:transparent;border:1px solid rgba(255,255,255,.3);padding:5px 11px;border-radius:3px;cursor:pointer;-webkit-user-select:none;user-select:none}
+    .cms-mdbtn{font:inherit;font-size:12px;font-weight:600;color:#fff;background:transparent;border:1px solid rgba(255,255,255,.3);padding:5px 10px;border-radius:3px;cursor:pointer;-webkit-user-select:none;user-select:none}
     .cms-mdbtn:hover{background:var(--v4-orange,#d9531e);border-color:var(--v4-orange,#d9531e);color:#14110d}
     .cms-mdbtn.cms-ai{font-weight:500;font-size:11px}
     .cms-bar:not(.has-href) .cms-href-only{display:none}
+    .cms-bar:not(.ml) .cms-ml-only{display:none}
     /* keep empty leaves clickable (e.g. a just-added list item) */
     [data-cms-text]:empty::before,[data-cms-md]:empty::before{content:"+ текст";color:var(--v4-dim,#6c6759);opacity:.55;cursor:text}
   `;
@@ -148,6 +206,15 @@
       const a = e.target.closest('a');
       if (a) e.preventDefault();
     }, true);
+    fdoc.addEventListener('keydown', handleHotkeys); // ⌘S / ⌘Z work inside the iframe too
+    // Show the toolbar for the deepest item under the cursor (so nested sub-lists
+    // don't surface both the row's and the parent list's toolbars at once).
+    fdoc.addEventListener('mouseover', (e) => {
+      const item = e.target.closest('[data-edit-item]');
+      const want = item ? item.querySelector(':scope > .cms-tools') : null;
+      fdoc.querySelectorAll('.cms-tools.show').forEach((t) => { if (t !== want) t.classList.remove('show'); });
+      if (want) want.classList.add('show');
+    });
     // Plaintext leaves (head hooks like <title>/meta are managed in the drawer).
     fdoc.body.querySelectorAll('[data-cms-text]').forEach(attachText);
     // Markdown leaves → inline WYSIWYG (bold/links/paragraphs).
@@ -159,6 +226,19 @@
     // List editing: per-item reorder/delete handles + per-list "+ add".
     fdoc.body.querySelectorAll('[data-edit-item]').forEach(addItemTools);
     fdoc.body.querySelectorAll('[data-edit-list]').forEach(addListTools);
+    // Reuse the site's own header controls (editor duplicates were removed):
+    // the language switcher switches the editing language; the theme icon cycles themes.
+    fdoc.querySelectorAll('.v4-lang-link').forEach((a) => a.addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      const to = a.textContent.trim().toLowerCase().startsWith('en') ? 'en' : 'ru';
+      if (to !== lang) { flushPending(); lang = to; renderSettings(); renderPreview(); }
+    }));
+    const themeBtn = fdoc.querySelector('.v4-icon-btn');
+    if (themeBtn) themeBtn.addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      theme = THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length];
+      fdoc.documentElement.setAttribute('data-theme', theme);
+    });
     updateEnEmpty();
   }
 
@@ -208,6 +288,7 @@
     const prev = parent && isLoc(parent[key]) ? (parent[key][lang] ?? '') : parent ? (parent[key] ?? '') : '';
     if (String(prev) === next) return; // blur/focus without an actual edit must not dirty
     setLeaf(path, next);
+    markEdited(parent[key], lang);
     markDirty();
     flagLeaf(node, path);
     updateEnEmpty();
@@ -310,17 +391,30 @@
     add.setAttribute('contenteditable', 'false');
     add.textContent = '+ добавить';
     add.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); addItem(arr); });
-    container.appendChild(add);
+    const tag = container.tagName.toLowerCase();
+    if (tag === 'ul' || tag === 'ol') {
+      const li = fdoc.createElement('li'); // valid markup inside a list
+      li.className = 'cms-add-li';
+      li.setAttribute('contenteditable', 'false');
+      li.appendChild(add);
+      container.appendChild(li);
+    } else {
+      container.appendChild(add);
+    }
   }
 
   // --- markdown leaves: light WYSIWYG (bold / links / paragraphs / lists) ---
   // Serialize edited HTML back to the markdown subset the site renders. NBSP is
   // preserved (only ASCII whitespace is collapsed) — the copy is full of "10 000".
+  // Injected editor controls that must never leak into serialized content.
+  const isEditorNode = (n) =>
+    n.nodeType === 1 && (n.classList.contains('cms-tools') || n.classList.contains('cms-add') || n.id === 'cms-bar');
   function serializeInline(node) {
     let out = '';
     node.childNodes.forEach((n) => {
       if (n.nodeType === 3) out += n.nodeValue;
       else if (n.nodeType === 1) {
+        if (isEditorNode(n)) return;
         const tag = n.tagName.toLowerCase();
         if (tag === 'b' || tag === 'strong') out += '**' + serializeInline(n).replace(/^[ \t\n\r]+|[ \t\n\r]+$/g, '') + '**';
         else if (tag === 'a') out += '[' + serializeInline(n) + '](' + (n.getAttribute('href') || '') + ')';
@@ -337,6 +431,7 @@
     root.childNodes.forEach((n) => {
       if (n.nodeType === 3) { const t = collapseWs(n.nodeValue); if (t) parts.push(t); }
       else if (n.nodeType === 1) {
+        if (isEditorNode(n)) return;
         const tag = n.tagName.toLowerCase();
         if (tag === 'ul' || tag === 'ol') {
           const items = [...n.children].filter((c) => c.tagName.toLowerCase() === 'li')
@@ -348,7 +443,7 @@
     return parts.join('\n\n');
   }
   // Floating toolbar shared by all editable leaves: bold/link for markdown,
-  // AI actions (RU→EN / Причесать / Вычитать) for any localized leaf.
+  // AI actions (RU→EN / Вычитать) for any localized leaf.
   let barLeaf = null, barPath = null, barKind = null;
   function ensureBar() {
     let bar = fdoc.getElementById('cms-bar');
@@ -371,20 +466,20 @@
     sep.className = 'cms-sep';
     bar.append(
       mk('B', 'Полужирный', () => fdoc.execCommand('bold'), 'cms-md-only'),
-      mk('↗', 'Ссылка (пусто — убрать)', () => {
+      mk('🔗', 'Ссылка в тексте (пусто — убрать)', () => {
         const u = prompt('URL ссылки (пусто — убрать):');
         if (u === null) return;
         if (u === '') fdoc.execCommand('unlink');
         else fdoc.execCommand('createLink', false, u);
       }, 'cms-md-only'),
+      mk('• список', 'Маркированный список', () => fdoc.execCommand('insertUnorderedList'), 'cms-ml-only'),
       sep,
       mk('RU→EN', 'Перевести это поле', aiTranslateLeaf, 'cms-ai'),
-      mk('Причесать', 'Типографика', aiTidyLeaf, 'cms-ai'),
-      mk('Вычитать', 'Проверить орфографию/пунктуацию', aiProofreadLeaf, 'cms-ai'),
-      mk('🔗 URL', 'Изменить ссылку', editHrefLeaf, 'cms-href-only')
+      mk('Вычитать', 'Орфография, пунктуация и типографика', aiProofreadLeaf, 'cms-ai'),
+      mk('🔗 ссылка', 'Изменить URL ссылки', editHrefLeaf, 'cms-href-only')
     );
     fdoc.body.appendChild(bar);
-    try { fdoc.execCommand('styleWithCSS', false, false); } catch (e) { /* ignore */ }
+    try { fdoc.execCommand('styleWithCSS', false, false); fdoc.execCommand('defaultParagraphSeparator', false, 'p'); } catch (e) { /* ignore */ }
     return bar;
   }
   // A label leaf (path ends in .label) usually has an .href sibling — that's how
@@ -398,7 +493,28 @@
   function showBar(node, path, kind) {
     barLeaf = node; barPath = path; barKind = kind;
     const hasHref = !!hrefSiblingOf(path);
-    ensureBar().className = 'cms-bar on' + (kind === 'text' ? ' kind-text' : '') + (hasHref ? ' has-href' : '');
+    const ml = kind === 'md' && node.tagName === 'DIV'; // prose block → paragraphs + bullets
+    const bar = ensureBar();
+    bar.className = 'cms-bar on' + (kind === 'text' ? ' kind-text' : '') + (hasHref ? ' has-href' : '') + (ml ? ' ml' : '');
+    positionBar(node);
+  }
+  // Float the bar just above the focused field (below it if there's no room),
+  // in document coords so it scrolls with the content.
+  function positionBar(node) {
+    const bar = fdoc.getElementById('cms-bar');
+    if (!bar) return;
+    // Synchronous: reading offsetHeight forces layout, so we measure the now-
+    // visible bar. (rAF is throttled when the preview tab isn't foregrounded.)
+    const r = node.getBoundingClientRect();
+    const w = fdoc.defaultView;
+    const bh = bar.offsetHeight || 36;
+    const above = r.top - bh - 8;
+    const top = (above > 4 ? above : r.bottom + 8) + w.scrollY;
+    let left = r.left + w.scrollX;
+    const maxLeft = w.scrollX + fdoc.documentElement.clientWidth - bar.offsetWidth - 8;
+    if (left > maxLeft) left = Math.max(8, maxLeft);
+    bar.style.top = top + 'px';
+    bar.style.left = left + 'px';
   }
   function hideBar() { const bar = fdoc.getElementById('cms-bar'); if (bar) bar.classList.remove('on'); }
   function editHrefLeaf() {
@@ -416,14 +532,16 @@
 
   function attachMd(node) {
     const path = node.getAttribute('data-cms-md');
-    const block = !!node.querySelector('p, ul, ol');
+    const multiline = node.tagName === 'DIV'; // prose block (ctx, About prose) → paragraphs + lists
     node.classList.add('cms-edit');
     node.setAttribute('contenteditable', 'true');
     node.addEventListener('focus', () => { node.classList.add('cms-focus'); showBar(node, path, 'md'); });
-    node.addEventListener('blur', () => { node.classList.remove('cms-focus'); hideBar(); commitMd(node, path, block); });
+    node.addEventListener('blur', () => { node.classList.remove('cms-focus'); hideBar(); commitMd(node, path, multiline); });
     node.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') node.blur();
-      else if (e.key === 'Enter' && !block) { e.preventDefault(); node.blur(); }
+      // single-line leaves: Enter commits. Prose blocks: Enter = new paragraph,
+      // Shift+Enter = soft <br> (both handled natively).
+      else if (e.key === 'Enter' && !multiline) { e.preventDefault(); node.blur(); }
     });
     flagLeaf(node, path);
   }
@@ -433,6 +551,7 @@
     const prev = parent && isLoc(parent[key]) ? (parent[key][lang] ?? '') : parent ? (parent[key] ?? '') : '';
     if (String(prev) === next) return;
     setLeaf(path, next);
+    markEdited(parent[key], lang);
     markDirty();
     flagLeaf(node, path);
     updateEnEmpty();
@@ -457,25 +576,13 @@
       if (!r.ok || res.error) return setStatus('Перевод: ' + (res.error || r.status), 'error');
       const en = res.translation || '';
       openSuggestion('RU→EN', en, ['Запишется в EN'], () => {
-        cur.en = en; markDirty(); updateEnEmpty();
+        cur.en = en; enStale.delete(cur); markDirty(); updateEnEmpty();
         if (lang === 'en') applyToLeaf(leaf, kind, en);
         setStatus('EN обновлён', 'ok');
       });
     } catch (e) { setStatus('Перевод: ошибка сети', 'error'); }
   }
-  function aiTidyLeaf() {
-    const path = barPath, leaf = barLeaf, kind = barKind;
-    if (!path) return;
-    const [parent, key] = parentOf(path);
-    const cur = parent && parent[key];
-    const val = isLoc(cur) ? (cur[lang] || '') : (cur || '');
-    if (!val.trim()) return setStatus('Пусто', 'error');
-    const tidied = typography(val, lang);
-    if (tidied === val) return setStatus('Уже причёсано', 'ok');
-    openSuggestion('Причесать · ' + lang.toUpperCase(), tidied, null, () => {
-      setLeaf(path, tidied); markDirty(); applyToLeaf(leaf, kind, tidied); setStatus('Применено', 'ok');
-    });
-  }
+  // Вычитать = proofread (AI) then deterministic typography — one button does both.
   async function aiProofreadLeaf() {
     const path = barPath, leaf = barLeaf, kind = barKind;
     if (!path) return;
@@ -488,9 +595,10 @@
       const r = await fetch(API + '/proofread', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ text: val, lang }) });
       const res = await r.json().catch(() => ({}));
       if (!r.ok || res.error) return setStatus('Вычитка: ' + (res.error || r.status), 'error');
-      if ((res.corrected || '') === val) return setStatus('Без правок', 'ok');
-      openSuggestion('Вычитать · ' + lang.toUpperCase(), res.corrected, res.notes && res.notes.length ? res.notes : null, () => {
-        setLeaf(path, res.corrected); markDirty(); applyToLeaf(leaf, kind, res.corrected); setStatus('Применено', 'ok');
+      const fixed = typography(res.corrected != null ? res.corrected : val, lang);
+      if (fixed === val) return setStatus('Без правок', 'ok');
+      openSuggestion('Вычитать · ' + lang.toUpperCase(), fixed, res.notes && res.notes.length ? res.notes : null, () => {
+        setLeaf(path, fixed); markEdited(cur, lang); markDirty(); applyToLeaf(leaf, kind, fixed); setStatus('Применено', 'ok');
       });
     } catch (e) { setStatus('Вычитка: ошибка сети', 'error'); }
   }
@@ -526,6 +634,7 @@
   function attachHtmlBlock(node) {
     const path = node.getAttribute('data-cms-html');
     node.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); openSourceModal(path, 'html'); });
+    attachHtmlImages(node, path); // embedded images become click-to-upload
   }
   function openSourceModal(path, kind) {
     const [parent, key] = parentOf(path);
@@ -579,67 +688,103 @@
     }
     return null;
   }
-  function attachImage(node) {
-    node.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); openImageEditor(node); });
-  }
-  function openImageEditor(node) {
-    const path = node.getAttribute('data-cms-img');
-    const folder = path === 'hero.portrait' ? 'avatar' : 'media';
-    let chosen = resolve(path) || '';
+  // Generic image picker modal. opts: {title, current, folder, altNode?, onApply(path), onRemove?}
+  function openImagePicker(opts) {
     closeModal();
+    let chosen = opts.current || '';
     const scrim = el('div', 'ed-modal-scrim');
     scrim.id = 'ed-modal-scrim';
     const box = el('div', 'ed-modal');
-    box.append(Object.assign(el('div', 'ed-modal-head'), { textContent: 'Изображение · ' + path }));
+    box.append(Object.assign(el('div', 'ed-modal-head'), { textContent: opts.title }));
     const body = el('div', 'ed-modal-imgbody');
     const img = el('img', 'ed-img-preview');
     const setPrev = (src) => { if (src) { img.src = src; img.hidden = false; } else img.hidden = true; };
-    setPrev(chosen || node.getAttribute('src') || '');
+    setPrev(chosen);
     const drop = el('div', 'ed-img-drop');
     drop.textContent = 'Перетащите картинку сюда или нажмите, чтобы выбрать';
     const file = el('input');
     file.type = 'file';
     file.accept = 'image/*';
     file.hidden = true;
-    const onFile = async (f) => { const p = await doUpload(f, folder); if (p) { chosen = p; setPrev(p); } };
+    const onFile = async (f) => { const p = await doUpload(f, opts.folder); if (p) { chosen = p; setPrev(p); } };
     drop.addEventListener('click', () => file.click());
     file.addEventListener('change', () => { if (file.files[0]) onFile(file.files[0]); file.value = ''; });
     drop.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.add('drag'); });
     drop.addEventListener('dragleave', () => drop.classList.remove('drag'));
     drop.addEventListener('drop', (e) => { e.preventDefault(); drop.classList.remove('drag'); if (e.dataTransfer.files[0]) onFile(e.dataTransfer.files[0]); });
     body.append(img, drop, file);
-    // alt text (accessibility) for the current language, if the doc has one
-    const altPath = path === 'hero.portrait' ? 'hero.portraitAlt' : null;
-    if (altPath) {
-      const [ap, ak] = parentOf(altPath);
-      const altNode = ap && ap[ak];
-      if (isLoc(altNode)) {
-        const wrap = el('div', 'ed-field');
-        wrap.append(Object.assign(el('div', 'ed-field-label'), { textContent: 'Alt · ' + lang.toUpperCase() }));
-        const inp = el('input', 'ed-input');
-        inp.type = 'text';
-        inp.value = altNode[lang] || '';
-        inp.addEventListener('input', () => { altNode[lang] = inp.value; markDirty(); });
-        wrap.append(inp);
-        body.append(wrap);
-      }
+    if (opts.altNode && isLoc(opts.altNode)) {
+      const wrap = el('div', 'ed-field');
+      wrap.append(Object.assign(el('div', 'ed-field-label'), { textContent: 'Alt · ' + lang.toUpperCase() }));
+      const inp = el('input', 'ed-input');
+      inp.type = 'text';
+      inp.value = opts.altNode[lang] || '';
+      inp.addEventListener('input', () => { opts.altNode[lang] = inp.value; markDirty(); });
+      wrap.append(inp);
+      body.append(wrap);
     }
     box.append(body);
     const ctrls = el('div', 'ed-modal-ctrls');
     const apply = el('button', 'primary');
     apply.textContent = 'Применить';
-    apply.addEventListener('click', () => { setLeaf(path, chosen); markDirty(); closeModal(); renderPreview(); });
-    const remove = el('button');
-    remove.textContent = 'Убрать';
-    remove.addEventListener('click', () => { setLeaf(path, ''); markDirty(); closeModal(); renderPreview(); });
+    apply.addEventListener('click', () => { opts.onApply(chosen); closeModal(); });
+    ctrls.append(apply);
+    if (opts.onRemove) {
+      const rm = el('button');
+      rm.textContent = 'Убрать';
+      rm.addEventListener('click', () => { opts.onRemove(); closeModal(); });
+      ctrls.append(rm);
+    }
     const cancel = el('button');
     cancel.textContent = 'Отмена';
     cancel.addEventListener('click', closeModal);
-    ctrls.append(apply, remove, cancel);
+    ctrls.append(cancel);
     box.append(ctrls);
     scrim.append(box);
     document.body.append(scrim);
     scrim.addEventListener('click', (e) => { if (e.target === scrim) closeModal(); });
+  }
+  function attachImage(node) {
+    const path = node.getAttribute('data-cms-img');
+    node.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const [ap, ak] = parentOf(path === 'hero.portrait' ? 'hero.portraitAlt' : '');
+      openImagePicker({
+        title: 'Изображение · ' + path,
+        current: resolve(path) || node.getAttribute('src') || '',
+        folder: path === 'hero.portrait' ? 'avatar' : 'media',
+        altNode: path === 'hero.portrait' ? ap && ap[ak] : null,
+        onApply: (p) => { setLeaf(path, p); markDirty(); renderPreview(); },
+        onRemove: () => { setLeaf(path, ''); markDirty(); renderPreview(); },
+      });
+    });
+  }
+  // Images inside verbatim-HTML blocks (e.g. /uses gear cards): click to upload,
+  // swapping the src in the stored HTML string (targeted, format-preserving).
+  function attachHtmlImages(block, htmlPath) {
+    block.querySelectorAll('img').forEach((img) => {
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const oldSrc = img.getAttribute('src') || '';
+        openImagePicker({
+          title: 'Картинка в блоке',
+          current: oldSrc,
+          folder: 'uses',
+          onApply: (p) => {
+            if (!p || p === oldSrc) return;
+            const [parent, key] = parentOf(htmlPath);
+            const swap = (s) => String(s).replace('src="' + oldSrc + '"', 'src="' + p + '"');
+            if (parent && isLoc(parent[key])) parent[key][lang] = swap(parent[key][lang]);
+            else if (parent) parent[key] = swap(parent[key]);
+            img.src = p;
+            markDirty();
+          },
+        });
+      });
+    });
   }
 
   // --- load / save ---
@@ -650,6 +795,10 @@
       if (!r.ok) throw new Error('HTTP ' + r.status);
       doc = await r.json();
       dirty = false;
+      enStale.clear();
+      enManual.clear();
+      savedSnapshot = clone(doc);
+      resetHistory();
       renderSettings();
       await renderPreview();
       setStatus('Загружено', 'ok');
@@ -661,6 +810,7 @@
   async function save() {
     if (!doc) return;
     flushPending();
+    const synced = await syncStaleEn(); // re-translate changed RU → EN before persisting
     setStatus('Сохранение…', 'saving');
     try {
       const r = await fetch(API + '/save', {
@@ -673,39 +823,17 @@
         doc.rev = res.rev;
         doc.updatedAt = res.updatedAt;
         dirty = false;
-        setStatus('Сохранено ✓ (rev ' + res.rev + ')', 'ok');
+        savedSnapshot = clone(doc);
+        updateUndoUi();
+        setStatus('Сохранено ✓ (rev ' + res.rev + ')' + (synced ? ' · EN +' + synced : ''), 'ok');
         renderSettings();
+        if (synced) renderPreview(); // surface the freshly-translated EN
       } else {
         setStatus('Ошибка: ' + (res.error || r.status), 'error');
       }
     } catch (e) {
       setStatus('Ошибка сети: ' + e.message, 'error');
     }
-  }
-
-  // --- export / import ---
-  function exportJson() {
-    const blob = new Blob([JSON.stringify(doc, null, 2)], { type: 'application/json' });
-    const a = el('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = page + '.json';
-    a.click();
-    URL.revokeObjectURL(a.href);
-  }
-  function importJson(file) {
-    const fr = new FileReader();
-    fr.onload = () => {
-      try {
-        doc = JSON.parse(fr.result);
-        renderSettings();
-        renderPreview();
-        markDirty();
-        setStatus('Импортировано (не сохранено)', 'dirty');
-      } catch (e) {
-        setStatus('Импорт: неверный JSON', 'error');
-      }
-    };
-    fr.readAsText(file);
   }
 
   // --- settings drawer: generic form engine for the non-inline fields
@@ -763,19 +891,9 @@
       const res = await r.json().catch(() => ({}));
       if (!r.ok || res.error) return setStatus('Перевод: ' + (res.error || r.status), 'error');
       const en = res.translation || '';
-      if (!String(value.en || '').trim()) { applyVal('en', en, inputs, rows, value); setStatus('Переведено', 'ok'); }
-      else { suggestBox(rows.en, en, (v) => applyVal('en', v, inputs, rows, value), ['EN уже заполнен — заменить?']); setStatus('Перевод готов — подтвердите', 'dirty'); }
+      if (!String(value.en || '').trim()) { applyVal('en', en, inputs, rows, value); enStale.delete(value); setStatus('Переведено', 'ok'); }
+      else { suggestBox(rows.en, en, (v) => { applyVal('en', v, inputs, rows, value); enStale.delete(value); }, ['EN уже заполнен — заменить?']); setStatus('Перевод готов — подтвердите', 'dirty'); }
     } catch (e) { setStatus('Перевод: ошибка сети', 'error'); }
-  }
-  function tidyField(value, inputs, rows) {
-    let any = false;
-    for (const L of LANGS) {
-      const cur = value[L] || '';
-      if (!cur.trim()) continue;
-      const tidied = typography(cur, L);
-      if (tidied !== cur) { any = true; suggestBox(rows[L], tidied, (v) => applyVal(L, v, inputs, rows, value), ['Типографика ' + L.toUpperCase()]); }
-    }
-    setStatus(any ? 'Проверьте типографику' : 'Уже причёсано', any ? 'dirty' : 'ok');
   }
   async function proofreadField(value, inputs, rows) {
     let did = false;
@@ -788,7 +906,8 @@
         const r = await fetch(API + '/proofread', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ text: cur, lang: L }) });
         const res = await r.json().catch(() => ({}));
         if (!r.ok || res.error) { setStatus('Вычитка: ' + (res.error || r.status), 'error'); continue; }
-        if ((res.corrected || '') !== cur) { suggestBox(rows[L], res.corrected, (v) => applyVal(L, v, inputs, rows, value), res.notes && res.notes.length ? res.notes : ['Правки ' + L.toUpperCase()]); setStatus('Вычитка готова — проверьте', 'dirty'); }
+        const fixed = typography(res.corrected != null ? res.corrected : cur, L); // proofread + typography
+        if (fixed !== cur) { suggestBox(rows[L], fixed, (v) => { applyVal(L, v, inputs, rows, value); markEdited(value, L); }, res.notes && res.notes.length ? res.notes : ['Правки ' + L.toUpperCase()]); setStatus('Вычитка готова — проверьте', 'dirty'); }
         else setStatus('Вычитка ' + L.toUpperCase() + ': без правок', 'ok');
       } catch (e) { setStatus('Вычитка: ошибка сети', 'error'); }
     }
@@ -820,13 +939,13 @@
       const inp = multi ? el('textarea', 'f-input') : el('input', 'f-input');
       if (!multi) inp.type = 'text';
       inp.value = value[L] || '';
-      inp.addEventListener('input', () => { value[L] = inp.value; flagEmpty(rows.en, value); markDirty(); updateEnEmpty(); });
+      inp.addEventListener('input', () => { value[L] = inp.value; markEdited(value, L); flagEmpty(rows.en, value); markDirty(); updateEnEmpty(); });
       row.append(inp); box.append(row);
       inputs[L] = inp; rows[L] = row;
       if (L === 'en') flagEmpty(row, value);
     }
     const tools = el('div', 'f-loc-tools');
-    tools.append(aiBtn('RU→EN', () => translateField(value, inputs, rows)), aiBtn('Причесать', () => tidyField(value, inputs, rows)), aiBtn('Вычитать', () => proofreadField(value, inputs, rows)));
+    tools.append(aiBtn('RU→EN', () => translateField(value, inputs, rows)), aiBtn('Вычитать', () => proofreadField(value, inputs, rows)));
     box.append(tools);
     return box;
   }
@@ -981,29 +1100,81 @@
     box.append(Object.assign(el('p', 'ed-drawer-meta'), {
       textContent: 'rev ' + (doc.rev ?? '—') + (doc.updatedAt ? ' · ' + new Date(doc.updatedAt).toLocaleString('ru-RU') : ''),
     }));
+    box.append(renderHistorySection());
     updateEnEmpty();
   }
-  // Translate every empty-EN localized field (skips images).
-  function collectEmptyEn(node, acc, key) {
-    if (IMAGE_KEYS.has(key)) return;
-    if (isLoc(node)) { if (String(node.ru || '').trim() && !String(node.en || '').trim()) acc.push(node); return; }
-    if (Array.isArray(node)) node.forEach((n) => collectEmptyEn(n, acc, key));
-    else if (node && typeof node === 'object') for (const k in node) collectEmptyEn(node[k], acc, k);
-  }
-  async function translateAllEmptyEn() {
-    const acc = []; collectEmptyEn(doc, acc, '');
-    if (!acc.length) return setStatus('Пустых EN нет', 'ok');
-    setStatus('Перевод ' + acc.length + ' полей…', 'saving');
-    let done = 0;
-    for (const node of acc) {
+  // Version history — lazy-loaded when the section is first expanded.
+  function renderHistorySection() {
+    const d = el('details', 'f-group');
+    d.append(Object.assign(el('summary'), { textContent: 'История версий' }));
+    const body = el('div', 'f-group-body');
+    body.textContent = 'Загрузка…';
+    d.append(body);
+    let loaded = false;
+    d.addEventListener('toggle', async () => {
+      if (!d.open || loaded) return;
+      loaded = true;
       try {
-        const r = await fetch(API + '/translate', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ text: node.ru }) });
-        const res = await r.json().catch(() => ({}));
-        if (r.ok && res.translation != null && !res.error) { node.en = res.translation; done++; }
-      } catch (e) { /* continue */ }
+        const data = await fetch(API + '/history?page=' + encodeURIComponent(page)).then((r) => r.json());
+        const revs = data.revisions || [];
+        body.textContent = '';
+        if (!revs.length) { body.textContent = 'Пока нет сохранённых версий.'; return; }
+        revs.forEach((rv) => {
+          const row = el('div', 'ed-rev-row');
+          row.append(Object.assign(el('span', 'ed-rev-meta'), {
+            textContent: 'rev ' + rv.rev + ' · ' + (rv.updatedAt ? new Date(rv.updatedAt).toLocaleString('ru-RU') : ''),
+          }));
+          row.append(ctrlBtn('Загрузить', () => loadRevision(rv.rev)));
+          body.append(row);
+        });
+      } catch (e) {
+        body.textContent = 'Ошибка загрузки истории';
+      }
+    });
+    return d;
+  }
+  async function loadRevision(rev) {
+    if (dirty && !confirm('Несохранённые изменения пропадут. Загрузить версию rev ' + rev + '?')) return;
+    setStatus('Загрузка версии…', 'saving');
+    try {
+      const data = await fetch(API + '/history?page=' + encodeURIComponent(page) + '&rev=' + rev).then((r) => r.json());
+      if (!data.doc) return setStatus('Версия не найдена', 'error');
+      doc = data.doc;
+      enStale.clear();
+      enManual.clear();
+      dirty = true; // loaded an old version; unsaved until the user saves it
+      resetHistory();
+      renderSettings();
+      renderPreview();
+      setStatus('Загружена версия rev ' + rev + ' — проверьте и сохраните', 'dirty');
+    } catch (e) {
+      setStatus('Ошибка загрузки версии', 'error');
     }
-    renderSettings(); markDirty(); renderPreview();
-    setStatus('Переведено полей: ' + done + '/' + acc.length, done ? 'ok' : 'error');
+  }
+  // --- Phase B: EN auto-sync on Save ---
+  // A localized value-object enters `enStale` when its RU is edited, and
+  // `enManual` when its EN is hand-edited (sticky → protected from auto-translate;
+  // the per-field RU→EN button is the escape hatch). On Save, stale-and-not-manual
+  // fields get re-translated RU→EN before persisting.
+  function markEdited(obj, L) {
+    if (!isLoc(obj)) return;
+    if (L === 'ru') enStale.add(obj);
+    else if (L === 'en') { enManual.add(obj); enStale.delete(obj); }
+  }
+  async function syncStaleEn() {
+    const targets = [...enStale].filter((o) => isLoc(o) && !enManual.has(o) && String(o.ru || '').trim());
+    enStale.clear();
+    if (!targets.length) return 0;
+    setStatus('Синхронизация EN (' + targets.length + ')…', 'saving');
+    let done = 0;
+    for (const o of targets) {
+      try {
+        const r = await fetch(API + '/translate', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ text: o.ru }) });
+        const res = await r.json().catch(() => ({}));
+        if (r.ok && res.translation != null && !res.error) { o.en = res.translation; done++; }
+      } catch (e) { /* keep saving even if a translate call fails */ }
+    }
+    return done;
   }
   function toggleDrawer(open) {
     const d = $('#drawer'), s = $('#scrim');
@@ -1031,21 +1202,23 @@
     }
   }
 
-  function setSeg(segId, key, val) {
-    [...$('#' + segId).children].forEach((c) => c.classList.toggle('on', c.dataset[key] === val));
+  // Shared so the shortcuts work whether focus is in the editor chrome or the
+  // iframe (each document fires keydown in its own context).
+  function handleHotkeys(e) {
+    const k = e.key.toLowerCase();
+    if ((e.metaKey || e.ctrlKey) && k === 's') { e.preventDefault(); save(); }
+    else if ((e.metaKey || e.ctrlKey) && k === 'z') { e.preventDefault(); if (e.shiftKey) redo(); else undo(); }
+    else if (e.key === 'Escape') { if ($('#ed-modal-scrim')) closeModal(); else if (!$('#drawer').hidden) toggleDrawer(false); }
   }
 
   function init() {
     $('#btn-save').addEventListener('click', save);
-    $('#btn-export').addEventListener('click', exportJson);
-    $('#file-import').addEventListener('change', (e) => {
-      if (e.target.files[0]) importJson(e.target.files[0]);
-      e.target.value = '';
-    });
     $('#btn-settings').addEventListener('click', () => toggleDrawer());
+    $('#btn-undo').addEventListener('click', undo);
+    $('#btn-redo').addEventListener('click', redo);
+    $('#btn-revert').addEventListener('click', revertToSaved);
     $('#drawer-close').addEventListener('click', () => toggleDrawer(false));
     $('#scrim').addEventListener('click', () => toggleDrawer(false));
-    $('#btn-translate-en').addEventListener('click', translateAllEmptyEn);
     $('#page-select').addEventListener('change', (e) => {
       if (dirty && !confirm('Несохранённые изменения пропадут. Сменить страницу?')) {
         e.target.value = page;
@@ -1054,31 +1227,7 @@
       page = e.target.value;
       load();
     });
-    $('#lang-seg').addEventListener('click', (e) => {
-      const b = e.target.closest('button');
-      if (!b) return;
-      flushPending();
-      lang = b.dataset.lang;
-      setSeg('lang-seg', 'lang', lang);
-      renderSettings();
-      renderPreview();
-    });
-    $('#theme-seg').addEventListener('click', (e) => {
-      const b = e.target.closest('button');
-      if (!b) return;
-      theme = b.dataset.theme;
-      setSeg('theme-seg', 'theme', theme);
-      if (fdoc) fdoc.documentElement.setAttribute('data-theme', theme);
-    });
-    document.addEventListener('keydown', (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') {
-        e.preventDefault();
-        save();
-      } else if (e.key === 'Escape') {
-        if ($('#ed-modal-scrim')) closeModal();
-        else if (!$('#drawer').hidden) toggleDrawer(false);
-      }
-    });
+    document.addEventListener('keydown', handleHotkeys);
     window.addEventListener('beforeunload', (e) => {
       if (dirty) { e.preventDefault(); e.returnValue = ''; }
     });
