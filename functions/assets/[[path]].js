@@ -12,5 +12,10 @@ export async function onRequestGet({ params, env }) {
   if (!headers.has('cache-control')) {
     headers.set('cache-control', 'public, max-age=31536000, immutable');
   }
+  // Defang user-uploaded assets: don't let a content-type be sniffed, and run
+  // them in a locked-down context so e.g. an uploaded SVG can't execute inline
+  // scripts on this origin when opened directly.
+  headers.set('X-Content-Type-Options', 'nosniff');
+  headers.set('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; sandbox");
   return new Response(obj.body, { headers });
 }
