@@ -151,6 +151,8 @@
     .cms-bar:not(.ml) .cms-ml-only{display:none}
     .cms-mdbtn.cms-em{font-style:italic;font-weight:400}
     .cms-bar.kind-body .cms-ai,.cms-bar.kind-body .cms-href-only{display:none}
+    .cms-body-only{display:none}
+    .cms-bar.kind-body .cms-body-only{display:inline-block}
     /* keep empty leaves clickable (e.g. a just-added list item) */
     [data-cms-text]:empty::before,[data-cms-md]:empty::before{content:"+ текст";color:var(--v4-dim,#6c6759);opacity:.55;cursor:text}
   `;
@@ -491,6 +493,13 @@
         else fdoc.execCommand('createLink', false, u);
       }, 'cms-md-only'),
       mk('• список', 'Маркированный список', () => fdoc.execCommand('insertUnorderedList'), 'cms-ml-only'),
+      // Block tools — only for the article body (kind-body).
+      mk('H2', 'Заголовок', () => fdoc.execCommand('formatBlock', false, 'h2'), 'cms-body-only'),
+      mk('H3', 'Подзаголовок', () => fdoc.execCommand('formatBlock', false, 'h3'), 'cms-body-only'),
+      mk('❝', 'Цитата', () => fdoc.execCommand('formatBlock', false, 'blockquote'), 'cms-body-only'),
+      mk('¶', 'Обычный абзац', () => fdoc.execCommand('formatBlock', false, 'p'), 'cms-body-only'),
+      mk('🖼', 'Вставить картинку', insertBodyImage, 'cms-body-only'),
+      mk('─', 'Разделитель', () => fdoc.execCommand('insertHorizontalRule'), 'cms-body-only'),
       sep,
       mk('RU→EN', 'Перевести это поле', aiTranslateLeaf, 'cms-ai'),
       mk('Вычитать', 'Орфография, пунктуация и типографика', aiProofreadLeaf, 'cms-ai'),
@@ -686,6 +695,28 @@
     node.addEventListener('blur', () => { node.classList.remove('cms-focus'); hideBar(); commitBody(node); });
     node.addEventListener('keydown', (e) => { if (e.key === 'Escape') node.blur(); });
     attachHtmlImages(node, 'body'); // click an embedded image to replace it
+  }
+  // Upload an image and insert it at the caret inside the article body.
+  function insertBodyImage() {
+    const bodyNode = barLeaf;
+    if (!bodyNode) return;
+    const sel = fdoc.getSelection();
+    const range = sel && sel.rangeCount ? sel.getRangeAt(0).cloneRange() : null;
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.addEventListener('change', async () => {
+      const f = inp.files && inp.files[0];
+      if (!f) return;
+      const path = await doUpload(f, 'notes');
+      if (!path) return;
+      const img = fdoc.createElement('img');
+      img.src = path; img.setAttribute('loading', 'lazy');
+      if (range && bodyNode.contains(range.startContainer)) { range.collapse(false); range.insertNode(img); }
+      else bodyNode.appendChild(img);
+      attachHtmlImages(bodyNode, 'body'); // make the new image click-to-replace too
+      commitBody(bodyNode);
+    });
+    inp.click();
   }
   function openSourceModal(path, kind) {
     const [parent, key] = parentOf(path);
