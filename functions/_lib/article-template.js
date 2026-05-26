@@ -98,8 +98,12 @@ const T = {
   },
 };
 
-const STYLES_VER = 'v=4ce67545';
+const STYLES_VER = 'v=c5f3cb04';
 const SCRIPT_VER = 'v=81fe9712';
+const FONTS_VER = 'v=64eea157';
+const TOKENS_VER = 'v=cd042bb5';
+const BASE_VER = 'v=9d706307';
+const COMPONENTS_VER = 'v=bf9d4ba5';
 
 export function articleShell(lang) {
   const t = T[lang] || T.ru;
@@ -142,6 +146,11 @@ export function articleShell(lang) {
   <style>${CRITICAL_CSS}</style>
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-${lang === 'en' ? 'latin' : 'cyr'}-400.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-${lang === 'en' ? 'latin' : 'cyr'}-600.woff2" crossorigin />
+  <link rel="preload" href="/ds/v1/fonts.css?${FONTS_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/tokens.css?${TOKENS_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/base.css?${BASE_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/components.css?${COMPONENTS_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?${FONTS_VER}" /><link rel="stylesheet" href="/ds/v1/tokens.css?${TOKENS_VER}" /><link rel="stylesheet" href="/ds/v1/base.css?${BASE_VER}" /><link rel="stylesheet" href="/ds/v1/components.css?${COMPONENTS_VER}" /></noscript>
   <link rel="preload" href="/styles.css?${STYLES_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="/styles.css?${STYLES_VER}" /></noscript>
   <script>${THEME_SCRIPT}</script>
@@ -241,6 +250,11 @@ export function notesIndexHtml(lang, listHtml, jsonLd) {
   <style>${CRITICAL_CSS}</style>
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-${lang === 'en' ? 'latin' : 'cyr'}-400.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-${lang === 'en' ? 'latin' : 'cyr'}-600.woff2" crossorigin />
+  <link rel="preload" href="/ds/v1/fonts.css?${FONTS_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/tokens.css?${TOKENS_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/base.css?${BASE_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/components.css?${COMPONENTS_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?${FONTS_VER}" /><link rel="stylesheet" href="/ds/v1/tokens.css?${TOKENS_VER}" /><link rel="stylesheet" href="/ds/v1/base.css?${BASE_VER}" /><link rel="stylesheet" href="/ds/v1/components.css?${COMPONENTS_VER}" /></noscript>
   <link rel="preload" href="/styles.css?${STYLES_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="/styles.css?${STYLES_VER}" /></noscript>
   <script>${THEME_SCRIPT}</script>

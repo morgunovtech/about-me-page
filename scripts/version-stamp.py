@@ -51,6 +51,10 @@ HTML_FILES = [
 ASSETS = [
     ("styles.css", re.compile(r'(/styles\.css\?v=)[0-9a-fA-F]+')),
     ("script.js",  re.compile(r'(/script\.js\?v=)[0-9a-fA-F]+')),
+    ("ds/v1/fonts.css",  re.compile(r'(/ds/v1/fonts\.css\?v=)[0-9a-fA-F]+')),
+    ("ds/v1/tokens.css", re.compile(r'(/ds/v1/tokens\.css\?v=)[0-9a-fA-F]+')),
+    ("ds/v1/base.css",   re.compile(r'(/ds/v1/base\.css\?v=)[0-9a-fA-F]+')),
+    ("ds/v1/components.css", re.compile(r'(/ds/v1/components\.css\?v=)[0-9a-fA-F]+')),
 ]
 IMAGE_GLOBS = ["images/uses/*.webp"]
 # Matches any /images/uses/<name>.webp?v=<hash> reference. The filename
@@ -147,6 +151,13 @@ def main() -> int:
         if asset_hashes.get("script.js"):
             text, k = re.subn(r"(SCRIPT_VER = 'v=)[0-9a-fA-F]+(')", rf"\g<1>{asset_hashes['script.js']}\g<2>", text)
             n += k
+        for const, asset in (("FONTS_VER", "ds/v1/fonts.css"),
+                             ("TOKENS_VER", "ds/v1/tokens.css"),
+                             ("BASE_VER", "ds/v1/base.css"),
+                             ("COMPONENTS_VER", "ds/v1/components.css")):
+            if asset_hashes.get(asset):
+                text, k = re.subn(rf"({const} = 'v=)[0-9a-fA-F]+(')", rf"\g<1>{asset_hashes[asset]}\g<2>", text)
+                n += k
         if n:
             tmpl.write_text(text, encoding="utf-8")
             print(f"  STAMPED functions/_lib/article-template.js (assets:{n})")
