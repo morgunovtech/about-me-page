@@ -21,10 +21,17 @@ body {
   margin: 0;
   background: var(--v4-bg);
   color: var(--v4-fg);
-  transition: background 0.3s ease, color 0.3s ease;
+  /* 0.2s matches .v4-root and the paper surfaces — the theme switch reads
+     as one synchronous fade instead of staggered layers. */
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-body.no-transition {
+/* Suppress transitions until first paint — the theme attribute is applied
+   before stylesheets arrive, and async-loaded CSS would otherwise animate
+   every themed surface from its unstyled state on each load. Covers
+   descendants too, not just body. */
+body.no-transition,
+body.no-transition * {
   transition: none !important;
 }
 

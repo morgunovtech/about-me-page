@@ -42,13 +42,13 @@
 
 ## Collaboration
 
-- [Consulting](https://s.morgunov.tech/collaborate.html) — single sessions or monthly cycle covering product, marketing, and strategy
-- [Strategic consulting](https://s.morgunov.tech/collaborate.html#strategy) — long-term retainer; works as external strategist or advisory board member
-- [Angel investing](https://s.morgunov.tech/collaborate.html#angel) — pre-seed/seed; sectors: RetailTech, e-com, FinTech, EdTech; markets: CIS, MENA, Eastern Europe
+- [Consulting](https://s.morgunov.tech/collaborate) — single sessions or monthly cycle covering product, marketing, and strategy
+- [Strategic consulting](https://s.morgunov.tech/collaborate#strategy) — long-term retainer; works as external strategist or advisory board member
+- [Angel investing](https://s.morgunov.tech/collaborate#angel) — pre-seed/seed; sectors: RetailTech, e-com, FinTech, EdTech; markets: CIS, MENA, Eastern Europe
 
 ## Publications
 
-- [How low-cost airlines make money](https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 75,000+ views
+- [How low-cost airlines make money](https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 82,600+ views
 - [How discount grocery stores make money](https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru
 - [Lessons from 3 years of personal finance management](https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami) — vc.ru
 - [Critical review of brainbox.vc crowd-investing platform](https://youtu.be/OJXtFmWNZMM) — YouTube
@@ -68,12 +68,12 @@ Hardware in daily rotation:
 
 - Russian homepage: https://s.morgunov.tech/
 - English homepage: https://s.morgunov.tech/en/
-- Collaboration (RU): https://s.morgunov.tech/collaborate.html
-- Collaboration (EN): https://s.morgunov.tech/en/collaborate.html
-- Uses / Stack (RU): https://s.morgunov.tech/uses.html
-- Uses / Stack (EN): https://s.morgunov.tech/en/uses.html
-- Principles / about the site (RU): https://s.morgunov.tech/about.html
-- Principles / about the site (EN): https://s.morgunov.tech/en/about.html
+- Collaboration (RU): https://s.morgunov.tech/collaborate
+- Collaboration (EN): https://s.morgunov.tech/en/collaborate
+- Uses / Stack (RU): https://s.morgunov.tech/uses
+- Uses / Stack (EN): https://s.morgunov.tech/en/uses
+- Principles / about the site (RU): https://s.morgunov.tech/about
+- Principles / about the site (EN): https://s.morgunov.tech/en/about
 
 ## Key facts
 

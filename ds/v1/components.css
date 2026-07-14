@@ -90,7 +90,8 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 500;
-  padding: 8px 6px;
+  /* 11px vertical padding → ~37px tap target (was ~33px). */
+  padding: 11px 8px;
   border-bottom: 1px solid transparent;
   transition: color 0.15s ease, border-color 0.15s ease;
 }
@@ -174,6 +175,7 @@
   padding: 6px;
   min-width: 170px;
   z-index: 50;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .v4-theme.is-open .v4-theme-menu {
@@ -184,7 +186,7 @@
   background: transparent;
   border: 1px solid transparent;
   color: var(--v4-fg);
-  padding: 8px 10px;
+  padding: 10px 10px;
   font-size: 11px;
   font-weight: 500;
   text-transform: uppercase;
@@ -201,7 +203,7 @@
   color: var(--v4-orange-text);
 }
 
-.v4-theme-btn[aria-pressed="true"] {
+.v4-theme-btn[aria-checked="true"] {
   color: var(--v4-orange-text);
   border-color: var(--v4-orange);
 }
@@ -254,10 +256,13 @@
 }
 
 /* Defer rendering of below-fold sections until they're scrolled near.
-   First section (#about) renders immediately so the page feels snappy. */
+   First section (#about) renders immediately so the page feels snappy.
+   `auto 800px`: 800px is only the pre-render estimate — once a section has
+   been rendered the browser remembers its real height, so scrollHeight
+   stops drifting and anchor jumps across unrendered sections land true. */
 .v4-section + .v4-section {
   content-visibility: auto;
-  contain-intrinsic-size: 0 800px;
+  contain-intrinsic-size: auto 800px;
 }
 
 .v4-section-head {
@@ -486,7 +491,7 @@
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease, color 0.15s ease, border-color 0.15s ease;
+  transition: opacity 0.2s ease, color 0.15s ease, border-color 0.15s ease, background-color 0.2s ease;
   z-index: 9;
   font-family: var(--v4-mono);
   font-size: 16px;
@@ -505,16 +510,20 @@
 
 /* --- Mobile scroll progress bar ---
    On ≤960px the right-column section nav is hidden, so a thin top-anchored
-   bar takes over as a "where am I in the document" cue. Width is set in JS
-   from window.scrollY / (scrollHeight - clientHeight). Above .v4-scroll-top
-   (z:9) and .v4-section-nav (z:9), below .skip-link (z:100). */
+   bar takes over as a "where am I in the document" cue. JS sets
+   transform: scaleX(scrollY / (scrollHeight - clientHeight)) — transform
+   stays on the compositor, unlike a width write which would force
+   layout + paint on every scroll frame. Above .v4-scroll-top (z:9) and
+   .v4-section-nav (z:9), below .skip-link (z:100). */
 
 .v4-scroll-progress {
   position: fixed;
   top: 0;
   left: 0;
   height: 2px;
-  width: 0%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
   background: var(--v4-orange);
   z-index: 11;
   pointer-events: none;
@@ -583,4 +592,20 @@
 .v4-page :focus-visible {
   outline: 2px solid var(--v4-orange);
   outline-offset: 2px;
+}
+
+/* --- Reduced motion ---
+   Kept in the DS layer so a consumer that loads only ds/v1 still honours the
+   preference (this file declares v4-pulse and every chrome transition).
+   Page stylesheets may repeat this block last for cascade safety. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

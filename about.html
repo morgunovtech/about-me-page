@@ -13,14 +13,14 @@
   <link rel="icon" href="/images/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
-  <link rel="canonical" href="https://s.morgunov.tech/about.html" />
-  <link rel="alternate" hreflang="ru" href="https://s.morgunov.tech/about.html" />
-  <link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/about.html" />
-  <link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/about.html" />
+  <link rel="canonical" href="https://s.morgunov.tech/about" />
+  <link rel="alternate" hreflang="ru" href="https://s.morgunov.tech/about" />
+  <link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/about" />
+  <link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/about" />
   <meta property="og:type" content="website" />
   <meta property="og:title" data-cms-content="share.title" content="Принципы — Семён Моргунов" />
   <meta property="og:description" data-cms-content="share.description" content="Как устроен этот сайт. Десять принципов Дитера Рамса, переведённые в цифровой продукт: приватность, доступность, прозрачность, честность." />
-  <meta property="og:url" content="https://s.morgunov.tech/about.html" />
+  <meta property="og:url" content="https://s.morgunov.tech/about" />
   <meta property="og:image" data-cms-abs="share.image" content="https://s.morgunov.tech/images/og-card-ru.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
@@ -36,11 +36,12 @@
   <meta name="twitter:image:alt" data-cms-content="share.imageAlt" content="Принципы — Семён Моргунов" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
   <style>
-    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif}
-    [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f}
-    [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000}
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;color-scheme:light dark}
+    [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f;color-scheme:dark}
+    [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000;color-scheme:dark}
     *,*::before,*::after{box-sizing:border-box}
     body{margin:0}
+    body.no-transition,body.no-transition *{transition:none!important}
     body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:14px;line-height:1.55;letter-spacing:-0.005em}
     [data-theme="high-contrast"] body.v4-page{font-size:16px}
     .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:6px 12px;z-index:100;text-decoration:none;font-size:13px;transition:top .2s}
@@ -51,7 +52,7 @@
     .v4-bar-mid a{color:inherit;text-decoration:none;padding:8px 4px;white-space:nowrap}
     .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;color:var(--v4-fg)}
     .v4-lang{display:inline-flex;align-items:center;gap:6px}
-    .v4-lang-link{color:var(--v4-muted);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:8px 6px;border-bottom:1px solid transparent}
+    .v4-lang-link{color:var(--v4-muted);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:11px 8px;border-bottom:1px solid transparent}
     .v4-lang-link.is-active{color:var(--v4-fg);border-bottom-color:var(--v4-orange)}
     .v4-lang-sep{color:var(--v4-dim)}
     .v4-theme{position:relative}
@@ -62,6 +63,8 @@
     [data-theme="dark"] .v4-icon-btn .v4-icon-moon{display:block}
     [data-theme="high-contrast"] .v4-icon-btn .v4-icon-sun{display:none}
     [data-theme="high-contrast"] .v4-icon-btn .v4-icon-contrast{display:block}
+    .v4-theme-menu{position:absolute;right:0;top:calc(100% + 6px);display:none;flex-direction:column;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}
+    .v4-theme.is-open .v4-theme-menu{display:flex}
     .v4-hero{display:grid;grid-template-columns:1fr 280px;gap:40px;padding:4px 0 36px;margin:0 0 28px;align-items:start}
     .v4-hero--simple{grid-template-columns:1fr;padding:24px 0 0}
     .v4-hero-text{min-width:0}
@@ -93,18 +96,24 @@
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-600.woff2" crossorigin />
   <link rel="preload" href="/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <link rel="preload" href="/ds/v1/tokens.css?v=cd042bb5" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/base.css?v=9d706307" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/components.css?v=bf9d4ba5" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" /><link rel="stylesheet" href="/ds/v1/tokens.css?v=cd042bb5" /><link rel="stylesheet" href="/ds/v1/base.css?v=9d706307" /><link rel="stylesheet" href="/ds/v1/components.css?v=bf9d4ba5" /></noscript>
-  <link rel="preload" href="/styles.css?v=c5f3cb04" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/styles.css?v=c5f3cb04" /></noscript>
+  <link rel="preload" href="/ds/v1/base.css?v=fad10899" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/components.css?v=4416b730" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" /><link rel="stylesheet" href="/ds/v1/tokens.css?v=cd042bb5" /><link rel="stylesheet" href="/ds/v1/base.css?v=fad10899" /><link rel="stylesheet" href="/ds/v1/components.css?v=4416b730" /></noscript>
+  <link rel="preload" href="/styles.css?v=b100256f" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/styles.css?v=b100256f" /></noscript>
   <script>
     (function () {
       var d = document.documentElement;
-      var p = localStorage.getItem('theme-preference') || 'auto';
+      var p = 'auto';
+      try { p = localStorage.getItem('theme-preference') || 'auto'; } catch (e) {}
       var t = p === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : p;
       d.setAttribute('data-theme', t);
       d.setAttribute('data-theme-preference', p);
+      if (p !== 'auto') {
+        var c = t === 'dark' ? '#14130f' : t === 'high-contrast' ? '#000000' : '#edeae5';
+        var m = document.querySelectorAll('meta[name="theme-color"]');
+        for (var i = 0; i < m.length; i++) m[i].setAttribute('content', c);
+      }
     })();
   </script>
   <script type="application/ld+json">
@@ -113,21 +122,21 @@
     "@graph": [
       {
         "@type": "WebPage",
-        "@id": "https://s.morgunov.tech/about.html#webpage",
-        "url": "https://s.morgunov.tech/about.html",
+        "@id": "https://s.morgunov.tech/about#webpage",
+        "url": "https://s.morgunov.tech/about",
         "name": "Принципы — Семён Моргунов",
         "inLanguage": "ru",
         "isPartOf": { "@id": "https://s.morgunov.tech/#website" },
         "about": { "@id": "https://s.morgunov.tech/#person" },
-        "breadcrumb": { "@id": "https://s.morgunov.tech/about.html#breadcrumb" },
+        "breadcrumb": { "@id": "https://s.morgunov.tech/about#breadcrumb" },
         "dateModified": "2026-05-11"
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://s.morgunov.tech/about.html#breadcrumb",
+        "@id": "https://s.morgunov.tech/about#breadcrumb",
         "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://s.morgunov.tech/" },
-          { "@type": "ListItem", "position": 2, "name": "Принципы", "item": "https://s.morgunov.tech/about.html" }
+          { "@type": "ListItem", "position": 2, "name": "Принципы", "item": "https://s.morgunov.tech/about" }
         ]
       }
     ]
@@ -148,10 +157,10 @@
         <a href="#ethics" data-cms-omit="sections.ethics.hidden">Этика</a>
       </nav>
       <div class="v4-bar-right">
-        <div class="v4-lang" aria-label="Переключатель языка">
-          <a class="v4-lang-link is-active" href="/about.html" aria-current="page">RU</a>
+        <div class="v4-lang" role="group" aria-label="Переключатель языка">
+          <a class="v4-lang-link is-active" href="/about" aria-current="page" hreflang="ru" lang="ru">RU</a>
           <span class="v4-lang-sep" aria-hidden="true">·</span>
-          <a class="v4-lang-link" href="/en/about.html">EN</a>
+          <a class="v4-lang-link" href="/en/about" hreflang="en" lang="en">EN</a>
         </div>
         <div class="v4-theme">
           <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu" aria-label="Сменить тему оформления">
@@ -167,11 +176,11 @@
               <path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path>
             </svg>
           </button>
-          <div class="v4-theme-menu" id="theme-menu">
-            <button class="v4-theme-btn" type="button" data-theme-value="light" aria-pressed="false">Светлая</button>
-            <button class="v4-theme-btn" type="button" data-theme-value="dark" aria-pressed="false">Тёмная</button>
-            <button class="v4-theme-btn" type="button" data-theme-value="auto" aria-pressed="false">Авто</button>
-            <button class="v4-theme-btn" type="button" data-theme-value="high-contrast" aria-pressed="false">Высокий контраст</button>
+          <div class="v4-theme-menu" id="theme-menu" role="menu">
+            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">Светлая</button>
+            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">Тёмная</button>
+            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">Авто</button>
+            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">Высокий контраст</button>
           </div>
         </div>
       </div>
@@ -276,7 +285,7 @@
         <div class="v4-body">
           <div class="v4-body-aside"></div>
           <div class="v4-prose" data-cms-html="sections.stack.body">
-            <p>Страница <a href="/uses.html">/uses</a> — отдельный продукт со своей логикой. В традиции <a href="https://uses.tech" target="_blank" rel="noopener noreferrer">uses.tech</a> — публичных списков «чем я пользуюсь», которые ведут разработчики и дизайнеры с начала 2010-х. Но я переосмыслил жанр под свои принципы.</p>
+            <p>Страница <a href="/uses">/uses</a> — отдельный продукт со своей логикой. В традиции <a href="https://uses.tech" target="_blank" rel="noopener noreferrer">uses.tech</a> — публичных списков «чем я пользуюсь», которые ведут разработчики и дизайнеры с начала 2010-х. Но я переосмыслил жанр под свои принципы.</p>
             <p>Принципиальное отличие — это не TOP-10, не «best of 2026» и не подборка «что купить». Это срез того, что у меня <strong>реально включено</strong> в каждый день. Таглайн страницы: «Только то, что реально включаю — без полки забытых гаджетов».</p>
             <p><strong>Структура.</strong> Две секции — «Железо» и «Софт». Своя локальная навигация (только два пункта, без главного меню), кнопка «← На главную» для возврата. На странице нет якорной нумерации справа — она здесь не нужна, секций две, обе видны.</p>
             <p><strong>Карточки.</strong> Каждая — строго одного формата: продуктовое фото на светлой подложке, категорийная метка в caps-mono (<code>Laptop</code>, <code>Monitor</code>, <code>Keyboard</code>, <code>Mouse</code>, <code>Phone</code>, <code>Earphones</code>, <code>Headphones</code>, <code>Powerbank</code>, <code>Charger</code>, <code>Health</code>, <code>Game console</code>), название модели, 2–3&nbsp;предложения о том, <strong>почему именно это</strong>. Не характеристики (их можно найти у производителя), а контекст: <em>«Беспроводная HyperSpeed-мышь, 20K&nbsp;DPI, форма проверена годами. Заряжается раз в неделю, два боковых клавиша — под навигацию между вкладками»</em>. Это пользовательский опыт, не спецификация.</p>
@@ -364,7 +373,7 @@
           <div class="v4-body-aside"></div>
           <div class="v4-prose" data-cms-html="sections.living.body">
             <p>Сайт обновляется. Если что-то выглядит сломанным, читается странно или просто кажется неточным — напишите. Ссылка «Нашли опечатку?» в футере открывает прямой канал. Репозиторий открыт; если хотите завести issue или PR — добро пожаловать.</p>
-            <p>Сайт — не финальный артефакт. Это срез того, как я думаю сегодня. Через год он, возможно, будет выглядеть иначе. Build <code>e913870</code> сменится на следующий — и это будет видно по коммиту. Это нормально и правильно.</p>
+            <p>Сайт — не финальный артефакт. Это срез того, как я думаю сегодня. Через год он, возможно, будет выглядеть иначе. Build <code>d78629e</code> сменится на следующий — и это будет видно по коммиту. Это нормально и правильно.</p>
             <p>→ <a href="https://s.morgunov.tech">s.morgunov.tech</a></p>
           </div>
         </div>
@@ -372,7 +381,7 @@
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/e913870" target="_blank" rel="noopener noreferrer"><code>e913870</code></a> · <a href="/uses.html">стек</a> · <a href="mailto:ask@morgunov.tech?subject=Опечатка%20на%20morgunov.tech%3A%20%2Fabout.html">нашли опечатку?</a></span>
+      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/d78629e" target="_blank" rel="noopener noreferrer"><code>d78629e</code></a> · <a href="/uses">стек</a> · <a href="mailto:ask@morgunov.tech?subject=Опечатка%20на%20morgunov.tech%3A%20%2Fabout">нашли опечатку?</a></span>
       <span class="v4-foot-privacy">Без Cookies, трекеров и аналитики</span>
     </footer>
   </div>
@@ -388,6 +397,6 @@
   </aside>
   <button class="v4-scroll-top" type="button" aria-label="Наверх">↑</button>
   <div class="v4-scroll-progress" aria-hidden="true"></div>
-  <script defer src="/script.js?v=81fe9712"></script>
+  <script defer src="/script.js?v=7a5866b6"></script>
 </body>
 </html>

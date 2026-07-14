@@ -76,6 +76,7 @@
   border: 1px solid var(--v4-line);
   padding: 12px;
   margin: 0;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .v4-portrait {
@@ -283,7 +284,8 @@
   background: var(--v4-paper);
   border: 1px solid var(--v4-line);
   padding: 22px;
-  transition: border-color 0.15s ease, outline-color 0.15s ease;
+  /* 0.15s — hover affordance; 0.2s — theme switch, in step with body/.v4-root. */
+  transition: border-color 0.15s ease, outline-color 0.15s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .v4-product:hover {
@@ -318,6 +320,7 @@
   padding: 3px 8px;
   font-weight: 500;
   font-family: var(--v4-mono);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Groups WEB tag + live-dot together so they read as one unit; version
@@ -384,7 +387,7 @@
   background: var(--v4-paper);
   border: 1px solid var(--v4-line);
   padding: 16px;
-  transition: border-color 0.15s ease, outline-color 0.15s ease;
+  transition: border-color 0.15s ease, outline-color 0.15s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .v4-use:hover {
@@ -724,6 +727,40 @@ time {
   .v4-hero .v4-cta-row .v4-btn,
   .v4-contact .v4-cta-row .v4-btn {
     width: 100%;
+  }
+}
+
+/* --- Print: readable on paper regardless of the active theme --- */
+@media print {
+  :root,
+  [data-theme="dark"],
+  [data-theme="high-contrast"] {
+    --v4-bg: #fff;
+    --v4-paper: #fff;
+    --v4-fg: #000;
+    --v4-muted: #333;
+    --v4-dim: #555;
+    --v4-line: #bbb;
+    --v4-line-soft: #ddd;
+    /* Dark/HC orange (#ff6a2e / #ffd166) is unreadable on paper — pin the
+       light-theme accent values. */
+    --v4-orange: #d9531e;
+    --v4-orange-text: #b03e10;
+    --v4-on-accent: #14110d;
+  }
+
+  /* Interactive chrome has no meaning on paper. */
+  .v4-bar-right,
+  .v4-scroll-top,
+  .v4-scroll-progress,
+  .v4-section-nav,
+  .skip-link {
+    display: none !important;
+  }
+
+  /* content-visibility: auto would print below-fold sections blank. */
+  .v4-section + .v4-section {
+    content-visibility: visible;
   }
 }
 

@@ -13,11 +13,12 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <style>
-    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif}
-    [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f}
-    [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000}
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;color-scheme:light dark}
+    [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f;color-scheme:dark}
+    [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000;color-scheme:dark}
     *,*::before,*::after{box-sizing:border-box}
     body{margin:0}
+    body.no-transition,body.no-transition *{transition:none!important}
     body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:14px;line-height:1.55;letter-spacing:-0.005em}
     [data-theme="high-contrast"] body.v4-page{font-size:16px}
     .v4-root{background:var(--v4-bg);color:var(--v4-fg);padding:36px 56px 56px;max-width:1280px;margin:0 auto}
@@ -25,7 +26,7 @@
     .v4-bar-mid{display:flex;gap:6px 22px;justify-content:center;color:var(--v4-muted);flex-wrap:wrap}
     .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;color:var(--v4-fg)}
     .v4-lang{display:inline-flex;align-items:center;gap:6px}
-    .v4-lang-link{color:var(--v4-muted);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:8px 6px}
+    .v4-lang-link{color:var(--v4-muted);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:11px 8px}
     .v4-lang-sep{color:var(--v4-dim)}
     .v4-hero{display:grid;grid-template-columns:1fr 280px;gap:40px;padding:4px 0 36px;margin:0 0 28px;align-items:start}
     .v4-hero--simple{grid-template-columns:1fr;padding:24px 0 0}
@@ -36,23 +37,33 @@
     .v4-cta-row{display:flex;gap:8px;flex-wrap:wrap}
     .v4-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;min-height:40px;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;cursor:pointer;border:1px solid var(--v4-fg);background:transparent;color:var(--v4-fg);font-family:inherit}
     .v4-btn-primary{background:var(--v4-orange);color:var(--v4-on-accent);border-color:var(--v4-orange)}
+    .v4-foot{margin-top:40px;padding-top:16px;display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--v4-muted);text-transform:uppercase;letter-spacing:.12em;flex-wrap:wrap;gap:12px;font-weight:500}
+    .v4-foot-privacy{text-align:right}
+    .v4-foot a{color:inherit;text-decoration:underline;text-decoration-color:var(--v4-line);text-underline-offset:2px}
+    .v4-foot code{font-family:var(--v4-mono);font-size:inherit;letter-spacing:0;text-transform:none}
     @media (max-width:960px){.v4-root{padding:28px 32px 40px}.v4-h1{font-size:52px}}
-    @media (max-width:640px){.v4-root{padding:20px 18px 32px;font-size:13.5px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}}
+    @media (max-width:640px){.v4-root{padding:20px 18px 32px;font-size:13.5px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}.v4-foot{flex-direction:column;gap:6px;align-items:flex-start}.v4-foot-privacy{text-align:left}}
   </style>
   <link rel="preload" href="/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <link rel="preload" href="/ds/v1/tokens.css?v=cd042bb5" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/base.css?v=9d706307" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/components.css?v=bf9d4ba5" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" /><link rel="stylesheet" href="/ds/v1/tokens.css?v=cd042bb5" /><link rel="stylesheet" href="/ds/v1/base.css?v=9d706307" /><link rel="stylesheet" href="/ds/v1/components.css?v=bf9d4ba5" /></noscript>
-  <link rel="preload" href="/styles.css?v=c5f3cb04" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/styles.css?v=c5f3cb04" /></noscript>
+  <link rel="preload" href="/ds/v1/base.css?v=fad10899" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/components.css?v=4416b730" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" /><link rel="stylesheet" href="/ds/v1/tokens.css?v=cd042bb5" /><link rel="stylesheet" href="/ds/v1/base.css?v=fad10899" /><link rel="stylesheet" href="/ds/v1/components.css?v=4416b730" /></noscript>
+  <link rel="preload" href="/styles.css?v=b100256f" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/styles.css?v=b100256f" /></noscript>
   <script>
     (function () {
       var d = document.documentElement;
-      var p = localStorage.getItem('theme-preference') || 'auto';
+      var p = 'auto';
+      try { p = localStorage.getItem('theme-preference') || 'auto'; } catch (e) {}
       var t = p === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : p;
       d.setAttribute('data-theme', t);
       d.setAttribute('data-theme-preference', p);
+      if (p !== 'auto') {
+        var c = t === 'dark' ? '#14130f' : t === 'high-contrast' ? '#000000' : '#edeae5';
+        var m = document.querySelectorAll('meta[name="theme-color"]');
+        for (var i = 0; i < m.length; i++) m[i].setAttribute('content', c);
+      }
       var isEn = (navigator.language || '').startsWith('en') || location.pathname.startsWith('/en/');
       if (isEn) {
         d.lang = 'en';
@@ -66,9 +77,9 @@
     <header class="v4-bar">
       <div class="v4-bar-right">
         <div class="v4-lang">
-          <a class="v4-lang-link" href="/" id="lang-ru">RU</a>
+          <a class="v4-lang-link" href="/" id="lang-ru" hreflang="ru" lang="ru">RU</a>
           <span class="v4-lang-sep" aria-hidden="true">·</span>
-          <a class="v4-lang-link" href="/en/" id="lang-en">EN</a>
+          <a class="v4-lang-link" href="/en/" id="lang-en" hreflang="en" lang="en">EN</a>
         </div>
       </div>
     </header>
@@ -81,7 +92,7 @@
           <p class="v4-tagline" data-i18n-ru="Такой страницы нет или она была перемещена." data-i18n-en="This page doesn't exist or has been moved.">Такой страницы нет или она была перемещена.</p>
           <div class="v4-cta-row">
             <a class="v4-btn v4-btn-primary" href="/" id="btn-home" data-i18n-ru="На главную →" data-i18n-en="Go to homepage →">На главную →</a>
-            <a class="v4-btn" href="/collaborate.html" id="btn-collab" data-i18n-ru="Сотрудничество" data-i18n-en="Collaborate">Сотрудничество</a>
+            <a class="v4-btn" href="/collaborate" id="btn-collab" data-i18n-ru="Сотрудничество" data-i18n-en="Collaborate">Сотрудничество</a>
             <a class="v4-btn" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Telegram</a>
           </div>
         </div>
@@ -89,7 +100,7 @@
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/e913870" target="_blank" rel="noopener noreferrer"><code>e913870</code></a></span>
+      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/d78629e" target="_blank" rel="noopener noreferrer"><code>d78629e</code></a></span>
       <span class="v4-foot-privacy" data-i18n-ru="Без Cookies, трекеров и аналитики" data-i18n-en="No cookies, no trackers, no analytics">Без Cookies, трекеров и аналитики</span>
     </footer>
   </div>
@@ -101,7 +112,7 @@
         el.textContent = el.getAttribute('data-i18n-en');
       });
       document.getElementById('btn-home').href = '/en/';
-      document.getElementById('btn-collab').href = '/en/collaborate.html';
+      document.getElementById('btn-collab').href = '/en/collaborate';
     })();
   </script>
 </body>

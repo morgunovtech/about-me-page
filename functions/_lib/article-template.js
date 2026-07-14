@@ -6,11 +6,12 @@
 // helpers (_url, _urlRu, _urlEn, _dateDisplay, _coverHtml).
 
 const CRITICAL_CSS = `
-    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif}
-    [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f}
-    [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000}
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;color-scheme:light dark}
+    [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f;color-scheme:dark}
+    [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000;color-scheme:dark}
     *,*::before,*::after{box-sizing:border-box}
     body{margin:0}
+    body.no-transition,body.no-transition *{transition:none!important}
     body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:14px;line-height:1.55;letter-spacing:-0.005em}
     [data-theme="high-contrast"] body.v4-page{font-size:16px}
     .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:6px 12px;z-index:100;text-decoration:none;font-size:13px;transition:top .2s}
@@ -21,7 +22,7 @@ const CRITICAL_CSS = `
     .v4-bar-mid a{color:inherit;text-decoration:none;padding:8px 4px;white-space:nowrap}
     .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;color:var(--v4-fg)}
     .v4-lang{display:inline-flex;align-items:center;gap:6px}
-    .v4-lang-link{color:var(--v4-muted);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:8px 6px;border-bottom:1px solid transparent}
+    .v4-lang-link{color:var(--v4-muted);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:11px 8px;border-bottom:1px solid transparent}
     .v4-lang-link.is-active{color:var(--v4-fg);border-bottom-color:var(--v4-orange)}
     .v4-lang-sep{color:var(--v4-dim)}
     .v4-theme{position:relative}
@@ -32,6 +33,8 @@ const CRITICAL_CSS = `
     [data-theme="dark"] .v4-icon-btn .v4-icon-moon{display:block}
     [data-theme="high-contrast"] .v4-icon-btn .v4-icon-sun{display:none}
     [data-theme="high-contrast"] .v4-icon-btn .v4-icon-contrast{display:block}
+    .v4-theme-menu{position:absolute;right:0;top:calc(100% + 6px);display:none;flex-direction:column;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}
+    .v4-theme.is-open .v4-theme-menu{display:flex}
     .v4-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;min-height:40px;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;cursor:pointer;border:1px solid var(--v4-fg);background:transparent;color:var(--v4-fg);font-family:inherit}
     .v4-article{max-width:680px;margin:0 auto}
     .v4-article-eyebrow{font-family:var(--v4-mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--v4-muted);margin:0 0 16px}
@@ -65,13 +68,13 @@ const CRITICAL_CSS = `
     .v4-note-title a{color:var(--v4-fg);text-decoration:none}
     .v4-note-title a:hover{color:var(--v4-orange-text)}
     .v4-note-excerpt{color:var(--v4-muted);margin:0}
-    .v4-foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:48px;padding-top:18px;border-top:1px solid var(--v4-line);font-family:var(--v4-mono);font-size:11px;color:var(--v4-dim)}
+    .v4-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:40px;padding-top:16px;border-top:1px solid var(--v4-line);font-family:var(--v4-mono);font-size:10px;color:var(--v4-muted)}
     .v4-foot a{color:inherit}
     @media (max-width:960px){.v4-root{padding:28px 32px 40px}.v4-article-title{font-size:36px}}
     @media (max-width:640px){.v4-root{padding:20px 18px 32px}.v4-bar{flex-direction:column;align-items:stretch;row-gap:10px;font-size:10px}.v4-bar-right{align-self:flex-end}.v4-article-title{font-size:30px}.v4-article-body{font-size:16px}}
 `;
 
-const THEME_SCRIPT = `(function(){var d=document.documentElement;var p=localStorage.getItem('theme-preference')||'auto';var t=p==='auto'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):p;d.setAttribute('data-theme',t);d.setAttribute('data-theme-preference',p);})();`;
+const THEME_SCRIPT = `(function(){var d=document.documentElement;var p='auto';try{p=localStorage.getItem('theme-preference')||'auto'}catch(e){}var t=p==='auto'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):p;d.setAttribute('data-theme',t);d.setAttribute('data-theme-preference',p);if(p!=='auto'){var c=t==='dark'?'#14130f':t==='high-contrast'?'#000000':'#edeae5';var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].setAttribute('content',c)}})();`;
 
 const T = {
   ru: {
@@ -98,12 +101,12 @@ const T = {
   },
 };
 
-const STYLES_VER = 'v=c5f3cb04';
-const SCRIPT_VER = 'v=81fe9712';
+const STYLES_VER = 'v=b100256f';
+const SCRIPT_VER = 'v=7a5866b6';
 const FONTS_VER = 'v=64eea157';
 const TOKENS_VER = 'v=cd042bb5';
-const BASE_VER = 'v=9d706307';
-const COMPONENTS_VER = 'v=bf9d4ba5';
+const BASE_VER = 'v=fad10899';
+const COMPONENTS_VER = 'v=4416b730';
 
 export function articleShell(lang) {
   const t = T[lang] || T.ru;
@@ -176,11 +179,11 @@ export function articleShell(lang) {
             <svg class="v4-icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 9A6 6 0 1 1 7 2.5a4.5 4.5 0 0 0 6.5 6.5z"></path></svg>
             <svg class="v4-icon-contrast" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="8" cy="8" r="6"></circle><path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path></svg>
           </button>
-          <div class="v4-theme-menu" id="theme-menu">
-            <button class="v4-theme-btn" type="button" data-theme-value="light" aria-pressed="false">${t.themes[0]}</button>
-            <button class="v4-theme-btn" type="button" data-theme-value="dark" aria-pressed="false">${t.themes[1]}</button>
-            <button class="v4-theme-btn" type="button" data-theme-value="auto" aria-pressed="false">${t.themes[2]}</button>
-            <button class="v4-theme-btn" type="button" data-theme-value="high-contrast" aria-pressed="false">${t.themes[3]}</button>
+          <div class="v4-theme-menu" id="theme-menu" role="menu">
+            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">${t.themes[0]}</button>
+            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">${t.themes[1]}</button>
+            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">${t.themes[2]}</button>
+            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">${t.themes[3]}</button>
           </div>
         </div>
       </div>
@@ -280,11 +283,11 @@ export function notesIndexHtml(lang, listHtml, jsonLd) {
             <svg class="v4-icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 9A6 6 0 1 1 7 2.5a4.5 4.5 0 0 0 6.5 6.5z"></path></svg>
             <svg class="v4-icon-contrast" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="8" cy="8" r="6"></circle><path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path></svg>
           </button>
-          <div class="v4-theme-menu" id="theme-menu">
-            <button class="v4-theme-btn" type="button" data-theme-value="light" aria-pressed="false">${t.themes[0]}</button>
-            <button class="v4-theme-btn" type="button" data-theme-value="dark" aria-pressed="false">${t.themes[1]}</button>
-            <button class="v4-theme-btn" type="button" data-theme-value="auto" aria-pressed="false">${t.themes[2]}</button>
-            <button class="v4-theme-btn" type="button" data-theme-value="high-contrast" aria-pressed="false">${t.themes[3]}</button>
+          <div class="v4-theme-menu" id="theme-menu" role="menu">
+            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">${t.themes[0]}</button>
+            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">${t.themes[1]}</button>
+            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">${t.themes[2]}</button>
+            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">${t.themes[3]}</button>
           </div>
         </div>
       </div>
