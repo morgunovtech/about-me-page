@@ -22,12 +22,17 @@ export function isExternal(href) {
 // paths, anchors, and http/https/mailto/tel pass through. Tabs/newlines are
 // stripped first because browsers ignore them when parsing the scheme, so
 // "java\tscript:x" would otherwise slip past a naive check.
+// Internal pages live at clean URLs (Pages 308-redirects /foo.html → /foo).
+// Older KV docs still carry .html hrefs — normalize them at render time so
+// no visitor click pays a redirect round-trip.
+const INTERNAL_HTML_HREF = /^\/(?:en\/)?(?:collaborate|about|uses)\.html(?=$|[#?])/;
+
 export function safeHref(href) {
   const h = String(href == null ? '' : href).replace(/[\t\n\r]/g, '').trim();
   if (h === '') return h;
   const scheme = h.match(/^([a-z][a-z0-9+.-]*):/i);
   if (scheme && !/^(https?|mailto|tel)$/i.test(scheme[1])) return '#';
-  return h;
+  return h.replace(INTERNAL_HTML_HREF, (m) => m.slice(0, -'.html'.length));
 }
 
 // Escape a text run, then apply inline emphasis (**bold**).

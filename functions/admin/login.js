@@ -53,6 +53,11 @@ const htmlHeaders = {
   'content-type': 'text/html; charset=utf-8',
   'cache-control': 'no-store',
   'x-robots-tag': 'noindex, nofollow',
+  // The page is self-contained (one inline <style>, no scripts) — it can
+  // afford the strictest CSP on the site. The rest of the security set is
+  // back-filled by the root middleware; CSP is per-route in /admin.
+  'content-security-policy':
+    "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
 };
 
 export async function onRequestGet({ request, env }) {
@@ -77,6 +82,10 @@ export async function onRequestPost({ request, env }) {
   const ok = env.ADMIN_PASSWORD_HASH && (await verifyPassword(password, env.ADMIN_PASSWORD_HASH));
 
   if (!ok) {
+    // The KV rate-limit counter is read-then-write and eventually consistent
+    // across PoPs, so parallel attempts can slip past it. A flat server-side
+    // delay caps the practical guess rate regardless of counter races.
+    await new Promise((resolve) => setTimeout(resolve, 1500));
     return new Response(loginPage('Неверный пароль.'), { status: 401, headers: htmlHeaders });
   }
 

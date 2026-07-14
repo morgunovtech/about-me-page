@@ -31,15 +31,34 @@ async function sanitizeLeaves(node) {
 const SECTION_IDS = ['about', 'career', 'help', 'ventures', 'products', 'publications', 'contact'];
 const HISTORY_MAX = 20; // keep the last N revisions per page
 
-// Light structural validation so a malformed import can't break the public page.
+// Structural validation so a malformed import can't break the public page.
+// Mirrors what render.js/jsonld.js dereference without guards: every list the
+// renderers .map() over and the seo block the JSON-LD graph is built from.
 function validateHome(doc) {
   const e = [];
   if (!doc || typeof doc !== 'object') return ['doc is not an object'];
   if (!doc.meta || !doc.meta.title) e.push('missing meta.title');
   if (!doc.hero || typeof doc.hero !== 'object') e.push('missing hero');
+  else if (!Array.isArray(doc.hero.ctas)) e.push('hero.ctas must be an array');
   if (!Array.isArray(doc.stats)) e.push('stats must be an array');
+  if (!doc.seo || typeof doc.seo !== 'object') e.push('missing seo');
+  else if (!doc.seo.worksFor || typeof doc.seo.worksFor !== 'object') e.push('missing seo.worksFor');
   if (!doc.sections || typeof doc.sections !== 'object') e.push('missing sections');
-  else for (const id of SECTION_IDS) if (!doc.sections[id]) e.push('missing section: ' + id);
+  else {
+    for (const id of SECTION_IDS) if (!doc.sections[id]) e.push('missing section: ' + id);
+    const lists = [
+      ['career', 'items'],
+      ['ventures', 'items'],
+      ['products', 'items'],
+      ['publications', 'items'],
+      ['help', 'blocks'],
+      ['contact', 'ctas'],
+    ];
+    for (const [id, key] of lists) {
+      const sec = doc.sections[id];
+      if (sec && !Array.isArray(sec[key])) e.push(`sections.${id}.${key} must be an array`);
+    }
+  }
   return e;
 }
 

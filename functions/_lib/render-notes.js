@@ -1,6 +1,7 @@
 // Builds the /notes index, the dynamic sitemap, and the RSS feed from the
 // article index. All three derive from the same published-article list.
 import { loadArticleIndex, publishedSorted } from './articles.js';
+import { loadDoc } from './content.js';
 import { notesIndexHtml } from './article-template.js';
 import { serializeLd } from './jsonld.js';
 import { escapeHtml } from './markdown.js';
@@ -77,15 +78,24 @@ export async function renderNotesIndex(env, lang) {
 // Dynamic sitemap: the static page routes + published articles in both
 // languages, each with hreflang alternates.
 export async function renderSitemap(env) {
+  // Clean URLs only — Pages 308-redirects /foo.html → /foo, and a sitemap
+  // must not point at redirects. lastmod for CMS-managed pages comes from
+  // the live KV doc (save.js bumps dateModified on every admin save), so
+  // the sitemap agrees with the JSON-LD freshness signal without a redeploy.
+  const [home, collaborate, about, uses] = await Promise.all(
+    ['home', 'collaborate', 'about', 'uses'].map((p) => loadDoc(env, p))
+  );
+  const mod = (doc, fallback) =>
+    (doc && (doc.dateModified || (doc.updatedAt || '').slice(0, 10))) || fallback;
   const STATIC = [
-    { loc: '/', ru: '/', en: '/en/', lastmod: '2026-05-11' },
-    { loc: '/en/', ru: '/', en: '/en/', lastmod: '2026-05-11' },
-    { loc: '/collaborate.html', ru: '/collaborate.html', en: '/en/collaborate.html', lastmod: '2026-05-04' },
-    { loc: '/en/collaborate.html', ru: '/collaborate.html', en: '/en/collaborate.html', lastmod: '2026-05-04' },
-    { loc: '/uses.html', ru: '/uses.html', en: '/en/uses.html', lastmod: '2026-05-11' },
-    { loc: '/en/uses.html', ru: '/uses.html', en: '/en/uses.html', lastmod: '2026-05-11' },
-    { loc: '/about.html', ru: '/about.html', en: '/en/about.html', lastmod: '2026-05-11' },
-    { loc: '/en/about.html', ru: '/about.html', en: '/en/about.html', lastmod: '2026-05-11' },
+    { loc: '/', ru: '/', en: '/en/', lastmod: mod(home, '2026-05-11') },
+    { loc: '/en/', ru: '/', en: '/en/', lastmod: mod(home, '2026-05-11') },
+    { loc: '/collaborate', ru: '/collaborate', en: '/en/collaborate', lastmod: mod(collaborate, '2026-05-04') },
+    { loc: '/en/collaborate', ru: '/collaborate', en: '/en/collaborate', lastmod: mod(collaborate, '2026-05-04') },
+    { loc: '/uses', ru: '/uses', en: '/en/uses', lastmod: mod(uses, '2026-05-11') },
+    { loc: '/en/uses', ru: '/uses', en: '/en/uses', lastmod: mod(uses, '2026-05-11') },
+    { loc: '/about', ru: '/about', en: '/en/about', lastmod: mod(about, '2026-05-11') },
+    { loc: '/en/about', ru: '/about', en: '/en/about', lastmod: mod(about, '2026-05-11') },
     { loc: '/notes', ru: '/notes', en: '/en/notes', lastmod: new Date().toISOString().slice(0, 10) },
     { loc: '/en/notes', ru: '/notes', en: '/en/notes', lastmod: new Date().toISOString().slice(0, 10) },
   ];
