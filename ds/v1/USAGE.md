@@ -101,3 +101,11 @@ to a file and drop it.)
 </body>
 </html>
 ```
+
+## Reduced motion
+
+`components.css` ships its own `@media (prefers-reduced-motion: reduce)` block
+(scroll-behavior reset + global animation/transition zeroing), so the DS layer
+honours the preference even when a consumer loads no page stylesheet. A page
+stylesheet may repeat the same block at its very end for cascade safety —
+about-me-page's `styles.css` does.
