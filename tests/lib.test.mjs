@@ -216,7 +216,7 @@ test('renderJsonLd: product schema overrides (type/category/license)', () => {
 
 // --- v0.29: RU plural of the live total, KV migrations, sub-page JSON-LD ---
 import { pluralRu, unitFor } from '../functions/_lib/render.js';
-import { migrateHome, migrateAbout } from '../functions/_lib/content.js';
+import { migrateHome, migrateAbout } from '../functions/_lib/migrations.js';
 import { renderPageJsonLd } from '../functions/_lib/jsonld.js';
 
 test('pluralRu / unitFor decline «подписчик» by the live total', () => {
