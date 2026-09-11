@@ -5,7 +5,7 @@
 import { json, sameOrigin } from '../../_lib/http.js';
 import { loadArticle, articleKey } from '../../_lib/articles.js';
 import { articleToSourcePost } from '../../_lib/tg-adapter.js';
-import { getTarget } from '../../_lib/dist/targets/index.js';
+import { getTarget } from '../../_lib/tg/targets/index.js';
 
 // Overlay admin-edited text onto the server-rendered plan (text + captions only).
 function applyEdits(plan, edited) {

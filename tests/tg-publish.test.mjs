@@ -2,8 +2,8 @@
 // mock mode. fetch + sleep are injected so no network is touched.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { telegram } from '../functions/_lib/dist/targets/telegram.js';
-import { getTarget } from '../functions/_lib/dist/targets/index.js';
+import { telegram } from '../functions/_lib/tg/targets/telegram.js';
+import { getTarget } from '../functions/_lib/tg/targets/index.js';
 
 const noSleep = () => Promise.resolve();
 const okFetch = (calls, results) => async (url, init) => {

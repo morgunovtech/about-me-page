@@ -42,7 +42,7 @@ export function overlay(response, doc, lang, edit = false, jsonld = renderJsonLd
     // never carries a hash that a redeploy would leave stale.
     .on('[data-cms-html]', guard((el) => {
       const html = pick(resolvePath(doc, el.getAttribute('data-cms-html')), lang);
-      if (html != null) el.setInnerContent(String(html).replace(/\{build\}/g, BUILD), { html: true });
+      if (html != null) el.setInnerContent(String(html).replace(/\{build\}/g, doc._build || BUILD), { html: true });
     }))
     .on('[data-cms-href]', guard((el) => {
       const val = pick(resolvePath(doc, el.getAttribute('data-cms-href')), lang);

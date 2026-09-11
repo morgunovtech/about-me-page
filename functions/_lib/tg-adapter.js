@@ -2,7 +2,7 @@
 // SourcePost the dist/ core consumes. This is the only place that knows both
 // the blog schema and the core — extract dist/ and you rewrite just this file.
 import { pick } from './i18n.js';
-import { makeSourcePost } from './dist/source-post.js';
+import { makeSourcePost } from './tg/source-post.js';
 import { ORIGIN } from './site.js';
 
 

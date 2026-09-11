@@ -9,10 +9,10 @@
 // Long-form styles (.v4-article-*, .v4-note-*) live in styles.css; the inline
 // block below is only the above-the-fold subset, guarded by check-critical.
 
-import { ORIGIN, NAME } from './site.js';
+import { ORIGIN, NAME, BUILD } from './site.js';
 
 const CRITICAL_CSS = `
-    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;color-scheme:light dark}
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:11px;--v4-label-tracking:.1em;--v4-label-xs-size:10px;--v4-label-xs-tracking:.12em;--v4-label-weight:500;color-scheme:light dark}
     [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f;color-scheme:dark}
     [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000;color-scheme:dark}
     *,*::before,*::after{box-sizing:border-box}
@@ -22,48 +22,6 @@ const CRITICAL_CSS = `
     [data-theme="high-contrast"] body.v4-page{font-size:16px}
     .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:6px 12px;z-index:100;text-decoration:none;font-size:13px;transition:top .2s}
     .v4-page .skip-link:focus{top:8px}
-    .v4-root{background:var(--v4-bg);color:var(--v4-fg);padding:36px 56px 56px;max-width:1280px;margin:0 auto}
-    .v4-bar{display:flex;justify-content:space-between;align-items:center;padding:0 0 14px;margin-bottom:32px;border-bottom:1px solid var(--v4-fg);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
-    .v4-nav{display:flex;align-items:center;min-width:0}
-    .v4-bar-mid{display:flex;gap:6px 22px;justify-content:flex-start;color:var(--v4-muted);flex-wrap:wrap}
-    .v4-bar-mid a{color:inherit;text-decoration:none;padding:8px 4px;white-space:nowrap}
-    .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;margin-left:auto;color:var(--v4-fg)}
-    .v4-bar-btn{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 8px;border:none;background:transparent;color:var(--v4-fg);cursor:pointer;font:inherit;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
-    .v4-bar-btn .v4-chevron{width:10px;height:10px;flex-shrink:0}
-    .v4-nav-toggle{display:none}
-    .v4-dropdown{position:relative}
-    .v4-menu{position:absolute;right:0;top:calc(100% + 15px);display:none;flex-direction:column;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}
-    .v4-dropdown.is-open > .v4-menu{display:flex}
-    html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu{display:flex}
-    .v4-icon-btn{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--v4-fg);cursor:pointer;padding:0;font:inherit;border:none}
-    .v4-icon-btn svg{width:14px;height:14px}
-    .v4-icon-btn .v4-icon-moon,.v4-icon-btn .v4-icon-contrast{display:none}
-    [data-theme="dark"] .v4-icon-btn .v4-icon-sun{display:none}
-    [data-theme="dark"] .v4-icon-btn .v4-icon-moon{display:block}
-    [data-theme="high-contrast"] .v4-icon-btn .v4-icon-sun{display:none}
-    [data-theme="high-contrast"] .v4-icon-btn .v4-icon-contrast{display:block}
-    .v4-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;min-height:40px;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;cursor:pointer;border:1px solid var(--v4-fg);background:transparent;color:var(--v4-fg);font-family:inherit}
-    .v4-article{max-width:680px;margin:0 auto}
-    .v4-article-eyebrow{font-family:var(--v4-mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--v4-muted);margin:0 0 16px}
-    .v4-article-eyebrow a{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;text-decoration-color:var(--v4-line)}
-    .v4-article-title{font-size:44px;line-height:1.05;letter-spacing:-.02em;font-weight:600;margin:0 0 14px}
-    .v4-article-byline{font-family:var(--v4-mono);font-size:12px;color:var(--v4-dim);margin:0 0 28px}
-    .v4-article-cover{margin:0 0 28px}
-    .v4-article-cover img{width:100%;height:auto;display:block}
-    .v4-notes-title{font-size:40px;line-height:1.05;letter-spacing:-.02em;font-weight:600;margin:0 0 8px}
-    .v4-notes-intro{color:var(--v4-muted);margin:0 0 32px}
-    .v4-note-item{padding:0 0 22px;margin:0 0 22px;border-bottom:1px solid var(--v4-line-soft)}
-    .v4-note-item:last-child{border-bottom:none}
-    .v4-note-date{font-family:var(--v4-mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--v4-dim)}
-    .v4-note-title{font-size:22px;font-weight:600;letter-spacing:-.015em;margin:6px 0 6px}
-    .v4-note-title a{color:var(--v4-fg);text-decoration:none}
-    .v4-note-excerpt{color:var(--v4-muted);margin:0}
-    .v4-foot{margin-top:40px;padding-top:16px;display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--v4-muted);text-transform:uppercase;letter-spacing:.12em;flex-wrap:wrap;gap:12px;font-weight:500}
-    .v4-foot-privacy{text-align:right}
-    .v4-foot a{color:inherit;text-decoration:underline;text-decoration-color:var(--v4-line);text-underline-offset:2px}
-    .v4-foot code{font-family:var(--v4-mono);font-size:inherit;letter-spacing:0;text-transform:none}
-    @media (max-width:960px){.v4-root{padding:28px 32px 40px}.v4-article-title{font-size:36px}}
-    @media (max-width:640px){.v4-root{padding:20px 18px 32px}body.v4-page{font-size:13.5px}.v4-bar{padding-bottom:10px;margin-bottom:22px;font-size:10px}.v4-nav-toggle{display:inline-flex;min-height:44px;margin-left:-8px}.v4-bar-mid{position:absolute;left:0;top:calc(100% + 11px);display:none;flex-direction:column;align-items:stretch;gap:0;margin:0;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}.v4-nav.is-open > .v4-bar-mid,html:not([data-js]) .v4-nav:is(:focus-within, :hover) > .v4-bar-mid{display:flex}.v4-bar-mid a{padding:10px 10px;border:1px solid transparent;color:var(--v4-fg);font-size:11px;font-weight:500;letter-spacing:.1em}.v4-menu{top:calc(100% + 11px)}.v4-bar-btn{min-height:44px}.v4-icon-btn{width:44px;height:44px}.v4-foot{flex-direction:column;gap:6px;align-items:flex-start}.v4-foot-privacy{text-align:left}.v4-article-title{font-size:30px}}
 `;
 
 const CHEVRON = '<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg>';
@@ -115,20 +73,28 @@ const T = {
   },
 };
 
-const STYLES_VER = 'v=f4f1111b';
-const SCRIPT_VER = 'v=cfd1816f';
+const STYLES_VER = 'v=5dbc7765';
+const SCRIPT_VER = 'v=c2d17bcd';
 const FONTS_VER = 'v=64eea157';
-const TOKENS_VER = 'v=50a0d966';
+const TOKENS_VER = 'v=21b99b43';
 const BASE_VER = 'v=0e404315';
-const COMPONENTS_VER = 'v=7565c1f8';
+const COMPONENTS_VER = 'v=434c30e7';
 
 const L = (lang) => (lang === 'en' ? 'en' : 'ru');
 const p = (lang, path) => (L(lang) === 'en' ? '/en' : '') + path;
 
-// Icons, theme-color, critical CSS, font + stylesheet preloads, FOUC script —
-// identical on both shells and mirrors the static pages' <head>.
+// Icons, theme-color, the minimal critical block, font preloads, the five
+// render-blocking stylesheets and the FOUC script — identical on both shells
+// and mirrors the static pages' <head>.
 function headChrome(lang) {
-  const sub = L(lang) === 'en' ? 'latin' : 'cyr';
+  // Latin faces always (digits, «RU», latin words, morgunov.tech); cyrillic on RU.
+  const subs = L(lang) === 'en' ? ['latin'] : ['cyr', 'latin'];
+  const fontPreloads = subs
+    .flatMap((sub) => [`plex-sans-${sub}-400`, `plex-sans-${sub}-500`, `plex-sans-${sub}-600`, `plex-mono-${sub}-400`])
+    .concat(['plex-mono-latin-500'])
+    .filter((f, i, a) => a.indexOf(f) === i)
+    .map((f) => `  <link rel="preload" as="font" type="font/woff2" href="/fonts/${f}.woff2" crossorigin />`)
+    .join('\n');
   return `  <meta name="author" content="${NAME.en}" />
   <meta name="theme-color" content="#edeae5" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
@@ -139,16 +105,12 @@ function headChrome(lang) {
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
   <style>${CRITICAL_CSS}</style>
-  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-${sub}-400.woff2" crossorigin />
-  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-${sub}-600.woff2" crossorigin />
-  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-${sub}-400.woff2" crossorigin />
-  <link rel="preload" href="/ds/v1/fonts.css?${FONTS_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/tokens.css?${TOKENS_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/base.css?${BASE_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/components.css?${COMPONENTS_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?${FONTS_VER}" /><link rel="stylesheet" href="/ds/v1/tokens.css?${TOKENS_VER}" /><link rel="stylesheet" href="/ds/v1/base.css?${BASE_VER}" /><link rel="stylesheet" href="/ds/v1/components.css?${COMPONENTS_VER}" /></noscript>
-  <link rel="preload" href="/styles.css?${STYLES_VER}" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/styles.css?${STYLES_VER}" /></noscript>
+${fontPreloads}
+  <link rel="stylesheet" href="/ds/v1/fonts.css?${FONTS_VER}" />
+  <link rel="stylesheet" href="/ds/v1/tokens.css?${TOKENS_VER}" />
+  <link rel="stylesheet" href="/ds/v1/base.css?${BASE_VER}" />
+  <link rel="stylesheet" href="/ds/v1/components.css?${COMPONENTS_VER}" />
+  <link rel="stylesheet" href="/styles.css?${STYLES_VER}" />
   <script>${THEME_SCRIPT}</script>`;
 }
 
@@ -218,21 +180,26 @@ ${themeMenu(l)}
     </header>`;
 }
 
-// Same footer as the static pages: build link (stamped by version-stamp.py),
-// site links, typo mailto, privacy line.
-function footChrome(lang) {
+// Same footer as the static pages. The build link shows the deployed commit:
+// the article shell gets it via overlay (_build/_buildUrl), the server-built
+// notes index receives it as `build`; the literal is the stamped fallback.
+function footChrome(lang, build) {
   const l = L(lang);
   const t = T[l];
+  const sha = build || BUILD;
   return `    <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/0134ba8" target="_blank" rel="noopener noreferrer"><code>0134ba8</code></a> · <a href="${p(l, '/notes')}">${t.notesFoot}</a> · <a href="${p(l, '/about')}">${t.principles}</a> · <a href="${p(l, '/uses')}">${t.uses}</a> · <a href="mailto:ask@morgunov.tech?subject=${encodeURIComponent(t.typoSubject)}">${t.typo}</a></span>
+      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/${sha}" data-cms-href="_buildUrl" target="_blank" rel="noopener noreferrer"><code data-cms-text="_build">${sha}</code></a> · <a href="${p(l, '/notes')}">${t.notesFoot}</a> · <a href="${p(l, '/about')}">${t.principles}</a> · <a href="${p(l, '/uses')}">${t.uses}</a> · <a href="mailto:ask@morgunov.tech?subject=${encodeURIComponent(t.typoSubject)}">${t.typo}</a></span>
       <span class="v4-foot-privacy">${t.privacy}</span>
     </footer>`;
 }
 
-function tailChrome(lang) {
+// `ldScript`: the JSON-LD block sits at the end of <body> so the parser reaches
+// the content sooner (search engines read it anywhere in the document).
+function tailChrome(lang, ldScript) {
   const t = T[L(lang)];
   return `  <button class="v4-scroll-top" type="button" aria-label="${t.scrollTop}">↑</button>
   <div class="v4-scroll-progress" aria-hidden="true"></div>
+  ${ldScript}
   <script defer src="/script.js?${SCRIPT_VER}"></script>`;
 }
 
@@ -270,7 +237,6 @@ export function articleShell(lang) {
   <meta name="twitter:image" data-cms-abs="share.image" content="" />
   <meta name="twitter:image:alt" data-cms-content="share.imageAlt" content="" />
 ${headChrome(l)}
-  <script type="application/ld+json" data-cms-jsonld></script>
 </head>
 <body class="v4-page no-transition" data-lang="${l}">
   <a href="#main" class="skip-link">${t.skip}</a>
@@ -292,14 +258,14 @@ ${barChrome(l, { ru: '/notes', en: '/en/notes', ruAttrs: ' data-cms-href="_urlRu
     </main>
 ${footChrome(l)}
   </div>
-${tailChrome(l)}
+${tailChrome(l, '<script type="application/ld+json" data-cms-jsonld></script>')}
 </body>
 </html>`;
 }
 
 // The /notes feed/index page. Server-built (no KV overlay): listHtml and jsonLd
 // are assembled by render-notes.js. Same chrome as articleShell.
-export function notesIndexHtml(lang, listHtml, jsonLd) {
+export function notesIndexHtml(lang, listHtml, jsonLd, build) {
   const l = L(lang);
   const t = T[l];
   const self = ORIGIN + p(l, '/notes');
@@ -321,7 +287,6 @@ export function notesIndexHtml(lang, listHtml, jsonLd) {
   <link rel="alternate" type="application/rss+xml" title="${t.feed}" href="${p(l, '/notes')}/feed.xml" />
 ${shareChrome(l, { title, description: intro, url: self })}
 ${headChrome(l)}
-  <script type="application/ld+json">${jsonLd}</script>
 </head>
 <body class="v4-page no-transition" data-lang="${l}">
   <a href="#main" class="skip-link">${t.skip}</a>
@@ -334,9 +299,9 @@ ${barChrome(l, { ru: '/notes', en: '/en/notes' })}
         ${listHtml}
       </div>
     </main>
-${footChrome(l)}
+${footChrome(l, build)}
   </div>
-${tailChrome(l)}
+${tailChrome(l, `<script type="application/ld+json">${jsonLd}</script>`)}
 </body>
 </html>`;
 }

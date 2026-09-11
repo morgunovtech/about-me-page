@@ -12,7 +12,7 @@
 // edit=false (the public render) emits none of these → output is byte-identical.
 
 import { pick } from './i18n.js';
-import { escapeHtml, escapeAttr, isExternal, safeHref, renderInline, renderCtx } from './markdown.js';
+import { escapeHtml, escapeAttr, isExternal, safeHref, renderInline, renderCtx, renderProse } from './markdown.js';
 
 // Edit-anchor emitters — all yield '' unless edit is true.
 const eItem = (edit, path) => (edit ? ` data-edit-item="${path}"` : '');
@@ -44,12 +44,14 @@ const TG_SVG = `<svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke
 const LI_SVG = `<svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="1.5" width="13" height="13" rx="1.5"/><path d="M4.5 7v4.5"/><circle cx="4.5" cy="4.5" r="0.6" fill="currentColor"/><path d="M8 11.5v-4.5M8 9c0-1.3.8-2 2-2s2 .7 2 2v2.5"/></svg>`;
 const YT_SVG = `<svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3.5" width="14" height="9" rx="2"/><path d="M6.5 6 11 8 6.5 10Z" fill="currentColor" stroke="none"/></svg>`;
 
-// A single CTA / button anchor. Primary styling and target/rel are derived.
+// A single CTA / button anchor. Labels are plaintext (no markdown) — they are
+// data-cms-text leaves in the editor; primary styling and target/rel are derived.
 // `path` points at the cta object; `asItem` marks it as a reorderable list item.
-function btn(cta, lang, edit, path, asItem) {
-  const href = safeHref(pick(cta.href, lang));
-  const label = escapeHtml(pick(cta.label, lang));
-  const cls = 'v4-btn' + (cta.primary === true ? ' v4-btn-primary' : '');
+function btn(cta, lang, edit, path, asItem, primary) {
+  const href = safeHref(pick(cta.href, lang) || cta.href);
+  const label = escapeHtml(pick(cta.label, lang)); // labels are plaintext leaves (data-cms-text)
+  const isPrimary = primary == null ? cta.primary === true : !!primary;
+  const cls = 'v4-btn' + (isPrimary ? ' v4-btn-primary' : '');
   const ext = isExternal(href);
   return `<a class="${cls}" href="${escapeAttr(href)}"${
     ext ? ' target="_blank" rel="noopener noreferrer"' : ''
@@ -187,20 +189,38 @@ function ventureRow(it, lang, edit, path) {
           </div>`;
 }
 
-function productCard(it, lang, edit, path) {
-  const liveDot = it.live ? '<span class="v4-live-dot" aria-hidden="true"></span>' : '';
-  return `<article class="v4-product"${eItem(edit, path)}>
+// One card for every card-shaped thing on the site (home products, /uses
+// software, /collaborate tiers): head row (tag [+ live dot] · meta), name,
+// body, CTA. Every text leaf is inline markdown → renderInline escapes it.
+function card({ item, tag, live, meta, metaClass, name, body, cta, edit, path }) {
+  const liveDot = live ? '\n              <span class="v4-live-dot" aria-hidden="true"></span>' : '';
+  const tagHtml = live
+    ? `<span class="v4-product-tag-row">
+              <span class="v4-tag"${eText(edit, path + '.tag')}>${tag}</span>${liveDot}
+            </span>`
+    : `<span class="v4-tag"${eText(edit, path + '.tag')}>${tag}</span>`;
+  return `<article class="v4-product"${item ? eItem(edit, path) : ''}>
           <div class="v4-product-head">
-            <span class="v4-product-tag-row">
-              <span class="v4-tag"${eText(edit, path + '.tag')}>${escapeHtml(it.tag)}</span>
-              ${liveDot}
-            </span>
-            <span${eText(edit, path + '.version')}>${escapeHtml(it.version)}</span>
+            ${tagHtml}
+            <span${metaClass ? ` class="${metaClass}"` : ''}${eText(edit, path + '.version')}>${meta}</span>
           </div>
-          <h3 class="v4-product-name"${eText(edit, path + '.name')}>${escapeHtml(it.name)}</h3>
-          <p class="v4-product-desc"${eText(edit, path + '.desc')}>${escapeHtml(pick(it.desc, lang))}</p>
-          ${btn(it.cta, lang, edit, path + '.cta', false)}
+          <h3 class="v4-product-name"${eText(edit, path + '.name')}>${name}</h3>
+          ${body}
+          ${cta}
         </article>`;
+}
+
+function productCard(it, lang, edit, path) {
+  return card({
+    item: true,
+    tag: renderInline(it.tag),
+    live: !!it.live,
+    meta: renderInline(it.version),
+    name: renderInline(it.name),
+    body: `<p class="v4-product-desc"${eText(edit, path + '.desc')}>${renderInline(pick(it.desc, lang))}</p>`,
+    cta: btn(it.cta, lang, edit, path + '.cta', false),
+    edit, path,
+  });
 }
 
 function pubItem(it, lang, edit, path, doc) {
@@ -234,55 +254,58 @@ function pubItem(it, lang, edit, path, doc) {
         </article>`;
 }
 
-// --- /uses cards (structured, replaces the old verbatim-HTML blocks) ---
-// Text fields (tag/name/desc/heading/intro/price/label) are stored as verbatim
-// HTML fragments (they carry &nbsp; and inline <code>), so they're emitted RAW.
-// alt + href + image are attribute-escaped.
+// --- /uses cards (structured) ---
+// Text leaves are inline markdown (**bold**, `code`, literal NBSP) — the same
+// contract as the home page; alt/href/image are attribute-escaped.
 function gearCard(c, lang) {
   return `<article class="v4-use">
                 <div class="v4-use-image">
                   <img src="${escapeAttr(c.image)}" alt="${escapeAttr(pick(c.alt, lang))}" loading="lazy" width="800" height="800" />
                 </div>
-                <span class="v4-tag">${pick(c.tag, lang)}</span>
-                <h4 class="v4-use-name">${c.name}</h4>
-                <p class="v4-use-desc">${pick(c.desc, lang)}</p>
+                <span class="v4-tag">${renderInline(pick(c.tag, lang))}</span>
+                <h4 class="v4-use-name">${renderInline(pick(c.name, lang))}</h4>
+                <p class="v4-use-desc">${renderInline(pick(c.desc, lang))}</p>
               </article>`;
 }
 function gearGroup(g, lang) {
-  return `<h3 class="v4-h3">${pick(g.heading, lang)}</h3>
+  return `<h3 class="v4-h3">${renderInline(pick(g.heading, lang))}</h3>
             <div class="v4-uses">
               ${g.cards.map((c) => gearCard(c, lang)).join('\n              ')}
             </div>`;
 }
 function softCard(c, lang) {
-  return `<article class="v4-product">
-                <div class="v4-product-head">
-                  <span class="v4-tag">${pick(c.tag, lang)}</span>
-                  <span>${pick(c.price, lang)}</span>
-                </div>
-                <h3 class="v4-product-name">${c.name}</h3>
-                <p class="v4-product-desc">${pick(c.desc, lang)}</p>
-                <a class="v4-btn" href="${escapeAttr(safeHref(c.cta.href))}" target="_blank" rel="noopener noreferrer">${pick(c.cta.label, lang)}</a>
-              </article>`;
+  return card({
+    tag: renderInline(pick(c.tag, lang)),
+    meta: renderInline(pick(c.price, lang)),
+    name: renderInline(pick(c.name, lang)),
+    body: `<p class="v4-product-desc">${renderInline(pick(c.desc, lang))}</p>`,
+    cta: btn(c.cta, lang, false, '', false),
+    edit: false, path: '',
+  });
 }
 
-// --- /collaborate (structured, replaces verbatim-HTML blocks) ---
-// Text fields carry inline HTML (&nbsp;, <strong>, <b>) → emitted raw; hrefs
-// via safeHref. Multi-paragraph prose is stored \n\n-joined.
-const paras = (md, lang) => (pick(md, lang) || '').split(/\n{2,}/).map((p) => p.trim()).filter(Boolean).map((p) => `<p>${p}</p>`).join('\n            ');
-const liList = (items, lang, cls = 'v4-list') => `<ul class="${cls}">${(items || []).map((i) => `<li>${pick(i, lang)}</li>`).join('')}</ul>`;
-function collabCta(cta, lang, primary) {
-  const href = safeHref(pick(cta.href, lang) || cta.href);
-  return `<a class="v4-btn${primary ? ' v4-btn-primary' : ''}" href="${escapeAttr(href)}"${isExternal(href) ? ' target="_blank" rel="noopener noreferrer"' : ''}>${pick(cta.label, lang)}</a>`;
-}
+// --- /collaborate (structured) ---
+// Multi-paragraph prose is block markdown (\n\n-joined paragraphs, "- " lists).
+const liList = (items, lang, cls = 'v4-list') => `<ul class="${cls}">${(items || []).map((i) => `<li>${renderInline(pick(i, lang))}</li>`).join('')}</ul>`;
 function collabGroups(groups, lang) {
   return (groups || []).map((g) => {
     let inner = '';
     if (g.kind === 'list') inner = liList(g.items, lang);
-    else if (g.kind === 'spec') inner = `<dl class="v4-spec">${(g.rows || []).map((r) => `<dt>${pick(r.term, lang)}</dt><dd>${pick(r.def, lang)}</dd>`).join('')}</dl>`;
-    else inner = `<div class="v4-prose">${paras(g.prose, lang)}</div>`;
-    return `<h3 class="v4-h3">${pick(g.heading, lang)}</h3>\n            ${inner}`;
+    else if (g.kind === 'spec') inner = `<dl class="v4-spec">${(g.rows || []).map((r) => `<dt>${renderInline(pick(r.term, lang))}</dt><dd>${renderInline(pick(r.def, lang))}</dd>`).join('')}</dl>`;
+    else inner = `<div class="v4-prose">${renderProse(pick(g.prose, lang))}</div>`;
+    return `<h3 class="v4-h3">${renderInline(pick(g.heading, lang))}</h3>\n            ${inner}`;
   }).join('\n            ');
+}
+function tierCard(t, lang) {
+  return card({
+    tag: renderInline(pick(t.tag, lang)),
+    meta: renderInline(pick(t.price, lang)),
+    metaClass: 'v4-pricing',
+    name: renderInline(pick(t.name, lang)),
+    body: liList(t.features, lang),
+    cta: btn(t.cta, lang, false, '', false),
+    edit: false, path: '',
+  });
 }
 
 export const renderers = {
@@ -328,7 +351,7 @@ export const renderers = {
   usesProducts: (doc, lang) => {
     const sec = doc.sections.software || {};
     return `<div class="v4-prose">
-              <p>${pick(sec.intro, lang)}</p>
+              <p>${renderInline(pick(sec.intro, lang))}</p>
             </div>
             <div class="v4-softs">
               ${(sec.cards || []).map((c) => softCard(c, lang)).join('\n              ')}
@@ -340,9 +363,9 @@ export const renderers = {
     return `<div class="v4-body">
           <div class="v4-body-aside"></div>
           <div class="v4-prose">
-            ${paras(s.prose, lang)}
+            ${renderProse(pick(s.prose, lang))}
             ${liList(s.points, lang, 'v4-list v4-list--spaced')}
-            <p class="v4-collab-clients">${pick(s.clients, lang)}</p>
+            <p class="v4-collab-clients">${renderInline(pick(s.clients, lang))}</p>
           </div>
         </div>`;
   },
@@ -350,15 +373,7 @@ export const renderers = {
   collabConsulting: (doc, lang) => {
     const s = doc.sections.consulting;
     return `<div class="v4-products">
-          ${(s.tiers || []).map((t) => `<article class="v4-product">
-            <div class="v4-product-head">
-              <span class="v4-tag">${pick(t.tag, lang)}</span>
-              <span class="v4-pricing">${pick(t.price, lang)}</span>
-            </div>
-            <h3 class="v4-product-name">${pick(t.name, lang)}</h3>
-            ${liList(t.features, lang)}
-            ${collabCta(t.cta, lang, false)}
-          </article>`).join('\n          ')}
+          ${(s.tiers || []).map((t) => tierCard(t, lang)).join('\n          ')}
         </div>`;
   },
 
@@ -367,10 +382,10 @@ export const renderers = {
     return `<div class="v4-body">
           <div class="v4-body-aside"></div>
           <div>
-            <p class="v4-tagline v4-tagline--compact">${pick(s.tagline, lang)}</p>
+            <p class="v4-tagline v4-tagline--compact">${renderInline(pick(s.tagline, lang))}</p>
             ${collabGroups(s.groups, lang)}
-            <p class="v4-terms">${pick(s.terms, lang)}</p>
-            <div class="v4-help-cta">${collabCta(s.cta, lang, false)}</div>
+            <p class="v4-terms">${renderInline(pick(s.terms, lang))}</p>
+            <div class="v4-help-cta">${btn(s.cta, lang, false, '', false, false)}</div>
           </div>
         </div>`;
   },
@@ -381,7 +396,7 @@ export const renderers = {
           <div class="v4-body-aside"></div>
           <div>
             ${collabGroups(s.groups, lang)}
-            <div class="v4-help-cta">${collabCta(s.cta, lang, true)}</div>
+            <div class="v4-help-cta">${btn(s.cta, lang, false, '', false, true)}</div>
           </div>
         </div>`;
   },
@@ -390,10 +405,10 @@ export const renderers = {
     const s = doc.sections.contact;
     return `<div class="v4-contact">
           <div>
-            <p class="v4-contact-note">${pick(s.note, lang)}</p>
+            <p class="v4-contact-note">${renderInline(pick(s.note, lang))}</p>
           </div>
           <div class="v4-cta-row">
-            ${(s.ctas || []).map((c, i) => collabCta(c, lang, i === 0)).join('\n            ')}
+            ${(s.ctas || []).map((c, i) => btn(c, lang, false, '', false, i === 0)).join('\n            ')}
           </div>
         </div>`;
   },

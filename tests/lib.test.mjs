@@ -322,7 +322,7 @@ test('migrations run once: a renamed or deleted card is not resurrected after th
   const seedDoc = { stats: [], sections: { products: { items: [{ name: 'Fingerprint' }, { name: 'Tofs DevOps', schema: {} }] }, publications: { items: [] } } };
   const kv = { sections: { products: { items: [{ name: 'Fingerprint' }] }, publications: { items: [] } }, stats: [] };
   migrateHome(kv, seedDoc);
-  assert.equal(kv.migration, 29);
+  assert.equal(kv.migration, 30);
   assert.deepEqual(kv.sections.products.items.map((i) => i.name), ['Fingerprint', 'Tofs DevOps']);
   // editor renames + deletes, then the doc is read again (marker already set)
   kv.sections.products.items = [{ name: 'Fingerprint Check' }];
@@ -331,5 +331,5 @@ test('migrations run once: a renamed or deleted card is not resurrected after th
   const about = { sections: { living: { body: { ru: 'Build <code>cc8781e</code> сменится', en: 'Build <code>cc8781e</code> will change' } } } };
   migrateAbout(about);
   assert.equal(about.sections.living.body.ru, 'Build <code>{build}</code> сменится');
-  assert.equal(about.migration, 29);
+  assert.equal(about.migration, 30);
 });

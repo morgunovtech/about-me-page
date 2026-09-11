@@ -46,7 +46,7 @@ const SHELL = `<!DOCTYPE html>
     </div>
     <div class="ed-drawer-body" id="settings"></div>
   </aside>
-  <script src="/admin-app.js?v=43d3d6ef"></script>
+  <script src="/admin-app.js?v=505a1651"></script>
 </body>
 </html>`;
 
@@ -56,6 +56,11 @@ export async function onRequestGet() {
       'content-type': 'text/html; charset=utf-8',
       'cache-control': 'no-store',
       'x-robots-tag': 'noindex, nofollow',
+      // The editor shell + its srcdoc preview (which inherits this policy):
+      // same-origin only, inline styles/scripts for the critical block and
+      // the FOUC script, images from R2/data/blob, no framing.
+      'content-security-policy':
+        "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; frame-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'; object-src 'none'",
     },
   });
 }

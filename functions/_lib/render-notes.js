@@ -6,7 +6,7 @@ import { notesIndexHtml } from './article-template.js';
 import { serializeLd } from './jsonld.js';
 import { escapeHtml } from './markdown.js';
 import { pick } from './i18n.js';
-import { ORIGIN, NAME } from './site.js';
+import { ORIGIN, NAME, buildOf } from './site.js';
 // Empty EN falls back to RU (pick treats '' as set) — keep the ||-fallback here.
 const pickL = (v, lang) => (v ? v[lang] || v.ru || v.en || '' : '');
 const xmlEsc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -68,7 +68,7 @@ export async function renderNotesIndex(env, lang) {
     ],
   });
 
-  return new Response(notesIndexHtml(lang, listHtml, jsonLd), {
+  return new Response(notesIndexHtml(lang, listHtml, jsonLd, buildOf(env)), {
     headers: {
       'content-type': 'text/html; charset=utf-8',
       'Cache-Control': 'public, max-age=120, stale-while-revalidate=86400',

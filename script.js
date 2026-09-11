@@ -13,6 +13,7 @@
      data-i18n-en, data-i18n-aria-en, data-i18n-href-en, data-i18n-checked-en). --- */
   if (root.dataset.i18n === 'en' && document.querySelector('[data-i18n-en]')) {
     root.lang = 'en';
+    body.dataset.lang = 'en';
     document.title = '404 — Page not found | morgunov.tech';
     const swap = (attr, apply) => {
       document.querySelectorAll('[' + attr + ']').forEach((el) => apply(el, el.getAttribute(attr)));
@@ -74,11 +75,10 @@
     });
   };
 
-  /* Remove no-transition only after the async stylesheets have applied —
-     they define the theme transitions, and enabling them earlier would
-     animate every surface from its unstyled state on a cold cache. The
-     guard rule itself is duplicated in the inline critical CSS, so it
-     holds from the very first frame. */
+  /* Remove no-transition only after load — the stylesheets define the theme
+     transitions, and enabling them on the first frames would animate every
+     surface from its initial state. The guard rule itself is in the inline
+     critical CSS, so it holds from the very first frame. */
   const enableTransitions = () => {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {

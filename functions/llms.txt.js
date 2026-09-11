@@ -4,11 +4,17 @@
 // disagree with the page.
 import { loadDoc, loadSubscribers } from './_lib/content.js';
 import { counters } from './_lib/render.js';
+import { cached } from './_lib/cache.js';
 
-export async function onRequest({ env, request }) {
+export async function onRequest(ctx) {
+  const { env, request } = ctx;
   if (request.method !== 'GET' && request.method !== 'HEAD') {
     return new Response('Method Not Allowed', { status: 405, headers: { allow: 'GET, HEAD' } });
   }
+  return cached(ctx, () => render(env, request));
+}
+
+async function render(env, request) {
   const [asset, doc, subs] = await Promise.all([
     env.ASSETS.fetch(new URL('/llms.txt', request.url)),
     loadDoc(env, 'home'),

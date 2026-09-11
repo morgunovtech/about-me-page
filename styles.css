@@ -15,9 +15,10 @@
   align-items: start;
 }
 
+/* Same top rhythm as the homepage hero — the variant only drops the portrait. */
 .v4-hero--simple {
   grid-template-columns: 1fr;
-  padding: 24px 0 0;
+  padding: 4px 0 0;
 }
 
 .v4-hero-text {
@@ -25,9 +26,9 @@
 }
 
 .v4-hero-meta {
-  font-size: 11px;
+  font-size: var(--v4-label-size);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--v4-label-tracking);
   color: var(--v4-muted);
   margin-bottom: 16px;
   display: flex;
@@ -38,7 +39,7 @@
 
 .v4-hero-meta b {
   color: var(--v4-fg);
-  font-weight: 500;
+  font-weight: var(--v4-label-weight);
 }
 
 .v4-h1 {
@@ -116,12 +117,12 @@
 }
 
 .v4-stat-unit {
-  font-size: 10px;
+  font-size: var(--v4-label-xs-size);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--v4-label-xs-tracking);
   color: var(--v4-muted);
   margin-top: 8px;
-  font-weight: 500;
+  font-weight: var(--v4-label-weight);
 }
 
 .v4-stat-aside {
@@ -326,10 +327,10 @@
   flex-wrap: wrap;
   gap: 6px 12px;
   margin-bottom: 16px;
-  font-size: 10px;
-  font-weight: 500;
+  font-size: var(--v4-label-xs-size);
+  font-weight: var(--v4-label-weight);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--v4-label-xs-tracking);
   color: var(--v4-muted);
   font-family: var(--v4-mono);
 }
@@ -341,11 +342,11 @@
   /* Self-contained chip: the same 10px tracked caps whether it sits in a
      product/pub head or alone in a /uses gear card. */
   font-family: var(--v4-mono);
-  font-size: 10px;
-  font-weight: 500;
+  font-size: var(--v4-label-xs-size);
+  font-weight: var(--v4-label-weight);
   line-height: 1.4;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--v4-label-xs-tracking);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -385,10 +386,10 @@
 
 .v4-more {
   margin-top: 14px;
-  font-size: 11px;
-  font-weight: 500;
+  font-size: var(--v4-label-size);
+  font-weight: var(--v4-label-weight);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--v4-label-tracking);
   font-family: var(--v4-mono);
 }
 
@@ -499,9 +500,9 @@
   align-items: baseline;
   gap: 4px;
   font-family: var(--v4-mono);
-  font-size: 11px;
+  font-size: var(--v4-label-size);
   color: var(--v4-orange-text);
-  letter-spacing: 0.06em;
+  letter-spacing: var(--v4-label-tracking);
   text-transform: uppercase;
 }
 
@@ -523,9 +524,9 @@
 
 .v4-spec dt {
   font-family: var(--v4-mono);
-  font-size: 10px;
+  font-size: var(--v4-label-xs-size);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--v4-label-xs-tracking);
   color: var(--v4-muted);
   padding-top: 2px;
 }
@@ -537,16 +538,17 @@
 
 .v4-collab-clients {
   font-family: var(--v4-mono);
-  font-size: 11px;
+  font-size: var(--v4-label-size);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--v4-label-tracking);
   color: var(--v4-muted);
   margin-top: 16px;
   padding-top: 12px;
   border-top: 1px solid var(--v4-line);
 }
 
-.v4-collab-clients b {
+.v4-collab-clients b,
+.v4-collab-clients strong {
   color: var(--v4-fg);
   font-weight: 500;
   letter-spacing: 0;
@@ -572,10 +574,10 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
-  font-size: 10px;
-  font-weight: 500;
+  font-size: var(--v4-label-xs-size);
+  font-weight: var(--v4-label-weight);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--v4-label-xs-tracking);
   color: var(--v4-muted);
   font-family: var(--v4-mono);
 }
@@ -650,6 +652,9 @@
     margin-bottom: 22px;
     gap: 22px;
   }
+  .v4-hero--simple {
+    padding-bottom: 0;
+  }
   .v4-h1 {
     font-size: 40px;
     letter-spacing: -0.02em;
@@ -701,9 +706,9 @@
 
 .v4-article-eyebrow {
   font-family: var(--v4-mono);
-  font-size: 11px;
+  font-size: var(--v4-label-size);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--v4-label-tracking);
   color: var(--v4-muted);
   margin: 0 0 16px;
 }
@@ -762,12 +767,13 @@
   margin: 0 0 18px;
 }
 
-/* H2 renders like a numbered section: inline mono counter + a top divider. */
+/* H2 renders exactly like a page section head: inline mono counter, then the
+   rule UNDER the title (.v4-section-head idiom). */
 .v4-article-body h2 {
   counter-increment: sec;
-  border-top: 1px solid var(--v4-fg);
-  padding-top: 14px;
-  margin: 40px 0 14px;
+  border-bottom: 1px solid var(--v4-fg);
+  padding-bottom: 10px;
+  margin: 40px 0 16px;
   font-size: 22px;
   font-weight: 600;
   letter-spacing: -0.015em;
@@ -779,25 +785,27 @@
   content: counter(sec, decimal-leading-zero) " ";
   display: inline-block;
   font-family: var(--v4-mono);
-  font-size: 11px;
-  font-weight: 500;
+  font-size: var(--v4-label-size);
+  font-weight: var(--v4-label-weight);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--v4-label-tracking);
   color: var(--v4-muted);
   margin-right: 14px;
   vertical-align: baseline;
 }
 
 .v4-article-body h2:first-child {
-  border-top: none;
-  padding-top: 0;
   margin-top: 0;
 }
 
+/* H3 = the site's sub-head idiom (.v4-h3): small tracked caps, muted. */
 .v4-article-body h3 {
-  font-size: 20px;
-  font-weight: 600;
-  margin: 28px 0 10px;
+  font-size: var(--v4-label-size);
+  font-weight: var(--v4-label-weight);
+  text-transform: uppercase;
+  letter-spacing: var(--v4-label-tracking);
+  color: var(--v4-muted);
+  margin: 28px 0 8px;
 }
 
 .v4-article-body blockquote {
@@ -876,9 +884,9 @@
 
 .v4-note-date {
   font-family: var(--v4-mono);
-  font-size: 11px;
+  font-size: var(--v4-label-size);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--v4-label-tracking);
   color: var(--v4-dim);
 }
 

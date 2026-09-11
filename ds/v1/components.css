@@ -26,9 +26,9 @@
   padding: 0 0 14px;
   margin-bottom: 32px;
   border-bottom: 1px solid var(--v4-fg);
-  font-size: 11px;
+  font-size: var(--v4-label-size);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--v4-label-tracking);
 }
 
 .v4-bar-mid {
@@ -96,9 +96,9 @@
   color: var(--v4-fg);
   cursor: pointer;
   font: inherit;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-size: var(--v4-label-size);
+  font-weight: var(--v4-label-weight);
+  letter-spacing: var(--v4-label-tracking);
   text-transform: uppercase;
   transition: color 0.15s ease;
 }
@@ -166,10 +166,10 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   border: 1px solid transparent;
   color: var(--v4-fg);
   padding: 10px 10px;
-  font-size: 11px;
-  font-weight: 500;
+  font-size: var(--v4-label-size);
+  font-weight: var(--v4-label-weight);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--v4-label-tracking);
   text-align: left;
   text-decoration: none;
   cursor: pointer;
@@ -289,7 +289,6 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   .v4-bar {
     padding-bottom: 10px;
     margin-bottom: 22px;
-    font-size: 10px;
   }
   .v4-nav-toggle {
     display: inline-flex;
@@ -323,9 +322,9 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
     padding: 10px 10px;
     border: 1px solid transparent;
     color: var(--v4-fg);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-size: var(--v4-label-size);
+    font-weight: var(--v4-label-weight);
+    letter-spacing: var(--v4-label-tracking);
   }
   .v4-bar-mid a:hover,
   .v4-bar-mid a:focus-visible {
@@ -375,11 +374,11 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
 
 .v4-section-num {
   font-family: var(--v4-mono);
-  font-size: 11px;
+  font-size: var(--v4-label-size);
   color: var(--v4-muted);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 500;
+  letter-spacing: var(--v4-label-tracking);
+  font-weight: var(--v4-label-weight);
   flex-shrink: 0;
 }
 
@@ -391,12 +390,12 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
 }
 
 .v4-h3 {
-  font-size: 11px;
+  font-size: var(--v4-label-size);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--v4-label-tracking);
   color: var(--v4-muted);
   margin: 18px 0 8px;
-  font-weight: 500;
+  font-weight: var(--v4-label-weight);
 }
 
 .v4-h3:first-child {
@@ -549,13 +548,13 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 10px;
+  font-size: var(--v4-label-xs-size);
   color: var(--v4-muted);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--v4-label-xs-tracking);
   flex-wrap: wrap;
   gap: 12px;
-  font-weight: 500;
+  font-weight: var(--v4-label-weight);
 }
 
 .v4-foot-privacy {
@@ -665,9 +664,9 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   gap: 2px;
   z-index: 9;
   font-family: var(--v4-mono);
-  font-size: 11px;
+  font-size: var(--v4-label-size);
   /* Same glyph as .v4-section-num — same tracking and colour. */
-  letter-spacing: 0.1em;
+  letter-spacing: var(--v4-label-tracking);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.2s ease, visibility 0s linear 0.2s;

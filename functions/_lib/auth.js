@@ -64,14 +64,20 @@ export async function verifyPassword(password, stored) {
   return timingSafeEqual(new Uint8Array(bits), expected);
 }
 
+// KV key holding the epoch seconds before which every session is void —
+// «Выйти» writes it, so every token issued earlier is rejected once the KV
+// write propagates (immediately at the writing colo, up to ~60 s elsewhere).
+export const NOT_BEFORE_KEY = 'session:not-before';
+
 export async function createSession(secret) {
-  const payload = { exp: Math.floor(Date.now() / 1000) + SESSION_TTL };
+  const now = Math.floor(Date.now() / 1000);
+  const payload = { iat: now, exp: now + SESSION_TTL };
   const body = b64urlEncode(enc.encode(JSON.stringify(payload)));
   const sig = await hmac(secret, body);
   return body + '.' + b64urlEncode(sig);
 }
 
-export async function verifySession(secret, token) {
+export async function verifySession(secret, token, env) {
   if (!secret || !token || token.indexOf('.') < 0) return null;
   // A malformed cookie must fail closed (→ login), never throw: b64urlDecode
   // calls atob, which throws on non-base64 input, so wrap the whole verify.
@@ -81,6 +87,10 @@ export async function verifySession(secret, token) {
     if (!timingSafeEqual(b64urlDecode(sig), expected)) return null;
     const payload = JSON.parse(new TextDecoder().decode(b64urlDecode(body)));
     if (!payload.exp || payload.exp < Math.floor(Date.now() / 1000)) return null;
+    if (env && env.CONTENT) {
+      const notBefore = Number(await env.CONTENT.get(NOT_BEFORE_KEY));
+      if (notBefore && (!payload.iat || payload.iat < notBefore)) return null;
+    }
     return payload;
   } catch {
     return null;

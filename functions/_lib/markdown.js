@@ -38,9 +38,13 @@ export function safeHref(href) {
   return h.replace(INTERNAL_HTML_HREF, (m) => m.slice(0, -'.html'.length));
 }
 
-// Escape a text run, then apply inline emphasis (**bold**).
+// Escape a text run, then apply inline code (`x`) and emphasis (**bold**).
+// Code spans are resolved first so a literal ** inside them stays literal.
 function fmt(text) {
-  return escapeHtml(text).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  return escapeHtml(text)
+    .split(/(`[^`\n]+`)/)
+    .map((part, i) => (i % 2 ? `<code>${part.slice(1, -1)}</code>` : part.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')))
+    .join('');
 }
 
 // Render inline markdown (links + emphasis) without any block wrapping.

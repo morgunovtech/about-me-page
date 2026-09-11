@@ -1,7 +1,7 @@
-// Telegram archive parser (functions/_lib/dist/tg-import.js).
+// Telegram archive parser (functions/_lib/tg/tg-import.js).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { entitiesToHtml, parseArchive } from '../functions/_lib/dist/tg-import.js';
+import { entitiesToHtml, parseArchive } from '../functions/_lib/tg/tg-import.js';
 
 test('entitiesToHtml maps text_entities to blog HTML', () => {
   const html = entitiesToHtml([

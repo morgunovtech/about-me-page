@@ -4,10 +4,11 @@
 // rather than duplicating. Processes up to `limit` NEW posts per call and
 // returns `remaining` so the client can loop until done.
 import { json, sameOrigin } from '../../_lib/http.js';
-import { parseArchive } from '../../_lib/dist/tg-import.js';
+import { parseArchive } from '../../_lib/tg/tg-import.js';
 import { sanitizeHtml } from '../../_lib/sanitize.js';
 import { articleKey, INDEX_KEY, loadArticleIndex, makeArticleDoc, indexEntry } from '../../_lib/articles.js';
 import { relinkChannelPhoto, slugify } from './import.js';
+import { purge, articlePaths, NOTES_PATHS } from '../../_lib/cache.js';
 
 const SITE = 's.morgunov.tech';
 const guardKey = (handle, id) => `${SITE}:tgimport:${handle}:${id}`;
@@ -66,5 +67,6 @@ export async function onRequestPost({ request, env }) {
     created++;
   }
   await env.CONTENT.put(INDEX_KEY, JSON.stringify(idx));
+  await purge(request, NOTES_PATHS, env);
   return json({ ok: true, created, skipped, remaining, total: posts.length });
 }

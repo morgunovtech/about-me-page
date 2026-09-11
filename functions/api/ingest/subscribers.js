@@ -2,6 +2,7 @@
 // schedule. Token-authenticated (no cookies, no session). The site only reads
 // stats:subscribers; the bot only writes it.
 import { json } from '../../_lib/http.js';
+import { purge, PAGE_PATHS } from '../../_lib/cache.js';
 
 function safeEqual(a, b) {
   if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false;
@@ -50,5 +51,6 @@ export async function onRequestPost({ request, env }) {
     updatedAt: validUpdatedAt ? ua : new Date().toISOString(),
   };
   await env.CONTENT.put('stats:subscribers', JSON.stringify(record));
+  await purge(request, PAGE_PATHS.home, env); // the counters render on / , /en/ and /llms.txt
   return json({ ok: true, stored: record });
 }

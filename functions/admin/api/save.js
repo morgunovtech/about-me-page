@@ -2,32 +2,9 @@ import { json, sameOrigin } from '../../_lib/http.js';
 import { validPageKey, isArticlePage } from '../../_lib/content.js';
 import { INDEX_KEY, indexEntry } from '../../_lib/articles.js';
 import { sanitizeHtml, sanitizeButtons } from '../../_lib/sanitize.js';
+import { purge, PAGE_PATHS, articlePaths } from '../../_lib/cache.js';
 
 const SITE = 's.morgunov.tech';
-// Keys whose values are bound to attributes (href/src) or already escaped at
-// render time (alt) — never run them through the HTML sanitizer, or they'd be
-// double-encoded. Everything else under sections/* is emitted raw by render.js
-// and IS a trust boundary.
-const SANITIZE_SKIP_KEYS = new Set(['href', 'image', 'src', 'url', 'alt']);
-
-// Recursively sanitize every string leaf, skipping url/alt keys. Used for the
-// uses/collaborate structured docs, whose text fields (tag/name/desc/prose/…)
-// render.js emits as raw HTML (they legitimately carry &nbsp; / <strong> / <code>).
-async function sanitizeLeaves(node) {
-  if (typeof node === 'string') return sanitizeHtml(node);
-  if (Array.isArray(node)) {
-    for (let i = 0; i < node.length; i++) node[i] = await sanitizeLeaves(node[i]);
-    return node;
-  }
-  if (node && typeof node === 'object') {
-    for (const k of Object.keys(node)) {
-      if (SANITIZE_SKIP_KEYS.has(k)) continue;
-      node[k] = await sanitizeLeaves(node[k]);
-    }
-    return node;
-  }
-  return node;
-}
 const SECTION_IDS = ['about', 'career', 'help', 'ventures', 'products', 'publications', 'contact'];
 const HISTORY_MAX = 20; // keep the last N revisions per page
 
@@ -137,19 +114,16 @@ export async function onRequestPost({ request, env }) {
     }
   }
 
-  // uses/collaborate are structured docs whose text fields render.js emits RAW
-  // (they carry inline HTML), so they're a trust boundary too. Sanitize every
-  // string leaf under sections/*; the hero.ctas are styled <a> markup, so they
-  // get the button-aware sanitizer (keeps class, strips scripts/handlers).
+  // uses/collaborate section leaves are a markdown subset escaped at render
+  // time by renderInline/renderProse — stored verbatim. Only hero.ctas is
+  // styled <a> markup, so it gets the button-aware sanitizer (keeps class,
+  // strips scripts/handlers).
   if (page === 'uses' || page === 'collaborate') {
     const ctas = doc.hero && doc.hero.ctas;
     if (ctas && typeof ctas === 'object') {
       for (const l of ['ru', 'en']) {
         if (typeof ctas[l] === 'string') ctas[l] = await sanitizeButtons(ctas[l]);
       }
-    }
-    if (doc.sections && typeof doc.sections === 'object') {
-      doc.sections = await sanitizeLeaves(doc.sections);
     }
   }
 
@@ -167,6 +141,8 @@ export async function onRequestPost({ request, env }) {
   doc.dateModified = doc.updatedAt.slice(0, 10);
 
   await env.CONTENT.put(`${SITE}:${page}`, JSON.stringify(doc));
+  // The edge cache holds rendered copies of every URL this doc feeds.
+  await purge(request, article ? articlePaths(page.slice('article:'.length)) : PAGE_PATHS[page] || [], env);
 
   // Keep the article index (feed/sitemap source) in sync with this save.
   if (article) {

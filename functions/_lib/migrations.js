@@ -11,7 +11,7 @@ const clone = (v) => JSON.parse(JSON.stringify(v));
 // Content-schema version the migrations bring a doc up to. Saved with the doc
 // (save.js persists whatever the editor loaded), so a migrated-then-edited doc
 // is never touched again: renaming or deleting a card later sticks.
-export const MIGRATION = 29;
+export const MIGRATION = 30;
 
 export function migrateHome(doc, seedDoc) {
   if (!doc || !seedDoc || !doc.sections) return doc;
@@ -82,3 +82,55 @@ export function migrateAbout(doc) {
   return doc;
 }
 
+
+// --- v0.30: structured /uses and /collaborate text fields were stored as HTML
+// fragments (&nbsp;, <strong>, <b>, <code>) and emitted raw. They are now the
+// same markdown subset every other field uses (**bold**, `code`, literal NBSP)
+// and go through renderInline() — one escaping contract for the whole doc.
+const NAMED = { nbsp: '\u00a0', amp: '&', lt: '<', gt: '>', quot: '"', apos: "'" };
+export function htmlToInline(html) {
+  if (typeof html !== 'string' || !/[<&]/.test(html)) return html;
+  return html
+    .replace(/<\/?(?:strong|b)\s*>/gi, '**')
+    .replace(/<\/?code\s*>/gi, '`')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&(nbsp|amp|lt|gt|quot|apos);/g, (m, n) => NAMED[n])
+    .replace(/&#(\d+);/g, (m, n) => String.fromCodePoint(Number(n)));
+}
+
+const KEEP_RAW = new Set(['href', 'image', 'src', 'alt']);
+function convertLeaves(node) {
+  if (Array.isArray(node)) return node.forEach(convertLeaves);
+  if (!node || typeof node !== 'object') return;
+  for (const [k, v] of Object.entries(node)) {
+    if (KEEP_RAW.has(k)) continue;
+    if (typeof v === 'string') node[k] = htmlToInline(v);
+    else convertLeaves(v);
+  }
+}
+export function migrateUses(doc) {
+  if (!doc || !doc.sections) return doc;
+  if ((doc.migration | 0) >= MIGRATION) return doc;
+  doc.migration = MIGRATION;
+  convertLeaves(doc.sections);
+  return doc;
+}
+export function migrateCollaborate(doc) {
+  if (!doc || !doc.sections) return doc;
+  if ((doc.migration | 0) >= MIGRATION) return doc;
+  migrateUses(doc); // same field model, same conversion (sets the marker)
+  // CTA convention: the primary button comes first in the hero row.
+  const ctas = doc.hero && doc.hero.ctas;
+  if (ctas && typeof ctas === 'object') {
+    for (const l of ['ru', 'en']) {
+      if (typeof ctas[l] !== 'string') continue;
+      const parts = ctas[l].split('\n').map((x) => x.trim()).filter(Boolean);
+      if (parts.length < 2) continue;
+      const primary = parts.filter((x) => x.includes('v4-btn-primary'));
+      const rest = parts.filter((x) => !x.includes('v4-btn-primary'));
+      ctas[l] = [...primary, ...rest].join('\n');
+    }
+  }
+  return doc;
+}

@@ -177,13 +177,16 @@ const SERVICE = {
 };
 const HOME_NAME = { ru: 'Главная', en: 'Home' };
 
-// Text fields of the structured sub-page docs carry inline HTML (&nbsp;,
-// <strong>) — JSON-LD wants plain text.
-const plain = (html) =>
-  String(html == null ? '' : html)
+// Text leaves are inline markdown (legacy KV docs may still carry HTML) —
+// JSON-LD wants plain text.
+const plain = (md) =>
+  String(md == null ? '' : md)
     .replace(/<[^>]+>/g, '')
     .replace(/&nbsp;/g, ' ')
     .replace(/&amp;/g, '&')
+    .replace(/\[([^\]]+)\]\([^)\s]*\)/g, '$1')
+    .replace(/\*\*|`/g, '')
+    .replace(/\u00a0/g, ' ')
     .trim();
 
 export function renderPageJsonLd(doc, lang, page) {

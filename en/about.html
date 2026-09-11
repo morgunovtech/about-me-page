@@ -36,7 +36,7 @@
   <meta name="twitter:image:alt" data-cms-content="share.imageAlt" content="Principles — Semyon Morgunov" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
   <style>
-    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;color-scheme:light dark}
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:11px;--v4-label-tracking:.1em;--v4-label-xs-size:10px;--v4-label-xs-tracking:.12em;--v4-label-weight:500;color-scheme:light dark}
     [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f;color-scheme:dark}
     [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000;color-scheme:dark}
     *,*::before,*::after{box-sizing:border-box}
@@ -46,62 +46,18 @@
     [data-theme="high-contrast"] body.v4-page{font-size:16px}
     .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:6px 12px;z-index:100;text-decoration:none;font-size:13px;transition:top .2s}
     .v4-page .skip-link:focus{top:8px}
-    .v4-root{background:var(--v4-bg);color:var(--v4-fg);padding:36px 56px 56px;max-width:1280px;margin:0 auto}
-    .v4-bar{display:flex;justify-content:space-between;align-items:center;padding:0 0 14px;margin-bottom:32px;border-bottom:1px solid var(--v4-fg);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
-    .v4-nav{display:flex;align-items:center;min-width:0}
-    .v4-bar-mid{display:flex;gap:6px 22px;justify-content:flex-start;color:var(--v4-muted);flex-wrap:wrap}
-    .v4-bar-mid a{color:inherit;text-decoration:none;padding:8px 4px;white-space:nowrap}
-    .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;margin-left:auto;color:var(--v4-fg)}
-    .v4-bar-btn{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 8px;border:none;background:transparent;color:var(--v4-fg);cursor:pointer;font:inherit;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
-    .v4-bar-btn .v4-chevron{width:10px;height:10px;flex-shrink:0}
-    .v4-nav-toggle{display:none}
-    .v4-dropdown{position:relative}
-    .v4-menu{position:absolute;right:0;top:calc(100% + 15px);display:none;flex-direction:column;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}
-    .v4-dropdown.is-open > .v4-menu{display:flex}
-    html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu{display:flex}
-    .v4-icon-btn{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--v4-fg);cursor:pointer;padding:0;font:inherit;border:none}
-    .v4-icon-btn svg{width:14px;height:14px}
-    .v4-icon-btn .v4-icon-moon,.v4-icon-btn .v4-icon-contrast{display:none}
-    [data-theme="dark"] .v4-icon-btn .v4-icon-sun{display:none}
-    [data-theme="dark"] .v4-icon-btn .v4-icon-moon{display:block}
-    [data-theme="high-contrast"] .v4-icon-btn .v4-icon-sun{display:none}
-    [data-theme="high-contrast"] .v4-icon-btn .v4-icon-contrast{display:block}
-    .v4-hero{display:grid;grid-template-columns:1fr 280px;gap:40px;padding:4px 0 36px;margin:0 0 28px;align-items:start}
-    .v4-hero--simple{grid-template-columns:1fr;padding:24px 0 0}
-    .v4-hero-text{min-width:0}
-    .v4-hero-meta{font-family:var(--v4-mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--v4-muted);margin-bottom:16px;display:flex;flex-wrap:wrap;gap:14px}
-    .v4-h1{font-size:64px;line-height:1;letter-spacing:-.025em;font-weight:600;margin:0 0 16px}
-    .v4-tagline{font-size:18px;color:var(--v4-fg);line-height:1.45;max-width:52ch;margin:0 0 24px;font-weight:400}
-    .v4-cta-row{display:flex;gap:8px;flex-wrap:wrap}
-    .v4-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;min-height:40px;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;cursor:pointer;border:1px solid var(--v4-fg);background:transparent;color:var(--v4-fg);font-family:inherit}
-    .v4-btn-primary{background:var(--v4-orange);color:var(--v4-on-accent);border-color:var(--v4-orange)}
-    .v4-section{margin-bottom:36px}
-    .v4-section-head{display:flex;align-items:baseline;gap:14px;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--v4-fg)}
-    .v4-section-num{font-family:var(--v4-mono);font-size:11px;color:var(--v4-muted);text-transform:uppercase;letter-spacing:.1em;font-weight:500;flex-shrink:0}
-    .v4-h2{font-size:22px;font-weight:600;margin:0;letter-spacing:-.015em}
-    .v4-prose p{margin:0 0 12px;line-height:1.55}
-    .v4-prose p:last-child{margin-bottom:0}
-    .v4-prose strong{font-weight:600}
-    .v4-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
-    .v4-list li{padding-left:18px;position:relative;line-height:1.5}
-    .v4-list li::before{content:"";position:absolute;left:0;top:.65em;width:8px;height:1px;background:var(--v4-fg)}
-    .v4-list strong{font-weight:600}
-    .v4-list--spaced{margin-top:12px}
-    .v4-list + .v4-prose{margin-top:18px}
-    @media (max-width:960px){.v4-root{padding:28px 32px 40px}.v4-h1{font-size:52px}}
-    @media (max-width:640px){.v4-root{padding:20px 18px 32px}body.v4-page{font-size:13.5px}.v4-bar{padding-bottom:10px;margin-bottom:22px;font-size:10px}.v4-nav-toggle{display:inline-flex;min-height:44px;margin-left:-8px}.v4-bar-mid{position:absolute;left:0;top:calc(100% + 11px);display:none;flex-direction:column;align-items:stretch;gap:0;margin:0;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}.v4-nav.is-open > .v4-bar-mid,html:not([data-js]) .v4-nav:is(:focus-within, :hover) > .v4-bar-mid{display:flex}.v4-bar-mid a{padding:10px 10px;border:1px solid transparent;color:var(--v4-fg);font-size:11px;font-weight:500;letter-spacing:.1em}.v4-menu{top:calc(100% + 11px)}.v4-bar-btn{min-height:44px}.v4-icon-btn{width:44px;height:44px}.v4-section-head{padding-bottom:10px;margin-bottom:12px}.v4-h2{font-size:18px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}}
   </style>
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-400.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-600.woff2" crossorigin />
-  <!-- Mono renders above the fold (hero eyebrow, section numbers) — preload 400 so it doesn't FOUT. -->
+  <!-- Mono renders above the fold (hero eyebrow 400, section numbers 500) — preload both so they don't FOUT. -->
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-latin-400.woff2" crossorigin />
-  <link rel="preload" href="/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/tokens.css?v=50a0d966" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/base.css?v=0e404315" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/components.css?v=7565c1f8" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" /><link rel="stylesheet" href="/ds/v1/tokens.css?v=50a0d966" /><link rel="stylesheet" href="/ds/v1/base.css?v=0e404315" /><link rel="stylesheet" href="/ds/v1/components.css?v=7565c1f8" /></noscript>
-  <link rel="preload" href="/styles.css?v=f4f1111b" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/styles.css?v=f4f1111b" /></noscript>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-latin-500.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-500.woff2" crossorigin />
+  <link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" />
+  <link rel="stylesheet" href="/ds/v1/tokens.css?v=21b99b43" />
+  <link rel="stylesheet" href="/ds/v1/base.css?v=0e404315" />
+  <link rel="stylesheet" href="/ds/v1/components.css?v=434c30e7" />
+  <link rel="stylesheet" href="/styles.css?v=5dbc7765" />
   <script>
     (function () {
       var d = document.documentElement;
@@ -116,48 +72,6 @@
         for (var i = 0; i < m.length; i++) m[i].setAttribute('content', c);
       }
     })();
-  </script>
-  <script type="application/ld+json" data-cms-jsonld>
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebPage",
-          "@id": "https://s.morgunov.tech/en/about#webpage",
-          "url": "https://s.morgunov.tech/en/about",
-          "name": "Principles — Semyon Morgunov",
-          "inLanguage": "en",
-          "isPartOf": {
-            "@id": "https://s.morgunov.tech/#website"
-          },
-          "about": {
-            "@id": "https://s.morgunov.tech/#person"
-          },
-          "dateModified": "2026-05-11",
-          "breadcrumb": {
-            "@id": "https://s.morgunov.tech/en/about#breadcrumb"
-          }
-        },
-        {
-          "@type": "BreadcrumbList",
-          "@id": "https://s.morgunov.tech/en/about#breadcrumb",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Home",
-              "item": "https://s.morgunov.tech/en/"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Principles",
-              "item": "https://s.morgunov.tech/en/about"
-            }
-          ]
-        }
-      ]
-    }
   </script>
 </head>
 <body class="v4-page no-transition" data-lang="en">
@@ -403,7 +317,7 @@
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/0134ba8" target="_blank" rel="noopener noreferrer"><code>0134ba8</code></a> · <a href="/en/notes">notes</a> · <a href="/en/uses">uses</a> · <a href="mailto:ask@morgunov.tech?subject=Typo%20on%20morgunov.tech%3A%20%2Fen%2Fabout">found a typo?</a></span>
+      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/fce7ee8" data-cms-href="_buildUrl" target="_blank" rel="noopener noreferrer"><code data-cms-text="_build">fce7ee8</code></a> · <a href="/en/notes">notes</a> · <a href="/en/uses">uses</a> · <a href="mailto:ask@morgunov.tech?subject=Typo%20on%20morgunov.tech%3A%20%2Fen%2Fabout">found a typo?</a></span>
       <span class="v4-foot-privacy">No cookies, no trackers, no analytics</span>
     </footer>
   </div>
@@ -419,6 +333,48 @@
   </nav>
   <button class="v4-scroll-top" type="button" aria-label="Back to top">↑</button>
   <div class="v4-scroll-progress" aria-hidden="true"></div>
-  <script defer src="/script.js?v=cfd1816f"></script>
+  <script type="application/ld+json" data-cms-jsonld>
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://s.morgunov.tech/en/about#webpage",
+          "url": "https://s.morgunov.tech/en/about",
+          "name": "Principles — Semyon Morgunov",
+          "inLanguage": "en",
+          "isPartOf": {
+            "@id": "https://s.morgunov.tech/#website"
+          },
+          "about": {
+            "@id": "https://s.morgunov.tech/#person"
+          },
+          "dateModified": "2026-05-11",
+          "breadcrumb": {
+            "@id": "https://s.morgunov.tech/en/about#breadcrumb"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://s.morgunov.tech/en/about#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://s.morgunov.tech/en/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Principles",
+              "item": "https://s.morgunov.tech/en/about"
+            }
+          ]
+        }
+      ]
+    }
+  </script>
+  <script defer src="/script.js?v=c2d17bcd"></script>
 </body>
 </html>

@@ -6,6 +6,7 @@
 // page key `article:<slug>`.
 import { json, sameOrigin } from '../../_lib/http.js';
 import { loadArticleIndex, articleKey, INDEX_KEY, validSlug, makeArticleDoc, indexEntry } from '../../_lib/articles.js';
+import { purge, articlePaths } from '../../_lib/cache.js';
 
 export async function onRequestGet({ env }) {
   return json({ articles: await loadArticleIndex(env) });
@@ -31,6 +32,7 @@ export async function onRequestPost({ request, env }) {
     const idx = (await loadArticleIndex(env)) || [];
     idx.unshift(indexEntry(doc));
     await env.CONTENT.put(INDEX_KEY, JSON.stringify(idx));
+    await purge(request, articlePaths(slug), env);
     return json({ ok: true, slug });
   }
 
@@ -47,6 +49,7 @@ export async function onRequestPost({ request, env }) {
     }
     const idx = (await loadArticleIndex(env)) || [];
     await env.CONTENT.put(INDEX_KEY, JSON.stringify(idx.filter((a) => a && a.slug !== slug)));
+    await purge(request, articlePaths(slug), env);
     return json({ ok: true });
   }
 

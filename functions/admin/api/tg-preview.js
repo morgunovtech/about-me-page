@@ -3,7 +3,7 @@
 import { json, sameOrigin } from '../../_lib/http.js';
 import { loadArticle } from '../../_lib/articles.js';
 import { articleToSourcePost } from '../../_lib/tg-adapter.js';
-import { getTarget } from '../../_lib/dist/targets/index.js';
+import { getTarget } from '../../_lib/tg/targets/index.js';
 
 export async function onRequestPost({ request, env }) {
   if (!sameOrigin(request)) return json({ error: 'cross-origin blocked' }, 403);

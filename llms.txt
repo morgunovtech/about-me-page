@@ -31,7 +31,7 @@
 
 - [Fingerprint](https://fprint.morgunov.tech/) — web service that shows your browser's uniqueness percentage and explains the signals websites use to recognize you without cookies; every parameter has a plain-language explanation and a concrete action; runs locally, free, no signup
 - [FoundYou](https://foundyou.morgunov.tech/) — web service that strips EXIF metadata, blurs private areas (faces, plates, documents), and protects photos from reverse-image search; runs locally, original stays untouched
-- [Tofs DevOps](https://github.com/morgunovtech/Tofs_DevOps_bot) — open-source (MIT) Telegram bot that acts as a personal DevOps: uptime with external re-checks, SSL/domain/DNS watch, dead-man switch for cron jobs, SEO/GEO checks (noindex, robots.txt, AI-crawler visibility, llms.txt), Cloudflare Pages self-healing (redeploy, cache purge); silent while everything is fine; self-hosted via Docker or Railway; named after Tofs the Irish terrier
+- [TofsDevOps](https://github.com/morgunovtech/Tofs_DevOps_bot) — open-source (MIT) Telegram bot that acts as a personal DevOps: uptime with external re-checks, SSL/domain/DNS watch, dead-man switch for cron jobs, SEO/GEO checks (noindex, robots.txt, AI-crawler visibility, llms.txt), Cloudflare Pages self-healing (redeploy, cache purge); silent while everything is fine; self-hosted via Docker or Railway; named after Tofs the Irish terrier
 - [Telegram channel «Semyon raspravil plechi» / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on product and career; writing what he'd want to read himself; case studies, working frameworks, personal observations; {telegram} followers; 1–2 posts per week, fourth year running
 
 ## Ventures (entrepreneurship)

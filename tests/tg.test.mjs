@@ -1,9 +1,9 @@
 // Core distribution transform: blog HTML → Telegram HTML + message plan.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { renderTgHtml } from '../functions/_lib/dist/tg-html.js';
-import { buildPlan } from '../functions/_lib/dist/plan.js';
-import { makeSourcePost } from '../functions/_lib/dist/source-post.js';
+import { renderTgHtml } from '../functions/_lib/tg/tg-html.js';
+import { buildPlan } from '../functions/_lib/tg/plan.js';
+import { makeSourcePost } from '../functions/_lib/tg/source-post.js';
 
 test('renderTgHtml maps inline + block tags to Telegram HTML', () => {
   const { html, images } = renderTgHtml(

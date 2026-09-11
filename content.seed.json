@@ -492,7 +492,7 @@
             "tag": "BOT",
             "live": true,
             "version": "v1.0",
-            "name": "Tofs DevOps",
+            "name": "TofsDevOps",
             "desc": {
               "ru": "Личный DevOps в Telegram: следит за аптаймом, SSL, доменом и DNS, проверяет, что сайт видят поисковики и AI-агенты, умеет сам перезапустить деплой на Cloudflare Pages — и молчит, пока всё в порядке. Open source, ставится за пять минут на Railway или в Docker.",
               "en": "Your personal DevOps in Telegram: watches uptime, SSL, domain and DNS, checks that search engines and AI agents can see your site, can re-trigger Cloudflare Pages deploys on its own — and stays silent while everything is fine. Open source, up in five minutes on Railway or Docker."
@@ -626,7 +626,7 @@
         ]
       }
     },
-    "migration": 29
+    "migration": 30
   },
   "about": {
     "site": "s.morgunov.tech",
@@ -782,7 +782,7 @@
         }
       }
     },
-    "migration": 29
+    "migration": 30
   },
   "uses": {
     "site": "s.morgunov.tech",
@@ -863,8 +863,8 @@
                   "en": "Laptop"
                 },
                 "desc": {
-                  "ru": "Основная рабочая машина — продакт-аналитика, видеомонтаж, виртуализация. 36&nbsp;GB unified memory + 1&nbsp;TB SSD, держит 18+ часов без розетки.",
-                  "en": "Main work machine — product analytics, video editing, virtualization. 36&nbsp;GB unified memory + 1&nbsp;TB SSD, 18+ hours unplugged."
+                  "ru": "Основная рабочая машина — продакт-аналитика, видеомонтаж, виртуализация. 36 GB unified memory + 1 TB SSD, держит 18+ часов без розетки.",
+                  "en": "Main work machine — product analytics, video editing, virtualization. 36 GB unified memory + 1 TB SSD, 18+ hours unplugged."
                 }
               },
               {
@@ -879,8 +879,8 @@
                   "en": "Monitor"
                 },
                 "desc": {
-                  "ru": "32 дюйма, 4K IPS-Black, встроенный USB-C-док на 90&nbsp;W. Один кабель в MacBook — питание, видео, 4×USB-A и Ethernet через монитор.",
-                  "en": "32 inches, 4K IPS-Black, built-in 90&nbsp;W USB-C dock. Single cable to MacBook handles power, video, 4×USB-A, and Ethernet through the monitor."
+                  "ru": "32 дюйма, 4K IPS-Black, встроенный USB-C-док на 90 W. Один кабель в MacBook — питание, видео, 4×USB-A и Ethernet через монитор.",
+                  "en": "32 inches, 4K IPS-Black, built-in 90 W USB-C dock. Single cable to MacBook handles power, video, 4×USB-A, and Ethernet through the monitor."
                 }
               },
               {
@@ -935,8 +935,8 @@
                   "en": "Phone"
                 },
                 "desc": {
-                  "ru": "Основной телефон. Тетрапризма с 5× зумом, USB-C, Action&nbsp;Button под фонарик. Главная фича — экосистема с Mac и часами без трения.",
-                  "en": "Daily driver. Tetraprism 5× zoom, USB-C, Action&nbsp;Button mapped to flashlight. Killer feature is the friction-free ecosystem with Mac and the watch."
+                  "ru": "Основной телефон. Тетрапризма с 5× зумом, USB-C, Action Button под фонарик. Главная фича — экосистема с Mac и часами без трения.",
+                  "en": "Daily driver. Tetraprism 5× zoom, USB-C, Action Button mapped to flashlight. Killer feature is the friction-free ecosystem with Mac and the watch."
                 }
               },
               {
@@ -951,8 +951,8 @@
                   "en": "Phone"
                 },
                 "desc": {
-                  "ru": "Кнопочный мини-телефон от Xiaomi-эко: 2.8″ OLED, T9, Android&nbsp;11 внутри. Включаю на выходных, чтобы отдохнуть от ленты — остаются только звонки и Telegram.",
-                  "en": "Xiaomi-eco mini button phone: 2.8″ OLED, T9 keypad, Android&nbsp;11 inside. Weekend detox device — just calls and Telegram, no doomscroll."
+                  "ru": "Кнопочный мини-телефон от Xiaomi-эко: 2.8″ OLED, T9, Android 11 внутри. Включаю на выходных, чтобы отдохнуть от ленты — остаются только звонки и Telegram.",
+                  "en": "Xiaomi-eco mini button phone: 2.8″ OLED, T9 keypad, Android 11 inside. Weekend detox device — just calls and Telegram, no doomscroll."
                 }
               }
             ]
@@ -991,8 +991,8 @@
                   "en": "Earphones"
                 },
                 "desc": {
-                  "ru": "Проводные IEM, один динамический драйвер 10&nbsp;mm с латунным звуководом. Тёплый звук, целятся в Harman target. Беру, когда не хочется возиться с bluetooth и зарядкой.",
-                  "en": "Wired IEMs, single 10&nbsp;mm dynamic driver with brass nozzle. Warm sound tuned to Harman target. For when I don't want to fuss with Bluetooth or charging."
+                  "ru": "Проводные IEM, один динамический драйвер 10 mm с латунным звуководом. Тёплый звук, целятся в Harman target. Беру, когда не хочется возиться с bluetooth и зарядкой.",
+                  "en": "Wired IEMs, single 10 mm dynamic driver with brass nozzle. Warm sound tuned to Harman target. For when I don't want to fuss with Bluetooth or charging."
                 }
               },
               {
@@ -1007,8 +1007,8 @@
                   "en": "Headphones"
                 },
                 "desc": {
-                  "ru": "Классика студийных наушников с 1991 года, складные. Чуть подчёркнутые верхи — хороши для подкастов и интервью. В дорогу удобнее, чем DT&nbsp;770.",
-                  "en": "Studio classic since 1991, foldable. Slightly hyped highs — great for podcasts and interviews. Better travel companion than the DT&nbsp;770."
+                  "ru": "Классика студийных наушников с 1991 года, складные. Чуть подчёркнутые верхи — хороши для подкастов и интервью. В дорогу удобнее, чем DT 770.",
+                  "en": "Studio classic since 1991, foldable. Slightly hyped highs — great for podcasts and interviews. Better travel companion than the DT 770."
                 }
               },
               {
@@ -1023,8 +1023,8 @@
                   "en": "Headphones"
                 },
                 "desc": {
-                  "ru": "Студийные мониторные накладки, 250&nbsp;Ω. Дома — за компом, для долгого фокуса. Звук ровный, велюровые подушки не давят за 5+ часов.",
-                  "en": "Closed-back studio monitors, 250&nbsp;Ω. Home use at the desk for long-focus sessions. Flat sound; velour pads don't fatigue after 5+ hours."
+                  "ru": "Студийные мониторные накладки, 250 Ω. Дома — за компом, для долгого фокуса. Звук ровный, велюровые подушки не давят за 5+ часов.",
+                  "en": "Closed-back studio monitors, 250 Ω. Home use at the desk for long-focus sessions. Flat sound; velour pads don't fatigue after 5+ hours."
                 }
               }
             ]
@@ -1047,8 +1047,8 @@
                   "en": "Powerbank"
                 },
                 "desc": {
-                  "ru": "Прозрачный пауэрбанк на 25&nbsp;600&nbsp;mAh с экраном статуса и USB-C&nbsp;PD до 100&nbsp;W. Хватает заряжать MacBook в дороге без блока питания.",
-                  "en": "Transparent 25,600&nbsp;mAh power bank with status display and USB-C&nbsp;PD up to 100&nbsp;W. Enough to charge the MacBook on the road without the brick."
+                  "ru": "Прозрачный пауэрбанк на 25 600 mAh с экраном статуса и USB-C PD до 100 W. Хватает заряжать MacBook в дороге без блока питания.",
+                  "en": "Transparent 25,600 mAh power bank with status display and USB-C PD up to 100 W. Enough to charge the MacBook on the road without the brick."
                 }
               },
               {
@@ -1063,16 +1063,16 @@
                   "en": "Charger"
                 },
                 "desc": {
-                  "ru": "Настольная зарядная станция на 300&nbsp;W, 5 портов (4×USB-C + 1×USB-A). Тянет MacBook на 140&nbsp;W + iPhone + iPad + наушники одновременно с запасом.",
-                  "en": "Desktop 300&nbsp;W charging station, 5 ports (4×USB-C + 1×USB-A). Charges MacBook at 140&nbsp;W + iPhone + iPad + earbuds in parallel, with headroom."
+                  "ru": "Настольная зарядная станция на 300 W, 5 портов (4×USB-C + 1×USB-A). Тянет MacBook на 140 W + iPhone + iPad + наушники одновременно с запасом.",
+                  "en": "Desktop 300 W charging station, 5 ports (4×USB-C + 1×USB-A). Charges MacBook at 140 W + iPhone + iPad + earbuds in parallel, with headroom."
                 }
               }
             ]
           },
           {
             "heading": {
-              "ru": "Health &amp; Play",
-              "en": "Health &amp; Play"
+              "ru": "Health & Play",
+              "en": "Health & Play"
             },
             "cards": [
               {
@@ -1130,12 +1130,12 @@
               "en": "Password manager"
             },
             "price": {
-              "ru": "$5&nbsp;/&nbsp;mo",
-              "en": "$5&nbsp;/&nbsp;mo"
+              "ru": "$5 / mo",
+              "en": "$5 / mo"
             },
             "desc": {
-              "ru": "Менеджер паролей с 5-летним стажем без скандалов и утечек. Внутри Dark&nbsp;Web&nbsp;Monitoring и встроенный 2FA-аутентификатор.",
-              "en": "Password manager, 5&nbsp;years no breaches. Includes Dark&nbsp;Web&nbsp;Monitoring and a built-in 2FA authenticator."
+              "ru": "Менеджер паролей с 5-летним стажем без скандалов и утечек. Внутри Dark Web Monitoring и встроенный 2FA-аутентификатор.",
+              "en": "Password manager, 5 years no breaches. Includes Dark Web Monitoring and a built-in 2FA authenticator."
             },
             "cta": {
               "label": {
@@ -1174,12 +1174,12 @@
               "en": "App bundle"
             },
             "price": {
-              "ru": "$10&nbsp;/&nbsp;mo",
-              "en": "$10&nbsp;/&nbsp;mo"
+              "ru": "$10 / mo",
+              "en": "$10 / mo"
             },
             "desc": {
-              "ru": "Подписка на 250+&nbsp;Mac-приложений за фиксированную плату. Топ-5: Craft (Notion на стероидах), Numi (калькулятор-конвертер), CleanShot&nbsp;X, CleanMyMac, Dato.",
-              "en": "Subscription bundle of 250+&nbsp;Mac apps. Top&nbsp;5: Craft (Notion on steroids), Numi (calculator-converter), CleanShot&nbsp;X, CleanMyMac, Dato."
+              "ru": "Подписка на 250+ Mac-приложений за фиксированную плату. Топ-5: Craft (Notion на стероидах), Numi (калькулятор-конвертер), CleanShot X, CleanMyMac, Dato.",
+              "en": "Subscription bundle of 250+ Mac apps. Top 5: Craft (Notion on steroids), Numi (calculator-converter), CleanShot X, CleanMyMac, Dato."
             },
             "cta": {
               "label": {
@@ -1196,12 +1196,12 @@
               "en": "AI"
             },
             "price": {
-              "ru": "$100&nbsp;/&nbsp;mo",
-              "en": "$100&nbsp;/&nbsp;mo"
+              "ru": "$100 / mo",
+              "en": "$100 / mo"
             },
             "desc": {
-              "ru": "Заменил Google для поиска, Stack&nbsp;Overflow для кода, иногда — психотерапевта. 3-4&nbsp;часа в день. Max снимает лимиты Pro — пишу столько, сколько нужно.",
-              "en": "Replaced Google for search, Stack&nbsp;Overflow for code, sometimes my therapist. 3-4&nbsp;hours a day. Max lifts Pro's usage caps — chat as much as I need."
+              "ru": "Заменил Google для поиска, Stack Overflow для кода, иногда — психотерапевта. 3-4 часа в день. Max снимает лимиты Pro — пишу столько, сколько нужно.",
+              "en": "Replaced Google for search, Stack Overflow for code, sometimes my therapist. 3-4 hours a day. Max lifts Pro's usage caps — chat as much as I need."
             },
             "cta": {
               "label": {
@@ -1222,8 +1222,8 @@
               "en": "Pay-as-you-go"
             },
             "desc": {
-              "ru": "eSIM в любую страну за 2 минуты. Самые низкие цены среди известных мне сервисов, support всегда отзывался при шероховатостях. Промокод <code>SEMYON5076</code> даёт $3 на первую покупку.",
-              "en": "eSIM for any country in 2&nbsp;minutes. Lowest prices I've seen, responsive support whenever something glitched. Promo code <code>SEMYON5076</code> gives $3&nbsp;off the first purchase."
+              "ru": "eSIM в любую страну за 2 минуты. Самые низкие цены среди известных мне сервисов, support всегда отзывался при шероховатостях. Промокод `SEMYON5076` даёт $3 на первую покупку.",
+              "en": "eSIM for any country in 2 minutes. Lowest prices I've seen, responsive support whenever something glitched. Promo code `SEMYON5076` gives $3 off the first purchase."
             },
             "cta": {
               "label": {
@@ -1244,8 +1244,8 @@
               "en": "Free"
             },
             "desc": {
-              "ru": "Главный инструмент для захвата мыслей с 2014 года. Бесплатно, нативно, открывается за миллисекунды. Доступен на iOS, macOS и через iCloud&nbsp;web.",
-              "en": "Main thinking tool since 2014. Free, native, opens in milliseconds. Works on iOS, macOS, and via iCloud&nbsp;web."
+              "ru": "Главный инструмент для захвата мыслей с 2014 года. Бесплатно, нативно, открывается за миллисекунды. Доступен на iOS, macOS и через iCloud web.",
+              "en": "Main thinking tool since 2014. Free, native, opens in milliseconds. Works on iOS, macOS, and via iCloud web."
             },
             "cta": {
               "label": {
@@ -1257,7 +1257,8 @@
           }
         ]
       }
-    }
+    },
+    "migration": 30
   },
   "collaborate": {
     "site": "s.morgunov.tech",
@@ -1303,8 +1304,8 @@
         "en": "Helping companies in e-com, retail, and FinTech find growth levers and build great products. Consult one-off, partner long-term, or invest as an angel."
       },
       "ctas": {
-        "ru": "<a class=\"v4-btn\" href=\"/\">← На главную</a>\n            <a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>",
-        "en": "<a class=\"v4-btn\" href=\"/en/\">← Home</a>\n            <a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>"
+        "ru": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n<a class=\"v4-btn\" href=\"/\">← На главную</a>",
+        "en": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n<a class=\"v4-btn\" href=\"/en/\">← Home</a>"
       },
       "eyebrow": {
         "ru": "Консалтинг · Эдвайзинг · Ангельские инвестиции",
@@ -1319,8 +1320,8 @@
           "en": "What I do"
         },
         "prose": {
-          "ru": "10 лет в продукте, e-com и FinTech. Сейчас — Head of FinTech в <strong>Yandex Uzbekistan</strong>: запускаю BNPL, платежи и кредит на одном из самых быстрорастущих&nbsp;рынков&nbsp;региона.\n\nДо этого 3&nbsp;года руководил крупнейшим e-grocery в Узбекистане в <strong>Korzinka</strong> (заказы&nbsp;×23, расширение в&nbsp;9&nbsp;городов, положительная EBITDA); управлял P&amp;L в <strong>Yandex Uslugi</strong> (GMV&nbsp;×2.2, положительная EBITDA); запускал эксперименты в <strong>Skyeng</strong> (7&nbsp;млн пользователей).",
-          "en": "10 years in product, e-com, and FinTech. Currently Head of FinTech at <strong>Yandex Uzbekistan</strong> — shipping BNPL, payments, and credit in one of the fastest&#8209;growing markets in&nbsp;the&nbsp;region.\n\nBefore that: 3 years leading the largest e-grocery in Uzbekistan at <strong>Korzinka</strong> (orders ×23, expansion to 9 cities, positive EBITDA); managed P&amp;L at <strong>Yandex Services</strong> (GMV ×2.2, positive EBITDA); launched experiments at <strong>Skyeng</strong> (7M users)."
+          "ru": "10 лет в продукте, e-com и FinTech. Сейчас — Head of FinTech в **Yandex Uzbekistan**: запускаю BNPL, платежи и кредит на одном из самых быстрорастущих рынков региона.\n\nДо этого 3 года руководил крупнейшим e-grocery в Узбекистане в **Korzinka** (заказы ×23, расширение в 9 городов, положительная EBITDA); управлял P&L в **Yandex Uslugi** (GMV ×2.2, положительная EBITDA); запускал эксперименты в **Skyeng** (7 млн пользователей).",
+          "en": "10 years in product, e-com, and FinTech. Currently Head of FinTech at **Yandex Uzbekistan** — shipping BNPL, payments, and credit in one of the fastest‑growing markets in the region.\n\nBefore that: 3 years leading the largest e-grocery in Uzbekistan at **Korzinka** (orders ×23, expansion to 9 cities, positive EBITDA); managed P&L at **Yandex Services** (GMV ×2.2, positive EBITDA); launched experiments at **Skyeng** (7M users)."
         },
         "points": [
           {
@@ -1337,8 +1338,8 @@
           }
         ],
         "clients": {
-          "ru": "Клиенты: <b>UMAI Group · Belissimo Pizza · Buildex · MediaPark</b>",
-          "en": "Clients: <b>UMAI Group · Belissimo Pizza · Buildex · MediaPark</b>"
+          "ru": "Клиенты: **UMAI Group · Belissimo Pizza · Buildex · MediaPark**",
+          "en": "Clients: **UMAI Group · Belissimo Pizza · Buildex · MediaPark**"
         }
       },
       "consulting": {
@@ -1354,8 +1355,8 @@
               "en": "ONE-OFF"
             },
             "price": {
-              "ru": "$250 / <strong>SESSION</strong>",
-              "en": "$250 / <strong>SESSION</strong>"
+              "ru": "$250 / **SESSION**",
+              "en": "$250 / **SESSION**"
             },
             "name": {
               "ru": "Разовая консультация",
@@ -1389,8 +1390,8 @@
               "en": "CYCLE"
             },
             "price": {
-              "ru": "$2&nbsp;000 / <strong>MONTH</strong>",
-              "en": "$2,000 / <strong>MONTH</strong>"
+              "ru": "$2 000 / **MONTH**",
+              "en": "$2,000 / **MONTH**"
             },
             "name": {
               "ru": "Консалтинговый цикл",
@@ -1576,7 +1577,7 @@
                   "en": "Check size"
                 },
                 "def": {
-                  "ru": "от $10&nbsp;000",
+                  "ru": "от $10 000",
                   "en": "from $10,000"
                 }
               }
@@ -1633,6 +1634,7 @@
           }
         ]
       }
-    }
+    },
+    "migration": 30
   }
 }

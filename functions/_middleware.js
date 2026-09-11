@@ -8,6 +8,8 @@
 import { loadDoc, loadSubscribers } from './_lib/content.js';
 import { overlay } from './_lib/overlay.js';
 import { renderPageJsonLd } from './_lib/jsonld.js';
+import { cached } from './_lib/cache.js';
+import { buildOf, buildUrl } from './_lib/site.js';
 import { withSecurityHeaders } from './_lib/http.js';
 
 // Keys are the clean URLs Pages actually serves (it 308-redirects /foo.html → /foo,
@@ -47,12 +49,19 @@ export async function onRequest(context) {
   // Other methods (admin API POSTs) skip the route table but still get the
   // security-header back-fill.
   if (request.method !== 'GET' && request.method !== 'HEAD') {
-    return withSecurityHeaders(await next(), { csp: !new URL(request.url).pathname.startsWith('/admin') });
+    return withSecurityHeaders(await next());
   }
 
   // Collapse duplicate slashes BEFORE matching: //content.seed.json must hit
   // the same guard as /content.seed.json, //en/ the same route as /en/.
-  const pathname = new URL(request.url).pathname.replace(/\/{2,}/g, '/');
+  const rawPath = new URL(request.url).pathname;
+  const pathname = rawPath.replace(/\/{2,}/g, '/');
+  // «//uses» and friends: canonicalise instead of rendering (and caching) a twin.
+  if (pathname !== rawPath) {
+    const u = new URL(request.url);
+    u.pathname = pathname;
+    return Response.redirect(u.toString(), 308);
+  }
 
   if (blocked(pathname)) {
     return withSecurityHeaders(new Response('Not Found', { status: 404 }));
@@ -64,30 +73,37 @@ export async function onRequest(context) {
     // _headers — back-fill the security set. Skip CSP for the /admin editor
     // shell: its srcdoc preview iframe needs a dedicated policy (login sets
     // its own strict CSP inline).
-    return withSecurityHeaders(await next(), { csp: !pathname.startsWith('/admin') });
+    // Route-specific CSPs (admin shell, login, /assets) are set by the route
+    // and win — withSecurityHeaders only fills what is missing.
+    return withSecurityHeaders(await next());
   }
 
-  // The template fetch and the two KV reads are independent — run them in
-  // parallel. Only the home page renders the live subscribers stat.
-  const [response, doc, subs] = await Promise.all([
-    next(),
-    loadDoc(env, route.page),
-    route.page === 'home' ? loadSubscribers(env) : null,
-  ]);
-  if (!(response.headers.get('content-type') || '').includes('text/html')) {
-    return response;
-  }
-  if (!doc) return response; // no content anywhere → serve the static template
-  if (subs) doc._live = { subscribers: subs };
+  // Edge-cached: a rendered copy per URL, purged by admin save / ingest.
+  return cached(context, async () => {
+    // The template fetch and the two KV reads are independent — run them in
+    // parallel. Only the home page renders the live subscribers stat.
+    const [response, doc, subs] = await Promise.all([
+      next(),
+      loadDoc(env, route.page),
+      route.page === 'home' ? loadSubscribers(env) : null,
+    ]);
+    if (!(response.headers.get('content-type') || '').includes('text/html')) {
+      return response;
+    }
+    if (!doc) return response; // no content anywhere → serve the static template
+    if (subs) doc._live = { subscribers: subs };
+    doc._build = buildOf(env);
+    doc._buildUrl = buildUrl(doc._build);
 
-  const transformed = overlay(response, doc, route.lang, false, (d, l) => renderPageJsonLd(d, l, route.page));
-  const headers = new Headers(transformed.headers);
-  headers.set('Cache-Control', 'public, max-age=60, stale-while-revalidate=86400');
-  return withSecurityHeaders(
-    new Response(request.method === 'HEAD' ? null : transformed.body, {
-      status: transformed.status,
-      statusText: transformed.statusText,
-      headers,
-    })
-  );
+    const transformed = overlay(response, doc, route.lang, false, (d, l) => renderPageJsonLd(d, l, route.page));
+    const headers = new Headers(transformed.headers);
+    headers.set('Cache-Control', 'public, max-age=60, stale-while-revalidate=86400');
+    return withSecurityHeaders(
+      new Response(request.method === 'HEAD' ? null : transformed.body, {
+        status: transformed.status,
+        statusText: transformed.statusText,
+        headers,
+      })
+    );
+  });
 }

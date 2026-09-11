@@ -22,12 +22,14 @@ export function validPageKey(page) {
 }
 
 // Read-time migrations live in migrations.js (no seed import there).
-import { migrateHome, migrateAbout, MIGRATION } from './migrations.js';
-export { migrateHome, migrateAbout, MIGRATION };
+import { migrateHome, migrateAbout, migrateUses, migrateCollaborate, MIGRATION } from './migrations.js';
+export { migrateHome, migrateAbout, migrateUses, migrateCollaborate, MIGRATION };
 
 function migrate(page, doc) {
   if (page === 'home') return migrateHome(doc, seed && seed.home);
   if (page === 'about') return migrateAbout(doc);
+  if (page === 'uses') return migrateUses(doc);
+  if (page === 'collaborate') return migrateCollaborate(doc);
   return doc;
 }
 

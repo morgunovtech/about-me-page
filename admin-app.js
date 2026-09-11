@@ -190,7 +190,9 @@
     // Strip the site's interactive JS so its handlers (theme toggle, scroll-spy,
     // smooth-scroll anchors) don't fight inline editing. The inline FOUC <script>
     // in <head> stays; we set the theme explicitly after load.
-    html = html.replace(/<script\b[^>]*\bsrc="[^"]*\/script\.js[^"]*"[^>]*><\/script>/gi, '');
+    // Every script goes (FOUC + site JS) — the editor sets the theme itself and
+    // the JSON-LD block is inert; KV content must never execute in the editor.
+    html = html.replace(/<script\b(?![^>]*application\/ld\+json)[^>]*>[\s\S]*?<\/script>/gi, '');
     frame = $('#preview');
     await new Promise((res) => {
       let done = false;

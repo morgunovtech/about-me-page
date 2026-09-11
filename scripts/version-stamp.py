@@ -71,9 +71,7 @@ IMAGE_PATTERN = re.compile(
 PATTERN_URL = re.compile(
     r"(/morgunovtech/about-me-page/commit/)[0-9a-f]{7,40}"
 )
-PATTERN_CODE = re.compile(
-    r"(<code>)[0-9a-f]{7,40}(</code>)"
-)
+PATTERN_CODE = re.compile(r"(<code(?: [^>]*)?>)[0-9a-f]{7,40}(</code>)")
 
 
 def short_hash(path: Path) -> str:

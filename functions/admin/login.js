@@ -8,6 +8,7 @@ import {
   getCookie,
   SESSION_COOKIE,
   verifySession,
+  clearCookie,
 } from '../_lib/auth.js';
 
 function loginPage(error) {
@@ -62,10 +63,15 @@ const htmlHeaders = {
 
 export async function onRequestGet({ request, env }) {
   const token = getCookie(request, SESSION_COOKIE);
-  if (token && (await verifySession(env.SESSION_SECRET, token))) {
+  // Same check as the gate (incl. the logout not-before), otherwise a revoked
+  // cookie would bounce /admin ⇄ /admin/login forever. A dead cookie is cleared
+  // here so the browser stops sending it.
+  if (token && (await verifySession(env.SESSION_SECRET, token, env))) {
     return Response.redirect(new URL(request.url).origin + '/admin', 302);
   }
-  return new Response(loginPage(null), { headers: htmlHeaders });
+  return new Response(loginPage(null), {
+    headers: token ? { ...htmlHeaders, 'Set-Cookie': clearCookie() } : htmlHeaders,
+  });
 }
 
 export async function onRequestPost({ request, env }) {

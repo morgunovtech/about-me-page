@@ -7,4 +7,12 @@ export const NAME = { ru: 'Семён Моргунов', en: 'Semyon Morgunov' }
 
 // Short SHA of the deployed commit, stamped by scripts/version-stamp.py and
 // resolved into the `{build}` placeholder of CMS prose (see overlay.js).
-export const BUILD = '0134ba8';
+export const BUILD = 'fce7ee8';
+
+// The commit actually deployed: Pages exposes CF_PAGES_COMMIT_SHA to Functions;
+// the stamped BUILD is the fallback (local dev, static twins).
+export function buildOf(env) {
+  const sha = env && env.CF_PAGES_COMMIT_SHA;
+  return typeof sha === 'string' && /^[0-9a-f]{7,40}$/i.test(sha) ? sha.slice(0, 7).toLowerCase() : BUILD;
+}
+export const buildUrl = (sha) => `https://github.com/morgunovtech/about-me-page/commit/${sha}`;
