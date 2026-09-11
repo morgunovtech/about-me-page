@@ -13,6 +13,30 @@ const clone = (v) => JSON.parse(JSON.stringify(v));
 // is never touched again: renaming or deleting a card later sticks.
 export const MIGRATION = 30;
 
+// The ask@ address never received mail, yet it shipped inside stored CTA hrefs
+// and prose, so a doc saved before v0.30.1 keeps serving a dead `mailto:` even
+// after the templates were fixed — KV wins over the seed until someone re-saves
+// in /admin. Unlike the numbered migrations above this one is deliberately NOT
+// gated by MIGRATION: it is a pure string swap, idempotent and safe to re-run
+// on every read, so it needs none of the "don't touch an edited doc" ceremony.
+// Walks every leaf, `href` included — that is exactly where the address lives.
+const DEAD_CONTACT = 'ask@morgunov.tech';
+const LIVE_CONTACT = 's@morgunov.tech';
+
+export function fixDeadContact(node) {
+  if (Array.isArray(node)) {
+    node.forEach(fixDeadContact);
+    return node;
+  }
+  if (!node || typeof node !== 'object') return node;
+  for (const [k, v] of Object.entries(node)) {
+    if (typeof v === 'string') {
+      if (v.includes(DEAD_CONTACT)) node[k] = v.split(DEAD_CONTACT).join(LIVE_CONTACT);
+    } else fixDeadContact(v);
+  }
+  return node;
+}
+
 export function migrateHome(doc, seedDoc) {
   if (!doc || !seedDoc || !doc.sections) return doc;
   if ((doc.migration | 0) >= MIGRATION) return doc;

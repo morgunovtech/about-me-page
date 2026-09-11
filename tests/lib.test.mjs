@@ -333,3 +333,32 @@ test('migrations run once: a renamed or deleted card is not resurrected after th
   assert.equal(about.sections.living.body.ru, 'Build <code>{build}</code> сменится');
   assert.equal(about.migration, 30);
 });
+
+/* --- v0.30.1: the dead ask@ address is rewritten at read time --- */
+import { fixDeadContact } from '../functions/_lib/migrations.js';
+
+test('fixDeadContact rewrites the dead address in hrefs, prose and arrays', () => {
+  const doc = {
+    migration: 30, // already at the marker: the numbered gate must not shield this
+    hero: { ctas: { ru: '<a href="mailto:ask@morgunov.tech">Написать</a>', en: null } },
+    sections: {
+      angel: { items: [{ href: 'mailto:ask@morgunov.tech?subject=Pitch' }] },
+      prose: { ru: 'Пишите на ask@morgunov.tech или в Telegram.' },
+    },
+    keep: 'mailto:s@morgunov.tech',
+  };
+  fixDeadContact(doc);
+  assert.equal(doc.hero.ctas.ru, '<a href="mailto:s@morgunov.tech">Написать</a>');
+  assert.equal(doc.sections.angel.items[0].href, 'mailto:s@morgunov.tech?subject=Pitch');
+  assert.equal(doc.sections.prose.ru, 'Пишите на s@morgunov.tech или в Telegram.');
+  assert.equal(doc.keep, 'mailto:s@morgunov.tech');
+  assert.equal(doc.hero.ctas.en, null);
+  assert.equal(doc.migration, 30, 'must not touch the migration marker');
+});
+
+test('fixDeadContact is idempotent and survives odd input', () => {
+  const doc = { a: { b: 'ask@morgunov.tech ask@morgunov.tech' } };
+  assert.deepEqual(fixDeadContact(fixDeadContact(doc)), { a: { b: 's@morgunov.tech s@morgunov.tech' } });
+  assert.equal(fixDeadContact(null), null);
+  assert.equal(fixDeadContact('ask@morgunov.tech'), 'ask@morgunov.tech'); // scalars pass through
+});

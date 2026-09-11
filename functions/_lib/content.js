@@ -22,8 +22,8 @@ export function validPageKey(page) {
 }
 
 // Read-time migrations live in migrations.js (no seed import there).
-import { migrateHome, migrateAbout, migrateUses, migrateCollaborate, MIGRATION } from './migrations.js';
-export { migrateHome, migrateAbout, migrateUses, migrateCollaborate, MIGRATION };
+import { migrateHome, migrateAbout, migrateUses, migrateCollaborate, fixDeadContact, MIGRATION } from './migrations.js';
+export { migrateHome, migrateAbout, migrateUses, migrateCollaborate, fixDeadContact, MIGRATION };
 
 function migrate(page, doc) {
   if (page === 'home') return migrateHome(doc, seed && seed.home);
@@ -33,7 +33,14 @@ function migrate(page, doc) {
   return doc;
 }
 
+// Wraps every return path — the migrated KV doc, both old-shape guards that
+// fall back to the seed, and the no-KV fallback — so the dead address cannot
+// survive on any of them.
 export async function loadDoc(env, page) {
+  return fixDeadContact(await loadDocRaw(env, page));
+}
+
+async function loadDocRaw(env, page) {
   const key = `${SITE}:${page}`;
   if (env && env.CONTENT) {
     try {
