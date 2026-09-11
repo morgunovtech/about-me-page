@@ -1600,7 +1600,7 @@
           "en": ""
         },
         "cta": {
-          "href": "mailto:ask@morgunov.tech",
+          "href": "mailto:s@morgunov.tech",
           "label": {
             "ru": "Отправить питч →",
             "en": "Send a pitch →"
@@ -1619,7 +1619,7 @@
         },
         "ctas": [
           {
-            "href": "mailto:ask@morgunov.tech",
+            "href": "mailto:s@morgunov.tech",
             "label": {
               "ru": "Написать →",
               "en": "Get in touch →"
