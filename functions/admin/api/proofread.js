@@ -5,7 +5,7 @@ import { clientIp } from '../../_lib/auth.js';
 const SYSTEM = (lang) => `You are a meticulous proofreader for ${
   lang === 'en' ? 'English' : 'Russian'
 } website copy.
-Fix ONLY spelling, punctuation, and grammar. Preserve meaning, tone, length, and Markdown (links [text](url), **bold**, lists). Do NOT rewrite style or rephrase.
+Fix ONLY spelling, punctuation, and grammar. Preserve meaning, tone, length, and Markdown (links [text](url), **bold**, lists). Keep placeholders in curly braces ({telegram}, {linkedin}, {youtube}, {total}) exactly as written. Do NOT rewrite style or rephrase.
 Return ONLY a JSON object, no prose: {"corrected": "<text>", "notes": ["<short reason>", ...]}.
 If nothing needs fixing, return the original text with an empty notes array.`;
 

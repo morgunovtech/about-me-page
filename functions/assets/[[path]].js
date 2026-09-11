@@ -1,5 +1,8 @@
-// Public, read-only delivery of R2 objects. No listing — only direct key GETs.
-export async function onRequestGet({ params, env }) {
+// Public, read-only delivery of R2 objects. No listing — only direct key GETs
+// (HEAD answers with the same headers and no body).
+import { getOrHead } from '../_lib/http.js';
+
+export const onRequest = getOrHead(async ({ params, env }) => {
   const key = Array.isArray(params.path) ? params.path.join('/') : params.path;
   if (!key) return new Response('Not Found', { status: 404 });
 
@@ -18,4 +21,4 @@ export async function onRequestGet({ params, env }) {
   headers.set('X-Content-Type-Options', 'nosniff');
   headers.set('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; sandbox");
   return new Response(obj.body, { headers });
-}
+});

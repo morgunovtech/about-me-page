@@ -46,6 +46,13 @@ body.v4-page {
   font-size: 16px;
 }
 
+/* IBM Plex is shipped in 400/500/600 only: keep emphasis on a real face
+   instead of a browser-synthesized 700. */
+.v4-page strong,
+.v4-page b {
+  font-weight: 600;
+}
+
 .v4-page .sr-only {
   position: absolute;
   width: 1px;

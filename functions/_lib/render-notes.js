@@ -5,8 +5,9 @@ import { loadDoc } from './content.js';
 import { notesIndexHtml } from './article-template.js';
 import { serializeLd } from './jsonld.js';
 import { escapeHtml } from './markdown.js';
-
-const ORIGIN = 'https://s.morgunov.tech';
+import { pick } from './i18n.js';
+import { ORIGIN, NAME } from './site.js';
+// Empty EN falls back to RU (pick treats '' as set) — keep the ||-fallback here.
 const pickL = (v, lang) => (v ? v[lang] || v.ru || v.en || '' : '');
 const xmlEsc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -50,7 +51,7 @@ export async function renderNotesIndex(env, lang) {
         '@type': 'CollectionPage',
         '@id': self + '#webpage',
         url: self,
-        name: (lang === 'en' ? 'Notes' : 'Заметки') + ' — Semyon Morgunov',
+        name: (lang === 'en' ? 'Notes' : 'Заметки') + ' — ' + NAME[lang === 'en' ? 'en' : 'ru'],
         inLanguage: lang,
         isPartOf: { '@id': ORIGIN + '/#website' },
         about: { '@id': ORIGIN + '/#person' },
@@ -87,6 +88,10 @@ export async function renderSitemap(env) {
   );
   const mod = (doc, fallback) =>
     (doc && (doc.dateModified || (doc.updatedAt || '').slice(0, 10))) || fallback;
+  const all = publishedSorted(await loadArticleIndex(env));
+  // The notes index changes when an article does — never «today» by default
+  // (a lastmod that moves without content makes crawlers distrust all of them).
+  const notesMod = all.map((a) => (a.updatedAt || a.date || '').slice(0, 10)).filter(Boolean).sort().pop();
   const STATIC = [
     { loc: '/', ru: '/', en: '/en/', lastmod: mod(home, '2026-05-11') },
     { loc: '/en/', ru: '/', en: '/en/', lastmod: mod(home, '2026-05-11') },
@@ -96,10 +101,9 @@ export async function renderSitemap(env) {
     { loc: '/en/uses', ru: '/uses', en: '/en/uses', lastmod: mod(uses, '2026-05-11') },
     { loc: '/about', ru: '/about', en: '/en/about', lastmod: mod(about, '2026-05-11') },
     { loc: '/en/about', ru: '/about', en: '/en/about', lastmod: mod(about, '2026-05-11') },
-    { loc: '/notes', ru: '/notes', en: '/en/notes', lastmod: new Date().toISOString().slice(0, 10) },
-    { loc: '/en/notes', ru: '/notes', en: '/en/notes', lastmod: new Date().toISOString().slice(0, 10) },
+    { loc: '/notes', ru: '/notes', en: '/en/notes', lastmod: notesMod },
+    { loc: '/en/notes', ru: '/notes', en: '/en/notes', lastmod: notesMod },
   ];
-  const all = publishedSorted(await loadArticleIndex(env));
   const urls = [...STATIC];
   for (const a of all) {
     const hasEn = a.title && String(a.title.en || '').trim();
@@ -118,15 +122,22 @@ export async function renderSitemap(env) {
   });
 }
 
-// RSS 2.0 of the RU feed (the canonical language of the channel).
-export async function renderFeed(env) {
-  const items = publishedSorted(await loadArticleIndex(env)).slice(0, 50);
+// RSS 2.0 per language: RU is the channel's canonical language; the EN feed
+// carries only translated pieces (same rule as the EN index).
+export async function renderFeed(env, lang = 'ru') {
+  const l = lang === 'en' ? 'en' : 'ru';
+  const items = forLang(publishedSorted(await loadArticleIndex(env)), l).slice(0, 50);
+  const base = ORIGIN + (l === 'en' ? '/en' : '') + '/notes';
   const entries = items.map((a) => {
-    const link = ORIGIN + '/notes/' + a.slug;
+    const link = base + '/' + a.slug;
     const pub = a.date ? new Date(a.date + 'T00:00:00Z').toUTCString() : '';
-    return `    <item>\n      <title>${xmlEsc(pickL(a.title, 'ru'))}</title>\n      <link>${link}</link>\n      <guid isPermaLink="true">${link}</guid>\n      ${pub ? `<pubDate>${pub}</pubDate>\n      ` : ''}<description>${xmlEsc(pickL(a.excerpt, 'ru'))}</description>\n    </item>`;
+    return `    <item>\n      <title>${xmlEsc(pickL(a.title, l))}</title>\n      <link>${link}</link>\n      <guid isPermaLink="true">${link}</guid>\n      ${pub ? `<pubDate>${pub}</pubDate>\n      ` : ''}<description>${xmlEsc(pickL(a.excerpt, l))}</description>\n    </item>`;
   }).join('\n');
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n  <channel>\n    <title>Заметки — Semyon Morgunov</title>\n    <link>${ORIGIN}/notes</link>\n    <description>Заметки и эссе Семёна Моргунова.</description>\n    <language>ru</language>\n${entries}\n  </channel>\n</rss>\n`;
+  const latest = items.map((a) => a.updatedAt || a.date || '').filter(Boolean).sort().pop();
+  const built = latest ? new Date(latest.length > 10 ? latest : latest + 'T00:00:00Z').toUTCString() : '';
+  const title = (l === 'en' ? 'Notes' : 'Заметки') + ' — ' + NAME[l];
+  const desc = l === 'en' ? `Notes and essays by ${NAME.en}.` : 'Заметки и эссе Семёна Моргунова.';
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n  <channel>\n    <title>${xmlEsc(title)}</title>\n    <link>${base}</link>\n    <atom:link href="${base}/feed.xml" rel="self" type="application/rss+xml" />\n    <description>${xmlEsc(desc)}</description>\n    <language>${l}</language>\n${built ? `    <lastBuildDate>${built}</lastBuildDate>\n` : ''}${entries}\n  </channel>\n</rss>\n`;
   return new Response(xml, {
     headers: { 'content-type': 'application/rss+xml; charset=utf-8', 'Cache-Control': 'public, max-age=600, stale-while-revalidate=86400' },
   });

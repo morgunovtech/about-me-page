@@ -48,14 +48,17 @@
     .v4-page .skip-link:focus{top:8px}
     .v4-root{background:var(--v4-bg);color:var(--v4-fg);padding:36px 56px 56px;max-width:1280px;margin:0 auto}
     .v4-bar{display:flex;justify-content:space-between;align-items:center;padding:0 0 14px;margin-bottom:32px;border-bottom:1px solid var(--v4-fg);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
-    .v4-bar-mid{display:flex;gap:6px 22px;justify-content:center;color:var(--v4-muted);flex-wrap:wrap}
+    .v4-nav{display:flex;align-items:center;min-width:0}
+    .v4-bar-mid{display:flex;gap:6px 22px;justify-content:flex-start;color:var(--v4-muted);flex-wrap:wrap}
     .v4-bar-mid a{color:inherit;text-decoration:none;padding:8px 4px;white-space:nowrap}
-    .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;color:var(--v4-fg)}
-    .v4-lang{display:inline-flex;align-items:center;gap:6px}
-    .v4-lang-link{color:var(--v4-muted);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:11px 8px;border-bottom:1px solid transparent}
-    .v4-lang-link.is-active{color:var(--v4-fg);border-bottom-color:var(--v4-orange)}
-    .v4-lang-sep{color:var(--v4-dim)}
-    .v4-theme{position:relative}
+    .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;margin-left:auto;color:var(--v4-fg)}
+    .v4-bar-btn{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 8px;border:none;background:transparent;color:var(--v4-fg);cursor:pointer;font:inherit;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+    .v4-bar-btn .v4-chevron{width:10px;height:10px;flex-shrink:0}
+    .v4-nav-toggle{display:none}
+    .v4-dropdown{position:relative}
+    .v4-menu{position:absolute;right:0;top:calc(100% + 15px);display:none;flex-direction:column;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}
+    .v4-dropdown.is-open > .v4-menu{display:flex}
+    html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu{display:flex}
     .v4-icon-btn{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--v4-fg);cursor:pointer;padding:0;font:inherit;border:none}
     .v4-icon-btn svg{width:14px;height:14px}
     .v4-icon-btn .v4-icon-moon,.v4-icon-btn .v4-icon-contrast{display:none}
@@ -63,8 +66,6 @@
     [data-theme="dark"] .v4-icon-btn .v4-icon-moon{display:block}
     [data-theme="high-contrast"] .v4-icon-btn .v4-icon-sun{display:none}
     [data-theme="high-contrast"] .v4-icon-btn .v4-icon-contrast{display:block}
-    .v4-theme-menu{position:absolute;right:0;top:calc(100% + 6px);display:none;flex-direction:column;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}
-    .v4-theme.is-open .v4-theme-menu{display:flex}
     .v4-hero{display:grid;grid-template-columns:1fr 280px;gap:40px;padding:4px 0 36px;margin:0 0 28px;align-items:start}
     .v4-hero--simple{grid-template-columns:1fr;padding:24px 0 0}
     .v4-hero-text{min-width:0}
@@ -75,8 +76,8 @@
     .v4-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;min-height:40px;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;cursor:pointer;border:1px solid var(--v4-fg);background:transparent;color:var(--v4-fg);font-family:inherit}
     .v4-btn-primary{background:var(--v4-orange);color:var(--v4-on-accent);border-color:var(--v4-orange)}
     .v4-section{margin-bottom:36px}
-    .v4-section-head{padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--v4-fg)}
-    .v4-section-num{display:block;font-family:var(--v4-mono);font-size:11px;color:var(--v4-muted);text-transform:uppercase;letter-spacing:.1em;font-weight:500;margin-bottom:6px}
+    .v4-section-head{display:flex;align-items:baseline;gap:14px;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--v4-fg)}
+    .v4-section-num{font-family:var(--v4-mono);font-size:11px;color:var(--v4-muted);text-transform:uppercase;letter-spacing:.1em;font-weight:500;flex-shrink:0}
     .v4-h2{font-size:22px;font-weight:600;margin:0;letter-spacing:-.015em}
     .v4-h3{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--v4-muted);margin:18px 0 8px;font-weight:500}
     .v4-h3:first-child{margin-top:0}
@@ -84,24 +85,27 @@
     .v4-use{display:flex;flex-direction:column;background:var(--v4-paper);border:1px solid var(--v4-line);padding:16px}
     .v4-use-image{aspect-ratio:1/1;margin-bottom:14px;overflow:hidden;display:flex;align-items:center;justify-content:center}
     .v4-use-image img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
-    .v4-tag{background:var(--v4-fg);color:var(--v4-on-fg);padding:3px 8px;font-weight:500;font-family:var(--v4-mono)}
+    .v4-tag{background:var(--v4-fg);color:var(--v4-on-fg);padding:3px 8px;font-family:var(--v4-mono);font-size:10px;font-weight:500;line-height:1.4;text-transform:uppercase;letter-spacing:.12em}
     .v4-use .v4-tag{align-self:flex-start;margin-bottom:8px}
     .v4-use-name{font-size:16px;font-weight:600;margin:0 0 6px;letter-spacing:-.015em}
     .v4-use-desc{margin:0;font-size:13px;line-height:1.55;color:var(--v4-fg)}
     @media (max-width:960px){.v4-root{padding:28px 32px 40px}.v4-h1{font-size:52px}.v4-uses{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:640px){.v4-root{padding:20px 18px 32px;font-size:13.5px}.v4-bar{flex-direction:column;align-items:stretch;row-gap:10px;font-size:10px}.v4-bar-right{align-self:flex-end}.v4-bar-mid{justify-content:flex-start;flex-wrap:wrap;gap:4px 14px}.v4-bar-mid a{padding:10px 6px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}.v4-uses{grid-template-columns:1fr}.v4-use{padding:14px}}
+    @media (max-width:640px){.v4-root{padding:20px 18px 32px}body.v4-page{font-size:13.5px}.v4-bar{padding-bottom:10px;margin-bottom:22px;font-size:10px}.v4-nav-toggle{display:inline-flex;min-height:44px;margin-left:-8px}.v4-bar-mid{position:absolute;left:0;top:calc(100% + 11px);display:none;flex-direction:column;align-items:stretch;gap:0;margin:0;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}.v4-nav.is-open > .v4-bar-mid,html:not([data-js]) .v4-nav:is(:focus-within, :hover) > .v4-bar-mid{display:flex}.v4-bar-mid a{padding:10px 10px;border:1px solid transparent;color:var(--v4-fg);font-size:11px;font-weight:500;letter-spacing:.1em}.v4-menu{top:calc(100% + 11px)}.v4-bar-btn{min-height:44px}.v4-icon-btn{width:44px;height:44px}.v4-section-head{padding-bottom:10px;margin-bottom:12px}.v4-h2{font-size:18px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}.v4-uses{grid-template-columns:1fr}.v4-use{padding:14px}}
   </style>
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-cyr-400.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-cyr-600.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-400.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-600.woff2" crossorigin />
+  <!-- Mono renders above the fold (hero eyebrow, section numbers) — preload 400 so it doesn't FOUT. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-cyr-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-latin-400.woff2" crossorigin />
   <link rel="preload" href="/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/tokens.css?v=cd042bb5" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/base.css?v=fad10899" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/components.css?v=4416b730" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" /><link rel="stylesheet" href="/ds/v1/tokens.css?v=cd042bb5" /><link rel="stylesheet" href="/ds/v1/base.css?v=fad10899" /><link rel="stylesheet" href="/ds/v1/components.css?v=4416b730" /></noscript>
-  <link rel="preload" href="/styles.css?v=b100256f" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/styles.css?v=b100256f" /></noscript>
+  <link rel="preload" href="/ds/v1/tokens.css?v=50a0d966" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/base.css?v=0e404315" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/components.css?v=7565c1f8" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" /><link rel="stylesheet" href="/ds/v1/tokens.css?v=50a0d966" /><link rel="stylesheet" href="/ds/v1/base.css?v=0e404315" /><link rel="stylesheet" href="/ds/v1/components.css?v=7565c1f8" /></noscript>
+  <link rel="preload" href="/styles.css?v=f4f1111b" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/styles.css?v=f4f1111b" /></noscript>
   <script>
     (function () {
       var d = document.documentElement;
@@ -117,49 +121,70 @@
       }
     })();
   </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://s.morgunov.tech/uses#webpage",
-        "url": "https://s.morgunov.tech/uses",
-        "name": "Стек — Семён Моргунов",
-        "inLanguage": "ru",
-        "isPartOf": { "@id": "https://s.morgunov.tech/#website" },
-        "about": { "@id": "https://s.morgunov.tech/#person" },
-        "breadcrumb": { "@id": "https://s.morgunov.tech/uses#breadcrumb" },
-        "dateModified": "2026-05-11"
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://s.morgunov.tech/uses#breadcrumb",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://s.morgunov.tech/" },
-          { "@type": "ListItem", "position": 2, "name": "Стек", "item": "https://s.morgunov.tech/uses" }
-        ]
-      }
-    ]
-  }
+  <script type="application/ld+json" data-cms-jsonld>
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://s.morgunov.tech/uses#webpage",
+          "url": "https://s.morgunov.tech/uses",
+          "name": "Стек — Семён Моргунов",
+          "inLanguage": "ru",
+          "isPartOf": {
+            "@id": "https://s.morgunov.tech/#website"
+          },
+          "about": {
+            "@id": "https://s.morgunov.tech/#person"
+          },
+          "dateModified": "2026-05-11",
+          "breadcrumb": {
+            "@id": "https://s.morgunov.tech/uses#breadcrumb"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://s.morgunov.tech/uses#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Главная",
+              "item": "https://s.morgunov.tech/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Стек",
+              "item": "https://s.morgunov.tech/uses"
+            }
+          ]
+        }
+      ]
+    }
   </script>
 </head>
 <body class="v4-page no-transition" data-lang="ru">
   <a href="#main" class="skip-link">Перейти к основному содержимому</a>
   <div class="v4-root">
     <header class="v4-bar" id="top">
-      <nav class="v4-bar-mid" aria-label="Основная навигация">
-        <a href="#hardware">Железо</a>
-        <a href="#software">Софт</a>
+      <nav class="v4-nav v4-dropdown" aria-label="Основная навигация">
+        <button class="v4-bar-btn v4-nav-toggle" type="button" aria-controls="site-nav">Меню<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+        <div class="v4-bar-mid" id="site-nav">
+          <a href="#hardware">Железо</a>
+          <a href="#software">Софт</a>
+        </div>
       </nav>
       <div class="v4-bar-right">
-        <div class="v4-lang" role="group" aria-label="Переключатель языка">
-          <a class="v4-lang-link is-active" href="/uses" aria-current="page" hreflang="ru" lang="ru">RU</a>
-          <span class="v4-lang-sep" aria-hidden="true">·</span>
-          <a class="v4-lang-link" href="/en/uses" hreflang="en" lang="en">EN</a>
+        <div class="v4-dropdown v4-lang">
+          <button class="v4-bar-btn v4-lang-btn" type="button" aria-haspopup="menu" aria-controls="lang-menu" id="lang-toggle" aria-label="RU — сменить язык">RU<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+          <div class="v4-menu" id="lang-menu" role="menu" aria-labelledby="lang-toggle">
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="true" href="/uses" hreflang="ru" lang="ru">Русский</a>
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="false" href="/en/uses" hreflang="en" lang="en">English</a>
+          </div>
         </div>
-        <div class="v4-theme">
-          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu" aria-label="Сменить тему оформления">
+        <div class="v4-dropdown v4-theme">
+          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-controls="theme-menu" id="theme-toggle" aria-label="Сменить тему оформления">
             <svg class="v4-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
               <circle cx="8" cy="8" r="3"></circle>
               <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"></path>
@@ -172,11 +197,11 @@
               <path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path>
             </svg>
           </button>
-          <div class="v4-theme-menu" id="theme-menu" role="menu">
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">Светлая</button>
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">Тёмная</button>
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">Авто</button>
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">Высокий контраст</button>
+          <div class="v4-menu v4-theme-menu" id="theme-menu" role="menu" aria-labelledby="theme-toggle">
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">Светлая</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">Тёмная</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">Авто</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">Высокий контраст</button>
           </div>
         </div>
       </div>
@@ -201,7 +226,139 @@
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div data-cms-list="usesGear"></div>
+          <div data-cms-list="usesGear">
+  <h3 class="v4-h3">Compute</h3>
+              <div class="v4-uses">
+                <article class="v4-use">
+                  <div class="v4-use-image">
+                    <img src="/images/uses/macbook-pro-16.webp?v=9626e64a" alt="MacBook Pro 16″ M3 Max" loading="lazy" width="800" height="800" />
+                  </div>
+                  <span class="v4-tag">Laptop</span>
+                  <h4 class="v4-use-name">MacBook Pro 16″ M3 Max</h4>
+                  <p class="v4-use-desc">Основная рабочая машина — продакт-аналитика, видеомонтаж, виртуализация. 36&nbsp;GB unified memory + 1&nbsp;TB SSD, держит 18+ часов без розетки.</p>
+                </article>
+                <article class="v4-use">
+                  <div class="v4-use-image">
+                    <img src="/images/uses/dell-u3223qe.webp?v=addd87ec" alt="Dell U3223QE — 32-дюймовый 4K-монитор" loading="lazy" width="800" height="800" />
+                  </div>
+                  <span class="v4-tag">Monitor</span>
+                  <h4 class="v4-use-name">Dell U3223QE</h4>
+                  <p class="v4-use-desc">32 дюйма, 4K IPS-Black, встроенный USB-C-док на 90&nbsp;W. Один кабель в MacBook — питание, видео, 4×USB-A и Ethernet через монитор.</p>
+                </article>
+                <article class="v4-use">
+                  <div class="v4-use-image">
+                    <img src="/images/uses/keychron-k2.webp?v=0c00a578" alt="Keychron K2 — механическая клавиатура с RGB и Bluetooth" loading="lazy" width="800" height="800" />
+                  </div>
+                  <span class="v4-tag">Keyboard</span>
+                  <h4 class="v4-use-name">Keychron K2</h4>
+                  <p class="v4-use-desc">75% механика в алюминиевом каркасе с RGB-подсветкой. По Bluetooth коннектится сразу к Mac, iPad и iPhone. Mac-раскладка с Cmd/Option в нужных местах.</p>
+                </article>
+                <article class="v4-use">
+                  <div class="v4-use-image">
+                    <img src="/images/uses/razer-deathadder-v2-pro.webp?v=2c18ccfa" alt="Razer DeathAdder V2 Pro — беспроводная игровая мышь" loading="lazy" width="800" height="800" />
+                  </div>
+                  <span class="v4-tag">Mouse</span>
+                  <h4 class="v4-use-name">Razer DeathAdder V2 Pro</h4>
+                  <p class="v4-use-desc">Беспроводная HyperSpeed-мышь, 20K DPI, форма проверена годами. Заряжается раз в неделю, два боковых клавиша — под навигацию между вкладками.</p>
+                </article>
+              </div>
+  
+              <h3 class="v4-h3">Mobile</h3>
+              <div class="v4-uses">
+                <article class="v4-use">
+                  <div class="v4-use-image">
+                    <img src="/images/uses/iphone-15-pro-max.webp?v=0312398e" alt="iPhone 15 Pro Max" loading="lazy" width="800" height="800" />
+                  </div>
+                  <span class="v4-tag">Phone</span>
+                  <h4 class="v4-use-name">iPhone 15 Pro Max</h4>
+                  <p class="v4-use-desc">Основной телефон. Тетрапризма с 5× зумом, USB-C, Action&nbsp;Button под фонарик. Главная фича — экосистема с Mac и часами без трения.</p>
+                </article>
+                <article class="v4-use">
+                  <div class="v4-use-image">
+                    <img src="/images/uses/duoqin-f22-pro.webp?v=db2c2b3f" alt="Duoqin F22 Pro — кнопочный мини-телефон" loading="lazy" width="800" height="800" />
+                  </div>
+                  <span class="v4-tag">Phone</span>
+                  <h4 class="v4-use-name">Duoqin F22 Pro</h4>
+                  <p class="v4-use-desc">Кнопочный мини-телефон от Xiaomi-эко: 2.8″ OLED, T9, Android&nbsp;11 внутри. Включаю на выходных, чтобы отдохнуть от ленты — остаются только звонки и Telegram.</p>
+                </article>
+              </div>
+  
+              <h3 class="v4-h3">Audio</h3>
+              <div class="v4-uses">
+                <article class="v4-use">
+                  <div class="v4-use-image">
+                    <img src="/images/uses/airpods-pro-2.webp?v=a02b755d" alt="Apple AirPods Pro 2" loading="lazy" width="800" height="800" />
+                  </div>
+                  <span class="v4-tag">Earphones</span>
+                  <h4 class="v4-use-name">AirPods Pro 2</h4>
+                  <p class="v4-use-desc">Беспроводные затычки с активным шумодавом и transparency. Основная причина — качество звонков: в Zoom меня слышно нормально без отдельного микрофона.</p>
+                </article>
+                <article class="v4-use">
+                  <div class="v4-use-image">
+                    <img src="/images/uses/moondrop-chu-2.webp?v=4e163704" alt="Moondrop Chu 2 — проводные IEM" loading="lazy" width="800" height="800" />
+                  </div>
+                  <span class="v4-tag">Earphones</span>
+                  <h4 class="v4-use-name">Moondrop Chu 2</h4>
+                  <p class="v4-use-desc">Проводные IEM, один динамический драйвер 10&nbsp;mm с латунным звуководом. Тёплый звук, целятся в Harman target. Беру, когда не хочется возиться с bluetooth и зарядкой.</p>
+                </article>
+                <article class="v4-use">
+                  <div class="v4-use-image">
+                    <img src="/images/uses/sony-mdr-7506.webp?v=2d4dc175" alt="Sony MDR-7506 — студийные наушники" loading="lazy" width="800" height="800" />
+                  </div>
+                  <span class="v4-tag">Headphones</span>
+                  <h4 class="v4-use-name">Sony MDR-7506</h4>
+                  <p class="v4-use-desc">Классика студийных наушников с 1991 года, складные. Чуть подчёркнутые верхи — хороши для подкастов и интервью. В дорогу удобнее, чем DT&nbsp;770.</p>
+                </article>
+                <article class="v4-use">
+                  <div class="v4-use-image">
+                    <img src="/images/uses/beyerdynamic-dt-770-pro.webp?v=f90831b9" alt="Beyerdynamic DT 770 Pro — студийные наушники" loading="lazy" width="800" height="800" />
+                  </div>
+                  <span class="v4-tag">Headphones</span>
+                  <h4 class="v4-use-name">Beyerdynamic DT 770 Pro</h4>
+                  <p class="v4-use-desc">Студийные мониторные накладки, 250&nbsp;Ω. Дома — за компом, для долгого фокуса. Звук ровный, велюровые подушки не давят за 5+ часов.</p>
+                </article>
+              </div>
+  
+              <h3 class="v4-h3">Power</h3>
+              <div class="v4-uses">
+                <article class="v4-use">
+                  <div class="v4-use-image">
+                    <img src="/images/uses/shargeek-170.webp?v=1b4f07f0" alt="Shargeek 170 — прозрачный пауэрбанк" loading="lazy" width="800" height="800" />
+                  </div>
+                  <span class="v4-tag">Powerbank</span>
+                  <h4 class="v4-use-name">Shargeek 170</h4>
+                  <p class="v4-use-desc">Прозрачный пауэрбанк на 25&nbsp;600&nbsp;mAh с экраном статуса и USB-C&nbsp;PD до 100&nbsp;W. Хватает заряжать MacBook в дороге без блока питания.</p>
+                </article>
+                <article class="v4-use">
+                  <div class="v4-use-image">
+                    <img src="/images/uses/ugreen-nexode-300w.webp?v=c284eede" alt="Ugreen Nexode 300W — настольная зарядная станция" loading="lazy" width="800" height="800" />
+                  </div>
+                  <span class="v4-tag">Charger</span>
+                  <h4 class="v4-use-name">Ugreen Nexode 300W</h4>
+                  <p class="v4-use-desc">Настольная зарядная станция на 300&nbsp;W, 5 портов (4×USB-C + 1×USB-A). Тянет MacBook на 140&nbsp;W + iPhone + iPad + наушники одновременно с запасом.</p>
+                </article>
+              </div>
+  
+              <h3 class="v4-h3">Health &amp; Play</h3>
+              <div class="v4-uses">
+                <article class="v4-use">
+                  <div class="v4-use-image">
+                    <img src="/images/uses/oura-ring-gen3.webp?v=da5a3c16" alt="Oura Ring Gen3 — умное кольцо" loading="lazy" width="800" height="800" />
+                  </div>
+                  <span class="v4-tag">Health</span>
+                  <h4 class="v4-use-name">Oura Ring Gen3</h4>
+                  <p class="v4-use-desc">Кольцо-трекер: сон, ЧСС покоя, температура тела, циклы. Носится в воду, 5–7 дней без зарядки. Удобнее часов — не цепляется и не отвлекает уведомлениями.</p>
+                </article>
+                <article class="v4-use">
+                  <div class="v4-use-image">
+                    <img src="/images/uses/anbernic-rg405v.webp?v=1682d426" alt="Anbernic RG405V — портативный ретро-эмулятор" loading="lazy" width="800" height="800" />
+                  </div>
+                  <span class="v4-tag">Game console</span>
+                  <h4 class="v4-use-name">Anbernic RG405V</h4>
+                  <p class="v4-use-desc">Вертикальный ретро-эмулятор на Android, 4-дюймовый OLED. Играет в PSP, Dreamcast, N64. Карманно, длинный аккумулятор — в дорогу самое то.</p>
+                </article>
+              </div>
+</div>
         </div>
       </section>
 
@@ -212,18 +369,78 @@
         </div>
         <div class="v4-body">
           <div class="v4-body-aside"></div>
-          <div data-cms-list="usesProducts"></div>
+          <div data-cms-list="usesProducts">
+  <div class="v4-prose">
+                <p>Сервисы, которыми пользуюсь регулярно. Платные — со скидками по моей ссылке, если оформите подписку: бонус и вам, и мне.</p>
+              </div>
+              <div class="v4-softs">
+                <article class="v4-product">
+                  <div class="v4-product-head">
+                    <span class="v4-tag">Password manager</span>
+                    <span>$5&nbsp;/&nbsp;mo</span>
+                  </div>
+                  <h3 class="v4-product-name">Dashlane</h3>
+                  <p class="v4-product-desc">Менеджер паролей с 5-летним стажем без скандалов и утечек. Внутри Dark&nbsp;Web&nbsp;Monitoring и встроенный 2FA-аутентификатор.</p>
+                  <a class="v4-btn" href="https://www.dashlane.com/" target="_blank" rel="noopener noreferrer">6 месяцев premium →</a>
+                </article>
+                <article class="v4-product">
+                  <div class="v4-product-head">
+                    <span class="v4-tag">Browser</span>
+                    <span>Free</span>
+                  </div>
+                  <h3 class="v4-product-name">Arc Browser</h3>
+                  <p class="v4-product-desc">Браузер. Идеальная организация вкладок и рабочих пространств, аккуратно встроенный AI. Команда переключилась на Dia, но текущий релиз стабильно работает.</p>
+                  <a class="v4-btn" href="https://arc.net/" target="_blank" rel="noopener noreferrer">Скачать →</a>
+                </article>
+                <article class="v4-product">
+                  <div class="v4-product-head">
+                    <span class="v4-tag">App bundle</span>
+                    <span>$10&nbsp;/&nbsp;mo</span>
+                  </div>
+                  <h3 class="v4-product-name">SetApp</h3>
+                  <p class="v4-product-desc">Подписка на 250+&nbsp;Mac-приложений за фиксированную плату. Топ-5: Craft (Notion на стероидах), Numi (калькулятор-конвертер), CleanShot&nbsp;X, CleanMyMac, Dato.</p>
+                  <a class="v4-btn" href="https://setapp.com/" target="_blank" rel="noopener noreferrer">7 дней бесплатно →</a>
+                </article>
+                <article class="v4-product">
+                  <div class="v4-product-head">
+                    <span class="v4-tag">AI</span>
+                    <span>$100&nbsp;/&nbsp;mo</span>
+                  </div>
+                  <h3 class="v4-product-name">Claude Max</h3>
+                  <p class="v4-product-desc">Заменил Google для поиска, Stack&nbsp;Overflow для кода, иногда — психотерапевта. 3-4&nbsp;часа в день. Max снимает лимиты Pro — пишу столько, сколько нужно.</p>
+                  <a class="v4-btn" href="https://claude.ai/" target="_blank" rel="noopener noreferrer">Оформить Max →</a>
+                </article>
+                <article class="v4-product">
+                  <div class="v4-product-head">
+                    <span class="v4-tag">eSIM</span>
+                    <span>Pay-as-you-go</span>
+                  </div>
+                  <h3 class="v4-product-name">Airalo</h3>
+                  <p class="v4-product-desc">eSIM в любую страну за 2 минуты. Самые низкие цены среди известных мне сервисов, support всегда отзывался при шероховатостях. Промокод <code>SEMYON5076</code> даёт $3 на первую покупку.</p>
+                  <a class="v4-btn" href="https://www.airalo.com/" target="_blank" rel="noopener noreferrer">Скидка $3 →</a>
+                </article>
+                <article class="v4-product">
+                  <div class="v4-product-head">
+                    <span class="v4-tag">Notes</span>
+                    <span>Free</span>
+                  </div>
+                  <h3 class="v4-product-name">Apple Notes</h3>
+                  <p class="v4-product-desc">Главный инструмент для захвата мыслей с 2014 года. Бесплатно, нативно, открывается за миллисекунды. Доступен на iOS, macOS и через iCloud&nbsp;web.</p>
+                  <a class="v4-btn" href="https://support.apple.com/guide/notes/welcome/mac" target="_blank" rel="noopener noreferrer">Гайд по использованию →</a>
+                </article>
+              </div>
+</div>
         </div>
       </section>
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/d78629e" target="_blank" rel="noopener noreferrer"><code>d78629e</code></a> · <a href="/about">принципы</a> · <a href="mailto:ask@morgunov.tech?subject=Опечатка%20на%20morgunov.tech%3A%20%2Fuses">нашли опечатку?</a></span>
+      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/0134ba8" target="_blank" rel="noopener noreferrer"><code>0134ba8</code></a> · <a href="/notes">заметки</a> · <a href="/about">принципы</a> · <a href="mailto:ask@morgunov.tech?subject=Опечатка%20на%20morgunov.tech%3A%20%2Fuses">нашли опечатку?</a></span>
       <span class="v4-foot-privacy">Без Cookies, трекеров и аналитики</span>
     </footer>
   </div>
   <button class="v4-scroll-top" type="button" aria-label="Наверх">↑</button>
   <div class="v4-scroll-progress" aria-hidden="true"></div>
-  <script defer src="/script.js?v=7a5866b6"></script>
+  <script defer src="/script.js?v=cfd1816f"></script>
 </body>
 </html>

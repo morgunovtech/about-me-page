@@ -10,8 +10,7 @@ import { renderers, LIST_PATHS } from './render.js';
 import { pick, resolvePath } from './i18n.js';
 import { renderProse, safeHref } from './markdown.js';
 import { renderJsonLd } from './jsonld.js';
-
-const ORIGIN = 'https://s.morgunov.tech';
+import { ORIGIN, BUILD } from './site.js';
 const absolutize = (p) => (!p ? p : /^https?:\/\//i.test(p) ? p : ORIGIN + p);
 
 // A handler that throws mid-stream aborts the response AFTER the 200 status
@@ -39,9 +38,11 @@ export function overlay(response, doc, lang, edit = false, jsonld = renderJsonLd
       if (md != null) el.setInnerContent(renderProse(md), { html: true });
     }))
     // Raw stored HTML fragment (verbatim) — for rich prose edited as one block.
+    // `{build}` inside prose resolves to the deployed short SHA, so the text
+    // never carries a hash that a redeploy would leave stale.
     .on('[data-cms-html]', guard((el) => {
       const html = pick(resolvePath(doc, el.getAttribute('data-cms-html')), lang);
-      if (html != null) el.setInnerContent(String(html), { html: true });
+      if (html != null) el.setInnerContent(String(html).replace(/\{build\}/g, BUILD), { html: true });
     }))
     .on('[data-cms-href]', guard((el) => {
       const val = pick(resolvePath(doc, el.getAttribute('data-cms-href')), lang);

@@ -48,14 +48,17 @@
     .v4-page .skip-link:focus{top:8px}
     .v4-root{background:var(--v4-bg);color:var(--v4-fg);padding:36px 56px 56px;max-width:1280px;margin:0 auto}
     .v4-bar{display:flex;justify-content:space-between;align-items:center;padding:0 0 14px;margin-bottom:32px;border-bottom:1px solid var(--v4-fg);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
-    .v4-bar-mid{display:flex;gap:6px 22px;justify-content:center;color:var(--v4-muted);flex-wrap:wrap}
+    .v4-nav{display:flex;align-items:center;min-width:0}
+    .v4-bar-mid{display:flex;gap:6px 22px;justify-content:flex-start;color:var(--v4-muted);flex-wrap:wrap}
     .v4-bar-mid a{color:inherit;text-decoration:none;padding:8px 4px;white-space:nowrap}
-    .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;color:var(--v4-fg)}
-    .v4-lang{display:inline-flex;align-items:center;gap:6px}
-    .v4-lang-link{color:var(--v4-muted);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:11px 8px;border-bottom:1px solid transparent}
-    .v4-lang-link.is-active{color:var(--v4-fg);border-bottom-color:var(--v4-orange)}
-    .v4-lang-sep{color:var(--v4-dim)}
-    .v4-theme{position:relative}
+    .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;margin-left:auto;color:var(--v4-fg)}
+    .v4-bar-btn{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 8px;border:none;background:transparent;color:var(--v4-fg);cursor:pointer;font:inherit;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+    .v4-bar-btn .v4-chevron{width:10px;height:10px;flex-shrink:0}
+    .v4-nav-toggle{display:none}
+    .v4-dropdown{position:relative}
+    .v4-menu{position:absolute;right:0;top:calc(100% + 15px);display:none;flex-direction:column;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}
+    .v4-dropdown.is-open > .v4-menu{display:flex}
+    html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu{display:flex}
     .v4-icon-btn{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--v4-fg);cursor:pointer;padding:0;font:inherit;border:none}
     .v4-icon-btn svg{width:14px;height:14px}
     .v4-icon-btn .v4-icon-moon,.v4-icon-btn .v4-icon-contrast{display:none}
@@ -63,8 +66,6 @@
     [data-theme="dark"] .v4-icon-btn .v4-icon-moon{display:block}
     [data-theme="high-contrast"] .v4-icon-btn .v4-icon-sun{display:none}
     [data-theme="high-contrast"] .v4-icon-btn .v4-icon-contrast{display:block}
-    .v4-theme-menu{position:absolute;right:0;top:calc(100% + 6px);display:none;flex-direction:column;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}
-    .v4-theme.is-open .v4-theme-menu{display:flex}
     .v4-hero{display:grid;grid-template-columns:1fr 280px;gap:40px;padding:4px 0 36px;margin:0 0 28px;align-items:start}
     .v4-hero--simple{grid-template-columns:1fr;padding:24px 0 0}
     .v4-hero-text{min-width:0}
@@ -75,8 +76,8 @@
     .v4-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;min-height:40px;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;cursor:pointer;border:1px solid var(--v4-fg);background:transparent;color:var(--v4-fg);font-family:inherit}
     .v4-btn-primary{background:var(--v4-orange);color:var(--v4-on-accent);border-color:var(--v4-orange)}
     .v4-section{margin-bottom:36px}
-    .v4-section-head{padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--v4-fg)}
-    .v4-section-num{display:block;font-family:var(--v4-mono);font-size:11px;color:var(--v4-muted);text-transform:uppercase;letter-spacing:.1em;font-weight:500;margin-bottom:6px}
+    .v4-section-head{display:flex;align-items:baseline;gap:14px;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--v4-fg)}
+    .v4-section-num{font-family:var(--v4-mono);font-size:11px;color:var(--v4-muted);text-transform:uppercase;letter-spacing:.1em;font-weight:500;flex-shrink:0}
     .v4-h2{font-size:22px;font-weight:600;margin:0;letter-spacing:-.015em}
     .v4-prose p{margin:0 0 12px;line-height:1.55}
     .v4-prose p:last-child{margin-bottom:0}
@@ -88,19 +89,22 @@
     .v4-list--spaced{margin-top:12px}
     .v4-list + .v4-prose{margin-top:18px}
     @media (max-width:960px){.v4-root{padding:28px 32px 40px}.v4-h1{font-size:52px}}
-    @media (max-width:640px){.v4-root{padding:20px 18px 32px;font-size:13.5px}.v4-bar{flex-direction:column;align-items:stretch;row-gap:10px;font-size:10px}.v4-bar-right{align-self:flex-end}.v4-bar-mid{justify-content:flex-start;flex-wrap:wrap;gap:4px 14px}.v4-bar-mid a{padding:10px 6px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}}
+    @media (max-width:640px){.v4-root{padding:20px 18px 32px}body.v4-page{font-size:13.5px}.v4-bar{padding-bottom:10px;margin-bottom:22px;font-size:10px}.v4-nav-toggle{display:inline-flex;min-height:44px;margin-left:-8px}.v4-bar-mid{position:absolute;left:0;top:calc(100% + 11px);display:none;flex-direction:column;align-items:stretch;gap:0;margin:0;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}.v4-nav.is-open > .v4-bar-mid,html:not([data-js]) .v4-nav:is(:focus-within, :hover) > .v4-bar-mid{display:flex}.v4-bar-mid a{padding:10px 10px;border:1px solid transparent;color:var(--v4-fg);font-size:11px;font-weight:500;letter-spacing:.1em}.v4-menu{top:calc(100% + 11px)}.v4-bar-btn{min-height:44px}.v4-icon-btn{width:44px;height:44px}.v4-section-head{padding-bottom:10px;margin-bottom:12px}.v4-h2{font-size:18px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}}
   </style>
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-cyr-400.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-cyr-600.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-400.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-600.woff2" crossorigin />
+  <!-- Mono renders above the fold (hero eyebrow, section numbers) — preload 400 so it doesn't FOUT. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-cyr-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-latin-400.woff2" crossorigin />
   <link rel="preload" href="/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/tokens.css?v=cd042bb5" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/base.css?v=fad10899" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/components.css?v=4416b730" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" /><link rel="stylesheet" href="/ds/v1/tokens.css?v=cd042bb5" /><link rel="stylesheet" href="/ds/v1/base.css?v=fad10899" /><link rel="stylesheet" href="/ds/v1/components.css?v=4416b730" /></noscript>
-  <link rel="preload" href="/styles.css?v=b100256f" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/styles.css?v=b100256f" /></noscript>
+  <link rel="preload" href="/ds/v1/tokens.css?v=50a0d966" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/base.css?v=0e404315" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/components.css?v=7565c1f8" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" /><link rel="stylesheet" href="/ds/v1/tokens.css?v=50a0d966" /><link rel="stylesheet" href="/ds/v1/base.css?v=0e404315" /><link rel="stylesheet" href="/ds/v1/components.css?v=7565c1f8" /></noscript>
+  <link rel="preload" href="/styles.css?v=f4f1111b" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/styles.css?v=f4f1111b" /></noscript>
   <script>
     (function () {
       var d = document.documentElement;
@@ -116,54 +120,75 @@
       }
     })();
   </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://s.morgunov.tech/about#webpage",
-        "url": "https://s.morgunov.tech/about",
-        "name": "Принципы — Семён Моргунов",
-        "inLanguage": "ru",
-        "isPartOf": { "@id": "https://s.morgunov.tech/#website" },
-        "about": { "@id": "https://s.morgunov.tech/#person" },
-        "breadcrumb": { "@id": "https://s.morgunov.tech/about#breadcrumb" },
-        "dateModified": "2026-05-11"
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://s.morgunov.tech/about#breadcrumb",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://s.morgunov.tech/" },
-          { "@type": "ListItem", "position": 2, "name": "Принципы", "item": "https://s.morgunov.tech/about" }
-        ]
-      }
-    ]
-  }
+  <script type="application/ld+json" data-cms-jsonld>
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://s.morgunov.tech/about#webpage",
+          "url": "https://s.morgunov.tech/about",
+          "name": "Принципы — Семён Моргунов",
+          "inLanguage": "ru",
+          "isPartOf": {
+            "@id": "https://s.morgunov.tech/#website"
+          },
+          "about": {
+            "@id": "https://s.morgunov.tech/#person"
+          },
+          "dateModified": "2026-05-11",
+          "breadcrumb": {
+            "@id": "https://s.morgunov.tech/about#breadcrumb"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://s.morgunov.tech/about#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Главная",
+              "item": "https://s.morgunov.tech/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Принципы",
+              "item": "https://s.morgunov.tech/about"
+            }
+          ]
+        }
+      ]
+    }
   </script>
 </head>
 <body class="v4-page no-transition" data-lang="ru">
   <a href="#main" class="skip-link">Перейти к основному содержимому</a>
   <div class="v4-root">
     <header class="v4-bar" id="top">
-      <nav class="v4-bar-mid" aria-label="Основная навигация">
-        <a href="#product" data-cms-omit="sections.product.hidden">Продукт</a>
-        <a href="#principles" data-cms-omit="sections.principles.hidden">Принципы</a>
-        <a href="#layers" data-cms-omit="sections.layers.hidden">Решения</a>
-        <a href="#stack" data-cms-omit="sections.stack.hidden">Стек</a>
-        <a href="#omitted" data-cms-omit="sections.omitted.hidden">Чего нет</a>
-        <a href="#tool" data-cms-omit="sections.tool.hidden">Инструмент</a>
-        <a href="#ethics" data-cms-omit="sections.ethics.hidden">Этика</a>
+      <nav class="v4-nav v4-dropdown" aria-label="Основная навигация">
+        <button class="v4-bar-btn v4-nav-toggle" type="button" aria-controls="site-nav">Меню<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+        <div class="v4-bar-mid" id="site-nav">
+          <a href="#product" data-cms-omit="sections.product.hidden">Продукт</a>
+          <a href="#principles" data-cms-omit="sections.principles.hidden">Принципы</a>
+          <a href="#layers" data-cms-omit="sections.layers.hidden">Решения</a>
+          <a href="#stack" data-cms-omit="sections.stack.hidden">Стек</a>
+          <a href="#omitted" data-cms-omit="sections.omitted.hidden">Чего нет</a>
+          <a href="#tool" data-cms-omit="sections.tool.hidden">Инструмент</a>
+          <a href="#ethics" data-cms-omit="sections.ethics.hidden">Этика</a>
+        </div>
       </nav>
       <div class="v4-bar-right">
-        <div class="v4-lang" role="group" aria-label="Переключатель языка">
-          <a class="v4-lang-link is-active" href="/about" aria-current="page" hreflang="ru" lang="ru">RU</a>
-          <span class="v4-lang-sep" aria-hidden="true">·</span>
-          <a class="v4-lang-link" href="/en/about" hreflang="en" lang="en">EN</a>
+        <div class="v4-dropdown v4-lang">
+          <button class="v4-bar-btn v4-lang-btn" type="button" aria-haspopup="menu" aria-controls="lang-menu" id="lang-toggle" aria-label="RU — сменить язык">RU<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+          <div class="v4-menu" id="lang-menu" role="menu" aria-labelledby="lang-toggle">
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="true" href="/about" hreflang="ru" lang="ru">Русский</a>
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="false" href="/en/about" hreflang="en" lang="en">English</a>
+          </div>
         </div>
-        <div class="v4-theme">
-          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu" aria-label="Сменить тему оформления">
+        <div class="v4-dropdown v4-theme">
+          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-controls="theme-menu" id="theme-toggle" aria-label="Сменить тему оформления">
             <svg class="v4-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
               <circle cx="8" cy="8" r="3"></circle>
               <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"></path>
@@ -176,11 +201,11 @@
               <path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path>
             </svg>
           </button>
-          <div class="v4-theme-menu" id="theme-menu" role="menu">
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">Светлая</button>
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">Тёмная</button>
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">Авто</button>
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">Высокий контраст</button>
+          <div class="v4-menu v4-theme-menu" id="theme-menu" role="menu" aria-labelledby="theme-toggle">
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">Светлая</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">Тёмная</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">Авто</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">Высокий контраст</button>
           </div>
         </div>
       </div>
@@ -267,10 +292,10 @@
             <p><strong>Типографика.</strong> Шрифт <strong>IBM Plex</strong> — open source, выпущен IBM Design в 2017 году. Здесь сходятся три вещи: наследие IBM как одной из главных школ корпоративного модернизма XX&nbsp;века (Эллиот Нойес, Пол Рэнд, Имс), открытость лицензии (можно использовать без оглядки на бюджет) и одна из лучших в open-source кириллица. Plex&nbsp;Sans для тела, Plex&nbsp;Mono для caps-меток. Mono в caps — это терминальная эстетика, <code>git&nbsp;log</code>, README; читатель сразу считывает «передо мной технический документ, не маркетинговый лендинг».</p>
             <p><strong>Цвет.</strong> Оранжевый акцент — не бренд, а индикатор состояния. Та же семантика, что у переключателя mute на iPhone, у <code>#FF6600</code> Hacker News, у оранжевой кнопки питания на калькуляторе Braun&nbsp;ET33. Линия родословной: индустриальный safety-orange → Braun → tech-стартапы → этот сайт. Оранжевый = attention, utility, state — не «фирменный цвет». Он используется ровно в четырёх местах: главный CTA («Написать в Telegram»), активный язык в переключателе («RU» подчёркнут), индикатор текущего места работы (точка рядом с «Yandex&nbsp;Uzbekistan»), активная тема в дропдауне. Везде — одна семантика: «вот это сейчас активно».</p>
             <p><strong>Иерархия CTA.</strong> Две кнопки рядом — «Написать в Telegram» (оранжевая, заливка) и «Чем могу помочь» (белая, обводка). Размер одинаковый, цвет разный. Иерархия через насыщенность, не через размер. Если у пользователя одна минута — он жмёт оранжевую. Если десять — белую. Решение за ним, не за мной.</p>
-            <p><strong>Контент. Цифры вместо прилагательных и разбивка цифр.</strong> В блоке метрик стоят: <code>10 лет в&nbsp;IT</code>, <code>3 рынка</code>, <code>5&nbsp;831 подписчик</code>, <code>4 своих проекта</code>. Каждая цифра разворачивается во вторую строку с контекстом: 10&nbsp;лет — <code>EdTech · E-com · FinTech</code>; 3&nbsp;рынка — <code>RU · UZ · KG</code>; 5&nbsp;831 — <code>1&nbsp;139</code> в Telegram, <code>4&nbsp;564</code> в LinkedIn, <code>128</code> на YouTube; 4&nbsp;проекта — <code>с 2009 года · 1 продан</code>. Цифра без контекста — пустой сигнал. Цифра плюс разбивка — проверяемое утверждение. Никто не должен верить мне на слово; все цифры можно сверить с источниками.</p>
+            <p><strong>Контент. Цифры вместо прилагательных и разбивка цифр.</strong> В блоке метрик стоят: <code>10 лет в&nbsp;IT</code>, <code>3 рынка</code>, <code>6&nbsp;069 подписчиков</code>, <code>4 своих проекта</code>. Каждая цифра разворачивается во вторую строку с контекстом: 10&nbsp;лет — <code>EdTech · E-com · FinTech</code>; 3&nbsp;рынка — <code>RU · UZ · KG</code>; 6&nbsp;069 — <code>1&nbsp;141</code> в Telegram, <code>4&nbsp;800</code> в LinkedIn, <code>128</code> на YouTube; 4&nbsp;проекта — <code>с 2009 года · 1 продан</code>. Цифра без контекста — пустой сигнал. Цифра плюс разбивка — проверяемое утверждение. Никто не должен верить мне на слово; все цифры можно сверить с источниками.</p>
             <p>Тот же подход в карьере. Не «масштабировал e-grocery», а <code>Заказы: 400 → 10&nbsp;000 в день за 3 года</code>, <code>Выручка: ×2 год к году при положительной EBITDA</code>, <code>CSAT: 4.2 → 4.5</code>. Не «работал в EdTech», а <code>Активировал 7M+ пользователей</code>. Где нет цифр — там просто <code>По контракту</code> (Apple&nbsp;Russia, 2018–2019). Контрактная работа не имеет 7-летних KPI; натягивать их под формат — нечестно.</p>
             <p>В разделе «Своё дело» — статусы без переупаковки: <code>Запустили → не нашли PMF → на паузе</code>, <code>Запустили → стабилизировали → продали сотрудникам</code>, <code>Запустили → выросли до 3-х точек → закрыли</code>. Четыре своих проекта, один продан, остальные — закрылись или на паузе. Это и есть статистика стартапов; имитировать что-то другое — обман читателя.</p>
-            <p><strong>Двуязычность.</strong> RU и EN — две версии, не одна с переводом. <code>Yandex Uslugi</code> на RU становится <code>Yandex Services</code> на EN — потому что в Узбекистане сервис назывался Услуги, а англоязычная аудитория увидит сразу «сервисы». «Своё дело» → <code>Ventures</code>, «Чем могу помочь» → <code>How I can help</code>, «наст. вр.» → <code>present</code>. Разделители тысяч скроены под локаль: <code>5&nbsp;831</code> ↔ <code>5,831</code>, <code>1&nbsp;139</code> ↔ <code>1,139</code>. <code>82&nbsp;600 просмотров</code> ↔ <code>82,600 views</code>. Перевод — это импорт смыслов, не подстановка слов.</p>
+            <p><strong>Двуязычность.</strong> RU и EN — две версии, не одна с переводом. <code>Yandex Uslugi</code> на RU становится <code>Yandex Services</code> на EN — потому что в Узбекистане сервис назывался Услуги, а англоязычная аудитория увидит сразу «сервисы». «Своё дело» → <code>Ventures</code>, «Чем могу помочь» → <code>How I can help</code>, «наст. вр.» → <code>present</code>. Разделители тысяч скроены под локаль: <code>6&nbsp;069</code> ↔ <code>6,069</code>, <code>1&nbsp;141</code> ↔ <code>1,141</code>. <code>82&nbsp;600 просмотров</code> ↔ <code>82,600 views</code>. Перевод — это импорт смыслов, не подстановка слов.</p>
             <p><strong>Доступность.</strong> Четыре темы: светлая, тёмная, авто (по системной настройке), высокий контраст. Последняя — для людей со слабым зрением, дислексией, светочувствительностью, а также для чтения на улице под ярким солнцем. Это редкое решение для personal-сайта; для меня — обязательное. Дропдаун с темами открывается одним кликом по иконке солнца/луны; активная тема подсвечена оранжевой обводкой — снова семантика state, ничего нового.</p>
             <p><strong>Навигация.</strong> При скролле справа появляется столбик <code>01–07</code> — номера разделов. Текущий выделен, остальные приглушены. Это не sticky-меню и не TOC — это просто ориентир, как номер страницы в книге. Никаких подписей, никаких иконок, никакого «back to top» с анимацией. Стрелка <code>↑</code> живёт в правом нижнем углу, появляется когда нужно, скроллит без задержки. У Рамса это называется <em>as little design as possible</em>.</p>
           </div>
@@ -373,7 +398,7 @@
           <div class="v4-body-aside"></div>
           <div class="v4-prose" data-cms-html="sections.living.body">
             <p>Сайт обновляется. Если что-то выглядит сломанным, читается странно или просто кажется неточным — напишите. Ссылка «Нашли опечатку?» в футере открывает прямой канал. Репозиторий открыт; если хотите завести issue или PR — добро пожаловать.</p>
-            <p>Сайт — не финальный артефакт. Это срез того, как я думаю сегодня. Через год он, возможно, будет выглядеть иначе. Build <code>d78629e</code> сменится на следующий — и это будет видно по коммиту. Это нормально и правильно.</p>
+            <p>Сайт — не финальный артефакт. Это срез того, как я думаю сегодня. Через год он, возможно, будет выглядеть иначе. Build <code>{build}</code> сменится на следующий — и это будет видно по коммиту. Это нормально и правильно.</p>
             <p>→ <a href="https://s.morgunov.tech">s.morgunov.tech</a></p>
           </div>
         </div>
@@ -381,11 +406,11 @@
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/d78629e" target="_blank" rel="noopener noreferrer"><code>d78629e</code></a> · <a href="/uses">стек</a> · <a href="mailto:ask@morgunov.tech?subject=Опечатка%20на%20morgunov.tech%3A%20%2Fabout">нашли опечатку?</a></span>
+      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/0134ba8" target="_blank" rel="noopener noreferrer"><code>0134ba8</code></a> · <a href="/notes">заметки</a> · <a href="/uses">стек</a> · <a href="mailto:ask@morgunov.tech?subject=Опечатка%20на%20morgunov.tech%3A%20%2Fabout">нашли опечатку?</a></span>
       <span class="v4-foot-privacy">Без Cookies, трекеров и аналитики</span>
     </footer>
   </div>
-  <aside class="v4-section-nav" aria-label="Прогресс по странице">
+  <nav class="v4-section-nav" aria-label="Разделы страницы">
     <a href="#product" data-cms-omit="sections.product.hidden">01</a>
     <a href="#principles" data-cms-omit="sections.principles.hidden">02</a>
     <a href="#layers" data-cms-omit="sections.layers.hidden">03</a>
@@ -394,9 +419,9 @@
     <a href="#tool" data-cms-omit="sections.tool.hidden">06</a>
     <a href="#ethics" data-cms-omit="sections.ethics.hidden">07</a>
     <a href="#living" data-cms-omit="sections.living.hidden">08</a>
-  </aside>
+  </nav>
   <button class="v4-scroll-top" type="button" aria-label="Наверх">↑</button>
   <div class="v4-scroll-progress" aria-hidden="true"></div>
-  <script defer src="/script.js?v=7a5866b6"></script>
+  <script defer src="/script.js?v=cfd1816f"></script>
 </body>
 </html>

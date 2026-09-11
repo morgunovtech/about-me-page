@@ -3,10 +3,12 @@
 // share/meta tags. Mirrors the schema the site already publishes.
 
 import { pick } from './i18n.js';
+import { ORIGIN } from './site.js';
 
-const ORIGIN = 'https://s.morgunov.tech';
 const HERO_IMAGE = ORIGIN + '/images/Hero_Photo.webp';
 const EMAIL = 's@morgunov.tech';
+// First commit of the site (v0.1) — ProfilePage.dateCreated.
+const SITE_LAUNCHED = '2025-10-07';
 
 // Serialize a JSON-LD graph and escape characters that could break out of the
 // <script> element it's injected into (JSON.stringify escapes none of these).
@@ -38,10 +40,12 @@ export function renderJsonLd(doc, lang) {
     alternateName: pick(seo.alternateName, lang),
     jobTitle: seo.jobTitle,
     description: pick(seo.personDescription, lang),
-    url,
+    // One entity, one canonical url — the RU homepage — on both languages
+    // (the WebPage node carries the language-specific url).
+    url: ORIGIN + '/',
     image: HERO_IMAGE,
     email: EMAIL,
-    knowsLanguage: lang === 'en' ? ['en', 'ru'] : ['ru', 'en'],
+    knowsLanguage: ['ru', 'en'],
     knowsAbout: seo.knowsAbout,
     sameAs: seo.sameAs,
     worksFor: { '@type': 'Organization', name: seo.worksFor.name, url: seo.worksFor.url },
@@ -68,14 +72,22 @@ export function renderJsonLd(doc, lang) {
     itemListElement: doc.sections.products.items.map((it, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      item: {
-        '@type': 'WebApplication',
-        name: it.name,
-        url: pick(it.cta.href, lang),
-        applicationCategory: 'PrivacyApplication',
-        operatingSystem: 'Web',
-        description: pick(it.desc, lang),
-      },
+      // Per-item overrides live in `schema` (the two privacy web apps are the
+      // default; e.g. the Telegram bot is a DeveloperApplication under MIT).
+      // Every product is free unless `schema.free === false`.
+      item: Object.assign(
+        {
+          '@type': (it.schema && it.schema.type) || 'WebApplication',
+          name: it.name,
+          url: pick(it.cta.href, lang),
+          applicationCategory: (it.schema && it.schema.category) || 'PrivacyApplication',
+          operatingSystem: (it.schema && it.schema.os) || 'Web',
+          description: pick(it.desc, lang),
+          isAccessibleForFree: !(it.schema && it.schema.free === false),
+        },
+        it.version ? { softwareVersion: String(it.version).replace(/^v/i, '') } : {},
+        it.schema && it.schema.license ? { license: it.schema.license } : {}
+      ),
     })),
   };
 
@@ -91,7 +103,8 @@ export function renderJsonLd(doc, lang) {
         publisher: { '@id': ORIGIN + '/#person' },
       },
       {
-        '@type': 'WebPage',
+        // ProfilePage: the page IS this person (Google's profile-page shape).
+        '@type': ['WebPage', 'ProfilePage'],
         '@id': url + '#webpage',
         url,
         name: pick(doc.meta.title, lang),
@@ -99,6 +112,8 @@ export function renderJsonLd(doc, lang) {
         isPartOf: { '@id': ORIGIN + '/#website' },
         primaryImageOfPage: HERO_IMAGE,
         about: { '@id': ORIGIN + '/#person' },
+        mainEntity: { '@id': ORIGIN + '/#person' },
+        dateCreated: SITE_LAUNCHED,
         dateModified: doc.dateModified,
       },
       person,
@@ -143,4 +158,87 @@ export function renderArticleJsonLd(doc, lang) {
     ],
   };
   return serializeLd(graph);
+}
+
+// --- Sub-pages: WebPage (+ Service/OfferCatalog on /collaborate, BreadcrumbList
+// elsewhere) regenerated from the page doc, so name/dateModified/prices follow
+// KV edits and agree with the sitemap. Home keeps its own richer graph.
+const SERVICE = {
+  ru: {
+    name: 'Консалтинг и ангельские инвестиции',
+    description: 'Консалтинг и ангельские инвестиции для компаний в e-com, ритейле и FinTech.',
+    catalog: 'Консалтинговые услуги',
+  },
+  en: {
+    name: 'Consulting and angel investing',
+    description: 'Consulting and angel investing for companies in e-com, retail, and FinTech.',
+    catalog: 'Consulting services',
+  },
+};
+const HOME_NAME = { ru: 'Главная', en: 'Home' };
+
+// Text fields of the structured sub-page docs carry inline HTML (&nbsp;,
+// <strong>) — JSON-LD wants plain text.
+const plain = (html) =>
+  String(html == null ? '' : html)
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .trim();
+
+export function renderPageJsonLd(doc, lang, page) {
+  if (page === 'home') return renderJsonLd(doc, lang);
+  const l = lang === 'en' ? 'en' : 'ru';
+  const url = ORIGIN + (l === 'en' ? '/en' : '') + '/' + page;
+  const title = plain(pick(doc.meta && doc.meta.title, l)).replace(/\s*\|\s*morgunov\.tech\s*$/i, '');
+  const webpage = {
+    '@type': 'WebPage',
+    '@id': url + '#webpage',
+    url,
+    name: title,
+    inLanguage: l,
+    isPartOf: { '@id': ORIGIN + '/#website' },
+    about: { '@id': ORIGIN + '/#person' },
+    dateModified: doc.dateModified,
+  };
+  const graph = [webpage];
+  if (page === 'collaborate') {
+    const tiers = (doc.sections && doc.sections.consulting && doc.sections.consulting.tiers) || [];
+    const priceOf = (t) => {
+      const m = plain(pick(t.price, l)).replace(/[\s\u00a0]/g, '').match(/(\d[\d,]*(?:\.\d+)?)/);
+      return m ? m[1].replace(/,/g, '') : undefined;
+    };
+    graph.push({
+      '@type': 'Service',
+      '@id': url + '#service',
+      name: SERVICE[l].name,
+      description: SERVICE[l].description,
+      url,
+      provider: { '@id': ORIGIN + '/#person' },
+      areaServed: ['Russia', 'CIS', 'MENA', 'Eastern Europe'],
+      serviceType: ['Product consulting', 'Strategic advisory', 'Angel investing'],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: SERVICE[l].catalog,
+        itemListElement: tiers.map((t) => ({
+          '@type': 'Offer',
+          name: plain(pick(t.name, l)),
+          description: plain(pick(t.features && t.features[0], l)),
+          price: priceOf(t),
+          priceCurrency: 'USD',
+        })),
+      },
+    });
+  } else {
+    webpage.breadcrumb = { '@id': url + '#breadcrumb' };
+    graph.push({
+      '@type': 'BreadcrumbList',
+      '@id': url + '#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: HOME_NAME[l], item: ORIGIN + (l === 'en' ? '/en/' : '/') },
+        { '@type': 'ListItem', position: 2, name: plain(pick(doc.hero && doc.hero.name, l)) || title, item: url },
+      ],
+    });
+  }
+  return serializeLd({ '@context': 'https://schema.org', '@graph': graph });
 }

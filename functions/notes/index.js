@@ -1,5 +1,4 @@
 import { renderNotesIndex } from '../_lib/render-notes.js';
+import { getOrHead } from '../_lib/http.js';
 
-export async function onRequestGet({ env }) {
-  return renderNotesIndex(env, 'ru');
-}
+export const onRequest = getOrHead(({ env }) => renderNotesIndex(env, 'ru'));

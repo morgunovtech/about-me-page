@@ -1,4 +1,4 @@
-# Cloudflare Pages serves all static files at their natural paths automatically.
-# The single rewrite below is defensive: ensures `/en/` resolves to `/en/index.html`
-# even if Pages' clean-URLs default ever changes.
-/en/  /en/index.html  200
+# Cloudflare Pages serves every static file at its clean URL automatically
+# (/en/ → en/index.html, /foo.html → 308 → /foo). Add real redirects here only;
+# the former `/en/ /en/index.html 200` rewrite was reported by wrangler as an
+# infinite loop and ignored, so it is gone.

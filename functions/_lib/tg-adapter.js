@@ -3,8 +3,8 @@
 // the blog schema and the core — extract dist/ and you rewrite just this file.
 import { pick } from './i18n.js';
 import { makeSourcePost } from './dist/source-post.js';
+import { ORIGIN } from './site.js';
 
-const ORIGIN = 'https://s.morgunov.tech';
 
 // Telegram needs absolute media/link URLs; the blog stores them site-relative.
 function absolutize(html, origin) {

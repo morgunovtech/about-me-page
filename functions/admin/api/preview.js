@@ -2,6 +2,7 @@ import { overlay } from '../../_lib/overlay.js';
 import { json, sameOrigin } from '../../_lib/http.js';
 import { loadSubscribers, isArticlePage } from '../../_lib/content.js';
 import { renderArticlePage } from '../../_lib/render-article.js';
+import { renderPageJsonLd } from '../../_lib/jsonld.js';
 
 // Maps a page+lang to its static template. The raw template (fetched via the
 // ASSETS binding, bypassing the public middleware) is overlaid with the DRAFT
@@ -41,7 +42,9 @@ export async function onRequestPost({ request, env }) {
     const subs = await loadSubscribers(env);
     if (subs) doc._live = { subscribers: subs };
   }
-  const rendered = overlay(template, doc, lang, true);
+  // Same per-page JSON-LD as the public render (_middleware.js) — the preview
+  // must not show the home graph on /collaborate.
+  const rendered = overlay(template, doc, lang, true, (d, l) => renderPageJsonLd(d, l, page));
   return new Response(rendered.body, {
     status: 200,
     headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' },

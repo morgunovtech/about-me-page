@@ -1,6 +1,6 @@
 # Semyon Morgunov / Семён Моргунов
 
-> Head of FinTech at Yandex Uzbekistan — builds products in Central Asia's fast-growing markets, where product, operations, and unit economics are assembled in parallel. 10 years in tech: works in Russia and Uzbekistan, consults companies in Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees, three closed). 5,831 followers across social channels (Telegram 1,139 · LinkedIn 4,564 · YouTube 128). Based in Tashkent, Uzbekistan. Advises startups and angel-invests in e-com, RetailTech, FinTech, and EdTech.
+> Head of FinTech at Yandex Uzbekistan — builds products in Central Asia's fast-growing markets, where product, operations, and unit economics are assembled in parallel. 10 years in tech: works in Russia and Uzbekistan, consults companies in Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees, three closed). {total} followers across social channels (Telegram {telegram} · LinkedIn {linkedin} · YouTube {youtube}). Based in Tashkent, Uzbekistan. Advises startups and angel-invests in e-com, RetailTech, FinTech, and EdTech.
 
 ## About
 
@@ -31,7 +31,8 @@
 
 - [Fingerprint](https://fprint.morgunov.tech/) — web service that shows your browser's uniqueness percentage and explains the signals websites use to recognize you without cookies; every parameter has a plain-language explanation and a concrete action; runs locally, free, no signup
 - [FoundYou](https://foundyou.morgunov.tech/) — web service that strips EXIF metadata, blurs private areas (faces, plates, documents), and protects photos from reverse-image search; runs locally, original stays untouched
-- [Telegram channel «Semyon raspravil plechi» / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on product and career; writing what he'd want to read himself; case studies, working frameworks, personal observations; 1,139 followers; 1–2 posts per week, fourth year running
+- [Tofs DevOps](https://github.com/morgunovtech/Tofs_DevOps_bot) — open-source (MIT) Telegram bot that acts as a personal DevOps: uptime with external re-checks, SSL/domain/DNS watch, dead-man switch for cron jobs, SEO/GEO checks (noindex, robots.txt, AI-crawler visibility, llms.txt), Cloudflare Pages self-healing (redeploy, cache purge); silent while everything is fine; self-hosted via Docker or Railway; named after Tofs the Irish terrier
+- [Telegram channel «Semyon raspravil plechi» / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on product and career; writing what he'd want to read himself; case studies, working frameworks, personal observations; {telegram} followers; 1–2 posts per week, fourth year running
 
 ## Ventures (entrepreneurship)
 

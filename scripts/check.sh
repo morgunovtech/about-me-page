@@ -17,7 +17,16 @@ echo "→ node --test (pure functions)"
 node --test tests/*.test.mjs
 
 echo "→ check-sync.py (RU/EN parity)"
-python3 scripts/check-sync.py >/dev/null && echo "  ok"
+python3 scripts/check-sync.py >/dev/null
+echo "  ok"
+
+echo "→ check-critical.py (inline critical ↔ external CSS)"
+python3 scripts/check-critical.py >/dev/null
+echo "  ok"
+
+echo "→ render-static.mjs --check (templates are the seed's twins)"
+node scripts/render-static.mjs --check >/dev/null
+echo "  ok"
 
 # Bundle Functions the way Pages does — catches cross-module import errors that
 # node --check (per-file syntax only) misses. Opt out with NO_BUILD=1 (offline).

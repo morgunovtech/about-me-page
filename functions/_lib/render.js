@@ -69,35 +69,74 @@ function moreLink(more, lang, edit, path) {
 function group(n, sep) {
   return String(Math.floor(Number(n) || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
 }
-function fmtNum(n, lang) {
+export function fmtNum(n, lang) {
   return group(n, lang === 'en' ? ',' : '\u00a0');
 }
 
-function statBlock(s, lang, live, edit, path) {
+// Subscriber counters — THE single source for every number on the page that
+// mentions followers (the stats strip and the CHANNEL publication meta).
+// Live SocialBot numbers win when the subscribers stat is on auto; otherwise
+// the doc's own channel values. Formatted per language (RU nbsp / EN comma).
+export function counters(doc, lang) {
+  const stat = (doc.stats || []).find((x) => x && x.kind === 'subscribers');
+  const live = doc._live && doc._live.subscribers;
+  const useLive = !!live && (!stat || stat.auto !== false);
+  const out = {};
+  for (const ch of ['telegram', 'linkedin', 'youtube']) {
+    if (useLive && live[ch] != null) out[ch] = fmtNum(live[ch], lang);
+    else if (stat && stat.channels && stat.channels[ch] != null) out[ch] = escapeHtml(pick(stat.channels[ch], lang));
+  }
+  if (useLive) out.total = fmtNum((+live.telegram || 0) + (+live.linkedin || 0) + (+live.youtube || 0), lang);
+  else if (stat && stat.value != null) out.total = escapeHtml(pick(stat.value, lang));
+  return out;
+}
+
+// "{telegram} в Telegram" → "1 141 в Telegram". A known counter with no value
+// (no live data AND no subscribers stat in the doc) drops out rather than
+// leaking braces to the page; unknown placeholders stay as-is.
+// Returns HTML-safe text (the counters are already escaped/formatted).
+export function fillCounters(text, doc, lang) {
+  const c = counters(doc, lang);
+  return escapeHtml(text)
+    .replace(/\{(telegram|linkedin|youtube|total)\}/g, (m, k) => (c[k] != null ? c[k] : ''))
+    .replace(/[ \t]{2,}/g, ' ')
+    .trim();
+}
+
+// Russian plural for a counted noun: 1 подписчик · 2 подписчика · 5 подписчиков.
+export function pluralRu(n, forms) {
+  const a = Math.abs(Math.floor(n)) % 100;
+  const b = a % 10;
+  if (a > 10 && a < 20) return forms[2];
+  if (b > 1 && b < 5) return forms[1];
+  if (b === 1) return forms[0];
+  return forms[2];
+}
+
+// The subscribers total is live, so its RU unit must agree with whatever
+// number arrives («6 069 подписчиков», «5 772 подписчика»). Recognised nouns
+// are declined from the stored unit; anything else (and EN) passes through.
+const RU_PLURALS = [['подписчик', 'подписчика', 'подписчиков']];
+export function unitFor(unit, lang, total) {
+  if (lang !== 'ru' || total == null) return unit;
+  const n = Number(String(total).replace(/\D/g, ''));
+  if (!Number.isFinite(n) || !String(total).replace(/\D/g, '')) return unit;
+  const forms = RU_PLURALS.find((f) => f.includes(String(unit).trim()));
+  return forms ? pluralRu(n, forms) : unit;
+}
+
+function statBlock(s, lang, doc, edit, path) {
   if (s.kind === 'subscribers') {
-    let tg, li, yt, total;
-    if (s.auto !== false && live && live.subscribers) {
-      const sub = live.subscribers;
-      tg = fmtNum(sub.telegram, lang);
-      li = fmtNum(sub.linkedin, lang);
-      yt = fmtNum(sub.youtube, lang);
-      total = fmtNum((+sub.telegram || 0) + (+sub.linkedin || 0) + (+sub.youtube || 0), lang);
-    } else {
-      const ch = s.channels;
-      tg = escapeHtml(pick(ch.telegram, lang));
-      li = escapeHtml(pick(ch.linkedin, lang));
-      yt = escapeHtml(pick(ch.youtube, lang));
-      total = escapeHtml(pick(s.value, lang));
-    }
+    const c = counters(doc, lang);
     // The total/channel numbers are auto/live (managed via the Settings drawer),
     // so only the unit label is inline-editable here.
     return `<div class="v4-stat"${eItem(edit, path)}>
-        <div class="v4-stat-value">${total}</div>
-        <div class="v4-stat-unit"${eText(edit, path + '.unit')}>${escapeHtml(pick(s.unit, lang))}</div>
+        <div class="v4-stat-value">${c.total || ''}</div>
+        <div class="v4-stat-unit"${eText(edit, path + '.unit')}>${escapeHtml(edit ? pick(s.unit, lang) : unitFor(pick(s.unit, lang), lang, c.total))}</div>
         <div class="v4-stat-aside v4-stat-channels">
-          <span class="v4-stat-channel">${TG_SVG}<span class="sr-only">Telegram:</span>${tg}</span>
-          <span class="v4-stat-channel">${LI_SVG}<span class="sr-only">LinkedIn:</span>${li}</span>
-          <span class="v4-stat-channel">${YT_SVG}<span class="sr-only">YouTube:</span>${yt}</span>
+          <span class="v4-stat-channel">${TG_SVG}<span class="sr-only">Telegram:</span>${c.telegram || ''}</span>
+          <span class="v4-stat-channel">${LI_SVG}<span class="sr-only">LinkedIn:</span>${c.linkedin || ''}</span>
+          <span class="v4-stat-channel">${YT_SVG}<span class="sr-only">YouTube:</span>${c.youtube || ''}</span>
         </div>
       </div>`;
   }
@@ -164,10 +203,13 @@ function productCard(it, lang, edit, path) {
         </article>`;
 }
 
-function pubItem(it, lang, edit, path) {
+function pubItem(it, lang, edit, path, doc) {
+  // In edit mode the meta shows its raw template ("{telegram} в Telegram") so a
+  // focus/blur in the editor never overwrites the placeholder with a snapshot.
+  const meta = edit ? escapeHtml(pick(it.meta, lang)) : fillCounters(pick(it.meta, lang), doc, lang);
   const head = `<div class="v4-pub-head"><span class="v4-tag"${eText(edit, path + '.tag')}>${escapeHtml(
     it.tag
-  )}</span><span${eText(edit, path + '.meta')}>${escapeHtml(pick(it.meta, lang))}</span></div>`;
+  )}</span><span${eText(edit, path + '.meta')}>${meta}</span></div>`;
   if (it.kind === 'links') {
     const lis = it.links
       .map(
@@ -218,7 +260,7 @@ function softCard(c, lang) {
                   <span class="v4-tag">${pick(c.tag, lang)}</span>
                   <span>${pick(c.price, lang)}</span>
                 </div>
-                <h4 class="v4-product-name">${c.name}</h4>
+                <h3 class="v4-product-name">${c.name}</h3>
                 <p class="v4-product-desc">${pick(c.desc, lang)}</p>
                 <a class="v4-btn" href="${escapeAttr(safeHref(c.cta.href))}" target="_blank" rel="noopener noreferrer">${pick(c.cta.label, lang)}</a>
               </article>`;
@@ -248,7 +290,7 @@ export const renderers = {
     doc.hero.ctas.map((c, i) => btn(c, lang, edit, 'hero.ctas.' + i, true)).join('\n          '),
 
   stats: (doc, lang, edit) =>
-    doc.stats.map((s, i) => statBlock(s, lang, doc._live, edit, 'stats.' + i)).join('\n      '),
+    doc.stats.map((s, i) => statBlock(s, lang, doc, edit, 'stats.' + i)).join('\n      '),
 
   career: (doc, lang, edit) => {
     const sec = doc.sections.career;
@@ -269,7 +311,7 @@ export const renderers = {
     doc.sections.products.items.map((it, i) => productCard(it, lang, edit, 'sections.products.items.' + i)).join('\n        '),
 
   publications: (doc, lang, edit) =>
-    doc.sections.publications.items.map((it, i) => pubItem(it, lang, edit, 'sections.publications.items.' + i)).join('\n        '),
+    doc.sections.publications.items.map((it, i) => pubItem(it, lang, edit, 'sections.publications.items.' + i, doc)).join('\n        '),
 
   contact: (doc, lang, edit) => {
     const sec = doc.sections.contact;
@@ -313,7 +355,7 @@ export const renderers = {
               <span class="v4-tag">${pick(t.tag, lang)}</span>
               <span class="v4-pricing">${pick(t.price, lang)}</span>
             </div>
-            <h3 class="v4-product-name">${t.name}</h3>
+            <h3 class="v4-product-name">${pick(t.name, lang)}</h3>
             ${liList(t.features, lang)}
             ${collabCta(t.cta, lang, false)}
           </article>`).join('\n          ')}

@@ -2,13 +2,12 @@
 // scalar helper fields, then overlay the doc onto the embedded shell using the
 // Article JSON-LD renderer.
 import { pick } from './i18n.js';
-import { escapeAttr } from './markdown.js';
+import { escapeAttr, escapeHtml } from './markdown.js';
 import { renderArticleJsonLd } from './jsonld.js';
 import { overlay } from './overlay.js';
 import { articleShell } from './article-template.js';
 import { loadArticle } from './articles.js';
-
-const ORIGIN = 'https://s.morgunov.tech';
+import { ORIGIN, NAME } from './site.js';
 
 function dateDisplay(date, lang) {
   if (!date) return '';
@@ -23,12 +22,19 @@ function dateDisplay(date, lang) {
 
 const nonEmpty = (v) => !!(v && String(v).trim());
 
+// _headers never applies to Function responses, so the 404 page's headers
+// are set here (cacheable at the browser, explicitly noindex).
 export async function notFound(env, request) {
   try {
     const r = await env.ASSETS.fetch(new URL('/404.html', request.url));
-    return new Response(await r.text(), {
+    if (!r.ok) throw new Error('404 template unavailable');
+    return new Response(request.method === 'HEAD' ? null : r.body, {
       status: 404,
-      headers: { 'content-type': 'text/html; charset=utf-8' },
+      headers: {
+        'content-type': 'text/html; charset=utf-8',
+        'cache-control': 'public, max-age=300, stale-while-revalidate=86400',
+        'x-robots-tag': 'noindex',
+      },
     });
   } catch {
     return new Response('Not Found', { status: 404 });
@@ -51,7 +57,14 @@ export async function renderArticlePage(env, slug, lang, request, opts = {}) {
   doc._url = ORIGIN + (lang === 'en' ? '/en' : '') + '/notes/' + slug;
   doc._urlRu = ORIGIN + '/notes/' + slug;
   doc._urlEn = ORIGIN + '/en/notes/' + slug;
+  // No EN text yet → the EN URL 404s, so the shell drops the hreflang="en"
+  // alternate and the English menu item (data-cms-omit="_noEn").
+  doc._noEn = !(nonEmpty(doc.title && doc.title.en) && nonEmpty(doc.body && doc.body.en));
   doc._dateDisplay = dateDisplay(doc.date, lang);
+  // <time> needs a machine-readable datetime next to the localized text.
+  doc._dateHtml = doc.date
+    ? `<time datetime="${escapeAttr(doc.date)}">${escapeHtml(doc._dateDisplay)}</time>`
+    : '';
 
   const coverSrc = pick(doc.cover && doc.cover.src, lang);
   const coverAlt = pick(doc.cover && doc.cover.alt, lang) || pick(doc.title, lang) || '';
@@ -70,7 +83,7 @@ export async function renderArticlePage(env, slug, lang, request, opts = {}) {
   };
   const meta = doc.meta || {};
   doc.meta = {
-    title: (pick(meta.title, lang) || pick(doc.title, lang) || '') + ' — Semyon Morgunov',
+    title: (pick(meta.title, lang) || pick(doc.title, lang) || '') + ' — ' + NAME[lang === 'en' ? 'en' : 'ru'],
     description: pick(meta.description, lang) || pick(doc.excerpt, lang) || '',
   };
 

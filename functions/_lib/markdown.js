@@ -15,7 +15,7 @@ export function escapeAttr(s) {
 }
 
 export function isExternal(href) {
-  return /^https?:\/\//i.test(href);
+  return /^(?:https?:)?\/\//i.test(href);
 }
 
 // Reject dangerous URL schemes (javascript:, data:, vbscript:, …). Relative
@@ -32,6 +32,9 @@ export function safeHref(href) {
   if (h === '') return h;
   const scheme = h.match(/^([a-z][a-z0-9+.-]*):/i);
   if (scheme && !/^(https?|mailto|tel)$/i.test(scheme[1])) return '#';
+  // Protocol-relative //host/… is an off-site link — make that explicit so
+  // the external-link treatment (target/rel) applies.
+  if (/^\/\//.test(h)) return 'https:' + h;
   return h.replace(INTERNAL_HTML_HREF, (m) => m.slice(0, -'.html'.length));
 }
 

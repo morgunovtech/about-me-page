@@ -8,11 +8,11 @@ Live at **[s.morgunov.tech](https://s.morgunov.tech)** · also reachable on the 
 
 Pure static HTML/CSS/JS. **No build step, no npm, no framework.** Hosted on Cloudflare Pages.
 
-- 5 HTML pages — `index.html`, `en/index.html`, `collaborate.html`, `en/collaborate.html`, `404.html`
-- One stylesheet — `styles.css` (CSS-variable tokens, 4 themes: light, dark, auto, high-contrast)
-- One script — `script.js` (single IIFE, no dependencies, ≈ 200 lines)
+- 9 HTML pages — home, collaborate, about, uses (RU + EN twins) and `404.html`; plus the `/notes` shells rendered by Pages Functions
+- A versioned design-system layer `ds/v1/` (fonts, tokens for 4 themes, base, components) + `styles.css` for page layout
+- One script — `script.js` (single IIFE, no dependencies, ≈ 370 lines)
 - Self-hosted IBM Plex Sans + Plex Mono (latin + cyrillic woff2 subsets, `font-display: swap`)
-- Cloudflare config: [`_headers`](_headers), [`_redirects`](_redirects)
+- Cloudflare config: [`_headers`](_headers), [`_routes.json`](_routes.json), [`_redirects`](_redirects)
 
 ## Privacy
 
@@ -28,11 +28,10 @@ The `/admin` editor sets one HMAC session cookie (`HttpOnly; Secure; SameSite=St
 ## Local preview
 
 ```sh
-python3 -m http.server 8080
-# open http://localhost:8080
+npx wrangler pages dev   # serves the site + Functions, simulates KV/R2 — open http://localhost:8788
 ```
 
-That's the entire dev loop. No `npm install`, no Docker, no Vite.
+Clean URLs, `/notes`, `/llms.txt` and the CMS overlay need the Functions, so this is the dev loop (a plain `python3 -m http.server` shows the committed templates only). Still no `npm install` in the repo, no Docker, no Vite.
 
 ## Conventions, architecture, deploy
 
@@ -42,16 +41,19 @@ conventions, SEO/AI optimization, and the full project changelog.
 ## Tools
 
 ```sh
-python3 scripts/check-sync.py            # verify RU↔EN structural parity
-python3 scripts/check-sync.py --verbose  # full mismatch list
+scripts/check.sh                           # everything below + node --check/--test + a Functions build
+python3 scripts/check-sync.py              # RU↔EN structural parity
+python3 scripts/check-critical.py          # inline critical CSS ↔ ds/v1 + styles.css
+node scripts/render-static.mjs --check     # templates are the seed's twins (--write regenerates)
+python3 scripts/version-stamp.py           # build SHA + content-hash ?v= cache busters
 ```
 
-Run it before any commit that touches layout — catches drift like an extra section in RU
-that's missing in EN, renamed classes, etc.
+Run `check.sh` before any commit — it catches an extra section in RU that's missing in EN,
+a stale inline critical rule, or a template that no longer matches the renderer.
 
 ## Admin / CMS
 
-A minimal editor at `/admin` edits page content — text, dates, markdown, images, the share card — without touching code. Edits save to **Cloudflare KV** and go live **without a redeploy**. Built on Pages Functions (`functions/`), KV (content), and R2 (images); vanilla JS, no framework. The public pages are edge-rendered from KV (HTML files become templates with invisible `data-cms-*` hooks); `content.seed.json` is the committed fallback. Currently wired for the home page.
+A minimal editor at `/admin` edits page content — text, dates, markdown, images, the share card — without touching code. Edits save to **Cloudflare KV** and go live **without a redeploy**. Built on Pages Functions (`functions/`), KV (content), and R2 (images); vanilla JS, no framework. The public pages are edge-rendered from KV (HTML files become templates with invisible `data-cms-*` hooks); `content.seed.json` is the committed fallback. Wired for all four page types (home, collaborate, about, uses — RU + EN) and the notes/articles.
 
 ### One-time setup (Cloudflare)
 

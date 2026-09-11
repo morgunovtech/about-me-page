@@ -155,6 +155,8 @@
     .cms-bar.kind-body .cms-body-only{display:inline-block}
     /* keep empty leaves clickable (e.g. a just-added list item) */
     [data-cms-text]:empty::before,[data-cms-md]:empty::before{content:"+ текст";color:var(--v4-dim,#6c6759);opacity:.55;cursor:text}
+    /* the header dropdown panels are never a thing inside the editor */
+    .v4-menu{display:none!important}
   `;
 
   let pendingEl = null, pendingPath = null, commitTimer = null;
@@ -212,6 +214,9 @@
 
   function instrument() {
     fdoc.documentElement.setAttribute('data-theme', theme);
+    // The preview has no script.js: stamp data-js ourselves so the site's
+    // :focus-within no-JS fallback doesn't pop dead menus under the header buttons.
+    fdoc.documentElement.setAttribute('data-js', '');
     let st = fdoc.getElementById('cms-edit-style');
     if (!st) {
       st = fdoc.createElement('style');
@@ -247,12 +252,21 @@
     fdoc.body.querySelectorAll('[data-edit-list]').forEach(addListTools);
     // Reuse the site's own header controls (editor duplicates were removed):
     // the language switcher switches the editing language; the theme icon cycles themes.
-    fdoc.querySelectorAll('.v4-lang-link').forEach((a) => a.addEventListener('click', (e) => {
-      e.preventDefault(); e.stopPropagation();
-      const to = a.textContent.trim().toLowerCase().startsWith('en') ? 'en' : 'ru';
+    const switchLang = (to) => {
       if (to !== lang) { flushPending(); lang = to; renderSettings(); renderPreview(); }
-    }));
+    };
+    // The site's language switch is a dropdown whose menu only opens via the
+    // stripped script.js — so the toggle button itself flips RU↔EN here.
+    const langBtn = fdoc.querySelector('.v4-lang-btn');
+    if (langBtn) langBtn.addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      switchLang(lang === 'ru' ? 'en' : 'ru');
+    });
+    // In the editor the button IS the switch (no menu opens without script.js),
+    // so drop the menu semantics it carries in the public template.
+    if (langBtn) { ['aria-haspopup', 'aria-expanded', 'aria-controls'].forEach((a) => langBtn.removeAttribute(a)); langBtn.setAttribute('title', 'RU ↔ EN'); }
     const themeBtn = fdoc.querySelector('.v4-icon-btn');
+    if (themeBtn) ['aria-haspopup', 'aria-expanded', 'aria-controls'].forEach((a) => themeBtn.removeAttribute(a));
     if (themeBtn) themeBtn.addEventListener('click', (e) => {
       e.preventDefault(); e.stopPropagation();
       theme = THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length];
@@ -1611,7 +1625,11 @@
       try {
         const r = await fetch(API + '/translate', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ text: o.ru }) });
         const res = await r.json().catch(() => ({}));
-        if (r.ok && res.translation != null && !res.error) { o.en = res.translation; done++; }
+        // A translation that loses/mangles a {telegram}-style placeholder would
+        // silently unhook EN from the live counters — keep the previous EN then.
+        const tokens = (t) => String(t || '').match(/\{(telegram|linkedin|youtube|total)\}/g) || [];
+        const same = tokens(o.ru).sort().join() === tokens(res.translation).sort().join();
+        if (r.ok && res.translation != null && !res.error && same) { o.en = res.translation; done++; }
       } catch (e) { /* keep saving even if a translate call fails */ }
     }
     return done;

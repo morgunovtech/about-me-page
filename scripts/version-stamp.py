@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Stamp the current git short SHA + asset hashes into all HTML files.
 
-Three stamping passes:
+Stamping passes (SHA, asset ?v=, image ?v=, the notes shell, site.js BUILD, seed images):
   1. **Build SHA** in the footer:
        …/morgunovtech/about-me-page/commit/<SHA>
        <code>SHA</code>
@@ -47,10 +47,16 @@ HTML_FILES = [
     "about.html",
     "en/about.html",
     "404.html",
+    # Not HTML, but they carry the same ?v= references: the DS integration
+    # guide (absolute URLs) and the /admin shell (admin-app.js/css).
+    "ds/v1/USAGE.md",
+    "functions/admin/index.js",
 ]
 ASSETS = [
     ("styles.css", re.compile(r'(/styles\.css\?v=)[0-9a-fA-F]+')),
     ("script.js",  re.compile(r'(/script\.js\?v=)[0-9a-fA-F]+')),
+    ("admin-app.js",  re.compile(r'(/admin-app\.js\?v=)[0-9a-zA-Z]+')),
+    ("admin-app.css", re.compile(r'(/admin-app\.css\?v=)[0-9a-zA-Z]+')),
     ("ds/v1/fonts.css",  re.compile(r'(/ds/v1/fonts\.css\?v=)[0-9a-fA-F]+')),
     ("ds/v1/tokens.css", re.compile(r'(/ds/v1/tokens\.css\?v=)[0-9a-fA-F]+')),
     ("ds/v1/base.css",   re.compile(r'(/ds/v1/base\.css\?v=)[0-9a-fA-F]+')),
@@ -145,6 +151,9 @@ def main() -> int:
     if tmpl.exists() and asset_hashes:
         text = tmpl.read_text(encoding="utf-8")
         n = 0
+        # The shell's footer carries the same build link as the static pages.
+        text, k = PATTERN_URL.subn(rf"\g<1>{sha}", text); n += k
+        text, k = PATTERN_CODE.subn(rf"\g<1>{sha}\g<2>", text); n += k
         if asset_hashes.get("styles.css"):
             text, k = re.subn(r"(STYLES_VER = 'v=)[0-9a-fA-F]+(')", rf"\g<1>{asset_hashes['styles.css']}\g<2>", text)
             n += k
@@ -164,6 +173,15 @@ def main() -> int:
             total += n
         else:
             print("  NO-OP   functions/_lib/article-template.js")
+
+    # Pass 4b: the `{build}` placeholder in CMS prose resolves from site.js.
+    site = ROOT / "functions/_lib/site.js"
+    if site.exists():
+        text, k = re.subn(r"(BUILD = ')[0-9a-f]{7,40}(')", rf"\g<1>{sha}\g<2>", site.read_text(encoding="utf-8"))
+        if k:
+            site.write_text(text, encoding="utf-8")
+            print(f"  STAMPED functions/_lib/site.js (build:{k})")
+            total += k
 
     # Pass 5: /uses card images now live in content.seed.json (structured cards),
     # not in the static HTML, so stamp their ?v=<hash> here too — otherwise the

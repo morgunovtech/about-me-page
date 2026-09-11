@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "description": "Static assets bypass Pages Functions entirely: no per-request worker invocation, and the CDN can serve them from cache. Everything else (managed HTML routes, /admin, /api, /notes, /assets, the content.seed.json guard and the internal-file blocklist in functions/_middleware.js) stays on the Functions path. If /llms.txt ever becomes a Function, remove it from exclude.",
+  "description": "Static assets bypass Pages Functions entirely: no per-request worker invocation, and the CDN can serve them from cache. Everything else (managed HTML routes, /admin, /api, /notes, /assets, the content.seed.json guard and the internal-file blocklist in functions/_middleware.js, /llms.txt with live counters, /404 with a real 404 status) stays on the Functions path.",
   "include": ["/*"],
   "exclude": [
     "/ds/*",
@@ -14,7 +14,6 @@
     "/apple-touch-icon.png",
     "/site.webmanifest",
     "/robots.txt",
-    "/llms.txt",
     "/.well-known/*",
     "/404.html",
     "/yandex_c8faae431964bcca.html"

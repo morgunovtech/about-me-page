@@ -48,14 +48,17 @@
     .v4-page .skip-link:focus{top:8px}
     .v4-root{background:var(--v4-bg);color:var(--v4-fg);padding:36px 56px 56px;max-width:1280px;margin:0 auto}
     .v4-bar{display:flex;justify-content:space-between;align-items:center;padding:0 0 14px;margin-bottom:32px;border-bottom:1px solid var(--v4-fg);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
-    .v4-bar-mid{display:flex;gap:6px 22px;justify-content:center;color:var(--v4-muted);flex-wrap:wrap}
+    .v4-nav{display:flex;align-items:center;min-width:0}
+    .v4-bar-mid{display:flex;gap:6px 22px;justify-content:flex-start;color:var(--v4-muted);flex-wrap:wrap}
     .v4-bar-mid a{color:inherit;text-decoration:none;padding:8px 4px;white-space:nowrap}
-    .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;color:var(--v4-fg)}
-    .v4-lang{display:inline-flex;align-items:center;gap:6px}
-    .v4-lang-link{color:var(--v4-muted);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:11px 8px;border-bottom:1px solid transparent}
-    .v4-lang-link.is-active{color:var(--v4-fg);border-bottom-color:var(--v4-orange)}
-    .v4-lang-sep{color:var(--v4-dim)}
-    .v4-theme{position:relative}
+    .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;margin-left:auto;color:var(--v4-fg)}
+    .v4-bar-btn{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 8px;border:none;background:transparent;color:var(--v4-fg);cursor:pointer;font:inherit;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+    .v4-bar-btn .v4-chevron{width:10px;height:10px;flex-shrink:0}
+    .v4-nav-toggle{display:none}
+    .v4-dropdown{position:relative}
+    .v4-menu{position:absolute;right:0;top:calc(100% + 15px);display:none;flex-direction:column;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}
+    .v4-dropdown.is-open > .v4-menu{display:flex}
+    html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu{display:flex}
     .v4-icon-btn{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--v4-fg);cursor:pointer;padding:0;font:inherit;border:none}
     .v4-icon-btn svg{width:14px;height:14px}
     .v4-icon-btn .v4-icon-moon,.v4-icon-btn .v4-icon-contrast{display:none}
@@ -63,8 +66,6 @@
     [data-theme="dark"] .v4-icon-btn .v4-icon-moon{display:block}
     [data-theme="high-contrast"] .v4-icon-btn .v4-icon-sun{display:none}
     [data-theme="high-contrast"] .v4-icon-btn .v4-icon-contrast{display:block}
-    .v4-theme-menu{position:absolute;right:0;top:calc(100% + 6px);display:none;flex-direction:column;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}
-    .v4-theme.is-open .v4-theme-menu{display:flex}
     .v4-hero{display:grid;grid-template-columns:1fr 280px;gap:40px;padding:4px 0 36px;margin:0 0 28px;align-items:start}
     .v4-hero--simple{grid-template-columns:1fr;padding:24px 0 0}
     .v4-hero-text{min-width:0}
@@ -75,8 +76,8 @@
     .v4-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;min-height:40px;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;cursor:pointer;border:1px solid var(--v4-fg);background:transparent;color:var(--v4-fg);font-family:inherit}
     .v4-btn-primary{background:var(--v4-orange);color:var(--v4-on-accent);border-color:var(--v4-orange)}
     .v4-section{margin-bottom:36px}
-    .v4-section-head{padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--v4-fg)}
-    .v4-section-num{display:block;font-family:var(--v4-mono);font-size:11px;color:var(--v4-muted);text-transform:uppercase;letter-spacing:.1em;font-weight:500;margin-bottom:6px}
+    .v4-section-head{display:flex;align-items:baseline;gap:14px;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--v4-fg)}
+    .v4-section-num{font-family:var(--v4-mono);font-size:11px;color:var(--v4-muted);text-transform:uppercase;letter-spacing:.1em;font-weight:500;flex-shrink:0}
     .v4-h2{font-size:22px;font-weight:600;margin:0;letter-spacing:-.015em}
     .v4-prose p{margin:0 0 12px;line-height:1.55}
     .v4-prose p:last-child{margin-bottom:0}
@@ -88,17 +89,19 @@
     .v4-list--spaced{margin-top:12px}
     .v4-list + .v4-prose{margin-top:18px}
     @media (max-width:960px){.v4-root{padding:28px 32px 40px}.v4-h1{font-size:52px}}
-    @media (max-width:640px){.v4-root{padding:20px 18px 32px;font-size:13.5px}.v4-bar{flex-direction:column;align-items:stretch;row-gap:10px;font-size:10px}.v4-bar-right{align-self:flex-end}.v4-bar-mid{justify-content:flex-start;flex-wrap:wrap;gap:4px 14px}.v4-bar-mid a{padding:10px 6px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}}
+    @media (max-width:640px){.v4-root{padding:20px 18px 32px}body.v4-page{font-size:13.5px}.v4-bar{padding-bottom:10px;margin-bottom:22px;font-size:10px}.v4-nav-toggle{display:inline-flex;min-height:44px;margin-left:-8px}.v4-bar-mid{position:absolute;left:0;top:calc(100% + 11px);display:none;flex-direction:column;align-items:stretch;gap:0;margin:0;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}.v4-nav.is-open > .v4-bar-mid,html:not([data-js]) .v4-nav:is(:focus-within, :hover) > .v4-bar-mid{display:flex}.v4-bar-mid a{padding:10px 10px;border:1px solid transparent;color:var(--v4-fg);font-size:11px;font-weight:500;letter-spacing:.1em}.v4-menu{top:calc(100% + 11px)}.v4-bar-btn{min-height:44px}.v4-icon-btn{width:44px;height:44px}.v4-section-head{padding-bottom:10px;margin-bottom:12px}.v4-h2{font-size:18px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}}
   </style>
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-400.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-600.woff2" crossorigin />
+  <!-- Mono renders above the fold (hero eyebrow, section numbers) — preload 400 so it doesn't FOUT. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-latin-400.woff2" crossorigin />
   <link rel="preload" href="/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/tokens.css?v=cd042bb5" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/base.css?v=fad10899" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/components.css?v=4416b730" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" /><link rel="stylesheet" href="/ds/v1/tokens.css?v=cd042bb5" /><link rel="stylesheet" href="/ds/v1/base.css?v=fad10899" /><link rel="stylesheet" href="/ds/v1/components.css?v=4416b730" /></noscript>
-  <link rel="preload" href="/styles.css?v=b100256f" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/styles.css?v=b100256f" /></noscript>
+  <link rel="preload" href="/ds/v1/tokens.css?v=50a0d966" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/base.css?v=0e404315" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/components.css?v=7565c1f8" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" /><link rel="stylesheet" href="/ds/v1/tokens.css?v=50a0d966" /><link rel="stylesheet" href="/ds/v1/base.css?v=0e404315" /><link rel="stylesheet" href="/ds/v1/components.css?v=7565c1f8" /></noscript>
+  <link rel="preload" href="/styles.css?v=f4f1111b" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/styles.css?v=f4f1111b" /></noscript>
   <script>
     (function () {
       var d = document.documentElement;
@@ -114,54 +117,75 @@
       }
     })();
   </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://s.morgunov.tech/en/about#webpage",
-        "url": "https://s.morgunov.tech/en/about",
-        "name": "Principles — Semyon Morgunov",
-        "inLanguage": "en",
-        "isPartOf": { "@id": "https://s.morgunov.tech/#website" },
-        "about": { "@id": "https://s.morgunov.tech/#person" },
-        "breadcrumb": { "@id": "https://s.morgunov.tech/en/about#breadcrumb" },
-        "dateModified": "2026-05-11"
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://s.morgunov.tech/en/about#breadcrumb",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://s.morgunov.tech/en/" },
-          { "@type": "ListItem", "position": 2, "name": "Principles", "item": "https://s.morgunov.tech/en/about" }
-        ]
-      }
-    ]
-  }
+  <script type="application/ld+json" data-cms-jsonld>
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://s.morgunov.tech/en/about#webpage",
+          "url": "https://s.morgunov.tech/en/about",
+          "name": "Principles — Semyon Morgunov",
+          "inLanguage": "en",
+          "isPartOf": {
+            "@id": "https://s.morgunov.tech/#website"
+          },
+          "about": {
+            "@id": "https://s.morgunov.tech/#person"
+          },
+          "dateModified": "2026-05-11",
+          "breadcrumb": {
+            "@id": "https://s.morgunov.tech/en/about#breadcrumb"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://s.morgunov.tech/en/about#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://s.morgunov.tech/en/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Principles",
+              "item": "https://s.morgunov.tech/en/about"
+            }
+          ]
+        }
+      ]
+    }
   </script>
 </head>
 <body class="v4-page no-transition" data-lang="en">
   <a href="#main" class="skip-link">Skip to main content</a>
   <div class="v4-root">
     <header class="v4-bar" id="top">
-      <nav class="v4-bar-mid" aria-label="Main navigation">
-        <a href="#product" data-cms-omit="sections.product.hidden">Product</a>
-        <a href="#principles" data-cms-omit="sections.principles.hidden">Principles</a>
-        <a href="#layers" data-cms-omit="sections.layers.hidden">Decisions</a>
-        <a href="#stack" data-cms-omit="sections.stack.hidden">Stack</a>
-        <a href="#omitted" data-cms-omit="sections.omitted.hidden">Omitted</a>
-        <a href="#tool" data-cms-omit="sections.tool.hidden">Tool</a>
-        <a href="#ethics" data-cms-omit="sections.ethics.hidden">Ethics</a>
+      <nav class="v4-nav v4-dropdown" aria-label="Main navigation">
+        <button class="v4-bar-btn v4-nav-toggle" type="button" aria-controls="site-nav">Menu<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+        <div class="v4-bar-mid" id="site-nav">
+          <a href="#product" data-cms-omit="sections.product.hidden">Product</a>
+          <a href="#principles" data-cms-omit="sections.principles.hidden">Principles</a>
+          <a href="#layers" data-cms-omit="sections.layers.hidden">Decisions</a>
+          <a href="#stack" data-cms-omit="sections.stack.hidden">Stack</a>
+          <a href="#omitted" data-cms-omit="sections.omitted.hidden">Omitted</a>
+          <a href="#tool" data-cms-omit="sections.tool.hidden">Tool</a>
+          <a href="#ethics" data-cms-omit="sections.ethics.hidden">Ethics</a>
+        </div>
       </nav>
       <div class="v4-bar-right">
-        <div class="v4-lang" role="group" aria-label="Language switcher">
-          <a class="v4-lang-link" href="/about" hreflang="ru" lang="ru">RU</a>
-          <span class="v4-lang-sep" aria-hidden="true">·</span>
-          <a class="v4-lang-link is-active" href="/en/about" aria-current="page" hreflang="en" lang="en">EN</a>
+        <div class="v4-dropdown v4-lang">
+          <button class="v4-bar-btn v4-lang-btn" type="button" aria-haspopup="menu" aria-controls="lang-menu" id="lang-toggle" aria-label="EN — change language">EN<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+          <div class="v4-menu" id="lang-menu" role="menu" aria-labelledby="lang-toggle">
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="false" href="/about" hreflang="ru" lang="ru">Русский</a>
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="true" href="/en/about" hreflang="en" lang="en">English</a>
+          </div>
         </div>
-        <div class="v4-theme">
-          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu" aria-label="Switch theme">
+        <div class="v4-dropdown v4-theme">
+          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-controls="theme-menu" id="theme-toggle" aria-label="Switch theme">
             <svg class="v4-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
               <circle cx="8" cy="8" r="3"></circle>
               <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"></path>
@@ -174,11 +198,11 @@
               <path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path>
             </svg>
           </button>
-          <div class="v4-theme-menu" id="theme-menu" role="menu">
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">Light</button>
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">Dark</button>
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">Auto</button>
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">High contrast</button>
+          <div class="v4-menu v4-theme-menu" id="theme-menu" role="menu" aria-labelledby="theme-toggle">
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">Light</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">Dark</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">Auto</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">High contrast</button>
           </div>
         </div>
       </div>
@@ -265,10 +289,10 @@
             <p><strong>Typography.</strong> <strong>IBM Plex</strong> — open source, released by IBM Design in 2017. Three things converge here: IBM's heritage as one of the main schools of 20th-century corporate modernism (Eliot Noyes, Paul Rand, the Eameses), an open licence (use it without budget concerns), and one of the best Cyrillic glyph sets in open source. Plex&nbsp;Sans for body, Plex&nbsp;Mono for caps labels. Mono in caps is terminal aesthetic — <code>git&nbsp;log</code>, README; the reader instantly reads «this is a technical document, not a marketing landing page».</p>
             <p><strong>Colour.</strong> The orange accent isn't a brand colour — it's a state indicator. Same semantics as iPhone's mute switch, Hacker News's <code>#FF6600</code>, the orange power button on the Braun&nbsp;ET33. Lineage: industrial safety-orange → Braun → tech startups → this site. Orange = attention, utility, state — not «brand colour». It shows up in exactly four places: the primary CTA («Message me on Telegram»), the active language in the switcher («EN» underlined), the indicator of the current workplace (the dot next to «Yandex&nbsp;Uzbekistan»), and the active theme in the dropdown. One semantics everywhere: «this is what's active right now».</p>
             <p><strong>CTA hierarchy.</strong> Two buttons next to each other — «Message me on Telegram» (filled orange) and «How I can help» (outline). Same size, different colour. Hierarchy through saturation, not size. If you've got one minute, you tap the orange one. If you've got ten, you tap the outline. The decision is yours, not mine.</p>
-            <p><strong>Content. Numbers instead of adjectives, with breakdowns.</strong> The metrics block reads: <code>10 yrs in tech</code>, <code>3 markets</code>, <code>5,831 followers</code>, <code>4 own ventures</code>. Each number unfolds into a second line of context: 10&nbsp;yrs — <code>EdTech · E-com · FinTech</code>; 3&nbsp;markets — <code>RU · UZ · KG</code>; 5,831 — <code>1,139</code> on Telegram, <code>4,564</code> on LinkedIn, <code>128</code> on YouTube; 4&nbsp;ventures — <code>since 2009 · 1 sold</code>. A number without context is an empty signal. A number plus breakdown is a verifiable claim. Nobody should take my word for it; every number is checkable against its source.</p>
+            <p><strong>Content. Numbers instead of adjectives, with breakdowns.</strong> The metrics block reads: <code>10 yrs in tech</code>, <code>3 markets</code>, <code>6,069 followers</code>, <code>4 own ventures</code>. Each number unfolds into a second line of context: 10&nbsp;yrs — <code>EdTech · E-com · FinTech</code>; 3&nbsp;markets — <code>RU · UZ · KG</code>; 6,069 — <code>1,141</code> on Telegram, <code>4,800</code> on LinkedIn, <code>128</code> on YouTube; 4&nbsp;ventures — <code>since 2009 · 1 sold</code>. A number without context is an empty signal. A number plus breakdown is a verifiable claim. Nobody should take my word for it; every number is checkable against its source.</p>
             <p>Same approach in the career section. Not «scaled an e-grocery», but <code>Orders: 400 → 10,000 per day in 3 years</code>, <code>Revenue: ×2 YoY with positive EBITDA</code>, <code>CSAT: 4.2 → 4.5</code>. Not «worked in EdTech», but <code>Activated 7M+ users</code>. Where there are no numbers, the line is just <code>Contract role</code> (Apple&nbsp;Russia, 2018–2019). Contract work doesn't have 7-year KPIs; stretching them into the format would be dishonest.</p>
             <p>In «Own ventures» — statuses without repackaging: <code>Launched → no PMF → paused</code>, <code>Launched → stabilized → sold to employees</code>, <code>Launched → 3 kiosks → closed</code>. Four ventures, one sold, the rest closed or paused. That IS startup statistics; pretending otherwise would deceive the reader.</p>
-            <p><strong>Bilingual mirroring.</strong> RU and EN are two versions, not one translation. <code>Yandex Uslugi</code> on the RU side becomes <code>Yandex Services</code> on EN — because in Uzbekistan the service was called Услуги, and an English-speaking audience reads «services» immediately. «Своё дело» → <code>Ventures</code>, «Чем могу помочь» → <code>How I can help</code>, «наст. вр.» → <code>present</code>. Thousand separators follow the locale: <code>5&nbsp;831</code> ↔ <code>5,831</code>, <code>1&nbsp;139</code> ↔ <code>1,139</code>. <code>82&nbsp;600 просмотров</code> ↔ <code>82,600 views</code>. Translation is the import of meaning, not the substitution of words.</p>
+            <p><strong>Bilingual mirroring.</strong> RU and EN are two versions, not one translation. <code>Yandex Uslugi</code> on the RU side becomes <code>Yandex Services</code> on EN — because in Uzbekistan the service was called Услуги, and an English-speaking audience reads «services» immediately. «Своё дело» → <code>Ventures</code>, «Чем могу помочь» → <code>How I can help</code>, «наст. вр.» → <code>present</code>. Thousand separators follow the locale: <code>6&nbsp;069</code> ↔ <code>6,069</code>, <code>1&nbsp;141</code> ↔ <code>1,141</code>. <code>82&nbsp;600 просмотров</code> ↔ <code>82,600 views</code>. Translation is the import of meaning, not the substitution of words.</p>
             <p><strong>Accessibility.</strong> Four themes: light, dark, auto (matches system setting), and high-contrast. The last is for people with low vision, dyslexia, light sensitivity, and also for reading outside in bright sun. Rare on a personal site; non-negotiable for me. The theme dropdown opens with one click on the sun/moon icon; the active theme is highlighted with an orange border — state semantics again, nothing new.</p>
             <p><strong>Navigation.</strong> On scroll, a column <code>01–07</code> appears on the right — section numbers. The current one is highlighted, the rest are muted. Not a sticky menu, not a TOC — just a marker, like a page number in a book. No labels, no icons, no animated «back to top». The <code>↑</code> arrow lives in the bottom right, shows up when needed, scrolls without delay. In Rams's vocabulary, this is <em>as little design as possible</em>.</p>
           </div>
@@ -371,7 +395,7 @@
           <div class="v4-body-aside"></div>
           <div class="v4-prose" data-cms-html="sections.living.body">
             <p>The site keeps updating. If something looks broken, reads oddly, or just feels inaccurate — let me know. The «Found a typo?» link in the footer opens a direct channel. The repo is open; if you want to file an issue or a PR — welcome.</p>
-            <p>The site isn't a final artefact. It's a snapshot of how I think today. A year from now it might look different. Build <code>d78629e</code> will switch to the next one — and the change will be visible in the commit. That's normal and right.</p>
+            <p>The site isn't a final artefact. It's a snapshot of how I think today. A year from now it might look different. Build <code>{build}</code> will switch to the next one — and the change will be visible in the commit. That's normal and right.</p>
             <p>→ <a href="https://s.morgunov.tech">s.morgunov.tech</a></p>
           </div>
         </div>
@@ -379,11 +403,11 @@
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/d78629e" target="_blank" rel="noopener noreferrer"><code>d78629e</code></a> · <a href="/en/uses">uses</a> · <a href="mailto:ask@morgunov.tech?subject=Typo%20on%20morgunov.tech%3A%20%2Fen%2Fabout">found a typo?</a></span>
+      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/0134ba8" target="_blank" rel="noopener noreferrer"><code>0134ba8</code></a> · <a href="/en/notes">notes</a> · <a href="/en/uses">uses</a> · <a href="mailto:ask@morgunov.tech?subject=Typo%20on%20morgunov.tech%3A%20%2Fen%2Fabout">found a typo?</a></span>
       <span class="v4-foot-privacy">No cookies, no trackers, no analytics</span>
     </footer>
   </div>
-  <aside class="v4-section-nav" aria-label="Page progress">
+  <nav class="v4-section-nav" aria-label="Page sections">
     <a href="#product" data-cms-omit="sections.product.hidden">01</a>
     <a href="#principles" data-cms-omit="sections.principles.hidden">02</a>
     <a href="#layers" data-cms-omit="sections.layers.hidden">03</a>
@@ -392,9 +416,9 @@
     <a href="#tool" data-cms-omit="sections.tool.hidden">06</a>
     <a href="#ethics" data-cms-omit="sections.ethics.hidden">07</a>
     <a href="#living" data-cms-omit="sections.living.hidden">08</a>
-  </aside>
+  </nav>
   <button class="v4-scroll-top" type="button" aria-label="Back to top">↑</button>
   <div class="v4-scroll-progress" aria-hidden="true"></div>
-  <script defer src="/script.js?v=7a5866b6"></script>
+  <script defer src="/script.js?v=cfd1816f"></script>
 </body>
 </html>

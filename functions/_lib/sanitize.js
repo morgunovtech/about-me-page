@@ -16,6 +16,9 @@ const DROP = new Set([
   'script', 'style', 'iframe', 'object', 'embed', 'svg', 'math',
   'noscript', 'template', 'link', 'meta', 'base', 'head', 'form',
   'input', 'button', 'select', 'textarea', 'audio', 'video', 'canvas',
+  // Raw-text / RCDATA elements: HTMLRewriter tokenises their inside as text,
+  // so unwrapping them would re-emit that text as live markup.
+  'title', 'xmp', 'plaintext', 'noembed', 'noframes',
 ]);
 
 // Button/CTA markup (uses/collaborate hero.ctas) is stored as styled HTML —

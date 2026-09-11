@@ -35,7 +35,7 @@
   <meta name="twitter:description" data-cms-content="share.description" content="Head of FinTech в Yandex Uzbekistan. Запускаю продукты на быстрорастущих рынках Центральной Азии — продукт, операционка и юнит-экономика параллельно." />
   <meta name="twitter:image" data-cms-abs="share.image" content="https://s.morgunov.tech/images/og-card-ru.png" />
   <meta name="twitter:image:alt" data-cms-content="share.imageAlt" content="Семён Моргунов — Head of FinTech @ Yandex Uzbekistan, Ташкент" />
-  <link rel="preload" as="image" data-cms-preload="hero.portrait" href="/images/Hero_Photo_640.webp" imagesrcset="/images/Hero_Photo_320.webp 320w, /images/Hero_Photo_640.webp 640w, /images/Hero_Photo_960.webp 960w, /images/Hero_Photo.webp 1600w" imagesizes="(max-width: 640px) 240px, 280px" type="image/webp" />
+  <link rel="preload" as="image" data-cms-preload="hero.portrait" href="/images/Hero_Photo_640.webp" imagesrcset="/images/Hero_Photo_320.webp 320w, /images/Hero_Photo_640.webp 640w, /images/Hero_Photo_960.webp 960w, /images/Hero_Photo_1200.webp 1200w, /images/Hero_Photo.webp 1600w" imagesizes="(max-width: 640px) calc(100vw - 62px), 254px" type="image/webp" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
   <style>
     :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;color-scheme:light dark}
@@ -50,14 +50,17 @@
     .v4-page .skip-link:focus{top:8px}
     .v4-root{background:var(--v4-bg);color:var(--v4-fg);padding:36px 56px 56px;max-width:1280px;margin:0 auto}
     .v4-bar{display:flex;justify-content:space-between;align-items:center;padding:0 0 14px;margin-bottom:32px;border-bottom:1px solid var(--v4-fg);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
-    .v4-bar-mid{display:flex;gap:6px 22px;justify-content:center;color:var(--v4-muted);flex-wrap:wrap}
+    .v4-nav{display:flex;align-items:center;min-width:0}
+    .v4-bar-mid{display:flex;gap:6px 22px;justify-content:flex-start;color:var(--v4-muted);flex-wrap:wrap}
     .v4-bar-mid a{color:inherit;text-decoration:none;padding:8px 4px;white-space:nowrap}
-    .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;color:var(--v4-fg)}
-    .v4-lang{display:inline-flex;align-items:center;gap:6px}
-    .v4-lang-link{color:var(--v4-muted);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:11px 8px;border-bottom:1px solid transparent}
-    .v4-lang-link.is-active{color:var(--v4-fg);border-bottom-color:var(--v4-orange)}
-    .v4-lang-sep{color:var(--v4-dim)}
-    .v4-theme{position:relative}
+    .v4-bar-right{display:flex;gap:12px;justify-content:flex-end;align-items:center;margin-left:auto;color:var(--v4-fg)}
+    .v4-bar-btn{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 8px;border:none;background:transparent;color:var(--v4-fg);cursor:pointer;font:inherit;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+    .v4-bar-btn .v4-chevron{width:10px;height:10px;flex-shrink:0}
+    .v4-nav-toggle{display:none}
+    .v4-dropdown{position:relative}
+    .v4-menu{position:absolute;right:0;top:calc(100% + 15px);display:none;flex-direction:column;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}
+    .v4-dropdown.is-open > .v4-menu{display:flex}
+    html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu{display:flex}
     .v4-icon-btn{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--v4-fg);cursor:pointer;padding:0;font:inherit;border:none}
     .v4-icon-btn svg{width:14px;height:14px}
     .v4-icon-btn .v4-icon-moon,.v4-icon-btn .v4-icon-contrast{display:none}
@@ -65,8 +68,6 @@
     [data-theme="dark"] .v4-icon-btn .v4-icon-moon{display:block}
     [data-theme="high-contrast"] .v4-icon-btn .v4-icon-sun{display:none}
     [data-theme="high-contrast"] .v4-icon-btn .v4-icon-contrast{display:block}
-    .v4-theme-menu{position:absolute;right:0;top:calc(100% + 6px);display:none;flex-direction:column;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}
-    .v4-theme.is-open .v4-theme-menu{display:flex}
     .v4-hero{display:grid;grid-template-columns:1fr 280px;gap:40px;padding:4px 0 36px;margin:0 0 28px;align-items:start}
     .v4-hero-text{min-width:0}
     .v4-hero-meta{font-family:var(--v4-mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--v4-muted);margin-bottom:16px;display:flex;flex-wrap:wrap;gap:14px}
@@ -76,6 +77,9 @@
     .v4-cta-row{display:flex;gap:8px;flex-wrap:wrap}
     .v4-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;min-height:40px;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;cursor:pointer;border:1px solid var(--v4-fg);background:transparent;color:var(--v4-fg);font-family:inherit}
     .v4-btn-primary{background:var(--v4-orange);color:var(--v4-on-accent);border-color:var(--v4-orange)}
+    .v4-section-head{display:flex;align-items:baseline;gap:14px;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--v4-fg)}
+    .v4-section-num{font-family:var(--v4-mono);font-size:11px;color:var(--v4-muted);text-transform:uppercase;letter-spacing:.1em;font-weight:500;flex-shrink:0}
+    .v4-h2{font-size:22px;font-weight:600;margin:0;letter-spacing:-.015em}
     .v4-portrait-wrap{background:var(--v4-paper);border:1px solid var(--v4-line);padding:12px;margin:0}
     .v4-portrait{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
     .v4-stats{display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:36px;border-top:1px solid var(--v4-fg);border-bottom:1px solid var(--v4-fg)}
@@ -88,7 +92,8 @@
     .v4-stat-channel{display:inline-flex;align-items:center;gap:5px}
     .v4-stat-icon{width:11px;height:11px;flex-shrink:0}
     @media (max-width:960px){.v4-root{padding:28px 32px 40px}.v4-hero{grid-template-columns:1fr;gap:28px}.v4-portrait-wrap{max-width:280px;margin-inline:auto}.v4-h1{font-size:52px}.v4-stats{grid-template-columns:repeat(2,1fr)}.v4-stat{border-right:1px solid var(--v4-line);border-bottom:1px solid var(--v4-line)}.v4-stat:nth-child(2n){border-right:none}.v4-stat:nth-last-child(-n+2){border-bottom:none}}
-    @media (max-width:640px){.v4-root{padding:20px 18px 32px;font-size:13.5px}.v4-bar{flex-direction:column;align-items:stretch;row-gap:10px;padding-bottom:10px;margin-bottom:22px;font-size:10px}.v4-bar-right{align-self:flex-end}.v4-bar-mid{justify-content:flex-start;flex-wrap:wrap;gap:4px 14px;margin:0 -4px}.v4-bar-mid a{padding:10px 6px}.v4-icon-btn{width:44px;height:44px}.v4-hero{padding-bottom:26px;margin-bottom:22px;gap:22px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}.v4-portrait-wrap{max-width:240px}.v4-stat-value{font-size:28px}.v4-stat{padding:14px 12px}}
+    @media (max-width:640px){.v4-root{padding:20px 18px 32px}body.v4-page{font-size:13.5px}.v4-bar{padding-bottom:10px;margin-bottom:22px;font-size:10px}.v4-nav-toggle{display:inline-flex;min-height:44px;margin-left:-8px}.v4-bar-mid{position:absolute;left:0;top:calc(100% + 11px);display:none;flex-direction:column;align-items:stretch;gap:0;margin:0;background:var(--v4-paper);border:1px solid var(--v4-line);padding:6px;min-width:170px;z-index:50}.v4-nav.is-open > .v4-bar-mid,html:not([data-js]) .v4-nav:is(:focus-within, :hover) > .v4-bar-mid{display:flex}.v4-bar-mid a{padding:10px 10px;border:1px solid transparent;color:var(--v4-fg);font-size:11px;font-weight:500;letter-spacing:.1em}.v4-menu{top:calc(100% + 11px)}.v4-bar-btn{min-height:44px}.v4-icon-btn{width:44px;height:44px}.v4-section-head{padding-bottom:10px;margin-bottom:12px}.v4-h2{font-size:18px}.v4-hero{padding-bottom:26px;margin-bottom:22px;gap:22px}.v4-h1{font-size:40px;letter-spacing:-.02em}.v4-tagline{font-size:16px}.v4-portrait-wrap{max-width:none}.v4-stat-value{font-size:28px}.v4-stat{padding:14px 12px}}
+    @media (max-width:480px){.v4-hero .v4-cta-row{flex-direction:column;align-items:stretch}.v4-hero .v4-cta-row .v4-btn{width:100%}}
   </style>
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-cyr-400.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-cyr-600.woff2" crossorigin />
@@ -99,12 +104,12 @@
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-cyr-400.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-latin-400.woff2" crossorigin />
   <link rel="preload" href="/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/tokens.css?v=cd042bb5" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/base.css?v=fad10899" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <link rel="preload" href="/ds/v1/components.css?v=4416b730" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" /><link rel="stylesheet" href="/ds/v1/tokens.css?v=cd042bb5" /><link rel="stylesheet" href="/ds/v1/base.css?v=fad10899" /><link rel="stylesheet" href="/ds/v1/components.css?v=4416b730" /></noscript>
-  <link rel="preload" href="/styles.css?v=b100256f" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="/styles.css?v=b100256f" /></noscript>
+  <link rel="preload" href="/ds/v1/tokens.css?v=50a0d966" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/base.css?v=0e404315" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="/ds/v1/components.css?v=7565c1f8" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" /><link rel="stylesheet" href="/ds/v1/tokens.css?v=50a0d966" /><link rel="stylesheet" href="/ds/v1/base.css?v=0e404315" /><link rel="stylesheet" href="/ds/v1/components.css?v=7565c1f8" /></noscript>
+  <link rel="preload" href="/styles.css?v=f4f1111b" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/styles.css?v=f4f1111b" /></noscript>
   <script>
     (function () {
       var d = document.documentElement;
@@ -121,144 +126,206 @@
     })();
   </script>
   <script type="application/ld+json" data-cms-jsonld>
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://s.morgunov.tech/#website",
-        "url": "https://s.morgunov.tech/",
-        "name": "morgunov.tech",
-        "inLanguage": ["ru", "en"],
-        "publisher": { "@id": "https://s.morgunov.tech/#person" }
-      },
-      {
-        "@type": "WebPage",
-        "@id": "https://s.morgunov.tech/#webpage",
-        "url": "https://s.morgunov.tech/",
-        "name": "Семён Моргунов — Head of FinTech @ Yandex Uzbekistan",
-        "inLanguage": "ru",
-        "isPartOf": { "@id": "https://s.morgunov.tech/#website" },
-        "primaryImageOfPage": "https://s.morgunov.tech/images/Hero_Photo.webp",
-        "about": { "@id": "https://s.morgunov.tech/#person" },
-        "dateModified": "2026-05-11"
-      },
-      {
-        "@type": "Person",
-        "@id": "https://s.morgunov.tech/#person",
-        "name": "Семён Моргунов",
-        "alternateName": "Semyon Morgunov",
-        "jobTitle": "Head of FinTech",
-        "description": "Head of FinTech в Yandex Uzbekistan. Запускает продукты на быстрорастущих рынках Центральной Азии — продукт, операционку и юнит-экономику собирает параллельно. 10 лет в IT (EdTech, e-com, FinTech), работа в России и Узбекистане, консалтинг в Кыргызстане. С 2009 года запустил четыре собственных проекта (один продан сотрудникам, три закрыли). Эдвайзер и ангельский инвестор. Автор Telegram-канала «Семён расправил плечи».",
-        "url": "https://s.morgunov.tech/",
-        "image": "https://s.morgunov.tech/images/Hero_Photo.webp",
-        "email": "s@morgunov.tech",
-        "knowsLanguage": ["ru", "en"],
-        "knowsAbout": [
-          "E-commerce",
-          "Product Management",
-          "Growth",
-          "Monetization",
-          "0-to-1 Launches",
-          "EdTech",
-          "RetailTech",
-          "FinTech",
-          "Digital Privacy",
-          "Startup Advisory",
-          "Angel Investing",
-          "Central Asia markets",
-          "CIS markets",
-          "Cross-cultural product management"
-        ],
-        "sameAs": [
-          "https://t.me/raschet7",
-          "https://t.me/s_mrgnv",
-          "https://www.linkedin.com/in/semyon-morgunov/",
-          "https://www.instagram.com/semyon.morgunov/",
-          "https://www.youtube.com/@semyon_morgunov",
-          "https://github.com/morgunovtech"
-        ],
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Yandex Uzbekistan",
-          "url": "https://yandex.uz/"
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://s.morgunov.tech/#website",
+          "url": "https://s.morgunov.tech/",
+          "name": "morgunov.tech",
+          "inLanguage": [
+            "ru",
+            "en"
+          ],
+          "publisher": {
+            "@id": "https://s.morgunov.tech/#person"
+          }
         },
-        "hasOccupation": [
-          {
-            "@type": "Occupation",
-            "name": "Head of FinTech",
-            "occupationLocation": { "@type": "City", "name": "Tashkent" },
-            "startDate": "2026-04"
-          }
-        ],
-        "alumniOf": [
-          { "@type": "Organization", "name": "Korzinka", "url": "https://korzinka.uz" },
-          { "@type": "Organization", "name": "Yandex Services", "url": "https://uslugi.yandex.ru/" },
-          { "@type": "Organization", "name": "Skyeng", "url": "https://skyeng.ru" },
-          { "@type": "Organization", "name": "Skysmart", "url": "https://skysmart.ru" }
-        ],
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Ташкент",
-          "addressCountry": "UZ"
-        }
-      },
-      {
-        "@type": "ItemList",
-        "@id": "https://s.morgunov.tech/#products",
-        "name": "Продукты Семёна Моргунова",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "item": {
-              "@type": "WebApplication",
-              "name": "Fingerprint",
-              "url": "https://fprint.morgunov.tech/",
-              "applicationCategory": "PrivacyApplication",
-              "operatingSystem": "Web",
-              "description": "Покажет процент уникальности вашего браузера и объяснит, по каким сигналам сайты узнают вас без cookies. К каждому параметру — пояснение простым языком и конкретная рекомендация к действию. Локально, бесплатно, без регистрации."
-            }
+        {
+          "@type": [
+            "WebPage",
+            "ProfilePage"
+          ],
+          "@id": "https://s.morgunov.tech/#webpage",
+          "url": "https://s.morgunov.tech/",
+          "name": "Семён Моргунов — Head of FinTech @ Yandex Uzbekistan",
+          "inLanguage": "ru",
+          "isPartOf": {
+            "@id": "https://s.morgunov.tech/#website"
           },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "item": {
-              "@type": "WebApplication",
-              "name": "FoundYou",
-              "url": "https://foundyou.morgunov.tech/",
-              "applicationCategory": "PrivacyApplication",
-              "operatingSystem": "Web",
-              "description": "Загруженный в сеть снимок выдаёт ваше местоположение, время съёмки, модель устройства и лица посторонних людей. FoundYou вычистит EXIF, замажет приватные зоны и защитит фото от поиска по картинке. Локально, оригинал не трогаем."
+          "primaryImageOfPage": "https://s.morgunov.tech/images/Hero_Photo.webp",
+          "about": {
+            "@id": "https://s.morgunov.tech/#person"
+          },
+          "mainEntity": {
+            "@id": "https://s.morgunov.tech/#person"
+          },
+          "dateCreated": "2025-10-07",
+          "dateModified": "2026-09-03"
+        },
+        {
+          "@type": "Person",
+          "@id": "https://s.morgunov.tech/#person",
+          "name": "Семён Моргунов",
+          "alternateName": "Semyon Morgunov",
+          "jobTitle": "Head of FinTech",
+          "description": "Head of FinTech в Yandex Uzbekistan. Запускает продукты на быстрорастущих рынках Центральной Азии — продукт, операционку и юнит-экономику собирает параллельно. 10 лет в IT (EdTech, e-com, FinTech), работа в России и Узбекистане, консалтинг в Кыргызстане. С 2009 года запустил четыре собственных проекта (один продан сотрудникам, три закрыли). Эдвайзер и ангельский инвестор. Автор Telegram-канала «Семён расправил плечи».",
+          "url": "https://s.morgunov.tech/",
+          "image": "https://s.morgunov.tech/images/Hero_Photo.webp",
+          "email": "s@morgunov.tech",
+          "knowsLanguage": [
+            "ru",
+            "en"
+          ],
+          "knowsAbout": [
+            "E-commerce",
+            "Product Management",
+            "Growth",
+            "Monetization",
+            "0-to-1 Launches",
+            "EdTech",
+            "RetailTech",
+            "FinTech",
+            "Digital Privacy",
+            "Startup Advisory",
+            "Angel Investing",
+            "Central Asia markets",
+            "CIS markets",
+            "Cross-cultural product management"
+          ],
+          "sameAs": [
+            "https://t.me/raschet7",
+            "https://t.me/s_mrgnv",
+            "https://www.linkedin.com/in/semyon-morgunov/",
+            "https://www.instagram.com/semyon.morgunov/",
+            "https://www.youtube.com/@semyon_morgunov",
+            "https://github.com/morgunovtech"
+          ],
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Yandex Uzbekistan",
+            "url": "https://yandex.uz/"
+          },
+          "hasOccupation": [
+            {
+              "@type": "Occupation",
+              "name": "Head of FinTech",
+              "occupationLocation": {
+                "@type": "City",
+                "name": "Tashkent"
+              },
+              "startDate": "2026-04"
             }
+          ],
+          "alumniOf": [
+            {
+              "@type": "Organization",
+              "name": "Korzinka",
+              "url": "https://korzinka.uz"
+            },
+            {
+              "@type": "Organization",
+              "name": "Yandex Services",
+              "url": "https://uslugi.yandex.ru/"
+            },
+            {
+              "@type": "Organization",
+              "name": "Skyeng",
+              "url": "https://skyeng.ru"
+            },
+            {
+              "@type": "Organization",
+              "name": "Skysmart",
+              "url": "https://skysmart.ru"
+            }
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Ташкент",
+            "addressCountry": "UZ"
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://s.morgunov.tech/#products",
+          "name": "Продукты Семёна Моргунова",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@type": "WebApplication",
+                "name": "Fingerprint",
+                "url": "https://fprint.morgunov.tech/",
+                "applicationCategory": "PrivacyApplication",
+                "operatingSystem": "Web",
+                "description": "Покажет процент уникальности вашего браузера и объяснит, по каким сигналам сайты узнают вас без cookies. К каждому параметру — пояснение простым языком и конкретная рекомендация к действию. Локально, бесплатно, без регистрации.",
+                "isAccessibleForFree": true,
+                "softwareVersion": "2.5"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@type": "WebApplication",
+                "name": "FoundYou",
+                "url": "https://foundyou.morgunov.tech/",
+                "applicationCategory": "PrivacyApplication",
+                "operatingSystem": "Web",
+                "description": "Загруженный в сеть снимок выдаёт ваше местоположение, время съёмки, модель устройства и лица посторонних людей. FoundYou вычистит EXIF, замажет приватные зоны и защитит фото от поиска по картинке. Локально, оригинал не трогаем.",
+                "isAccessibleForFree": true,
+                "softwareVersion": "1.0"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Tofs DevOps",
+                "url": "https://github.com/morgunovtech/Tofs_DevOps_bot",
+                "applicationCategory": "DeveloperApplication",
+                "operatingSystem": "Linux",
+                "description": "Личный DevOps в Telegram: следит за аптаймом, SSL, доменом и DNS, проверяет, что сайт видят поисковики и AI-агенты, умеет сам перезапустить деплой на Cloudflare Pages — и молчит, пока всё в порядке. Open source, ставится за пять минут на Railway или в Docker.",
+                "isAccessibleForFree": true,
+                "softwareVersion": "1.0",
+                "license": "https://opensource.org/licenses/MIT"
+              }
+            }
+          ]
+        }
+      ]
+    }
   </script>
 </head>
 <body class="v4-page no-transition" data-lang="ru">
   <a href="#main" class="skip-link">Перейти к основному содержимому</a>
   <div class="v4-root">
     <header class="v4-bar" id="top">
-      <nav class="v4-bar-mid" aria-label="Основная навигация">
-        <a href="#about">Обо мне</a>
-        <a href="#career">Карьера</a>
-        <a href="#help">Помощь</a>
-        <a href="#ventures">Своё дело</a>
-        <a href="#products">Продукты</a>
-        <a href="#publications">Публикации</a>
-        <a href="#contact">Связаться</a>
+      <nav class="v4-nav v4-dropdown" aria-label="Основная навигация">
+        <button class="v4-bar-btn v4-nav-toggle" type="button" aria-controls="site-nav">Меню<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+        <div class="v4-bar-mid" id="site-nav">
+          <a href="#about">Обо мне</a>
+          <a href="#career">Карьера</a>
+          <a href="#help">Помощь</a>
+          <a href="#ventures">Своё дело</a>
+          <a href="#products">Продукты</a>
+          <a href="#publications">Публикации</a>
+          <a href="#contact">Связаться</a>
+        </div>
       </nav>
       <div class="v4-bar-right">
-        <div class="v4-lang" role="group" aria-label="Переключатель языка">
-          <a class="v4-lang-link is-active" href="/" aria-current="page" hreflang="ru" lang="ru">RU</a>
-          <span class="v4-lang-sep" aria-hidden="true">·</span>
-          <a class="v4-lang-link" href="/en/" hreflang="en" lang="en">EN</a>
+        <div class="v4-dropdown v4-lang">
+          <button class="v4-bar-btn v4-lang-btn" type="button" aria-haspopup="menu" aria-controls="lang-menu" id="lang-toggle" aria-label="RU — сменить язык">RU<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+          <div class="v4-menu" id="lang-menu" role="menu" aria-labelledby="lang-toggle">
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="true" href="/" hreflang="ru" lang="ru">Русский</a>
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="false" href="/en/" hreflang="en" lang="en">English</a>
+          </div>
         </div>
-        <div class="v4-theme">
-          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu" aria-label="Сменить тему оформления">
+        <div class="v4-dropdown v4-theme">
+          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-controls="theme-menu" id="theme-toggle" aria-label="Сменить тему оформления">
             <svg class="v4-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
               <circle cx="8" cy="8" r="3"></circle>
               <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"></path>
@@ -271,11 +338,11 @@
               <path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path>
             </svg>
           </button>
-          <div class="v4-theme-menu" id="theme-menu" role="menu">
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">Светлая</button>
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">Тёмная</button>
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">Авто</button>
-            <button class="v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">Высокий контраст</button>
+          <div class="v4-menu v4-theme-menu" id="theme-menu" role="menu" aria-labelledby="theme-toggle">
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">Светлая</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">Тёмная</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">Авто</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">Высокий контраст</button>
           </div>
         </div>
       </div>
@@ -289,14 +356,14 @@
         <p class="v4-tagline" data-cms-text="hero.tagline">Запускаю продукты на быстрорастущих рынках Центральной Азии — продукт, операционка и юнит-экономика собираются параллельно.</p>
         <div class="v4-cta-row" data-cms-list="heroCtas">
           <a class="v4-btn v4-btn-primary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
-          <a class="v4-btn" href="/collaborate">Чем могу помочь</a>
+                    <a class="v4-btn" href="/collaborate">Чем могу помочь</a>
         </div>
       </div>
       <figure class="v4-portrait-wrap">
         <img class="v4-portrait" data-cms-img="hero.portrait" data-cms-alt="hero.portraitAlt"
              src="/images/Hero_Photo_640.webp"
-             srcset="/images/Hero_Photo_320.webp 320w, /images/Hero_Photo_640.webp 640w, /images/Hero_Photo_960.webp 960w, /images/Hero_Photo.webp 1600w"
-             sizes="(max-width: 640px) 240px, 280px"
+             srcset="/images/Hero_Photo_320.webp 320w, /images/Hero_Photo_640.webp 640w, /images/Hero_Photo_960.webp 960w, /images/Hero_Photo_1200.webp 1200w, /images/Hero_Photo.webp 1600w"
+             sizes="(max-width: 640px) calc(100vw - 62px), 254px"
              alt="Портрет Семёна Моргунова"
              loading="eager"
              fetchpriority="high"
@@ -307,49 +374,29 @@
 
     <div class="v4-stats" role="group" aria-label="Ключевые цифры" data-cms-list="stats">
       <div class="v4-stat">
-        <div class="v4-stat-value">10</div>
-        <div class="v4-stat-unit">лет в IT</div>
-        <div class="v4-stat-aside">EdTech · E-com · FinTech</div>
-      </div>
-      <div class="v4-stat">
-        <div class="v4-stat-value">3</div>
-        <div class="v4-stat-unit">рынка</div>
-        <div class="v4-stat-aside">RU · UZ · KG</div>
-      </div>
-      <div class="v4-stat">
-        <div class="v4-stat-value">5&nbsp;831</div>
-        <div class="v4-stat-unit">подписчика</div>
-        <div class="v4-stat-aside v4-stat-channels">
-          <span class="v4-stat-channel">
-            <svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M14.5 1.5 7.5 8.5"/>
-              <path d="M14.5 1.5 10 14.5 7.5 8.5 1.5 6Z"/>
-            </svg>
-            <span class="sr-only">Telegram:</span>1&nbsp;139
-          </span>
-          <span class="v4-stat-channel">
-            <svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="1.5" y="1.5" width="13" height="13" rx="1.5"/>
-              <path d="M4.5 7v4.5"/>
-              <circle cx="4.5" cy="4.5" r="0.6" fill="currentColor"/>
-              <path d="M8 11.5v-4.5M8 9c0-1.3.8-2 2-2s2 .7 2 2v2.5"/>
-            </svg>
-            <span class="sr-only">LinkedIn:</span>4&nbsp;564
-          </span>
-          <span class="v4-stat-channel">
-            <svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true">
-              <rect x="1" y="3.5" width="14" height="9" rx="2"/>
-              <path d="M6.5 6 11 8 6.5 10Z" fill="currentColor" stroke="none"/>
-            </svg>
-            <span class="sr-only">YouTube:</span>128
-          </span>
-        </div>
-      </div>
-      <div class="v4-stat">
-        <div class="v4-stat-value">4</div>
-        <div class="v4-stat-unit">своих проекта</div>
-        <div class="v4-stat-aside">с 2009 года · 1 продан</div>
-      </div>
+              <div class="v4-stat-value">10</div>
+              <div class="v4-stat-unit">лет в IT</div>
+              <div class="v4-stat-aside">EdTech · E-com · FinTech</div>
+            </div>
+            <div class="v4-stat">
+              <div class="v4-stat-value">3</div>
+              <div class="v4-stat-unit">рынка</div>
+              <div class="v4-stat-aside">RU · UZ · KG</div>
+            </div>
+            <div class="v4-stat">
+              <div class="v4-stat-value">6&nbsp;069</div>
+              <div class="v4-stat-unit">подписчиков</div>
+              <div class="v4-stat-aside v4-stat-channels">
+                <span class="v4-stat-channel"><svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 1.5 7.5 8.5"/><path d="M14.5 1.5 10 14.5 7.5 8.5 1.5 6Z"/></svg><span class="sr-only">Telegram:</span>1&nbsp;141</span>
+                <span class="v4-stat-channel"><svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="1.5" width="13" height="13" rx="1.5"/><path d="M4.5 7v4.5"/><circle cx="4.5" cy="4.5" r="0.6" fill="currentColor"/><path d="M8 11.5v-4.5M8 9c0-1.3.8-2 2-2s2 .7 2 2v2.5"/></svg><span class="sr-only">LinkedIn:</span>4&nbsp;800</span>
+                <span class="v4-stat-channel"><svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3.5" width="14" height="9" rx="2"/><path d="M6.5 6 11 8 6.5 10Z" fill="currentColor" stroke="none"/></svg><span class="sr-only">YouTube:</span>128</span>
+              </div>
+            </div>
+            <div class="v4-stat">
+              <div class="v4-stat-value">4</div>
+              <div class="v4-stat-unit">своих проекта</div>
+              <div class="v4-stat-aside">с 2009 года · 1 продан</div>
+            </div>
     </div>
 
     <section id="about" class="v4-section">
@@ -376,73 +423,46 @@
         <div class="v4-body-aside"></div>
         <div data-cms-list="career">
           <div class="v4-career-row">
-            <div class="period">Апр 2026 — наст. вр.</div>
-            <div>
-              <div class="company">
-                <span class="sr-only">Текущая роль:</span>
-                <a href="https://yandex.uz/" target="_blank" rel="noopener noreferrer">Yandex Uzbekistan</a>
-                <span class="v4-live-dot" aria-hidden="true"></span>
-              </div>
-              <div class="role">Head of FinTech</div>
-            </div>
-            <div class="ctx">BNPL, платежи, кредитные продукты. Строю и масштабирую продуктовую линейку.</div>
-          </div>
-          <div class="v4-career-row">
-            <div class="period">2023 — 2026</div>
-            <div>
-              <div class="company"><a href="https://korzinka.uz/go" target="_blank" rel="noopener noreferrer">Korzinka</a></div>
-              <div class="role">Director of e-commerce / CPO Korzinka Go</div>
-            </div>
-            <div class="ctx">
-              <p>Три года в крупнейшем e-grocery Узбекистана — сначала строил продукт, потом отвечал за весь P&amp;L.</p>
-              <ul class="v4-list">
-                <li>Заказы: 400 → 10&nbsp;000 в день за 3 года</li>
-                <li>Расширение: 1 → 9 городов за 10 месяцев</li>
-                <li>Выручка: ×2 год к году при положительной EBITDA</li>
-                <li>Платёжный модуль с нуля: 3 BNPL-провайдера, PCI DSS 4.0</li>
-                <li>CSAT: 4.2 → 4.5</li>
-              </ul>
-            </div>
-          </div>
-          <div class="v4-career-row">
-            <div class="period">2022 — 2023</div>
-            <div>
-              <div class="company"><a href="https://uslugi.yandex.ru/" target="_blank" rel="noopener noreferrer">Yandex Uslugi</a></div>
-              <div class="role">Head of Product</div>
-            </div>
-            <div class="ctx">
-              <p>Портфель 30+ продуктов в сегменте домашних услуг, ~6.5M пользователей в месяц.</p>
-              <ul class="v4-list">
-                <li>GMV: ×2.2 за год</li>
-                <li>EBITDA: вывел в плюс за 10 месяцев</li>
-              </ul>
-            </div>
-          </div>
-          <div class="v4-career-row">
-            <div class="period">2018 — 2019</div>
-            <div>
-              <div class="company">Apple Russia</div>
-              <div class="role">Certified Sales Trainer</div>
-            </div>
-            <div class="ctx">По контракту.</div>
-          </div>
-          <div class="v4-career-row">
-            <div class="period">2017 — 2022</div>
-            <div>
-              <div class="company"><a href="https://skyeng.ru" target="_blank" rel="noopener noreferrer">Skyeng</a> / <a href="https://skysmart.ru" target="_blank" rel="noopener noreferrer">Skysmart</a></div>
-              <div class="role">Head of Growth &amp; Monetization</div>
-            </div>
-            <div class="ctx">
-              <p>Крупнейшая EdTech-компания Восточной Европы.</p>
-              <ul class="v4-list">
-                <li>Активировал 7M+ пользователей</li>
-                <li>Запустил продукты, которые вошли в топ-3 каналов привлечения пользователей с положительной юнит-экономикой</li>
-              </ul>
-            </div>
-          </div>
-          <div class="v4-more">
-            <a href="https://www.linkedin.com/in/semyon-morgunov/" target="_blank" rel="noopener noreferrer">→ Подробнее на LinkedIn</a>
-          </div>
+                      <div class="period">Апр 2026 — наст. вр.</div>
+                      <div>
+                        <div class="company"><span class="sr-only">Текущая роль:</span> <a href="https://yandex.uz/" target="_blank" rel="noopener noreferrer">Yandex Uzbekistan</a> <span class="v4-live-dot" aria-hidden="true"></span></div>
+                        <div class="role">Head of FinTech</div>
+                      </div>
+                      <div class="ctx">BNPL, платежи, кредитные продукты. Строю и масштабирую продуктовую линейку.</div>
+                    </div>
+                    <div class="v4-career-row">
+                      <div class="period">2023 — 2026</div>
+                      <div>
+                        <div class="company"><a href="https://korzinka.uz/go" target="_blank" rel="noopener noreferrer">Korzinka</a></div>
+                        <div class="role">Director of e-commerce / CPO Korzinka Go</div>
+                      </div>
+                      <div class="ctx"><p>Три года в крупнейшем e-grocery Узбекистана — сначала строил продукт, потом отвечал за весь P&amp;L.</p><ul class="v4-list"><li>Заказы: 400 → 10&nbsp;000 в день за 3 года</li><li>Расширение: 1 → 9 городов за 10 месяцев</li><li>Выручка: ×2 год к году при положительной EBITDA</li><li>Платёжный модуль с нуля: 3 BNPL-провайдера, PCI DSS 4.0</li><li>CSAT: 4.2 → 4.5</li></ul></div>
+                    </div>
+                    <div class="v4-career-row">
+                      <div class="period">2022 — 2023</div>
+                      <div>
+                        <div class="company"><a href="https://uslugi.yandex.ru/" target="_blank" rel="noopener noreferrer">Yandex Uslugi</a></div>
+                        <div class="role">Head of Product</div>
+                      </div>
+                      <div class="ctx"><p>Портфель 30+ продуктов в сегменте домашних услуг, ~6.5M пользователей в месяц.</p><ul class="v4-list"><li>GMV: ×2.2 за год</li><li>EBITDA: вывел в плюс за 10 месяцев</li></ul></div>
+                    </div>
+                    <div class="v4-career-row">
+                      <div class="period">2018 — 2019</div>
+                      <div>
+                        <div class="company">Apple Russia</div>
+                        <div class="role">Certified Sales Trainer</div>
+                      </div>
+                      <div class="ctx">По контракту.</div>
+                    </div>
+                    <div class="v4-career-row">
+                      <div class="period">2017 — 2022</div>
+                      <div>
+                        <div class="company"><a href="https://skyeng.ru" target="_blank" rel="noopener noreferrer">Skyeng</a> / <a href="https://skysmart.ru" target="_blank" rel="noopener noreferrer">Skysmart</a></div>
+                        <div class="role">Head of Growth &amp; Monetization</div>
+                      </div>
+                      <div class="ctx"><p>Крупнейшая EdTech-компания Восточной Европы.</p><ul class="v4-list"><li>Активировал 7M+ пользователей</li><li>Запустил продукты, которые вошли в топ-3 каналов привлечения пользователей с положительной юнит-экономикой</li></ul></div>
+                    </div>
+                    <div class="v4-more"><a href="https://www.linkedin.com/in/semyon-morgunov/" target="_blank" rel="noopener noreferrer">→ Подробнее на LinkedIn</a></div>
         </div>
       </div>
     </section>
@@ -456,20 +476,10 @@
         <div class="v4-body-aside"></div>
         <div data-cms-list="help">
           <h3 class="v4-h3">Как работаю</h3>
-          <ul class="v4-list">
-            <li>Прихожу с числами, гипотезами и приоритетами.</li>
-            <li>Говорю прямо. Не согласен&nbsp;— скажу. Не разбираюсь&nbsp;— скажу.</li>
-            <li>Не подменяю команду — вхожу в операционку, когда зовут или когда горит.</li>
-          </ul>
-          <h3 class="v4-h3">Чего не делаю</h3>
-          <ul class="v4-list">
-            <li>Не выполняю роль проджект-менеджера или мастера на все руки.</li>
-            <li>Не пишу 80-страничные отчёты и не отправляю фреймворки в pdf.</li>
-            <li>Не беру проект, если не вижу честного пути к результату.</li>
-          </ul>
-          <div class="v4-help-cta">
-            <a class="v4-btn" href="/collaborate">Узнать подробности →</a>
-          </div>
+                    <ul class="v4-list"><li>Прихожу с числами, гипотезами и приоритетами.</li><li>Говорю прямо. Не согласен&nbsp;— скажу. Не разбираюсь&nbsp;— скажу.</li><li>Не подменяю команду — вхожу в операционку, когда зовут или когда горит.</li></ul>
+                    <h3 class="v4-h3">Чего не делаю</h3>
+                    <ul class="v4-list"><li>Не выполняю роль проджект-менеджера или мастера на все руки.</li><li>Не пишу 80-страничные отчёты и не отправляю фреймворки в pdf.</li><li>Не беру проект, если не вижу честного пути к результату.</li></ul>
+                    <div class="v4-help-cta"><a class="v4-btn" href="/collaborate">Узнать подробности →</a></div>
         </div>
       </div>
     </section>
@@ -483,33 +493,33 @@
         <div class="v4-body-aside"></div>
         <div data-cms-list="ventures">
           <div class="v4-venture">
-            <div class="year">2023</div>
-            <div>
-              <div class="name"><a href="https://kids-safety.tb.ru/" target="_blank" rel="noopener noreferrer">Онлайн-школа детской безопасности</a> <span class="role-aside">· Founder</span></div>
-              <div class="arc">Запустили → не нашли PMF → на паузе</div>
-            </div>
-          </div>
-          <div class="v4-venture">
-            <div class="year">2022</div>
-            <div>
-              <div class="name"><a href="https://yandex.com/maps/-/CDF9VDo~" target="_blank" rel="noopener noreferrer">Салон этичного груминга «Хвост»</a> <span class="role-aside">· Co-founder</span></div>
-              <div class="arc">Запустили → стабилизировали → продали сотрудникам</div>
-            </div>
-          </div>
-          <div class="v4-venture">
-            <div class="year">2011</div>
-            <div>
-              <div class="name">Сеть точек продажи снеков <span class="role-aside">· Co-founder</span></div>
-              <div class="arc">Запустили → выросли до 3-х точек → закрыли</div>
-            </div>
-          </div>
-          <div class="v4-venture">
-            <div class="year">2009</div>
-            <div>
-              <div class="name">Онлайн-продажи аксессуаров для iPhone <span class="role-aside">· Founder</span></div>
-              <div class="arc">Запустили → продали ~5% партии → закрыли</div>
-            </div>
-          </div>
+                      <div class="year">2023</div>
+                      <div>
+                        <div class="name"><a href="https://kids-safety.tb.ru/" target="_blank" rel="noopener noreferrer">Онлайн-школа детской безопасности</a> <span class="role-aside">· Founder</span></div>
+                        <div class="arc">Запустили → не нашли PMF → на паузе</div>
+                      </div>
+                    </div>
+                    <div class="v4-venture">
+                      <div class="year">2022</div>
+                      <div>
+                        <div class="name"><a href="https://yandex.com/maps/-/CDF9VDo~" target="_blank" rel="noopener noreferrer">Салон этичного груминга «Хвост»</a> <span class="role-aside">· Co-founder</span></div>
+                        <div class="arc">Запустили → стабилизировали → продали сотрудникам</div>
+                      </div>
+                    </div>
+                    <div class="v4-venture">
+                      <div class="year">2011</div>
+                      <div>
+                        <div class="name">Сеть точек продажи снеков <span class="role-aside">· Co-founder</span></div>
+                        <div class="arc">Запустили → выросли до 3-х точек → закрыли</div>
+                      </div>
+                    </div>
+                    <div class="v4-venture">
+                      <div class="year">2009</div>
+                      <div>
+                        <div class="name">Онлайн-продажи аксессуаров для iPhone <span class="role-aside">· Founder</span></div>
+                        <div class="arc">Запустили → продали ~5% партии → закрыли</div>
+                      </div>
+                    </div>
         </div>
       </div>
     </section>
@@ -521,29 +531,41 @@
       </div>
       <div class="v4-products" data-cms-list="products">
         <article class="v4-product">
-          <div class="v4-product-head">
-            <span class="v4-product-tag-row">
-              <span class="v4-tag">WEB</span>
-              <span class="v4-live-dot" aria-hidden="true"></span>
-            </span>
-            <span>v2.5</span>
-          </div>
-          <h3 class="v4-product-name">Fingerprint</h3>
-          <p class="v4-product-desc">Покажет процент уникальности вашего браузера и объяснит, по каким сигналам сайты узнают вас без cookies. К каждому параметру — пояснение простым языком и конкретная рекомендация к действию. Локально, бесплатно, без регистрации.</p>
-          <a class="v4-btn" href="https://fprint.morgunov.tech/" target="_blank" rel="noopener noreferrer">Проверить браузер →</a>
-        </article>
-        <article class="v4-product">
-          <div class="v4-product-head">
-            <span class="v4-product-tag-row">
-              <span class="v4-tag">WEB</span>
-              <span class="v4-live-dot" aria-hidden="true"></span>
-            </span>
-            <span>v1.0</span>
-          </div>
-          <h3 class="v4-product-name">FoundYou</h3>
-          <p class="v4-product-desc">Загруженный в сеть снимок выдаёт ваше местоположение, время съёмки, модель устройства и лица посторонних людей. FoundYou вычистит EXIF, замажет приватные зоны и защитит фото от поиска по картинке. Локально, оригинал не трогаем.</p>
-          <a class="v4-btn" href="https://foundyou.morgunov.tech/" target="_blank" rel="noopener noreferrer">Очистить фото →</a>
-        </article>
+                  <div class="v4-product-head">
+                    <span class="v4-product-tag-row">
+                      <span class="v4-tag">WEB</span>
+                      <span class="v4-live-dot" aria-hidden="true"></span>
+                    </span>
+                    <span>v2.5</span>
+                  </div>
+                  <h3 class="v4-product-name">Fingerprint</h3>
+                  <p class="v4-product-desc">Покажет процент уникальности вашего браузера и объяснит, по каким сигналам сайты узнают вас без cookies. К каждому параметру — пояснение простым языком и конкретная рекомендация к действию. Локально, бесплатно, без регистрации.</p>
+                  <a class="v4-btn" href="https://fprint.morgunov.tech/" target="_blank" rel="noopener noreferrer">Проверить браузер →</a>
+                </article>
+                <article class="v4-product">
+                  <div class="v4-product-head">
+                    <span class="v4-product-tag-row">
+                      <span class="v4-tag">WEB</span>
+                      <span class="v4-live-dot" aria-hidden="true"></span>
+                    </span>
+                    <span>v1.0</span>
+                  </div>
+                  <h3 class="v4-product-name">FoundYou</h3>
+                  <p class="v4-product-desc">Загруженный в сеть снимок выдаёт ваше местоположение, время съёмки, модель устройства и лица посторонних людей. FoundYou вычистит EXIF, замажет приватные зоны и защитит фото от поиска по картинке. Локально, оригинал не трогаем.</p>
+                  <a class="v4-btn" href="https://foundyou.morgunov.tech/" target="_blank" rel="noopener noreferrer">Очистить фото →</a>
+                </article>
+                <article class="v4-product">
+                  <div class="v4-product-head">
+                    <span class="v4-product-tag-row">
+                      <span class="v4-tag">BOT</span>
+                      <span class="v4-live-dot" aria-hidden="true"></span>
+                    </span>
+                    <span>v1.0</span>
+                  </div>
+                  <h3 class="v4-product-name">Tofs DevOps</h3>
+                  <p class="v4-product-desc">Личный DevOps в Telegram: следит за аптаймом, SSL, доменом и DNS, проверяет, что сайт видят поисковики и AI-агенты, умеет сам перезапустить деплой на Cloudflare Pages — и молчит, пока всё в порядке. Open source, ставится за пять минут на Railway или в Docker.</p>
+                  <a class="v4-btn" href="https://github.com/morgunovtech/Tofs_DevOps_bot" target="_blank" rel="noopener noreferrer">Установить бота →</a>
+                </article>
       </div>
       <div class="v4-more">
         <a href="https://github.com/morgunovtech" target="_blank" rel="noopener noreferrer" data-cms-text="sections.products.more.label" data-cms-href="sections.products.more.href">→ Другие проекты на GitHub</a>
@@ -557,33 +579,18 @@
       </div>
       <div class="v4-pubs" data-cms-list="publications">
         <article class="v4-pub">
-          <div class="v4-pub-head">
-            <span class="v4-tag">ARTICLE</span>
-            <span>82&nbsp;600 просмотров</span>
-          </div>
-          <ul class="v4-list">
-            <li><a href="https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery" target="_blank" rel="noopener noreferrer">На чём зарабатывают авиакомпании-лоукостеры</a></li>
-            <li><a href="https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery" target="_blank" rel="noopener noreferrer">На чём зарабатывают продуктовые дискаунтеры</a></li>
-          </ul>
-        </article>
-        <article class="v4-pub">
-          <div class="v4-pub-head">
-            <span class="v4-tag">VIDEO</span>
-            <span>7&nbsp;200 просмотров</span>
-          </div>
-          <ul class="v4-list">
-            <li><a href="https://youtu.be/OJXtFmWNZMM" target="_blank" rel="noopener noreferrer">Критический разбор платформы крауд-инвестинга brainbox.vc</a></li>
-            <li><a href="https://youtu.be/BthlUR9eO1M" target="_blank" rel="noopener noreferrer">2 года Korzinka Go: как мы зарождались, менялись и оказались в алом океане</a></li>
-          </ul>
-        </article>
-        <article class="v4-pub">
-          <div class="v4-pub-head">
-            <span class="v4-tag">CHANNEL</span>
-            <span>1&nbsp;139 в Telegram</span>
-          </div>
-          <p class="v4-prose"><a href="https://t.me/raschet7" target="_blank" rel="noopener noreferrer">Telegram-канал</a> о продукте и карьере — пишу то, что сам хотел бы читать. Разборы кейсов, рабочие фреймворки и личные наблюдения. 1–2 поста в неделю, четвёртый год подряд.</p>
-          <div class="v4-more"><a href="https://t.me/raschet7/261" target="_blank" rel="noopener noreferrer">→ Избранные посты</a></div>
-        </article>
+                  <div class="v4-pub-head"><span class="v4-tag">ARTICLE</span><span>82&nbsp;600 просмотров</span></div>
+                  <ul class="v4-list"><li><a href="https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery" target="_blank" rel="noopener noreferrer">На чём зарабатывают авиакомпании-лоукостеры</a></li><li><a href="https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery" target="_blank" rel="noopener noreferrer">На чём зарабатывают продуктовые дискаунтеры</a></li></ul>
+                </article>
+                <article class="v4-pub">
+                  <div class="v4-pub-head"><span class="v4-tag">VIDEO</span><span>7&nbsp;200 просмотров</span></div>
+                  <ul class="v4-list"><li><a href="https://youtu.be/OJXtFmWNZMM" target="_blank" rel="noopener noreferrer">Критический разбор платформы крауд-инвестинга brainbox.vc</a></li><li><a href="https://youtu.be/BthlUR9eO1M" target="_blank" rel="noopener noreferrer">2 года Korzinka Go: как мы зарождались, менялись и оказались в алом океане</a></li></ul>
+                </article>
+                <article class="v4-pub">
+                  <div class="v4-pub-head"><span class="v4-tag">CHANNEL</span><span>1&nbsp;141 в Telegram</span></div>
+                  <p class="v4-prose"><a href="https://t.me/raschet7" target="_blank" rel="noopener noreferrer">Telegram‑канал</a> о продукте и карьере — пишу то, что сам хотел бы читать. Разборы кейсов, рабочие фреймворки и личные наблюдения. 1–2 поста в неделю, четвёртый год подряд.</p>
+                  <div class="v4-more"><a href="https://t.me/raschet7/261" target="_blank" rel="noopener noreferrer">→ Избранные посты</a></div>
+                </article>
       </div>
     </section>
 
@@ -594,21 +601,21 @@
       </div>
       <div class="v4-contact" data-cms-list="contact">
         <p class="v4-contact-note">Читаю всё. Обычно отвечаю в течение 10 рабочих дней.</p>
-        <div class="v4-cta-row">
-          <a class="v4-btn v4-btn-primary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Telegram</a>
-          <a class="v4-btn" href="mailto:s@morgunov.tech">Email</a>
-        </div>
+                <div class="v4-cta-row">
+                  <a class="v4-btn v4-btn-primary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Telegram</a>
+                  <a class="v4-btn" href="mailto:s@morgunov.tech">Email</a>
+                </div>
       </div>
     </section>
 
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/d78629e" target="_blank" rel="noopener noreferrer"><code>d78629e</code></a> · <a href="/about">принципы</a> · <a href="/uses">стек</a> · <a href="mailto:ask@morgunov.tech?subject=Опечатка%20на%20morgunov.tech%3A%20%2F">нашли опечатку?</a></span>
+      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/0134ba8" target="_blank" rel="noopener noreferrer"><code>0134ba8</code></a> · <a href="/notes">заметки</a> · <a href="/about">принципы</a> · <a href="/uses">стек</a> · <a href="mailto:ask@morgunov.tech?subject=Опечатка%20на%20morgunov.tech%3A%20%2F">нашли опечатку?</a></span>
       <span class="v4-foot-privacy">Без Cookies, трекеров и аналитики</span>
     </footer>
   </div>
-  <aside class="v4-section-nav" aria-label="Прогресс по странице">
+  <nav class="v4-section-nav" aria-label="Разделы страницы">
     <a href="#about" aria-label="01 — Обо мне">01</a>
     <a href="#career" aria-label="02 — Карьера">02</a>
     <a href="#help" aria-label="03 — Помощь">03</a>
@@ -616,9 +623,9 @@
     <a href="#products" aria-label="05 — Продукты">05</a>
     <a href="#publications" aria-label="06 — Публикации">06</a>
     <a href="#contact" aria-label="07 — Связаться">07</a>
-  </aside>
+  </nav>
   <button class="v4-scroll-top" type="button" aria-label="Наверх">↑</button>
   <div class="v4-scroll-progress" aria-hidden="true"></div>
-  <script defer src="/script.js?v=7a5866b6"></script>
+  <script defer src="/script.js?v=cfd1816f"></script>
 </body>
 </html>

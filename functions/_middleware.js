@@ -7,6 +7,7 @@
 
 import { loadDoc, loadSubscribers } from './_lib/content.js';
 import { overlay } from './_lib/overlay.js';
+import { renderPageJsonLd } from './_lib/jsonld.js';
 import { withSecurityHeaders } from './_lib/http.js';
 
 // Keys are the clean URLs Pages actually serves (it 308-redirects /foo.html → /foo,
@@ -29,6 +30,7 @@ const ROUTES = {
 const BLOCKED = [
   '/content.seed.json', // internal render fallback, not a public endpoint
   '/CLAUDE.md',
+  '/CHANGELOG.md',
   '/wrangler.toml',
   '/.gitignore',
   '/scripts/',
@@ -42,7 +44,11 @@ export async function onRequest(context) {
   const { request, next, env } = context;
   // HEAD must see the same guards and rendering as GET — otherwise
   // `curl -I` reaches blocked files and reports the untransformed template.
-  if (request.method !== 'GET' && request.method !== 'HEAD') return next();
+  // Other methods (admin API POSTs) skip the route table but still get the
+  // security-header back-fill.
+  if (request.method !== 'GET' && request.method !== 'HEAD') {
+    return withSecurityHeaders(await next(), { csp: !new URL(request.url).pathname.startsWith('/admin') });
+  }
 
   // Collapse duplicate slashes BEFORE matching: //content.seed.json must hit
   // the same guard as /content.seed.json, //en/ the same route as /en/.
@@ -74,7 +80,7 @@ export async function onRequest(context) {
   if (!doc) return response; // no content anywhere → serve the static template
   if (subs) doc._live = { subscribers: subs };
 
-  const transformed = overlay(response, doc, route.lang);
+  const transformed = overlay(response, doc, route.lang, false, (d, l) => renderPageJsonLd(d, l, route.page));
   const headers = new Headers(transformed.headers);
   headers.set('Cache-Control', 'public, max-age=60, stale-while-revalidate=86400');
   return withSecurityHeaders(

@@ -38,14 +38,14 @@ Paste into any service's `<head>`. Load order matters:
 ```html
 <!-- morgunov.tech design system v1 — non-blocking preload-swap -->
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/tokens.css?v=cd042bb5" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/base.css?v=9d706307" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=bf9d4ba5" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/tokens.css?v=50a0d966" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/base.css?v=0e404315" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=7565c1f8" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript>
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/tokens.css?v=cd042bb5" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/base.css?v=9d706307" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=bf9d4ba5" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/tokens.css?v=50a0d966" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/base.css?v=0e404315" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=7565c1f8" />
 </noscript>
 ```
 
@@ -61,9 +61,25 @@ absence = light). Set it **before first paint** to avoid a flash. Inline this in
 
 ```html
 <script>
-  (function(){var d=document.documentElement;var p=localStorage.getItem('theme-preference')||'auto';var t=p==='auto'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):p;d.setAttribute('data-theme',t);d.setAttribute('data-theme-preference',p);})();
+  (function(){var d=document.documentElement;var p='auto';try{p=localStorage.getItem('theme-preference')||'auto'}catch(e){}var t=p==='auto'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):p;d.setAttribute('data-theme',t);d.setAttribute('data-theme-preference',p);})();
 </script>
 ```
+
+The `try/catch` matters: `localStorage` itself throws when storage is blocked
+(Chrome «block all cookies», some webviews) and an unguarded read would leave
+the page without a theme.
+
+## Top bar (optional chrome)
+
+`components.css` ships the header primitives the main site uses: a `.v4-bar`
+with a `.v4-nav.v4-dropdown` (links inline on desktop, a «Menu» dropdown
+≤640px) and two more dropdowns on the right — language (`.v4-lang`) and theme
+(`.v4-theme`). Every dropdown is the same shape: a toggle button with
+`aria-controls` + a `.v4-menu` panel of `.v4-menu-item`s. The site's
+`script.js` drives them (one open at a time, Escape/outside click/focus-out,
+arrow keys) and stamps `data-js` on `<html>`; without it a `:focus-within`
+fallback still opens the panels, so nothing depends on JavaScript. Copy the
+header markup from any page of the site, or skip it and keep just the tokens.
 
 Then apply the page class on `<body>`:
 

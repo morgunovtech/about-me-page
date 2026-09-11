@@ -57,3 +57,22 @@
   --v4-on-fg: #000000;
   color-scheme: dark;
 }
+
+/* Print: readable on paper regardless of the active theme. Dark/HC orange
+   (#ff6a2e / #ffd166) is unreadable on white — pin the light accent. */
+@media print {
+  :root,
+  [data-theme="dark"],
+  [data-theme="high-contrast"] {
+    --v4-bg: #fff;
+    --v4-paper: #fff;
+    --v4-fg: #000;
+    --v4-muted: #333;
+    --v4-dim: #555;
+    --v4-line: #bbb;
+    --v4-line-soft: #ddd;
+    --v4-orange: #d9531e;
+    --v4-orange-text: #b03e10;
+    --v4-on-accent: #14110d;
+  }
+}

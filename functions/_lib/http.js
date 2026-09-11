@@ -8,6 +8,7 @@ export const SECURITY_HEADERS = {
   'X-Frame-Options': 'DENY',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
   'Content-Security-Policy':
     "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
 };
@@ -40,4 +41,19 @@ export function sameOrigin(request) {
   const origin = request.headers.get('Origin');
   if (!origin) return true; // genuine same-origin requests may omit Origin
   return origin === new URL(request.url).origin;
+}
+
+// Route handlers that only ever produce GET content: answer HEAD with the same
+// headers and no body (link checkers, uptime monitors and sitemap validators
+// probe with HEAD; a Pages Function exporting only onRequestGet 404s them),
+// and reject every other method.
+export function getOrHead(handler) {
+  return async (ctx) => {
+    const method = ctx.request.method;
+    if (method !== 'GET' && method !== 'HEAD') {
+      return new Response('Method Not Allowed', { status: 405, headers: { allow: 'GET, HEAD' } });
+    }
+    const res = await handler(ctx);
+    return method === 'HEAD' ? new Response(null, res) : res;
+  };
 }

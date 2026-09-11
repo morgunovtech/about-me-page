@@ -278,6 +278,26 @@
   gap: 16px;
 }
 
+/* Three or more cards → three columns. Content-driven (:has), so the CMS can
+   add a card without a modifier class; /collaborate's two tiers keep 2-up.
+   Browsers without :has() simply keep the 2-column grid. */
+.v4-products:where(:has(> .v4-product:nth-of-type(3))) {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* :where() keeps these at (0,1,0) so the later ≤640px `1fr` rule wins by
+   source order; :nth-of-type counts <article> cards only (the CMS editor
+   appends a <button> to this container). */
+@media (max-width: 1100px) {
+  .v4-products:where(:has(> .v4-product:nth-of-type(3))) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  /* An odd last card spans the row instead of leaving a hole. */
+  .v4-products > .v4-product:nth-of-type(odd):last-of-type {
+    grid-column: 1 / -1;
+  }
+}
+
 .v4-product {
   display: flex;
   flex-direction: column;
@@ -318,8 +338,14 @@
   background: var(--v4-fg);
   color: var(--v4-on-fg);
   padding: 3px 8px;
-  font-weight: 500;
+  /* Self-contained chip: the same 10px tracked caps whether it sits in a
+     product/pub head or alone in a /uses gear card. */
   font-family: var(--v4-mono);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -344,6 +370,13 @@
   font-size: 13px;
   line-height: 1.55;
   color: var(--v4-fg);
+}
+
+/* /collaborate tiers put a .v4-list where home cards have .v4-product-desc —
+   same slot, same rhythm, so the CTAs bottom-align across the grid. */
+.v4-product > .v4-list {
+  flex: 1;
+  margin-bottom: 18px;
 }
 
 .v4-product .v4-btn {
@@ -566,9 +599,6 @@
 /* --- Responsive --- */
 
 @media (max-width: 960px) {
-  .v4-root {
-    padding: 28px 32px 40px;
-  }
   .v4-hero {
     grid-template-columns: 1fr;
     gap: 28px;
@@ -615,34 +645,6 @@
 }
 
 @media (max-width: 640px) {
-  .v4-root {
-    padding: 20px 18px 32px;
-    font-size: 13.5px;
-  }
-  .v4-bar {
-    flex-direction: column;
-    align-items: stretch;
-    row-gap: 10px;
-    padding-bottom: 10px;
-    margin-bottom: 22px;
-    font-size: 10px;
-  }
-  .v4-bar-right {
-    align-self: flex-end;
-  }
-  .v4-bar-mid {
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 4px 14px;
-    margin: 0 -4px;
-  }
-  .v4-bar-mid a {
-    padding: 10px 6px;
-  }
-  .v4-icon-btn {
-    width: 44px;
-    height: 44px;
-  }
   .v4-hero {
     padding-bottom: 26px;
     margin-bottom: 22px;
@@ -655,27 +657,17 @@
   .v4-tagline {
     font-size: 16px;
   }
+  /* Full content width — the same column the stacked CTA buttons and the
+     stats strip use, so the hero reads as one grid instead of a centred
+     240px picture under edge-to-edge buttons. */
   .v4-portrait-wrap {
-    max-width: 240px;
+    max-width: none;
   }
   .v4-stat-value {
     font-size: 28px;
   }
   .v4-stat {
     padding: 14px 12px;
-  }
-  .v4-section {
-    margin-bottom: 28px;
-  }
-  .v4-section-head {
-    padding-bottom: 10px;
-    margin-bottom: 12px;
-  }
-  .v4-h2 {
-    font-size: 18px;
-  }
-  .v4-foot-privacy {
-    text-align: left;
   }
   .v4-products {
     grid-template-columns: 1fr;
@@ -692,14 +684,238 @@
   .v4-product-name {
     font-size: 19px;
   }
-  .v4-foot {
-    flex-direction: column;
-    gap: 6px;
-    align-items: flex-start;
-  }
   .v4-spec {
     grid-template-columns: 100px 1fr;
     gap: 6px 12px;
+  }
+}
+
+/* --- Notes & articles (/notes, /notes/<slug>) ---
+   Rendered by functions/_lib/article-template.js; its inline critical block is
+   the above-the-fold subset of these rules (check-critical compares them). */
+
+.v4-article {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.v4-article-eyebrow {
+  font-family: var(--v4-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--v4-muted);
+  margin: 0 0 16px;
+}
+
+/* Links in the article surfaces use the site's prose link idiom. */
+.v4-article-eyebrow a,
+.v4-article-body a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--v4-line);
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.v4-article-eyebrow a:hover,
+.v4-article-eyebrow a:focus-visible,
+.v4-article-body a:hover,
+.v4-article-body a:focus-visible {
+  color: var(--v4-orange-text);
+  text-decoration-color: var(--v4-orange-text);
+}
+
+.v4-article-title {
+  font-size: 44px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  margin: 0 0 14px;
+}
+
+.v4-article-byline {
+  font-family: var(--v4-mono);
+  font-size: 12px;
+  color: var(--v4-dim);
+  margin: 0 0 28px;
+}
+
+.v4-article-cover {
+  margin: 0 0 28px;
+}
+
+.v4-article-cover img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.v4-article-body {
+  font-size: 17px;
+  line-height: 1.65;
+  counter-reset: sec;
+}
+
+.v4-article-body p {
+  margin: 0 0 18px;
+}
+
+/* H2 renders like a numbered section: inline mono counter + a top divider. */
+.v4-article-body h2 {
+  counter-increment: sec;
+  border-top: 1px solid var(--v4-fg);
+  padding-top: 14px;
+  margin: 40px 0 14px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.v4-article-body h2::before {
+  /* Trailing space: generated content joins the heading's accessible name,
+     so «01» must not glue onto the title («01Заголовок»). */
+  content: counter(sec, decimal-leading-zero) " ";
+  display: inline-block;
+  font-family: var(--v4-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--v4-muted);
+  margin-right: 14px;
+  vertical-align: baseline;
+}
+
+.v4-article-body h2:first-child {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.v4-article-body h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 28px 0 10px;
+}
+
+.v4-article-body blockquote {
+  margin: 0 0 18px;
+  padding: 2px 0 2px 18px;
+  border-left: 2px solid var(--v4-orange);
+  color: var(--v4-muted);
+}
+
+.v4-article-body ul,
+.v4-article-body ol {
+  margin: 0 0 18px;
+  padding-left: 22px;
+}
+
+.v4-article-body li {
+  margin: 0 0 6px;
+}
+
+.v4-article-body img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 24px 0;
+}
+
+.v4-article-body pre {
+  background: var(--v4-paper);
+  border: 1px solid var(--v4-line);
+  padding: 14px;
+  overflow: auto;
+  font-family: var(--v4-mono);
+  font-size: 13px;
+  margin: 0 0 18px;
+}
+
+.v4-article-body code {
+  font-family: var(--v4-mono);
+  font-size: 0.9em;
+}
+
+.v4-article-body hr {
+  border: none;
+  border-top: 1px solid var(--v4-line);
+  margin: 30px 0;
+}
+
+.v4-article-foot {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--v4-line);
+}
+
+.v4-notes-title {
+  font-size: 40px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.v4-notes-intro {
+  color: var(--v4-muted);
+  margin: 0 0 32px;
+}
+
+.v4-note-item {
+  padding: 0 0 22px;
+  margin: 0 0 22px;
+  border-bottom: 1px solid var(--v4-line-soft);
+}
+
+.v4-note-item:last-child {
+  border-bottom: none;
+}
+
+.v4-note-date {
+  font-family: var(--v4-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--v4-dim);
+}
+
+.v4-note-title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin: 6px 0 6px;
+}
+
+.v4-note-title a {
+  color: var(--v4-fg);
+  text-decoration: none;
+}
+
+.v4-note-title a:hover,
+.v4-note-title a:focus-visible {
+  color: var(--v4-orange-text);
+}
+
+.v4-note-excerpt {
+  color: var(--v4-muted);
+  margin: 0;
+}
+
+@media (max-width: 960px) {
+  .v4-article-title {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 640px) {
+  .v4-article-title {
+    font-size: 30px;
+  }
+  .v4-article-body {
+    font-size: 16px;
   }
 }
 
@@ -710,7 +926,6 @@
 .v4-venture .year,
 .v4-product-head,
 .v4-pub-head,
-.v4-foot time,
 .v4-foot code,
 time {
   font-variant-numeric: tabular-nums lining-nums;
@@ -727,40 +942,6 @@ time {
   .v4-hero .v4-cta-row .v4-btn,
   .v4-contact .v4-cta-row .v4-btn {
     width: 100%;
-  }
-}
-
-/* --- Print: readable on paper regardless of the active theme --- */
-@media print {
-  :root,
-  [data-theme="dark"],
-  [data-theme="high-contrast"] {
-    --v4-bg: #fff;
-    --v4-paper: #fff;
-    --v4-fg: #000;
-    --v4-muted: #333;
-    --v4-dim: #555;
-    --v4-line: #bbb;
-    --v4-line-soft: #ddd;
-    /* Dark/HC orange (#ff6a2e / #ffd166) is unreadable on paper — pin the
-       light-theme accent values. */
-    --v4-orange: #d9531e;
-    --v4-orange-text: #b03e10;
-    --v4-on-accent: #14110d;
-  }
-
-  /* Interactive chrome has no meaning on paper. */
-  .v4-bar-right,
-  .v4-scroll-top,
-  .v4-scroll-progress,
-  .v4-section-nav,
-  .skip-link {
-    display: none !important;
-  }
-
-  /* content-visibility: auto would print below-fold sections blank. */
-  .v4-section + .v4-section {
-    content-visibility: visible;
   }
 }
 

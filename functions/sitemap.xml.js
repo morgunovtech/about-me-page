@@ -1,5 +1,4 @@
 import { renderSitemap } from './_lib/render-notes.js';
+import { getOrHead } from './_lib/http.js';
 
-export async function onRequestGet({ env }) {
-  return renderSitemap(env);
-}
+export const onRequest = getOrHead(({ env }) => renderSitemap(env));

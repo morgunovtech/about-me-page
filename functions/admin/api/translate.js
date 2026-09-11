@@ -6,7 +6,8 @@ const SYSTEM = `You translate website content from Russian to English.
 - Return ONLY the translation — no preamble, no quotes, no explanation.
 - Preserve Markdown exactly: links [text](url) keep the URL, **bold**, lists, line breaks.
 - Do NOT translate proper nouns, brands, or technical terms: Yandex, Korzinka, Skyeng, Skysmart, BNPL, MFO, FinTech, EdTech, e-com, EBITDA, GMV, CSAT, PCI DSS, P&L, Telegram, LinkedIn, YouTube, GitHub.
-- Keep the concise, factual tone and match the original length closely.`;
+- Keep the concise, factual tone and match the original length closely.
+- Keep placeholders in curly braces — {telegram}, {linkedin}, {youtube}, {total} — exactly as written; the site substitutes live numbers for them.`;
 
 export async function onRequestPost({ request, env }) {
   if (!sameOrigin(request)) return json({ error: 'cross-origin blocked' }, 403);
