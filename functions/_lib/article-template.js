@@ -111,7 +111,7 @@ ${fontPreloads}
   <link rel="stylesheet" href="/ds/v1/base.css?${BASE_VER}" />
   <link rel="stylesheet" href="/ds/v1/components.css?${COMPONENTS_VER}" />
   <link rel="stylesheet" href="/styles.css?${STYLES_VER}" />
-  <script>${THEME_SCRIPT}</script>`;
+  <script data-cfasync="false">${THEME_SCRIPT}</script>`;
 }
 
 // Share card meta for a static (non-CMS) page: the branded 1200×630 card.
@@ -200,7 +200,7 @@ function tailChrome(lang, ldScript) {
   return `  <button class="v4-scroll-top" type="button" aria-label="${t.scrollTop}">↑</button>
   <div class="v4-scroll-progress" aria-hidden="true"></div>
   ${ldScript}
-  <script defer src="/script.js?${SCRIPT_VER}"></script>`;
+  <script data-cfasync="false" defer src="/script.js?${SCRIPT_VER}"></script>`;
 }
 
 export function articleShell(lang) {
