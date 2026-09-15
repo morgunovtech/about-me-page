@@ -73,10 +73,10 @@ const T = {
   },
 };
 
-const STYLES_VER = 'v=5dbc7765';
+const STYLES_VER = 'v=244a73f1';
 const SCRIPT_VER = 'v=c2d17bcd';
 const FONTS_VER = 'v=64eea157';
-const TOKENS_VER = 'v=21b99b43';
+const TOKENS_VER = 'v=fa7fc139';
 const BASE_VER = 'v=0e404315';
 const COMPONENTS_VER = 'v=434c30e7';
 

@@ -37,6 +37,25 @@
   color-scheme: light dark;
 }
 
+/* "auto" resolved by CSS alone, for consumers without the inline theme script.
+   s.morgunov.tech never stamps "auto" (its script resolves it to light/dark). */
+@media (prefers-color-scheme: dark) {
+  [data-theme="auto"] {
+    --v4-bg: #14130f;
+    --v4-paper: #1c1a16;
+    --v4-fg: #ece7dd;
+    --v4-muted: #b8b0a2;
+    --v4-dim: #8a8378;
+    --v4-line: #3a3530;
+    --v4-line-soft: #2a2620;
+    --v4-orange: #ff6a2e;
+    --v4-orange-text: #ff6a2e;
+    --v4-on-accent: #14130f;
+    --v4-on-fg: #14130f;
+    color-scheme: dark;
+  }
+}
+
 [data-theme="dark"] {
   --v4-bg: #14130f;
   --v4-paper: #1c1a16;

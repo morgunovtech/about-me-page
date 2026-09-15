@@ -90,12 +90,9 @@ together with check-sync before committing anything that touches CSS.
 
 ## CSS Architecture
 
-- All colors, spacing, radii, and shadows are CSS variables defined per theme on `[data-theme]`
-- Two shadow levels: `--shadow` (default) and `--shadow-hover` (interactive lift)
-- Spacing scale: `--space-2` (4px) → `--space-8` (28px)
-- Border radii: `--radius-lg` (16px), `--radius-md` (12px), `--radius-sm` (8px)
-- Max width: `--max-width: 1120px`
-- Responsive breakpoints: 640px, 768px, 1024px, 1100px
+- **Design system of record:** the Claude Design project «morgunov.tech Design System» (imported from this repo). Its rules bind here: `border-radius: 0` and `box-shadow: none` everywhere, no gradients, no emoji, no content icons (the subscribers stat reads `TG · LI · YT`), no font-weight 700.
+- **Tokens are colours + type only:** the `--v4-*` colour set per theme on `[data-theme]` (+ `auto` via `prefers-color-scheme` for consumers without the inline script), `--v4-sans`/`--v4-mono`, the `--v4-label-*` settings. Sizes, gaps and durations are literals in the CSS — do not add `--space-*`, `--radius-*` or `--shadow` twins.
+- Shell max width 1280px; responsive breakpoints: 480px, 640px, 960px, 1100px
 - **Micro-label scale** (tokens.css): every uppercase tracked label is `--v4-label-*` (11px / 0.1em: section numbers, eyebrows, nav, menus, `.v4-h3`, article eyebrow/date) or `--v4-label-xs-*` (10px / 0.12em: stat units, card/pub heads, tags, footer, spec terms), weight `--v4-label-weight`. Mono vs sans is a per-role choice (mono = numbers/meta, sans = UI labels). Buttons (`.v4-btn`, 12px / 0.08em) are not labels.
 - **CSS delivery:** the five stylesheets (`ds/v1/{fonts,tokens,base,components}.css`, `styles.css`) are plain render-blocking `<link rel="stylesheet">` (immutable, content-hashed). The inline critical block is only tokens + body + skip-link. Fonts preload 400/500/600 sans (cyr+latin on RU pages, latin on EN) and mono 400 (+ mono 500 on the home pages for the hero eyebrow).
 - **Hero rhythm:** `.v4-hero--simple` (subpages) shares the homepage's 4px top padding.
@@ -131,7 +128,7 @@ together with check-sync before committing anything that touches CSS.
 - **Privacy.** No cookies, no trackers, no analytics scripts. The footer explicitly states this — don't break that contract.
 - **Bilingual.** Russian is primary (`/`), English is at `/en/`. Both pages share the same `styles.css` and `script.js`. Keep content parity between them.
 - **Semantic HTML.** Use `<article>`, `<section>`, `<nav>`, `<main>`, `<footer>` appropriately. Maintain heading hierarchy.
-- **CTA convention.** In any button row the primary button comes first. «←» is reserved for back-links to the parent page (always secondary, last); a trailing «→» marks actions that leave the site or start a flow (book, install, check, «узнать подробности»); plain contact buttons (Telegram, Email, «На главную») carry no arrow.
+- **CTA convention.** In any button row the primary button comes first. «←» is reserved for back-links to the parent page (always secondary, last); a trailing «→» marks actions that leave the site or start a flow (book, install, check, «узнать подробности»); plain contact buttons (Telegram, Email, «На главную») carry no arrow. A contact labelled as the start of a process («Написать →», «Send a pitch →») is a flow and keeps its arrow, even on `mailto:`.
 - **Articles use the site's idioms:** `h2` in a note renders like `.v4-section-head` (inline mono number, rule under the title), `h3` like `.v4-h3` (small tracked caps).
 - **JSON-LD** scripts sit at the end of `<body>` (before `script.js`) — the parser reaches the content sooner; the overlay hook is attribute-based, so placement is free.
 - **`_redirects`** holds real redirects only (currently none): Pages serves clean URLs and 308s `/foo.html` itself, and a `/en/ → /en/index.html 200` rewrite is reported by wrangler as an infinite loop and ignored.

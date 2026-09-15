@@ -39,10 +39,13 @@ export const LIST_PATHS = {
   usesProducts: 'sections.software.cards',
 };
 
-// Channel icons for the subscribers stat — verbatim from the template.
-const TG_SVG = `<svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 1.5 7.5 8.5"/><path d="M14.5 1.5 10 14.5 7.5 8.5 1.5 6Z"/></svg>`;
-const LI_SVG = `<svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="1.5" width="13" height="13" rx="1.5"/><path d="M4.5 7v4.5"/><circle cx="4.5" cy="4.5" r="0.6" fill="currentColor"/><path d="M8 11.5v-4.5M8 9c0-1.3.8-2 2-2s2 .7 2 2v2.5"/></svg>`;
-const YT_SVG = `<svg class="v4-stat-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3.5" width="14" height="9" rx="2"/><path d="M6.5 6 11 8 6.5 10Z" fill="currentColor" stroke="none"/></svg>`;
+// Subscribers stat channels: mono abbreviations, not icons — the design system
+// keeps content icon-free. The abbreviation is visual; screen readers get the name.
+const CHANNELS = [
+  ['telegram', 'TG', 'Telegram'],
+  ['linkedin', 'LI', 'LinkedIn'],
+  ['youtube', 'YT', 'YouTube'],
+];
 
 // A single CTA / button anchor. Labels are plaintext (no markdown) — they are
 // data-cms-text leaves in the editor; primary styling and target/rel are derived.
@@ -135,11 +138,9 @@ function statBlock(s, lang, doc, edit, path) {
     return `<div class="v4-stat"${eItem(edit, path)}>
         <div class="v4-stat-value">${c.total || ''}</div>
         <div class="v4-stat-unit"${eText(edit, path + '.unit')}>${escapeHtml(edit ? pick(s.unit, lang) : unitFor(pick(s.unit, lang), lang, c.total))}</div>
-        <div class="v4-stat-aside v4-stat-channels">
-          <span class="v4-stat-channel">${TG_SVG}<span class="sr-only">Telegram:</span>${c.telegram || ''}</span>
-          <span class="v4-stat-channel">${LI_SVG}<span class="sr-only">LinkedIn:</span>${c.linkedin || ''}</span>
-          <span class="v4-stat-channel">${YT_SVG}<span class="sr-only">YouTube:</span>${c.youtube || ''}</span>
-        </div>
+        <div class="v4-stat-aside">${CHANNELS.filter(([ch]) => c[ch])
+          .map(([ch, abbr, name]) => `<span class="v4-stat-channel"><span aria-hidden="true">${abbr}</span><span class="sr-only">${name}:</span>&nbsp;${c[ch]}</span>`)
+          .join('<span aria-hidden="true"> · </span>')}</div>
       </div>`;
   }
   return `<div class="v4-stat"${eItem(edit, path)}>

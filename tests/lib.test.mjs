@@ -184,7 +184,10 @@ test('channel meta and stats strip render the same Telegram number', () => {
   const pubs = renderers.publications(doc, 'ru', false);
   const stats = renderers.stats(doc, 'ru', false);
   assert.match(pubs, /1 200 в Telegram/);
-  assert.match(stats, /Telegram:<\/span>1 200/);
+  assert.match(stats, /Telegram:<\/span>&nbsp;1 200/);
+  // Channels are mono abbreviations, never icons.
+  assert.match(stats, /<span aria-hidden="true">TG<\/span>/);
+  assert.doesNotMatch(stats, /<svg/);
   assert.doesNotMatch(pubs, /\{telegram\}/);
   // Edit mode keeps the template placeholder so the editor never snapshots a number.
   assert.match(renderers.publications(doc, 'ru', true), /\{telegram\} в Telegram/);

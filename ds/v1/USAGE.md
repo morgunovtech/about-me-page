@@ -38,12 +38,12 @@ Paste into any service's `<head>`. Load order matters:
 ```html
 <!-- morgunov.tech design system v1 — non-blocking preload-swap -->
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/tokens.css?v=21b99b43" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/tokens.css?v=fa7fc139" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/base.css?v=0e404315" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=434c30e7" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript>
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/tokens.css?v=21b99b43" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/tokens.css?v=fa7fc139" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/base.css?v=0e404315" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=434c30e7" />
 </noscript>
