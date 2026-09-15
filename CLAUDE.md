@@ -149,6 +149,7 @@ together with check-sync before committing anything that touches CSS.
 - **`_redirects`** holds real redirects only (currently none): Pages serves clean URLs and 308s `/foo.html` itself, and a `/en/ → /en/index.html 200` rewrite is reported by wrangler as an infinite loop and ignored.
 - **Inline `<style>` blocks in HTML** are limited to the critical above-the-fold subset that `scripts/check-critical.py` compares against `ds/v1/*.css` + `styles.css`; every rule must exist externally. The notes shell keeps its critical copy in `functions/_lib/article-template.js` (same check).
 - **No inline scripts in `<body>`** — only the one in `<head>` for FOUC prevention. The 404 page's EN copy is driven by `data-i18n-*` attributes handled in `script.js`, not by an inline script.
+- **Every executable `<script>` carries `data-cfasync="false"`** (the FOUC script, `script.js`, `admin-app.js`, the notes shell). Cloudflare Rocket Loader rewrites script types and defers them — it delayed the theme script past first paint. Rocket Loader and Email Obfuscation are **off** for the `morgunov.tech` zone (Email Obfuscation rewrites every `mailto:` into `/cdn-cgi/l/email-protection` + a decode script); the attribute keeps the site correct if they are ever switched back on.
 
 ## Performance Conventions
 
@@ -157,7 +158,7 @@ together with check-sync before committing anything that touches CSS.
 - `.section` uses `content-visibility: auto` — below-fold sections skip layout/paint until scrolled into view
 - Scroll handlers must use rAF throttling, never raw scroll events
 - `_headers` defines `Cache-Control: immutable` (1 year) for images, fonts, `/ds/*`, `styles.css`, and `script.js` — the latter two are safe to cache forever because every reference carries a content-hash `?v=` minted by `scripts/version-stamp.py`
-- `_routes.json` excludes all static assets from Pages Functions — they serve from the CDN without a worker invocation. `/llms.txt` and `/404` are Functions (live counters / real 404 status) and therefore not excluded
+- Pages never CDN-caches a URL with a query string, so a zone **Cache Rule** («s.morgunov.tech versioned assets (?v=) eligible for cache»: host `s.morgunov.tech`, path `/ds/*` or `/styles.css` `/script.js` `/admin-app.js` `/admin-app.css`) marks them eligible; the query string stays in the cache key, so a new `?v=` is a new object. Function-rendered HTML always reports `cf-cache-status: DYNAMIC` — its cache is `x-edge-cache`, which zone analytics do not count. `_routes.json` excludes all static assets from Pages Functions — they serve from the CDN without a worker invocation. `/llms.txt` and `/404` are Functions (live counters / real 404 status) and therefore not excluded
 
 ## SEO / Meta
 
