@@ -58,6 +58,21 @@ about-me-page/
 
 There is no CI/CD pipeline, no GitHub Actions, no build scripts.
 
+### Release flow
+
+1. Work on a branch (worktrees under `.claude/worktrees/`); `main` is production.
+2. `python3 scripts/version-stamp.py` when any stamped asset changed, then `scripts/check.sh` (full, with the Functions build).
+3. Add the `CHANGELOG.md` entry (next patch/minor version) in the same commit.
+4. Push the branch → `gh pr create` → squash-merge. Every push also builds a Cloudflare **Preview** deployment for the branch.
+5. Verify production, not just the merge: `npx wrangler pages deployment list --project-name about-me-page` shows the Production row for the commit; then check the live page (the footer build hash is the deployed commit; Function-rendered HTML sits in the edge cache up to 300 s — look at `x-edge-cache`).
+6. Read-only checks of real content: `npx wrangler kv key get --binding CONTENT "s.morgunov.tech:<page>" --remote` (KV wins over `content.seed.json`).
+
+Accounts: `gh` (morgunovtech, `repo` scope) and `wrangler login` (OAuth, expires — re-run `npx wrangler login` when `whoami` says not logged in). Secrets are set by the owner with `wrangler pages secret put`, never by an agent.
+
+### Design system of record
+
+Claude Design project «morgunov.tech Design System» (`fb2dcd4c-710d-43e3-8d7d-c9a0ce7e1bab`), imported from this repo. Read/write it with DesignSync (needs `/design-login` in an interactive `claude`); its `github.md` is the sync log — append an entry on every sync. Its `tokens/` + `css/{base,components,pages}.css` mirror `ds/v1` + `styles.css`: a change to either side is a sync item.
+
 ### One-command verification
 
 `scripts/check.sh` runs everything below in order: `node --check` on all JS, `node --test`, RU↔EN sync, critical-CSS drift, the static-twin check, and (unless `NO_BUILD=1`) `wrangler pages functions build`. Run it before every commit.
