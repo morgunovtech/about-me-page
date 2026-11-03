@@ -7,7 +7,7 @@ import { renderArticleJsonLd } from './jsonld.js';
 import { overlay } from './overlay.js';
 import { articleShell } from './article-template.js';
 import { loadArticle } from './articles.js';
-import { ORIGIN, NAME, buildOf, buildUrl } from './site.js';
+import { ORIGIN, NAME, buildOf } from './site.js';
 
 function dateDisplay(date, lang) {
   if (!date) return '';
@@ -32,7 +32,6 @@ export async function notFound(env, request) {
     const build = buildOf(env);
     const page = new HTMLRewriter()
       .on('[data-cms-text="_build"]', { element(el) { el.setInnerContent(build); } })
-      .on('[data-cms-href="_buildUrl"]', { element(el) { el.setAttribute('href', buildUrl(build)); } })
       .transform(new Response(r.body, r));
     return new Response(request.method === 'HEAD' ? null : page.body, {
       status: 404,
@@ -68,7 +67,6 @@ export async function renderArticlePage(env, slug, lang, request, opts = {}) {
   doc._noEn = !(nonEmpty(doc.title && doc.title.en) && nonEmpty(doc.body && doc.body.en));
   doc._dateDisplay = dateDisplay(doc.date, lang);
   doc._build = buildOf(env);
-  doc._buildUrl = buildUrl(doc._build);
   // <time> needs a machine-readable datetime next to the localized text.
   doc._dateHtml = doc.date
     ? `<time datetime="${escapeAttr(doc.date)}">${escapeHtml(doc._dateDisplay)}</time>`

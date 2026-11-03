@@ -15,4 +15,3 @@ export function buildOf(env) {
   const sha = env && env.CF_PAGES_COMMIT_SHA;
   return typeof sha === 'string' && /^[0-9a-f]{7,40}$/i.test(sha) ? sha.slice(0, 7).toLowerCase() : BUILD;
 }
-export const buildUrl = (sha) => `https://github.com/morgunovtech/about-me-page/commit/${sha}`;

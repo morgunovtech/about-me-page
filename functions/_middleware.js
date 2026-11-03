@@ -9,7 +9,7 @@ import { loadDoc, loadSubscribers } from './_lib/content.js';
 import { overlay } from './_lib/overlay.js';
 import { renderPageJsonLd } from './_lib/jsonld.js';
 import { cached } from './_lib/cache.js';
-import { buildOf, buildUrl } from './_lib/site.js';
+import { buildOf } from './_lib/site.js';
 import { withSecurityHeaders } from './_lib/http.js';
 
 // Keys are the clean URLs Pages actually serves (it 308-redirects /foo.html → /foo,
@@ -26,8 +26,7 @@ const ROUTES = {
 };
 
 // The deploy output IS the repo root, so tracked internal files ship as
-// static assets. None of them belong on the public origin (the GitHub repo
-// is public — this is surface reduction, not secret-keeping). Entries ending
+// static assets. None of them belong on the public origin. Entries ending
 // with '/' block the whole prefix.
 const BLOCKED = [
   '/content.seed.json', // internal render fallback, not a public endpoint
@@ -93,7 +92,6 @@ export async function onRequest(context) {
     if (!doc) return response; // no content anywhere → serve the static template
     if (subs) doc._live = { subscribers: subs };
     doc._build = buildOf(env);
-    doc._buildUrl = buildUrl(doc._build);
 
     const transformed = overlay(response, doc, route.lang, false, (d, l) => renderPageJsonLd(d, l, route.page));
     const headers = new Headers(transformed.headers);

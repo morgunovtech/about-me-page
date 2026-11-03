@@ -3,7 +3,6 @@
 
 Stamping passes (SHA, asset ?v=, image ?v=, the notes shell, site.js BUILD, seed images):
   1. **Build SHA** in the footer:
-       …/morgunovtech/about-me-page/commit/<SHA>
        <code>SHA</code>
      Run before pushing so the deployed footer matches HEAD.
 
@@ -68,9 +67,6 @@ IMAGE_GLOBS = ["images/uses/*.webp"]
 IMAGE_PATTERN = re.compile(
     r'(/images/uses/)([^"?\s]+\.webp)\?v=[0-9a-fA-F]+'
 )
-PATTERN_URL = re.compile(
-    r"(/morgunovtech/about-me-page/commit/)[0-9a-f]{7,40}"
-)
 PATTERN_CODE = re.compile(r"(<code(?: [^>]*)?>)[0-9a-f]{7,40}(</code>)")
 
 
@@ -122,8 +118,7 @@ def main() -> int:
             print(f"  SKIP    {rel}")
             continue
         text = path.read_text(encoding="utf-8")
-        new_text, n_url = PATTERN_URL.subn(rf"\g<1>{sha}", text)
-        new_text, n_code = PATTERN_CODE.subn(rf"\g<1>{sha}\g<2>", new_text)
+        new_text, n_code = PATTERN_CODE.subn(rf"\g<1>{sha}\g<2>", text)
         n_assets = 0
         for name, pat in ASSETS:
             h = asset_hashes.get(name)
@@ -132,15 +127,15 @@ def main() -> int:
             new_text, n = pat.subn(rf"\g<1>{h}", new_text)
             n_assets += n
         new_text, n_images = stamp_images(new_text)
-        if n_url == 0 and n_code == 0 and n_assets == 0 and n_images == 0:
+        if n_code == 0 and n_assets == 0 and n_images == 0:
             print(f"  NO-OP   {rel}")
             continue
         path.write_text(new_text, encoding="utf-8")
         print(
             f"  STAMPED {rel} "
-            f"(sha-url:{n_url}, sha-code:{n_code}, assets:{n_assets}, images:{n_images})"
+            f"(sha-code:{n_code}, assets:{n_assets}, images:{n_images})"
         )
-        total += n_url + n_code + n_assets + n_images
+        total += n_code + n_assets + n_images
 
     # Pass 4: the article/notes shell embeds the same cache-busters as JS string
     # constants (functions/_lib/article-template.js). It isn't an HTML file, so
@@ -149,8 +144,7 @@ def main() -> int:
     if tmpl.exists() and asset_hashes:
         text = tmpl.read_text(encoding="utf-8")
         n = 0
-        # The shell's footer carries the same build link as the static pages.
-        text, k = PATTERN_URL.subn(rf"\g<1>{sha}", text); n += k
+        # The shell's footer carries the same build hash as the static pages.
         text, k = PATTERN_CODE.subn(rf"\g<1>{sha}\g<2>", text); n += k
         if asset_hashes.get("styles.css"):
             text, k = re.subn(r"(STYLES_VER = 'v=)[0-9a-fA-F]+(')", rf"\g<1>{asset_hashes['styles.css']}\g<2>", text)
