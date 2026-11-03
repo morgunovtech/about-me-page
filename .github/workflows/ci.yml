@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    name: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      # node --check, node --test, RU/EN parity, critical CSS, static twins.
+      # NO_BUILD=1: the script bundles Functions with `npx --offline`, which has
+      # no cache on a fresh runner — the next step bundles them online instead.
+      - run: NO_BUILD=1 bash scripts/check.sh
+      - name: Bundle Functions the way Pages does
+        run: npx --yes wrangler@4 pages functions build --outdir "$RUNNER_TEMP/fnbuild"

@@ -1,0 +1,9 @@
+# The site has no package manager (no npm, no package.json), so the only
+# dependencies to keep fresh are the Actions in CI. CI checks the PR;
+# nothing merges automatically.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
