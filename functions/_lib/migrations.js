@@ -13,26 +13,46 @@ const clone = (v) => JSON.parse(JSON.stringify(v));
 // is never touched again: renaming or deleting a card later sticks.
 export const MIGRATION = 30;
 
-// The ask@ address never received mail, yet it shipped inside stored CTA hrefs
-// and prose, so a doc saved before v0.30.1 keeps serving a dead `mailto:` even
-// after the templates were fixed — KV wins over the seed until someone re-saves
-// in /admin. Unlike the numbered migrations above this one is deliberately NOT
-// gated by MIGRATION: it is a pure string swap, idempotent and safe to re-run
-// on every read, so it needs none of the "don't touch an edited doc" ceremony.
-// Walks every leaf, `href` included — that is exactly where the address lives.
-const DEAD_CONTACT = 'ask@morgunov.tech';
-const LIVE_CONTACT = 's@morgunov.tech';
+// Content that went dead after it was saved: a doc saved to KV before the
+// templates and the seed were fixed keeps serving it — KV wins over the seed
+// until someone re-saves in /admin. Unlike the numbered migrations above these
+// swaps are deliberately NOT gated by MIGRATION: each is a pure string swap,
+// idempotent and safe to re-run on every read, so it needs none of the "don't
+// touch an edited doc" ceremony. Walks every leaf, `href` included — that is
+// exactly where the links live.
+const STALE = [
+  // v0.30.1: the ask@ address never received mail.
+  ['ask@morgunov.tech', 's@morgunov.tech'],
+  // v0.30.4: the repo is private, so the footer no longer links the commit and
+  // /about stops promising an open repo.
+  ['Репозиторий открыт, build hash в футере кликабельный на коммит в GitHub. Каждый может увидеть, что и когда менялось.',
+    'Build hash в футере — коммит, который сейчас в продакшене.'],
+  ['Repo is open, the build hash in the footer links to the commit on GitHub. Anyone can see what changed and when.',
+    'The build hash in the footer is the commit currently in production.'],
+  [' в футере кликабельный GitHub)', ' в футере)'],
+  [' в футере, кликабельный на коммит в GitHub)', ' в футере)'],
+  [' in the footer, clickable through to the commit on GitHub)', ' in the footer)'],
+  [' Репозиторий открыт; если хотите завести issue или PR — добро пожаловать.', ''],
+  [' The repo is open; if you want to file an issue or a PR — welcome.', ''],
+  // v0.30.4: korzinka.uz/go answers 502 — the homepage is the stable address.
+  [/https:\/\/korzinka\.uz\/go\b/g, 'https://korzinka.uz'],
+  // v0.30.4: umaigroup.kg/en/about is gone — link its Wayback snapshot. The
+  // lookbehind keeps this idempotent: the snapshot URL ends with the old one.
+  [/(?<!\/)https:\/\/www\.umaigroup\.kg\/en\/about/g,
+    'https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about'],
+];
 
-export function fixDeadContact(node) {
+export function fixStaleContent(node) {
   if (Array.isArray(node)) {
-    node.forEach(fixDeadContact);
+    node.forEach(fixStaleContent);
     return node;
   }
   if (!node || typeof node !== 'object') return node;
   for (const [k, v] of Object.entries(node)) {
     if (typeof v === 'string') {
-      if (v.includes(DEAD_CONTACT)) node[k] = v.split(DEAD_CONTACT).join(LIVE_CONTACT);
-    } else fixDeadContact(v);
+      const fixed = STALE.reduce((s, [from, to]) => s.replaceAll(from, to), v);
+      if (fixed !== v) node[k] = fixed;
+    } else fixStaleContent(v);
   }
   return node;
 }

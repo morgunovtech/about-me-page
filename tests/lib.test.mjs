@@ -337,10 +337,10 @@ test('migrations run once: a renamed or deleted card is not resurrected after th
   assert.equal(about.migration, 30);
 });
 
-/* --- v0.30.1: the dead ask@ address is rewritten at read time --- */
-import { fixDeadContact } from '../functions/_lib/migrations.js';
+/* --- v0.30.1 / v0.30.4: dead content is rewritten at read time --- */
+import { fixStaleContent } from '../functions/_lib/migrations.js';
 
-test('fixDeadContact rewrites the dead address in hrefs, prose and arrays', () => {
+test('fixStaleContent rewrites the dead address in hrefs, prose and arrays', () => {
   const doc = {
     migration: 30, // already at the marker: the numbered gate must not shield this
     hero: { ctas: { ru: '<a href="mailto:ask@morgunov.tech">Написать</a>', en: null } },
@@ -350,7 +350,7 @@ test('fixDeadContact rewrites the dead address in hrefs, prose and arrays', () =
     },
     keep: 'mailto:s@morgunov.tech',
   };
-  fixDeadContact(doc);
+  fixStaleContent(doc);
   assert.equal(doc.hero.ctas.ru, '<a href="mailto:s@morgunov.tech">Написать</a>');
   assert.equal(doc.sections.angel.items[0].href, 'mailto:s@morgunov.tech?subject=Pitch');
   assert.equal(doc.sections.prose.ru, 'Пишите на s@morgunov.tech или в Telegram.');
@@ -359,9 +359,49 @@ test('fixDeadContact rewrites the dead address in hrefs, prose and arrays', () =
   assert.equal(doc.migration, 30, 'must not touch the migration marker');
 });
 
-test('fixDeadContact is idempotent and survives odd input', () => {
+test('fixStaleContent is idempotent and survives odd input', () => {
   const doc = { a: { b: 'ask@morgunov.tech ask@morgunov.tech' } };
-  assert.deepEqual(fixDeadContact(fixDeadContact(doc)), { a: { b: 's@morgunov.tech s@morgunov.tech' } });
-  assert.equal(fixDeadContact(null), null);
-  assert.equal(fixDeadContact('ask@morgunov.tech'), 'ask@morgunov.tech'); // scalars pass through
+  assert.deepEqual(fixStaleContent(fixStaleContent(doc)), { a: { b: 's@morgunov.tech s@morgunov.tech' } });
+  assert.equal(fixStaleContent(null), null);
+  assert.equal(fixStaleContent('ask@morgunov.tech'), 'ask@morgunov.tech'); // scalars pass through
+});
+
+test('fixStaleContent swaps the dead links stored in KV', () => {
+  const doc = {
+    career: { company: { ru: '[Korzinka](https://korzinka.uz/go)', en: '[Korzinka](https://korzinka.uz/go)' } },
+    prose: { ru: 'Среди клиентов [UMAI Group](https://www.umaigroup.kg/en/about), [Bellissimo](https://bellissimo.uz/ru/about/company)' },
+    keep: 'https://korzinka.uz/good https://umaigroup.kg/en/about',
+  };
+  fixStaleContent(doc);
+  assert.equal(doc.career.company.ru, '[Korzinka](https://korzinka.uz)');
+  assert.equal(doc.career.company.en, '[Korzinka](https://korzinka.uz)');
+  assert.equal(doc.prose.ru, 'Среди клиентов [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo](https://bellissimo.uz/ru/about/company)');
+  assert.equal(doc.keep, 'https://korzinka.uz/good https://umaigroup.kg/en/about');
+  // The snapshot URL ends with the old one: a second pass must not nest it.
+  const once = JSON.stringify(doc);
+  assert.equal(JSON.stringify(fixStaleContent(doc)), once);
+});
+
+test('fixStaleContent drops the «repo is open» promises on /about', () => {
+  const doc = {
+    ethics: {
+      ru: '<li><strong>Transparency.</strong> Репозиторий открыт, build hash в футере кликабельный на коммит в GitHub. Каждый может увидеть, что и когда менялось. Аффилиатные ссылки на /uses помечены и раскрыты.</li>',
+      en: '<li><strong>Transparency.</strong> Repo is open, the build hash in the footer links to the commit on GitHub. Anyone can see what changed and when. Affiliate links on /uses are marked and disclosed.</li>',
+    },
+    product: {
+      ru: '- У сайта есть билд (`BUILD 3cd8687` в футере кликабельный GitHub)',
+      en: 'a build (<code>BUILD&nbsp;3cd8687</code> in the footer, clickable through to the commit on GitHub), a backlog',
+    },
+    living: {
+      ru: 'кнопкой «Нашли опечатку?» . Репозиторий открыт; если хотите завести issue или PR — добро пожаловать.',
+      en: 'opens a direct channel. The repo is open; if you want to file an issue or a PR — welcome.',
+    },
+  };
+  fixStaleContent(doc);
+  assert.equal(doc.ethics.ru, '<li><strong>Transparency.</strong> Build hash в футере — коммит, который сейчас в продакшене. Аффилиатные ссылки на /uses помечены и раскрыты.</li>');
+  assert.equal(doc.ethics.en, '<li><strong>Transparency.</strong> The build hash in the footer is the commit currently in production. Affiliate links on /uses are marked and disclosed.</li>');
+  assert.equal(doc.product.ru, '- У сайта есть билд (`BUILD 3cd8687` в футере)');
+  assert.equal(doc.product.en, 'a build (<code>BUILD&nbsp;3cd8687</code> in the footer), a backlog');
+  assert.equal(doc.living.ru, 'кнопкой «Нашли опечатку?» .');
+  assert.equal(doc.living.en, 'opens a direct channel.');
 });

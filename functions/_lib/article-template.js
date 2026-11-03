@@ -180,15 +180,15 @@ ${themeMenu(l)}
     </header>`;
 }
 
-// Same footer as the static pages. The build link shows the deployed commit:
-// the article shell gets it via overlay (_build/_buildUrl), the server-built
+// Same footer as the static pages. The build hash shows the deployed commit:
+// the article shell gets it via overlay (_build), the server-built
 // notes index receives it as `build`; the literal is the stamped fallback.
 function footChrome(lang, build) {
   const l = L(lang);
   const t = T[l];
   const sha = build || BUILD;
   return `    <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · build&nbsp;<a href="https://github.com/morgunovtech/about-me-page/commit/${sha}" data-cms-href="_buildUrl" target="_blank" rel="noopener noreferrer"><code data-cms-text="_build">${sha}</code></a> · <a href="${p(l, '/notes')}">${t.notesFoot}</a> · <a href="${p(l, '/about')}">${t.principles}</a> · <a href="${p(l, '/uses')}">${t.uses}</a> · <a href="mailto:s@morgunov.tech?subject=${encodeURIComponent(t.typoSubject)}">${t.typo}</a></span>
+      <span>morgunov.tech · 2026 · build&nbsp;<code data-cms-text="_build">${sha}</code> · <a href="${p(l, '/notes')}">${t.notesFoot}</a> · <a href="${p(l, '/about')}">${t.principles}</a> · <a href="${p(l, '/uses')}">${t.uses}</a> · <a href="mailto:s@morgunov.tech?subject=${encodeURIComponent(t.typoSubject)}">${t.typo}</a></span>
       <span class="v4-foot-privacy">${t.privacy}</span>
     </footer>`;
 }
