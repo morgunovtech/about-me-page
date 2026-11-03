@@ -1,15 +1,15 @@
 # morgunov.tech
 
-Personal homepage for Semyon Morgunov — Head of FinTech @ Yandex Uzbekistan.
+Source of Semyon Morgunov's personal site: zero-build static pages, an edge CMS on Cloudflare Pages, KV and R2, and the morgunov.tech design system that other projects reuse.
 
-Live at **[s.morgunov.tech](https://s.morgunov.tech)** · also reachable on the apex `morgunov.tech`.
+Live at **[s.morgunov.tech](https://s.morgunov.tech)** · also reachable on the apex `morgunov.tech` · **License:** MIT (code)
 
 ## Stack
 
 Pure static HTML/CSS/JS. **No build step, no npm, no framework.** Hosted on Cloudflare Pages.
 
 - 9 HTML pages — home, collaborate, about, uses (RU + EN twins) and `404.html`; plus the `/notes` shells rendered by Pages Functions
-- A versioned design-system layer `ds/v1/` (fonts, tokens for 4 themes, base, components) + `styles.css` for page layout
+- A versioned design-system layer `ds/v1/` (fonts, tokens for 4 themes, base, components) + `styles.css` for page layout. Other projects load it straight from `https://s.morgunov.tech/ds/v1/` — [Found You](https://github.com/morgunovtech/FoundYou) and [Good Pass](https://github.com/morgunovtech/good-pass); see [`ds/v1/USAGE.md`](ds/v1/USAGE.md)
 - One script — `script.js` (single IIFE, no dependencies, ≈ 370 lines)
 - Self-hosted IBM Plex Sans + Plex Mono (latin + cyrillic woff2 subsets, `font-display: swap`)
 - Cloudflare config: [`_headers`](_headers), [`_routes.json`](_routes.json), [`_redirects`](_redirects)
@@ -49,7 +49,8 @@ python3 scripts/version-stamp.py           # build SHA + content-hash ?v= cache 
 ```
 
 Run `check.sh` before any commit — it catches an extra section in RU that's missing in EN,
-a stale inline critical rule, or a template that no longer matches the renderer.
+a stale inline critical rule, or a template that no longer matches the renderer. CI runs the
+same checks, the Functions build and a gitleaks secret scan on every pull request.
 
 ## Admin / CMS
 
@@ -82,7 +83,11 @@ Add a gitignored `.dev.vars` with `ADMIN_PASSWORD_HASH`, `SESSION_SECRET`, and o
 
 ### SocialBot (live subscriber numbers)
 
-The site exposes `POST /api/ingest/subscribers` (header `Authorization: Bearer <SOCIALBOT_INGEST_TOKEN>`, body `{telegram, youtube, linkedin, updatedAt}`) → KV `stats:subscribers`. The bot (separate Railway repo) pushes on its own schedule; set the same token as a Railway env var. The site only reads; the bot only writes. No cron on the site.
+The site exposes `POST /api/ingest/subscribers` (header `Authorization: Bearer <SOCIALBOT_INGEST_TOKEN>`, body `{telegram, youtube, linkedin, updatedAt}`) → KV `stats:subscribers`. The bot ([social-tracker-bot](https://github.com/morgunovtech/social-tracker-bot), on Railway) pushes on its own schedule; set the same token as a Railway env var. The site only reads; the bot only writes. No cron on the site.
+
+## Built with
+
+Designed and built by Semyon Morgunov with Claude Code as pair programmer.
 
 ## License
 
