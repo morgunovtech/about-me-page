@@ -87,4 +87,5 @@ The site exposes `POST /api/ingest/subscribers` (header `Authorization: Bearer <
 ## License
 
 [MIT](LICENSE) for the code. Personal content (text, portrait photo, OG cards) is
-© 2026 Semyon Morgunov, all rights reserved.
+© 2026 Semyon Morgunov, all rights reserved. The IBM Plex fonts in `fonts/` are
+© IBM Corp. under the SIL Open Font License 1.1 — [fonts/OFL.txt](fonts/OFL.txt).

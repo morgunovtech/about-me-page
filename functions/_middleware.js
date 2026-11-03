@@ -11,6 +11,7 @@ import { renderPageJsonLd } from './_lib/jsonld.js';
 import { cached } from './_lib/cache.js';
 import { buildOf } from './_lib/site.js';
 import { withSecurityHeaders } from './_lib/http.js';
+import { notFound } from './_lib/render-article.js';
 
 // Keys are the clean URLs Pages actually serves (it 308-redirects /foo.html → /foo,
 // /index.html → /). The .html paths never reach here as HTML.
@@ -32,6 +33,7 @@ const BLOCKED = [
   '/content.seed.json', // internal render fallback, not a public endpoint
   '/CLAUDE.md',
   '/CHANGELOG.md',
+  '/README.md',
   '/wrangler.toml',
   '/.gitignore',
   '/scripts/',
@@ -74,7 +76,15 @@ export async function onRequest(context) {
     // its own strict CSP inline).
     // Route-specific CSPs (admin shell, login, /assets) are set by the route
     // and win — withSecurityHeaders only fills what is missing.
-    return withSecurityHeaders(await next());
+    const res = await next();
+    // An unknown path gets Pages' static 404.html as is: the stamped build and
+    // the site-wide `index, follow`. Serve it the way /404 does — deployed
+    // build, noindex — unless a Function already built its own 404 page.
+    if (res.status === 404 && (res.headers.get('content-type') || '').includes('text/html')
+        && res.headers.get('x-robots-tag') !== 'noindex') {
+      return withSecurityHeaders(await notFound(env, request));
+    }
+    return withSecurityHeaders(res);
   }
 
   // Edge-cached: a rendered copy per URL, purged by admin save / ingest.
