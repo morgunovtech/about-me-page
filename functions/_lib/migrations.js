@@ -40,6 +40,9 @@ const STALE = [
   // lookbehind keeps this idempotent: the snapshot URL ends with the old one.
   [/(?<!\/)https:\/\/www\.umaigroup\.kg\/en\/about/g,
     'https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about'],
+  // v0.30.5: /about named a literal «BUILD 3cd8687» that every deploy left
+  // stale — the hash is not content, `{build}` resolves to the deployed one.
+  [/(<code>BUILD(?:&nbsp;| | ))[0-9a-f]{7,40}(<\/code>)/g, '$1{build}$2'],
 ];
 
 export function fixStaleContent(node) {

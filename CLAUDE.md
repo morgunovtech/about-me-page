@@ -32,13 +32,14 @@ about-me-page/
 ├── _routes.json        # Cloudflare: static paths excluded from Functions (CDN-cacheable, no invocations)
 ├── _redirects          # Cloudflare: real redirects only (none today — Pages handles clean URLs itself)
 ├── robots.txt          # Allows all crawlers, references sitemap
-├── 404.html            # V4-styled 404 page (bilingual; functions/404.js serves it with a real 404 status)
+├── 404.html            # V4-styled 404 page (bilingual; functions/404.js serves it with a real 404 status, _middleware.js does the same for every unknown path)
 ├── yandex_c8faae431964bcca.html  # Yandex Search ownership verification
 ├── fonts/                         # Self-hosted IBM Plex woff2 (latin + cyrillic subsets)
 │   ├── plex-sans-latin-{400,500,600}.woff2
 │   ├── plex-sans-cyr-{400,500,600}.woff2
 │   ├── plex-mono-latin-{400,500}.woff2
-│   └── plex-mono-cyr-{400,500}.woff2
+│   ├── plex-mono-cyr-{400,500}.woff2
+│   └── OFL.txt                    # SIL OFL 1.1 for IBM Plex — ships with the fonts, as the OFL requires
 └── images/
     ├── Hero_Photo.webp            # Main portrait 1600x1067 (LCP element)
     ├── Hero_Photo_320.webp        # 320w variant for srcset

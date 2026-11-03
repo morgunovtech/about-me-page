@@ -389,7 +389,7 @@ test('fixStaleContent drops the «repo is open» promises on /about', () => {
       en: '<li><strong>Transparency.</strong> Repo is open, the build hash in the footer links to the commit on GitHub. Anyone can see what changed and when. Affiliate links on /uses are marked and disclosed.</li>',
     },
     product: {
-      ru: '- У сайта есть билд (`BUILD 3cd8687` в футере кликабельный GitHub)',
+      ru: '- У сайта есть билд (<code>BUILD 3cd8687</code> в футере кликабельный GitHub)',
       en: 'a build (<code>BUILD&nbsp;3cd8687</code> in the footer, clickable through to the commit on GitHub), a backlog',
     },
     living: {
@@ -400,8 +400,19 @@ test('fixStaleContent drops the «repo is open» promises on /about', () => {
   fixStaleContent(doc);
   assert.equal(doc.ethics.ru, '<li><strong>Transparency.</strong> Build hash в футере — коммит, который сейчас в продакшене. Аффилиатные ссылки на /uses помечены и раскрыты.</li>');
   assert.equal(doc.ethics.en, '<li><strong>Transparency.</strong> The build hash in the footer is the commit currently in production. Affiliate links on /uses are marked and disclosed.</li>');
-  assert.equal(doc.product.ru, '- У сайта есть билд (`BUILD 3cd8687` в футере)');
-  assert.equal(doc.product.en, 'a build (<code>BUILD&nbsp;3cd8687</code> in the footer), a backlog');
+  assert.equal(doc.product.ru, '- У сайта есть билд (<code>BUILD {build}</code> в футере)');
+  assert.equal(doc.product.en, 'a build (<code>BUILD&nbsp;{build}</code> in the footer), a backlog');
   assert.equal(doc.living.ru, 'кнопкой «Нашли опечатку?» .');
   assert.equal(doc.living.en, 'opens a direct channel.');
+});
+
+test('fixStaleContent turns a literal BUILD hash into {build}, and only inside <code>BUILD …</code>', () => {
+  const doc = {
+    a: '<code>BUILD 3cd8687</code> · <code>BUILD&nbsp;abcdef0123</code>',
+    keep: 'Build <code>3cd8687</code> and BUILD 3cd8687 in plain text',
+  };
+  fixStaleContent(doc);
+  assert.equal(doc.a, '<code>BUILD {build}</code> · <code>BUILD&nbsp;{build}</code>');
+  assert.equal(doc.keep, 'Build <code>3cd8687</code> and BUILD 3cd8687 in plain text');
+  assert.equal(JSON.stringify(fixStaleContent(doc)), JSON.stringify(doc));
 });
