@@ -23,3 +23,21 @@ jobs:
       - run: NO_BUILD=1 bash scripts/check.sh
       - name: Bundle Functions the way Pages does
         run: npx --yes wrangler@4 pages functions build --outdir "$RUNNER_TEMP/fnbuild"
+
+  # Private repos on the free plan get no GitHub secret scanning; gitleaks
+  # scans the whole history instead.
+  secrets:
+    name: secrets
+    # The action lists the PR's commits through the API; the default token
+    # cannot read pull requests.
+    permissions:
+      contents: read
+      pull-requests: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
