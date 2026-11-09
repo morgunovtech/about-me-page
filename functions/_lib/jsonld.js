@@ -6,7 +6,6 @@ import { pick } from './i18n.js';
 import { ORIGIN } from './site.js';
 
 const HERO_IMAGE = ORIGIN + '/images/Hero_Photo.webp';
-const EMAIL = 's@morgunov.tech';
 // First commit of the site (v0.1) — ProfilePage.dateCreated.
 const SITE_LAUNCHED = '2025-10-07';
 
@@ -44,7 +43,6 @@ export function renderJsonLd(doc, lang) {
     // (the WebPage node carries the language-specific url).
     url: ORIGIN + '/',
     image: HERO_IMAGE,
-    email: EMAIL,
     knowsLanguage: ['ru', 'en'],
     knowsAbout: seo.knowsAbout,
     sameAs: seo.sameAs,

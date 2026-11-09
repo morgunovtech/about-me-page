@@ -75,8 +75,9 @@ export async function renderSitemap(env) {
   // must not point at redirects. lastmod for CMS-managed pages comes from
   // the live KV doc (save.js bumps dateModified on every admin save), so
   // the sitemap agrees with the JSON-LD freshness signal without a redeploy.
-  const [home, collaborate, about, uses] = await Promise.all(
-    ['home', 'collaborate', 'about', 'uses'].map((p) => loadDoc(env, p))
+  // /about («Принципы») is hidden until the owner rewrites it: noindex, not listed.
+  const [home, collaborate, uses] = await Promise.all(
+    ['home', 'collaborate', 'uses'].map((p) => loadDoc(env, p))
   );
   const mod = (doc, fallback) =>
     (doc && (doc.dateModified || (doc.updatedAt || '').slice(0, 10))) || fallback;
@@ -91,8 +92,6 @@ export async function renderSitemap(env) {
     { loc: '/en/collaborate', ru: '/collaborate', en: '/en/collaborate', lastmod: mod(collaborate, '2026-05-04') },
     { loc: '/uses', ru: '/uses', en: '/en/uses', lastmod: mod(uses, '2026-05-11') },
     { loc: '/en/uses', ru: '/uses', en: '/en/uses', lastmod: mod(uses, '2026-05-11') },
-    { loc: '/about', ru: '/about', en: '/en/about', lastmod: mod(about, '2026-05-11') },
-    { loc: '/en/about', ru: '/about', en: '/en/about', lastmod: mod(about, '2026-05-11') },
     { loc: '/notes', ru: '/notes', en: '/en/notes', lastmod: notesMod },
     { loc: '/en/notes', ru: '/notes', en: '/en/notes', lastmod: notesMod },
   ];

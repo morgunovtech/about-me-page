@@ -1010,8 +1010,8 @@
         },
         "kind": "products",
         "intro": {
-          "ru": "Сервисы, которыми пользуюсь регулярно. Платные — со скидками по моей ссылке, если оформите подписку: бонус и вам, и мне.",
-          "en": "Services I use regularly. Paid ones — discounted via my link, if you sign up: a small bonus for both of us."
+          "ru": "Сервисы, которыми пользуюсь регулярно. Ссылки обычные, не партнёрские; у Airalo есть промокод — он даёт $3 на первую покупку.",
+          "en": "Services I use regularly. Plain links, no affiliate programs; Airalo has a promo code worth $3 off the first purchase."
         },
         "cards": [
           {
@@ -1030,8 +1030,8 @@
             },
             "cta": {
               "label": {
-                "ru": "6 месяцев premium →",
-                "en": "6 months premium →"
+                "ru": "Попробовать →",
+                "en": "Try it →"
               },
               "href": "https://www.dashlane.com/"
             }
@@ -1481,8 +1481,8 @@
             },
             "kind": "prose",
             "prose": {
-              "ru": "Фаундерам с адекватными амбициями, валидированной гипотезой и прозрачной юрисдикцией.\n\nДостаточно короткого письма: что делаете, на каком этапе, сколько ищете, ссылка на MVP.",
-              "en": "Founders with realistic ambitions, a validated hypothesis, and a transparent jurisdiction.\n\nA short note is enough: what you're building, what stage you're at, how much you're raising, link to MVP."
+              "ru": "Фаундерам с адекватными амбициями, валидированной гипотезой и прозрачной юрисдикцией.\n\nДостаточно короткого сообщения в Telegram: что делаете, на каком этапе, сколько ищете, ссылка на MVP.",
+              "en": "Founders with realistic ambitions, a validated hypothesis, and a transparent jurisdiction.\n\nA short Telegram message is enough: what you're building, what stage you're at, how much you're raising, link to MVP."
             }
           }
         ],
@@ -1491,7 +1491,7 @@
           "en": ""
         },
         "cta": {
-          "href": "mailto:s@morgunov.tech",
+          "href": "https://t.me/s_mrgnv",
           "label": {
             "ru": "Отправить питч →",
             "en": "Send a pitch →"
@@ -1560,17 +1560,10 @@
         },
         "ctas": [
           {
-            "href": "mailto:s@morgunov.tech",
+            "href": "https://t.me/s_mrgnv",
             "label": {
               "ru": "Написать →",
               "en": "Get in touch →"
-            }
-          },
-          {
-            "href": "https://t.me/s_mrgnv",
-            "label": {
-              "ru": "Telegram",
-              "en": "Telegram"
             }
           }
         ]

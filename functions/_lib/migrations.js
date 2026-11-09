@@ -21,8 +21,8 @@ export const MIGRATION = 31;
 // touch an edited doc" ceremony. Walks every leaf, `href` included — that is
 // exactly where the links live.
 const STALE = [
-  // v0.30.1: the ask@ address never received mail.
-  ['ask@morgunov.tech', 's@morgunov.tech'],
+  // (v0.30.1 swapped the dead ask@ address for s@; v0.31.2 removed e-mail
+  // from the site altogether — no KV doc holds either address.)
   // v0.30.4: the repo is private, so the footer no longer links the commit and
   // /about stops promising an open repo.
   ['Репозиторий открыт, build hash в футере кликабельный на коммит в GitHub. Каждый может увидеть, что и когда менялось.',

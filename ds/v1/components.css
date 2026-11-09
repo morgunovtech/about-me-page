@@ -188,6 +188,24 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   border-color: var(--v4-orange);
 }
 
+/* Touch target: the header controls are 36px on screen and 44px to a finger.
+   The hit area grows through a transparent ::after — padding would grow the
+   box itself and break the one-row bar. ≤640px the buttons are 44px anyway
+   (see the mobile bar below); the 12px gap between them keeps the grown
+   areas from overlapping. */
+@media (min-width: 641px) {
+  .v4-bar-btn,
+  .v4-icon-btn {
+    position: relative;
+  }
+  .v4-bar-btn::after,
+  .v4-icon-btn::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+  }
+}
+
 /* --- Theme button (icon-only) --- */
 
 .v4-icon-btn {
@@ -582,71 +600,6 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   text-transform: none;
 }
 
-/* --- Scroll-to-top button --- */
-
-.v4-scroll-top {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--v4-fg);
-  background: var(--v4-paper);
-  color: var(--v4-fg);
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  opacity: 0;
-  /* visibility (not display) keeps the invisible button
-     out of the Tab order; the delayed switch lets the fade-out play. */
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.2s ease, visibility 0s linear 0.2s, color 0.15s ease, border-color 0.15s ease, background-color 0.2s ease;
-  z-index: 9;
-  font-family: var(--v4-mono);
-  font-size: 16px;
-  padding: 0;
-}
-
-.v4-scroll-top.is-visible {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transition: opacity 0.2s ease, visibility 0s linear 0s, color 0.15s ease, border-color 0.15s ease, background-color 0.2s ease;
-}
-
-.v4-scroll-top:hover,
-.v4-scroll-top:focus-visible {
-  color: var(--v4-orange-text);
-}
-
-/* --- Mobile scroll progress bar ---
-   On ≤960px the right-column section nav is hidden, so a thin top-anchored
-   bar takes over as a "where am I in the document" cue. JS sets
-   transform: scaleX(scrollY / (scrollHeight - clientHeight)) — transform
-   stays on the compositor, unlike a width write which would force
-   layout + paint on every scroll frame. Above .v4-scroll-top (z:9),
-   below .skip-link (z:100). */
-
-.v4-scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  transform: scaleX(0);
-  transform-origin: 0 50%;
-  background: var(--v4-orange);
-  z-index: 11;
-  pointer-events: none;
-}
-
-@media (min-width: 961px) {
-  .v4-scroll-progress {
-    display: none;
-  }
-}
-
 /* --- Responsive shell (moved from styles.css so the layer is self-contained) --- */
 
 @media (max-width: 960px) {
@@ -688,8 +641,6 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
 @media print {
   .v4-bar-right,
   .v4-nav-toggle,
-  .v4-scroll-top,
-  .v4-scroll-progress,
   .skip-link {
     display: none !important;
   }

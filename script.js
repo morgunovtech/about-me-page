@@ -34,7 +34,6 @@
   );
 
   const themeButtons = Array.from(document.querySelectorAll('.v4-theme-btn'));
-  const scrollTopButton = document.querySelector('.v4-scroll-top');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const THEME_PREFERENCE_KEY = 'theme-preference';
@@ -281,7 +280,7 @@
         if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
         target.focus({ preventScroll: true });
         /* Read reduced-motion at click time — the preference can change
-           mid-session (scroll-to-top below reads it the same way). */
+           mid-session. */
         target.scrollIntoView({ behavior: prefersReducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
         /* Intentionally NOT writing the fragment to the URL: a hash sticks
            in the address bar and on next visit the browser auto-scrolls to
@@ -290,54 +289,4 @@
       }
     });
   });
-
-  /* --- Scroll-to-top --- */
-
-  const updateScrollTopVisibility = () => {
-    if (!scrollTopButton) return;
-    scrollTopButton.classList.toggle('is-visible', window.scrollY > 240);
-  };
-
-  scrollTopButton?.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: prefersReducedMotion.matches ? 'auto' : 'smooth' });
-  });
-
-  /* --- Mobile scroll progress bar ---
-     Hidden ≥961px via CSS. scaleX(ratio) stays on the compositor; a width
-     write would force layout + paint on every scroll frame. */
-
-  /* Gate on the INVERSE of the CSS hide query (min-width: 961px) so the two
-     stay complementary at fractional widths (zoom/dPR can land between
-     960 and 961px, where max-width: 960px would be false while the bar is
-     still visible). */
-  const scrollProgress = document.querySelector('.v4-scroll-progress');
-  const progressHidden = window.matchMedia('(min-width: 961px)');
-
-  const updateScrollProgress = () => {
-    if (!scrollProgress || progressHidden.matches) return;
-    const doc = document.documentElement;
-    const scrollable = doc.scrollHeight - doc.clientHeight;
-    const ratio = scrollable > 0 ? Math.min(1, window.scrollY / scrollable) : 0;
-    scrollProgress.style.transform = 'scaleX(' + ratio + ')';
-  };
-
-  /* Repaint once when the viewport crosses into the mobile range —
-     otherwise the bar would be stale until the next scroll. */
-  onMediaChange(progressHidden, updateScrollProgress);
-
-  let scrollTicking = false;
-  window.addEventListener('scroll', () => {
-    if (!scrollTicking) {
-      requestAnimationFrame(() => {
-        updateScrollTopVisibility();
-        updateScrollProgress();
-        scrollTicking = false;
-      });
-      scrollTicking = true;
-    }
-  }, { passive: true });
-
-  updateScrollTopVisibility();
-  updateScrollProgress();
-
 })();

@@ -343,30 +343,30 @@ test('migrations run once: a renamed or deleted card is not resurrected after th
 /* --- v0.30.1 / v0.30.4: dead content is rewritten at read time --- */
 import { fixStaleContent } from '../functions/_lib/migrations.js';
 
-test('fixStaleContent rewrites the dead address in hrefs, prose and arrays', () => {
+test('fixStaleContent rewrites stale content in hrefs, prose and arrays', () => {
   const doc = {
     migration: 30, // already at the marker: the numbered gate must not shield this
-    hero: { ctas: { ru: '<a href="mailto:ask@morgunov.tech">Написать</a>', en: null } },
+    hero: { ctas: { ru: '<a href="https://korzinka.uz/go">Korzinka</a>', en: null } },
     sections: {
-      angel: { items: [{ href: 'mailto:ask@morgunov.tech?subject=Pitch' }] },
-      prose: { ru: 'Пишите на ask@morgunov.tech или в Telegram.' },
+      career: { items: [{ href: 'https://korzinka.uz/go' }] },
+      prose: { ru: 'Среди клиентов Belissimo Pizza.' },
     },
-    keep: 'mailto:s@morgunov.tech',
+    keep: 'https://korzinka.uz',
   };
   fixStaleContent(doc);
-  assert.equal(doc.hero.ctas.ru, '<a href="mailto:s@morgunov.tech">Написать</a>');
-  assert.equal(doc.sections.angel.items[0].href, 'mailto:s@morgunov.tech?subject=Pitch');
-  assert.equal(doc.sections.prose.ru, 'Пишите на s@morgunov.tech или в Telegram.');
-  assert.equal(doc.keep, 'mailto:s@morgunov.tech');
+  assert.equal(doc.hero.ctas.ru, '<a href="https://korzinka.uz">Korzinka</a>');
+  assert.equal(doc.sections.career.items[0].href, 'https://korzinka.uz');
+  assert.equal(doc.sections.prose.ru, 'Среди клиентов Bellissimo Pizza.');
+  assert.equal(doc.keep, 'https://korzinka.uz');
   assert.equal(doc.hero.ctas.en, null);
   assert.equal(doc.migration, 30, 'must not touch the migration marker');
 });
 
 test('fixStaleContent is idempotent and survives odd input', () => {
-  const doc = { a: { b: 'ask@morgunov.tech ask@morgunov.tech' } };
-  assert.deepEqual(fixStaleContent(fixStaleContent(doc)), { a: { b: 's@morgunov.tech s@morgunov.tech' } });
+  const doc = { a: { b: 'Belissimo Belissimo' } };
+  assert.deepEqual(fixStaleContent(fixStaleContent(doc)), { a: { b: 'Bellissimo Bellissimo' } });
   assert.equal(fixStaleContent(null), null);
-  assert.equal(fixStaleContent('ask@morgunov.tech'), 'ask@morgunov.tech'); // scalars pass through
+  assert.equal(fixStaleContent('Belissimo'), 'Belissimo'); // scalars pass through
 });
 
 test('fixStaleContent swaps the dead links stored in KV', () => {
