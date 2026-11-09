@@ -1244,8 +1244,8 @@
               "en": "ONE-OFF"
             },
             "price": {
-              "ru": "$250 / **сессия**",
-              "en": "$250 / **SESSION**"
+              "ru": "$300 / **сессия**",
+              "en": "$300 / **SESSION**"
             },
             "name": {
               "ru": "Разовая консультация",
@@ -1296,8 +1296,8 @@
                 "en": "Up to 1 hour of preparation per session"
               },
               {
-                "ru": "Async-поддержка между сессиями (ответ в течение 10 рабочих часов)",
-                "en": "Async support between sessions (10-hour weekday response)"
+                "ru": "Async-поддержка между сессиями (ответ в течение двух рабочих дней)",
+                "en": "Async support between sessions (reply within two business days)"
               },
               {
                 "ru": "Для фаундеров и команд, которым важна динамика и системность",
@@ -1537,6 +1537,10 @@
               {
                 "ru": "Не беру проект, если не вижу честного пути к результату.",
                 "en": "I don't take on a project without an honest path to results."
+              },
+              {
+                "ru": "Не консультирую прямых конкурентов Яндекса и FinTech-проекты в Узбекистане или с планами туда выйти — пока работаю в Yandex Uzbekistan.",
+                "en": "I don't consult Yandex's direct competitors, or FinTech projects in Uzbekistan or planning to enter it, while I work at Yandex Uzbekistan."
               }
             ]
           }

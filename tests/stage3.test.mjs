@@ -84,8 +84,8 @@ test('KV home copy: Korzinka ×23, one channel line, a kiosk chain — idempoten
 
 test('RU pages speak Russian: /collaborate units, /uses headings, tags and prices', () => {
   const tiers = seed.collaborate.sections.consulting.tiers;
-  assert.deepEqual(tiers.map((t) => t.price.ru), ['$250 / **сессия**', '$2 000 / **месяц**']);
-  assert.deepEqual(tiers.map((t) => t.price.en), ['$250 / **SESSION**', '$2,000 / **MONTH**']);
+  assert.deepEqual(tiers.map((t) => t.price.ru), ['$300 / **сессия**', '$2 000 / **месяц**']);
+  assert.deepEqual(tiers.map((t) => t.price.en), ['$300 / **SESSION**', '$2,000 / **MONTH**']);
   const u = seed.uses.sections;
   const ruLabels = [
     ...u.hardware.groups.flatMap((g) => [g.heading.ru, ...g.cards.map((c) => c.tag.ru)]),
@@ -94,4 +94,15 @@ test('RU pages speak Russian: /collaborate units, /uses headings, tags and price
   const english = ruLabels.filter((s) => /[A-Za-z]/.test(s) && !/[А-Яа-яЁё]/.test(s) && s !== 'eSIM');
   assert.deepEqual(english, []);
   assert.equal(u.hardware.groups[0].heading.en, 'Compute'); // EN untouched
+});
+
+test('/collaborate v0.31.5: two-business-day async reply, the FinTech conflict-of-interest line', () => {
+  const c = seed.collaborate.sections;
+  const asyncLine = c.consulting.tiers[1].features.find((f) => f.ru.startsWith('Async'));
+  assert.equal(asyncLine.ru, 'Async-поддержка между сессиями (ответ в течение двух рабочих дней)');
+  assert.equal(asyncLine.en, 'Async support between sessions (reply within two business days)');
+  const not = c.work.blocks[2].items.at(-1);
+  assert.match(not.ru, /^Не консультирую прямых конкурентов Яндекса и FinTech-проекты в Узбекистане/);
+  assert.match(not.en, /^I don't consult Yandex's direct competitors, or FinTech projects in Uzbekistan/);
+  assert.match(renderers.collabWork(seed.collaborate, 'ru'), /пока работаю в Yandex Uzbekistan/);
 });
