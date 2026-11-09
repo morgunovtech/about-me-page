@@ -416,7 +416,7 @@ test('fixStaleContent applies the v0.30.6 home copy fixes to a doc saved before 
   assert.equal(doc.apple.role.ru, 'Certified Sales Trainer (contractor)');
   assert.equal(doc.apple.role.en, 'Certified Sales Trainer (contractor)');
   assert.deepEqual(doc.pubs.map((p) => p.meta), [
-    { ru: `82${nb}000+ просмотров суммарно`, en: '82,000+ views combined' },
+    { ru: `36${nb}800+ просмотров суммарно`, en: '36,800+ views combined' }, // v0.31.0 corrects the v0.30.6 sum
     { ru: `6${nb}900+ просмотров суммарно`, en: '6,900+ views combined' },
   ]);
   assert.equal(doc.example, '<code>82&nbsp;600 просмотров</code> ↔ <code>82,600 views</code>');

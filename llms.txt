@@ -48,11 +48,11 @@
 
 ## Publications
 
-- [How low-cost airlines make money](https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery) — vc.ru
-- [How discount grocery stores make money](https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru; 82,000+ views across these two articles
-- [Lessons from 3 years of personal finance management](https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami) — vc.ru
-- [Critical review of brainbox.vc crowd-investing platform](https://youtu.be/OJXtFmWNZMM) — YouTube
-- [Two years of Korzinka Go: how we emerged, evolved, and ended up in a red ocean](https://youtu.be/BthlUR9eO1M) — YouTube
+- [How low-cost airlines make money](https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 6,200+ views
+- [How discount grocery stores make money](https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru, 30,500+ views
+- [Lessons from 3 years of personal finance management](https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami) — vc.ru, 38,100+ views
+- [Critical review of brainbox.vc crowd-investing platform](https://youtu.be/OJXtFmWNZMM) — YouTube, 3,300+ views
+- [Two years of Korzinka Go: how we emerged, evolved, and ended up in a red ocean](https://youtu.be/BthlUR9eO1M) — YouTube, 3,600+ views
 
 ## Uses / Stack
 

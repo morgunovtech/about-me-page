@@ -224,7 +224,7 @@ function productCard(it, lang, edit, path) {
   });
 }
 
-function pubItem(it, lang, edit, path, doc) {
+export function pubItem(it, lang, edit, path, doc) {
   // In edit mode the meta shows its raw template ("{telegram} в Telegram") so a
   // focus/blur in the editor never overwrites the placeholder with a snapshot.
   const meta = edit ? escapeHtml(pick(it.meta, lang)) : fillCounters(pick(it.meta, lang), doc, lang);

@@ -1,47 +1,31 @@
-// Builds the /notes index, the dynamic sitemap, and the RSS feed from the
-// article index. All three derive from the same published-article list.
+// Builds the /notes index, the dynamic sitemap, and the RSS feed. The index is
+// the feed of own articles + external materials (notes-feed.js); the sitemap
+// and RSS carry own articles only — external materials are not ours to host.
 import { loadArticleIndex, publishedSorted } from './articles.js';
-import { loadDoc } from './content.js';
+import { loadDoc, loadSubscribers } from './content.js';
 import { notesIndexHtml } from './article-template.js';
 import { serializeLd } from './jsonld.js';
 import { escapeHtml } from './markdown.js';
-import { pick } from './i18n.js';
 import { ORIGIN, NAME, buildOf } from './site.js';
-// Empty EN falls back to RU (pick treats '' as set) — keep the ||-fallback here.
-const pickL = (v, lang) => (v ? v[lang] || v.ru || v.en || '' : '');
+import { pickL, forLang, noteUrl, buildFeed, feedListHtml, channelHtml } from './notes-feed.js';
 const xmlEsc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-function fmtDate(date, lang) {
-  if (!date) return '';
-  try {
-    return new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'ru-RU', {
-      day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
-    }).format(new Date(date));
-  } catch {
-    return date;
-  }
-}
-
-// Articles available in the given language: RU always; EN only when translated
-// (title.en present), so EN index links don't point at 404s.
-function forLang(list, lang) {
-  return lang === 'en' ? list.filter((a) => a.title && String(a.title.en || '').trim()) : list;
-}
+const INTRO = {
+  ru: 'Заметки, статьи и выступления. Свои заметки — то же, что в Telegram-канале, только без привязки к платформе.',
+  en: 'Notes, articles and talks. My notes mirror the Telegram channel, without the platform lock-in.',
+};
 
 export async function renderNotesIndex(env, lang) {
-  const items = forLang(publishedSorted(await loadArticleIndex(env)), lang);
-  const url = (slug) => (lang === 'en' ? '/en' : '') + '/notes/' + slug;
-  const listHtml = items.length
-    ? items.map((a) => {
-        const t = escapeHtml(pickL(a.title, lang));
-        const ex = escapeHtml(pickL(a.excerpt, lang));
-        return `<article class="v4-note-item">
-          <time class="v4-note-date" datetime="${escapeHtml(a.date)}">${escapeHtml(fmtDate(a.date, lang))}</time>
-          <h2 class="v4-note-title"><a href="${url(a.slug)}">${t}</a></h2>
-          ${ex ? `<p class="v4-note-excerpt">${ex}</p>` : ''}
-        </article>`;
-      }).join('\n')
-    : `<p class="v4-notes-intro">${lang === 'en' ? 'No notes yet.' : 'Пока нет заметок.'}</p>`;
+  const [index, notesDoc, homeDoc, subs] = await Promise.all([
+    loadArticleIndex(env),
+    loadDoc(env, 'notes'),
+    loadDoc(env, 'home'),
+    loadSubscribers(env),
+  ]);
+  if (homeDoc && subs) homeDoc._live = { subscribers: subs };
+  const feed = buildFeed(publishedSorted(index), notesDoc, lang);
+  const listHtml = feedListHtml(feed, lang);
+  const intro = escapeHtml(pickL(notesDoc && notesDoc.intro, lang) || INTRO[lang === 'en' ? 'en' : 'ru']);
 
   const self = ORIGIN + (lang === 'en' ? '/en' : '') + '/notes';
   const jsonLd = serializeLd({
@@ -58,17 +42,18 @@ export async function renderNotesIndex(env, lang) {
       },
       {
         '@type': 'ItemList',
-        itemListElement: items.map((a, i) => ({
+        itemListElement: feed.map((e, i) => ({
           '@type': 'ListItem',
           position: i + 1,
-          url: ORIGIN + url(a.slug),
-          name: pickL(a.title, lang),
+          url: e.kind === 'note' ? ORIGIN + noteUrl(e.item.slug, lang) : e.item.href,
+          name: pickL(e.item.title, lang),
         })),
       },
     ],
   });
 
-  return new Response(notesIndexHtml(lang, listHtml, jsonLd, buildOf(env)), {
+  const page = notesIndexHtml(lang, listHtml, jsonLd, buildOf(env), { intro, channel: channelHtml(notesDoc, homeDoc, lang) });
+  return new Response(page, {
     headers: {
       'content-type': 'text/html; charset=utf-8',
       'Cache-Control': 'public, max-age=120, stale-while-revalidate=86400',
