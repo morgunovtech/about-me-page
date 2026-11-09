@@ -7,7 +7,7 @@ export const NAME = { ru: 'Семён Моргунов', en: 'Semyon Morgunov' }
 
 // Short SHA of the deployed commit, stamped by scripts/version-stamp.py and
 // resolved into the `{build}` placeholder of CMS prose (see overlay.js).
-export const BUILD = '1af62f4';
+export const BUILD = 'a62bc37';
 
 // The commit actually deployed: Pages exposes CF_PAGES_COMMIT_SHA to Functions;
 // the stamped BUILD is the fallback (local dev, static twins).

@@ -313,34 +313,14 @@
       "products": {
         "items": [
           {
-            "tag": "WEB",
-            "live": true,
-            "version": "v1.0",
-            "name": "FoundYou",
-            "desc": {
-              "ru": "Загруженный в сеть снимок выдаёт ваше местоположение, время съёмки, модель устройства и лица посторонних людей. FoundYou вычистит EXIF, замажет приватные зоны и защитит фото от поиска по картинке. Локально, оригинал не трогаем.",
-              "en": "A photo posted online reveals your location, time taken, device model, and bystanders' faces. FoundYou strips EXIF, blurs private areas, and protects the photo from reverse-image search. Local — your original stays untouched."
-            },
-            "cta": {
-              "label": {
-                "ru": "Очистить фото →",
-                "en": "Clean photo →"
-              },
-              "href": "https://foundyou.morgunov.tech/"
-            },
-            "schema": {
-              "free": true
-            },
-            "year": "2026"
-          },
-          {
+            "repo": "morgunovtech/Tofs_DevOps_bot",
             "tag": "BOT",
             "live": true,
-            "version": "v1.0",
+            "version": "v2.0",
             "name": "TofsDevOps",
             "desc": {
-              "ru": "Личный DevOps в Telegram: следит за аптаймом, SSL, доменом и DNS, проверяет, что сайт видят поисковики и AI-агенты, умеет сам перезапустить деплой на Cloudflare Pages — и молчит, пока всё в порядке. Open source, ставится за пять минут на Railway или в Docker.",
-              "en": "Your personal DevOps in Telegram: watches uptime, SSL, domain and DNS, checks that search engines and AI agents can see your site, can re-trigger Cloudflare Pages deploys on its own — and stays silent while everything is fine. Open source, up in five minutes on Railway or Docker."
+              "ru": "Сам себе DevOps в Telegram. Мониторит сайты, чинит что может, проверяет, что тебя видят поисковики и ИИ-ассистенты, — и молчит, пока всё в порядке.",
+              "en": "Your personal DevOps in Telegram: uptime, SSL, DNS, dead-man switch, SEO/GEO & AI-agent visibility, Cloudflare Pages self-healing. Silent while everything is fine."
             },
             "cta": {
               "label": {
@@ -355,10 +335,31 @@
               "os": "Linux",
               "license": "https://opensource.org/licenses/MIT",
               "free": true
-            },
-            "year": "2026"
+            }
           },
           {
+            "repo": "morgunovtech/FoundYou",
+            "tag": "WEB",
+            "live": true,
+            "version": "v1.4",
+            "name": "FoundYou",
+            "desc": {
+              "ru": "Веб-приложение для тех, кто собирается поделиться фотографией: оно показывает, что снимок выдаёт о месте, времени, устройстве и людях в кадре, и делает очищенную копию, никуда не загружая файл.",
+              "en": "Check what a photo reveals before you post it: EXIF and GPS, place context, and a clean privacy-safe copy. Runs in your browser."
+            },
+            "cta": {
+              "label": {
+                "ru": "Очистить фото →",
+                "en": "Clean photo →"
+              },
+              "href": "https://foundyou.morgunov.tech/"
+            },
+            "schema": {
+              "free": true
+            }
+          },
+          {
+            "repo": "morgunovtech/Fingerprint",
             "tag": "WEB",
             "live": true,
             "version": "v2.5",
@@ -376,8 +377,7 @@
             },
             "schema": {
               "free": true
-            },
-            "year": "2025"
+            }
           }
         ],
         "more": {
@@ -460,8 +460,8 @@
         },
         "cta": {
           "label": {
-            "ru": "Все публикации →",
-            "en": "All publications →"
+            "ru": "→ Все публикации",
+            "en": "→ All publications"
           },
           "href": {
             "ru": "/notes",
@@ -502,16 +502,6 @@
             "href": {
               "ru": "/collaborate#consulting",
               "en": "/en/collaborate#consulting"
-            }
-          },
-          {
-            "label": {
-              "ru": "→ Инвестиции: что прислать",
-              "en": "→ Investing: what to send"
-            },
-            "href": {
-              "ru": "/collaborate#angel",
-              "en": "/en/collaborate#angel"
             }
           }
         ]

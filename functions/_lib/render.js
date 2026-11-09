@@ -215,9 +215,9 @@ function card({ item, tag, live, liveLabel, meta, metaClass, metaPath, name, bod
 }
 
 function productCard(it, lang, edit, path) {
-  // Head meta: launch year · version, each its own leaf. The name links to the
-  // product like its button does — except in the editor, where a click edits.
-  const year = it.year ? `<span${eText(edit, path + '.year')}>${renderInline(it.year)}</span> · ` : '';
+  // Head meta: the version (synced from GitHub by scripts/sync-products.mjs).
+  // The name links to the product like its button does — except in the
+  // editor, where a click edits.
   const href = it.cta ? safeHref(pick(it.cta.href, lang) || it.cta.href) : '';
   const name = renderInline(it.name);
   return card({
@@ -225,8 +225,7 @@ function productCard(it, lang, edit, path) {
     tag: renderInline(it.tag),
     live: !!it.live,
     liveLabel: lang === 'en' ? 'Live' : 'Работает',
-    meta: `${year}<span${eText(edit, path + '.version')}>${renderInline(it.version)}</span>`,
-    metaPath: null,
+    meta: renderInline(it.version),
     name: !edit && href ? `<a href="${escapeAttr(href)}"${isExternal(href) ? ' target="_blank" rel="noopener noreferrer"' : ''}>${name}</a>` : name,
     body: `<p class="v4-product-desc"${eText(edit, path + '.desc')}>${renderInline(pick(it.desc, lang))}</p>`,
     cta: btn(it.cta, lang, edit, path + '.cta', false),
@@ -338,21 +337,23 @@ export const renderers = {
   notesFeed: (doc, lang, edit) => {
     const sec = doc.sections.notes || {};
     const rows = (doc._feed || []).slice(0, 3).map((e) => feedRow(e, lang)).join('\n            ');
-    const cta = sec.cta ? `<div class="v4-help-cta">${btn(sec.cta, lang, edit, 'sections.notes.cta', false)}</div>` : '';
+    // «→ Все публикации» — a plain «→» link like «→ Подробнее на LinkedIn».
+    const cta = sec.cta ? moreLink(sec.cta, lang, edit, 'sections.notes.cta') : '';
     return `${rows ? `<ul class="v4-feed">\n            ${rows}\n          </ul>\n          ` : ''}${cta}`;
   },
 
-  // «Связаться»: who writes and why, one Telegram button with the reply time
-  // beside it, then the two ways to read more before writing.
+  // «Связаться»: who writes and why, the «→» link to read more first, then
+  // one Telegram button with the reply time beside it.
   contact: (doc, lang, edit) => {
     const sec = doc.sections.contact;
     const ctas = sec.ctas.map((c, i) => btn(c, lang, edit, 'sections.contact.ctas.' + i, true)).join('\n          ');
     const reply = sec.reply ? `\n          <p class="v4-contact-reply"${eText(edit, 'sections.contact.reply')}>${escapeHtml(pick(sec.reply, lang))}</p>` : '';
     const links = (sec.links || []).map((l, i) => moreLink(l, lang, edit, 'sections.contact.links.' + i)).join('\n          ');
-    return `<p class="v4-contact-note"${eText(edit, 'sections.contact.note')}>${escapeHtml(pick(sec.note, lang))}</p>
+    return `<p class="v4-contact-note"${eText(edit, 'sections.contact.note')}>${escapeHtml(pick(sec.note, lang))}</p>${
+      links ? `\n        <div class="v4-contact-links">\n          ${links}\n        </div>` : ''}
         <div class="v4-cta-row">
           ${ctas}${reply}
-        </div>${links ? `\n        <div class="v4-contact-links">\n          ${links}\n        </div>` : ''}`;
+        </div>`;
   },
 
   usesGear: (doc, lang) =>

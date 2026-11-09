@@ -19,16 +19,20 @@ test('the seed home doc renders every slot, public and edit mode', () => {
   }
 });
 
-test('product cards: year · version, the name links out, the live dot is labelled', () => {
+test('product cards: TofsDevOps first, version only (no year), the name links out, the live dot is labelled', () => {
   const html = renderers.products(seed.home, 'ru', false);
-  assert.match(html, /<span>2026<\/span> · <span>v1\.0<\/span>/);
+  assert.deepEqual(seed.home.sections.products.items.map((it) => it.name), ['TofsDevOps', 'FoundYou', 'Fingerprint']);
+  // The head carries the version alone — synced from GitHub by scripts/sync-products.mjs.
+  assert.equal((html.match(/<\/span>\n {12}<span>v\d+\.\d+<\/span>\n {10}<\/div>/g) || []).length, 3);
+  assert.doesNotMatch(html, / · /);
+  for (const it of seed.home.sections.products.items) assert.equal(it.year, undefined, it.name);
   assert.match(html, /<h3 class="v4-product-name"><a href="https:\/\/foundyou\.morgunov\.tech\/" target="_blank" rel="noopener noreferrer">FoundYou<\/a><\/h3>/);
   assert.match(html, /<span class="sr-only">Работает<\/span>/);
   assert.match(renderers.products(seed.home, 'en', false), /<span class="sr-only">Live<\/span>/);
   // The editor gets plain, editable leaves — no link to click through.
   const edit = renderers.products(seed.home, 'ru', true);
-  assert.match(edit, /data-cms-text="sections\.products\.items\.0\.year">2026</);
-  assert.match(edit, /data-cms-text="sections\.products\.items\.0\.version">v1\.0</);
+  assert.match(edit, /data-cms-text="sections\.products\.items\.0\.version">v\d+\.\d+</);
+  assert.doesNotMatch(edit, /\.year"/);
   assert.doesNotMatch(edit, /<h3 class="v4-product-name"[^>]*><a /);
 });
 
@@ -40,7 +44,7 @@ test('notes block: up to three rows, own notes stay on site, external ones open 
     const html = renderers.notesFeed(doc, 'ru', false);
     assert.equal((html.match(/class="v4-feed-row"/g) || []).length, 3, `${n} notes`);
     assert.equal((html.match(/<span class="v4-tag">NOTE<\/span>/g) || []).length, Math.min(n, 3));
-    assert.match(html, /href="\/notes">Все публикации →<\/a>/);
+    assert.match(html, /<div class="v4-more"><a href="\/notes">→ Все публикации<\/a><\/div>/);
   }
   doc._feed = buildFeed([], seed.notes, 'ru').slice(0, 3);
   const ext = renderers.notesFeed(doc, 'ru', false);
@@ -50,20 +54,26 @@ test('notes block: up to three rows, own notes stay on site, external ones open 
   doc._feed = buildFeed(notes(2).reverse(), seed.notes, 'en').slice(0, 3);
   const en = renderers.notesFeed(doc, 'en', false);
   assert.doesNotMatch(en, />NOTE</);
-  assert.match(en, /href="\/en\/notes">All publications →<\/a>/);
+  assert.match(en, /<div class="v4-more"><a href="\/en\/notes">→ All publications<\/a><\/div>/);
+  assert.doesNotMatch(en, /v4-btn/);
   // No feed (KV down) → just the button.
   delete doc._feed;
   assert.doesNotMatch(renderers.notesFeed(doc, 'ru', false), /v4-feed/);
 });
 
-test('contact: who writes, Telegram only with the reply time, two links to /collaborate', () => {
+test('contact: who writes, the consulting link, then Telegram with the reply time', () => {
   const ru = renderers.contact(seed.home, 'ru', false);
   assert.equal((ru.match(/class="v4-btn/g) || []).length, 1);
   assert.doesNotMatch(ru, /mailto:/);
   assert.match(ru, /Обычно отвечаю в течение 10 рабочих дней\./);
   assert.match(ru, /href="\/collaborate#consulting">→ Консалтинг: форматы и цены</);
-  assert.match(ru, /href="\/collaborate#angel">→ Инвестиции: что прислать</);
-  assert.match(renderers.contact(seed.home, 'en', false), /href="\/en\/collaborate#angel">→ Investing: what to send</);
+  assert.doesNotMatch(ru, /#angel/);
+  // note → link → button row, in that order
+  const at = (re) => ru.search(re);
+  assert.ok(at(/v4-contact-note/) < at(/v4-contact-links/) && at(/v4-contact-links/) < at(/v4-cta-row/));
+  const en = renderers.contact(seed.home, 'en', false);
+  assert.match(en, /href="\/en\/collaborate#consulting">/);
+  assert.doesNotMatch(en, /#angel/);
 });
 
 test('/collaborate gains «Как работаю» with the owner\'s live copy', () => {

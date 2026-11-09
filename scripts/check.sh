@@ -13,6 +13,7 @@ echo "→ node --check (functions + client JS)"
 while IFS= read -r f; do node --check "$f"; done < <(find functions -name '*.js')
 node --check admin-app.js
 node --check script.js
+for f in scripts/*.mjs; do node --check "$f"; done
 echo "  ok"
 
 echo "→ node --test (pure functions)"

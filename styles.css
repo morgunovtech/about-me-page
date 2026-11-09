@@ -581,7 +581,7 @@
 /* Homepage contact: who writes and why → the Telegram button with the reply
    time beside it → two ways to read more first. */
 .v4-reach .v4-contact-note {
-  margin-bottom: 18px;
+  margin-bottom: 0;
 }
 
 .v4-reach .v4-cta-row {
@@ -595,11 +595,11 @@
 }
 
 .v4-contact-links {
-  margin-top: 22px;
+  margin: 12px 0 22px;
 }
 
 .v4-contact-links .v4-more {
-  margin-top: 8px;
+  margin-top: 0;
 }
 
 /* --- Own projects: two tiers --- */
@@ -610,7 +610,7 @@
   margin: 0 0 14px;
 }
 
-.v4-products + .v4-tier {
+.v4-products + .v4-more + .v4-tier {
   margin-top: 36px;
 }
 

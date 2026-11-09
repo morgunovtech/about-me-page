@@ -65,7 +65,7 @@ const T = {
   },
 };
 
-const STYLES_VER = 'v=ab69cd0f';
+const STYLES_VER = 'v=0e86aaf0';
 const SCRIPT_VER = 'v=a375e8a3';
 const FONTS_VER = 'v=64eea157';
 const TOKENS_VER = 'v=fa7fc139';
