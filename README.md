@@ -58,6 +58,8 @@ python3 scripts/check-sync.py              # RU↔EN structural parity
 python3 scripts/check-critical.py          # inline critical CSS ↔ ds/v1 + styles.css
 node scripts/render-static.mjs --check     # templates are the seed's twins (--write regenerates)
 python3 scripts/version-stamp.py           # build SHA + content-hash ?v= cache busters
+node scripts/sync-products.mjs --write     # product cards' versions + descriptions from their GitHub repos
+node scripts/kv-push.mjs home --yes        # put the seed doc live in KV, like an /admin Save (dry run without --yes)
 ```
 
 Run `check.sh` before any commit — it catches an extra section in RU that's missing in EN,

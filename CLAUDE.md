@@ -25,7 +25,7 @@ about-me-page/
 ├── script.js           # Theme, generic dropdown controller, anchor smooth-scroll
 ├── admin-app.js/.css   # /admin inline editor client (public, no secrets)
 ├── functions/          # Pages Functions: edge render, CMS API, notes, sitemap, llms.txt, /404
-├── scripts/            # check.sh, check-sync.py, check-critical.py, render-static.mjs, version-stamp.py
+├── scripts/            # check.sh, check-sync.py, check-critical.py, render-static.mjs, version-stamp.py, sync-products.mjs, kv-push.mjs
 ├── tests/              # node --test suites for the pure functions
 ├── llms.txt            # AI/LLM navigation file (llmstxt.org) — a template: {total}/{telegram}/… filled by functions/llms.txt.js
 ├── _headers            # Cloudflare: X-Robots-Tag + Cache-Control headers for static assets
@@ -48,9 +48,9 @@ about-me-page/
     └── favicon.svg                # SVG favicon with initials "SM"
 ```
 
-## Page map (v1.0.0)
+## Page map (v1.1.0)
 
-- **`/`, `/en/`** — hero (eyebrow «Head of FinTech @ Yandex Uzbekistan», one «Написать в Telegram» button) → stats strip → `01 #about` → `02 #career` → `03 #projects` «Собственные проекты» (tier «Работает»: live product cards with year · version; tier «До этого»: past ventures as rows) → `04 #notes` «Публикации» (the three newest feed entries + «Все публикации →») → `05 #contact` «Связаться» (Telegram only + two links to `/collaborate`). Menu items mirror the section titles (`data-cms-text`).
+- **`/`, `/en/`** — hero (eyebrow «Head of FinTech @ Yandex Uzbekistan», one «Написать в Telegram» button) → stats strip → `01 #about` → `02 #career` → `03 #projects` «Собственные проекты» (tier «Работает»: live product cards — TofsDevOps, FoundYou, Fingerprint — with the version synced from GitHub, then «→ Другие проекты на GitHub»; tier «До этого»: past ventures as rows) → `04 #notes` «Публикации» (the three newest feed entries + «→ Все публикации») → `05 #contact` «Связаться» (who writes → «→ Консалтинг: форматы и цены» → «Написать в Telegram» + reply time). Menu items mirror the section titles (`data-cms-text`).
 - **`/notes`, `/en/notes`** — «Публикации»: own notes (KV articles) and external materials (vc.ru, YouTube — the seed-only `notes` doc) in one feed, newest first, under the Telegram channel block. RSS and the sitemap carry own notes only.
 - **`/collaborate`** — about · consulting tiers · strategic consulting · angel investing · `#work` «Как работаю / Чего не делаю» · contact.
 - **`/uses`** — hardware groups + software cards.
@@ -76,6 +76,7 @@ There is no build step and no deploy pipeline of our own — Cloudflare Pages de
 4. Push the branch → `gh pr create` → squash-merge. Every push also builds a Cloudflare **Preview** deployment for the branch.
 5. Verify production, not just the merge: `npx wrangler pages deployment list --project-name about-me-page` shows the Production row for the commit; then check the live page (the footer build hash is the deployed commit; Function-rendered HTML sits in the edge cache up to 300 s — look at `x-edge-cache`).
 6. Read-only checks of real content: `npx wrangler kv key get --binding CONTENT "s.morgunov.tech:<page>" --remote` (KV wins over `content.seed.json`).
+7. A content change made in the seed reaches the live page only through KV: after the merge the owner runs `node scripts/kv-push.mjs <page>` (dry run: every field that changes) and then `--yes` — agents cannot write production KV.
 
 Accounts: `gh` (morgunovtech, `repo` scope) and `wrangler login` (OAuth, expires — re-run `npx wrangler login` when `whoami` says not logged in). Secrets are set by the owner with `wrangler pages secret put`, never by an agent.
 
@@ -209,6 +210,8 @@ The public pages are **edge-rendered from Cloudflare KV** via Pages Functions: t
 - `_lib/` — `content` (KV→seed load, `loadSubscribers`), `migrations` (`fixStaleContent` — code-side string fixes for KV docs, the `STALE` table is empty since v1.0.1; no seed import so tests load it directly), `cache` (edge cache + purge), `tg/` (Telegram publish/import: `plan`, `source-post`, `tg-html`, `tg-import`, `targets/`), `i18n`, `markdown` (zero-dep subset), `notes-feed` (the /notes feed: own notes + external materials, pure — Node-testable), `render` (component renderers, `counters()`/`fillCounters()`/`unitFor()` — the single source for every subscriber number incl. RU plural), `overlay` (HTMLRewriter handlers), `jsonld` (home `@graph` + `renderPageJsonLd` for collaborate/about/uses), `site` (`ORIGIN`, `NAME` per language), `article-template` (notes/article shells built from shared chrome helpers), `auth`, `ai`, `http`.
 - `llms.txt.js` — `/llms.txt` with live counters; `404.js` — `/404` with a real 404 status (`notFound()` sets noindex + Cache-Control itself — `_headers` never reaches Function responses). GET-only routes (sitemap, notes, feeds, `/assets/*`) are wrapped in `getOrHead()` from `_lib/http.js` so HEAD answers like GET.
 - **No read-time migrations today.** On 2026-11-09 (v1.0.1) the `home` and `about` KV docs were saved with every earlier migration and copy fix applied (they carry `migration: 31`); `collaborate` and `uses` have no KV doc and render from the seed. A KV doc keeps winning over the seed, so: a **copy** fix to a KV doc goes into the `STALE` table of `migrations.js` (rules in its header) until the next `/admin` Save persists it, then the entry is removed; a **shape** change needs a gated read-time migration again (pattern: v0.31.1 `homeV2` in git history) or a Save of the new shape. `validateHome` in `admin/api/save.js` lists the sections a home doc must have.
+- **Seed → KV:** `scripts/kv-push.mjs <page> [--yes] [--create]` writes the seed doc to KV the way an /admin Save does (rev + 1, `updatedAt`/`dateModified`, `:rev:<n>`, the `:revs` index of 20); dry run by default, refuses to race a concurrent Save, does not purge the edge cache (pages update within 300 s). It replaces the whole doc, so /admin edits missing from the seed are lost — the dry run lists them; the previous revision stays in /admin's history. The owner runs it.
+- **Product cards ← GitHub:** `scripts/sync-products.mjs [--write]` updates `home.sections.products.items[]` that carry a `repo`: the version (highest of latest release, tags, `package.json`, `pyproject.toml`, the top `CHANGELOG.md` heading → `vMAJOR.MINOR`) and the description (EN = the repo description, RU = `README.ru.md` H1 tail + first paragraph; only when both exist). Order, names, tags and buttons stay hand-edited in the seed. Then `render-static.mjs --write` and, after the merge, `kv-push.mjs home`.
 - `{build}` inside `data-cms-html` prose resolves to `BUILD` from `_lib/site.js` (stamped by `version-stamp.py`) — never store a literal build hash as content.
 - `admin/` — `_middleware.js` (session gate), `login`/`logout`, `index` (editor shell), `api/{content,save,preview,upload,translate,proofread,subscribers}`.
 - `assets/[[path]].js` — public read-only R2 delivery at `/assets/*` (no listing).
