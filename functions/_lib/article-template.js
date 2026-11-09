@@ -40,12 +40,8 @@ const T = {
     themeLabel: 'Сменить тему оформления',
     themes: ['Светлая', 'Тёмная', 'Авто', 'Высокий контраст'],
     privacy: 'Без Cookies, трекеров и аналитики',
-    principles: 'принципы',
     uses: 'стек',
-    notesFoot: 'заметки',
     typo: 'нашли опечатку?',
-    typoSubject: 'Опечатка на morgunov.tech',
-    scrollTop: 'Наверх',
     feed: 'Заметки — RSS',
     locale: 'ru_RU',
     altLocale: 'en_US',
@@ -61,12 +57,8 @@ const T = {
     themeLabel: 'Switch theme',
     themes: ['Light', 'Dark', 'Auto', 'High contrast'],
     privacy: 'No cookies, no trackers, no analytics',
-    principles: 'principles',
     uses: 'uses',
-    notesFoot: 'notes',
     typo: 'found a typo?',
-    typoSubject: 'Typo on morgunov.tech',
-    scrollTop: 'Back to top',
     feed: 'Notes — RSS',
     locale: 'en_US',
     altLocale: 'ru_RU',
@@ -74,11 +66,11 @@ const T = {
 };
 
 const STYLES_VER = 'v=199f6a5e';
-const SCRIPT_VER = 'v=98de2cde';
+const SCRIPT_VER = 'v=a375e8a3';
 const FONTS_VER = 'v=64eea157';
 const TOKENS_VER = 'v=fa7fc139';
 const BASE_VER = 'v=0e404315';
-const COMPONENTS_VER = 'v=95703fa6';
+const COMPONENTS_VER = 'v=982717a6';
 
 const L = (lang) => (lang === 'en' ? 'en' : 'ru');
 const p = (lang, path) => (L(lang) === 'en' ? '/en' : '') + path;
@@ -188,7 +180,7 @@ function footChrome(lang, build) {
   const t = T[l];
   const sha = build || BUILD;
   return `    <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · build&nbsp;<code data-cms-text="_build">${sha}</code> · <a href="${p(l, '/notes')}">${t.notesFoot}</a> · <a href="${p(l, '/about')}">${t.principles}</a> · <a href="${p(l, '/uses')}">${t.uses}</a> · <a href="mailto:s@morgunov.tech?subject=${encodeURIComponent(t.typoSubject)}">${t.typo}</a></span>
+      <span>morgunov.tech · 2026 · build&nbsp;<code data-cms-text="_build">${sha}</code> · <a href="${p(l, '/uses')}">${t.uses}</a> · <a href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">${t.typo}</a></span>
       <span class="v4-foot-privacy">${t.privacy}</span>
     </footer>`;
 }
@@ -196,10 +188,7 @@ function footChrome(lang, build) {
 // `ldScript`: the JSON-LD block sits at the end of <body> so the parser reaches
 // the content sooner (search engines read it anywhere in the document).
 function tailChrome(lang, ldScript) {
-  const t = T[L(lang)];
-  return `  <button class="v4-scroll-top" type="button" aria-label="${t.scrollTop}">↑</button>
-  <div class="v4-scroll-progress" aria-hidden="true"></div>
-  ${ldScript}
+  return `  ${ldScript}
   <script data-cfasync="false" defer src="/script.js?${SCRIPT_VER}"></script>`;
 }
 

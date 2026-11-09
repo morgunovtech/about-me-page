@@ -6,7 +6,7 @@ Personal homepage for Semyon Morgunov, deployed on Cloudflare Pages.
 
 - **Pure static HTML/CSS/JS** — no framework, no build step, no npm
 - **CSS Custom Properties** for theming (4 themes: light, dark, auto, high-contrast)
-- **Vanilla JS** wrapped in an IIFE, ~370 lines: theme, one generic dropdown controller (mobile nav / language / theme), anchor smooth-scroll, scroll chrome, the 404 page's client-side EN copy
+- **Vanilla JS** wrapped in an IIFE, ~290 lines: theme, one generic dropdown controller (mobile nav / language / theme), anchor smooth-scroll, the 404 page's client-side EN copy. No scroll listener: the side column, «↑» and the progress bar are gone (v0.31.1–v0.31.2)
 - **Cloudflare Pages** for hosting with `_headers` and `_redirects` config files
 
 ## File Structure
@@ -15,14 +15,14 @@ Personal homepage for Semyon Morgunov, deployed on Cloudflare Pages.
 about-me-page/
 ├── index.html          # Main page, Russian language (lang="ru") — a template: data-cms-* hooks, seed twin
 ├── collaborate.html    # Collaboration page: consulting, advisory, angel investing (RU)
-├── about.html          # «Принципы» — how/why the site is built (RU)
+├── about.html          # «Принципы» — how/why the site is built (RU); hidden since v0.31.2: noindex, out of the sitemap/footer/llms.txt, until the owner rewrites it
 ├── uses.html           # «Стек» — hardware & software (RU)
 ├── en/                 # English twins: index, collaborate, about, uses (lang="en")
 ├── content.seed.json   # Committed content fallback for every CMS page (KV wins when present)
 ├── CHANGELOG.md        # Release history (one entry per version); CLAUDE.md keeps conventions only
 ├── ds/v1/              # Shared design-system layer: fonts, tokens, base, components (+ USAGE.md)
 ├── styles.css          # Page-specific layout only (hero, stats, cards, /uses, /collaborate, notes)
-├── script.js           # Theme, generic dropdown controller, anchor smooth-scroll, scroll chrome
+├── script.js           # Theme, generic dropdown controller, anchor smooth-scroll
 ├── admin-app.js/.css   # /admin inline editor client (public, no secrets)
 ├── functions/          # Pages Functions: edge render, CMS API, notes, sitemap, llms.txt, /404
 ├── scripts/            # check.sh, check-sync.py, check-critical.py, render-static.mjs, version-stamp.py
@@ -129,7 +129,7 @@ together with check-sync before committing anything that touches CSS.
 - All code is in a single IIFE in `script.js` — no modules, no imports
 - Theme preference stored in `localStorage` under key `theme-preference`
 - On init, `script.js` only syncs `aria-checked` on the theme menu items (theme is already applied by inline script)
-- Scroll listener uses `requestAnimationFrame` throttling for performance
+- No scroll listener today; if one comes back it uses `requestAnimationFrame` throttling
 - **Dropdowns** (`.v4-dropdown` = toggle `[aria-controls]` + panel): one generic controller for the mobile nav (`.v4-nav`), the language menu (`.v4-lang`) and the theme menu (`.v4-theme`). State = `.is-open` on the container + `aria-expanded` on the toggle; only one open at a time; close on Escape, outside click, focus-out, a click inside, or when the viewport crosses 640px. Keyboard: Enter/Space opens and focuses the first item; ArrowUp/Down/Home/End move; menus (`role="menu"`) return focus to their toggle, the nav does not (its links focus the target section themselves)
 - The `/admin` editor strips `script.js` from its preview and hooks `.v4-lang-btn` (direct RU↔EN toggle) and `.v4-icon-btn` (theme cycle) itself — keep those class names
 
@@ -144,7 +144,8 @@ together with check-sync before committing anything that touches CSS.
 - **Privacy.** No cookies, no trackers, no analytics scripts. The footer explicitly states this — don't break that contract.
 - **Bilingual.** Russian is primary (`/`), English is at `/en/`. Both pages share the same `styles.css` and `script.js`. Keep content parity between them.
 - **Semantic HTML.** Use `<article>`, `<section>`, `<nav>`, `<main>`, `<footer>` appropriately. Maintain heading hierarchy.
-- **CTA convention.** In any button row the primary button comes first. «←» is reserved for back-links to the parent page (always secondary, last); a trailing «→» marks actions that leave the site or start a flow (book, install, check, «узнать подробности»); plain contact buttons (Telegram, Email, «На главную») carry no arrow. A contact labelled as the start of a process («Написать →», «Send a pitch →») is a flow and keeps its arrow, even on `mailto:`.
+- **CTA convention.** In any button row the primary button comes first. «←» is reserved for back-links to the parent page (always secondary, last); a trailing «→» marks actions that leave the site or start a flow (book, install, check, «узнать подробности»); plain contact buttons (Telegram, «На главную») carry no arrow. A contact labelled as the start of a process («Написать →», «Send a pitch →») is a flow and keeps its arrow.
+- **Telegram is the only contact.** No e-mail anywhere on the site since v0.31.2 (buttons, footer «нашли опечатку?», JSON-LD, `llms.txt`, `security.txt`) — the owner does not read it. Do not bring one back.
 - **Articles use the site's idioms:** `h2` in a note renders like `.v4-section-head` (inline mono number, rule under the title), `h3` like `.v4-h3` (small tracked caps).
 - **JSON-LD** scripts sit at the end of `<body>` (before `script.js`) — the parser reaches the content sooner; the overlay hook is attribute-based, so placement is free.
 - **`_redirects`** holds real redirects only (currently none): Pages serves clean URLs and 308s `/foo.html` itself, and a `/en/ → /en/index.html 200` rewrite is reported by wrangler as an infinite loop and ignored.
@@ -187,7 +188,7 @@ The public pages are **edge-rendered from Cloudflare KV** via Pages Functions: t
 - **Edge cache** (`_lib/cache.js`): every Function-rendered GET (managed pages, `/llms.txt`, notes, feeds, sitemap) is stored in `caches.default` for `EDGE_TTL` (300 s) under `origin + pathname`; `purge()` runs on every KV write — `save.js` (the page's URLs via `PAGE_PATHS` / `articlePaths`), article create/delete/import, and the subscriber ingest (`/`, `/en/`, `/llms.txt`). Responses carry `x-edge-cache: HIT|MISS`. `cached(ctx, render)` is the wrapper; `getOrHead()` sits outside it.
 - **Build hash:** `buildOf(env)` (`_lib/site.js`) reads `CF_PAGES_COMMIT_SHA` and falls back to the stamped `BUILD`; the footer `<code data-cms-text="_build">` and the `{build}` prose placeholder both resolve from it, so the footer shows the commit actually deployed. The hash is plain text, not a link: the GitHub repo is private, so a commit URL 404s for every visitor.
 - **Sessions** (`_lib/auth.js`): HMAC tokens carry `iat`; «Выйти» writes `session:not-before` to KV and `verifySession(secret, token, env)` rejects anything issued earlier — a captured token dies on logout.
-- `_lib/` — `content` (KV→seed load, `loadSubscribers`), `migrations` (read-time migrations `migrateHome`/`migrateAbout`/`migrateUses`/`migrateCollaborate` + `htmlToInline`; no seed import so tests load it directly), `cache` (edge cache + purge), `tg/` (Telegram publish/import: `plan`, `source-post`, `tg-html`, `tg-import`, `targets/`), `i18n`, `markdown` (zero-dep subset), `render` (component renderers, `counters()`/`fillCounters()`/`unitFor()` — the single source for every subscriber number incl. RU plural), `overlay` (HTMLRewriter handlers), `jsonld` (home `@graph` + `renderPageJsonLd` for collaborate/about/uses), `site` (`ORIGIN`, `NAME` per language), `article-template` (notes/article shells built from shared chrome helpers), `auth`, `ai`, `http`.
+- `_lib/` — `content` (KV→seed load, `loadSubscribers`), `migrations` (read-time migrations `migrateHome`/`migrateAbout`/`migrateUses`/`migrateCollaborate` + `htmlToInline`; no seed import so tests load it directly), `cache` (edge cache + purge), `tg/` (Telegram publish/import: `plan`, `source-post`, `tg-html`, `tg-import`, `targets/`), `i18n`, `markdown` (zero-dep subset), `notes-feed` (the /notes feed: own notes + external materials, pure — Node-testable), `render` (component renderers, `counters()`/`fillCounters()`/`unitFor()` — the single source for every subscriber number incl. RU plural), `overlay` (HTMLRewriter handlers), `jsonld` (home `@graph` + `renderPageJsonLd` for collaborate/about/uses), `site` (`ORIGIN`, `NAME` per language), `article-template` (notes/article shells built from shared chrome helpers), `auth`, `ai`, `http`.
 - `llms.txt.js` — `/llms.txt` with live counters; `404.js` — `/404` with a real 404 status (`notFound()` sets noindex + Cache-Control itself — `_headers` never reaches Function responses). GET-only routes (sitemap, notes, feeds, `/assets/*`) are wrapped in `getOrHead()` from `_lib/http.js` so HEAD answers like GET.
 - **Read-time migrations are gated** by `doc.migration` (currently 30, exported as `MIGRATION` from `migrations.js`): a doc at or above the marker is never touched again, so later renames/deletions in `/admin` stick. Bump the marker when adding a migration.
 - `{build}` inside `data-cms-html` prose resolves to `BUILD` from `_lib/site.js` (stamped by `version-stamp.py`) — never store a literal build hash as content.
