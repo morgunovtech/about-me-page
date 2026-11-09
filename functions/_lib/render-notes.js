@@ -15,7 +15,7 @@ const INTRO = {
   en: 'Notes, articles and talks. My notes mirror the Telegram channel, without the platform lock-in.',
 };
 
-// The three newest feed entries for the homepage «Заметки» block (_middleware.js
+// The three newest feed entries for the homepage «Публикации» block (_middleware.js
 // and the /admin preview attach them to the home doc as `_feed`).
 export async function loadHomeFeed(env, lang) {
   const [index, notesDoc] = await Promise.all([loadArticleIndex(env), loadDoc(env, 'notes')]);
@@ -42,7 +42,7 @@ export async function renderNotesIndex(env, lang) {
         '@type': 'CollectionPage',
         '@id': self + '#webpage',
         url: self,
-        name: (lang === 'en' ? 'Notes' : 'Заметки') + ' — ' + NAME[lang === 'en' ? 'en' : 'ru'],
+        name: (lang === 'en' ? 'Publications' : 'Публикации') + ' — ' + NAME[lang === 'en' ? 'en' : 'ru'],
         inLanguage: lang,
         isPartOf: { '@id': ORIGIN + '/#website' },
         about: { '@id': ORIGIN + '/#person' },

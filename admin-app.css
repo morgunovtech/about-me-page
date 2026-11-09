@@ -58,8 +58,6 @@ select, .ed-bar button { font: inherit; }
 .ed-drawer-body { overflow-y: auto; padding: 16px; }
 .ed-field { margin-bottom: 14px; }
 .ed-field-label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 5px; }
-.ed-loc-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 5px; }
-.ed-lang { font-family: var(--mono); font-size: 10px; color: var(--dim); width: 20px; padding-top: 8px; flex-shrink: 0; }
 .ed-input { width: 100%; padding: 7px 9px; font: inherit; border: 1px solid var(--line); background: #fff; color: var(--fg); }
 textarea.ed-input { min-height: 64px; resize: vertical; line-height: 1.5; }
 .ed-input:focus { outline: 2px solid var(--orange); outline-offset: -1px; border-color: var(--orange); }

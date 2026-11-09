@@ -8,7 +8,7 @@ import { parseArchive } from '../../_lib/tg/tg-import.js';
 import { sanitizeHtml } from '../../_lib/sanitize.js';
 import { articleKey, INDEX_KEY, loadArticleIndex, makeArticleDoc, indexEntry } from '../../_lib/articles.js';
 import { relinkChannelPhoto, slugify } from './import.js';
-import { purge, articlePaths, NOTES_PATHS } from '../../_lib/cache.js';
+import { purge, NOTES_PATHS } from '../../_lib/cache.js';
 
 const SITE = 's.morgunov.tech';
 const guardKey = (handle, id) => `${SITE}:tgimport:${handle}:${id}`;

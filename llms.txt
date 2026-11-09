@@ -20,10 +20,10 @@
 - LinkedIn: https://www.linkedin.com/in/semyon-morgunov/
 - GitHub: https://github.com/morgunovtech
 
-## Notes
+## Publications
 
-- [Notes / Заметки](https://s.morgunov.tech/notes) — essays and notes (bilingual RU/EN), the same writing as the Telegram channel but platform-independent and citable; English at https://s.morgunov.tech/en/notes
-- RSS feed: https://s.morgunov.tech/notes/feed.xml
+- [Publications / Публикации](https://s.morgunov.tech/notes) — one feed of own notes (the Telegram channel's writing, platform-independent and citable) and articles and talks published elsewhere (vc.ru, YouTube); English at https://s.morgunov.tech/en/notes
+- RSS feed (own notes only): https://s.morgunov.tech/notes/feed.xml
 
 ## Products
 
@@ -35,7 +35,7 @@
 ## Ventures (entrepreneurship)
 
 - 2023 — Online school for children's safety (Founder) — paused, no PMF
-- 2022 — Ethical grooming salon "Hvost" (Co-founder) — sold to employees, still operating
+- 2022 — Ethical grooming salon “Hvost” (Co-founder) — sold to employees, still operating
 - 2011 — Snack vending kiosks (Co-founder) — closed
 - 2009 — iPhone accessories online (Founder) — closed
 
@@ -48,9 +48,9 @@
 ## Publications
 
 - [How low-cost airlines make money](https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 6,200+ views
-- [How discount grocery stores make money](https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru, 30,500+ views
+- [How discount grocers make money](https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru, 30,500+ views
 - [Lessons from 3 years of personal finance management](https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami) — vc.ru, 38,100+ views
-- [Critical review of brainbox.vc crowd-investing platform](https://youtu.be/OJXtFmWNZMM) — YouTube, 3,300+ views
+- [Critical review of crowd-investing platform brainbox.vc](https://youtu.be/OJXtFmWNZMM) — YouTube, 3,300+ views
 - [Two years of Korzinka Go: how we emerged, evolved, and ended up in a red ocean](https://youtu.be/BthlUR9eO1M) — YouTube, 3,600+ views
 
 ## Uses / Stack
@@ -60,8 +60,8 @@ Hardware in daily rotation:
 - **Compute**: MacBook Pro 16″ M3 Max (36 GB / 1 TB) — main work machine; Dell U3223QE — 32″ 4K IPS-Black with 90 W USB-C dock; Keychron K2 — 75% mechanical with aluminum frame, RGB, Bluetooth multi-pair; Razer DeathAdder V2 Pro — wireless HyperSpeed mouse
 - **Mobile**: iPhone 15 Pro Max — daily driver; Duoqin F22 Pro — Xiaomi-eco mini button phone, weekend detox
 - **Audio**: AirPods Pro 2 — ANC + transparency, call quality; Moondrop Chu 2 — wired IEMs with brass nozzle, Harman-tuned; Sony MDR-7506 — foldable studio classic since 1991, travel-friendly; Beyerdynamic DT 770 Pro 250 Ω — closed-back studio monitors for long focus
-- **Power**: Shargeek 170 — transparent 25 600 mAh power bank with status display; Ugreen Nexode 300 W — desktop charging station with 5 ports
-- **Health & Play**: Oura Ring Gen3 — sleep / HRV / cycles trackers; Anbernic RG405V — vertical Android retro emulator (PSP, Dreamcast, N64)
+- **Power**: Shargeek 170 — transparent 25,600 mAh power bank with status display; Ugreen Nexode 300 W — desktop charging station with 5 ports
+- **Health & Play**: Oura Ring Gen3 — sleep / resting heart rate / cycles tracking; Anbernic RG405V — vertical Android retro emulator (PSP, Dreamcast, N64)
 
 ## Pages
 

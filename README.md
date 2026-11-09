@@ -10,7 +10,7 @@ Pure static HTML/CSS/JS. **No build step, no npm, no framework.** Hosted on Clou
 
 - 9 HTML pages — home, collaborate, about, uses (RU + EN twins) and `404.html`; plus the `/notes` shells rendered by Pages Functions
 - A versioned design-system layer `ds/v1/` (fonts, tokens for 4 themes, base, components) + `styles.css` for page layout. Other projects load it straight from `https://s.morgunov.tech/ds/v1/` — [Found You](https://github.com/morgunovtech/FoundYou) and [Good Pass](https://github.com/morgunovtech/good-pass); see [`ds/v1/USAGE.md`](ds/v1/USAGE.md)
-- One script — `script.js` (single IIFE, no dependencies, ≈ 370 lines)
+- One script — `script.js` (single IIFE, no dependencies, ≈ 290 lines)
 - Self-hosted IBM Plex Sans + Plex Mono (latin + cyrillic woff2 subsets, `font-display: swap`)
 - Cloudflare config: [`_headers`](_headers), [`_routes.json`](_routes.json), [`_redirects`](_redirects)
 
@@ -69,6 +69,8 @@ npx wrangler pages secret put ADMIN_PASSWORD_HASH
 npx wrangler pages secret put SESSION_SECRET           # any long random string
 npx wrangler pages secret put ANTHROPIC_API_KEY        # AI translate / proofread
 npx wrangler pages secret put SOCIALBOT_INGEST_TOKEN   # live subscriber numbers
+npx wrangler pages secret put TELEGRAM_BOT_TOKEN       # publishing notes to the channel
+npx wrangler pages secret put TELEGRAM_CHANNEL         # the channel, e.g. @raschet7
 ```
 
 Seeding KV is optional — when a key is missing, the render falls back to `content.seed.json`.

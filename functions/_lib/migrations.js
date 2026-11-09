@@ -69,19 +69,22 @@ const STALE = [
   ['Certified as a Certified Sales Trainer in the UK, joined the training team in Russia.\n\n— Product and sales training: 700+ employees and managers\n\n— Events: 100+ online / offline / blended-format sessions, average rating 4.9 out of 5\n\n— Apple Expert Certification: 92% of trainees obtained the international certificate',
     'Became a Certified Sales Trainer in the UK and joined the training team in Russia.\n\n- Product and sales training: 700+ employees and managers\n- Events: 100+ online / offline / blended-format sessions, average rating 4.9 out of 5\n- Apple Expert Certification: 92% of trainees obtained the international certificate'],
   [/^Certified Sales Trainer$/g, 'Certified Sales Trainer (contractor)'],
-  // Publications: one figure in both languages, and it is a sum. YouTube on
-  // 2026-11-09: 3 306 + 3 611 = 6 917, so «>7 000» / «7,200» were both wrong.
-  // Anchored: /about quotes «82,600 views» as a typography example.
-  [/^>82 000 просмотров$/g, '82 000+ просмотров суммарно'],
-  [/^82,600 views$/g, '82,000+ views combined'],
-  [/^>7 000 просмотров$/g, '6 900+ просмотров суммарно'],
-  [/^7,200 views$/g, '6,900+ views combined'],
-  // v0.31.0: vc.ru's public stats (2026-11-09, «открытий поста») give the two
-  // homepage articles 6 299 + 30 506 = 36 805 views, not 82 600. Runs after
-  // the v0.30.6 swap above, so it catches both the raw KV value and a doc
-  // re-saved since then.
-  [/^82 000\+ просмотров суммарно$/g, '36 800+ просмотров суммарно'],
-  [/^82,000\+ views combined$/g, '36,800+ views combined'],
+  // (v0.30.6/v0.31.0 also rewrote the homepage publication view counts; the
+  // section itself left the homepage in v0.31.1, so those swaps are gone.)
+  // v0.31.3: proofreading before publication, for the KV home doc saved before
+  // it. RU: decimal comma, «млн», no case ending after a digit; EN: English
+  // quotes, and the client list links like the RU one; the person description
+  // counts businesses, like «Обо мне» (the projects counter now says 7).
+  ['~6.5M пользователей в месяц', '~6,5 млн пользователей в месяц'],
+  ['- GMV: ×2.2 за год', '- GMV: ×2,2 за год'],
+  ['положительной EBITDA\n- CSAT: 4.2 → 4.5', 'положительной EBITDA\n- CSAT: 4,2 → 4,5'],
+  ['средняя оценка 4.9 из 5', 'средняя оценка 4,9 из 5'],
+  ['Активировал 7M+ пользователей', 'Активировал 7 млн+ пользователей'],
+  ['Выросли до 3-х точек', 'Выросли до 3 точек'],
+  ['«Hvost»', '“Hvost”'],
+  ['Clients include UMAI Group, Bellissimo Pizza, Buildex, MediaPark, and others.',
+    'Clients include [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about), and others.'],
+  ['запустил четыре собственных проекта (', 'запустил четыре бизнеса ('],
 ];
 
 export function fixStaleContent(node) {
@@ -111,19 +114,6 @@ export function migrateHome(doc, seedDoc) {
       const mine = prods.items.find((it) => it && it.name === seedItem.name);
       if (!mine) prods.items.push(clone(seedItem));
       else if (seedItem.schema && !mine.schema) mine.schema = clone(seedItem.schema);
-    }
-  }
-  // v0.29: the CHANNEL meta is a template with a live counter, not a literal.
-  const pubs = doc.sections.publications && doc.sections.publications.items;
-  if (Array.isArray(pubs)) {
-    for (const it of pubs) {
-      if (!it || it.tag !== 'CHANNEL' || !it.meta || typeof it.meta !== 'object') continue;
-      for (const l of ['ru', 'en']) {
-        const v = it.meta[l];
-        if (typeof v === 'string' && /^[\d\s\u00a0,.]+\s+(в|on)\s+Telegram$/i.test(v)) {
-          it.meta[l] = l === 'en' ? '{telegram} on Telegram' : '{telegram} в Telegram';
-        }
-      }
     }
   }
   // The counters fall back to the subscribers stat — make sure one exists.

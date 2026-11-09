@@ -78,7 +78,7 @@ export function fmtNum(n, lang) {
 }
 
 // Subscriber counters — THE single source for every number on the page that
-// mentions followers (the stats strip and the CHANNEL publication meta).
+// mentions followers (the stats strip and the /notes channel block meta).
 // Live SocialBot numbers win when the subscribers stat is on auto; otherwise
 // the doc's own channel values. Formatted per language (RU nbsp / EN comma).
 export function counters(doc, lang) {
@@ -234,33 +234,14 @@ function productCard(it, lang, edit, path) {
   });
 }
 
-export function pubItem(it, lang, edit, path, doc) {
-  // In edit mode the meta shows its raw template ("{telegram} в Telegram") so a
-  // focus/blur in the editor never overwrites the placeholder with a snapshot.
-  const meta = edit ? escapeHtml(pick(it.meta, lang)) : fillCounters(pick(it.meta, lang), doc, lang);
-  const head = `<div class="v4-pub-head"><span class="v4-tag"${eText(edit, path + '.tag')}>${escapeHtml(
-    it.tag
-  )}</span><span${eText(edit, path + '.meta')}>${meta}</span></div>`;
-  if (it.kind === 'links') {
-    const lis = it.links
-      .map(
-        (l, j) =>
-          `<li${eItem(edit, path + '.links.' + j)}><a href="${escapeAttr(safeHref(l.href))}" target="_blank" rel="noopener noreferrer"${eText(
-            edit,
-            path + '.links.' + j + '.label'
-          )}>${escapeHtml(pick(l.label, lang))}</a></li>`
-      )
-      .join('');
-    return `<article class="v4-pub"${eItem(edit, path)}>
-          ${head}
-          <ul class="v4-list"${edit ? ` data-edit-list="${path}.links"` : ''}>${lis}</ul>
-        </article>`;
-  }
-  const prose = `<p class="v4-prose"${eMd(edit, path + '.prose')}>${renderInline(pick(it.prose, lang))}</p>`;
-  const more = it.more ? moreLink(it.more, lang, edit, path + '.more') : '';
-  return `<article class="v4-pub"${eItem(edit, path)}>
-          ${head}
-          ${prose}
+// The Telegram channel block on /notes (v0.31.0 moved it there from the
+// homepage publications): tag + live counter, one line of prose, a «→» link.
+export function channelItem(it, lang, doc) {
+  const meta = fillCounters(pick(it.meta, lang), doc, lang);
+  const more = it.more ? moreLink(it.more, lang, false, '') : '';
+  return `<article class="v4-pub">
+          <div class="v4-pub-head"><span class="v4-tag">${escapeHtml(it.tag)}</span><span>${meta}</span></div>
+          <p class="v4-prose">${renderInline(pick(it.prose, lang))}</p>
           ${more}
         </article>`;
 }
@@ -319,7 +300,7 @@ function tierCard(t, lang) {
   });
 }
 
-// One homepage «Заметки» row: date · tag · title. Own notes stay on the site;
+// One homepage «Публикации» row: date · tag · title. Own notes stay on the site;
 // external materials open in a new tab with a trailing «→» (they leave the site).
 function feedRow(e, lang) {
   const it = e.item;
@@ -351,7 +332,7 @@ export const renderers = {
   products: (doc, lang, edit) =>
     doc.sections.products.items.map((it, i) => productCard(it, lang, edit, 'sections.products.items.' + i)).join('\n        '),
 
-  // «Заметки»: the three newest feed entries (own notes + external materials),
+  // «Публикации»: the three newest feed entries (own notes + external materials),
   // attached to the doc as `_feed` by _middleware.js / the admin preview /
   // render-static. Not editable here — the feed has its own sources.
   notesFeed: (doc, lang, edit) => {

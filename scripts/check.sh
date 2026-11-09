@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # Zero-dependency verification harness (no npm, no package.json).
-#   1. syntax/parse check every .js (node --check)  ← "typecheck/lint"
-#   2. unit tests for pure functions (node --test)   ← "tests"
-#   3. RU/EN structural parity (check-sync.py)        ← invariant
-# Build = `npx wrangler pages dev` (run manually; not bundled here).
+#   1. syntax/parse check every .js (node --check)
+#   2. unit tests for pure functions (node --test)
+#   3. RU/EN structural parity (check-sync.py)
+#   4. inline critical CSS ↔ external layer (check-critical.py)
+#   5. static twins ≡ seed render (render-static.mjs --check)
+#   6. the Functions bundle the way Pages builds it (skip with NO_BUILD=1)
 set -euo pipefail
 cd "$(dirname "$0")/.."
 

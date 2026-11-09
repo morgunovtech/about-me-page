@@ -32,14 +32,14 @@ const T = {
   ru: {
     skip: 'Перейти к основному содержимому',
     mainNav: 'Основная навигация',
-    notes: 'Заметки',
+    notes: 'Публикации',
     home: 'Главная',
-    back: '← Все заметки',
+    back: '← Все публикации',
     menu: 'Меню',
     langLabel: 'сменить язык',
     themeLabel: 'Сменить тему оформления',
     themes: ['Светлая', 'Тёмная', 'Авто', 'Высокий контраст'],
-    privacy: 'Без Cookies, трекеров и аналитики',
+    privacy: 'Без cookies, трекеров и аналитики',
     uses: 'стек',
     typo: 'нашли опечатку?',
     feed: 'Заметки — RSS',
@@ -49,9 +49,9 @@ const T = {
   en: {
     skip: 'Skip to main content',
     mainNav: 'Main navigation',
-    notes: 'Notes',
+    notes: 'Publications',
     home: 'Home',
-    back: '← All notes',
+    back: '← All publications',
     menu: 'Menu',
     langLabel: 'change language',
     themeLabel: 'Switch theme',
@@ -65,12 +65,12 @@ const T = {
   },
 };
 
-const STYLES_VER = 'v=199f6a5e';
+const STYLES_VER = 'v=ab69cd0f';
 const SCRIPT_VER = 'v=a375e8a3';
 const FONTS_VER = 'v=64eea157';
 const TOKENS_VER = 'v=fa7fc139';
 const BASE_VER = 'v=0e404315';
-const COMPONENTS_VER = 'v=982717a6';
+const COMPONENTS_VER = 'v=f7d07a70';
 
 const L = (lang) => (lang === 'en' ? 'en' : 'ru');
 const p = (lang, path) => (L(lang) === 'en' ? '/en' : '') + path;
@@ -87,7 +87,7 @@ function headChrome(lang) {
     .filter((f, i, a) => a.indexOf(f) === i)
     .map((f) => `  <link rel="preload" as="font" type="font/woff2" href="/fonts/${f}.woff2" crossorigin />`)
     .join('\n');
-  return `  <meta name="author" content="${NAME.en}" />
+  return `  <meta name="author" content="${NAME[L(lang)]}" />
   <meta name="theme-color" content="#edeae5" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
   <link rel="icon" href="/favicon.ico" sizes="any" />

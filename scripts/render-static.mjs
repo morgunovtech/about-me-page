@@ -55,7 +55,7 @@ function indentBefore(html, idx) {
 
 function processPage(html, page, lang) {
   const doc = clone(seed[page]);
-  // The «Заметки» block: the seed has no articles, so the twin holds the three
+  // The «Публикации» block: the seed has no articles, so the twin holds the three
   // newest external materials (the live page adds published notes on top).
   if (page === 'home') doc._feed = buildFeed([], seed.notes, lang).slice(0, 3);
   const drift = [];

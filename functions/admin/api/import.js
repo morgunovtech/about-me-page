@@ -6,7 +6,7 @@ import { json, sameOrigin } from '../../_lib/http.js';
 import { sanitizeHtml } from '../../_lib/sanitize.js';
 import { articleKey, INDEX_KEY, loadArticleIndex, makeArticleDoc, indexEntry } from '../../_lib/articles.js';
 import { sniffType } from './upload.js';
-import { purge, articlePaths, NOTES_PATHS } from '../../_lib/cache.js';
+import { purge, articlePaths } from '../../_lib/cache.js';
 
 const TME_RE = /^https?:\/\/(?:www\.)?t\.me\/([A-Za-z0-9_]{3,64})\/(\d{1,12})\b/;
 const EXT = { 'image/webp': 'webp', 'image/png': 'png', 'image/jpeg': 'jpg', 'image/gif': 'gif', 'image/avif': 'avif' };

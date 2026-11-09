@@ -2,7 +2,7 @@
    morgunov.tech design system — v1 — components.css
    Reusable chrome + atoms shared across morgunov.tech services:
    top bar, language switch, theme switcher, buttons, section heads,
-   lists, prose, footer, scroll chrome, focus ring, page shell.
+   lists, prose, footer, focus ring, page shell.
    Depends on tokens.css + base.css. Page-specific layout (hero, stats,
    career, ventures, cards, /uses, /collaborate, contact) lives in each
    site's own stylesheet, loaded after this file.

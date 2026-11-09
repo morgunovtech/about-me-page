@@ -92,7 +92,7 @@ export async function onRequest(context) {
   return cached(context, async () => {
     // The template fetch and the KV reads are independent — run them in
     // parallel. Only the home page renders the live subscribers stat and the
-    // «Заметки» block (the three newest /notes feed entries).
+    // «Публикации» block (the three newest /notes feed entries).
     const isHome = route.page === 'home';
     const [response, doc, subs, feed] = await Promise.all([
       next(),

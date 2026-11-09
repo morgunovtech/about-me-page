@@ -1,6 +1,7 @@
 # The site has no package manager (no npm, no package.json), so the only
 # dependencies to keep fresh are the Actions in CI. CI checks the PR;
-# nothing merges automatically.
+# minor/patch bumps merge on their own once it passes
+# (workflows/dependabot-automerge.yml), majors wait for a human.
 version: 2
 updates:
   - package-ecosystem: github-actions

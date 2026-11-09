@@ -66,7 +66,7 @@ test('an external material without a title in this language is left out', () => 
   const doc = { external: [{ date: '2024-01-01', tag: 'VIDEO', source: 'YouTube', href: 'https://youtu.be/x', title: { ru: 'Только RU', en: '' }, views: 500 }] };
   assert.equal(buildFeed([], doc, 'ru').length, 1);
   assert.equal(buildFeed([], doc, 'en').length, 0);
-  assert.ok(feedListHtml(buildFeed([], doc, 'en'), 'en').includes('No notes yet.'));
+  assert.ok(feedListHtml(buildFeed([], doc, 'en'), 'en').includes('No publications yet.'));
 });
 
 test('views are floored to hundreds with «+», never overstated', () => {
