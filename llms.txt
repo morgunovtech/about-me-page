@@ -1,6 +1,6 @@
 # Semyon Morgunov / Семён Моргунов
 
-> Head of FinTech at Yandex Uzbekistan — builds products in Central Asia's fast-growing markets, where product, operations, and unit economics are assembled in parallel. 10 years in tech: works in Russia and Uzbekistan, consults companies in Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees, three closed). {total} followers across social channels (Telegram {telegram} · LinkedIn {linkedin} · YouTube {youtube}). Based in Tashkent, Uzbekistan. Advises startups and angel-invests in e-com, RetailTech, FinTech, and EdTech.
+> Head of FinTech at Yandex Uzbekistan — builds products in Central Asia's fast-growing markets, where product, operations, and unit economics are assembled in parallel. 10 years in tech: works in Russia and Uzbekistan, consults companies in Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees, two closed, one on pause). {total} followers across social channels (Telegram {telegram} · LinkedIn {linkedin} · YouTube {youtube}). Based in Tashkent, Uzbekistan. Advises startups and angel-invests in e-com, RetailTech, FinTech, and EdTech.
 
 ## About
 
@@ -48,8 +48,8 @@
 
 ## Publications
 
-- [How low-cost airlines make money](https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 82,600+ views
-- [How discount grocery stores make money](https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru
+- [How low-cost airlines make money](https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery) — vc.ru
+- [How discount grocery stores make money](https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru; 82,000+ views across these two articles
 - [Lessons from 3 years of personal finance management](https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami) — vc.ru
 - [Critical review of brainbox.vc crowd-investing platform](https://youtu.be/OJXtFmWNZMM) — YouTube
 - [Two years of Korzinka Go: how we emerged, evolved, and ended up in a red ocean](https://youtu.be/BthlUR9eO1M) — YouTube

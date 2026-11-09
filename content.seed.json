@@ -40,8 +40,8 @@
         "en": "Семён Моргунов"
       },
       "personDescription": {
-        "ru": "Head of FinTech в Yandex Uzbekistan. Запускает продукты на быстрорастущих рынках Центральной Азии — продукт, операционку и юнит-экономику собирает параллельно. 10 лет в IT (EdTech, e-com, FinTech), работа в России и Узбекистане, консалтинг в Кыргызстане. С 2009 года запустил четыре собственных проекта (один продан сотрудникам, три закрыли). Эдвайзер и ангельский инвестор. Автор Telegram-канала «Семён расправил плечи».",
-        "en": "Head of FinTech at Yandex Uzbekistan. Builds products in Central Asia's fast-growing markets — product, operations, and unit economics assembled in parallel. 10 years in tech (EdTech, e-com, FinTech), worked in Russia and Uzbekistan, consults in Kyrgyzstan. Since 2009, launched four of his own ventures (one sold to employees, three closed). Advisor and angel investor. Author of the Telegram channel \"Semyon raspravil plechi\"."
+        "ru": "Head of FinTech в Yandex Uzbekistan. Запускает продукты на быстрорастущих рынках Центральной Азии — продукт, операционку и юнит-экономику собирает параллельно. 10 лет в IT (EdTech, e-com, FinTech), работа в России и Узбекистане, консалтинг в Кыргызстане. С 2009 года запустил четыре собственных проекта (один продан сотрудникам, два закрыли, один на паузе). Эдвайзер и ангельский инвестор. Автор Telegram-канала «Семён расправил плечи».",
+        "en": "Head of FinTech at Yandex Uzbekistan. Builds products in Central Asia's fast-growing markets — product, operations, and unit economics assembled in parallel. 10 years in tech (EdTech, e-com, FinTech), worked in Russia and Uzbekistan, consults in Kyrgyzstan. Since 2009, launched four of his own ventures (one sold to employees, two closed, one on pause). Advisor and angel investor. Author of the Telegram channel \"Semyon raspravil plechi\"."
       },
       "knowsAbout": [
         "E-commerce",
@@ -194,8 +194,8 @@
           "en": "About"
         },
         "prose": {
-          "ru": "Запускаю цифровые продукты на развивающихся рынках — там, где продукт, операционку и юнит‑экономику необходимо собирать параллельно, под локальный контекст.\n\nКонсультирую компании в России, Узбекистане и Кыргызстане. Среди клиентов UMAI Group, Belissimo Pizza, Buildex, MediaPark и другие.\n\nС 2009 года запустил четыре бизнеса — один продали сотрудникам, три закрыли. Сейчас делаю два инструмента про цифровую приватность и веду [Telegram‑канал](https://t.me/raschet7) о том, что узнаю в работе. Живу в Ташкенте с ирландским терьером Тофсом.",
-          "en": "I launch digital products in emerging markets — places where product, operations, and unit economics have to be assembled in parallel, fitted to the local context.\n\nI consult companies in Russia, Uzbekistan, and Kyrgyzstan. Clients include UMAI Group, Belissimo Pizza, Buildex, MediaPark, and others.\n\nSince 2009 I've launched four businesses — one sold to employees, three closed. Currently building two tools on digital privacy and running a [Telegram channel](https://t.me/raschet7) about what I learn at work. I live in Tashkent with an Irish terrier named Tofs."
+          "ru": "Запускаю цифровые продукты на развивающихся рынках — там, где продукт, операционку и юнит‑экономику необходимо собирать параллельно, под локальный контекст.\n\nКонсультирую компании в России, Узбекистане и Кыргызстане. Среди клиентов [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about) и другие.\n\nС 2009 года запустил четыре бизнеса — один продали сотрудникам, два закрыли, один на паузе. Сейчас делаю два инструмента цифровой приватности и веду [Telegram‑канал](https://t.me/raschet7). Живу в Ташкенте с ирландским терьером Тофсом.",
+          "en": "I launch digital products in emerging markets — places where product, operations, and unit economics have to be assembled in parallel, fitted to the local context.\n\nI consult companies in Russia, Uzbekistan, and Kyrgyzstan. Clients include UMAI Group, Bellissimo Pizza, Buildex, MediaPark, and others.\n\nSince 2009 I've launched four businesses — one sold to employees, two closed, one on pause. Currently building two tools on digital privacy and running a [Telegram channel](https://t.me/raschet7) about what I learn at work. I live in Tashkent with an Irish terrier named Tofs."
         }
       },
       "career": {
@@ -207,8 +207,8 @@
         "items": [
           {
             "period": {
-              "ru": "Апр 2026 — наст. вр.",
-              "en": "Apr 2026 — present"
+              "ru": "2026 — сейчас",
+              "en": "2026 — present"
             },
             "company": {
               "ru": "[Yandex Uzbekistan](https://yandex.uz/)",
@@ -238,8 +238,8 @@
               "en": "Director of e-commerce / CPO Korzinka Go"
             },
             "ctx": {
-              "ru": "Три года в крупнейшем e-grocery Узбекистана — сначала строил продукт, потом отвечал за весь P&L.\n\n- Заказы: 400 → 10 000 в день за 3 года\n- Расширение: 1 → 9 городов за 10 месяцев\n- Выручка: ×2 год к году при положительной EBITDA\n- Платёжный модуль с нуля: 3 BNPL-провайдера, PCI DSS 4.0\n- CSAT: 4.2 → 4.5",
-              "en": "Three years at Uzbekistan's largest e-grocery — first building the product, then owning the full P&L.\n\n- Orders: 400 → 10,000 per day in 3 years\n- Expansion: 1 → 9 cities in 10 months\n- Revenue: ×2 YoY with positive EBITDA\n- Payments module from scratch: 3 BNPL providers, PCI DSS 4.0\n- CSAT: 4.2 → 4.5"
+              "ru": "Строил продукт, затем отвечал за P&L в крупнейшем e-grocery Узбекистана.\n\n- Заказы в день: 400 → 10 000 (ATH) за 3 года\n- Расширение: 1 → 9 городов за 10 месяцев\n- Выручка: ×2 год к году при положительной EBITDA\n- CSAT: 4.2 → 4.5",
+              "en": "Built the product, then owned the full P&L at Uzbekistan's largest e-grocery.\n\n- Orders: 400 → 10,000 (ATH) per day over 3 years\n- Expansion: 1 → 9 cities in 10 months\n- Revenue: ×2 year-over-year at positive EBITDA\n- CSAT: 4.2 → 4.5"
             }
           },
           {
@@ -256,8 +256,8 @@
               "en": "Head of Product"
             },
             "ctx": {
-              "ru": "Портфель 30+ продуктов в сегменте домашних услуг, ~6.5M пользователей в месяц.\n\n- GMV: ×2.2 за год\n- EBITDA: вывел в плюс за 10 месяцев",
-              "en": "Portfolio of 30+ products in home services, ~6.5M monthly users.\n\n- GMV: ×2.2 in a year\n- EBITDA: turned positive in 10 months"
+              "ru": "Портфель 30+ продуктов в сегменте домашних услуг, ~6.5M пользователей в месяц.\n\n- GMV: ×2.2 за год\n- EBITDA: вывел в плюс за 10 месяцев\n- Pivot: Classified → End to End Model",
+              "en": "Portfolio of 30+ products in home services, ~6.5M monthly users.\n\n- GMV: ×2.2 in a year\n- EBITDA: turned positive in 10 months\n- Pivot: Classified → End to End Model"
             }
           },
           {
@@ -270,12 +270,12 @@
               "en": "Apple Russia"
             },
             "role": {
-              "ru": "Certified Sales Trainer",
-              "en": "Certified Sales Trainer"
+              "ru": "Certified Sales Trainer (contractor)",
+              "en": "Certified Sales Trainer (contractor)"
             },
             "ctx": {
-              "ru": "По контракту.",
-              "en": "Contract role."
+              "ru": "Сертифицировался как Sales Trainer в UK, присоединился к тренинговой команде в России.\n\n- Обучение продукту и продажам: 700+ сотрудников и руководителей\n- Мероприятия: 100+ событий в online / offline / blended-форматах, средняя оценка 4.9 из 5\n- Сертификация Apple Expert: 92% подопечных получили международный сертификат",
+              "en": "Became a Certified Sales Trainer in the UK and joined the training team in Russia.\n\n- Product and sales training: 700+ employees and managers\n- Events: 100+ online / offline / blended-format sessions, average rating 4.9 out of 5\n- Apple Expert Certification: 92% of trainees obtained the international certificate"
             }
           },
           {
@@ -532,8 +532,8 @@
             "kind": "links",
             "tag": "ARTICLE",
             "meta": {
-              "ru": "82 600 просмотров",
-              "en": "82,600 views"
+              "ru": "82 000+ просмотров суммарно",
+              "en": "82,000+ views combined"
             },
             "links": [
               {
@@ -556,8 +556,8 @@
             "kind": "links",
             "tag": "VIDEO",
             "meta": {
-              "ru": "7 200 просмотров",
-              "en": "7,200 views"
+              "ru": "6 900+ просмотров суммарно",
+              "en": "6,900+ views combined"
             },
             "links": [
               {
@@ -1338,8 +1338,8 @@
           }
         ],
         "clients": {
-          "ru": "Клиенты: **UMAI Group · Belissimo Pizza · Buildex · MediaPark**",
-          "en": "Clients: **UMAI Group · Belissimo Pizza · Buildex · MediaPark**"
+          "ru": "Клиенты: **UMAI Group · Bellissimo Pizza · Buildex · MediaPark**",
+          "en": "Clients: **UMAI Group · Bellissimo Pizza · Buildex · MediaPark**"
         }
       },
       "consulting": {
