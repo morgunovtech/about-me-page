@@ -6,6 +6,7 @@
 // asset layer / CDN cache.
 
 import { loadDoc, loadSubscribers } from './_lib/content.js';
+import { loadHomeFeed } from './_lib/render-notes.js';
 import { overlay } from './_lib/overlay.js';
 import { renderPageJsonLd } from './_lib/jsonld.js';
 import { cached } from './_lib/cache.js';
@@ -89,18 +90,22 @@ export async function onRequest(context) {
 
   // Edge-cached: a rendered copy per URL, purged by admin save / ingest.
   return cached(context, async () => {
-    // The template fetch and the two KV reads are independent — run them in
-    // parallel. Only the home page renders the live subscribers stat.
-    const [response, doc, subs] = await Promise.all([
+    // The template fetch and the KV reads are independent — run them in
+    // parallel. Only the home page renders the live subscribers stat and the
+    // «Заметки» block (the three newest /notes feed entries).
+    const isHome = route.page === 'home';
+    const [response, doc, subs, feed] = await Promise.all([
       next(),
       loadDoc(env, route.page),
-      route.page === 'home' ? loadSubscribers(env) : null,
+      isHome ? loadSubscribers(env) : null,
+      isHome ? loadHomeFeed(env, route.lang) : null,
     ]);
     if (!(response.headers.get('content-type') || '').includes('text/html')) {
       return response;
     }
     if (!doc) return response; // no content anywhere → serve the static template
     if (subs) doc._live = { subscribers: subs };
+    if (feed) doc._feed = feed;
     doc._build = buildOf(env);
 
     const transformed = overlay(response, doc, route.lang, false, (d, l) => renderPageJsonLd(d, l, route.page));

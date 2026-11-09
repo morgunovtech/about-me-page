@@ -23,3 +23,19 @@ export function pick(v, lang) {
 export function resolvePath(doc, path) {
   return path.split('.').reduce((o, k) => (o == null ? undefined : o[k]), doc);
 }
+
+// «26 июня 2025 г.» / «June 26, 2025» — the date line of every notes row (the
+// /notes feed and the homepage block). UTC: a YYYY-MM-DD date has no time zone.
+export function fmtDate(date, lang) {
+  if (!date) return '';
+  try {
+    return new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'ru-RU', {
+      day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
+    }).format(new Date(date));
+  } catch {
+    return date;
+  }
+}
+
+// Screen-reader note after a link that opens in a new tab.
+export const NEW_TAB = { ru: ' (откроется в новой вкладке)', en: ' (opens in a new tab)' };

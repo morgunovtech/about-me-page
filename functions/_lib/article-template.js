@@ -73,12 +73,12 @@ const T = {
   },
 };
 
-const STYLES_VER = 'v=7e5fa5c2';
-const SCRIPT_VER = 'v=c2d17bcd';
+const STYLES_VER = 'v=199f6a5e';
+const SCRIPT_VER = 'v=98de2cde';
 const FONTS_VER = 'v=64eea157';
 const TOKENS_VER = 'v=fa7fc139';
 const BASE_VER = 'v=0e404315';
-const COMPONENTS_VER = 'v=434c30e7';
+const COMPONENTS_VER = 'v=95703fa6';
 
 const L = (lang) => (lang === 'en' ? 'en' : 'ru');
 const p = (lang, path) => (L(lang) === 'en' ? '/en' : '') + path;

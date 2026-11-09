@@ -63,8 +63,8 @@
   <link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" />
   <link rel="stylesheet" href="/ds/v1/tokens.css?v=fa7fc139" />
   <link rel="stylesheet" href="/ds/v1/base.css?v=0e404315" />
-  <link rel="stylesheet" href="/ds/v1/components.css?v=434c30e7" />
-  <link rel="stylesheet" href="/styles.css?v=7e5fa5c2" />
+  <link rel="stylesheet" href="/ds/v1/components.css?v=95703fa6" />
+  <link rel="stylesheet" href="/styles.css?v=199f6a5e" />
   <script data-cfasync="false">
     (function () {
       var d = document.documentElement;
@@ -88,13 +88,11 @@
       <nav class="v4-nav v4-dropdown" aria-label="Основная навигация">
         <button class="v4-bar-btn v4-nav-toggle" type="button" aria-controls="site-nav">Меню<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
         <div class="v4-bar-mid" id="site-nav">
-          <a href="#about">Обо мне</a>
-          <a href="#career">Карьера</a>
-          <a href="#help">Помощь</a>
-          <a href="#ventures">Своё дело</a>
-          <a href="#products">Продукты</a>
-          <a href="#publications">Публикации</a>
-          <a href="#contact">Связаться</a>
+          <a href="#about" data-cms-text="sections.about.title">Обо мне</a>
+          <a href="#career" data-cms-text="sections.career.title">Карьера</a>
+          <a href="#projects" data-cms-text="sections.projects.title">Собственные проекты</a>
+          <a href="#notes" data-cms-text="sections.notes.title">Заметки</a>
+          <a href="#contact" data-cms-text="sections.contact.title">Связаться</a>
         </div>
       </nav>
       <div class="v4-bar-right">
@@ -134,10 +132,9 @@
       <div class="v4-hero-text">
         <p class="v4-hero-meta"><b data-cms-text="hero.eyebrow">Head of FinTech @ Yandex Uzbekistan</b></p>
         <h1 class="v4-h1" id="hero-title" data-cms-text="hero.name">Семён Моргунов</h1>
-        <p class="v4-tagline" data-cms-text="hero.tagline">Запускаю продукты на быстрорастущих рынках Центральной Азии — продукт, операционка и юнит-экономика собираются параллельно.</p>
+        <p class="v4-tagline" data-cms-text="hero.tagline">Строю продукты на растущих рынках, делаю инструменты про приватность и пишу о том, что понял по дороге.</p>
         <div class="v4-cta-row" data-cms-list="heroCtas">
           <a class="v4-btn v4-btn-primary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
-                    <a class="v4-btn" href="/collaborate">Чем могу помочь</a>
         </div>
       </div>
       <figure class="v4-portrait-wrap">
@@ -170,9 +167,9 @@
               <div class="v4-stat-aside"><span class="v4-stat-channel"><span aria-hidden="true">TG</span><span class="sr-only">Telegram:</span>&nbsp;1&nbsp;141</span><span aria-hidden="true"> · </span><span class="v4-stat-channel"><span aria-hidden="true">LI</span><span class="sr-only">LinkedIn:</span>&nbsp;4&nbsp;800</span><span aria-hidden="true"> · </span><span class="v4-stat-channel"><span aria-hidden="true">YT</span><span class="sr-only">YouTube:</span>&nbsp;128</span></div>
             </div>
             <div class="v4-stat">
-              <div class="v4-stat-value">4</div>
-              <div class="v4-stat-unit">своих проекта</div>
-              <div class="v4-stat-aside">с 2009 года · 1 продан</div>
+              <div class="v4-stat-value">7</div>
+              <div class="v4-stat-unit">своих проектов</div>
+              <div class="v4-stat-aside">с 2009 · 1 продан · 3 работают</div>
             </div>
     </div>
 
@@ -244,143 +241,121 @@
       </div>
     </section>
 
-    <section id="help" class="v4-section">
+    <section id="projects" class="v4-section">
       <div class="v4-section-head">
         <span class="v4-section-num">03</span>
-        <h2 class="v4-h2" data-cms-text="sections.help.title">Чем могу помочь</h2>
+        <h2 class="v4-h2" data-cms-text="sections.projects.title">Собственные проекты</h2>
       </div>
-      <div class="v4-body">
-        <div class="v4-body-aside"></div>
-        <div data-cms-list="help">
-          <h3 class="v4-h3">Как работаю</h3>
-                    <ul class="v4-list"><li>Прихожу с числами, гипотезами и приоритетами.</li><li>Говорю прямо. Не согласен&nbsp;— скажу. Не разбираюсь&nbsp;— скажу.</li><li>Не подменяю команду — вхожу в операционку, когда зовут или когда горит.</li></ul>
-                    <h3 class="v4-h3">Чего не делаю</h3>
-                    <ul class="v4-list"><li>Не выполняю роль проджект-менеджера или мастера на все руки.</li><li>Не пишу 80-страничные отчёты и не отправляю фреймворки в pdf.</li><li>Не беру проект, если не вижу честного пути к результату.</li></ul>
-                    <div class="v4-help-cta"><a class="v4-btn" href="/collaborate">Узнать подробности →</a></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="ventures" class="v4-section">
-      <div class="v4-section-head">
-        <span class="v4-section-num">04</span>
-        <h2 class="v4-h2" data-cms-text="sections.ventures.title">Своё дело</h2>
-      </div>
+      <h3 class="v4-h3 v4-tier" data-cms-text="sections.projects.live">Работает</h3>
+      <div class="v4-products" data-cms-list="products">
+  <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-product-tag-row">
+                <span class="v4-tag">WEB</span>
+                <span class="v4-live-dot" aria-hidden="true"></span><span class="sr-only">Работает</span>
+              </span>
+              <span><span>2026</span> · <span>v1.0</span></span>
+            </div>
+            <h3 class="v4-product-name"><a href="https://foundyou.morgunov.tech/" target="_blank" rel="noopener noreferrer">FoundYou</a></h3>
+            <p class="v4-product-desc">Загруженный в сеть снимок выдаёт ваше местоположение, время съёмки, модель устройства и лица посторонних людей. FoundYou вычистит EXIF, замажет приватные зоны и защитит фото от поиска по картинке. Локально, оригинал не трогаем.</p>
+            <a class="v4-btn" href="https://foundyou.morgunov.tech/" target="_blank" rel="noopener noreferrer">Очистить фото →</a>
+          </article>
+          <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-product-tag-row">
+                <span class="v4-tag">BOT</span>
+                <span class="v4-live-dot" aria-hidden="true"></span><span class="sr-only">Работает</span>
+              </span>
+              <span><span>2026</span> · <span>v1.0</span></span>
+            </div>
+            <h3 class="v4-product-name"><a href="https://github.com/morgunovtech/Tofs_DevOps_bot" target="_blank" rel="noopener noreferrer">TofsDevOps</a></h3>
+            <p class="v4-product-desc">Личный DevOps в Telegram: следит за аптаймом, SSL, доменом и DNS, проверяет, что сайт видят поисковики и AI-агенты, умеет сам перезапустить деплой на Cloudflare Pages — и молчит, пока всё в порядке. Open source, ставится за пять минут на Railway или в Docker.</p>
+            <a class="v4-btn" href="https://github.com/morgunovtech/Tofs_DevOps_bot" target="_blank" rel="noopener noreferrer">Установить бота →</a>
+          </article>
+          <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-product-tag-row">
+                <span class="v4-tag">WEB</span>
+                <span class="v4-live-dot" aria-hidden="true"></span><span class="sr-only">Работает</span>
+              </span>
+              <span><span>2025</span> · <span>v2.5</span></span>
+            </div>
+            <h3 class="v4-product-name"><a href="https://fprint.morgunov.tech/" target="_blank" rel="noopener noreferrer">Fingerprint</a></h3>
+            <p class="v4-product-desc">Покажет процент уникальности вашего браузера и объяснит, по каким сигналам сайты узнают вас без cookies. К каждому параметру — пояснение простым языком и рекомендация к действию. Локально, бесплатно, без регистрации.</p>
+            <a class="v4-btn" href="https://fprint.morgunov.tech/" target="_blank" rel="noopener noreferrer">Проверить браузер →</a>
+          </article>
+</div>
+      <h3 class="v4-h3 v4-tier" data-cms-text="sections.projects.before">До этого</h3>
       <div class="v4-body">
         <div class="v4-body-aside"></div>
         <div data-cms-list="ventures">
-          <div class="v4-venture">
-                      <div class="year">2023</div>
-                      <div>
-                        <div class="name"><a href="https://kids-safety.tb.ru/" target="_blank" rel="noopener noreferrer">Онлайн-школа детской безопасности</a> <span class="role-aside">· Founder</span></div>
-                        <div class="arc">Запустили → не нашли PMF → на паузе</div>
-                      </div>
-                    </div>
-                    <div class="v4-venture">
-                      <div class="year">2022</div>
-                      <div>
-                        <div class="name"><a href="https://yandex.com/maps/-/CDF9VDo~" target="_blank" rel="noopener noreferrer">Салон этичного груминга «Хвост»</a> <span class="role-aside">· Co-founder</span></div>
-                        <div class="arc">Запустили → стабилизировали → продали сотрудникам</div>
-                      </div>
-                    </div>
-                    <div class="v4-venture">
-                      <div class="year">2011</div>
-                      <div>
-                        <div class="name">Сеть точек продажи снеков <span class="role-aside">· Co-founder</span></div>
-                        <div class="arc">Запустили → выросли до 3-х точек → закрыли</div>
-                      </div>
-                    </div>
-                    <div class="v4-venture">
-                      <div class="year">2009</div>
-                      <div>
-                        <div class="name">Онлайн-продажи аксессуаров для iPhone <span class="role-aside">· Founder</span></div>
-                        <div class="arc">Запустили → продали ~5% партии → закрыли</div>
-                      </div>
-                    </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="products" class="v4-section">
-      <div class="v4-section-head">
-        <span class="v4-section-num">05</span>
-        <h2 class="v4-h2" data-cms-text="sections.products.title">Продукты</h2>
-      </div>
-      <div class="v4-products" data-cms-list="products">
-        <article class="v4-product">
-                  <div class="v4-product-head">
-                    <span class="v4-product-tag-row">
-                      <span class="v4-tag">WEB</span>
-                      <span class="v4-live-dot" aria-hidden="true"></span>
-                    </span>
-                    <span>v2.5</span>
-                  </div>
-                  <h3 class="v4-product-name">Fingerprint</h3>
-                  <p class="v4-product-desc">Покажет процент уникальности вашего браузера и объяснит, по каким сигналам сайты узнают вас без cookies. К каждому параметру — пояснение простым языком и конкретная рекомендация к действию. Локально, бесплатно, без регистрации.</p>
-                  <a class="v4-btn" href="https://fprint.morgunov.tech/" target="_blank" rel="noopener noreferrer">Проверить браузер →</a>
-                </article>
-                <article class="v4-product">
-                  <div class="v4-product-head">
-                    <span class="v4-product-tag-row">
-                      <span class="v4-tag">WEB</span>
-                      <span class="v4-live-dot" aria-hidden="true"></span>
-                    </span>
-                    <span>v1.0</span>
-                  </div>
-                  <h3 class="v4-product-name">FoundYou</h3>
-                  <p class="v4-product-desc">Загруженный в сеть снимок выдаёт ваше местоположение, время съёмки, модель устройства и лица посторонних людей. FoundYou вычистит EXIF, замажет приватные зоны и защитит фото от поиска по картинке. Локально, оригинал не трогаем.</p>
-                  <a class="v4-btn" href="https://foundyou.morgunov.tech/" target="_blank" rel="noopener noreferrer">Очистить фото →</a>
-                </article>
-                <article class="v4-product">
-                  <div class="v4-product-head">
-                    <span class="v4-product-tag-row">
-                      <span class="v4-tag">BOT</span>
-                      <span class="v4-live-dot" aria-hidden="true"></span>
-                    </span>
-                    <span>v1.0</span>
-                  </div>
-                  <h3 class="v4-product-name">TofsDevOps</h3>
-                  <p class="v4-product-desc">Личный DevOps в Telegram: следит за аптаймом, SSL, доменом и DNS, проверяет, что сайт видят поисковики и AI-агенты, умеет сам перезапустить деплой на Cloudflare Pages — и молчит, пока всё в порядке. Open source, ставится за пять минут на Railway или в Docker.</p>
-                  <a class="v4-btn" href="https://github.com/morgunovtech/Tofs_DevOps_bot" target="_blank" rel="noopener noreferrer">Установить бота →</a>
-                </article>
+  <div class="v4-venture">
+              <div class="year">2023</div>
+              <div>
+                <div class="name"><a href="https://kids-safety.tb.ru/" target="_blank" rel="noopener noreferrer">Онлайн-школа детской безопасности</a> <span class="role-aside">· Founder</span></div>
+                <div class="arc">Запустил → Не нашёл PMF → На паузе</div>
+              </div>
+            </div>
+            <div class="v4-venture">
+              <div class="year">2022</div>
+              <div>
+                <div class="name"><a href="https://yandex.com/maps/-/CDF9VDo~" target="_blank" rel="noopener noreferrer">Салон этичного груминга «Хвост»</a> <span class="role-aside">· Co-founder</span></div>
+                <div class="arc">Запустили → Стабилизировали → Продали сотрудникам</div>
+              </div>
+            </div>
+            <div class="v4-venture">
+              <div class="year">2011</div>
+              <div>
+                <div class="name">Сеть точек продажи снеков <span class="role-aside">· Co-founder</span></div>
+                <div class="arc">Запустили → Выросли до 3-х точек → Закрыли</div>
+              </div>
+            </div>
+            <div class="v4-venture">
+              <div class="year">2009</div>
+              <div>
+                <div class="name">Онлайн-продажи аксессуаров для iPhone <span class="role-aside">· Founder</span></div>
+                <div class="arc">Запустил → Продал ~5% партии → Закрыл</div>
+              </div>
+            </div>
+</div>
       </div>
       <div class="v4-more">
         <a href="https://github.com/morgunovtech" target="_blank" rel="noopener noreferrer" data-cms-text="sections.products.more.label" data-cms-href="sections.products.more.href">→ Другие проекты на GitHub</a>
       </div>
     </section>
 
-    <section id="publications" class="v4-section">
+    <section id="notes" class="v4-section">
       <div class="v4-section-head">
-        <span class="v4-section-num">06</span>
-        <h2 class="v4-h2" data-cms-text="sections.publications.title">Публикации и выступления</h2>
+        <span class="v4-section-num">04</span>
+        <h2 class="v4-h2" data-cms-text="sections.notes.title">Заметки</h2>
       </div>
-      <div class="v4-pubs" data-cms-list="publications">
-        <article class="v4-pub">
-                  <div class="v4-pub-head"><span class="v4-tag">ARTICLE</span><span>36&nbsp;800+ просмотров суммарно</span></div>
-                  <ul class="v4-list"><li><a href="https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery" target="_blank" rel="noopener noreferrer">На чём зарабатывают авиакомпании-лоукостеры</a></li><li><a href="https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery" target="_blank" rel="noopener noreferrer">На чём зарабатывают продуктовые дискаунтеры</a></li></ul>
-                </article>
-                <article class="v4-pub">
-                  <div class="v4-pub-head"><span class="v4-tag">VIDEO</span><span>6&nbsp;900+ просмотров суммарно</span></div>
-                  <ul class="v4-list"><li><a href="https://youtu.be/OJXtFmWNZMM" target="_blank" rel="noopener noreferrer">Критический разбор платформы крауд-инвестинга brainbox.vc</a></li><li><a href="https://youtu.be/BthlUR9eO1M" target="_blank" rel="noopener noreferrer">2 года Korzinka Go: как мы зарождались, менялись и оказались в алом океане</a></li></ul>
-                </article>
-                <article class="v4-pub">
-                  <div class="v4-pub-head"><span class="v4-tag">CHANNEL</span><span>1&nbsp;141 в Telegram</span></div>
-                  <p class="v4-prose"><a href="https://t.me/raschet7" target="_blank" rel="noopener noreferrer">Telegram‑канал</a> о продукте и карьере — пишу то, что сам хотел бы читать. Разборы кейсов, рабочие фреймворки и личные наблюдения. 1–2 поста в неделю, четвёртый год подряд.</p>
-                  <div class="v4-more"><a href="https://t.me/raschet7/261" target="_blank" rel="noopener noreferrer">→ Избранные посты</a></div>
-                </article>
+      <div class="v4-body">
+        <div class="v4-body-aside"></div>
+        <div data-cms-list="notesFeed">
+  <ul class="v4-feed">
+              <li class="v4-feed-row"><time class="v4-feed-date" datetime="2025-06-26">26 июня 2025 г.</time><span class="v4-tag">VIDEO</span><a class="v4-feed-title" href="https://youtu.be/BthlUR9eO1M" target="_blank" rel="noopener noreferrer">2 года Korzinka Go: как мы зарождались, менялись и оказались в алом океане<span aria-hidden="true">&nbsp;→</span><span class="sr-only"> (откроется в новой вкладке)</span></a></li>
+              <li class="v4-feed-row"><time class="v4-feed-date" datetime="2024-02-18">18 февраля 2024 г.</time><span class="v4-tag">VIDEO</span><a class="v4-feed-title" href="https://youtu.be/OJXtFmWNZMM" target="_blank" rel="noopener noreferrer">Критический разбор платформы крауд-инвестинга brainbox.vc<span aria-hidden="true">&nbsp;→</span><span class="sr-only"> (откроется в новой вкладке)</span></a></li>
+              <li class="v4-feed-row"><time class="v4-feed-date" datetime="2022-08-08">8 августа 2022 г.</time><span class="v4-tag">ARTICLE</span><a class="v4-feed-title" href="https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami" target="_blank" rel="noopener noreferrer">Чему я научился за 3 года осознанного управления семейными финансами<span aria-hidden="true">&nbsp;→</span><span class="sr-only"> (откроется в новой вкладке)</span></a></li>
+            </ul>
+            <div class="v4-help-cta"><a class="v4-btn" href="/notes">Все заметки →</a></div>
+</div>
       </div>
     </section>
 
     <section id="contact" class="v4-section">
       <div class="v4-section-head">
-        <span class="v4-section-num">07</span>
+        <span class="v4-section-num">05</span>
         <h2 class="v4-h2" data-cms-text="sections.contact.title">Связаться</h2>
       </div>
-      <div class="v4-contact" data-cms-list="contact">
-        <p class="v4-contact-note">Читаю всё. Обычно отвечаю в течение 10 рабочих дней.</p>
+      <div class="v4-reach" data-cms-list="contact">
+        <p class="v4-contact-note">Пишите, если нужен взгляд со стороны на продукт или e-com, если ищете инвестора или хотите обсудить пост.</p>
                 <div class="v4-cta-row">
-                  <a class="v4-btn v4-btn-primary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Telegram</a>
-                  <a class="v4-btn" href="mailto:s@morgunov.tech">Email</a>
+                  <a class="v4-btn v4-btn-primary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
+                  <p class="v4-contact-reply">Обычно отвечаю в течение 10 рабочих дней.</p>
+                </div>
+                <div class="v4-contact-links">
+                  <div class="v4-more"><a href="/collaborate#consulting">→ Консалтинг: форматы и цены</a></div>
+                  <div class="v4-more"><a href="/collaborate#angel">→ Инвестиции: что прислать</a></div>
                 </div>
       </div>
     </section>
@@ -388,19 +363,10 @@
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · build&nbsp;<code data-cms-text="_build">4d83edc</code> · <a href="/notes">заметки</a> · <a href="/about">принципы</a> · <a href="/uses">стек</a> · <a href="mailto:s@morgunov.tech?subject=Опечатка%20на%20morgunov.tech%3A%20%2F">нашли опечатку?</a></span>
+      <span>morgunov.tech · 2026 · build&nbsp;<code data-cms-text="_build">31c2e2a</code> · <a href="/notes">заметки</a> · <a href="/about">принципы</a> · <a href="/uses">стек</a> · <a href="mailto:s@morgunov.tech?subject=Опечатка%20на%20morgunov.tech%3A%20%2F">нашли опечатку?</a></span>
       <span class="v4-foot-privacy">Без Cookies, трекеров и аналитики</span>
     </footer>
   </div>
-  <nav class="v4-section-nav" aria-label="Разделы страницы">
-    <a href="#about" aria-label="01 — Обо мне">01</a>
-    <a href="#career" aria-label="02 — Карьера">02</a>
-    <a href="#help" aria-label="03 — Помощь">03</a>
-    <a href="#ventures" aria-label="04 — Своё дело">04</a>
-    <a href="#products" aria-label="05 — Продукты">05</a>
-    <a href="#publications" aria-label="06 — Публикации">06</a>
-    <a href="#contact" aria-label="07 — Связаться">07</a>
-  </nav>
   <button class="v4-scroll-top" type="button" aria-label="Наверх">↑</button>
   <div class="v4-scroll-progress" aria-hidden="true"></div>
   <script type="application/ld+json" data-cms-jsonld>
@@ -440,7 +406,7 @@
             "@id": "https://s.morgunov.tech/#person"
           },
           "dateCreated": "2025-10-07",
-          "dateModified": "2026-09-03"
+          "dateModified": "2026-11-09"
         },
         {
           "@type": "Person",
@@ -534,20 +500,6 @@
               "position": 1,
               "item": {
                 "@type": "WebApplication",
-                "name": "Fingerprint",
-                "url": "https://fprint.morgunov.tech/",
-                "applicationCategory": "PrivacyApplication",
-                "operatingSystem": "Web",
-                "description": "Покажет процент уникальности вашего браузера и объяснит, по каким сигналам сайты узнают вас без cookies. К каждому параметру — пояснение простым языком и конкретная рекомендация к действию. Локально, бесплатно, без регистрации.",
-                "isAccessibleForFree": true,
-                "softwareVersion": "2.5"
-              }
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "item": {
-                "@type": "WebApplication",
                 "name": "FoundYou",
                 "url": "https://foundyou.morgunov.tech/",
                 "applicationCategory": "PrivacyApplication",
@@ -559,7 +511,7 @@
             },
             {
               "@type": "ListItem",
-              "position": 3,
+              "position": 2,
               "item": {
                 "@type": "SoftwareApplication",
                 "name": "TofsDevOps",
@@ -571,12 +523,26 @@
                 "softwareVersion": "1.0",
                 "license": "https://opensource.org/licenses/MIT"
               }
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "item": {
+                "@type": "WebApplication",
+                "name": "Fingerprint",
+                "url": "https://fprint.morgunov.tech/",
+                "applicationCategory": "PrivacyApplication",
+                "operatingSystem": "Web",
+                "description": "Покажет процент уникальности вашего браузера и объяснит, по каким сигналам сайты узнают вас без cookies. К каждому параметру — пояснение простым языком и рекомендация к действию. Локально, бесплатно, без регистрации.",
+                "isAccessibleForFree": true,
+                "softwareVersion": "2.5"
+              }
             }
           ]
         }
       ]
     }
   </script>
-  <script data-cfasync="false" defer src="/script.js?v=c2d17bcd"></script>
+  <script data-cfasync="false" defer src="/script.js?v=98de2cde"></script>
 </body>
 </html>

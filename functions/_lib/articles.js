@@ -71,3 +71,6 @@ export function indexEntry(doc) {
     updatedAt: doc.updatedAt || new Date().toISOString(),
   };
 }
+
+// Public URL of a note in the given language.
+export const noteUrl = (slug, lang) => (lang === 'en' ? '/en' : '') + '/notes/' + slug;

@@ -11,7 +11,7 @@ const clone = (v) => JSON.parse(JSON.stringify(v));
 // Content-schema version the migrations bring a doc up to. Saved with the doc
 // (save.js persists whatever the editor loaded), so a migrated-then-edited doc
 // is never touched again: renaming or deleting a card later sticks.
-export const MIGRATION = 30;
+export const MIGRATION = 31;
 
 // Content that went dead after it was saved: a doc saved to KV before the
 // templates and the seed were fixed keeps serving it — KV wins over the seed
@@ -131,7 +131,52 @@ export function migrateHome(doc, seedDoc) {
     const seedStat = (seedDoc.stats || []).find((st) => st && st.kind === 'subscribers');
     if (seedStat) doc.stats.splice(Math.min(2, doc.stats.length), 0, clone(seedStat));
   }
+  homeV2(doc, seedDoc);
   return doc;
+}
+
+// v0.31.1 (site v2, stage 2): the homepage in five sections. Own ventures and
+// products become one section in two tiers, publications live in /notes,
+// «Чем могу помочь» moved to /collaborate, contact is Telegram only. Copy the
+// owner edited in /admin (career, about, venture arcs, product texts) stays;
+// the copy the owner approved for v2 (tagline, the projects counter, contact)
+// replaces the old.
+function homeV2(doc, seedDoc) {
+  const S = doc.sections;
+  const SS = seedDoc.sections || {};
+  if (!SS.projects) return;
+  if (doc.hero && seedDoc.hero) {
+    doc.hero.tagline = clone(seedDoc.hero.tagline);
+    if (Array.isArray(doc.hero.ctas)) doc.hero.ctas = doc.hero.ctas.filter((c) => c && c.primary);
+  }
+  // The own-projects counter now counts the products too (4 → 7).
+  const seedStat = (seedDoc.stats || []).find((st) => st && st.unit && st.unit.ru === 'своих проектов');
+  const i = Array.isArray(doc.stats) ? doc.stats.findIndex((st) => st && st.unit && /^своих проект/.test(st.unit.ru || '')) : -1;
+  if (seedStat && i >= 0) doc.stats[i] = clone(seedStat);
+  if (!S.projects) S.projects = clone(SS.projects);
+  if (!S.notes) S.notes = clone(SS.notes);
+  // Live tier: launch year next to the version, newest first (the seed's order).
+  const seedProducts = (SS.products && SS.products.items) || [];
+  if (S.products && Array.isArray(S.products.items)) {
+    const rank = (it) => {
+      const r = seedProducts.findIndex((x) => x.name === it.name);
+      return r < 0 ? seedProducts.length : r;
+    };
+    for (const it of S.products.items) {
+      const si = seedProducts.find((x) => x.name === it.name);
+      if (si && si.year && !it.year) it.year = si.year;
+    }
+    S.products.items.sort((a, b) => rank(a) - rank(b));
+    delete S.products.num;
+    delete S.products.title;
+  }
+  if (S.ventures) {
+    delete S.ventures.num;
+    delete S.ventures.title;
+  }
+  if (SS.contact) S.contact = clone(SS.contact);
+  delete S.help; // → /collaborate («Как работаю»)
+  delete S.publications; // → the /notes feed
 }
 
 // v0.29: the /about «layers» block quotes the subscriber snapshot; refresh the
