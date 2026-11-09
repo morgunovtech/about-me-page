@@ -76,6 +76,12 @@ const STALE = [
   [/^82,600 views$/g, '82,000+ views combined'],
   [/^>7 000 просмотров$/g, '6 900+ просмотров суммарно'],
   [/^7,200 views$/g, '6,900+ views combined'],
+  // v0.31.0: vc.ru's public stats (2026-11-09, «открытий поста») give the two
+  // homepage articles 6 299 + 30 506 = 36 805 views, not 82 600. Runs after
+  // the v0.30.6 swap above, so it catches both the raw KV value and a doc
+  // re-saved since then.
+  [/^82 000\+ просмотров суммарно$/g, '36 800+ просмотров суммарно'],
+  [/^82,000\+ views combined$/g, '36,800+ views combined'],
 ];
 
 export function fixStaleContent(node) {

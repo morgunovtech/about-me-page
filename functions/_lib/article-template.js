@@ -73,7 +73,7 @@ const T = {
   },
 };
 
-const STYLES_VER = 'v=244a73f1';
+const STYLES_VER = 'v=7e5fa5c2';
 const SCRIPT_VER = 'v=c2d17bcd';
 const FONTS_VER = 'v=64eea157';
 const TOKENS_VER = 'v=fa7fc139';
@@ -265,14 +265,13 @@ ${tailChrome(l, '<script type="application/ld+json" data-cms-jsonld></script>')}
 
 // The /notes feed/index page. Server-built (no KV overlay): listHtml and jsonLd
 // are assembled by render-notes.js. Same chrome as articleShell.
-export function notesIndexHtml(lang, listHtml, jsonLd, build) {
+// `intro` arrives HTML-escaped (it is content); `channel` is the rendered
+// Telegram block that sits between the intro and the feed.
+export function notesIndexHtml(lang, listHtml, jsonLd, build, { intro, channel = '' } = {}) {
   const l = L(lang);
   const t = T[l];
   const self = ORIGIN + p(l, '/notes');
   const title = `${t.notes} — ${NAME[l]}`;
-  const intro = l === 'en'
-    ? 'Notes and essays — also on my Telegram channel, here without the platform lock-in.'
-    : 'Заметки и эссе — то же, что в Telegram-канале, но без привязки к платформе.';
   return `<!DOCTYPE html>
 <html lang="${l}">
 <head>
@@ -296,6 +295,7 @@ ${barChrome(l, { ru: '/notes', en: '/en/notes' })}
       <div class="v4-article">
         <h1 class="v4-notes-title">${t.notes}</h1>
         <p class="v4-notes-intro">${intro}</p>
+        ${channel}
         ${listHtml}
       </div>
     </main>

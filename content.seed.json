@@ -532,8 +532,8 @@
             "kind": "links",
             "tag": "ARTICLE",
             "meta": {
-              "ru": "82 000+ просмотров суммарно",
-              "en": "82,000+ views combined"
+              "ru": "36 800+ просмотров суммарно",
+              "en": "36,800+ views combined"
             },
             "links": [
               {
@@ -1636,5 +1636,94 @@
       }
     },
     "migration": 30
+  },
+  "notes": {
+    "site": "s.morgunov.tech",
+    "page": "notes",
+    "intro": {
+      "ru": "Заметки, статьи и выступления. Свои заметки — то же, что в Telegram-канале, только без привязки к платформе.",
+      "en": "Notes, articles and talks. My notes mirror the Telegram channel, without the platform lock-in."
+    },
+    "channel": {
+      "kind": "prose",
+      "tag": "CHANNEL",
+      "meta": {
+        "ru": "{telegram} в Telegram",
+        "en": "{telegram} on Telegram"
+      },
+      "prose": {
+        "ru": "[Telegram‑канал](https://t.me/raschet7) о продукте и карьере — пишу то, что сам хотел бы читать. Разборы кейсов, рабочие фреймворки и личные наблюдения. 1–2 поста в неделю, четвёртый год подряд.",
+        "en": "[Telegram channel](https://t.me/raschet7) on product and career — writing what I'd want to read myself. Case studies, working frameworks, and personal observations. 1–2 posts per week, fourth year running."
+      },
+      "more": {
+        "label": {
+          "ru": "→ Избранные посты",
+          "en": "→ Selected posts"
+        },
+        "href": "https://t.me/raschet7/261"
+      }
+    },
+    "external": [
+      {
+        "date": "2025-06-26",
+        "tag": "VIDEO",
+        "source": "YouTube",
+        "href": "https://youtu.be/BthlUR9eO1M",
+        "title": {
+          "ru": "2 года Korzinka Go: как мы зарождались, менялись и оказались в алом океане",
+          "en": "Two years of Korzinka Go: how we emerged, evolved, and ended up in a red ocean"
+        },
+        "views": 3611,
+        "viewsAt": "2026-11-09"
+      },
+      {
+        "date": "2024-02-18",
+        "tag": "VIDEO",
+        "source": "YouTube",
+        "href": "https://youtu.be/OJXtFmWNZMM",
+        "title": {
+          "ru": "Критический разбор платформы крауд-инвестинга brainbox.vc",
+          "en": "Critical review of crowd-investing platform brainbox.vc"
+        },
+        "views": 3306,
+        "viewsAt": "2026-11-09"
+      },
+      {
+        "date": "2022-08-08",
+        "tag": "ARTICLE",
+        "source": "vc.ru",
+        "href": "https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami",
+        "title": {
+          "ru": "Чему я научился за 3 года осознанного управления семейными финансами",
+          "en": "Lessons from 3 years of personal finance management"
+        },
+        "views": 38165,
+        "viewsAt": "2026-11-09"
+      },
+      {
+        "date": "2022-07-08",
+        "tag": "ARTICLE",
+        "source": "vc.ru",
+        "href": "https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery",
+        "title": {
+          "ru": "На чём зарабатывают продуктовые дискаунтеры",
+          "en": "How discount grocers make money"
+        },
+        "views": 30506,
+        "viewsAt": "2026-11-09"
+      },
+      {
+        "date": "2022-06-19",
+        "tag": "ARTICLE",
+        "source": "vc.ru",
+        "href": "https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery",
+        "title": {
+          "ru": "На чём зарабатывают авиакомпании-лоукостеры",
+          "en": "How low-cost airlines make money"
+        },
+        "views": 6299,
+        "viewsAt": "2026-11-09"
+      }
+    ]
   }
 }

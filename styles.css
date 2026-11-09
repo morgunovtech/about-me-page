@@ -868,7 +868,28 @@
   border-bottom: none;
 }
 
-.v4-note-date {
+/* The Telegram channel block between the intro and the feed — the homepage's
+   CHANNEL publication, closed off from the feed by a full-strength rule. */
+.v4-notes-channel {
+  padding: 0 0 22px;
+  margin: 0 0 22px;
+  border-bottom: 1px solid var(--v4-line);
+}
+
+/* Date + tag (NOTE / ARTICLE / VIDEO) on one line above the title. */
+.v4-note-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* «vc.ru · 6 200+ просмотров» under an external material — same label as the date. */
+.v4-note-meta {
+  margin: 0;
+}
+
+.v4-note-date,
+.v4-note-meta {
   font-family: var(--v4-mono);
   font-size: var(--v4-label-size);
   text-transform: uppercase;
@@ -920,6 +941,7 @@
 .v4-venture .year,
 .v4-product-head,
 .v4-pub-head,
+.v4-note-meta,
 .v4-foot code,
 time {
   font-variant-numeric: tabular-nums lining-nums;
