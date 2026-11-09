@@ -382,6 +382,49 @@ test('fixStaleContent swaps the dead links stored in KV', () => {
   assert.equal(JSON.stringify(fixStaleContent(doc)), once);
 });
 
+test('fixStaleContent applies the v0.30.6 home copy fixes to a doc saved before them', () => {
+  const nb = ' ';
+  const doc = {
+    about: {
+      ru: 'С 2009 года запустил четыре бизнеса — один продали сотрудникам, три закрыли. Среди клиентов Belissimo Pizza.',
+      en: "Since 2009 I've launched four businesses — one sold to employees, three closed. Clients include Belissimo Pizza.",
+    },
+    uz: { period: { ru: '2026 — сейчас', en: 'Apr 2026 — present' }, ctx: { ru: 'Строю и масштабирую продуктовую линейку. In progress.' } },
+    korzinka: { role: { ru: 'Director of e-com', en: 'Director of e-commerce / CPO Korzinka Go' } },
+    uslugi: {
+      ru: 'Портфель 30+ продуктов в сегменте домашних услуг, ~6.5M пользователей в месяц.\n\n– GMV: ×2.2 за год – EBITDA: вывел в плюс за 10 месяцев – Pivot: Classified → End to End Model',
+      en: 'Portfolio of 30+ products in home services, ~6.5M monthly users.\n\n- GMV: ×2.2 in a year\n- EBITDA: turned positive in 10 months',
+    },
+    apple: { role: { ru: 'Certified Sales Trainer (contractor)', en: 'Certified Sales Trainer' } },
+    pubs: [
+      { meta: { ru: `>82${nb}000 просмотров`, en: '82,600 views' } },
+      { meta: { ru: `>7${nb}000 просмотров`, en: '7,200 views' } },
+    ],
+    // /about quotes the old figure as a typography example — must stay.
+    example: '<code>82&nbsp;600 просмотров</code> ↔ <code>82,600 views</code>',
+  };
+  fixStaleContent(doc);
+  assert.equal(doc.about.ru, 'С 2009 года запустил четыре бизнеса — один продали сотрудникам, два закрыли, один на паузе. Среди клиентов Bellissimo Pizza.');
+  assert.equal(doc.about.en, "Since 2009 I've launched four businesses — one sold to employees, two closed, one on pause. Clients include Bellissimo Pizza.");
+  assert.equal(doc.uz.period.ru, '2026 — сейчас');
+  assert.equal(doc.uz.period.en, '2026 — present');
+  assert.equal(doc.uz.ctx.ru, 'BNPL, платежи, кредитные продукты. Строю и масштабирую продуктовую линейку.');
+  assert.equal(doc.korzinka.role.ru, 'Director of e-commerce / CPO Korzinka Go');
+  assert.equal(doc.korzinka.role.en, 'Director of e-commerce / CPO Korzinka Go');
+  assert.match(doc.uslugi.ru, /\n\n- GMV: ×2\.2 за год\n- EBITDA: вывел в плюс за 10 месяцев\n- Pivot: Classified → End to End Model$/);
+  assert.match(doc.uslugi.en, /\n- EBITDA: turned positive in 10 months\n- Pivot: Classified → End to End Model$/);
+  assert.equal(doc.apple.role.ru, 'Certified Sales Trainer (contractor)');
+  assert.equal(doc.apple.role.en, 'Certified Sales Trainer (contractor)');
+  assert.deepEqual(doc.pubs.map((p) => p.meta), [
+    { ru: `82${nb}000+ просмотров суммарно`, en: '82,000+ views combined' },
+    { ru: `6${nb}900+ просмотров суммарно`, en: '6,900+ views combined' },
+  ]);
+  assert.equal(doc.example, '<code>82&nbsp;600 просмотров</code> ↔ <code>82,600 views</code>');
+  // Several new texts contain the old ones: a second pass must change nothing.
+  const once = JSON.stringify(doc);
+  assert.equal(JSON.stringify(fixStaleContent(doc)), once);
+});
+
 test('fixStaleContent drops the «repo is open» promises on /about', () => {
   const doc = {
     ethics: {

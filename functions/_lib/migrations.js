@@ -43,6 +43,39 @@ const STALE = [
   // v0.30.5: /about named a literal «BUILD 3cd8687» that every deploy left
   // stale — the hash is not content, `{build}` resolves to the deployed one.
   [/(<code>BUILD(?:&nbsp;| | ))[0-9a-f]{7,40}(<\/code>)/g, '$1{build}$2'],
+  // v0.30.6: home copy fixed after the 2026-11-09 audit, for the KV doc saved
+  // before it. Wherever the new text contains the old one, the swap is anchored
+  // to the whole field (^…$) — an unanchored one would grow on every read.
+  // «Обо мне» + JSON-LD person description: the kids' school is paused, not closed.
+  ['три закрыли', 'два закрыли, один на паузе'],
+  ['three closed', 'two closed, one on pause'],
+  // The brand spells itself Bellissimo (bellissimo.uz).
+  ['Belissimo', 'Bellissimo'],
+  // Career, Yandex Uzbekistan: RU matches EN again; no English «In progress» in RU.
+  ['Строю и масштабирую продуктовую линейку. In progress.',
+    'BNPL, платежи, кредитные продукты. Строю и масштабирую продуктовую линейку.'],
+  [/^Apr 2026 — present$/g, '2026 — present'],
+  // Career, Korzinka: the full title in both languages.
+  [/^Director of e-com$/g, 'Director of e-commerce / CPO Korzinka Go'],
+  // Career, Yandex Uslugi: results soft-broken into one paragraph → a list; EN
+  // gains the Pivot line RU has.
+  ['Портфель 30+ продуктов в сегменте домашних услуг, ~6.5M пользователей в месяц.\n\n– GMV: ×2.2 за год – EBITDA: вывел в плюс за 10 месяцев – Pivot: Classified → End to End Model',
+    'Портфель 30+ продуктов в сегменте домашних услуг, ~6.5M пользователей в месяц.\n\n- GMV: ×2.2 за год\n- EBITDA: вывел в плюс за 10 месяцев\n- Pivot: Classified → End to End Model'],
+  [/(\n- EBITDA: turned positive in 10 months)$/g, '$1\n- Pivot: Classified → End to End Model'],
+  // Career, Apple Russia: «— » paragraphs → a list like every other role; EN
+  // loses «Certified as a Certified…» and gets RU's «(contractor)».
+  ['Сертифицировался как Sales Trainer в UK, присоединился к тренинговой команде в России.\n\n— Обучение продукту и продажам: 700+ сотрудников и руководителей\n\n— Мероприятия: 100+ событий в online / offline / blended-форматах, средняя оценка 4.9 из 5\n\n— Сертификация Apple Expert: 92% подопечных получили международный сертификат',
+    'Сертифицировался как Sales Trainer в UK, присоединился к тренинговой команде в России.\n\n- Обучение продукту и продажам: 700+ сотрудников и руководителей\n- Мероприятия: 100+ событий в online / offline / blended-форматах, средняя оценка 4.9 из 5\n- Сертификация Apple Expert: 92% подопечных получили международный сертификат'],
+  ['Certified as a Certified Sales Trainer in the UK, joined the training team in Russia.\n\n— Product and sales training: 700+ employees and managers\n\n— Events: 100+ online / offline / blended-format sessions, average rating 4.9 out of 5\n\n— Apple Expert Certification: 92% of trainees obtained the international certificate',
+    'Became a Certified Sales Trainer in the UK and joined the training team in Russia.\n\n- Product and sales training: 700+ employees and managers\n- Events: 100+ online / offline / blended-format sessions, average rating 4.9 out of 5\n- Apple Expert Certification: 92% of trainees obtained the international certificate'],
+  [/^Certified Sales Trainer$/g, 'Certified Sales Trainer (contractor)'],
+  // Publications: one figure in both languages, and it is a sum. YouTube on
+  // 2026-11-09: 3 306 + 3 611 = 6 917, so «>7 000» / «7,200» were both wrong.
+  // Anchored: /about quotes «82,600 views» as a typography example.
+  [/^>82 000 просмотров$/g, '82 000+ просмотров суммарно'],
+  [/^82,600 views$/g, '82,000+ views combined'],
+  [/^>7 000 просмотров$/g, '6 900+ просмотров суммарно'],
+  [/^7,200 views$/g, '6,900+ views combined'],
 ];
 
 export function fixStaleContent(node) {
