@@ -112,7 +112,7 @@ test('notes block: up to three rows, own notes stay on site, external ones open 
     const html = renderers.notesFeed(doc, 'ru', false);
     assert.equal((html.match(/class="v4-feed-row"/g) || []).length, 3, `${n} notes`);
     assert.equal((html.match(/<span class="v4-tag">NOTE<\/span>/g) || []).length, Math.min(n, 3));
-    assert.match(html, /href="\/notes">Все заметки →<\/a>/);
+    assert.match(html, /href="\/notes">Все публикации →<\/a>/);
   }
   doc._feed = buildFeed([], seed.notes, 'ru').slice(0, 3);
   const ext = renderers.notesFeed(doc, 'ru', false);
@@ -122,7 +122,7 @@ test('notes block: up to three rows, own notes stay on site, external ones open 
   doc._feed = buildFeed(notes(2).reverse(), seed.notes, 'en').slice(0, 3);
   const en = renderers.notesFeed(doc, 'en', false);
   assert.doesNotMatch(en, />NOTE</);
-  assert.match(en, /href="\/en\/notes">All notes →<\/a>/);
+  assert.match(en, /href="\/en\/notes">All publications →<\/a>/);
   // No feed (KV down) → just the button.
   delete doc._feed;
   assert.doesNotMatch(renderers.notesFeed(doc, 'ru', false), /v4-feed/);

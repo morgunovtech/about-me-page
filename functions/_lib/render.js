@@ -319,7 +319,7 @@ function tierCard(t, lang) {
   });
 }
 
-// One homepage «Заметки» row: date · tag · title. Own notes stay on the site;
+// One homepage «Публикации» row: date · tag · title. Own notes stay on the site;
 // external materials open in a new tab with a trailing «→» (they leave the site).
 function feedRow(e, lang) {
   const it = e.item;
@@ -351,7 +351,7 @@ export const renderers = {
   products: (doc, lang, edit) =>
     doc.sections.products.items.map((it, i) => productCard(it, lang, edit, 'sections.products.items.' + i)).join('\n        '),
 
-  // «Заметки»: the three newest feed entries (own notes + external materials),
+  // «Публикации»: the three newest feed entries (own notes + external materials),
   // attached to the doc as `_feed` by _middleware.js / the admin preview /
   // render-static. Not editable here — the feed has its own sources.
   notesFeed: (doc, lang, edit) => {

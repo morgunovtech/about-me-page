@@ -32,9 +32,9 @@ const T = {
   ru: {
     skip: 'Перейти к основному содержимому',
     mainNav: 'Основная навигация',
-    notes: 'Заметки',
+    notes: 'Публикации',
     home: 'Главная',
-    back: '← Все заметки',
+    back: '← Все публикации',
     menu: 'Меню',
     langLabel: 'сменить язык',
     themeLabel: 'Сменить тему оформления',
@@ -49,9 +49,9 @@ const T = {
   en: {
     skip: 'Skip to main content',
     mainNav: 'Main navigation',
-    notes: 'Notes',
+    notes: 'Publications',
     home: 'Home',
-    back: '← All notes',
+    back: '← All publications',
     menu: 'Menu',
     langLabel: 'change language',
     themeLabel: 'Switch theme',

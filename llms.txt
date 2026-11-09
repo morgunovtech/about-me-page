@@ -20,10 +20,10 @@
 - LinkedIn: https://www.linkedin.com/in/semyon-morgunov/
 - GitHub: https://github.com/morgunovtech
 
-## Notes
+## Publications
 
-- [Notes / Заметки](https://s.morgunov.tech/notes) — essays and notes (bilingual RU/EN), the same writing as the Telegram channel but platform-independent and citable; English at https://s.morgunov.tech/en/notes
-- RSS feed: https://s.morgunov.tech/notes/feed.xml
+- [Publications / Публикации](https://s.morgunov.tech/notes) — one feed of own notes (the Telegram channel's writing, platform-independent and citable) and articles and talks published elsewhere (vc.ru, YouTube); English at https://s.morgunov.tech/en/notes
+- RSS feed (own notes only): https://s.morgunov.tech/notes/feed.xml
 
 ## Products
 

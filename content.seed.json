@@ -455,13 +455,13 @@
       "notes": {
         "num": "04",
         "title": {
-          "ru": "Заметки",
-          "en": "Notes"
+          "ru": "Публикации",
+          "en": "Publications"
         },
         "cta": {
           "label": {
-            "ru": "Все заметки →",
-            "en": "All notes →"
+            "ru": "Все публикации →",
+            "en": "All publications →"
           },
           "href": {
             "ru": "/notes",

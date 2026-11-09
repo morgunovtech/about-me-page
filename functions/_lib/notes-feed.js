@@ -76,5 +76,5 @@ export function channelHtml(notesDoc, homeDoc, lang) {
 export function feedListHtml(feed, lang) {
   return feed.length
     ? feed.map((e) => feedItemHtml(e, lang)).join('\n')
-    : `<p class="v4-notes-intro">${lang === 'en' ? 'No notes yet.' : 'Пока нет заметок.'}</p>`;
+    : `<p class="v4-notes-intro">${lang === 'en' ? 'No publications yet.' : 'Пока нет публикаций.'}</p>`;
 }
