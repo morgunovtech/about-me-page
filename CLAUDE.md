@@ -48,6 +48,15 @@ about-me-page/
     └── favicon.svg                # SVG favicon with initials "SM"
 ```
 
+## Page map (v1.0.0)
+
+- **`/`, `/en/`** — hero (eyebrow «Head of FinTech @ Yandex Uzbekistan», one «Написать в Telegram» button) → stats strip → `01 #about` → `02 #career` → `03 #projects` «Собственные проекты» (tier «Работает»: live product cards with year · version; tier «До этого»: past ventures as rows) → `04 #notes` «Публикации» (the three newest feed entries + «Все публикации →») → `05 #contact` «Связаться» (Telegram only + two links to `/collaborate`). Menu items mirror the section titles (`data-cms-text`).
+- **`/notes`, `/en/notes`** — «Публикации»: own notes (KV articles) and external materials (vc.ru, YouTube — the seed-only `notes` doc) in one feed, newest first, under the Telegram channel block. RSS and the sitemap carry own notes only.
+- **`/collaborate`** — about · consulting tiers · strategic consulting · angel investing · `#work` «Как работаю / Чего не делаю» · contact.
+- **`/uses`** — hardware groups + software cards.
+- **`/about`** «Принципы» — hidden until the owner rewrites it: `noindex`, not in the footer, sitemap or `llms.txt`; still served and editable in `/admin`.
+- **`/404`** — one bilingual file.
+
 ## Deploy Process
 
 **GitHub → Cloudflare Pages (automatic)**
@@ -63,12 +72,21 @@ There is no build step and no deploy pipeline of our own — Cloudflare Pages de
 
 1. Work on a branch (worktrees under `.claude/worktrees/`); `main` is production.
 2. `python3 scripts/version-stamp.py` when any stamped asset changed, then `scripts/check.sh` (full, with the Functions build).
-3. Add the `CHANGELOG.md` entry (next patch/minor version) in the same commit.
+3. Add the `CHANGELOG.md` entry (next version — see Versioning) in the same commit.
 4. Push the branch → `gh pr create` → squash-merge. Every push also builds a Cloudflare **Preview** deployment for the branch.
 5. Verify production, not just the merge: `npx wrangler pages deployment list --project-name about-me-page` shows the Production row for the commit; then check the live page (the footer build hash is the deployed commit; Function-rendered HTML sits in the edge cache up to 300 s — look at `x-edge-cache`).
 6. Read-only checks of real content: `npx wrangler kv key get --binding CONTENT "s.morgunov.tech:<page>" --remote` (KV wins over `content.seed.json`).
 
 Accounts: `gh` (morgunovtech, `repo` scope) and `wrangler login` (OAuth, expires — re-run `npx wrangler login` when `whoami` says not logged in). Secrets are set by the owner with `wrangler pages secret put`, never by an agent.
+
+### Versioning
+
+SemVer on the `CHANGELOG.md` versions:
+- **patch** — fixes, copy and content corrections, docs, config;
+- **minor** — a new feature or section that leaves the page map intact;
+- **major** — the page map or the public contract changes: sections, anchors or URLs removed or renamed, a contact channel dropped, a page hidden.
+
+From v1.0.0 (2026-11-09, site v2) every release gets an annotated tag `vX.Y.Z` on its squash-merge commit; minor and major releases also get a GitHub Release with English notes (the CHANGELOG entry stays the detailed record). v0.1–v0.31.5 were untagged.
 
 ### Design system of record
 

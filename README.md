@@ -8,7 +8,12 @@ Live at **[s.morgunov.tech](https://s.morgunov.tech)** · also reachable on the 
 
 Pure static HTML/CSS/JS. **No build step, no npm, no framework.** Hosted on Cloudflare Pages.
 
-- 9 HTML pages — home, collaborate, about, uses (RU + EN twins) and `404.html`; plus the `/notes` shells rendered by Pages Functions
+- 9 HTML templates (RU + EN twins and a bilingual `404.html`) plus the `/notes` shells rendered by Pages Functions:
+  - **home** — about, career, own projects (live products + past ventures), publications, contact (Telegram only);
+  - **`/notes`** — publications: own notes and articles/talks published elsewhere, one feed;
+  - **`/collaborate`** — consulting, strategic consulting, angel investing, how I work;
+  - **`/uses`** — hardware and software;
+  - **`/about`** — unlisted (`noindex`) until it is rewritten
 - A versioned design-system layer `ds/v1/` (fonts, tokens for 4 themes, base, components) + `styles.css` for page layout. Other projects load it straight from `https://s.morgunov.tech/ds/v1/` — [Found You](https://github.com/morgunovtech/FoundYou) and [Good Pass](https://github.com/morgunovtech/good-pass); see [`ds/v1/USAGE.md`](ds/v1/USAGE.md)
 - One script — `script.js` (single IIFE, no dependencies, ≈ 290 lines)
 - Self-hosted IBM Plex Sans + Plex Mono (latin + cyrillic woff2 subsets, `font-display: swap`)
@@ -35,8 +40,15 @@ Clean URLs, `/notes`, `/llms.txt` and the CMS overlay need the Functions, so thi
 
 ## Conventions, architecture, deploy
 
-See [CLAUDE.md](CLAUDE.md) — single source of truth on stack rules, theming model, performance
-conventions, SEO/AI optimization, and the full project changelog.
+See [CLAUDE.md](CLAUDE.md) — single source of truth on stack rules, the page map, theming model,
+performance conventions, SEO/AI optimization and the release flow.
+
+## Releases
+
+Versioned with [SemVer](https://semver.org): patch for fixes and copy, minor for features, major when the
+page map or the public contract changes. The full history is in [CHANGELOG.md](CHANGELOG.md) (in Russian,
+one entry per release). From **v1.0.0** (2026-11-09 — site v2: a hub instead of a landing page) every
+release is tagged `vX.Y.Z`, and minor/major ones get a [GitHub Release](https://github.com/morgunovtech/about-me-page/releases).
 
 ## Tools
 
@@ -81,7 +93,7 @@ Seeding KV is optional — when a key is missing, the render falls back to `cont
 npx wrangler pages dev   # serves the site + Functions, simulates KV/R2
 ```
 
-Add a gitignored `.dev.vars` with `ADMIN_PASSWORD_HASH`, `SESSION_SECRET`, and optionally `AI_DEV_MOCK=1` (stubs AI without a key) + `SOCIALBOT_INGEST_TOKEN`.
+Add a gitignored `.dev.vars` with `ADMIN_PASSWORD_HASH`, `SESSION_SECRET`, and optionally `AI_DEV_MOCK=1` (stubs AI without a key), `TG_DEV_MOCK=1` (stubs Telegram publishing) + `SOCIALBOT_INGEST_TOKEN`.
 
 ### SocialBot (live subscriber numbers)
 
