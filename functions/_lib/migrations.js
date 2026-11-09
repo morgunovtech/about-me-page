@@ -85,6 +85,14 @@ const STALE = [
   ['Clients include UMAI Group, Bellissimo Pizza, Buildex, MediaPark, and others.',
     'Clients include [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about), and others.'],
   ['запустил четыре собственных проекта (', 'запустил четыре бизнеса ('],
+  // v0.31.4: the owner's answers to the proofreading questions. Korzinka orders
+  // grew ×23 (as /collaborate says; «400 → 10 000» read as ×25), the Telegram
+  // channel line is the same in both languages, the snack business was kiosks
+  // with a seller, not vending machines.
+  ['- Заказы в день: 400 → 10 000 (ATH) за 3 года', '- Заказы в день: ×23 за 3 года, пик — 10 000 (ATH)'],
+  ['- Orders: 400 → 10,000 (ATH) per day over 3 years', '- Daily orders: ×23 over 3 years, peaking at 10,000 (ATH)'],
+  ['[Telegram\u00a0channel](https://t.me/raschet7) about what I learn at work.', '[Telegram\u00a0channel](https://t.me/raschet7).'],
+  ['Snack vending kiosks', 'Snack kiosk chain'],
 ];
 
 export function fixStaleContent(node) {

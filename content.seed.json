@@ -185,7 +185,7 @@
         },
         "prose": {
           "ru": "Запускаю цифровые продукты на развивающихся рынках — там, где продукт, операционку и юнит‑экономику необходимо собирать параллельно, под локальный контекст.\n\nКонсультирую компании в России, Узбекистане и Кыргызстане. Среди клиентов [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about) и другие.\n\nС 2009 года запустил четыре бизнеса — один продали сотрудникам, два закрыли, один на паузе. Сейчас делаю два инструмента цифровой приватности и веду [Telegram‑канал](https://t.me/raschet7). Живу в Ташкенте с ирландским терьером Тофсом.",
-          "en": "I launch digital products in emerging markets — places where product, operations, and unit economics have to be assembled in parallel, fitted to the local context.\n\nI consult companies in Russia, Uzbekistan, and Kyrgyzstan. Clients include [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about), and others.\n\nSince 2009 I've launched four businesses — one sold to employees, two closed, one on pause. Currently building two tools on digital privacy and running a [Telegram channel](https://t.me/raschet7) about what I learn at work. I live in Tashkent with an Irish terrier named Tofs."
+          "en": "I launch digital products in emerging markets — places where product, operations, and unit economics have to be assembled in parallel, fitted to the local context.\n\nI consult companies in Russia, Uzbekistan, and Kyrgyzstan. Clients include [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about), and others.\n\nSince 2009 I've launched four businesses — one sold to employees, two closed, one on pause. Currently building two tools on digital privacy and running a [Telegram channel](https://t.me/raschet7). I live in Tashkent with an Irish terrier named Tofs."
         }
       },
       "career": {
@@ -228,8 +228,8 @@
               "en": "Director of e-commerce / CPO Korzinka Go"
             },
             "ctx": {
-              "ru": "Строил продукт, затем отвечал за P&L в крупнейшем e-grocery Узбекистана.\n\n- Заказы в день: 400 → 10 000 (ATH) за 3 года\n- Расширение: 1 → 9 городов за 10 месяцев\n- Выручка: ×2 год к году при положительной EBITDA\n- CSAT: 4,2 → 4,5",
-              "en": "Built the product, then owned the full P&L at Uzbekistan's largest e-grocery.\n\n- Orders: 400 → 10,000 (ATH) per day over 3 years\n- Expansion: 1 → 9 cities in 10 months\n- Revenue: ×2 year-over-year at positive EBITDA\n- CSAT: 4.2 → 4.5"
+              "ru": "Строил продукт, затем отвечал за P&L в крупнейшем e-grocery Узбекистана.\n\n- Заказы в день: ×23 за 3 года, пик — 10 000 (ATH)\n- Расширение: 1 → 9 городов за 10 месяцев\n- Выручка: ×2 год к году при положительной EBITDA\n- CSAT: 4,2 → 4,5",
+              "en": "Built the product, then owned the full P&L at Uzbekistan's largest e-grocery.\n\n- Daily orders: ×23 over 3 years, peaking at 10,000 (ATH)\n- Expansion: 1 → 9 cities in 10 months\n- Revenue: ×2 year-over-year at positive EBITDA\n- CSAT: 4.2 → 4.5"
             }
           },
           {
@@ -424,7 +424,7 @@
             "year": "2011",
             "name": {
               "ru": "Сеть точек продажи снеков",
-              "en": "Snack vending kiosks"
+              "en": "Snack kiosk chain"
             },
             "role": {
               "ru": "Co-founder",
@@ -737,7 +737,7 @@
         "groups": [
           {
             "heading": {
-              "ru": "Compute",
+              "ru": "Рабочее место",
               "en": "Compute"
             },
             "cards": [
@@ -749,7 +749,7 @@
                   "en": "MacBook Pro 16″ M3 Max"
                 },
                 "tag": {
-                  "ru": "Laptop",
+                  "ru": "Ноутбук",
                   "en": "Laptop"
                 },
                 "desc": {
@@ -765,7 +765,7 @@
                   "en": "Dell U3223QE — 32-inch 4K monitor"
                 },
                 "tag": {
-                  "ru": "Monitor",
+                  "ru": "Монитор",
                   "en": "Monitor"
                 },
                 "desc": {
@@ -781,7 +781,7 @@
                   "en": "Keychron K2 — mechanical keyboard with RGB and Bluetooth"
                 },
                 "tag": {
-                  "ru": "Keyboard",
+                  "ru": "Клавиатура",
                   "en": "Keyboard"
                 },
                 "desc": {
@@ -797,7 +797,7 @@
                   "en": "Razer DeathAdder V2 Pro — wireless gaming mouse"
                 },
                 "tag": {
-                  "ru": "Mouse",
+                  "ru": "Мышь",
                   "en": "Mouse"
                 },
                 "desc": {
@@ -809,7 +809,7 @@
           },
           {
             "heading": {
-              "ru": "Mobile",
+              "ru": "Телефоны",
               "en": "Mobile"
             },
             "cards": [
@@ -821,7 +821,7 @@
                   "en": "iPhone 15 Pro Max"
                 },
                 "tag": {
-                  "ru": "Phone",
+                  "ru": "Телефон",
                   "en": "Phone"
                 },
                 "desc": {
@@ -837,7 +837,7 @@
                   "en": "Duoqin F22 Pro — mini button phone"
                 },
                 "tag": {
-                  "ru": "Phone",
+                  "ru": "Телефон",
                   "en": "Phone"
                 },
                 "desc": {
@@ -849,7 +849,7 @@
           },
           {
             "heading": {
-              "ru": "Audio",
+              "ru": "Звук",
               "en": "Audio"
             },
             "cards": [
@@ -861,7 +861,7 @@
                   "en": "Apple AirPods Pro 2"
                 },
                 "tag": {
-                  "ru": "Earphones",
+                  "ru": "Внутриканальные",
                   "en": "Earphones"
                 },
                 "desc": {
@@ -877,7 +877,7 @@
                   "en": "Moondrop Chu 2 — wired IEMs"
                 },
                 "tag": {
-                  "ru": "Earphones",
+                  "ru": "Внутриканальные",
                   "en": "Earphones"
                 },
                 "desc": {
@@ -893,7 +893,7 @@
                   "en": "Sony MDR-7506 — studio headphones"
                 },
                 "tag": {
-                  "ru": "Headphones",
+                  "ru": "Полноразмерные",
                   "en": "Headphones"
                 },
                 "desc": {
@@ -909,7 +909,7 @@
                   "en": "Beyerdynamic DT 770 Pro — studio headphones"
                 },
                 "tag": {
-                  "ru": "Headphones",
+                  "ru": "Полноразмерные",
                   "en": "Headphones"
                 },
                 "desc": {
@@ -921,7 +921,7 @@
           },
           {
             "heading": {
-              "ru": "Power",
+              "ru": "Питание",
               "en": "Power"
             },
             "cards": [
@@ -933,7 +933,7 @@
                   "en": "Shargeek 170 — transparent power bank"
                 },
                 "tag": {
-                  "ru": "Powerbank",
+                  "ru": "Пауэрбанк",
                   "en": "Powerbank"
                 },
                 "desc": {
@@ -949,7 +949,7 @@
                   "en": "Ugreen Nexode 300W — desktop charging station"
                 },
                 "tag": {
-                  "ru": "Charger",
+                  "ru": "Зарядка",
                   "en": "Charger"
                 },
                 "desc": {
@@ -961,7 +961,7 @@
           },
           {
             "heading": {
-              "ru": "Health & Play",
+              "ru": "Здоровье и игры",
               "en": "Health & Play"
             },
             "cards": [
@@ -973,7 +973,7 @@
                   "en": "Oura Ring Gen3 — smart ring"
                 },
                 "tag": {
-                  "ru": "Health",
+                  "ru": "Здоровье",
                   "en": "Health"
                 },
                 "desc": {
@@ -989,7 +989,7 @@
                   "en": "Anbernic RG405V — portable retro emulator"
                 },
                 "tag": {
-                  "ru": "Game console",
+                  "ru": "Консоль",
                   "en": "Game console"
                 },
                 "desc": {
@@ -1015,11 +1015,11 @@
           {
             "name": "Dashlane",
             "tag": {
-              "ru": "Password manager",
+              "ru": "Менеджер паролей",
               "en": "Password manager"
             },
             "price": {
-              "ru": "$5 / mo",
+              "ru": "$5 / мес.",
               "en": "$5 / mo"
             },
             "desc": {
@@ -1037,11 +1037,11 @@
           {
             "name": "Arc Browser",
             "tag": {
-              "ru": "Browser",
+              "ru": "Браузер",
               "en": "Browser"
             },
             "price": {
-              "ru": "Free",
+              "ru": "Бесплатно",
               "en": "Free"
             },
             "desc": {
@@ -1059,11 +1059,11 @@
           {
             "name": "Setapp",
             "tag": {
-              "ru": "App bundle",
+              "ru": "Набор приложений",
               "en": "App bundle"
             },
             "price": {
-              "ru": "$10 / mo",
+              "ru": "$10 / мес.",
               "en": "$10 / mo"
             },
             "desc": {
@@ -1081,11 +1081,11 @@
           {
             "name": "Claude Max",
             "tag": {
-              "ru": "AI",
+              "ru": "ИИ",
               "en": "AI"
             },
             "price": {
-              "ru": "$100 / mo",
+              "ru": "$100 / мес.",
               "en": "$100 / mo"
             },
             "desc": {
@@ -1107,7 +1107,7 @@
               "en": "eSIM"
             },
             "price": {
-              "ru": "Pay-as-you-go",
+              "ru": "Оплата по факту",
               "en": "Pay-as-you-go"
             },
             "desc": {
@@ -1125,11 +1125,11 @@
           {
             "name": "Apple Notes",
             "tag": {
-              "ru": "Notes",
+              "ru": "Заметки",
               "en": "Notes"
             },
             "price": {
-              "ru": "Free",
+              "ru": "Бесплатно",
               "en": "Free"
             },
             "desc": {
@@ -1244,7 +1244,7 @@
               "en": "ONE-OFF"
             },
             "price": {
-              "ru": "$250 / **SESSION**",
+              "ru": "$250 / **сессия**",
               "en": "$250 / **SESSION**"
             },
             "name": {
@@ -1279,7 +1279,7 @@
               "en": "CYCLE"
             },
             "price": {
-              "ru": "$2 000 / **MONTH**",
+              "ru": "$2 000 / **месяц**",
               "en": "$2,000 / **MONTH**"
             },
             "name": {
