@@ -8,7 +8,7 @@ const SHELL = `<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
 <title>Редактор — morgunov.tech</title>
-<link rel="stylesheet" href="/admin-app.css?v=8e050977" />
+<link rel="stylesheet" href="/admin-app.css?v=acb3d5f4" />
 </head>
 <body>
   <header class="ed-bar">

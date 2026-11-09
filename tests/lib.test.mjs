@@ -144,7 +144,7 @@ test('auth: password verify + session round-trip', async () => {
 });
 
 // --- Subscriber counters: one source for the stats strip AND the channel meta ---
-import { counters, fillCounters, renderers, pubItem } from '../functions/_lib/render.js';
+import { counters, fillCounters, renderers, channelItem } from '../functions/_lib/render.js';
 
 const homeDocFor = (live) => ({
   _live: live ? { subscribers: live } : undefined,
@@ -179,12 +179,12 @@ test('counters: falls back to the doc channels when no live data (or auto=false)
   assert.equal(counters(off, 'ru').total, '6 069');
 });
 
-// The CHANNEL item now renders on /notes (v0.31.0) through the same pubItem.
-const channelOf = (doc, edit) => pubItem(doc.sections.publications.items[0], 'ru', edit, 'x', doc);
+// The CHANNEL item renders on /notes (v0.31.0) through channelItem.
+const channelOf = (doc) => channelItem(doc.sections.publications.items[0], 'ru', doc);
 
 test('channel meta and stats strip render the same Telegram number', () => {
   const doc = homeDocFor({ telegram: 1200, linkedin: 5000, youtube: 130 });
-  const pubs = channelOf(doc, false);
+  const pubs = channelOf(doc);
   const stats = renderers.stats(doc, 'ru', false);
   assert.match(pubs, /1 200 в Telegram/);
   assert.match(stats, /Telegram:<\/span>&nbsp;1 200/);
@@ -192,8 +192,6 @@ test('channel meta and stats strip render the same Telegram number', () => {
   assert.match(stats, /<span aria-hidden="true">TG<\/span>/);
   assert.doesNotMatch(stats, /<svg/);
   assert.doesNotMatch(pubs, /\{telegram\}/);
-  // Edit mode keeps the template placeholder so the editor never snapshots a number.
-  assert.match(channelOf(doc, true), /\{telegram\} в Telegram/);
 });
 
 test('fillCounters escapes HTML and leaves unknown placeholders alone', () => {
@@ -246,27 +244,22 @@ test('fillCounters drops a known counter that has no value instead of leaking br
   assert.equal(fillCounters('{telegram} в Telegram', doc, 'ru'), 'в Telegram');
 });
 
-test('migrateHome: an old KV doc gains the Tofs card, the placeholder meta and keeps idempotent', () => {
+test('migrateHome: an old KV doc gains the Tofs card and the subscribers stat, idempotently', () => {
   const seedDoc = {
     stats: [{ kind: 'subscribers', channels: { telegram: { ru: '1 141', en: '1,141' } }, value: { ru: '6 069', en: '6,069' } }],
     sections: {
       products: { items: [{ name: 'Fingerprint' }, { name: 'FoundYou' }, { name: 'Tofs DevOps', schema: { type: 'SoftwareApplication' } }] },
-      publications: { items: [] },
     },
   };
   const kv = {
     stats: [{ value: { ru: '10' } }],
     sections: {
       products: { items: [{ name: 'Fingerprint' }, { name: 'FoundYou' }] },
-      publications: { items: [{ tag: 'CHANNEL', meta: { ru: '1 139 в Telegram', en: '1,139 on Telegram' } }, { tag: 'ARTICLE', meta: { ru: '82 600 просмотров', en: '82,600 views' } }] },
     },
   };
   migrateHome(kv, seedDoc);
   assert.deepEqual(kv.sections.products.items.map((i) => i.name), ['Fingerprint', 'FoundYou', 'Tofs DevOps']);
   assert.equal(kv.sections.products.items[2].schema.type, 'SoftwareApplication');
-  assert.equal(kv.sections.publications.items[0].meta.ru, '{telegram} в Telegram');
-  assert.equal(kv.sections.publications.items[0].meta.en, '{telegram} on Telegram');
-  assert.equal(kv.sections.publications.items[1].meta.ru, '82 600 просмотров'); // untouched
   assert.equal(kv.stats.filter((s) => s.kind === 'subscribers').length, 1);
   const again = JSON.stringify(kv);
   migrateHome(kv, seedDoc);
@@ -386,7 +379,6 @@ test('fixStaleContent swaps the dead links stored in KV', () => {
 });
 
 test('fixStaleContent applies the v0.30.6 home copy fixes to a doc saved before them', () => {
-  const nb = ' ';
   const doc = {
     about: {
       ru: 'С 2009 года запустил четыре бизнеса — один продали сотрудникам, три закрыли. Среди клиентов Belissimo Pizza.',
@@ -399,12 +391,6 @@ test('fixStaleContent applies the v0.30.6 home copy fixes to a doc saved before 
       en: 'Portfolio of 30+ products in home services, ~6.5M monthly users.\n\n- GMV: ×2.2 in a year\n- EBITDA: turned positive in 10 months',
     },
     apple: { role: { ru: 'Certified Sales Trainer (contractor)', en: 'Certified Sales Trainer' } },
-    pubs: [
-      { meta: { ru: `>82${nb}000 просмотров`, en: '82,600 views' } },
-      { meta: { ru: `>7${nb}000 просмотров`, en: '7,200 views' } },
-    ],
-    // /about quotes the old figure as a typography example — must stay.
-    example: '<code>82&nbsp;600 просмотров</code> ↔ <code>82,600 views</code>',
   };
   fixStaleContent(doc);
   assert.equal(doc.about.ru, 'С 2009 года запустил четыре бизнеса — один продали сотрудникам, два закрыли, один на паузе. Среди клиентов Bellissimo Pizza.');
@@ -414,15 +400,10 @@ test('fixStaleContent applies the v0.30.6 home copy fixes to a doc saved before 
   assert.equal(doc.uz.ctx.ru, 'BNPL, платежи, кредитные продукты. Строю и масштабирую продуктовую линейку.');
   assert.equal(doc.korzinka.role.ru, 'Director of e-commerce / CPO Korzinka Go');
   assert.equal(doc.korzinka.role.en, 'Director of e-commerce / CPO Korzinka Go');
-  assert.match(doc.uslugi.ru, /\n\n- GMV: ×2\.2 за год\n- EBITDA: вывел в плюс за 10 месяцев\n- Pivot: Classified → End to End Model$/);
+  assert.match(doc.uslugi.ru, /\n\n- GMV: ×2,2 за год\n- EBITDA: вывел в плюс за 10 месяцев\n- Pivot: Classified → End to End Model$/);
   assert.match(doc.uslugi.en, /\n- EBITDA: turned positive in 10 months\n- Pivot: Classified → End to End Model$/);
   assert.equal(doc.apple.role.ru, 'Certified Sales Trainer (contractor)');
   assert.equal(doc.apple.role.en, 'Certified Sales Trainer (contractor)');
-  assert.deepEqual(doc.pubs.map((p) => p.meta), [
-    { ru: `36${nb}800+ просмотров суммарно`, en: '36,800+ views combined' }, // v0.31.0 corrects the v0.30.6 sum
-    { ru: `6${nb}900+ просмотров суммарно`, en: '6,900+ views combined' },
-  ]);
-  assert.equal(doc.example, '<code>82&nbsp;600 просмотров</code> ↔ <code>82,600 views</code>');
   // Several new texts contain the old ones: a second pass must change nothing.
   const once = JSON.stringify(doc);
   assert.equal(JSON.stringify(fixStaleContent(doc)), once);
@@ -461,4 +442,32 @@ test('fixStaleContent turns a literal BUILD hash into {build}, and only inside <
   assert.equal(doc.a, '<code>BUILD {build}</code> · <code>BUILD&nbsp;{build}</code>');
   assert.equal(doc.keep, 'Build <code>3cd8687</code> and BUILD 3cd8687 in plain text');
   assert.equal(JSON.stringify(fixStaleContent(doc)), JSON.stringify(doc));
+});
+
+test('fixStaleContent applies the v0.31.3 proofreading fixes to the home doc saved before them', () => {
+  const nb = ' ';
+  const doc = {
+    uslugi: 'Портфель 30+ продуктов в сегменте домашних услуг, ~6.5M пользователей в месяц.\n\n- GMV: ×2.2 за год',
+    uslugiEn: 'Portfolio of 30+ products in home services, ~6.5M monthly users.\n\n- GMV: ×2.2 in a year',
+    korzinka: { ru: '- Выручка: ×2 год к году при положительной EBITDA\n- CSAT: 4.2 → 4.5', en: '- Revenue: ×2 year-over-year at positive EBITDA\n- CSAT: 4.2 → 4.5' },
+    apple: '- Мероприятия: 100+ событий, средняя оценка 4.9 из 5',
+    skyeng: '- Активировал 7M+ пользователей',
+    arc: 'Запустили → Выросли до 3-х точек → Закрыли',
+    hvost: '[Ethical grooming salon «Hvost»](https://yandex.com/maps/-/CDF9VDo~)',
+    clients: 'I consult companies in Russia, Uzbekistan, and Kyrgyzstan. Clients include UMAI Group, Bellissimo Pizza, Buildex, MediaPark, and others.',
+    person: 'С 2009 года запустил четыре собственных проекта (один продан сотрудникам, два закрыли, один на паузе).',
+  };
+  fixStaleContent(doc);
+  assert.equal(doc.uslugi, `Портфель 30+ продуктов в сегменте домашних услуг, ~6,5${nb}млн пользователей в месяц.\n\n- GMV: ×2,2 за год`);
+  assert.equal(doc.uslugiEn, 'Portfolio of 30+ products in home services, ~6.5M monthly users.\n\n- GMV: ×2.2 in a year'); // EN keeps the point
+  assert.equal(doc.korzinka.ru, '- Выручка: ×2 год к году при положительной EBITDA\n- CSAT: 4,2 → 4,5');
+  assert.equal(doc.korzinka.en, '- Revenue: ×2 year-over-year at positive EBITDA\n- CSAT: 4.2 → 4.5');
+  assert.equal(doc.apple, '- Мероприятия: 100+ событий, средняя оценка 4,9 из 5');
+  assert.equal(doc.skyeng, `- Активировал 7${nb}млн+ пользователей`);
+  assert.equal(doc.arc, 'Запустили → Выросли до 3 точек → Закрыли');
+  assert.equal(doc.hvost, '[Ethical grooming salon “Hvost”](https://yandex.com/maps/-/CDF9VDo~)');
+  assert.match(doc.clients, /Clients include \[UMAI Group\]\(https:\/\/web\.archive\.org\/web\/20260123151317\/https:\/\/www\.umaigroup\.kg\/en\/about\), \[Bellissimo Pizza\]\(https:\/\/bellissimo\.uz\/ru\/about\/company\), Buildex, \[MediaPark\]\(https:\/\/mediapark\.uz\/about\), and others\.$/);
+  assert.equal(doc.person, 'С 2009 года запустил четыре бизнеса (один продан сотрудникам, два закрыли, один на паузе).');
+  const once = JSON.stringify(doc);
+  assert.equal(JSON.stringify(fixStaleContent(doc)), once);
 });

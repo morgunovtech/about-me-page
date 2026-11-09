@@ -4,10 +4,8 @@ name = "about-me-page"
 pages_build_output_dir = "."
 compatibility_date = "2024-11-01"
 
-# Content store. The `id` is used only for remote deploys; `wrangler pages dev`
-# simulates KV locally and ignores it. Replace the placeholder with the real
-# namespace id after `wrangler kv namespace create CONTENT`, or bind it in the
-# Cloudflare Pages dashboard (Settings → Functions → KV namespace bindings).
+# Content store — the production namespace. The `id` is used only for remote
+# deploys; `wrangler pages dev` simulates KV locally and ignores it.
 [[kv_namespaces]]
 binding = "CONTENT"
 id = "588ef476ce534bb48734fe562178080a"

@@ -200,7 +200,7 @@
   margin-bottom: 0;
 }
 
-/* --- Help section CTA --- */
+/* --- Button row under a block (homepage «Все публикации →», /collaborate) --- */
 
 .v4-help-cta {
   margin-top: 20px;
@@ -544,12 +544,6 @@
 }
 
 /* --- Publications --- */
-
-.v4-pubs {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
 
 .v4-pub {
   padding: 0;

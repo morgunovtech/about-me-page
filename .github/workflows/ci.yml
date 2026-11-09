@@ -24,8 +24,8 @@ jobs:
       - name: Bundle Functions the way Pages does
         run: npx --yes wrangler@4 pages functions build --outdir "$RUNNER_TEMP/fnbuild"
 
-  # Private repos on the free plan get no GitHub secret scanning; gitleaks
-  # scans the whole history instead.
+  # gitleaks scans the whole history on every PR (added while the repo was
+  # private and had no GitHub secret scanning; kept as the one gate we own).
   secrets:
     name: secrets
     # The action lists the PR's commits through the API; the default token

@@ -23,7 +23,7 @@ async function contentVersion(env) {
 export const PAGE_PATHS = {
   home: ['/', '/en/', '/llms.txt', '/sitemap.xml'],
   collaborate: ['/collaborate', '/en/collaborate', '/sitemap.xml'],
-  about: ['/about', '/en/about', '/sitemap.xml'],
+  about: ['/about', '/en/about'], // hidden since v0.31.2: not in the sitemap
   uses: ['/uses', '/en/uses', '/sitemap.xml'],
 };
 // The homepage shows the three newest feed entries, so a notes change purges it too.

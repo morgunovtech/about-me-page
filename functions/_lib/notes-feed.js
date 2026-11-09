@@ -6,7 +6,7 @@
 // wins once /admin manages it). They are not ours to host: no page on the site,
 // no RSS item, no sitemap URL — only a row in the feed that links out.
 import { escapeHtml, escapeAttr, safeHref } from './markdown.js';
-import { fmtNum, pubItem } from './render.js';
+import { fmtNum, channelItem } from './render.js';
 import { fmtDate, NEW_TAB } from './i18n.js';
 import { noteUrl } from './articles.js';
 
@@ -69,7 +69,7 @@ export function channelHtml(notesDoc, homeDoc, lang) {
   const ch = notesDoc && notesDoc.channel;
   if (!ch) return '';
   return `<div class="v4-notes-channel">
-        ${pubItem(ch, lang, false, '', homeDoc || {})}
+        ${channelItem(ch, lang, homeDoc || {})}
       </div>`;
 }
 
