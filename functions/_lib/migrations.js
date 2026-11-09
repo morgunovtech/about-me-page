@@ -91,7 +91,7 @@ const STALE = [
   // with a seller, not vending machines.
   ['- Заказы в день: 400 → 10 000 (ATH) за 3 года', '- Заказы в день: ×23 за 3 года, пик — 10 000 (ATH)'],
   ['- Orders: 400 → 10,000 (ATH) per day over 3 years', '- Daily orders: ×23 over 3 years, peaking at 10,000 (ATH)'],
-  [' and running a [Telegram channel](https://t.me/raschet7) about what I learn at work.', ' and running a [Telegram channel](https://t.me/raschet7).'],
+  ['[Telegram\u00a0channel](https://t.me/raschet7) about what I learn at work.', '[Telegram\u00a0channel](https://t.me/raschet7).'],
   ['Snack vending kiosks', 'Snack kiosk chain'],
 ];
 

@@ -66,18 +66,19 @@ test('KV home copy: Korzinka ×23, one channel line, a kiosk chain — idempoten
   const doc = {
     ru: `Строил продукт.\n\n- Заказы в день: 400 → 10${nb}000 (ATH) за 3 года\n- Расширение: 1 → 9 городов`,
     en: 'Built the product.\n\n- Orders: 400 → 10,000 (ATH) per day over 3 years\n- Expansion: 1 → 9 cities',
-    about: 'Currently building two tools on digital privacy and running a [Telegram channel](https://t.me/raschet7) about what I learn at work. I live in Tashkent.',
+    about: `Currently building two tools on digital privacy and running a [Telegram${nb}channel](https://t.me/raschet7) about what I learn at work. I live in Tashkent.`,
     snacks: 'Snack vending kiosks',
   };
   fixStaleContent(doc);
   assert.match(doc.ru, new RegExp(`- Заказы в день: ×23 за 3 года, пик — 10${nb}000 \\(ATH\\)\\n`));
   assert.match(doc.en, /- Daily orders: ×23 over 3 years, peaking at 10,000 \(ATH\)\n/);
-  assert.equal(doc.about, 'Currently building two tools on digital privacy and running a [Telegram channel](https://t.me/raschet7). I live in Tashkent.');
+  assert.equal(doc.about, `Currently building two tools on digital privacy and running a [Telegram${nb}channel](https://t.me/raschet7). I live in Tashkent.`);
   assert.equal(doc.snacks, 'Snack kiosk chain');
   const once = JSON.stringify(doc);
   assert.equal(JSON.stringify(fixStaleContent(doc)), once);
   // The seed (= the static twin) already says ×23, like /collaborate.
   assert.ok(!JSON.stringify(seed.home).includes('400 → 10'));
+  assert.ok(!JSON.stringify(seed.home).includes('about what I learn at work'));
   assert.match(JSON.stringify(seed.collaborate), /×23/);
 });
 
