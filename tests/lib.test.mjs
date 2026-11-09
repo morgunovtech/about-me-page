@@ -220,7 +220,6 @@ test('renderJsonLd: product schema overrides (type/category/license)', () => {
 
 // --- v0.29: RU plural of the live total, KV migrations, sub-page JSON-LD ---
 import { pluralRu, unitFor } from '../functions/_lib/render.js';
-import { migrateHome, migrateAbout, MIGRATION } from '../functions/_lib/migrations.js';
 import { renderPageJsonLd } from '../functions/_lib/jsonld.js';
 
 test('pluralRu / unitFor decline «подписчик» by the live total', () => {
@@ -244,34 +243,7 @@ test('fillCounters drops a known counter that has no value instead of leaking br
   assert.equal(fillCounters('{telegram} в Telegram', doc, 'ru'), 'в Telegram');
 });
 
-test('migrateHome: an old KV doc gains the Tofs card and the subscribers stat, idempotently', () => {
-  const seedDoc = {
-    stats: [{ kind: 'subscribers', channels: { telegram: { ru: '1 141', en: '1,141' } }, value: { ru: '6 069', en: '6,069' } }],
-    sections: {
-      products: { items: [{ name: 'Fingerprint' }, { name: 'FoundYou' }, { name: 'Tofs DevOps', schema: { type: 'SoftwareApplication' } }] },
-    },
-  };
-  const kv = {
-    stats: [{ value: { ru: '10' } }],
-    sections: {
-      products: { items: [{ name: 'Fingerprint' }, { name: 'FoundYou' }] },
-    },
-  };
-  migrateHome(kv, seedDoc);
-  assert.deepEqual(kv.sections.products.items.map((i) => i.name), ['Fingerprint', 'FoundYou', 'Tofs DevOps']);
-  assert.equal(kv.sections.products.items[2].schema.type, 'SoftwareApplication');
-  assert.equal(kv.stats.filter((s) => s.kind === 'subscribers').length, 1);
-  const again = JSON.stringify(kv);
-  migrateHome(kv, seedDoc);
-  assert.equal(JSON.stringify(kv), again);
-});
 
-test('migrateAbout refreshes the subscriber snapshot in the layers block', () => {
-  const doc = { sections: { layers: { body: { ru: '<code>5&nbsp;831 подписчик</code>, 5&nbsp;831 — <code>1&nbsp;139</code> и <code>4&nbsp;564</code>; <code>5,831</code>', en: '<code>5,831 followers</code> 1,139 4,564 <code>5&nbsp;831</code>' } } } };
-  migrateAbout(doc);
-  assert.equal(doc.sections.layers.body.ru, '<code>6&nbsp;069 подписчиков</code>, 6&nbsp;069 — <code>1&nbsp;141</code> и <code>4&nbsp;800</code>; <code>6,069</code>');
-  assert.equal(doc.sections.layers.body.en, '<code>6,069 followers</code> 1,141 4,800 <code>6&nbsp;069</code>');
-});
 
 test('renderPageJsonLd: collaborate offers follow the doc, about gets a breadcrumb', () => {
   const collab = {
@@ -317,157 +289,22 @@ test('safeHref / isExternal treat protocol-relative //host as an external https 
   assert.match(renderInline('[l](//evil.example/x)'), /target="_blank" rel="noopener noreferrer"/);
 });
 
-test('migrations run once: a renamed or deleted card is not resurrected after the marker', () => {
-  const seedDoc = { stats: [], sections: { products: { items: [{ name: 'Fingerprint' }, { name: 'Tofs DevOps', schema: {} }] }, publications: { items: [] } } };
-  const kv = { sections: { products: { items: [{ name: 'Fingerprint' }] }, publications: { items: [] } }, stats: [] };
-  migrateHome(kv, seedDoc);
-  assert.equal(kv.migration, MIGRATION);
-  assert.deepEqual(kv.sections.products.items.map((i) => i.name), ['Fingerprint', 'Tofs DevOps']);
-  // editor renames + deletes, then the doc is read again (marker already set)
-  kv.sections.products.items = [{ name: 'Fingerprint Check' }];
-  migrateHome(kv, seedDoc);
-  assert.deepEqual(kv.sections.products.items.map((i) => i.name), ['Fingerprint Check']);
-  const about = { sections: { living: { body: { ru: 'Build <code>cc8781e</code> сменится', en: 'Build <code>cc8781e</code> will change' } } } };
-  migrateAbout(about);
-  assert.equal(about.sections.living.body.ru, 'Build <code>{build}</code> сменится');
-  assert.equal(about.migration, MIGRATION);
-});
 
 /* --- v0.30.1 / v0.30.4: dead content is rewritten at read time --- */
 import { fixStaleContent } from '../functions/_lib/migrations.js';
 
-test('fixStaleContent rewrites stale content in hrefs, prose and arrays', () => {
-  const doc = {
-    migration: 30, // already at the marker: the numbered gate must not shield this
-    hero: { ctas: { ru: '<a href="https://korzinka.uz/go">Korzinka</a>', en: null } },
-    sections: {
-      career: { items: [{ href: 'https://korzinka.uz/go' }] },
-      prose: { ru: 'Среди клиентов Belissimo Pizza.' },
-    },
-    keep: 'https://korzinka.uz',
-  };
-  fixStaleContent(doc);
-  assert.equal(doc.hero.ctas.ru, '<a href="https://korzinka.uz">Korzinka</a>');
-  assert.equal(doc.sections.career.items[0].href, 'https://korzinka.uz');
-  assert.equal(doc.sections.prose.ru, 'Среди клиентов Bellissimo Pizza.');
-  assert.equal(doc.keep, 'https://korzinka.uz');
-  assert.equal(doc.hero.ctas.en, null);
-  assert.equal(doc.migration, 30, 'must not touch the migration marker');
-});
 
-test('fixStaleContent is idempotent and survives odd input', () => {
-  const doc = { a: { b: 'Belissimo Belissimo' } };
-  assert.deepEqual(fixStaleContent(fixStaleContent(doc)), { a: { b: 'Bellissimo Bellissimo' } });
+
+
+
+
+
+
+test('fixStaleContent: with an empty table it hands every doc back untouched', () => {
+  const doc = { a: { b: 'Belissimo' }, list: ['x', { y: 'https://korzinka.uz/go' }] };
+  const before = JSON.stringify(doc);
+  assert.equal(fixStaleContent(doc), doc);
+  assert.equal(JSON.stringify(doc), before);
   assert.equal(fixStaleContent(null), null);
-  assert.equal(fixStaleContent('Belissimo'), 'Belissimo'); // scalars pass through
-});
-
-test('fixStaleContent swaps the dead links stored in KV', () => {
-  const doc = {
-    career: { company: { ru: '[Korzinka](https://korzinka.uz/go)', en: '[Korzinka](https://korzinka.uz/go)' } },
-    prose: { ru: 'Среди клиентов [UMAI Group](https://www.umaigroup.kg/en/about), [Bellissimo](https://bellissimo.uz/ru/about/company)' },
-    keep: 'https://korzinka.uz/good https://umaigroup.kg/en/about',
-  };
-  fixStaleContent(doc);
-  assert.equal(doc.career.company.ru, '[Korzinka](https://korzinka.uz)');
-  assert.equal(doc.career.company.en, '[Korzinka](https://korzinka.uz)');
-  assert.equal(doc.prose.ru, 'Среди клиентов [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo](https://bellissimo.uz/ru/about/company)');
-  assert.equal(doc.keep, 'https://korzinka.uz/good https://umaigroup.kg/en/about');
-  // The snapshot URL ends with the old one: a second pass must not nest it.
-  const once = JSON.stringify(doc);
-  assert.equal(JSON.stringify(fixStaleContent(doc)), once);
-});
-
-test('fixStaleContent applies the v0.30.6 home copy fixes to a doc saved before them', () => {
-  const doc = {
-    about: {
-      ru: 'С 2009 года запустил четыре бизнеса — один продали сотрудникам, три закрыли. Среди клиентов Belissimo Pizza.',
-      en: "Since 2009 I've launched four businesses — one sold to employees, three closed. Clients include Belissimo Pizza.",
-    },
-    uz: { period: { ru: '2026 — сейчас', en: 'Apr 2026 — present' }, ctx: { ru: 'Строю и масштабирую продуктовую линейку. In progress.' } },
-    korzinka: { role: { ru: 'Director of e-com', en: 'Director of e-commerce / CPO Korzinka Go' } },
-    uslugi: {
-      ru: 'Портфель 30+ продуктов в сегменте домашних услуг, ~6.5M пользователей в месяц.\n\n– GMV: ×2.2 за год – EBITDA: вывел в плюс за 10 месяцев – Pivot: Classified → End to End Model',
-      en: 'Portfolio of 30+ products in home services, ~6.5M monthly users.\n\n- GMV: ×2.2 in a year\n- EBITDA: turned positive in 10 months',
-    },
-    apple: { role: { ru: 'Certified Sales Trainer (contractor)', en: 'Certified Sales Trainer' } },
-  };
-  fixStaleContent(doc);
-  assert.equal(doc.about.ru, 'С 2009 года запустил четыре бизнеса — один продали сотрудникам, два закрыли, один на паузе. Среди клиентов Bellissimo Pizza.');
-  assert.equal(doc.about.en, "Since 2009 I've launched four businesses — one sold to employees, two closed, one on pause. Clients include Bellissimo Pizza.");
-  assert.equal(doc.uz.period.ru, '2026 — сейчас');
-  assert.equal(doc.uz.period.en, '2026 — present');
-  assert.equal(doc.uz.ctx.ru, 'BNPL, платежи, кредитные продукты. Строю и масштабирую продуктовую линейку.');
-  assert.equal(doc.korzinka.role.ru, 'Director of e-commerce / CPO Korzinka Go');
-  assert.equal(doc.korzinka.role.en, 'Director of e-commerce / CPO Korzinka Go');
-  assert.match(doc.uslugi.ru, /\n\n- GMV: ×2,2 за год\n- EBITDA: вывел в плюс за 10 месяцев\n- Pivot: Classified → End to End Model$/);
-  assert.match(doc.uslugi.en, /\n- EBITDA: turned positive in 10 months\n- Pivot: Classified → End to End Model$/);
-  assert.equal(doc.apple.role.ru, 'Certified Sales Trainer (contractor)');
-  assert.equal(doc.apple.role.en, 'Certified Sales Trainer (contractor)');
-  // Several new texts contain the old ones: a second pass must change nothing.
-  const once = JSON.stringify(doc);
-  assert.equal(JSON.stringify(fixStaleContent(doc)), once);
-});
-
-test('fixStaleContent drops the «repo is open» promises on /about', () => {
-  const doc = {
-    ethics: {
-      ru: '<li><strong>Transparency.</strong> Репозиторий открыт, build hash в футере кликабельный на коммит в GitHub. Каждый может увидеть, что и когда менялось. Аффилиатные ссылки на /uses помечены и раскрыты.</li>',
-      en: '<li><strong>Transparency.</strong> Repo is open, the build hash in the footer links to the commit on GitHub. Anyone can see what changed and when. Affiliate links on /uses are marked and disclosed.</li>',
-    },
-    product: {
-      ru: '- У сайта есть билд (<code>BUILD 3cd8687</code> в футере кликабельный GitHub)',
-      en: 'a build (<code>BUILD&nbsp;3cd8687</code> in the footer, clickable through to the commit on GitHub), a backlog',
-    },
-    living: {
-      ru: 'кнопкой «Нашли опечатку?» . Репозиторий открыт; если хотите завести issue или PR — добро пожаловать.',
-      en: 'opens a direct channel. The repo is open; if you want to file an issue or a PR — welcome.',
-    },
-  };
-  fixStaleContent(doc);
-  assert.equal(doc.ethics.ru, '<li><strong>Transparency.</strong> Build hash в футере — коммит, который сейчас в продакшене. Аффилиатные ссылки на /uses помечены и раскрыты.</li>');
-  assert.equal(doc.ethics.en, '<li><strong>Transparency.</strong> The build hash in the footer is the commit currently in production. Affiliate links on /uses are marked and disclosed.</li>');
-  assert.equal(doc.product.ru, '- У сайта есть билд (<code>BUILD {build}</code> в футере)');
-  assert.equal(doc.product.en, 'a build (<code>BUILD&nbsp;{build}</code> in the footer), a backlog');
-  assert.equal(doc.living.ru, 'кнопкой «Нашли опечатку?» .');
-  assert.equal(doc.living.en, 'opens a direct channel.');
-});
-
-test('fixStaleContent turns a literal BUILD hash into {build}, and only inside <code>BUILD …</code>', () => {
-  const doc = {
-    a: '<code>BUILD 3cd8687</code> · <code>BUILD&nbsp;abcdef0123</code>',
-    keep: 'Build <code>3cd8687</code> and BUILD 3cd8687 in plain text',
-  };
-  fixStaleContent(doc);
-  assert.equal(doc.a, '<code>BUILD {build}</code> · <code>BUILD&nbsp;{build}</code>');
-  assert.equal(doc.keep, 'Build <code>3cd8687</code> and BUILD 3cd8687 in plain text');
-  assert.equal(JSON.stringify(fixStaleContent(doc)), JSON.stringify(doc));
-});
-
-test('fixStaleContent applies the v0.31.3 proofreading fixes to the home doc saved before them', () => {
-  const nb = ' ';
-  const doc = {
-    uslugi: 'Портфель 30+ продуктов в сегменте домашних услуг, ~6.5M пользователей в месяц.\n\n- GMV: ×2.2 за год',
-    uslugiEn: 'Portfolio of 30+ products in home services, ~6.5M monthly users.\n\n- GMV: ×2.2 in a year',
-    korzinka: { ru: '- Выручка: ×2 год к году при положительной EBITDA\n- CSAT: 4.2 → 4.5', en: '- Revenue: ×2 year-over-year at positive EBITDA\n- CSAT: 4.2 → 4.5' },
-    apple: '- Мероприятия: 100+ событий, средняя оценка 4.9 из 5',
-    skyeng: '- Активировал 7M+ пользователей',
-    arc: 'Запустили → Выросли до 3-х точек → Закрыли',
-    hvost: '[Ethical grooming salon «Hvost»](https://yandex.com/maps/-/CDF9VDo~)',
-    clients: 'I consult companies in Russia, Uzbekistan, and Kyrgyzstan. Clients include UMAI Group, Bellissimo Pizza, Buildex, MediaPark, and others.',
-    person: 'С 2009 года запустил четыре собственных проекта (один продан сотрудникам, два закрыли, один на паузе).',
-  };
-  fixStaleContent(doc);
-  assert.equal(doc.uslugi, `Портфель 30+ продуктов в сегменте домашних услуг, ~6,5${nb}млн пользователей в месяц.\n\n- GMV: ×2,2 за год`);
-  assert.equal(doc.uslugiEn, 'Portfolio of 30+ products in home services, ~6.5M monthly users.\n\n- GMV: ×2.2 in a year'); // EN keeps the point
-  assert.equal(doc.korzinka.ru, '- Выручка: ×2 год к году при положительной EBITDA\n- CSAT: 4,2 → 4,5');
-  assert.equal(doc.korzinka.en, '- Revenue: ×2 year-over-year at positive EBITDA\n- CSAT: 4.2 → 4.5');
-  assert.equal(doc.apple, '- Мероприятия: 100+ событий, средняя оценка 4,9 из 5');
-  assert.equal(doc.skyeng, `- Активировал 7${nb}млн+ пользователей`);
-  assert.equal(doc.arc, 'Запустили → Выросли до 3 точек → Закрыли');
-  assert.equal(doc.hvost, '[Ethical grooming salon “Hvost”](https://yandex.com/maps/-/CDF9VDo~)');
-  assert.match(doc.clients, /Clients include \[UMAI Group\]\(https:\/\/web\.archive\.org\/web\/20260123151317\/https:\/\/www\.umaigroup\.kg\/en\/about\), \[Bellissimo Pizza\]\(https:\/\/bellissimo\.uz\/ru\/about\/company\), Buildex, \[MediaPark\]\(https:\/\/mediapark\.uz\/about\), and others\.$/);
-  assert.equal(doc.person, 'С 2009 года запустил четыре бизнеса (один продан сотрудникам, два закрыли, один на паузе).');
-  const once = JSON.stringify(doc);
-  assert.equal(JSON.stringify(fixStaleContent(doc)), once);
+  assert.equal(fixStaleContent('text'), 'text');
 });

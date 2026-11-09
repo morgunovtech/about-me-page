@@ -2,11 +2,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { renderInline, renderProse } from '../functions/_lib/markdown.js';
-import { htmlToInline, migrateUses, MIGRATION } from '../functions/_lib/migrations.js';
 import { renderers } from '../functions/_lib/render.js';
 import { createSession, verifySession, NOT_BEFORE_KEY } from '../functions/_lib/auth.js';
 import { cached, purge, cacheKey, PAGE_PATHS, articlePaths, VERSION_KEY } from '../functions/_lib/cache.js';
-import { migrateCollaborate } from '../functions/_lib/migrations.js';
 import { renderPageJsonLd } from '../functions/_lib/jsonld.js';
 
 // --- markdown subset: inline code + bold, escaped ---
@@ -17,24 +15,7 @@ test('renderInline: `code` and **bold** render, HTML in text is escaped', () => 
 });
 
 // --- HTML fragment → markdown subset (seed + KV migration share it) ---
-test('htmlToInline converts the legacy uses/collaborate fragments', () => {
-  assert.equal(htmlToInline('$2&nbsp;000 / <strong>MONTH</strong>'), '$2 000 / **MONTH**');
-  assert.equal(htmlToInline('Промокод <code>SEMYON5076</code> &amp; <b>bold</b>'), 'Промокод `SEMYON5076` & **bold**');
-  assert.equal(htmlToInline('plain text'), 'plain text');
-  assert.equal(htmlToInline(42), 42);
-});
 
-test('migrateUses converts every text leaf once and keeps hrefs/images/alt raw', () => {
-  const doc = { sections: { software: { intro: { ru: 'a&nbsp;b', en: 'c' }, cards: [{ name: '<b>X</b>', price: { ru: '$5&nbsp;/&nbsp;mo' }, cta: { href: 'https://x?a=1&amp;b=2', label: { ru: 'go' } }, image: '/i.webp?v=1&amp;x' }] } } };
-  migrateUses(doc);
-  assert.equal(doc.migration, MIGRATION);
-  assert.equal(doc.sections.software.intro.ru, 'a b');
-  assert.equal(doc.sections.software.cards[0].name, '**X**');
-  assert.equal(doc.sections.software.cards[0].price.ru, '$5 / mo');
-  assert.equal(doc.sections.software.cards[0].cta.href, 'https://x?a=1&amp;b=2'); // untouched
-  assert.equal(doc.sections.software.cards[0].image, '/i.webp?v=1&amp;x');
-  const again = JSON.stringify(doc); migrateUses(doc); assert.equal(JSON.stringify(doc), again);
-});
 
 test('/uses and /collaborate renderers escape a hostile leaf and keep markdown emphasis', () => {
   const uses = { sections: { software: { intro: { ru: 'i', en: 'i' }, cards: [{ name: 'N <script>x</script>', tag: { ru: 't', en: 't' }, price: { ru: '$5 / **mo**', en: '$5 / **mo**' }, desc: { ru: 'code `Z`', en: 'code `Z`' }, cta: { href: 'https://a.example', label: { ru: 'go', en: 'go' } } }] } } };
@@ -142,12 +123,6 @@ test('overlay: text is escaped, {build} resolves, omit removes, jsonld regenerat
   delete globalThis.HTMLRewriter;
 });
 
-test('migrateCollaborate puts the primary CTA first in legacy hero.ctas', () => {
-  const doc = { sections: {}, hero: { ctas: { ru: '<a class="v4-btn" href="/">← На главную</a>\n            <a class="v4-btn v4-btn-primary" href="https://t.me/x">Telegram</a>', en: '<a class="v4-btn v4-btn-primary" href="https://t.me/x">Telegram</a>\n<a class="v4-btn" href="/en/">← Home</a>' } } };
-  migrateCollaborate(doc);
-  assert.equal(doc.hero.ctas.ru, '<a class="v4-btn v4-btn-primary" href="https://t.me/x">Telegram</a>\n<a class="v4-btn" href="/">← На главную</a>');
-  assert.equal(doc.hero.ctas.en, '<a class="v4-btn v4-btn-primary" href="https://t.me/x">Telegram</a>\n<a class="v4-btn" href="/en/">← Home</a>');
-});
 
 test('renderPageJsonLd strips markdown from Offer names/descriptions', () => {
   const doc = { dateModified: '2026-09-11', meta: { title: { ru: 'Сотрудничество — Семён Моргунов', en: 'Collaborate' } }, hero: { name: { ru: 'x', en: 'x' } },

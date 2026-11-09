@@ -3,7 +3,6 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-import { migrateHome, fixStaleContent, MIGRATION } from '../functions/_lib/migrations.js';
 import { renderers } from '../functions/_lib/render.js';
 import { buildFeed } from '../functions/_lib/notes-feed.js';
 
@@ -11,83 +10,12 @@ const seed = JSON.parse(readFileSync(new URL('../content.seed.json', import.meta
 const clone = (v) => JSON.parse(JSON.stringify(v));
 const nb = ' ';
 
-// A KV home doc as it was saved before v2 (the owner's /admin edits, no marker).
-function oldKvDoc() {
-  return {
-    hero: {
-      tagline: { ru: 'Запускаю E-com и Fintech продукты…', en: 'Building products…' },
-      ctas: [
-        { label: { ru: 'Написать в Telegram', en: 'Message me on Telegram' }, href: 'https://t.me/s_mrgnv', primary: true },
-        { label: { ru: 'Чем могу помочь', en: 'How I can help' }, href: { ru: '/collaborate.html', en: '/en/collaborate.html' } },
-      ],
-    },
-    stats: [
-      { value: { ru: '10', en: '10' }, unit: { ru: 'лет в IT', en: 'yrs in tech' } },
-      { kind: 'subscribers', auto: true, value: { ru: '5 831', en: '5,831' }, channels: { telegram: { ru: '1 139', en: '1,139' } } },
-      { value: { ru: '4', en: '4' }, unit: { ru: 'своих проекта', en: 'own ventures' }, aside: { ru: 'с 2009 года · 1 продан', en: 'since 2009 · 1 sold' } },
-    ],
-    sections: {
-      about: { num: '01', title: { ru: 'Обо мне', en: 'About' }, prose: { ru: 'Мой текст', en: 'My text' } },
-      career: { num: '02', title: { ru: 'Карьера', en: 'Career' }, items: [], more: { label: { ru: 'L', en: 'L' }, href: 'https://l' } },
-      help: { num: '03', blocks: [{ type: 'subhead', text: { ru: 'Как работаю', en: 'How I work' } }] },
-      ventures: { num: '04', title: { ru: 'Своё дело', en: 'Own ventures' }, items: [{ year: '2023', name: { ru: 'Школа', en: 'School' }, arc: { ru: 'Запустил → Не нашёл PMF → На паузе', en: 'x' } }] },
-      products: {
-        num: '05', title: { ru: 'Продукты', en: 'Products' },
-        items: [
-          { tag: 'WEB', live: true, version: 'v2.5', name: 'Fingerprint', desc: { ru: 'мой текст', en: 'my text' }, cta: { label: { ru: 'Проверить →', en: 'Check →' }, href: 'https://fprint.morgunov.tech/' } },
-          { tag: 'WEB', live: true, version: 'v1.0', name: 'FoundYou', desc: { ru: 'т', en: 't' }, cta: { label: { ru: 'Очистить →', en: 'Clean →' }, href: 'https://foundyou.morgunov.tech/' } },
-        ],
-        more: { label: { ru: '→ GitHub', en: '→ GitHub' }, href: 'https://github.com/morgunovtech' },
-      },
-      publications: { items: [{ tag: 'CHANNEL', meta: { ru: '1 139 в Telegram', en: '1,139 on Telegram' } }] },
-      contact: { num: '07', title: { ru: 'Связаться', en: 'Get in touch' }, note: { ru: 'Читаю всё.', en: 'I read everything.' },
-        ctas: [{ label: { ru: 'Telegram', en: 'Telegram' }, href: 'https://t.me/s_mrgnv', primary: true }, { label: { ru: 'Email', en: 'Email' }, href: 'mailto:s@morgunov.tech' }] },
-    },
-  };
-}
-
-test('migration 31 turns an old KV home doc into the five-section shape', () => {
-  const kv = migrateHome(oldKvDoc(), clone(seed.home));
-  const S = kv.sections;
-  assert.equal(kv.migration, MIGRATION);
-  assert.equal(MIGRATION, 31);
-  assert.equal(kv.hero.tagline.ru, seed.home.hero.tagline.ru);
-  assert.deepEqual(kv.hero.ctas.map((c) => c.href), ['https://t.me/s_mrgnv']);
-  const own = kv.stats.find((s) => s.unit && /^своих проект/.test(s.unit.ru));
-  assert.deepEqual([own.value.ru, own.unit.ru, own.aside.ru], ['7', 'своих проектов', 'с 2009 · 1 продан · 3 работают']);
-  assert.ok(S.projects && S.notes);
-  assert.equal(S.help, undefined);
-  assert.equal(S.publications, undefined);
-  // Products: the seed's TofsDevOps card joins, every card gets its year, newest first.
-  assert.deepEqual(S.products.items.map((i) => [i.name, i.year]), [['FoundYou', '2026'], ['TofsDevOps', '2026'], ['Fingerprint', '2025']]);
-  assert.equal(S.products.title, undefined);
-  assert.equal(S.ventures.title, undefined);
-  // The owner's own copy survives.
-  assert.equal(S.about.prose.ru, 'Мой текст');
-  assert.equal(S.products.items[2].desc.ru, 'мой текст');
-  assert.equal(S.ventures.items[0].arc.ru, 'Запустил → Не нашёл PMF → На паузе');
-  // Contact: the approved copy, Telegram only, two links to /collaborate.
-  assert.deepEqual(S.contact.ctas.map((c) => c.href), ['https://t.me/s_mrgnv']);
-  assert.equal(S.contact.links.length, 2);
-  assert.equal(S.contact.num, '05');
-});
-
-test('migration 31 runs once: later /admin edits stick', () => {
-  const kv = migrateHome(oldKvDoc(), clone(seed.home));
-  kv.hero.tagline.ru = 'Моя новая подпись';
-  kv.sections.contact.note.ru = 'Мой текст контакта';
-  kv.sections.products.items.reverse();
-  const before = JSON.stringify(kv);
-  migrateHome(kv, clone(seed.home));
-  assert.equal(JSON.stringify(kv), before);
-});
-
-test('the live KV home doc survives migration + stale fixes and still renders every slot', () => {
-  const kv = fixStaleContent(migrateHome(oldKvDoc(), clone(seed.home)));
-  kv._feed = buildFeed([], seed.notes, 'ru').slice(0, 3);
+test('the seed home doc renders every slot, public and edit mode', () => {
+  const doc = clone(seed.home);
+  doc._feed = buildFeed([], seed.notes, 'ru').slice(0, 3);
   for (const slot of ['heroCtas', 'stats', 'career', 'products', 'ventures', 'notesFeed', 'contact']) {
-    assert.equal(typeof renderers[slot](kv, 'ru', false), 'string', slot);
-    assert.equal(typeof renderers[slot](kv, 'en', true), 'string', slot + ' (edit)');
+    assert.equal(typeof renderers[slot](doc, 'ru', false), 'string', slot);
+    assert.equal(typeof renderers[slot](doc, 'en', true), 'string', slot + ' (edit)');
   }
 });
 

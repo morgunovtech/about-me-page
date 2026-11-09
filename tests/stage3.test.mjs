@@ -59,26 +59,13 @@ test('no side column, back-to-top or progress bar left in markup, CSS or JS', ()
 });
 
 // v0.31.4 — the owner's answers to the proofreading questions.
-import { fixStaleContent } from '../functions/_lib/migrations.js';
 
-test('KV home copy: Korzinka ×23, one channel line, a kiosk chain — idempotent', () => {
-  const nb = ' ';
-  const doc = {
-    ru: `Строил продукт.\n\n- Заказы в день: 400 → 10${nb}000 (ATH) за 3 года\n- Расширение: 1 → 9 городов`,
-    en: 'Built the product.\n\n- Orders: 400 → 10,000 (ATH) per day over 3 years\n- Expansion: 1 → 9 cities',
-    about: `Currently building two tools on digital privacy and running a [Telegram${nb}channel](https://t.me/raschet7) about what I learn at work. I live in Tashkent.`,
-    snacks: 'Snack vending kiosks',
-  };
-  fixStaleContent(doc);
-  assert.match(doc.ru, new RegExp(`- Заказы в день: ×23 за 3 года, пик — 10${nb}000 \\(ATH\\)\\n`));
-  assert.match(doc.en, /- Daily orders: ×23 over 3 years, peaking at 10,000 \(ATH\)\n/);
-  assert.equal(doc.about, `Currently building two tools on digital privacy and running a [Telegram${nb}channel](https://t.me/raschet7). I live in Tashkent.`);
-  assert.equal(doc.snacks, 'Snack kiosk chain');
-  const once = JSON.stringify(doc);
-  assert.equal(JSON.stringify(fixStaleContent(doc)), once);
-  // The seed (= the static twin) already says ×23, like /collaborate.
-  assert.ok(!JSON.stringify(seed.home).includes('400 → 10'));
-  assert.ok(!JSON.stringify(seed.home).includes('about what I learn at work'));
+test('home copy: Korzinka ×23, one channel line, a kiosk chain (seed = the saved KV doc)', () => {
+  const h = JSON.stringify(seed.home);
+  assert.ok(!h.includes('400 → 10'));
+  assert.match(h, /×23 за 3 года, пик/);
+  assert.ok(!h.includes('about what I learn at work'));
+  assert.ok(h.includes('Snack kiosk chain') && !h.includes('Snack vending'));
   assert.match(JSON.stringify(seed.collaborate), /×23/);
 });
 

@@ -21,21 +21,11 @@ export function validPageKey(page) {
   return PAGES.has(page) || isArticlePage(page);
 }
 
-// Read-time migrations live in migrations.js (no seed import there).
-import { migrateHome, migrateAbout, migrateUses, migrateCollaborate, fixStaleContent, MIGRATION } from './migrations.js';
-export { migrateHome, migrateAbout, migrateUses, migrateCollaborate, fixStaleContent, MIGRATION };
+// Code-side fixes for KV content live in migrations.js (no seed import there).
+import { fixStaleContent } from './migrations.js';
 
-function migrate(page, doc) {
-  if (page === 'home') return migrateHome(doc, seed && seed.home);
-  if (page === 'about') return migrateAbout(doc);
-  if (page === 'uses') return migrateUses(doc);
-  if (page === 'collaborate') return migrateCollaborate(doc);
-  return doc;
-}
-
-// Wraps every return path — the migrated KV doc, both old-shape guards that
-// fall back to the seed, and the no-KV fallback — so dead content cannot
-// survive on any of them.
+// Wraps both return paths — the KV doc and the seed fallback — so a code-side
+// fix in migrations.js reaches whichever one serves the page.
 export async function loadDoc(env, page) {
   return fixStaleContent(await loadDocRaw(env, page));
 }
@@ -45,21 +35,7 @@ async function loadDocRaw(env, page) {
   if (env && env.CONTENT) {
     try {
       const fromKv = await env.CONTENT.get(key, 'json');
-      if (fromKv) {
-        // Migration guard: a `uses` doc saved before the cards migration lacks
-        // the new structure (sections.hardware.groups). Fall back to the
-        // migrated seed so the renderer never sees the old shape — until the
-        // admin re-saves uses, which writes the new structure to KV.
-        if (page === 'uses' && !(fromKv.sections && fromKv.sections.hardware && fromKv.sections.hardware.groups)) {
-          return (seed && seed[page]) || fromKv;
-        }
-        // Same migration guard for collaborate (old verbatim-HTML sections lack
-        // the structured shape — e.g. consulting.tiers).
-        if (page === 'collaborate' && !(fromKv.sections && fromKv.sections.consulting && fromKv.sections.consulting.tiers)) {
-          return (seed && seed[page]) || fromKv;
-        }
-        return migrate(page, fromKv);
-      }
+      if (fromKv) return fromKv;
     } catch (e) {
       // KV unavailable — fall through to seed
     }
