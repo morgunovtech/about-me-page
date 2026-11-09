@@ -144,7 +144,7 @@ test('auth: password verify + session round-trip', async () => {
 });
 
 // --- Subscriber counters: one source for the stats strip AND the channel meta ---
-import { counters, fillCounters, renderers } from '../functions/_lib/render.js';
+import { counters, fillCounters, renderers, pubItem } from '../functions/_lib/render.js';
 
 const homeDocFor = (live) => ({
   _live: live ? { subscribers: live } : undefined,
@@ -179,9 +179,12 @@ test('counters: falls back to the doc channels when no live data (or auto=false)
   assert.equal(counters(off, 'ru').total, '6 069');
 });
 
+// The CHANNEL item now renders on /notes (v0.31.0) through the same pubItem.
+const channelOf = (doc, edit) => pubItem(doc.sections.publications.items[0], 'ru', edit, 'x', doc);
+
 test('channel meta and stats strip render the same Telegram number', () => {
   const doc = homeDocFor({ telegram: 1200, linkedin: 5000, youtube: 130 });
-  const pubs = renderers.publications(doc, 'ru', false);
+  const pubs = channelOf(doc, false);
   const stats = renderers.stats(doc, 'ru', false);
   assert.match(pubs, /1 200 в Telegram/);
   assert.match(stats, /Telegram:<\/span>&nbsp;1 200/);
@@ -190,7 +193,7 @@ test('channel meta and stats strip render the same Telegram number', () => {
   assert.doesNotMatch(stats, /<svg/);
   assert.doesNotMatch(pubs, /\{telegram\}/);
   // Edit mode keeps the template placeholder so the editor never snapshots a number.
-  assert.match(renderers.publications(doc, 'ru', true), /\{telegram\} в Telegram/);
+  assert.match(channelOf(doc, true), /\{telegram\} в Telegram/);
 });
 
 test('fillCounters escapes HTML and leaves unknown placeholders alone', () => {
@@ -219,7 +222,7 @@ test('renderJsonLd: product schema overrides (type/category/license)', () => {
 
 // --- v0.29: RU plural of the live total, KV migrations, sub-page JSON-LD ---
 import { pluralRu, unitFor } from '../functions/_lib/render.js';
-import { migrateHome, migrateAbout } from '../functions/_lib/migrations.js';
+import { migrateHome, migrateAbout, MIGRATION } from '../functions/_lib/migrations.js';
 import { renderPageJsonLd } from '../functions/_lib/jsonld.js';
 
 test('pluralRu / unitFor decline «подписчик» by the live total', () => {
@@ -325,7 +328,7 @@ test('migrations run once: a renamed or deleted card is not resurrected after th
   const seedDoc = { stats: [], sections: { products: { items: [{ name: 'Fingerprint' }, { name: 'Tofs DevOps', schema: {} }] }, publications: { items: [] } } };
   const kv = { sections: { products: { items: [{ name: 'Fingerprint' }] }, publications: { items: [] } }, stats: [] };
   migrateHome(kv, seedDoc);
-  assert.equal(kv.migration, 30);
+  assert.equal(kv.migration, MIGRATION);
   assert.deepEqual(kv.sections.products.items.map((i) => i.name), ['Fingerprint', 'Tofs DevOps']);
   // editor renames + deletes, then the doc is read again (marker already set)
   kv.sections.products.items = [{ name: 'Fingerprint Check' }];
@@ -334,7 +337,7 @@ test('migrations run once: a renamed or deleted card is not resurrected after th
   const about = { sections: { living: { body: { ru: 'Build <code>cc8781e</code> сменится', en: 'Build <code>cc8781e</code> will change' } } } };
   migrateAbout(about);
   assert.equal(about.sections.living.body.ru, 'Build <code>{build}</code> сменится');
-  assert.equal(about.migration, 30);
+  assert.equal(about.migration, MIGRATION);
 });
 
 /* --- v0.30.1 / v0.30.4: dead content is rewritten at read time --- */

@@ -3,8 +3,8 @@
     "site": "s.morgunov.tech",
     "page": "home",
     "rev": 1,
-    "updatedAt": "2026-09-03T00:00:00Z",
-    "dateModified": "2026-09-03",
+    "updatedAt": "2026-11-09T00:00:00Z",
+    "dateModified": "2026-11-09",
     "meta": {
       "title": {
         "ru": "Семён Моргунов — Head of FinTech @ Yandex Uzbekistan",
@@ -87,8 +87,8 @@
         "en": "Semyon Morgunov"
       },
       "tagline": {
-        "ru": "Запускаю продукты на быстрорастущих рынках Центральной Азии — продукт, операционка и юнит-экономика собираются параллельно.",
-        "en": "Building products in Central Asia's fast-growing markets — product, operations, and unit economics assembled in parallel."
+        "ru": "Строю продукты на растущих рынках, делаю инструменты про приватность и пишу о том, что понял по дороге.",
+        "en": "I build products in growing markets, make privacy tools, and write about what I've learned along the way."
       },
       "portrait": "",
       "portraitAlt": {
@@ -103,16 +103,6 @@
           },
           "href": "https://t.me/s_mrgnv",
           "primary": true
-        },
-        {
-          "label": {
-            "ru": "Чем могу помочь",
-            "en": "How I can help"
-          },
-          "href": {
-            "ru": "/collaborate",
-            "en": "/en/collaborate"
-          }
         }
       ]
     },
@@ -173,16 +163,16 @@
       },
       {
         "value": {
-          "ru": "4",
-          "en": "4"
+          "ru": "7",
+          "en": "7"
         },
         "unit": {
-          "ru": "своих проекта",
-          "en": "own ventures"
+          "ru": "своих проектов",
+          "en": "own projects"
         },
         "aside": {
-          "ru": "с 2009 года · 1 продан",
-          "en": "since 2009 · 1 sold"
+          "ru": "с 2009 · 1 продан · 3 работают",
+          "en": "since 2009 · 1 sold · 3 live"
         }
       }
     ],
@@ -305,169 +295,23 @@
           "href": "https://www.linkedin.com/in/semyon-morgunov/"
         }
       },
-      "help": {
+      "projects": {
         "num": "03",
         "title": {
-          "ru": "Чем могу помочь",
-          "en": "How I can help"
+          "ru": "Собственные проекты",
+          "en": "Own projects"
         },
-        "blocks": [
-          {
-            "type": "subhead",
-            "text": {
-              "ru": "Как работаю",
-              "en": "How I work"
-            }
-          },
-          {
-            "type": "list",
-            "items": [
-              {
-                "ru": "Прихожу с числами, гипотезами и приоритетами.",
-                "en": "I come with numbers, hypotheses, and priorities."
-              },
-              {
-                "ru": "Говорю прямо. Не согласен — скажу. Не разбираюсь — скажу.",
-                "en": "I speak my mind. Disagree — I'll say so. Don't know — I'll say so."
-              },
-              {
-                "ru": "Не подменяю команду — вхожу в операционку, когда зовут или когда горит.",
-                "en": "I don't replace the team — I step into operations when invited or when something's on fire."
-              }
-            ]
-          },
-          {
-            "type": "subhead",
-            "text": {
-              "ru": "Чего не делаю",
-              "en": "What I don't do"
-            }
-          },
-          {
-            "type": "list",
-            "items": [
-              {
-                "ru": "Не выполняю роль проджект-менеджера или мастера на все руки.",
-                "en": "I don't fill the role of project manager or jack-of-all-trades."
-              },
-              {
-                "ru": "Не пишу 80-страничные отчёты и не отправляю фреймворки в pdf.",
-                "en": "I don't write 80-page reports or send frameworks as PDFs."
-              },
-              {
-                "ru": "Не беру проект, если не вижу честного пути к результату.",
-                "en": "I don't take on a project without an honest path to results."
-              }
-            ]
-          }
-        ],
-        "cta": {
-          "label": {
-            "ru": "Узнать подробности →",
-            "en": "Learn more →"
-          },
-          "href": {
-            "ru": "/collaborate",
-            "en": "/en/collaborate"
-          }
+        "live": {
+          "ru": "Работает",
+          "en": "Live"
+        },
+        "before": {
+          "ru": "До этого",
+          "en": "Before"
         }
       },
-      "ventures": {
-        "num": "04",
-        "title": {
-          "ru": "Своё дело",
-          "en": "Own ventures"
-        },
-        "items": [
-          {
-            "year": "2023",
-            "name": {
-              "ru": "[Онлайн-школа детской безопасности](https://kids-safety.tb.ru/)",
-              "en": "[Kids' safety online school](https://kids-safety.tb.ru/)"
-            },
-            "role": {
-              "ru": "Founder",
-              "en": "Founder"
-            },
-            "arc": {
-              "ru": "Запустили → не нашли PMF → на паузе",
-              "en": "Launched → no PMF → paused"
-            }
-          },
-          {
-            "year": "2022",
-            "name": {
-              "ru": "[Салон этичного груминга «Хвост»](https://yandex.com/maps/-/CDF9VDo~)",
-              "en": "[Ethical grooming salon «Hvost»](https://yandex.com/maps/-/CDF9VDo~)"
-            },
-            "role": {
-              "ru": "Co-founder",
-              "en": "Co-founder"
-            },
-            "arc": {
-              "ru": "Запустили → стабилизировали → продали сотрудникам",
-              "en": "Launched → stabilized → sold to employees"
-            }
-          },
-          {
-            "year": "2011",
-            "name": {
-              "ru": "Сеть точек продажи снеков",
-              "en": "Snack vending kiosks"
-            },
-            "role": {
-              "ru": "Co-founder",
-              "en": "Co-founder"
-            },
-            "arc": {
-              "ru": "Запустили → выросли до 3-х точек → закрыли",
-              "en": "Launched → 3 kiosks → closed"
-            }
-          },
-          {
-            "year": "2009",
-            "name": {
-              "ru": "Онлайн-продажи аксессуаров для iPhone",
-              "en": "iPhone accessories online"
-            },
-            "role": {
-              "ru": "Founder",
-              "en": "Founder"
-            },
-            "arc": {
-              "ru": "Запустили → продали ~5% партии → закрыли",
-              "en": "Launched → sold ~5% of stock → closed"
-            }
-          }
-        ]
-      },
       "products": {
-        "num": "05",
-        "title": {
-          "ru": "Продукты",
-          "en": "Products"
-        },
         "items": [
-          {
-            "tag": "WEB",
-            "live": true,
-            "version": "v2.5",
-            "name": "Fingerprint",
-            "desc": {
-              "ru": "Покажет процент уникальности вашего браузера и объяснит, по каким сигналам сайты узнают вас без cookies. К каждому параметру — пояснение простым языком и конкретная рекомендация к действию. Локально, бесплатно, без регистрации.",
-              "en": "Shows your browser's uniqueness percentage and explains the signals websites use to recognize you without cookies. Every parameter comes with a plain-language explanation and a concrete action to take. Local, free, no signup."
-            },
-            "cta": {
-              "label": {
-                "ru": "Проверить браузер →",
-                "en": "Check browser →"
-              },
-              "href": "https://fprint.morgunov.tech/"
-            },
-            "schema": {
-              "free": true
-            }
-          },
           {
             "tag": "WEB",
             "live": true,
@@ -486,7 +330,8 @@
             },
             "schema": {
               "free": true
-            }
+            },
+            "year": "2026"
           },
           {
             "tag": "BOT",
@@ -510,7 +355,29 @@
               "os": "Linux",
               "license": "https://opensource.org/licenses/MIT",
               "free": true
-            }
+            },
+            "year": "2026"
+          },
+          {
+            "tag": "WEB",
+            "live": true,
+            "version": "v2.5",
+            "name": "Fingerprint",
+            "desc": {
+              "ru": "Покажет процент уникальности вашего браузера и объяснит, по каким сигналам сайты узнают вас без cookies. К каждому параметру — пояснение простым языком и рекомендация к действию. Локально, бесплатно, без регистрации.",
+              "en": "Shows your browser's uniqueness percentage and explains the signals websites use to recognize you without cookies. Every parameter comes with a plain-language explanation and a concrete action to take. Local, free, no signup."
+            },
+            "cta": {
+              "label": {
+                "ru": "Проверить браузер →",
+                "en": "Check browser →"
+              },
+              "href": "https://fprint.morgunov.tech/"
+            },
+            "schema": {
+              "free": true
+            },
+            "year": "2025"
           }
         ],
         "more": {
@@ -521,112 +388,136 @@
           "href": "https://github.com/morgunovtech"
         }
       },
-      "publications": {
-        "num": "06",
-        "title": {
-          "ru": "Публикации и выступления",
-          "en": "Publications & talks"
-        },
+      "ventures": {
         "items": [
           {
-            "kind": "links",
-            "tag": "ARTICLE",
-            "meta": {
-              "ru": "36 800+ просмотров суммарно",
-              "en": "36,800+ views combined"
+            "year": "2023",
+            "name": {
+              "ru": "[Онлайн-школа детской безопасности](https://kids-safety.tb.ru/)",
+              "en": "[Kids' safety online school](https://kids-safety.tb.ru/)"
             },
-            "links": [
-              {
-                "label": {
-                  "ru": "На чём зарабатывают авиакомпании-лоукостеры",
-                  "en": "How low-cost airlines make money"
-                },
-                "href": "https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery"
-              },
-              {
-                "label": {
-                  "ru": "На чём зарабатывают продуктовые дискаунтеры",
-                  "en": "How discount grocers make money"
-                },
-                "href": "https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery"
-              }
-            ]
+            "role": {
+              "ru": "Founder",
+              "en": "Founder"
+            },
+            "arc": {
+              "ru": "Запустил → Не нашёл PMF → На паузе",
+              "en": "Launched → Didn't find PMF → On pause"
+            }
           },
           {
-            "kind": "links",
-            "tag": "VIDEO",
-            "meta": {
-              "ru": "6 900+ просмотров суммарно",
-              "en": "6,900+ views combined"
+            "year": "2022",
+            "name": {
+              "ru": "[Салон этичного груминга «Хвост»](https://yandex.com/maps/-/CDF9VDo~)",
+              "en": "[Ethical grooming salon «Hvost»](https://yandex.com/maps/-/CDF9VDo~)"
             },
-            "links": [
-              {
-                "label": {
-                  "ru": "Критический разбор платформы крауд-инвестинга brainbox.vc",
-                  "en": "Critical review of crowd-investing platform brainbox.vc"
-                },
-                "href": "https://youtu.be/OJXtFmWNZMM"
-              },
-              {
-                "label": {
-                  "ru": "2 года Korzinka Go: как мы зарождались, менялись и оказались в алом океане",
-                  "en": "Two years of Korzinka Go: how we emerged, evolved, and ended up in a red ocean"
-                },
-                "href": "https://youtu.be/BthlUR9eO1M"
-              }
-            ]
+            "role": {
+              "ru": "Co-founder",
+              "en": "Co-founder"
+            },
+            "arc": {
+              "ru": "Запустили → Стабилизировали → Продали сотрудникам",
+              "en": "Launched → Stabilized → Sold to employees"
+            }
           },
           {
-            "kind": "prose",
-            "tag": "CHANNEL",
-            "meta": {
-              "ru": "{telegram} в Telegram",
-              "en": "{telegram} on Telegram"
+            "year": "2011",
+            "name": {
+              "ru": "Сеть точек продажи снеков",
+              "en": "Snack vending kiosks"
             },
-            "prose": {
-              "ru": "[Telegram‑канал](https://t.me/raschet7) о продукте и карьере — пишу то, что сам хотел бы читать. Разборы кейсов, рабочие фреймворки и личные наблюдения. 1–2 поста в неделю, четвёртый год подряд.",
-              "en": "[Telegram channel](https://t.me/raschet7) on product and career — writing what I'd want to read myself. Case studies, working frameworks, and personal observations. 1–2 posts per week, fourth year running."
+            "role": {
+              "ru": "Co-founder",
+              "en": "Co-founder"
             },
-            "more": {
-              "label": {
-                "ru": "→ Избранные посты",
-                "en": "→ Selected posts"
-              },
-              "href": "https://t.me/raschet7/261"
+            "arc": {
+              "ru": "Запустили → Выросли до 3-х точек → Закрыли",
+              "en": "Launched → Grew to 3 locations → Closed"
+            }
+          },
+          {
+            "year": "2009",
+            "name": {
+              "ru": "Онлайн-продажи аксессуаров для iPhone",
+              "en": "iPhone accessories online"
+            },
+            "role": {
+              "ru": "Founder",
+              "en": "Founder"
+            },
+            "arc": {
+              "ru": "Запустил → Продал ~5% партии → Закрыл",
+              "en": "Launched → Sold ~5% of batch → Closed"
             }
           }
         ]
       },
+      "notes": {
+        "num": "04",
+        "title": {
+          "ru": "Заметки",
+          "en": "Notes"
+        },
+        "cta": {
+          "label": {
+            "ru": "Все заметки →",
+            "en": "All notes →"
+          },
+          "href": {
+            "ru": "/notes",
+            "en": "/en/notes"
+          }
+        }
+      },
       "contact": {
-        "num": "07",
+        "num": "05",
         "title": {
           "ru": "Связаться",
           "en": "Get in touch"
         },
         "note": {
-          "ru": "Читаю всё. Обычно отвечаю в течение 10 рабочих дней.",
-          "en": "I read everything. Usually reply within 10 business days."
+          "ru": "Пишите, если нужен взгляд со стороны на продукт или e-com, если ищете инвестора или хотите обсудить пост.",
+          "en": "Write if you need an outside view on a product or e-com, are looking for an investor, or want to discuss a post."
+        },
+        "reply": {
+          "ru": "Обычно отвечаю в течение 10 рабочих дней.",
+          "en": "I usually reply within 10 business days."
         },
         "ctas": [
           {
             "label": {
-              "ru": "Telegram",
-              "en": "Telegram"
+              "ru": "Написать в Telegram",
+              "en": "Message me on Telegram"
             },
             "href": "https://t.me/s_mrgnv",
             "primary": true
+          }
+        ],
+        "links": [
+          {
+            "label": {
+              "ru": "→ Консалтинг: форматы и цены",
+              "en": "→ Consulting: formats and pricing"
+            },
+            "href": {
+              "ru": "/collaborate#consulting",
+              "en": "/en/collaborate#consulting"
+            }
           },
           {
             "label": {
-              "ru": "Email",
-              "en": "Email"
+              "ru": "→ Инвестиции: что прислать",
+              "en": "→ Investing: what to send"
             },
-            "href": "mailto:s@morgunov.tech"
+            "href": {
+              "ru": "/collaborate#angel",
+              "en": "/en/collaborate#angel"
+            }
           }
         ]
       }
     },
-    "migration": 30
+    "migration": 31
   },
   "about": {
     "site": "s.morgunov.tech",
@@ -1607,8 +1498,58 @@
           }
         }
       },
-      "contact": {
+      "work": {
         "num": "05",
+        "title": {
+          "ru": "Как работаю",
+          "en": "How I work"
+        },
+        "blocks": [
+          {
+            "type": "list",
+            "items": [
+              {
+                "ru": "Провожу аудит в полях; изучаю дешборды и сырые данные; общаюсь с командой; детально фиксирую результаты в итоговом отчёте.",
+                "en": "Conducting field audits; studying dashboards and raw data; communicating with the team; documenting results in detail in a final report."
+              },
+              {
+                "ru": "Иду от общего к частному: делюсь своим видением стратегии и её обоснованием; предлагаю конкретные гипотезы, приоритизирую и аргументирую с использованием метрик.",
+                "en": "Going from the general to the specific: I share my vision of the strategy and its rationale; I propose concrete hypotheses, prioritize them and argue using metrics."
+              },
+              {
+                "ru": "Помогаю с редизайном процессов, усилением команды, выстраиванием регулярного менеджмента.",
+                "en": "Helping with process redesign, team strengthening, and building regular management practices."
+              }
+            ]
+          },
+          {
+            "type": "subhead",
+            "text": {
+              "ru": "Чего не делаю",
+              "en": "What I don't do"
+            }
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "ru": "Не выполняю роль проджект-менеджера или мастера на все руки.",
+                "en": "I don't fill the role of project manager or jack-of-all-trades."
+              },
+              {
+                "ru": "Не отправляю 80-страничные отчёты и фреймворки из учебников.",
+                "en": "I don't send 80-page reports or textbook frameworks."
+              },
+              {
+                "ru": "Не беру проект, если не вижу честного пути к результату.",
+                "en": "I don't take on a project without an honest path to results."
+              }
+            ]
+          }
+        ]
+      },
+      "contact": {
+        "num": "06",
         "title": {
           "ru": "Не уверены, что вам нужно?",
           "en": "Not sure what you need?"

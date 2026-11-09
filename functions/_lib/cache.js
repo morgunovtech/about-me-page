@@ -26,7 +26,8 @@ export const PAGE_PATHS = {
   about: ['/about', '/en/about', '/sitemap.xml'],
   uses: ['/uses', '/en/uses', '/sitemap.xml'],
 };
-export const NOTES_PATHS = ['/notes', '/en/notes', '/sitemap.xml', '/notes/feed.xml', '/en/notes/feed.xml'];
+// The homepage shows the three newest feed entries, so a notes change purges it too.
+export const NOTES_PATHS = ['/notes', '/en/notes', '/', '/en/', '/sitemap.xml', '/notes/feed.xml', '/en/notes/feed.xml'];
 export const articlePaths = (slug) => ['/notes/' + slug, '/en/notes/' + slug, ...NOTES_PATHS];
 
 const edge = () => {

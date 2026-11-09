@@ -597,7 +597,7 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   place-items: center;
   cursor: pointer;
   opacity: 0;
-  /* visibility (same pattern as .v4-section-nav) keeps the invisible button
+  /* visibility (not display) keeps the invisible button
      out of the Tab order; the delayed switch lets the fade-out play. */
   visibility: hidden;
   pointer-events: none;
@@ -625,8 +625,8 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
    bar takes over as a "where am I in the document" cue. JS sets
    transform: scaleX(scrollY / (scrollHeight - clientHeight)) — transform
    stays on the compositor, unlike a width write which would force
-   layout + paint on every scroll frame. Above .v4-scroll-top (z:9) and
-   .v4-section-nav (z:9), below .skip-link (z:100). */
+   layout + paint on every scroll frame. Above .v4-scroll-top (z:9),
+   below .skip-link (z:100). */
 
 .v4-scroll-progress {
   position: fixed;
@@ -643,59 +643,6 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
 
 @media (min-width: 961px) {
   .v4-scroll-progress {
-    display: none;
-  }
-}
-
-/* --- Sticky section nav (right column, scroll-spy) --- */
-
-/* Hidden by default until the user has scrolled past 300px. We use
-   visibility (not the `inert` attribute) so JS doesn't need to toggle
-   anything beyond a single class — and so old WebKit doesn't choke on
-   inert-driven layer suppression. visibility transitions instantly on
-   show so the fade-in plays, and after the fade-out so links stop
-   accepting clicks/focus. */
-.v4-section-nav {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  z-index: 9;
-  font-family: var(--v4-mono);
-  font-size: var(--v4-label-size);
-  /* Same glyph as .v4-section-num — same tracking and colour. */
-  letter-spacing: var(--v4-label-tracking);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0s linear 0.2s;
-}
-
-.v4-section-nav.is-visible {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.2s ease, visibility 0s linear 0s;
-}
-
-.v4-section-nav a {
-  color: var(--v4-muted);
-  text-decoration: none;
-  padding: 2px 6px;
-  transition: color 0.15s ease;
-}
-
-.v4-section-nav a:hover,
-.v4-section-nav a:focus-visible {
-  color: var(--v4-fg);
-}
-
-.v4-section-nav a.is-active {
-  color: var(--v4-fg);
-}
-
-@media (max-width: 960px) {
-  .v4-section-nav {
     display: none;
   }
 }
@@ -743,7 +690,6 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   .v4-nav-toggle,
   .v4-scroll-top,
   .v4-scroll-progress,
-  .v4-section-nav,
   .skip-link {
     display: none !important;
   }

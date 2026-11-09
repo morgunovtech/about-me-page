@@ -5,7 +5,9 @@ import { sanitizeHtml, sanitizeButtons } from '../../_lib/sanitize.js';
 import { purge, PAGE_PATHS, articlePaths } from '../../_lib/cache.js';
 
 const SITE = 's.morgunov.tech';
-const SECTION_IDS = ['about', 'career', 'help', 'ventures', 'products', 'publications', 'contact'];
+// v0.31.1: help → /collaborate, publications → the /notes feed; projects (tier
+// labels) and notes (the homepage block) are new.
+const SECTION_IDS = ['about', 'career', 'projects', 'products', 'ventures', 'notes', 'contact'];
 const HISTORY_MAX = 20; // keep the last N revisions per page
 
 // Structural validation so a malformed import can't break the public page.
@@ -27,22 +29,14 @@ function validateHome(doc) {
       ['career', 'items'],
       ['ventures', 'items'],
       ['products', 'items'],
-      ['publications', 'items'],
-      ['help', 'blocks'],
       ['contact', 'ctas'],
     ];
     for (const [id, key] of lists) {
       const sec = doc.sections[id];
       if (sec && !Array.isArray(sec[key])) e.push(`sections.${id}.${key} must be an array`);
     }
-    // "{telegram} в Telegram"-style metas resolve against the subscribers stat
-    // (or live KV) — without that stat the placeholder would render empty.
-    const pubs = doc.sections.publications && Array.isArray(doc.sections.publications.items) ? doc.sections.publications.items : [];
-    const usesCounters = pubs.some((it) => it && it.meta && ['ru', 'en'].some((l) => /\{(telegram|linkedin|youtube|total)\}/.test(String(it.meta[l] || ''))));
-    if (usesCounters && Array.isArray(doc.stats)) {
-      const st = doc.stats.find((x) => x && x.kind === 'subscribers');
-      if (!st || !st.channels || !st.channels.telegram) e.push('publications meta uses {counter} placeholders but stats has no subscribers entry with channels');
-    }
+    const links = doc.sections.contact && doc.sections.contact.links;
+    if (links != null && !Array.isArray(links)) e.push('sections.contact.links must be an array');
   }
   return e;
 }

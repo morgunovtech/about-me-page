@@ -1,19 +1,26 @@
 // Builds the /notes index, the dynamic sitemap, and the RSS feed. The index is
 // the feed of own articles + external materials (notes-feed.js); the sitemap
 // and RSS carry own articles only — external materials are not ours to host.
-import { loadArticleIndex, publishedSorted } from './articles.js';
+import { loadArticleIndex, publishedSorted, noteUrl } from './articles.js';
 import { loadDoc, loadSubscribers } from './content.js';
 import { notesIndexHtml } from './article-template.js';
 import { serializeLd } from './jsonld.js';
 import { escapeHtml } from './markdown.js';
 import { ORIGIN, NAME, buildOf } from './site.js';
-import { pickL, forLang, noteUrl, buildFeed, feedListHtml, channelHtml } from './notes-feed.js';
+import { pickL, forLang, buildFeed, feedListHtml, channelHtml } from './notes-feed.js';
 const xmlEsc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 const INTRO = {
   ru: 'Заметки, статьи и выступления. Свои заметки — то же, что в Telegram-канале, только без привязки к платформе.',
   en: 'Notes, articles and talks. My notes mirror the Telegram channel, without the platform lock-in.',
 };
+
+// The three newest feed entries for the homepage «Заметки» block (_middleware.js
+// and the /admin preview attach them to the home doc as `_feed`).
+export async function loadHomeFeed(env, lang) {
+  const [index, notesDoc] = await Promise.all([loadArticleIndex(env), loadDoc(env, 'notes')]);
+  return buildFeed(publishedSorted(index), notesDoc, lang).slice(0, 3);
+}
 
 export async function renderNotesIndex(env, lang) {
   const [index, notesDoc, homeDoc, subs] = await Promise.all([

@@ -265,7 +265,7 @@
 
   /* --- Anchor navigation (handles repeated clicks on same anchor) --- */
 
-  const navLinks = Array.from(document.querySelectorAll('.v4-bar-mid a[href^="#"], .v4-section-nav a[href^="#"]'));
+  const navLinks = Array.from(document.querySelectorAll('.v4-bar-mid a[href^="#"]'));
 
   navLinks.forEach((link) => {
     link.addEventListener('click', (e) => {
@@ -303,8 +303,7 @@
   });
 
   /* --- Mobile scroll progress bar ---
-     Hidden ≥961px via CSS — only paints on viewports where the sticky
-     section-nav is gone. scaleX(ratio) stays on the compositor; a width
+     Hidden ≥961px via CSS. scaleX(ratio) stays on the compositor; a width
      write would force layout + paint on every scroll frame. */
 
   /* Gate on the INVERSE of the CSS hide query (min-width: 961px) so the two
@@ -326,45 +325,11 @@
      otherwise the bar would be stale until the next scroll. */
   onMediaChange(progressHidden, updateScrollProgress);
 
-  /* --- Sticky section nav (right column, scroll-spy) --- */
-
-  const sectionNav = document.querySelector('.v4-section-nav');
-  const sectionNavLinks = Array.from(document.querySelectorAll('.v4-section-nav a[href^="#"]'));
-  const sectionNavTargets = sectionNavLinks.map((link) => document.querySelector(link.getAttribute('href')));
-
-  const updateSectionNav = () => {
-    if (!sectionNav) return;
-    const sy = window.scrollY;
-    const visible = sy > 300;
-    sectionNav.classList.toggle('is-visible', visible);
-    /* Active = the last section whose top edge is above the trigger line.
-       Using getBoundingClientRect() + scrollY works regardless of any
-       positioned ancestor (offsetTop is relative to the offsetParent, which
-       is fragile if .v4-root ever gets position: relative). */
-    const trigger = sy + 200;
-    let activeIdx = -1;
-    for (let i = 0; i < sectionNavTargets.length; i++) {
-      const t = sectionNavTargets[i];
-      if (!t) continue;
-      const top = t.getBoundingClientRect().top + sy;
-      if (top <= trigger) activeIdx = i;
-    }
-    sectionNavLinks.forEach((link, i) => {
-      link.classList.toggle('is-active', i === activeIdx);
-      if (i === activeIdx) {
-        link.setAttribute('aria-current', 'true');
-      } else {
-        link.removeAttribute('aria-current');
-      }
-    });
-  };
-
   let scrollTicking = false;
   window.addEventListener('scroll', () => {
     if (!scrollTicking) {
       requestAnimationFrame(() => {
         updateScrollTopVisibility();
-        updateSectionNav();
         updateScrollProgress();
         scrollTicking = false;
       });
@@ -373,7 +338,6 @@
   }, { passive: true });
 
   updateScrollTopVisibility();
-  updateSectionNav();
   updateScrollProgress();
 
 })();

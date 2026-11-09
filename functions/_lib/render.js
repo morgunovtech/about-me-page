@@ -11,7 +11,8 @@
 // The list container itself gets data-edit-list (set in overlay.js).
 // edit=false (the public render) emits none of these → output is byte-identical.
 
-import { pick } from './i18n.js';
+import { pick, fmtDate, NEW_TAB } from './i18n.js';
+import { noteUrl } from './articles.js';
 import { escapeHtml, escapeAttr, isExternal, safeHref, renderInline, renderCtx, renderProse } from './markdown.js';
 
 // Edit-anchor emitters — all yield '' unless edit is true.
@@ -30,10 +31,8 @@ export const LIST_PATHS = {
   heroCtas: 'hero.ctas',
   stats: 'stats',
   career: 'sections.career.items',
-  help: 'sections.help.blocks',
   ventures: 'sections.ventures.items',
   products: 'sections.products.items',
-  publications: 'sections.publications.items',
   contact: 'sections.contact.ctas',
   usesGear: 'sections.hardware.groups',
   usesProducts: 'sections.software.cards',
@@ -193,8 +192,12 @@ function ventureRow(it, lang, edit, path) {
 // One card for every card-shaped thing on the site (home products, /uses
 // software, /collaborate tiers): head row (tag [+ live dot] · meta), name,
 // body, CTA. Every text leaf is inline markdown → renderInline escapes it.
-function card({ item, tag, live, meta, metaClass, name, body, cta, edit, path }) {
-  const liveDot = live ? '\n              <span class="v4-live-dot" aria-hidden="true"></span>' : '';
+function card({ item, tag, live, liveLabel, meta, metaClass, metaPath, name, body, cta, edit, path }) {
+  // metaPath: the meta's own edit leaf; null when the meta carries its own anchors.
+  const metaLeaf = metaPath === undefined ? path + '.version' : metaPath;
+  const liveDot = live
+    ? `\n              <span class="v4-live-dot" aria-hidden="true"></span>${liveLabel ? `<span class="sr-only">${liveLabel}</span>` : ''}`
+    : '';
   const tagHtml = live
     ? `<span class="v4-product-tag-row">
               <span class="v4-tag"${eText(edit, path + '.tag')}>${tag}</span>${liveDot}
@@ -203,7 +206,7 @@ function card({ item, tag, live, meta, metaClass, name, body, cta, edit, path })
   return `<article class="v4-product"${item ? eItem(edit, path) : ''}>
           <div class="v4-product-head">
             ${tagHtml}
-            <span${metaClass ? ` class="${metaClass}"` : ''}${eText(edit, path + '.version')}>${meta}</span>
+            <span${metaClass ? ` class="${metaClass}"` : ''}${metaLeaf ? eText(edit, metaLeaf) : ''}>${meta}</span>
           </div>
           <h3 class="v4-product-name"${eText(edit, path + '.name')}>${name}</h3>
           ${body}
@@ -212,12 +215,19 @@ function card({ item, tag, live, meta, metaClass, name, body, cta, edit, path })
 }
 
 function productCard(it, lang, edit, path) {
+  // Head meta: launch year · version, each its own leaf. The name links to the
+  // product like its button does — except in the editor, where a click edits.
+  const year = it.year ? `<span${eText(edit, path + '.year')}>${renderInline(it.year)}</span> · ` : '';
+  const href = it.cta ? safeHref(pick(it.cta.href, lang) || it.cta.href) : '';
+  const name = renderInline(it.name);
   return card({
     item: true,
     tag: renderInline(it.tag),
     live: !!it.live,
-    meta: renderInline(it.version),
-    name: renderInline(it.name),
+    liveLabel: lang === 'en' ? 'Live' : 'Работает',
+    meta: `${year}<span${eText(edit, path + '.version')}>${renderInline(it.version)}</span>`,
+    metaPath: null,
+    name: !edit && href ? `<a href="${escapeAttr(href)}"${isExternal(href) ? ' target="_blank" rel="noopener noreferrer"' : ''}>${name}</a>` : name,
     body: `<p class="v4-product-desc"${eText(edit, path + '.desc')}>${renderInline(pick(it.desc, lang))}</p>`,
     cta: btn(it.cta, lang, edit, path + '.cta', false),
     edit, path,
@@ -309,6 +319,19 @@ function tierCard(t, lang) {
   });
 }
 
+// One homepage «Заметки» row: date · tag · title. Own notes stay on the site;
+// external materials open in a new tab with a trailing «→» (they leave the site).
+function feedRow(e, lang) {
+  const it = e.item;
+  const date = it.date ? `<time class="v4-feed-date" datetime="${escapeAttr(it.date)}">${escapeHtml(fmtDate(it.date, lang))}</time>` : '';
+  const tag = `<span class="v4-tag">${escapeHtml(e.kind === 'note' ? 'NOTE' : it.tag || 'LINK')}</span>`;
+  const title = escapeHtml(pick(it.title, lang));
+  const link = e.kind === 'note'
+    ? `<a class="v4-feed-title" href="${noteUrl(it.slug, lang)}">${title}</a>`
+    : `<a class="v4-feed-title" href="${escapeAttr(safeHref(it.href))}" target="_blank" rel="noopener noreferrer">${title}<span aria-hidden="true">&nbsp;→</span><span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span></a>`;
+  return `<li class="v4-feed-row">${date}${tag}${link}</li>`;
+}
+
 export const renderers = {
   heroCtas: (doc, lang, edit) =>
     doc.hero.ctas.map((c, i) => btn(c, lang, edit, 'hero.ctas.' + i, true)).join('\n          '),
@@ -322,28 +345,33 @@ export const renderers = {
     return rows + '\n          ' + moreLink(sec.more, lang, edit, 'sections.career.more');
   },
 
-  help: (doc, lang, edit) => {
-    const sec = doc.sections.help;
-    const blocks = sec.blocks.map((b, i) => helpBlock(b, lang, edit, 'sections.help.blocks.' + i)).join('\n          ');
-    return blocks + `\n          <div class="v4-help-cta">${btn(sec.cta, lang, edit, 'sections.help.cta', false)}</div>`;
-  },
-
   ventures: (doc, lang, edit) =>
     doc.sections.ventures.items.map((it, i) => ventureRow(it, lang, edit, 'sections.ventures.items.' + i)).join('\n          '),
 
   products: (doc, lang, edit) =>
     doc.sections.products.items.map((it, i) => productCard(it, lang, edit, 'sections.products.items.' + i)).join('\n        '),
 
-  publications: (doc, lang, edit) =>
-    doc.sections.publications.items.map((it, i) => pubItem(it, lang, edit, 'sections.publications.items.' + i, doc)).join('\n        '),
+  // «Заметки»: the three newest feed entries (own notes + external materials),
+  // attached to the doc as `_feed` by _middleware.js / the admin preview /
+  // render-static. Not editable here — the feed has its own sources.
+  notesFeed: (doc, lang, edit) => {
+    const sec = doc.sections.notes || {};
+    const rows = (doc._feed || []).slice(0, 3).map((e) => feedRow(e, lang)).join('\n            ');
+    const cta = sec.cta ? `<div class="v4-help-cta">${btn(sec.cta, lang, edit, 'sections.notes.cta', false)}</div>` : '';
+    return `${rows ? `<ul class="v4-feed">\n            ${rows}\n          </ul>\n          ` : ''}${cta}`;
+  },
 
+  // «Связаться»: who writes and why, one Telegram button with the reply time
+  // beside it, then the two ways to read more before writing.
   contact: (doc, lang, edit) => {
     const sec = doc.sections.contact;
     const ctas = sec.ctas.map((c, i) => btn(c, lang, edit, 'sections.contact.ctas.' + i, true)).join('\n          ');
+    const reply = sec.reply ? `\n          <p class="v4-contact-reply"${eText(edit, 'sections.contact.reply')}>${escapeHtml(pick(sec.reply, lang))}</p>` : '';
+    const links = (sec.links || []).map((l, i) => moreLink(l, lang, edit, 'sections.contact.links.' + i)).join('\n          ');
     return `<p class="v4-contact-note"${eText(edit, 'sections.contact.note')}>${escapeHtml(pick(sec.note, lang))}</p>
         <div class="v4-cta-row">
-          ${ctas}
-        </div>`;
+          ${ctas}${reply}
+        </div>${links ? `\n        <div class="v4-contact-links">\n          ${links}\n        </div>` : ''}`;
   },
 
   usesGear: (doc, lang) =>
@@ -398,6 +426,18 @@ export const renderers = {
           <div>
             ${collabGroups(s.groups, lang)}
             <div class="v4-help-cta">${btn(s.cta, lang, false, '', false, true)}</div>
+          </div>
+        </div>`;
+  },
+
+  // «Как работаю / Чего не делаю» — moved here from the homepage (v0.31.1).
+  collabWork: (doc, lang) => {
+    const s = doc.sections.work;
+    if (!s) return '';
+    return `<div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            ${(s.blocks || []).map((b) => helpBlock(b, lang, false, '')).join('\n            ')}
           </div>
         </div>`;
   },

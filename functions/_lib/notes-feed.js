@@ -7,29 +7,18 @@
 // no RSS item, no sitemap URL — only a row in the feed that links out.
 import { escapeHtml, escapeAttr, safeHref } from './markdown.js';
 import { fmtNum, pubItem } from './render.js';
+import { fmtDate, NEW_TAB } from './i18n.js';
+import { noteUrl } from './articles.js';
 
 // Empty EN falls back to RU (pick treats '' as set) — keep the ||-fallback here.
 export const pickL = (v, lang) => (v ? v[lang] || v.ru || v.en || '' : '');
 const hasTitle = (t, lang) => !!(t && String(t[lang] || '').trim());
-
-export function fmtDate(date, lang) {
-  if (!date) return '';
-  try {
-    return new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'ru-RU', {
-      day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
-    }).format(new Date(date));
-  } catch {
-    return date;
-  }
-}
 
 // Articles available in the given language: RU always; EN only when translated
 // (title.en present), so EN index links don't point at 404s.
 export function forLang(list, lang) {
   return lang === 'en' ? list.filter((a) => hasTitle(a.title, 'en')) : list;
 }
-
-export const noteUrl = (slug, lang) => (lang === 'en' ? '/en' : '') + '/notes/' + slug;
 
 // A view count is a snapshot. Floored to hundreds with «+», it stays true as
 // the real number grows («6 299» → «6 200+»). Under a hundred: say nothing.
@@ -48,8 +37,6 @@ export function buildFeed(articles, notesDoc, lang) {
     .map((x) => ({ kind: 'external', date: String(x.date || ''), item: x }));
   return [...own, ...ext].sort((p, q) => q.date.localeCompare(p.date));
 }
-
-const NEW_TAB = { ru: ' (откроется в новой вкладке)', en: ' (opens in a new tab)' };
 
 export function feedItemHtml(entry, lang) {
   const it = entry.item;

@@ -13,6 +13,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { renderers } from '../functions/_lib/render.js';
 import { renderPageJsonLd } from '../functions/_lib/jsonld.js';
+import { buildFeed } from '../functions/_lib/notes-feed.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const seed = JSON.parse(readFileSync(resolve(ROOT, 'content.seed.json'), 'utf8'));
@@ -54,6 +55,9 @@ function indentBefore(html, idx) {
 
 function processPage(html, page, lang) {
   const doc = clone(seed[page]);
+  // The «Заметки» block: the seed has no articles, so the twin holds the three
+  // newest external materials (the live page adds published notes on top).
+  if (page === 'home') doc._feed = buildFeed([], seed.notes, lang).slice(0, 3);
   const drift = [];
   let out = '';
   let pos = 0;
