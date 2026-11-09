@@ -102,7 +102,7 @@ test('/collaborate v0.31.5: two-business-day async reply, the FinTech conflict-o
   assert.equal(asyncLine.ru, 'Async-поддержка между сессиями (ответ в течение двух рабочих дней)');
   assert.equal(asyncLine.en, 'Async support between sessions (reply within two business days)');
   const not = c.work.blocks[2].items.at(-1);
-  assert.match(not.ru, /^Не консультирую FinTech-проекты в Узбекистане/);
-  assert.match(not.en, /^I don't consult FinTech projects in Uzbekistan/);
+  assert.match(not.ru, /^Не консультирую прямых конкурентов Яндекса и FinTech-проекты в Узбекистане/);
+  assert.match(not.en, /^I don't consult Yandex's direct competitors, or FinTech projects in Uzbekistan/);
   assert.match(renderers.collabWork(seed.collaborate, 'ru'), /пока работаю в Yandex Uzbekistan/);
 });
