@@ -14,7 +14,7 @@ Pure static HTML/CSS/JS. **No build step, no npm, no framework.** Hosted on Clou
   - **`/collaborate`** — consulting, strategic consulting, how I work;
   - **`/uses`** — hardware and software;
   - **`/about`** — unlisted (`noindex`) until it is rewritten
-- A versioned design-system layer `ds/v1/` (fonts, tokens for 4 themes, base, components) + `styles.css` for page layout. Other projects reuse it: [Good Pass](https://github.com/morgunovtech/good-pass) loads `fonts`, `tokens` and `base` straight from `https://s.morgunov.tech/ds/v1/` (not `components.css`), [Found You](https://github.com/morgunovtech/FoundYou) vendors a copy in its `public/ds/v1/`; see [`ds/v1/USAGE.md`](ds/v1/USAGE.md)
+- A versioned design-system layer `ds/v1/` (fonts, tokens for 4 themes, base, components) + `styles.css` for page layout. Other projects reuse it: [Fingerprint](https://github.com/morgunovtech/Fingerprint) loads `fonts`, `tokens` and `base` straight from `https://s.morgunov.tech/ds/v1/` (not `components.css`), [Found You](https://github.com/morgunovtech/FoundYou) vendors a copy in its `public/ds/v1/`; see [`ds/v1/USAGE.md`](ds/v1/USAGE.md)
 - One script — `script.js` (single IIFE, no dependencies, ≈ 290 lines)
 - Self-hosted IBM Plex Sans + Plex Mono (latin + cyrillic woff2 subsets, `font-display: swap`)
 - Cloudflare config: [`_headers`](_headers), [`_routes.json`](_routes.json), [`_redirects`](_redirects)
@@ -56,7 +56,7 @@ release is tagged `vX.Y.Z`, and minor/major ones get a [GitHub Release](https://
 scripts/check.sh                           # everything below + node --check/--test + a Functions build
 python3 scripts/check-sync.py              # RU↔EN structural parity
 python3 scripts/check-critical.py          # inline critical CSS ↔ ds/v1 + styles.css
-node scripts/render-static.mjs --check     # templates are the seed's twins (--write regenerates)
+node scripts/render-static.mjs --check     # list containers and JSON-LD are the seed's twins (--write regenerates; prose leaves are edited by hand)
 python3 scripts/version-stamp.py           # build SHA + content-hash ?v= cache busters
 node scripts/sync-products.mjs --write     # product cards' versions + descriptions from their GitHub repos
 node scripts/kv-push.mjs home --yes        # put the seed doc live in KV, like an /admin Save (dry run without --yes)
@@ -100,6 +100,15 @@ Add a gitignored `.dev.vars` with `ADMIN_PASSWORD_HASH`, `SESSION_SECRET`, and o
 ### SocialBot (live subscriber numbers)
 
 The site exposes `POST /api/ingest/subscribers` (header `Authorization: Bearer <SOCIALBOT_INGEST_TOKEN>`, body `{telegram, youtube, linkedin, updatedAt}`) → KV `stats:subscribers`. The bot ([social-tracker-bot](https://github.com/morgunovtech/social-tracker-bot), on Railway) pushes on its own schedule; set the same token as a Railway env var. The site only reads; the bot only writes. No cron on the site.
+
+## What it creates outside the repo
+
+- A Cloudflare Pages project `about-me-page` (`wrangler.toml`), serving `main` on the custom domain s.morgunov.tech — a DNS record in the morgunov.tech zone; the technical host `about-me-page-cr2.pages.dev` answers with `noindex`. In the same zone: the Redirect Rule that sends the apex and `www` to `s.` with a 301, and a Cache Rule for the `?v=`-stamped assets. Delete the project and the two rules to tear down.
+- The KV namespace `CONTENT` (id in `wrangler.toml`) — the live content, which wins over `content.seed.json`; export what `/admin` holds before deleting it — and the R2 bucket `morgunov-assets` (`MEDIA`, the uploaded images).
+- The Pages environment secrets listed above; the SocialBot ingest token also lives on the bot's side (Railway).
+- The Claude Design project «morgunov.tech Design System» — a mirror of `ds/v1`, synced by hand after every DS change.
+- Search engines: the Google Search Console domain property for morgunov.tech plus an address property for this site, the Yandex Webmaster site (its verification file sits in the repo root) and the Bing Webmaster import; the owner's TofsDevOps bot watches the site — remove it there.
+- No third-party API keys: the site calls nothing outside Cloudflare.
 
 ## Built with
 

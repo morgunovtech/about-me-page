@@ -22,9 +22,9 @@ test('the seed home doc renders every slot, public and edit mode', () => {
 
 test('product cards: TofsDevOps first, bots then web apps, version only (no year), the name links out, the live dot is labelled', () => {
   const html = renderers.products(seed.home, 'ru', false);
-  assert.deepEqual(seed.home.sections.products.items.map((it) => it.name), ['TofsDevOps', 'Social Tracker Bot', 'Found You', 'Fingerprint', 'Good Pass']);
+  assert.deepEqual(seed.home.sections.products.items.map((it) => it.name), ['TofsDevOps', 'Social Tracker Bot', 'Found You', 'Fingerprint']);
   // The head carries the version alone — synced from GitHub by scripts/sync-products.mjs.
-  assert.equal((html.match(/<\/span>\n {12}<span>v\d+\.\d+<\/span>\n {10}<\/div>/g) || []).length, 5);
+  assert.equal((html.match(/<\/span>\n {12}<span>v\d+\.\d+<\/span>\n {10}<\/div>/g) || []).length, 4);
   assert.doesNotMatch(html, / · /);
   for (const it of seed.home.sections.products.items) assert.equal(it.year, undefined, it.name);
   assert.match(html, /<h3 class="v4-product-name"><a href="https:\/\/foundyou\.morgunov\.tech\/" target="_blank" rel="noopener noreferrer">Found You<\/a><\/h3>/);
@@ -43,7 +43,7 @@ test('web products: the Russian page links the root, the English page the produc
   const ldRu = renderJsonLd(seed.home, 'ru');
   const ldEn = renderJsonLd(seed.home, 'en');
   const esc = (s) => s.replace(/[./-]/g, '\\$&');
-  for (const host of ['foundyou', 'fprint', 'good-pass']) {
+  for (const host of ['foundyou', 'fprint']) {
     const root = `https://${host}.morgunov.tech/`;
     // The name and the button both link out: two hrefs per card.
     assert.equal((ru.match(new RegExp(`href="${esc(root)}"`, 'g')) || []).length, 2, host + ' ru');

@@ -1,13 +1,6 @@
 # Local Claude Code config
 .claude/
 
-# Internal audit / planning documents — local only
-audit-about-2026-05-03.md
-audit-homepage-2026-07-14.md
-AUDIT.md
-REVIEW-crosspost.md
-FEATURE.md
-
 # macOS metadata
 .DS_Store
 

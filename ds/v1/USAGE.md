@@ -4,6 +4,8 @@ A zero-build, framework-agnostic CSS layer. Any morgunov.tech service (static
 HTML, Worker-served HTML, or a framework app) can adopt the shared look by
 linking these files — no npm, no package install.
 
+License: the layer is MIT (© Semyon Morgunov, [LICENSE](../../LICENSE) in the repository); the IBM Plex fonts it links are © IBM Corp. under the SIL Open Font License 1.1 ([fonts/OFL.txt](../../fonts/OFL.txt)).
+
 ## What's in the layer
 
 | File | What it gives you | Reusable? |
