@@ -31,7 +31,7 @@ about-me-page/
 ├── _headers            # Cloudflare: X-Robots-Tag + Cache-Control headers for static assets
 ├── _routes.json        # Cloudflare: static paths excluded from Functions (CDN-cacheable, no invocations)
 ├── _redirects          # Cloudflare: real redirects only (none today — Pages handles clean URLs itself)
-├── robots.txt          # Allows all crawlers, references sitemap
+├── robots.txt          # Allows all crawlers, content signals, references sitemap
 ├── 404.html            # V4-styled 404 page (bilingual; functions/404.js serves it with a real 404 status, _middleware.js does the same for every unknown path)
 ├── yandex_c8faae431964bcca.html  # Yandex Search ownership verification
 ├── fonts/                         # Self-hosted IBM Plex woff2 (latin + cyrillic subsets)
@@ -185,7 +185,7 @@ together with check-sync before committing anything that touches CSS.
 
 ## SEO / Meta
 
-- **Canonical URL:** `https://s.morgunov.tech/` — use this domain consistently everywhere. The apex `morgunov.tech` and `www.morgunov.tech` 301 to it through a Cloudflare Redirect Rule in the zone (outside the repo); the Pages project's technical host `about-me-page-cr2.pages.dev` gets `X-Robots-Tag: noindex` from `_headers`
+- **Canonical URL:** `https://s.morgunov.tech/` — use this domain consistently everywhere. The apex `morgunov.tech` and `www.morgunov.tech` 301 to it through a Cloudflare Redirect Rule in the zone (outside the repo); the Pages project's technical host `about-me-page-cr2.pages.dev` and its previews get `X-Robots-Tag: noindex` — from `_headers` for static files, from `noindexOnTechnicalHost()` (`_lib/http.js`, applied in `_middleware.js`) for everything Functions build
 - OG/Twitter images and JSON-LD images must use **absolute URLs**
 - `<meta name="theme-color">` set for both light and dark schemes
 - JSON-LD Person schema: keep `description`, `knowsAbout`, `worksFor`, and `sameAs` in sync
@@ -197,7 +197,7 @@ together with check-sync before committing anything that touches CSS.
 - `llms.txt` follows the [llmstxt.org](https://llmstxt.org) convention; the committed file is a template — `{total}`, `{telegram}`, `{linkedin}`, `{youtube}` are filled by `functions/llms.txt.js` from the same `counters()` the homepage uses, so the AI-facing numbers never drift from the page
 - Available at `https://s.morgunov.tech/llms.txt`
 - Keep it in sync with major content changes (roles, products, contact info)
-- `robots.txt` allows all crawlers including AI (GPTBot, ClaudeBot, PerplexityBot)
+- `robots.txt` allows all crawlers including AI (GPTBot, ClaudeBot, PerplexityBot) and carries `Content-Signal: search=yes, ai-input=yes` in every group (contentsignals.org); `ai-train` is deliberately not set — that choice is the owner's
 - JSON-LD `description` and `knowsAbout` help AI search engines attribute content
 
 ## Content management (CMS) — `/admin`

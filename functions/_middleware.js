@@ -11,7 +11,7 @@ import { overlay } from './_lib/overlay.js';
 import { renderPageJsonLd } from './_lib/jsonld.js';
 import { cached } from './_lib/cache.js';
 import { buildOf } from './_lib/site.js';
-import { withSecurityHeaders } from './_lib/http.js';
+import { noindexOnTechnicalHost, withSecurityHeaders } from './_lib/http.js';
 import { notFound } from './_lib/render-article.js';
 
 // Keys are the clean URLs Pages actually serves (it 308-redirects /foo.html → /foo,
@@ -45,6 +45,10 @@ const blocked = (pathname) =>
   BLOCKED.some((p) => (p.endsWith('/') ? pathname.startsWith(p) : pathname === p));
 
 export async function onRequest(context) {
+  return noindexOnTechnicalHost(await handle(context), context.request.url);
+}
+
+async function handle(context) {
   const { request, next, env } = context;
   // HEAD must see the same guards and rendering as GET — otherwise
   // `curl -I` reaches blocked files and reports the untransformed template.
