@@ -8,6 +8,22 @@
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
   ! Access-Control-Allow-Origin
 
+# about-me-page-cr2.pages.dev is Cloudflare's technical host for this Pages
+# project and <hash|branch>.about-me-page-cr2.pages.dev are its previews; the
+# site is published at https://s.morgunov.tech only, so search engines are told
+# not to index any of them. Cloudflare's own noindex on previews loses to the
+# «index, follow» of /*, hence the second rule. Both sit right after /* so `!`
+# replaces that value and the rules below still apply. Function-generated
+# routes (/notes, /sitemap.xml, /llms.txt) do not get _headers at all; the
+# /notes pages name s.morgunov.tech as canonical.
+https://:project.pages.dev/*
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex
+
 # /404 itself is a Function (functions/404.js → real 404 status) and sets its
 # own noindex + Cache-Control there; _headers only reaches the static asset.
 # A path that matches several rules inherits all of them, so a header the /*

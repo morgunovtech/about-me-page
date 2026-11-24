@@ -316,7 +316,7 @@
             "repo": "morgunovtech/Tofs_DevOps_bot",
             "tag": "BOT",
             "live": true,
-            "version": "v2.2",
+            "version": "v3.0",
             "name": "TofsDevOps",
             "desc": {
               "ru": "Сам себе DevOps в Telegram. Мониторит сайты, чинит что может, проверяет, что тебя видят поисковики и ИИ-ассистенты, — и молчит, пока всё в порядке.",
@@ -341,7 +341,7 @@
             "repo": "morgunovtech/social-tracker-bot",
             "tag": "BOT",
             "live": true,
-            "version": "v1.4",
+            "version": "v1.6",
             "name": "Social Tracker Bot",
             "desc": {
               "ru": "Telegram-бот на вашем сервере для ваших соцсетей: подписчики в Telegram, YouTube, Instagram и LinkedIn, жизнь канала и безопасность аккаунтов — признаки угона, письма безопасности, опасные комментарии. Молчит, пока всё в порядке.",
@@ -419,7 +419,7 @@
                 "ru": "Проверить пароль →",
                 "en": "Check a password →"
               },
-              "href": "https://good-pass.pages.dev/"
+              "href": "https://good-pass.morgunov.tech/"
             },
             "schema": {
               "category": "SecurityApplication",

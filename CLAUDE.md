@@ -185,7 +185,7 @@ together with check-sync before committing anything that touches CSS.
 
 ## SEO / Meta
 
-- **Canonical URL:** `https://s.morgunov.tech/` — use this domain consistently everywhere
+- **Canonical URL:** `https://s.morgunov.tech/` — use this domain consistently everywhere. The apex `morgunov.tech` and `www.morgunov.tech` 301 to it through a Cloudflare Redirect Rule in the zone (outside the repo); the Pages project's technical host `about-me-page-cr2.pages.dev` gets `X-Robots-Tag: noindex` from `_headers`
 - OG/Twitter images and JSON-LD images must use **absolute URLs**
 - `<meta name="theme-color">` set for both light and dark schemes
 - JSON-LD Person schema: keep `description`, `knowsAbout`, `worksFor`, and `sameAs` in sync
