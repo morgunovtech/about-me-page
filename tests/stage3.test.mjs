@@ -51,10 +51,11 @@ test('/about is hidden: noindex, out of llms.txt', () => {
   assert.doesNotMatch(read('llms.txt'), /s\.morgunov\.tech\/(en\/)?about/);
 });
 
-test('/collaborate: the pitch and the contact go to Telegram, one contact button', () => {
+test('/collaborate: the contact goes to Telegram, one contact button', () => {
   const c = seed.collaborate;
-  assert.equal(c.sections.angel.cta.href, 'https://t.me/s_mrgnv');
-  assert.match(c.sections.angel.groups.at(-1).prose.ru, /коротког[оа] сообщения в Telegram/);
+  // The angel section with its «Отправить питч →» is gone since v1.2.8.
+  assert.equal(c.sections.angel, undefined);
+  assert.equal(c.sections.strategy.cta.href, 'https://t.me/s_mrgnv');
   const html = renderers.collabContact(c, 'ru');
   assert.equal((html.match(/class="v4-btn/g) || []).length, 1);
   assert.match(html, /href="https:\/\/t\.me\/s_mrgnv"[^>]*>Написать →</);

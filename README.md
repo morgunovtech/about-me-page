@@ -11,7 +11,7 @@ Pure static HTML/CSS/JS. **No build step, no npm, no framework.** Hosted on Clou
 - 9 HTML templates (RU + EN twins and a bilingual `404.html`) plus the `/notes` shells rendered by Pages Functions:
   - **home** — about, career, own projects (live products + past ventures), publications, contact (Telegram, e-mail as the second channel);
   - **`/notes`** — publications: own notes and articles/talks published elsewhere, one feed;
-  - **`/collaborate`** — consulting, strategic consulting, angel investing, how I work;
+  - **`/collaborate`** — consulting, strategic consulting, how I work;
   - **`/uses`** — hardware and software;
   - **`/about`** — unlisted (`noindex`) until it is rewritten
 - A versioned design-system layer `ds/v1/` (fonts, tokens for 4 themes, base, components) + `styles.css` for page layout. Other projects reuse it: [Good Pass](https://github.com/morgunovtech/good-pass) loads `fonts`, `tokens` and `base` straight from `https://s.morgunov.tech/ds/v1/` (not `components.css`), [Found You](https://github.com/morgunovtech/FoundYou) vendors a copy in its `public/ds/v1/`; see [`ds/v1/USAGE.md`](ds/v1/USAGE.md)

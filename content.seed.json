@@ -534,8 +534,8 @@
           "en": "Get in touch"
         },
         "note": {
-          "ru": "Пишите, если нужен взгляд со стороны на продукт или e-com, если ищете инвестора или хотите обсудить пост.",
-          "en": "Write if you need an outside view on a product or e-com, are looking for an investor, or want to discuss a post."
+          "ru": "Пишите, если нужен взгляд со стороны на продукт или e-com или хотите обсудить пост.",
+          "en": "Write if you need an outside view on a product or e-com, or want to discuss a post."
         },
         "reply": {
           "ru": "Обычно отвечаю в течение 10 рабочих дней.",
@@ -1216,18 +1216,18 @@
         "en": "E-com and product consulting in Central Asia — Semyon Morgunov"
       },
       "description": {
-        "ru": "Консалтинг и ангельские инвестиции. Помогаю компаниям в e-com, ритейле и FinTech найти точки роста и выстроить продукт.",
-        "en": "Consulting and angel investing for companies in e-com, retail, and FinTech. Helping teams find growth levers and build great products."
+        "ru": "Помогаю e-com и ритейлу в Центральной Азии довести продукт до положительной юнит-экономики: e-grocery и доставка, рост и монетизация, продуктовая стратегия и команда.",
+        "en": "I help e-commerce and retail companies in Central Asia get products to positive unit economics: e-grocery and delivery, growth and monetization, product strategy and teams."
       }
     },
     "share": {
       "title": {
-        "ru": "Сотрудничество — Семён Моргунов | morgunov.tech",
-        "en": "Collaborate — Semyon Morgunov | morgunov.tech"
+        "ru": "Консалтинг по e-com и продукту в Центральной Азии — Семён Моргунов",
+        "en": "E-com and product consulting in Central Asia — Semyon Morgunov"
       },
       "description": {
-        "ru": "Консалтинг и ангельские инвестиции. Помогаю компаниям в e-com, ритейле и FinTech найти точки роста и выстроить продукт.",
-        "en": "Consulting and angel investing for companies in e-com, retail, and FinTech. Helping teams find growth levers and build great products."
+        "ru": "Помогаю e-com и ритейлу в Центральной Азии довести продукт до положительной юнит-экономики: e-grocery и доставка, рост и монетизация, продуктовая стратегия и команда.",
+        "en": "I help e-commerce and retail companies in Central Asia get products to positive unit economics: e-grocery and delivery, growth and monetization, product strategy and teams."
       },
       "image": {
         "ru": "/images/og-card-ru.png",
@@ -1244,16 +1244,16 @@
         "en": "Collaborate"
       },
       "tagline": {
-        "ru": "Помогаю компаниям в e-com, ритейле и FinTech найти точки роста и выстроить продукт. Консультирую разово, веду долгосрочно или вкладываюсь как ангел.",
-        "en": "Helping companies in e-com, retail, and FinTech find growth levers and build great products. Consult one-off, partner long-term, or invest as an angel."
+        "ru": "Помогаю компаниям в e-com, ритейле и FinTech найти точки роста и выстроить продукт. Консультирую разово или веду долгосрочно.",
+        "en": "Helping companies in e-com, retail, and FinTech find growth levers and build great products. Consult one-off or partner long-term."
       },
       "ctas": {
         "ru": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n<a class=\"v4-btn\" href=\"/\">← На главную</a>",
         "en": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n<a class=\"v4-btn\" href=\"/en/\">← Home</a>"
       },
       "eyebrow": {
-        "ru": "Консалтинг · Эдвайзинг · Ангельские инвестиции",
-        "en": "Consulting · Advisory · Angel investing"
+        "ru": "Консалтинг · Стратегия",
+        "en": "Consulting · Strategy"
       }
     },
     "sections": {
@@ -1423,10 +1423,6 @@
               {
                 "ru": "Async-доступ между встречами",
                 "en": "Async access between meetings"
-              },
-              {
-                "ru": "Возможность участия в совете директоров / advisory board",
-                "en": "Option to join the board of directors / advisory board"
               }
             ]
           },
@@ -1454,109 +1450,12 @@
           }
         },
         "tagline": {
-          "ru": "Долгосрочное партнёрство: работаю как внешний стратег или член advisory board.",
-          "en": "Long-term partnership: I work as an external strategist or advisory board member."
-        }
-      },
-      "angel": {
-        "num": "04",
-        "title": {
-          "ru": "Ангельские инвестиции",
-          "en": "Angel investing"
-        },
-        "groups": [
-          {
-            "heading": {
-              "ru": "Что делаю",
-              "en": "What I do"
-            },
-            "kind": "list",
-            "items": [
-              {
-                "ru": "Вкладываю деньги",
-                "en": "Invest capital"
-              },
-              {
-                "ru": "Делюсь опытом и контактами",
-                "en": "Share experience and connections"
-              },
-              {
-                "ru": "Не лезу в операционку, если не просят",
-                "en": "Stay out of day-to-day operations unless asked"
-              }
-            ]
-          },
-          {
-            "heading": {
-              "ru": "Параметры",
-              "en": "Parameters"
-            },
-            "kind": "spec",
-            "rows": [
-              {
-                "term": {
-                  "ru": "Стадия",
-                  "en": "Stage"
-                },
-                "def": {
-                  "ru": "pre-seed / seed",
-                  "en": "pre-seed / seed"
-                }
-              },
-              {
-                "term": {
-                  "ru": "Направления",
-                  "en": "Sectors"
-                },
-                "def": {
-                  "ru": "RetailTech, e-com, FinTech, EdTech",
-                  "en": "RetailTech, e-com, FinTech, EdTech"
-                }
-              },
-              {
-                "term": {
-                  "ru": "Рынки",
-                  "en": "Markets"
-                },
-                "def": {
-                  "ru": "СНГ, MENA, Восточная Европа",
-                  "en": "CIS, MENA, Eastern Europe"
-                }
-              },
-              {
-                "term": {
-                  "ru": "Чек",
-                  "en": "Check size"
-                },
-                "def": {
-                  "ru": "от $10 000",
-                  "en": "from $10,000"
-                }
-              }
-            ]
-          },
-          {
-            "heading": {
-              "ru": "Кому подойдёт",
-              "en": "Best for"
-            },
-            "kind": "prose",
-            "prose": {
-              "ru": "Фаундерам с адекватными амбициями, валидированной гипотезой и прозрачной юрисдикцией.\n\nДостаточно короткого сообщения в Telegram: что делаете, на каком этапе, сколько ищете, ссылка на MVP.",
-              "en": "Founders with realistic ambitions, a validated hypothesis, and a transparent jurisdiction.\n\nA short Telegram message is enough: what you're building, what stage you're at, how much you're raising, link to MVP."
-            }
-          }
-        ],
-        "cta": {
-          "href": "https://t.me/s_mrgnv",
-          "label": {
-            "ru": "Отправить питч →",
-            "en": "Send a pitch →"
-          }
+          "ru": "Долгосрочное партнёрство: работаю как внешний стратег.",
+          "en": "Long-term partnership: I work as an external strategist."
         }
       },
       "work": {
-        "num": "05",
+        "num": "04",
         "title": {
           "ru": "Как работаю",
           "en": "How I work"
@@ -1610,7 +1509,7 @@
         ]
       },
       "contact": {
-        "num": "06",
+        "num": "05",
         "title": {
           "ru": "Не уверены, что вам нужно?",
           "en": "Not sure what you need?"

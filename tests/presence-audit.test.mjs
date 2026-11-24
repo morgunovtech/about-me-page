@@ -1,6 +1,7 @@
 // v1.2.7 — the owner's decisions on the web presence audit (2026-11-24):
 // one consulting phrase, no calendar booking, e-mail as the second contact,
 // no angel / advisor claims in llms.txt and JSON-LD, small copy fixes.
+// v1.2.8 — «Да, убери»: no angel investing or advisory on the pages either.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
@@ -105,4 +106,48 @@ test('copy: no «two tools», the channel since 2022, the Korzinka Go video is a
   const talk = seed.notes.external.find((x) => x.href === 'https://youtu.be/BthlUR9eO1M');
   assert.equal(talk.tag, 'TALK');
   assert.match(feedItemHtml({ kind: 'external', item: talk }, 'ru'), /<p class="v4-note-meta">Click Data MeetUp \/ Product Edition · YouTube · 3 600\+ просмотров<\/p>/);
+});
+
+// What a visitor reads as an offer of angel money or advisory. «crowd-investing
+// platform brainbox.vc» (a video title in the feed) is a subject, not an offer.
+const PROMISE = /angel|ангел|advis|эдвайз|инвестор|investor|вкладыва|invest capital|#angel/i;
+
+test('pages promise no angel investing or advisory (v1.2.8)', () => {
+  for (const f of ['collaborate.html', 'en/collaborate.html', 'index.html', 'en/index.html', 'uses.html', 'en/uses.html', 'about.html', 'en/about.html', 'llms.txt']) {
+    assert.doesNotMatch(read(f).replace(/crowd-invest\w*|крауд-инвест\w*/gi, ''), PROMISE, f);
+  }
+  assert.doesNotMatch(JSON.stringify(seed.collaborate), PROMISE);
+  assert.doesNotMatch(JSON.stringify(seed.home), PROMISE);
+});
+
+test('/collaborate without #angel: sections numbered in page order, menu points at real sections', () => {
+  assert.deepEqual(Object.keys(seed.collaborate.sections), ['about', 'consulting', 'strategy', 'work', 'contact']);
+  assert.deepEqual(Object.values(seed.collaborate.sections).map((x) => x.num), ['01', '02', '03', '04', '05']);
+  for (const f of ['collaborate.html', 'en/collaborate.html']) {
+    const page = read(f);
+    const ids = [...page.matchAll(/<section id="([^"]+)"/g)].map((m) => m[1]);
+    assert.deepEqual(ids, ['about', 'consulting', 'strategy', 'work', 'contact'], f);
+    for (const [, id] of page.matchAll(/<a href="#([^"]+)"/g)) assert.ok(id === 'main' || ids.includes(id), `${f}: #${id}`);
+    assert.deepEqual([...page.matchAll(/data-cms-text="sections\.(\w+)\.num">(\d+)</g)].map((m) => m[2]), ['01', '02', '03', '04', '05'], f);
+  }
+});
+
+test('/collaborate meta and share card: the phrase without the FinTech tail, the share title is the page title', () => {
+  const c = seed.collaborate;
+  for (const lang of ['ru', 'en']) {
+    const desc = PHRASE[lang].replace(/; (финтех — вне Узбекистана|FinTech outside Uzbekistan)\.$/, '.');
+    assert.equal(c.meta.description[lang], desc);
+    assert.equal(c.share.description[lang], desc);
+    assert.equal(c.share.title[lang], c.meta.title[lang]);
+    assert.doesNotMatch(desc, /fintech|финтех/i);
+  }
+  assert.equal(c.hero.eyebrow.ru, 'Консалтинг · Стратегия');
+  assert.equal(c.hero.eyebrow.en, 'Consulting · Strategy');
+  for (const f of ['collaborate.html', 'en/collaborate.html']) {
+    const lang = f.startsWith('en/') ? 'en' : 'ru';
+    const page = read(f);
+    for (const [k, v] of [['meta.description', c.meta.description], ['share.title', c.share.title], ['share.description', c.share.description]]) {
+      for (const m of page.matchAll(new RegExp(`data-cms-content="${k.replace('.', '\\.')}" content="([^"]*)"`, 'g'))) assert.equal(m[1], v[lang], `${f} ${k}`);
+    }
+  }
 });
