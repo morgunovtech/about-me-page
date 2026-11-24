@@ -52,7 +52,7 @@ about-me-page/
 
 ## Page map (v1.1.0)
 
-- **`/`, `/en/`** — hero (eyebrow «Head of FinTech @ Yandex Uzbekistan», one «Написать в Telegram» button) → stats strip → `01 #about` → `02 #career` → `03 #projects` «Собственные проекты» (tier «Работает»: live product cards — TofsDevOps, FoundYou, Fingerprint — with the version synced from GitHub, then «→ Другие проекты на GitHub»; tier «До этого»: past ventures as rows) → `04 #notes` «Публикации» (the three newest feed entries + «→ Все публикации») → `05 #contact` «Связаться» (who writes → «→ Консалтинг: форматы и цены» → «Написать в Telegram» + reply time). Menu items mirror the section titles (`data-cms-text`).
+- **`/`, `/en/`** — hero (eyebrow «Head of FinTech @ Yandex Uzbekistan», one «Написать в Telegram» button) → stats strip → `01 #about` → `02 #career` → `03 #projects` «Собственные проекты» (tier «Работает»: live product cards — TofsDevOps, Social Tracker Bot, Found You, Fingerprint, Good Pass — with the version synced from GitHub, then «→ Другие проекты на GitHub»; tier «До этого»: past ventures as rows) → `04 #notes` «Публикации» (the three newest feed entries + «→ Все публикации») → `05 #contact` «Связаться» (who writes → «→ Консалтинг: форматы и цены» → «Написать в Telegram» + reply time). Menu items mirror the section titles (`data-cms-text`).
 - **`/notes`, `/en/notes`** — «Публикации»: own notes (KV articles) and external materials (vc.ru, YouTube — the seed-only `notes` doc) in one feed, newest first, under the Telegram channel block. RSS and the sitemap carry own notes only.
 - **`/collaborate`** — about · consulting tiers · strategic consulting · angel investing · `#work` «Как работаю / Чего не делаю» · contact.
 - **`/uses`** — hardware groups + software cards.
