@@ -316,7 +316,7 @@
             "repo": "morgunovtech/Tofs_DevOps_bot",
             "tag": "BOT",
             "live": true,
-            "version": "v2.1",
+            "version": "v2.2",
             "name": "TofsDevOps",
             "desc": {
               "ru": "Сам себе DevOps в Telegram. Мониторит сайты, чинит что может, проверяет, что тебя видят поисковики и ИИ-ассистенты, — и молчит, пока всё в порядке.",
@@ -344,8 +344,8 @@
             "version": "v1.4",
             "name": "Social Tracker Bot",
             "desc": {
-              "ru": "Telegram-бот на вашем сервере, который следит за вашими соцсетями: подписчики в Telegram, YouTube, Instagram и LinkedIn с недельными трендами; жизнь канала — подписки, отписки, посты и реакции; и безопасность аккаунтов — изменения профиля, которые делает угонщик, новые входы и смена пароля из писем безопасности, комментарии, за которые блокируют группу целиком (карточка с кнопками удалить / забанить — без вашего нажатия ничего не делается), и чек-лист 2FA и паролей. Молчит, пока всё в порядке, и сразу пишет, если что-то не так.",
-              "en": "Self-hosted Telegram bot that watches your social accounts: followers on Telegram, YouTube, Instagram and LinkedIn, your channel's joins, posts and reactions, plus hijack, comment and security-email alerts."
+              "ru": "Telegram-бот на вашем сервере для ваших соцсетей: подписчики в Telegram, YouTube, Instagram и LinkedIn, жизнь канала и безопасность аккаунтов — признаки угона, письма безопасности, опасные комментарии. Молчит, пока всё в порядке.",
+              "en": "Self-hosted Telegram bot for your social accounts: followers on four networks, the life of your channel and account security alerts. Quiet while all is fine."
             },
             "cta": {
               "label": {
@@ -408,7 +408,7 @@
             "repo": "morgunovtech/good-pass",
             "tag": "WEB",
             "live": true,
-            "version": "v1.2",
+            "version": "v1.3",
             "name": "Good Pass",
             "desc": {
               "ru": "Небольшой образовательный сервис, который показывает, насколько пароль силён на самом деле, сколько времени уйдёт на его перебор и что именно изменить, чтобы он стал сильнее.",
