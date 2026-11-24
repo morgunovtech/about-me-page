@@ -10,13 +10,27 @@
 
 # /404 itself is a Function (functions/404.js → real 404 status) and sets its
 # own noindex + Cache-Control there; _headers only reaches the static asset.
+# A path that matches several rules inherits all of them, so a header the /*
+# block already sets must be detached (`! Name`) before it gets another value.
 /404.html
+  ! X-Robots-Tag
   X-Robots-Tag: noindex
   Cache-Control: public, max-age=300, stale-while-revalidate=86400
 
 /admin/*
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
+
+# /about is hidden until the owner rewrites it: the pages carry
+# <meta name="robots" content="noindex">, so the header must say the same
+# instead of inheriting «index, follow» from /*.
+/about
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex
+
+/en/about
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex
 
 /images/*
   Cache-Control: public, max-age=31536000, immutable

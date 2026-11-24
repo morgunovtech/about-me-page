@@ -320,7 +320,7 @@
             "name": "TofsDevOps",
             "desc": {
               "ru": "Сам себе DevOps в Telegram. Мониторит сайты, чинит что может, проверяет, что тебя видят поисковики и ИИ-ассистенты, — и молчит, пока всё в порядке.",
-              "en": "Your personal DevOps in Telegram: uptime, SSL, DNS, dead-man switch, SEO/GEO & AI-agent visibility, Cloudflare Pages self-healing. Silent while everything is fine."
+              "en": "Your personal DevOps in Telegram: uptime, SSL, DNS, search and AI-assistant visibility. Fixes what it can and stays quiet while everything is fine."
             },
             "cta": {
               "label": {
@@ -362,7 +362,7 @@
             "repo": "morgunovtech/Fingerprint",
             "tag": "WEB",
             "live": true,
-            "version": "v2.5",
+            "version": "v2.1",
             "name": "Fingerprint",
             "desc": {
               "ru": "Покажет процент уникальности вашего браузера и объяснит, по каким сигналам сайты узнают вас без cookies. К каждому параметру — пояснение простым языком и рекомендация к действию. Локально, бесплатно, без регистрации.",
@@ -1144,7 +1144,7 @@
     "page": "collaborate",
     "rev": 1,
     "updatedAt": "2026-05-25T00:00:00Z",
-    "dateModified": "2026-05-11",
+    "dateModified": "2026-11-09",
     "meta": {
       "title": {
         "ru": "Сотрудничество — Семён Моргунов | morgunov.tech",

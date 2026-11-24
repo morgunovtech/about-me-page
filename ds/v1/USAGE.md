@@ -22,9 +22,10 @@ pricing, contact block. Build your own page layout on top of the tokens.
 Served today from **`https://s.morgunov.tech/ds/v1/`** (CORS `*` is enabled on
 `/ds/*` and `/fonts/*`, so cross-origin CSS **and** webfonts load fine).
 
-> When the apex `morgunov.tech` is confirmed to serve this same Pages project
-> (or a dedicated `ds.morgunov.tech` is set up), switch the host below — the
-> paths stay identical. Until then use `s.morgunov.tech`.
+> `s.morgunov.tech` is the only host that serves the layer today (the apex
+> `morgunov.tech` has no DNS record). If it ever moves — to the apex or a
+> dedicated `ds.morgunov.tech` — only the host below changes; the paths stay
+> identical.
 
 Cross-origin fonts work without absolute URLs: `@font-face` resolves its
 `url("/fonts/…")` against the **stylesheet's** origin (s.morgunov.tech), not the

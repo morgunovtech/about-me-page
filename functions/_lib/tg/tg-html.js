@@ -2,9 +2,10 @@
 // HTMLRewriter), so the core stays portable. Input is the blog's own sanitized
 // HTML (small, well-nested tag set), so a compact stack parser is enough.
 //
-// Mapping (see FEATURE.md): b/strong→b, i/em→i, u/ins→u, s/strike/del→s,
-// code→code, a→a(href), pre→pre, blockquote→blockquote; h2/h3→bold line;
-// ul→"• ", ol→"1. "; hr→"···"; img→collected (never inline); figcaption→<i>.
+// Mapping (per the cross-posting spec, kept outside the repo): b/strong→b,
+// i/em→i, u/ins→u, s/strike/del→s, code→code, a→a(href), pre→pre,
+// blockquote→blockquote; h2/h3→bold line; ul→"• ", ol→"1. "; hr→"···";
+// img→collected (never inline); figcaption→<i>.
 // Text nodes are already entity-escaped by the blog sanitizer, so they pass
 // through (Telegram decodes the same &amp;/&lt;/&gt;).
 

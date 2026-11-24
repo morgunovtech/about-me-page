@@ -25,7 +25,7 @@ about-me-page/
 ├── script.js           # Theme, generic dropdown controller, anchor smooth-scroll
 ├── admin-app.js/.css   # /admin inline editor client (public, no secrets)
 ├── functions/          # Pages Functions: edge render, CMS API, notes, sitemap, llms.txt, /404
-├── scripts/            # check.sh, check-sync.py, check-critical.py, render-static.mjs, version-stamp.py, sync-products.mjs, kv-push.mjs
+├── scripts/            # check.sh, check-sync.py, check-critical.py, render-static.mjs, version-stamp.py, sync-products.mjs, kv-push.mjs, hash-password.mjs
 ├── tests/              # node --test suites for the pure functions
 ├── llms.txt            # AI/LLM navigation file (llmstxt.org) — a template: {total}/{telegram}/… filled by functions/llms.txt.js
 ├── _headers            # Cloudflare: X-Robots-Tag + Cache-Control headers for static assets
@@ -41,11 +41,13 @@ about-me-page/
 │   ├── plex-mono-cyr-{400,500}.woff2
 │   └── OFL.txt                    # SIL OFL 1.1 for IBM Plex — ships with the fonts, as the OFL requires
 └── images/
-    ├── Hero_Photo.webp            # Main portrait 1600x1067 (LCP element)
-    ├── Hero_Photo_320.webp        # 320w variant for srcset
-    ├── Hero_Photo_640.webp        # 640w variant for srcset (default src)
-    ├── Hero_Photo_960.webp        # 960w variant for srcset
-    └── favicon.svg                # SVG favicon with initials "SM"
+    ├── Hero_Photo.webp            # Main portrait 1600x1067 (LCP element; JSON-LD image)
+    ├── Hero_Photo_{320,640,960,1200}.webp  # srcset variants (640w is the default src)
+    ├── favicon.svg                # SVG favicon with initials "SM" (light scheme; also in site.webmanifest)
+    ├── favicon-dark.svg           # Favicon for prefers-color-scheme: dark
+    ├── icon-192.png, icon-512.png # PWA icons from site.webmanifest
+    ├── og-card-ru.png, og-card-en.png  # Share cards (og:image / twitter:image), per language
+    └── uses/                      # /uses hardware photos, one webp per card (14)
 ```
 
 ## Page map (v1.1.0)
@@ -66,7 +68,7 @@ about-me-page/
 3. No build command — files are served as-is
 4. `_headers` and `_redirects` are processed by Cloudflare automatically
 
-There is no build step and no deploy pipeline of our own — Cloudflare Pages deploys on push. GitHub Actions only check PRs (`ci.yml`: `scripts/check.sh`, the Functions build, gitleaks over the whole history) and auto-merge Dependabot minor/patch bumps once CI passes.
+There is no build step and no deploy pipeline of our own — Cloudflare Pages deploys on push. GitHub Actions only check, never deploy: `ci.yml` runs on every PR and on every push to `main` (`scripts/check.sh`, the Functions build, gitleaks over the whole history) and auto-merges Dependabot minor/patch bumps once CI passes.
 
 ### Release flow
 
@@ -99,7 +101,7 @@ Claude Design project «morgunov.tech Design System» (`fb2dcd4c-710d-43e3-8d7d-
 
 ### RU↔EN sync check
 
-`scripts/check-sync.py` verifies that RU and EN HTML pairs (`index.html` ↔ `en/index.html`, `collaborate.html` ↔ `en/collaborate.html`) share the same DOM structure (tag tree + classes + ids). It ignores text, attribute values, and state classes (`is-active`).
+`scripts/check-sync.py` verifies that the four RU and EN HTML pairs (`index.html`, `collaborate.html`, `uses.html`, `about.html` ↔ their `en/` twins) share the same DOM structure (tag tree + classes + ids). It ignores text, attribute values, and state classes (`is-active`).
 
 Run before commit when touching layout:
 
@@ -207,13 +209,13 @@ The public pages are **edge-rendered from Cloudflare KV** via Pages Functions: t
 - **Edge cache** (`_lib/cache.js`): every Function-rendered GET (managed pages, `/llms.txt`, notes, feeds, sitemap) is stored in `caches.default` for `EDGE_TTL` (300 s) under `origin + pathname`; `purge()` runs on every KV write — `save.js` (the page's URLs via `PAGE_PATHS` / `articlePaths`), article create/delete/import, and the subscriber ingest (`/`, `/en/`, `/llms.txt`). Responses carry `x-edge-cache: HIT|MISS`. `cached(ctx, render)` is the wrapper; `getOrHead()` sits outside it.
 - **Build hash:** `buildOf(env)` (`_lib/site.js`) reads `CF_PAGES_COMMIT_SHA` and falls back to the stamped `BUILD`; the footer `<code data-cms-text="_build">` and the `{build}` prose placeholder both resolve from it, so the footer shows the commit actually deployed. The hash is plain text, not a link (unlinked in v0.30.4 while the repo was private; it is public now).
 - **Sessions** (`_lib/auth.js`): HMAC tokens carry `iat`; «Выйти» writes `session:not-before` to KV and `verifySession(secret, token, env)` rejects anything issued earlier — a captured token dies on logout.
-- `_lib/` — `content` (KV→seed load, `loadSubscribers`), `migrations` (`fixStaleContent` — code-side string fixes for KV docs, the `STALE` table is empty since v1.0.1; no seed import so tests load it directly), `cache` (edge cache + purge), `tg/` (Telegram publish/import: `plan`, `source-post`, `tg-html`, `tg-import`, `targets/`), `i18n`, `markdown` (zero-dep subset), `notes-feed` (the /notes feed: own notes + external materials, pure — Node-testable), `render` (component renderers, `counters()`/`fillCounters()`/`unitFor()` — the single source for every subscriber number incl. RU plural), `overlay` (HTMLRewriter handlers), `jsonld` (home `@graph` + `renderPageJsonLd` for collaborate/about/uses), `site` (`ORIGIN`, `NAME` per language), `article-template` (notes/article shells built from shared chrome helpers), `auth`, `ai`, `http`.
+- `_lib/` — `content` (KV→seed load, `loadSubscribers`), `migrations` (`fixStaleContent` — code-side string fixes for KV docs, the `STALE` table is empty since v1.0.1; no seed import so tests load it directly), `cache` (edge cache + purge), `tg/` (Telegram publish/import: `plan`, `source-post`, `tg-html`, `tg-import`, `targets/`), `i18n`, `markdown` (zero-dep subset), `notes-feed` (the /notes feed: own notes + external materials, pure — Node-testable), `render` (component renderers, `counters()`/`fillCounters()`/`unitFor()` — the single source for every subscriber number incl. RU plural), `render-notes` (the /notes pages, feeds and `renderSitemap`), `render-article` (one note/article page), `articles` (KV articles: load, list, slugs), `article-template` (notes/article shells built from shared chrome helpers), `sanitize` (HTML sanitizer for verbatim blocks and article bodies), `overlay` (HTMLRewriter handlers), `jsonld` (home `@graph` + `renderPageJsonLd` for collaborate/about/uses), `site` (`ORIGIN`, `NAME` per language), `tg-adapter` (glue between the admin API and `tg/`), `auth`, `ai`, `http`.
 - `llms.txt.js` — `/llms.txt` with live counters; `404.js` — `/404` with a real 404 status (`notFound()` sets noindex + Cache-Control itself — `_headers` never reaches Function responses). GET-only routes (sitemap, notes, feeds, `/assets/*`) are wrapped in `getOrHead()` from `_lib/http.js` so HEAD answers like GET.
 - **No read-time migrations today.** On 2026-11-09 (v1.0.1) the `home` and `about` KV docs were saved with every earlier migration and copy fix applied (they carry `migration: 31`); `collaborate` and `uses` have no KV doc and render from the seed. A KV doc keeps winning over the seed, so: a **copy** fix to a KV doc goes into the `STALE` table of `migrations.js` (rules in its header) until the next `/admin` Save persists it, then the entry is removed; a **shape** change needs a gated read-time migration again (pattern: v0.31.1 `homeV2` in git history) or a Save of the new shape. `validateHome` in `admin/api/save.js` lists the sections a home doc must have.
 - **Seed → KV:** `scripts/kv-push.mjs <page> [--yes] [--create]` writes the seed doc to KV the way an /admin Save does (rev + 1, `updatedAt`/`dateModified`, `:rev:<n>`, the `:revs` index of 20); dry run by default, refuses to race a concurrent Save, does not purge the edge cache (pages update within 300 s). It replaces the whole doc, so /admin edits missing from the seed are lost — the dry run lists them; the previous revision stays in /admin's history. The owner runs it.
 - **Product cards ← GitHub:** `scripts/sync-products.mjs [--write]` updates `home.sections.products.items[]` that carry a `repo`: the version (highest of latest release, tags, `package.json`, `pyproject.toml`, the top `CHANGELOG.md` heading → `vMAJOR.MINOR`) and the description (EN = the repo description, RU = `README.ru.md` H1 tail + first paragraph; only when both exist). Order, names, tags and buttons stay hand-edited in the seed. Then `render-static.mjs --write` and, after the merge, `kv-push.mjs home`.
 - `{build}` inside `data-cms-html` prose resolves to `BUILD` from `_lib/site.js` (stamped by `version-stamp.py`) — never store a literal build hash as content.
-- `admin/` — `_middleware.js` (session gate), `login`/`logout`, `index` (editor shell), `api/{content,save,preview,upload,translate,proofread,subscribers}`.
+- `admin/` — `_middleware.js` (session gate), `login`/`logout`, `index` (editor shell), `api/{content,save,preview,upload,translate,proofread,subscribers,history,articles,import,tg-preview,tg-publish,tg-archive-import}`.
 - `assets/[[path]].js` — public read-only R2 delivery at `/assets/*` (no listing).
 - `api/ingest/subscribers.js` — token-guarded SocialBot ingest → KV `stats:subscribers`.
 

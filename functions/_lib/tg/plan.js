@@ -1,6 +1,6 @@
 // Message-plan builder: SourcePost → an ordered list of platform-agnostic
 // messages (text / photo / album). Pure — drives both the preview and publish.
-// Length + image rules per FEATURE.md.
+// Length + image rules per the cross-posting spec, kept outside the repo.
 import { renderTgHtml, plainLength } from './tg-html.js';
 
 const SAFE_TEXT = 4000; // margin under Telegram's 4096
