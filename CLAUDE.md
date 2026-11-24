@@ -197,7 +197,7 @@ together with check-sync before committing anything that touches CSS.
 - `llms.txt` follows the [llmstxt.org](https://llmstxt.org) convention; the committed file is a template — `{total}`, `{telegram}`, `{linkedin}`, `{youtube}` are filled by `functions/llms.txt.js` from the same `counters()` the homepage uses, so the AI-facing numbers never drift from the page
 - Available at `https://s.morgunov.tech/llms.txt`
 - Keep it in sync with major content changes (roles, products, contact info)
-- `robots.txt` allows all crawlers including AI (GPTBot, ClaudeBot, PerplexityBot) and carries `Content-Signal: search=yes, ai-input=yes` in every group (contentsignals.org); `ai-train` is deliberately not set — that choice is the owner's
+- `robots.txt` allows all crawlers including AI (GPTBot, ClaudeBot, PerplexityBot) and carries `Content-Signal: search=yes, ai-input=yes, ai-train=yes` in every group (contentsignals.org) — the owner allowed AI training on 2026-11-24
 - JSON-LD `description` and `knowsAbout` help AI search engines attribute content
 
 ## Content management (CMS) — `/admin`
