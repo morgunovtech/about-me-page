@@ -2,7 +2,7 @@
 
 Source of Semyon Morgunov's personal site: zero-build static pages, an edge CMS on Cloudflare Pages, KV and R2, and the morgunov.tech design system that other projects reuse.
 
-Live at **[s.morgunov.tech](https://s.morgunov.tech)** · also reachable on the apex `morgunov.tech` · **License:** MIT (code)
+Live at **[s.morgunov.tech](https://s.morgunov.tech)** · **License:** MIT (code)
 
 ## Stack
 
@@ -14,7 +14,7 @@ Pure static HTML/CSS/JS. **No build step, no npm, no framework.** Hosted on Clou
   - **`/collaborate`** — consulting, strategic consulting, angel investing, how I work;
   - **`/uses`** — hardware and software;
   - **`/about`** — unlisted (`noindex`) until it is rewritten
-- A versioned design-system layer `ds/v1/` (fonts, tokens for 4 themes, base, components) + `styles.css` for page layout. Other projects load it straight from `https://s.morgunov.tech/ds/v1/` — [Found You](https://github.com/morgunovtech/FoundYou) and [Good Pass](https://github.com/morgunovtech/good-pass); see [`ds/v1/USAGE.md`](ds/v1/USAGE.md)
+- A versioned design-system layer `ds/v1/` (fonts, tokens for 4 themes, base, components) + `styles.css` for page layout. Other projects reuse it: [Good Pass](https://github.com/morgunovtech/good-pass) loads `fonts`, `tokens` and `base` straight from `https://s.morgunov.tech/ds/v1/` (not `components.css`), [Found You](https://github.com/morgunovtech/FoundYou) vendors a copy in its `public/ds/v1/`; see [`ds/v1/USAGE.md`](ds/v1/USAGE.md)
 - One script — `script.js` (single IIFE, no dependencies, ≈ 290 lines)
 - Self-hosted IBM Plex Sans + Plex Mono (latin + cyrillic woff2 subsets, `font-display: swap`)
 - Cloudflare config: [`_headers`](_headers), [`_routes.json`](_routes.json), [`_redirects`](_redirects)

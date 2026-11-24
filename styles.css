@@ -265,20 +265,31 @@
   gap: 16px;
 }
 
-/* Three or more cards → three columns. Content-driven (:has), so the CMS can
-   add a card without a modifier class; /collaborate's two tiers keep 2-up.
-   Browsers without :has() simply keep the 2-column grid. */
-.v4-products:where(:has(> .v4-product:nth-of-type(3))) {
-  grid-template-columns: repeat(3, 1fr);
+/* Three or more cards on a wide screen → three a row on a six-track grid, two
+   tracks a card: a last row of two splits the width in halves and a single
+   last card takes all of it, so 4, 5 or 7 cards leave no hole. Content-driven
+   (:has), so the CMS can add a card without a modifier class; /collaborate's
+   two tiers keep 2-up. Browsers without :has() simply keep the 2-column grid.
+   :where() keeps the container rule at (0,1,0) so the later ≤640px `1fr` rule
+   wins by source order; :nth-of-type counts <article> cards only (the CMS
+   editor appends a <button> to this container). */
+@media (min-width: 1101px) {
+  .v4-products:where(:has(> .v4-product:nth-of-type(3))) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .v4-products:where(:has(> .v4-product:nth-of-type(3))) > .v4-product {
+    grid-column: span 2;
+  }
+  .v4-products:where(:has(> .v4-product:nth-of-type(3))) > .v4-product:nth-of-type(3n+1):nth-last-of-type(2),
+  .v4-products:where(:has(> .v4-product:nth-of-type(3))) > .v4-product:nth-of-type(3n+2):last-of-type {
+    grid-column: span 3;
+  }
+  .v4-products:where(:has(> .v4-product:nth-of-type(3))) > .v4-product:nth-of-type(3n+1):last-of-type {
+    grid-column: 1 / -1;
+  }
 }
 
-/* :where() keeps these at (0,1,0) so the later ≤640px `1fr` rule wins by
-   source order; :nth-of-type counts <article> cards only (the CMS editor
-   appends a <button> to this container). */
 @media (max-width: 1100px) {
-  .v4-products:where(:has(> .v4-product:nth-of-type(3))) {
-    grid-template-columns: repeat(2, 1fr);
-  }
   /* An odd last card spans the row instead of leaving a hole. */
   .v4-products > .v4-product:nth-of-type(odd):last-of-type {
     grid-column: 1 / -1;
