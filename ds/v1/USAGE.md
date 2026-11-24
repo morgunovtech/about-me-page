@@ -4,6 +4,8 @@ A zero-build, framework-agnostic CSS layer. Any morgunov.tech service (static
 HTML, Worker-served HTML, or a framework app) can adopt the shared look by
 linking these files — no npm, no package install.
 
+License: the layer is MIT (© Semyon Morgunov, [LICENSE](../../LICENSE) in the repository); the IBM Plex fonts it links are © IBM Corp. under the SIL Open Font License 1.1 ([fonts/OFL.txt](../../fonts/OFL.txt)).
+
 ## What's in the layer
 
 | File | What it gives you | Reusable? |
@@ -120,7 +122,7 @@ every copy as a reviewable PR within a week (or at once: run the workflow by
 hand). The hash algorithm is therefore part of this layer's contract: keep
 `?v=` at `sha1[:8]`.
 
-The consumers that link this origin directly (Good Pass, Fingerprint) pin the
+The consumers that link this origin directly (Fingerprint) pin the
 same `?v=` values in their HTML; the origin ignores the query and serves the
 current file, so a change here reaches their visitors on the next uncached
 load — but a returning visitor keeps the immutable cached copy until the pin

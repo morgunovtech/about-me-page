@@ -165,16 +165,16 @@
       },
       {
         "value": {
-          "ru": "9",
-          "en": "9"
+          "ru": "8",
+          "en": "8"
         },
         "unit": {
           "ru": "своих проектов",
           "en": "own projects"
         },
         "aside": {
-          "ru": "с 2009 · 1 продан · 5 работают",
-          "en": "since 2009 · 1 sold · 5 live"
+          "ru": "с 2009 · 1 продан · 4 работают",
+          "en": "since 2009 · 1 sold · 4 live"
         }
       }
     ],
@@ -318,7 +318,7 @@
             "repo": "morgunovtech/Tofs_DevOps_bot",
             "tag": "BOT",
             "live": true,
-            "version": "v3.1",
+            "version": "v3.8",
             "name": "TofsDevOps",
             "desc": {
               "ru": "Сам себе DevOps в Telegram. Мониторит сайты, чинит что может, проверяет, что тебя видят поисковики и ИИ-ассистенты, — и молчит, пока всё в порядке.",
@@ -343,11 +343,11 @@
             "repo": "morgunovtech/social-tracker-bot",
             "tag": "BOT",
             "live": true,
-            "version": "v1.6",
+            "version": "v1.8",
             "name": "Social Tracker Bot",
             "desc": {
-              "ru": "Telegram-бот на вашем сервере для ваших соцсетей: подписчики в Telegram, YouTube, Instagram и LinkedIn, жизнь канала и безопасность аккаунтов — признаки угона, письма безопасности, опасные комментарии. Молчит, пока всё в порядке.",
-              "en": "Self-hosted Telegram bot for your social accounts: followers on four networks, the life of your channel and account security alerts. Quiet while all is fine."
+              "ru": "Telegram-бот на вашем сервере для ваших соцсетей: подписчики в Telegram, YouTube, Instagram и LinkedIn, жизнь канала и безопасность аккаунтов — признаки угона, письма безопасности, опасные комментарии, — а ещё недельный отчёт о том, как вас находят люди и ИИ-ассистенты. Молчит, пока всё в порядке.",
+              "en": "Self-hosted Telegram bot for your social accounts: followers on four networks, the life of your channel, account security alerts and a weekly reputation report."
             },
             "cta": {
               "label": {
@@ -392,11 +392,11 @@
             "repo": "morgunovtech/Fingerprint",
             "tag": "WEB",
             "live": true,
-            "version": "v2.4",
+            "version": "v3.1",
             "name": "Fingerprint",
             "desc": {
-              "ru": "Проверка приватности для обычных пользователей: страница показывает, что любой сайт узнаёт о вашем браузере в момент открытия, насколько уникальным это вас делает и как стать менее заметным для слежки.",
-              "en": "See what any website learns about you the moment you open it: browser fingerprint, how unique you are, and how to hide."
+              "ru": "Образовательная страница о приватности для людей без технической подготовки: шесть шагов от включения ноутбука до открытого сайта, и на каждом, на ваших реальных данных, кто и что о вас узнаёт и что с этим делать.",
+              "en": "Online privacy explained in six steps, from opening your laptop to a loaded site: who learns what about you at each step, on your real data, and what to do."
             },
             "cta": {
               "label": {
@@ -409,31 +409,6 @@
               }
             },
             "schema": {
-              "free": true
-            }
-          },
-          {
-            "repo": "morgunovtech/good-pass",
-            "tag": "WEB",
-            "live": true,
-            "version": "v1.4",
-            "name": "Good Pass",
-            "desc": {
-              "ru": "Небольшой образовательный сервис, который показывает, насколько пароль силён на самом деле, сколько времени уйдёт на его перебор и что именно изменить, чтобы он стал сильнее.",
-              "en": "Password strength, explained: entropy, crack time, a k-anonymous breach check and concrete ways to make it stronger."
-            },
-            "cta": {
-              "label": {
-                "ru": "Проверить пароль →",
-                "en": "Check a password →"
-              },
-              "href": {
-                "ru": "https://good-pass.morgunov.tech/",
-                "en": "https://good-pass.morgunov.tech/en/"
-              }
-            },
-            "schema": {
-              "category": "SecurityApplication",
               "free": true
             }
           }
