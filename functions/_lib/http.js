@@ -22,6 +22,19 @@ export function withSecurityHeaders(response, { csp = true } = {}) {
   return wrapped;
 }
 
+// <project>.pages.dev and its preview hosts are technical addresses of the
+// site and must stay out of search. _headers marks their static files
+// noindex, but it never reaches what Functions build (/notes, RSS,
+// /sitemap.xml, /llms.txt, the rendered pages), so the middleware passes
+// every response through this. Set, not append: the value stays a plain
+// `noindex` whatever the response carried.
+export function noindexOnTechnicalHost(response, url) {
+  if (!new URL(url).hostname.endsWith('.pages.dev')) return response;
+  const marked = new Response(response.body, response);
+  marked.headers.set('X-Robots-Tag', 'noindex');
+  return marked;
+}
+
 export function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,

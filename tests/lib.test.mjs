@@ -8,7 +8,7 @@ import assert from 'node:assert/strict';
 import { escapeHtml, renderInline, safeHref } from '../functions/_lib/markdown.js';
 import { isLocalized, pick, resolvePath } from '../functions/_lib/i18n.js';
 import { renderJsonLd, renderArticleJsonLd } from '../functions/_lib/jsonld.js';
-import { sameOrigin } from '../functions/_lib/http.js';
+import { noindexOnTechnicalHost, sameOrigin } from '../functions/_lib/http.js';
 import { verifyPassword, createSession, verifySession } from '../functions/_lib/auth.js';
 
 test('escapeHtml neutralizes angle brackets and ampersands', () => {
@@ -307,4 +307,17 @@ test('fixStaleContent: with an empty table it hands every doc back untouched', (
   assert.equal(JSON.stringify(doc), before);
   assert.equal(fixStaleContent(null), null);
   assert.equal(fixStaleContent('text'), 'text');
+});
+
+test('noindexOnTechnicalHost marks pages.dev hosts only, replacing any earlier value', () => {
+  const res = () => new Response('x', { headers: { 'X-Robots-Tag': 'index, follow' } });
+  for (const host of ['about-me-page-cr2.pages.dev', 'abc123.about-me-page-cr2.pages.dev']) {
+    assert.equal(noindexOnTechnicalHost(res(), `https://${host}/notes`).headers.get('x-robots-tag'), 'noindex');
+  }
+  const own = res();
+  assert.equal(noindexOnTechnicalHost(own, 'https://s.morgunov.tech/notes'), own);
+  assert.equal(own.headers.get('x-robots-tag'), 'index, follow');
+  const moved = noindexOnTechnicalHost(Response.redirect('https://about-me-page-cr2.pages.dev/x', 308), 'https://about-me-page-cr2.pages.dev//x');
+  assert.equal(moved.status, 308);
+  assert.equal(moved.headers.get('x-robots-tag'), 'noindex');
 });
