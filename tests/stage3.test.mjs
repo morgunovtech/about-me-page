@@ -1,4 +1,6 @@
 // v0.31.2 — Telegram is the only contact, /about is hidden, no scroll chrome.
+// v1.2.7 — e-mail is back as the second contact (owner's decision 2026-11-24),
+// only where he put it: the home «Связаться» block, llms.txt, JSON-LD Person.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -11,12 +13,27 @@ const read = (p) => readFileSync(new URL('../' + p, import.meta.url), 'utf8');
 const seed = JSON.parse(read('content.seed.json'));
 const PAGES = ['index.html', 'en/index.html', 'collaborate.html', 'en/collaborate.html', 'about.html', 'en/about.html', 'uses.html', 'en/uses.html'];
 
-test('no e-mail anywhere a visitor, a crawler or an AI agent reads', () => {
-  for (const f of [...PAGES, 'llms.txt', '.well-known/security.txt', 'content.seed.json']) {
+test('e-mail only where the owner put it: home «Связаться», llms.txt, JSON-LD; Telegram stays first', () => {
+  for (const f of ['collaborate.html', 'en/collaborate.html', 'about.html', 'en/about.html', 'uses.html', 'en/uses.html', '.well-known/security.txt']) {
     assert.doesNotMatch(read(f), /mailto:|s@morgunov\.tech/, f);
   }
+  for (const f of ['index.html', 'en/index.html']) {
+    // One mailto, in the contact block's button row, after the Telegram button.
+    const row = read(f).split('data-cms-list="contact"')[1].split('</section>')[0];
+    assert.ok(row.indexOf('href="https://t.me/s_mrgnv"') < row.indexOf('href="mailto:s@morgunov.tech"'), f);
+    assert.equal((read(f).match(/mailto:/g) || []).length, 1, f);
+  }
+  const llms = read('llms.txt');
+  assert.ok(llms.indexOf('- Telegram (main): https://t.me/s_mrgnv') < llms.indexOf('- Email: s@morgunov.tech'));
   assert.match(read('.well-known/security.txt'), /^Contact: https:\/\/t\.me\/s_mrgnv$/m);
-  assert.doesNotMatch(renderJsonLd(seed.home, 'en'), /"email"/);
+  for (const lang of ['ru', 'en']) {
+    const person = JSON.parse(renderJsonLd(seed.home, lang))['@graph'].find((n) => n['@type'] === 'Person');
+    assert.equal(person.email, 's@morgunov.tech');
+  }
+  // A doc without seo.email (an older KV doc) publishes no email at all.
+  const old = JSON.parse(JSON.stringify(seed.home));
+  delete old.seo.email;
+  assert.doesNotMatch(renderJsonLd(old, 'en'), /"email"/);
 });
 
 test('footer: «стек · нашли опечатку?» → Telegram; no notes/about links', () => {

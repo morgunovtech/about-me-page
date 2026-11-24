@@ -79,10 +79,11 @@ test('notes block: up to three rows, own notes stay on site, external ones open 
   assert.doesNotMatch(renderers.notesFeed(doc, 'ru', false), /v4-feed/);
 });
 
-test('contact: who writes, the consulting link, then Telegram with the reply time', () => {
+test('contact: who writes, the consulting link, then Telegram, the e-mail and the reply time', () => {
   const ru = renderers.contact(seed.home, 'ru', false);
-  assert.equal((ru.match(/class="v4-btn/g) || []).length, 1);
-  assert.doesNotMatch(ru, /mailto:/);
+  // Telegram is the main contact (primary, first); e-mail the second (v1.2.7).
+  assert.equal((ru.match(/class="v4-btn/g) || []).length, 2);
+  assert.match(ru, /<a class="v4-btn v4-btn-primary" href="https:\/\/t\.me\/s_mrgnv" target="_blank" rel="noopener noreferrer">Написать в Telegram<\/a>\n {10}<a class="v4-btn" href="mailto:s@morgunov\.tech">s@morgunov\.tech<\/a>/);
   assert.match(ru, /Обычно отвечаю в течение 10 рабочих дней\./);
   assert.match(ru, /href="\/collaborate#consulting">→ Консалтинг: форматы и цены</);
   assert.doesNotMatch(ru, /#angel/);
@@ -109,6 +110,8 @@ test('seed home: five sections, the stats count matches the page', () => {
   assert.equal(Number(own.value.ru), S.products.items.length + S.ventures.items.length);
   assert.match(own.aside.ru, new RegExp(`${S.products.items.length} работают`));
   assert.equal(seed.home.hero.ctas.length, 1);
-  assert.ok(!JSON.stringify(seed.home).includes('mailto:'));
+  // The one mailto is the second «Связаться» button; the hero keeps Telegram only.
+  assert.equal((JSON.stringify(seed.home).match(/mailto:/g) || []).length, 1);
+  assert.equal(S.contact.ctas[1].href, 'mailto:s@morgunov.tech');
   assert.equal(nb, ' ');
 });

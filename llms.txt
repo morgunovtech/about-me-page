@@ -1,6 +1,6 @@
 # Semyon Morgunov / Семён Моргунов
 
-> Head of FinTech at Yandex Uzbekistan — builds products in Central Asia's fast-growing markets, where product, operations, and unit economics are assembled in parallel. 10 years in tech: works in Russia and Uzbekistan, consults companies in Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees, two closed, one on pause). {total} followers across social channels (Telegram {telegram} · LinkedIn {linkedin} · YouTube {youtube}). Based in Tashkent, Uzbekistan. Advises startups and angel-invests in e-com, RetailTech, FinTech, and EdTech.
+> Head of FinTech at Yandex Uzbekistan — builds products in Central Asia's fast-growing markets, where product, operations, and unit economics are assembled in parallel. 10 years in tech: works in Russia and Uzbekistan, consults companies in Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees, two closed, one on pause). {total} followers across social channels (Telegram {telegram} · LinkedIn {linkedin} · YouTube {youtube}). Based in Tashkent, Uzbekistan.
 
 ## About
 
@@ -16,7 +16,8 @@
 
 ## Contact
 
-- Telegram: https://t.me/s_mrgnv
+- Telegram (main): https://t.me/s_mrgnv
+- Email: s@morgunov.tech
 - LinkedIn: https://www.linkedin.com/in/semyon-morgunov/
 - GitHub: https://github.com/morgunovtech
 
@@ -24,6 +25,20 @@
 
 - [Publications / Публикации](https://s.morgunov.tech/notes) — one feed of own notes (the Telegram channel's writing, platform-independent and citable) and articles and talks published elsewhere (vc.ru, YouTube); English at https://s.morgunov.tech/en/notes
 - RSS feed (own notes only): https://s.morgunov.tech/notes/feed.xml
+- [How low-cost airlines make money](https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 6,200+ views
+- [How discount grocers make money](https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru, 30,500+ views
+- [Lessons from 3 years of personal finance management](https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami) — vc.ru, 38,100+ views
+- [Critical review of crowd-investing platform brainbox.vc](https://youtu.be/OJXtFmWNZMM) — YouTube, 3,300+ views
+
+## Talks and press
+
+- [Two years of Korzinka Go: how we emerged, evolved, and ended up in a red ocean](https://youtu.be/BthlUR9eO1M) — talk at Click Data MeetUp / Product Edition (CLICK UZ on YouTube, in Russian), 3,600+ views
+- [INMerge Tashkent 2026](https://www.inmerge.az/inmerge-tashkent-2026) — panel speaker as Head of Fintech, Yandex Uzbekistan (30 April 2026, in English)
+- [Managers Conf, May 2026](https://t.me/raschet7/318) — talk on informal influence in organizations (his channel post about it, in Russian)
+- [Spot.uz: Fuckup Talks, five management mistakes](https://www.spot.uz/ru/2025/12/10/fuckup-talks/) — 10 December 2025, in Russian
+- [Spot.uz: five books for managers](https://www.spot.uz/ru/2026/02/06/semyon-books/) — 6 February 2026, in Russian
+- [Spot.uz: expert comment on Wolt leaving Uzbekistan](https://www.spot.uz/ru/2026/03/02/wolt-opinion/) — 2 March 2026, in Russian
+- [IT Park: President Tech Award 2024 hackathon results](https://www.it-park.uz/ru/itpark/news/itogi-hakatona-president-tech-award-2024) — one of the 10 hackathon mentors (September 2024), in Russian
 
 ## Products
 
@@ -32,7 +47,7 @@
 - [Found You](https://foundyou.morgunov.tech/en/) — web app that shows what a photo reveals before you post it (EXIF and GPS, place context, device, people in the frame) and makes a clean privacy-safe copy; runs in the browser, the file is never uploaded
 - [Fingerprint](https://fprint.morgunov.tech/en/) — web service that shows your browser's uniqueness percentage and explains the signals websites use to recognize you without cookies; every parameter has a plain-language explanation and a concrete action; runs locally, free, no signup
 - [Good Pass](https://good-pass.morgunov.tech/en/) — web app that explains password strength: entropy, crack time, a k-anonymous breach check (only a 5-character hash prefix leaves the browser), a generator and a memory trainer; free, no signup
-- [Telegram channel «Semyon raspravil plechi» / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on product and career; writing what he'd want to read himself; case studies, working frameworks, personal observations; {telegram} followers; 1–2 posts per week, fourth year running
+- [Telegram channel «Semyon raspravil plechi» / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on product and career; writing what he'd want to read himself; case studies, working frameworks, personal observations; {telegram} followers; writing since 2022
 
 ## Ventures (entrepreneurship)
 
@@ -43,17 +58,8 @@
 
 ## Collaboration
 
-- [Consulting](https://s.morgunov.tech/collaborate) — single sessions or monthly cycle covering product, marketing, and strategy
-- [Strategic consulting](https://s.morgunov.tech/collaborate#strategy) — long-term retainer; works as external strategist or advisory board member
-- [Angel investing](https://s.morgunov.tech/collaborate#angel) — pre-seed/seed; sectors: RetailTech, e-com, FinTech, EdTech; markets: CIS, MENA, Eastern Europe
-
-## Publications
-
-- [How low-cost airlines make money](https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 6,200+ views
-- [How discount grocers make money](https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru, 30,500+ views
-- [Lessons from 3 years of personal finance management](https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami) — vc.ru, 38,100+ views
-- [Critical review of crowd-investing platform brainbox.vc](https://youtu.be/OJXtFmWNZMM) — YouTube, 3,300+ views
-- [Two years of Korzinka Go: how we emerged, evolved, and ended up in a red ocean](https://youtu.be/BthlUR9eO1M) — YouTube, 3,600+ views
+- [Consulting](https://s.morgunov.tech/collaborate) — in his words: “I help e-commerce and retail companies in Central Asia get products to positive unit economics: e-grocery and delivery, growth and monetization, product strategy and teams; FinTech outside Uzbekistan.” A one-off session or a monthly cycle; start with a Telegram message to https://t.me/s_mrgnv
+- [Strategic consulting](https://s.morgunov.tech/collaborate#strategy) — long-term retainer as an external strategist
 
 ## Uses / Stack
 

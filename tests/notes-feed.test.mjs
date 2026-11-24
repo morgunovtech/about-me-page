@@ -19,7 +19,8 @@ test('seed: external materials are complete, dated and linked out', () => {
   for (const x of notes.external) {
     assert.match(x.date, /^\d{4}-\d{2}-\d{2}$/);
     assert.match(x.href, /^https:\/\//);
-    assert.ok(['ARTICLE', 'VIDEO'].includes(x.tag));
+    // TALK — a talk on someone else's stage, the venue in `source` (v1.2.7).
+    assert.ok(['ARTICLE', 'VIDEO', 'TALK'].includes(x.tag));
     assert.ok(x.title.ru.trim() && x.title.en.trim(), 'both languages');
     assert.ok(Number.isInteger(x.views) && x.views > 0);
   }
