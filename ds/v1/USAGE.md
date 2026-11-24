@@ -98,8 +98,33 @@ page CSS against `--v4-*`, and take only the fonts from here, with absolute
 URLs (`src: url("https://s.morgunov.tech/fonts/plex-sans-latin-400.woff2")`,
 `/fonts/*` answers with `Access-Control-Allow-Origin: *`). With
 `font-display: swap` the system stack of `--v4-sans` stands in until the files
-arrive, or for good when the origin is unreachable. A copy drifts: diff it
-against `tokens.css` when this file's `?v=` changes.
+arrive, or for good when the origin is unreachable.
+
+A copy drifts, so every copy is kept by one mechanism (TofsDevOps, Lenses,
+Found You): a manifest `ds.json` next to the copy names the origin, the
+directory and every file with the origin's hash — the first 8 hex characters
+of `sha1(file)`, the value `scripts/version-stamp.py` writes into `?v=`, so an
+entry reads «synced to `tokens.css` `fa7fc139`»:
+
+```json
+{"origin": "https://s.morgunov.tech", "root": "s.morgunov.tech",
+ "files": {"ds/v1/tokens.css": "fa7fc139", "ds/v1/fonts.css": "64eea157"}}
+```
+
+`scripts/ds_sync.py <manifest> --check` (or `ds-sync.mjs --check` in a Node
+project) runs offline in the consumer's CI: a file edited by hand or a
+half-done sync fails it. `--write` fetches every listed file from the origin
+and updates the manifest; the consumer's `.github/workflows/ds-sync.yml` runs
+it weekly and opens a PR when anything changed, so a change here reaches
+every copy as a reviewable PR within a week (or at once: run the workflow by
+hand). The hash algorithm is therefore part of this layer's contract: keep
+`?v=` at `sha1[:8]`.
+
+The consumers that link this origin directly (Good Pass, Fingerprint) pin the
+same `?v=` values in their HTML; the origin ignores the query and serves the
+current file, so a change here reaches their visitors on the next uncached
+load — but a returning visitor keeps the immutable cached copy until the pin
+moves. Bumping those pins is still by hand.
 
 A PDF rendered from HTML (WeasyPrint and the like) is a consumer too: use the
 `@media print` palette of `tokens.css` as its light theme and the same
