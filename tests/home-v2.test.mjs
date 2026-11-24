@@ -19,11 +19,11 @@ test('the seed home doc renders every slot, public and edit mode', () => {
   }
 });
 
-test('product cards: TofsDevOps first, version only (no year), the name links out, the live dot is labelled', () => {
+test('product cards: TofsDevOps first, bots then web apps, version only (no year), the name links out, the live dot is labelled', () => {
   const html = renderers.products(seed.home, 'ru', false);
-  assert.deepEqual(seed.home.sections.products.items.map((it) => it.name), ['TofsDevOps', 'FoundYou', 'Fingerprint']);
+  assert.deepEqual(seed.home.sections.products.items.map((it) => it.name), ['TofsDevOps', 'Social Tracker Bot', 'FoundYou', 'Fingerprint', 'Good Pass']);
   // The head carries the version alone — synced from GitHub by scripts/sync-products.mjs.
-  assert.equal((html.match(/<\/span>\n {12}<span>v\d+\.\d+<\/span>\n {10}<\/div>/g) || []).length, 3);
+  assert.equal((html.match(/<\/span>\n {12}<span>v\d+\.\d+<\/span>\n {10}<\/div>/g) || []).length, 5);
   assert.doesNotMatch(html, / · /);
   for (const it of seed.home.sections.products.items) assert.equal(it.year, undefined, it.name);
   assert.match(html, /<h3 class="v4-product-name"><a href="https:\/\/foundyou\.morgunov\.tech\/" target="_blank" rel="noopener noreferrer">FoundYou<\/a><\/h3>/);
