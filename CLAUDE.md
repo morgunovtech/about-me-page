@@ -14,7 +14,7 @@ Personal homepage for Semyon Morgunov, deployed on Cloudflare Pages.
 ```
 about-me-page/
 ├── index.html          # Main page, Russian language (lang="ru") — a template: data-cms-* hooks, seed twin
-├── collaborate.html    # Collaboration page: consulting, advisory, angel investing (RU)
+├── collaborate.html    # Collaboration page: consulting and strategic consulting (RU)
 ├── about.html          # «Принципы» — how/why the site is built (RU); hidden since v0.31.2: noindex, out of the sitemap/footer/llms.txt, until the owner rewrites it
 ├── uses.html           # «Стек» — hardware & software (RU)
 ├── en/                 # English twins: index, collaborate, about, uses (lang="en")
@@ -54,7 +54,7 @@ about-me-page/
 
 - **`/`, `/en/`** — hero (eyebrow «Head of FinTech @ Yandex Uzbekistan», one «Написать в Telegram» button) → stats strip → `01 #about` → `02 #career` → `03 #projects` «Собственные проекты» (tier «Работает»: live product cards — TofsDevOps, Social Tracker Bot, Found You, Fingerprint, Good Pass — with the version synced from GitHub, then «→ Другие проекты на GitHub»; tier «До этого»: past ventures as rows) → `04 #notes` «Публикации» (the three newest feed entries + «→ Все публикации») → `05 #contact` «Связаться» (who writes → «→ Консалтинг: форматы и цены» → «Написать в Telegram» (primary) + `s@morgunov.tech` (`mailto:`, secondary) + reply time). Menu items mirror the section titles (`data-cms-text`).
 - **`/notes`, `/en/notes`** — «Публикации»: own notes (KV articles) and external materials (vc.ru, YouTube — the seed-only `notes` doc) in one feed, newest first, under the Telegram channel block. RSS and the sitemap carry own notes only.
-- **`/collaborate`** — about · consulting (the one consulting phrase `sections.consulting.prose` → two tiers, both buttons «Написать в Telegram →» → the reply time `sections.consulting.note`) · strategic consulting · angel investing · `#work` «Как работаю / Чего не делаю» · contact.
+- **`/collaborate`** — about · consulting (the one consulting phrase `sections.consulting.prose` → two tiers, both buttons «Написать в Telegram →» → the reply time `sections.consulting.note`) · strategic consulting · `#work` «Как работаю / Чего не делаю» · contact. Sections are numbered 01–05; the angel section (`#angel`) and its menu item were removed in v1.2.8.
 - **`/uses`** — hardware groups + software cards.
 - **`/about`** «Принципы» — hidden until the owner rewrites it: `noindex`, not in the footer, sitemap or `llms.txt`; still served and editable in `/admin`.
 - **`/404`** — one bilingual file.
@@ -168,7 +168,7 @@ together with check-sync before committing anything that touches CSS.
 - **CTA convention.** In any button row the primary button comes first. «←» is reserved for back-links to the parent page (always secondary, last); a trailing «→» marks actions that leave the site or start a flow (book, install, check, «узнать подробности»); plain contact buttons (Telegram, «На главную») carry no arrow. A contact labelled as the start of a process («Написать →», «Send a pitch →») is a flow and keeps its arrow.
 - **Telegram is the main contact, `s@morgunov.tech` the second** (owner's decision 2026-11-24, v1.2.7; v0.31.2–v1.2.6 had no e-mail at all). The address appears in exactly three places: the home «Связаться» button row (after the Telegram button), the `llms.txt` Contact list and JSON-LD `Person.email` (`home.seo.email`). Everything else — the hero, `/collaborate`, the footer «нашли опечатку?», `security.txt` — stays Telegram-only (`tests/stage3.test.mjs`).
 - **No calendar booking.** The owner does not use Morgen: no `book.morgen.so` link on a page, in `llms.txt` or in JSON-LD; the `/collaborate` tier buttons lead to Telegram (`tests/presence-audit.test.mjs`).
-- **No angel or advisor claims in `llms.txt` and JSON-LD** until there is an example to name (owner's decision 2026-11-24). The `/collaborate` sections, the hero eyebrow and the meta description still offer them — the owner decides those separately.
+- **No angel investing or advisory anywhere** until there is an example to name (owner's decision 2026-11-24): v1.2.7 took them out of `llms.txt` and JSON-LD, v1.2.8 off the pages — the `/collaborate` `#angel` section and its menu item, the hero eyebrow and tagline, the meta and share descriptions, «advisory board» in `#strategy`, «ищете инвестора» in the home «Связаться» (`tests/presence-audit.test.mjs`). `collabGroups` still renders a `spec` group and `admin-app.js` still labels an `angel` section; neither has content.
 - **Articles use the site's idioms:** `h2` in a note renders like `.v4-section-head` (inline mono number, rule under the title), `h3` like `.v4-h3` (small tracked caps).
 - **JSON-LD** scripts sit at the end of `<body>` (before `script.js`) — the parser reaches the content sooner; the overlay hook is attribute-based, so placement is free.
 - **`_redirects`** holds real redirects only (currently none): Pages serves clean URLs and 308s `/foo.html` itself, and a `/en/ → /en/index.html 200` rewrite is reported by wrangler as an infinite loop and ignored.

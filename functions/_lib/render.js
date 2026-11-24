@@ -405,17 +405,6 @@ export const renderers = {
         </div>`;
   },
 
-  collabAngel: (doc, lang) => {
-    const s = doc.sections.angel;
-    return `<div class="v4-body">
-          <div class="v4-body-aside"></div>
-          <div>
-            ${collabGroups(s.groups, lang)}
-            <div class="v4-help-cta">${btn(s.cta, lang, false, '', false, true)}</div>
-          </div>
-        </div>`;
-  },
-
   // «Как работаю / Чего не делаю» — moved here from the homepage (v0.31.1).
   collabWork: (doc, lang) => {
     const s = doc.sections.work;

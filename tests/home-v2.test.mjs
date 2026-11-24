@@ -99,7 +99,9 @@ test('/collaborate gains «Как работаю» with the owner\'s live copy',
   const html = renderers.collabWork(seed.collaborate, 'ru');
   assert.match(html, /Провожу аудит в полях/);
   assert.match(html, /<h3 class="v4-h3">Чего не делаю<\/h3>/);
-  assert.equal(seed.collaborate.sections.contact.num, '06');
+  // 04 and 05 since the angel section left (v1.2.8).
+  assert.equal(seed.collaborate.sections.work.num, '04');
+  assert.equal(seed.collaborate.sections.contact.num, '05');
   assert.match(renderers.collabWork(seed.collaborate, 'en'), /What I don't do/);
 });
 
