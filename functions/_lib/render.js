@@ -381,11 +381,15 @@ export const renderers = {
         </div>`;
   },
 
+  // The one phrase «с чем ко мне приходить» above the tiers, the reply time
+  // under them (both optional: a doc saved before v1.2.7 has neither).
   collabConsulting: (doc, lang) => {
     const s = doc.sections.consulting;
-    return `<div class="v4-products">
+    const lead = pick(s.prose, lang);
+    const note = pick(s.note, lang);
+    return `${lead ? `<p class="v4-tagline v4-tagline--compact">${renderInline(lead)}</p>\n        ` : ''}<div class="v4-products">
           ${(s.tiers || []).map((t) => tierCard(t, lang)).join('\n          ')}
-        </div>`;
+        </div>${note ? `\n        <p class="v4-terms">${renderInline(note)}</p>` : ''}`;
   },
 
   collabStrategy: (doc, lang) => {

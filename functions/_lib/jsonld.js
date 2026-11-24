@@ -46,6 +46,9 @@ export function renderJsonLd(doc, lang) {
     knowsLanguage: ['ru', 'en'],
     knowsAbout: seo.knowsAbout,
     sameAs: seo.sameAs,
+    // The second contact after Telegram (owner's decision 2026-11-24); a doc
+    // without one simply has no email (JSON.stringify drops undefined).
+    email: seo.email || undefined,
     worksFor: { '@type': 'Organization', name: seo.worksFor.name, url: seo.worksFor.url },
     hasOccupation: [
       {
@@ -161,15 +164,19 @@ export function renderArticleJsonLd(doc, lang) {
 // --- Sub-pages: WebPage (+ Service/OfferCatalog on /collaborate, BreadcrumbList
 // elsewhere) regenerated from the page doc, so name/dateModified/prices follow
 // KV edits and agree with the sitemap. Home keeps its own richer graph.
+// The Service describes consulting only: angel investing and advisory stay off
+// the structured data until there is an example to show (owner's decision
+// 2026-11-24). Its description is the consulting section's lead phrase; the
+// text here is the fallback for a doc without one.
 const SERVICE = {
   ru: {
-    name: 'Консалтинг и ангельские инвестиции',
-    description: 'Консалтинг и ангельские инвестиции для компаний в e-com, ритейле и FinTech.',
+    name: 'Консалтинг по e-com и продукту',
+    description: 'Помогаю e-com и ритейлу в Центральной Азии довести продукт до положительной юнит-экономики: e-grocery и доставка, рост и монетизация, продуктовая стратегия и команда; финтех — вне Узбекистана.',
     catalog: 'Консалтинговые услуги',
   },
   en: {
-    name: 'Consulting and angel investing',
-    description: 'Consulting and angel investing for companies in e-com, retail, and FinTech.',
+    name: 'E-com and product consulting',
+    description: 'I help e-commerce and retail companies in Central Asia get products to positive unit economics: e-grocery and delivery, growth and monetization, product strategy and teams; FinTech outside Uzbekistan.',
     catalog: 'Consulting services',
   },
 };
@@ -204,7 +211,8 @@ export function renderPageJsonLd(doc, lang, page) {
   };
   const graph = [webpage];
   if (page === 'collaborate') {
-    const tiers = (doc.sections && doc.sections.consulting && doc.sections.consulting.tiers) || [];
+    const consulting = (doc.sections && doc.sections.consulting) || {};
+    const tiers = consulting.tiers || [];
     const priceOf = (t) => {
       const m = plain(pick(t.price, l)).replace(/[\s\u00a0]/g, '').match(/(\d[\d,]*(?:\.\d+)?)/);
       return m ? m[1].replace(/,/g, '') : undefined;
@@ -213,11 +221,11 @@ export function renderPageJsonLd(doc, lang, page) {
       '@type': 'Service',
       '@id': url + '#service',
       name: SERVICE[l].name,
-      description: SERVICE[l].description,
+      description: plain(pick(consulting.prose, l)) || SERVICE[l].description,
       url,
       provider: { '@id': ORIGIN + '/#person' },
-      areaServed: ['Russia', 'CIS', 'MENA', 'Eastern Europe'],
-      serviceType: ['Product consulting', 'Strategic advisory', 'Angel investing'],
+      areaServed: ['Uzbekistan', 'Kyrgyzstan', 'Russia'],
+      serviceType: ['Product consulting', 'Strategic consulting'],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: SERVICE[l].catalog,

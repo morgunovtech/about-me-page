@@ -40,11 +40,13 @@
         "en": "Семён Моргунов"
       },
       "personDescription": {
-        "ru": "Head of FinTech в Yandex Uzbekistan. Запускает продукты на быстрорастущих рынках Центральной Азии — продукт, операционку и юнит-экономику собирает параллельно. 10 лет в IT (EdTech, e-com, FinTech), работа в России и Узбекистане, консалтинг в Кыргызстане. С 2009 года запустил четыре бизнеса (один продан сотрудникам, два закрыли, один на паузе). Эдвайзер и ангельский инвестор. Автор Telegram-канала «Семён расправил плечи».",
-        "en": "Head of FinTech at Yandex Uzbekistan. Builds products in Central Asia's fast-growing markets — product, operations, and unit economics assembled in parallel. 10 years in tech (EdTech, e-com, FinTech), worked in Russia and Uzbekistan, consults in Kyrgyzstan. Since 2009, launched four of his own ventures (one sold to employees, two closed, one on pause). Advisor and angel investor. Author of the Telegram channel \"Semyon raspravil plechi\"."
+        "ru": "Head of FinTech в Yandex Uzbekistan. Запускает продукты на быстрорастущих рынках Центральной Азии — продукт, операционку и юнит-экономику собирает параллельно. 10 лет в IT (EdTech, e-com, FinTech), работа в России и Узбекистане, консалтинг в Кыргызстане. С 2009 года запустил четыре бизнеса (один продан сотрудникам, два закрыли, один на паузе). Автор Telegram-канала «Семён расправил плечи».",
+        "en": "Head of FinTech at Yandex Uzbekistan. Builds products in Central Asia's fast-growing markets — product, operations, and unit economics assembled in parallel. 10 years in tech (EdTech, e-com, FinTech), worked in Russia and Uzbekistan, consults in Kyrgyzstan. Since 2009, launched four of his own ventures (one sold to employees, two closed, one on pause). Author of the Telegram channel \"Semyon raspravil plechi\"."
       },
       "knowsAbout": [
         "E-commerce",
+        "E-grocery",
+        "Dark stores",
         "Product Management",
         "Growth",
         "Monetization",
@@ -52,9 +54,8 @@
         "EdTech",
         "RetailTech",
         "FinTech",
+        "BNPL",
         "Digital Privacy",
-        "Startup Advisory",
-        "Angel Investing",
         "Central Asia markets",
         "CIS markets",
         "Cross-cultural product management"
@@ -67,6 +68,7 @@
         "https://www.youtube.com/@semyon_morgunov",
         "https://github.com/morgunovtech"
       ],
+      "email": "s@morgunov.tech",
       "worksFor": {
         "name": "Yandex Uzbekistan",
         "url": "https://yandex.uz/"
@@ -547,6 +549,13 @@
             },
             "href": "https://t.me/s_mrgnv",
             "primary": true
+          },
+          {
+            "label": {
+              "ru": "s@morgunov.tech",
+              "en": "s@morgunov.tech"
+            },
+            "href": "mailto:s@morgunov.tech"
           }
         ],
         "links": [
@@ -1199,12 +1208,12 @@
     "site": "s.morgunov.tech",
     "page": "collaborate",
     "rev": 1,
-    "updatedAt": "2026-05-25T00:00:00Z",
-    "dateModified": "2026-11-09",
+    "updatedAt": "2026-11-24T00:00:00Z",
+    "dateModified": "2026-11-24",
     "meta": {
       "title": {
-        "ru": "Сотрудничество — Семён Моргунов | morgunov.tech",
-        "en": "Collaborate — Semyon Morgunov | morgunov.tech"
+        "ru": "Консалтинг по e-com и продукту в Центральной Азии — Семён Моргунов",
+        "en": "E-com and product consulting in Central Asia — Semyon Morgunov"
       },
       "description": {
         "ru": "Консалтинг и ангельские инвестиции. Помогаю компаниям в e-com, ритейле и FinTech найти точки роста и выстроить продукт.",
@@ -1283,6 +1292,10 @@
           "ru": "Консалтинг",
           "en": "Consulting"
         },
+        "prose": {
+          "ru": "Помогаю e-com и ритейлу в Центральной Азии довести продукт до положительной юнит-экономики: e-grocery и доставка, рост и монетизация, продуктовая стратегия и команда; финтех — вне Узбекистана.",
+          "en": "I help e-commerce and retail companies in Central Asia get products to positive unit economics: e-grocery and delivery, growth and monetization, product strategy and teams; FinTech outside Uzbekistan."
+        },
         "tiers": [
           {
             "tag": {
@@ -1312,10 +1325,10 @@
               }
             ],
             "cta": {
-              "href": "https://book.morgen.so/morgunov",
+              "href": "https://t.me/s_mrgnv",
               "label": {
-                "ru": "Забронировать →",
-                "en": "Book a session →"
+                "ru": "Написать в Telegram →",
+                "en": "Message me on Telegram →"
               }
             }
           },
@@ -1351,14 +1364,18 @@
               }
             ],
             "cta": {
-              "href": "https://book.morgen.so/morgunov",
+              "href": "https://t.me/s_mrgnv",
               "label": {
-                "ru": "Забронировать →",
-                "en": "Book a session →"
+                "ru": "Написать в Telegram →",
+                "en": "Message me on Telegram →"
               }
             }
           }
-        ]
+        ],
+        "note": {
+          "ru": "Обычно отвечаю в течение 10 рабочих дней.",
+          "en": "I usually reply within 10 business days."
+        }
       },
       "strategy": {
         "num": "03",
@@ -1630,8 +1647,8 @@
         "en": "{telegram} on Telegram"
       },
       "prose": {
-        "ru": "[Telegram‑канал](https://t.me/raschet7) о продукте и карьере — пишу то, что сам хотел бы читать. Разборы кейсов, рабочие фреймворки и личные наблюдения. 1–2 поста в неделю, четвёртый год подряд.",
-        "en": "[Telegram channel](https://t.me/raschet7) on product and career — writing what I'd want to read myself. Case studies, working frameworks, and personal observations. 1–2 posts per week, fourth year running."
+        "ru": "[Telegram‑канал](https://t.me/raschet7) о продукте и карьере — пишу то, что сам хотел бы читать. Разборы кейсов, рабочие фреймворки и личные наблюдения. Пишу с 2022 года.",
+        "en": "[Telegram channel](https://t.me/raschet7) on product and career — writing what I'd want to read myself. Case studies, working frameworks, and personal observations. Writing since 2022."
       },
       "more": {
         "label": {
@@ -1644,8 +1661,8 @@
     "external": [
       {
         "date": "2025-06-26",
-        "tag": "VIDEO",
-        "source": "YouTube",
+        "tag": "TALK",
+        "source": "Click Data MeetUp / Product Edition · YouTube",
         "href": "https://youtu.be/BthlUR9eO1M",
         "title": {
           "ru": "2 года Korzinka Go: как мы зарождались, менялись и оказались в алом океане",

@@ -9,7 +9,7 @@ Live at **[s.morgunov.tech](https://s.morgunov.tech)** — the apex `morgunov.te
 Pure static HTML/CSS/JS. **No build step, no npm, no framework.** Hosted on Cloudflare Pages.
 
 - 9 HTML templates (RU + EN twins and a bilingual `404.html`) plus the `/notes` shells rendered by Pages Functions:
-  - **home** — about, career, own projects (live products + past ventures), publications, contact (Telegram only);
+  - **home** — about, career, own projects (live products + past ventures), publications, contact (Telegram, e-mail as the second channel);
   - **`/notes`** — publications: own notes and articles/talks published elsewhere, one feed;
   - **`/collaborate`** — consulting, strategic consulting, angel investing, how I work;
   - **`/uses`** — hardware and software;

@@ -24,11 +24,15 @@ test('/uses and /collaborate renderers escape a hostile leaf and keep markdown e
   assert.match(html, /N &lt;script&gt;x&lt;\/script&gt;/);
   assert.match(html, /\$5 \/ <strong>mo<\/strong>/);
   assert.match(html, /<code>Z<\/code>/);
-  const collab = { sections: { consulting: { tiers: [{ tag: { ru: 'РАЗОВО' }, price: { ru: '$250 / **SESSION**' }, name: { ru: 'Разовая', en: 'Single' }, features: [{ ru: '75 **минут**' }], cta: { href: 'https://book.example', label: { ru: 'Забронировать →' } } }] } } };
+  // v1.2.7: the tier buttons lead to Telegram (no calendar booking), the lead
+  // phrase and the reply note are leaves like any other — escaped.
+  const collab = { sections: { consulting: { prose: { ru: 'Lead <b>x</b> **y**' }, note: { ru: 'Reply <i>z</i>' }, tiers: [{ tag: { ru: 'РАЗОВО' }, price: { ru: '$250 / **SESSION**' }, name: { ru: 'Разовая', en: 'Single' }, features: [{ ru: '75 **минут**' }], cta: { href: 'https://t.me/s_mrgnv', label: { ru: 'Написать в Telegram →' } } }] } } };
   const tiers = renderers.collabConsulting(collab, 'ru');
   assert.match(tiers, /<span class="v4-pricing">\$250 \/ <strong>SESSION<\/strong><\/span>/);
   assert.match(tiers, /<li>75 <strong>минут<\/strong><\/li>/);
-  assert.match(tiers, /class="v4-btn" href="https:\/\/book.example" target="_blank" rel="noopener noreferrer">Забронировать →<\/a>/);
+  assert.match(tiers, /class="v4-btn" href="https:\/\/t\.me\/s_mrgnv" target="_blank" rel="noopener noreferrer">Написать в Telegram →<\/a>/);
+  assert.match(tiers, /^<p class="v4-tagline v4-tagline--compact">Lead &lt;b&gt;x&lt;\/b&gt; <strong>y<\/strong><\/p>/);
+  assert.match(tiers, /<p class="v4-terms">Reply &lt;i&gt;z&lt;\/i&gt;<\/p>$/);
 });
 
 test('renderProse: paragraphs and lists from block markdown', () => {
