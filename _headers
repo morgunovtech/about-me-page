@@ -9,13 +9,18 @@
   ! Access-Control-Allow-Origin
 
 # about-me-page-cr2.pages.dev is Cloudflare's technical host for this Pages
-# project; the site is published at https://s.morgunov.tech only, so search
-# engines are told not to index the technical one. It sits right after /* so
-# `!` replaces that block's «index, follow» and the rules below still apply.
-# Preview deployments (<hash>.about-me-page-cr2.pages.dev) already get noindex
-# from Cloudflare. Function-generated routes (/notes, /sitemap.xml, /llms.txt)
-# do not get _headers at all; the /notes pages name s.morgunov.tech as canonical.
+# project and <hash|branch>.about-me-page-cr2.pages.dev are its previews; the
+# site is published at https://s.morgunov.tech only, so search engines are told
+# not to index any of them. Cloudflare's own noindex on previews loses to the
+# «index, follow» of /*, hence the second rule. Both sit right after /* so `!`
+# replaces that value and the rules below still apply. Function-generated
+# routes (/notes, /sitemap.xml, /llms.txt) do not get _headers at all; the
+# /notes pages name s.morgunov.tech as canonical.
 https://:project.pages.dev/*
+  ! X-Robots-Tag
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
   ! X-Robots-Tag
   X-Robots-Tag: noindex
 
