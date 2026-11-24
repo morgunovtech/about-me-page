@@ -89,6 +89,40 @@ Then apply the page class on `<body>`:
 <body class="v4-page">
 ```
 
+## Self-contained consumers (inline tokens)
+
+A product that other people self-host — the TofsDevOps status page — must not
+depend on this site for its colours and layout: copy the `:root` and theme
+blocks of `tokens.css` into the page's own `<style>` (they are small), write the
+page CSS against `--v4-*`, and take only the fonts from here, with absolute
+URLs (`src: url("https://s.morgunov.tech/fonts/plex-sans-latin-400.woff2")`,
+`/fonts/*` answers with `Access-Control-Allow-Origin: *`). With
+`font-display: swap` the system stack of `--v4-sans` stands in until the files
+arrive, or for good when the origin is unreachable. A copy drifts: diff it
+against `tokens.css` when this file's `?v=` changes.
+
+A PDF rendered from HTML (WeasyPrint and the like) is a consumer too: use the
+`@media print` palette of `tokens.css` as its light theme and the same
+`@font-face` rules with absolute URLs — the renderer fetches the woff2 files
+itself.
+
+## Status colours (not in the layer yet)
+
+`tokens.css` has no semantic palette: no «ok / warning / down». Until it does,
+the consumers that need one (Fingerprint, the TofsDevOps status page) share
+these page-local values, checked for AA on `--v4-bg` and `--v4-paper` of each
+theme — the candidate for `--v4-ok`, `--v4-warn`, `--v4-bad` if they ever move
+into the layer:
+
+| Theme | ok | warn | bad |
+|-------|----|------|-----|
+| light | `#27703f` | `#8a5a00` | `#b3261e` |
+| dark | `#6cc08a` | `#e2a93b` | `#ff7a6e` |
+| high-contrast | `#7dffb0` | `#ffe08a` | `#ff8a80` |
+
+Colour the text, the line or a square mark — never a filled block (the only
+filled surface in the system is the primary button).
+
 ## Consumer Content-Security-Policy
 
 If your service sends a CSP, allow the DS origin for styles and fonts:
