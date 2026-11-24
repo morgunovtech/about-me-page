@@ -2,7 +2,7 @@
 
 Source of Semyon Morgunov's personal site: zero-build static pages, an edge CMS on Cloudflare Pages, KV and R2, and the morgunov.tech design system that other projects reuse.
 
-Live at **[s.morgunov.tech](https://s.morgunov.tech)** · **License:** MIT (code)
+Live at **[s.morgunov.tech](https://s.morgunov.tech)** — the apex `morgunov.tech` and `www` 301 to it through a Cloudflare Redirect Rule · **License:** MIT (code)
 
 ## Stack
 
