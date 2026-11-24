@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 
 import { renderers } from '../functions/_lib/render.js';
 import { buildFeed } from '../functions/_lib/notes-feed.js';
+import { renderJsonLd } from '../functions/_lib/jsonld.js';
 
 const seed = JSON.parse(readFileSync(new URL('../content.seed.json', import.meta.url), 'utf8'));
 const clone = (v) => JSON.parse(JSON.stringify(v));
@@ -34,6 +35,23 @@ test('product cards: TofsDevOps first, bots then web apps, version only (no year
   assert.match(edit, /data-cms-text="sections\.products\.items\.0\.version">v\d+\.\d+</);
   assert.doesNotMatch(edit, /\.year"/);
   assert.doesNotMatch(edit, /<h3 class="v4-product-name"[^>]*><a /);
+});
+
+test('web products: the Russian page links the root, the English page the product\'s /en/ page — card and JSON-LD', () => {
+  const ru = renderers.products(seed.home, 'ru', false);
+  const en = renderers.products(seed.home, 'en', false);
+  const ldRu = renderJsonLd(seed.home, 'ru');
+  const ldEn = renderJsonLd(seed.home, 'en');
+  const esc = (s) => s.replace(/[./-]/g, '\\$&');
+  for (const host of ['foundyou', 'fprint', 'good-pass']) {
+    const root = `https://${host}.morgunov.tech/`;
+    // The name and the button both link out: two hrefs per card.
+    assert.equal((ru.match(new RegExp(`href="${esc(root)}"`, 'g')) || []).length, 2, host + ' ru');
+    assert.equal((en.match(new RegExp(`href="${esc(root)}en/"`, 'g')) || []).length, 2, host + ' en');
+    assert.doesNotMatch(en, new RegExp(`href="${esc(root)}"`), host + ' en keeps no root link');
+    assert.match(ldRu, new RegExp(`"url": "${esc(root)}"`), host + ' JSON-LD ru');
+    assert.match(ldEn, new RegExp(`"url": "${esc(root)}en/"`), host + ' JSON-LD en');
+  }
 });
 
 test('notes block: up to three rows, own notes stay on site, external ones open a new tab', () => {
