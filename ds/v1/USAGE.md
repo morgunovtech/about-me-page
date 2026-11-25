@@ -224,7 +224,7 @@ focus, pressed (`:active`), disabled and busy. Disabled is `disabled` on a
 `<button>` or `aria-disabled="true"` on a link — a dashed outline in
 `--v4-dim`. Busy is the class `.is-busy` together with `aria-busy="true"` and
 `aria-disabled="true"` while the request runs: the button keeps its look and
-its focus and shows the pulsing square before the label. On a device that
+its focus and shows the pulsing dot before the label. On a device that
 cannot hover (`@media (hover: none)`) hover paints nothing, so a tapped button
 does not stay inverted. A paragraph in `.v4-prose` and an item of `.v4-list`
 stop at 62ch; on a phone (640px and below) `body.v4-page` is 16px.
