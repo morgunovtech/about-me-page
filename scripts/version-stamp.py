@@ -60,6 +60,7 @@ ASSETS = [
     ("ds/v1/tokens.css", re.compile(r'(/ds/v1/tokens\.css\?v=)[0-9a-fA-F]+')),
     ("ds/v1/base.css",   re.compile(r'(/ds/v1/base\.css\?v=)[0-9a-fA-F]+')),
     ("ds/v1/components.css", re.compile(r'(/ds/v1/components\.css\?v=)[0-9a-fA-F]+')),
+    ("ds/v1/chrome.js", re.compile(r'(/ds/v1/chrome\.js\?v=)[0-9a-fA-F]+')),
 ]
 IMAGE_GLOBS = ["images/uses/*.webp"]
 # Matches any /images/uses/<name>.webp?v=<hash> reference. The filename

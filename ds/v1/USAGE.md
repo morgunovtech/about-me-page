@@ -13,7 +13,8 @@ License: the layer is MIT (© Semyon Morgunov, [LICENSE](../../LICENSE) in the r
 | `tokens.css` | colour + type tokens (`--v4-*`) for 4 themes | **the brand source of truth** |
 | `fonts.css` | `@font-face` for IBM Plex Sans + Mono | yes |
 | `base.css` | reset, body/type defaults, `.sr-only`, `.skip-link` | yes |
-| `components.css` | top bar, language switch, theme switcher, buttons (`.v4-btn`), section heads, lists, prose, footer, focus ring, `.v4-root` shell | yes |
+| `components.css` | top bar, service mark, language switch, theme switcher, buttons (`.v4-btn`), section heads, lists, prose, footer, focus ring, `.v4-root` shell | yes |
+| `chrome.js` | the behaviour of the bar: theme, the dropdown controller, anchor navigation | yes — required with the service chrome |
 
 **Not** in the layer (page-specific to s.morgunov.tech, do not expect them):
 hero, stats strip, career/ventures tables, product/use cards, /collaborate
@@ -44,12 +45,12 @@ Paste into any service's `<head>`. Load order matters:
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/tokens.css?v=5629caeb" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/base.css?v=0e404315" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=724d4169" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=4621707b" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript>
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/tokens.css?v=5629caeb" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/base.css?v=0e404315" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=724d4169" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=4621707b" />
 </noscript>
 ```
 
@@ -73,17 +74,93 @@ The `try/catch` matters: `localStorage` itself throws when storage is blocked
 (Chrome «block all cookies», some webviews) and an unguarded read would leave
 the page without a theme.
 
-## Top bar (optional chrome)
+## Service chrome (required for a family service)
 
-`components.css` ships the header primitives the main site uses: a `.v4-bar`
-with a `.v4-nav.v4-dropdown` (links inline on desktop, a «Menu» dropdown
-≤640px) and two more dropdowns on the right — language (`.v4-lang`) and theme
-(`.v4-theme`). Every dropdown is the same shape: a toggle button with
-`aria-controls` + a `.v4-menu` panel of `.v4-menu-item`s. The site's
-`script.js` drives them (one open at a time, Escape/outside click/focus-out,
-arrow keys) and stamps `data-js` on `<html>`; without it a `:focus-within`
-fallback still opens the panels, so nothing depends on JavaScript. Copy the
-header markup from any page of the site, or skip it and keep just the tokens.
+A page on `*.morgunov.tech` made for people repeats the chrome of the main
+site: the same bar, the language and theme controls in the same place, the
+same footer. A visitor who knows one page of the family knows them all — a
+header of the service's own makes them learn the interface again. «Tokens
+only» is for two cases: a page other people host themselves (see
+«Self-contained consumers») and a document for print.
+
+| Part | Markup | Rule |
+|------|--------|------|
+| Skip link | `a.skip-link`, first in `<body>` | leads to `#main` |
+| Shell | `div.v4-root` | up to 1280px wide |
+| Bar | `header.v4-bar` | the full width of the shell, an ink rule under it |
+| Service mark | `a.v4-service` → `https://s.morgunov.tech/` | `MORGUNOV.TECH / NAME`; at 640px and below only the name shows |
+| Navigation | `nav.v4-nav.v4-dropdown` with `.v4-bar-mid` | at most five links; a «Меню» dropdown at 640px and below; leave the whole `nav` out when the page has no sections |
+| Language | `.v4-dropdown.v4-lang` | `RU ⌄`; the items are links to the same page in the other language |
+| Theme | `.v4-dropdown.v4-theme` | the icon button; four items in this order: light, dark, auto, high contrast |
+| Footer | `footer.v4-foot` | name · year · build on the left, the privacy line on the right |
+
+The right edge has one order everywhere: language, then theme at the very
+edge. Labels, icons and the behaviour of the menus are the site's, not
+look-alikes.
+
+<!-- chrome:snippet:start -->
+```html
+<body class="v4-page">
+  <a href="#main" class="skip-link">Перейти к основному содержимому</a>
+  <div class="v4-root">
+    <header class="v4-bar" id="top">
+      <a class="v4-service" href="https://s.morgunov.tech/"><span class="v4-service-family">morgunov.tech</span><span class="v4-service-sep" aria-hidden="true">/</span><span class="v4-service-name">Service</span></a>
+      <nav class="v4-nav v4-dropdown" aria-label="Основная навигация">
+        <button class="v4-bar-btn v4-nav-toggle" type="button" aria-controls="site-nav">Меню<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+        <div class="v4-bar-mid" id="site-nav">
+          <a href="#check">Проверка</a>
+          <a href="#how">Как это работает</a>
+        </div>
+      </nav>
+      <div class="v4-bar-right">
+        <div class="v4-dropdown v4-lang">
+          <button class="v4-bar-btn v4-lang-btn" type="button" aria-haspopup="menu" aria-controls="lang-menu" id="lang-toggle" aria-label="RU — сменить язык">RU<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+          <div class="v4-menu" id="lang-menu" role="menu" aria-labelledby="lang-toggle">
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="true" href="/" hreflang="ru" lang="ru">Русский</a>
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="false" href="/en/" hreflang="en" lang="en">English</a>
+          </div>
+        </div>
+        <div class="v4-dropdown v4-theme">
+          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-controls="theme-menu" id="theme-toggle" aria-label="Сменить тему оформления">
+            <svg class="v4-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3"></circle><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"></path></svg>
+            <svg class="v4-icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 9A6 6 0 1 1 7 2.5a4.5 4.5 0 0 0 6.5 6.5z"></path></svg>
+            <svg class="v4-icon-contrast" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="8" cy="8" r="6"></circle><path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path></svg>
+          </button>
+          <div class="v4-menu v4-theme-menu" id="theme-menu" role="menu" aria-labelledby="theme-toggle">
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">Светлая</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">Тёмная</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">Авто</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">Высокий контраст</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- the page -->
+    </main>
+
+    <footer class="v4-foot">
+      <span>morgunov.tech / service · 2026 · build&nbsp;<code>BUILD</code></span>
+      <span class="v4-foot-privacy">Без cookies, трекеров и аналитики</span>
+    </footer>
+  </div>
+  <script defer src="https://s.morgunov.tech/ds/v1/chrome.js?v=ade46cf8"></script>
+</body>
+```
+<!-- chrome:snippet:end -->
+
+English labels: «Skip to main content», «Main navigation», «Menu», «EN — change
+language», «Change colour theme», «Light», «Dark», «Auto», «High contrast»,
+«No cookies, trackers or analytics».
+
+`chrome.js` is the site's `script.js` without its site-only parts — a checked
+twin (`scripts/build-chrome.mjs`), so the menus of a service behave exactly as
+on the site: one open at a time, Escape, outside click, focus-out, arrow keys,
+the «theme-preference» key shared across the family's pages of one origin. It
+needs nothing but the markup above and stamps `data-js` on `<html>`; without it
+a `:focus-within` fallback still opens the panels, so nothing depends on
+JavaScript. The theme-init script of «Theme mechanism» stays in `<head>`.
 
 Then apply the page class on `<body>`:
 
@@ -176,6 +253,7 @@ If your service sends a CSP, allow the DS origin for styles and fonts:
 ```
 style-src 'self' 'unsafe-inline' https://s.morgunov.tech;
 font-src  'self' https://s.morgunov.tech;
+script-src 'self' https://s.morgunov.tech;   (for chrome.js)
 ```
 
 (`'unsafe-inline'` only if you inline the theme script above; otherwise move it

@@ -7,6 +7,11 @@
      lands (progressive enhancement for the language switch and mobile nav). */
   root.setAttribute('data-js', '');
 
+  /* site-only:start — from here to the matching «site-only:end» the code is
+     s.morgunov.tech's own. Everything else in this file is the family chrome
+     (theme, dropdowns, anchor navigation) and ships to the services as
+     ds/v1/chrome.js, which scripts/build-chrome.mjs cuts from this file. */
+
   /* --- 404 page: one bilingual file. The head script only detects the
      language (data-i18n="en"); lang, title, copy, labels, hrefs and the
      language menu's checked state all switch here, atomically (attributes:
@@ -32,6 +37,8 @@
     '%c' + greeting,
     'font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif; color: #d9531e; padding: 8px 0;'
   );
+
+  /* site-only:end */
 
   const themeButtons = Array.from(document.querySelectorAll('.v4-theme-btn'));
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');

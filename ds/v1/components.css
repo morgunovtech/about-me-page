@@ -364,6 +364,63 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   }
 }
 
+/* --- Service mark: «MORGUNOV.TECH / FINGERPRINT» at the left of the bar of a
+   family service. The family name leads home (s.morgunov.tech); the service
+   name follows it. The main site has no mark — it is the family. --- */
+.v4-service {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--v4-mono);
+  font-size: var(--v4-label-size);
+  font-weight: var(--v4-label-weight);
+  letter-spacing: var(--v4-label-tracking);
+  text-transform: uppercase;
+  color: var(--v4-fg);
+  text-decoration: none;
+  white-space: nowrap;
+  margin-right: 22px;
+  padding: 8px 0;
+}
+
+.v4-service-sep {
+  color: var(--v4-dim);
+}
+
+.v4-service-name {
+  color: var(--v4-muted);
+  min-width: 0;
+  transition: color 0.15s ease;
+}
+
+.v4-service:hover .v4-service-name,
+.v4-service:focus-visible .v4-service-name {
+  color: var(--v4-orange-text);
+}
+
+/* 640px and below: only the service name fits beside «Меню» and the two
+   controls. The family name leaves the screen, not the accessible name. */
+@media (max-width: 640px) {
+  .v4-service {
+    margin-right: 12px;
+    min-width: 0;
+  }
+  .v4-service-family,
+  .v4-service-sep {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+  .v4-service-name {
+    color: var(--v4-fg);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 /* --- Mobile top bar: one row ---
    Below 640px the seven nav links no longer wrap into two rows: the nav
    collapses into a «Меню» dropdown (left) while the language and theme
