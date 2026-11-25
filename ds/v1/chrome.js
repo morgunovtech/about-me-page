@@ -127,11 +127,16 @@
      menu (so Escape and the arrows work) and when a menu closes. Chrome then
      paints the keyboard focus ring around a button the visitor has just
      clicked with the mouse. A focus that follows a pointer action is marked
-     with data-pointer-focus, and components.css draws no ring on it; any key
-     press removes the mark, so keyboard navigation keeps its ring. */
+     with data-pointer-focus, and components.css draws no ring on it; a key
+     press removes the mark, so keyboard navigation keeps its ring. A modifier
+     on its own, or a shortcut with ⌘ / Ctrl / Alt, is not navigation: ⌘⇧4 for
+     a screenshot used to paint the ring around the menu just opened with the
+     mouse. */
   let byPointer = false;
+  const MODIFIER_KEYS = ['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'AltGraph', 'Fn', 'OS'];
   document.addEventListener('pointerdown', () => { byPointer = true; }, true);
-  document.addEventListener('keydown', () => {
+  document.addEventListener('keydown', (event) => {
+    if (event.metaKey || event.ctrlKey || event.altKey || MODIFIER_KEYS.includes(event.key)) return;
     byPointer = false;
     dropdowns.forEach((d) => d.toggle.removeAttribute('data-pointer-focus'));
   }, true);

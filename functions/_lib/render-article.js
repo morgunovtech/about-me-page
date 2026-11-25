@@ -1,7 +1,7 @@
 // Builds the public (or preview) Response for a single article: precompute the
 // scalar helper fields, then overlay the doc onto the embedded shell using the
 // Article JSON-LD renderer.
-import { pick } from './i18n.js';
+import { pick, fmtDate } from './i18n.js';
 import { escapeAttr, escapeHtml } from './markdown.js';
 import { renderArticleJsonLd } from './jsonld.js';
 import { overlay } from './overlay.js';
@@ -10,17 +10,6 @@ import { loadArticle } from './articles.js';
 import { loadDoc } from './content.js';
 import { topicsOf, topicUrl, pickL } from './notes-feed.js';
 import { ORIGIN, NAME, buildOf } from './site.js';
-
-function dateDisplay(date, lang) {
-  if (!date) return '';
-  try {
-    return new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'ru-RU', {
-      day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
-    }).format(new Date(date));
-  } catch {
-    return date;
-  }
-}
 
 const nonEmpty = (v) => !!(v && String(v).trim());
 
@@ -67,7 +56,7 @@ export async function renderArticlePage(env, slug, lang, request, opts = {}) {
   // No EN text yet → the EN URL 404s, so the shell drops the hreflang="en"
   // alternate and the English menu item (data-cms-omit="_noEn").
   doc._noEn = !(nonEmpty(doc.title && doc.title.en) && nonEmpty(doc.body && doc.body.en));
-  doc._dateDisplay = dateDisplay(doc.date, lang);
+  doc._dateDisplay = fmtDate(doc.date, lang);
   doc._build = buildOf(env);
   // <time> needs a machine-readable datetime next to the localized text.
   doc._dateHtml = doc.date

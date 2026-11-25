@@ -7,7 +7,7 @@
 // no RSS item, no sitemap URL — only a row in the feed that links out.
 import { escapeHtml, escapeAttr, safeHref } from './markdown.js';
 import { fmtNum, channelItem } from './render.js';
-import { fmtDate, NEW_TAB } from './i18n.js';
+import { fmtDate, outMark } from './i18n.js';
 import { noteUrl } from './articles.js';
 import { ORIGIN } from './site.js';
 
@@ -60,16 +60,19 @@ export function liveTopics(articles, notesDoc, lang) {
     .filter((t) => t.count > 0);
 }
 
-// «Темы: Все · Приватность · Менеджмент команды» above the feed. The page you
-// are on is text with aria-current, not a link — one sign for one state.
-export function topicNavHtml(topics, lang, current) {
+// «Все 52 · Менеджмент команды 9 · …» above the feed: every topic with how much
+// is in it, and «Все» with the total (`total`: the whole feed in this language).
+// The page you are on is text with aria-current, not a link — one sign for one
+// state. The number is data: a mono count after the label.
+export function topicNavHtml(topics, lang, current, total) {
   if (!topics.length) return '';
   const l = lang === 'en' ? 'en' : 'ru';
-  const item = (label, href, on) =>
-    on ? `<span aria-current="page">${escapeHtml(label)}</span>` : `<a href="${escapeAttr(href)}">${escapeHtml(label)}</a>`;
-  const all = item(l === 'en' ? 'All' : 'Все', (l === 'en' ? '/en' : '') + '/notes', !current);
-  const rest = topics.map((t) => item(pickL(t.name, l), topicUrl(t.key, l), t.key === current));
-  return `<nav class="v4-notes-topics" aria-label="${l === 'en' ? 'Topics' : 'Темы'}">${[all, ...rest].join('<span aria-hidden="true"> · </span>')}</nav>`;
+  const count = (n) => (n > 0 ? `<span class="v4-count">${fmtNum(n, l)}</span>` : '');
+  const item = (label, href, on, n) =>
+    on ? `<span aria-current="page">${escapeHtml(label)}${count(n)}</span>` : `<a href="${escapeAttr(href)}">${escapeHtml(label)}${count(n)}</a>`;
+  const all = item(l === 'en' ? 'All' : 'Все', (l === 'en' ? '/en' : '') + '/notes', !current, total);
+  const rest = topics.map((t) => item(pickL(t.name, l), topicUrl(t.key, l), t.key === current, t.count));
+  return `<nav class="v4-notes-topics" aria-label="${l === 'en' ? 'Topics' : 'Темы'}">${[all, ...rest].join('')}</nav>`;
 }
 
 export function feedItemHtml(entry, lang) {
@@ -77,40 +80,45 @@ export function feedItemHtml(entry, lang) {
   const date = it.date
     ? `<time class="v4-note-date" datetime="${escapeAttr(it.date)}">${escapeHtml(fmtDate(it.date, lang))}</time>`
     : '';
+  // A row of the site's table: the date in the first column; the title and
+  // what goes under it — the excerpt of a note, the source of an external
+  // material — in the second.
   if (entry.kind === 'note') {
     const ex = escapeHtml(pickL(it.excerpt, lang));
     return `<article class="v4-note-item">
           <div class="v4-note-head">${date}</div>
-          <h2 class="v4-note-title"><a href="${noteUrl(it.slug, lang)}">${escapeHtml(pickL(it.title, lang))}</a></h2>
-          ${ex ? `<p class="v4-note-excerpt">${ex}</p>` : ''}
+          <div class="v4-note-main">
+            <h2 class="v4-note-title"><a href="${noteUrl(it.slug, lang)}">${escapeHtml(pickL(it.title, lang))}</a></h2>${
+      ex ? `\n            <p class="v4-note-excerpt">${ex}</p>` : ''}
+          </div>
         </article>`;
   }
-  // A trailing «→» marks a link that leaves the site (the CTA convention);
+  // A trailing «↗» marks a link that leaves the site (the CTA convention);
   // the screen-reader note says what the arrow and target=_blank mean.
   const meta = [escapeHtml(it.source || ''), viewsLabel(it.views, lang)].filter(Boolean).join(' · ');
   return `<article class="v4-note-item">
           <div class="v4-note-head">${date}</div>
-          <h2 class="v4-note-title"><a href="${escapeAttr(safeHref(it.href))}" target="_blank" rel="noopener noreferrer">${escapeHtml(
-            pickL(it.title, lang)
-          )}<span aria-hidden="true">&nbsp;↗</span><span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span></a></h2>
-          ${meta ? `<p class="v4-note-meta">${meta}</p>` : ''}
+          <div class="v4-note-main">
+            <h2 class="v4-note-title"><a href="${escapeAttr(safeHref(it.href))}" target="_blank" rel="noopener noreferrer">${escapeHtml(
+              pickL(it.title, lang)
+            )}${outMark(lang)}</a></h2>${
+      meta ? `\n            <p class="v4-note-meta">${meta}</p>` : ''}
+          </div>
         </article>`;
 }
 
-// The Telegram channel block above the feed — the homepage's CHANNEL item,
-// same markup, counters resolved from the home doc (live SocialBot numbers).
+// The Telegram channel panel above the feed; its counter is resolved from the
+// home doc (live SocialBot numbers).
 export function channelHtml(notesDoc, homeDoc, lang) {
   const ch = notesDoc && notesDoc.channel;
   if (!ch) return '';
-  return `<div class="v4-notes-channel">
-        ${channelItem(ch, lang, homeDoc || {})}
-      </div>`;
+  return channelItem(ch, lang, homeDoc || {});
 }
 
 export function feedListHtml(feed, lang) {
   return feed.length
     ? feed.map((e) => feedItemHtml(e, lang)).join('\n')
-    : `<p class="v4-notes-intro">${lang === 'en' ? 'No publications yet.' : 'Пока нет публикаций.'}</p>`;
+    : `<p class="v4-notes-empty">${lang === 'en' ? 'No publications yet.' : 'Пока нет публикаций.'}</p>`;
 }
 
 // {notes}: the owner's published notes grouped by topic, in English where a

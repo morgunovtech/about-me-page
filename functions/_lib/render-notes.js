@@ -5,7 +5,7 @@ import { loadArticleIndex, publishedSorted, noteUrl } from './articles.js';
 import { loadDoc, loadSubscribers } from './content.js';
 import { notesIndexHtml } from './article-template.js';
 import { serializeLd } from './jsonld.js';
-import { escapeHtml } from './markdown.js';
+import { escapeHtml, typo } from './markdown.js';
 import { ORIGIN, NAME, buildOf } from './site.js';
 import { pickL, forLang, buildFeed, feedListHtml, channelHtml, liveTopics, topicNavHtml, topicUrl, topicsOf } from './notes-feed.js';
 const xmlEsc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -46,7 +46,10 @@ export async function renderNotesIndex(env, lang, topicKey) {
   const topic = topicKey ? topics.find((t) => t.key === topicKey) : null;
   if (topicKey && !topic) return null;
   const feed = buildFeed(articles, notesDoc, l, topicKey);
-  const listHtml = feedListHtml(feed, l);
+  // How many publications there are in this language: «Все 52» in the topic
+  // line; the number beside the page title is the feed on this page.
+  const total = topicKey ? buildFeed(articles, notesDoc, l).length : feed.length;
+  const listHtml = typo(feedListHtml(feed, l), l);
   const intro = escapeHtml(
     topic ? pickL(topic.intro, l) || pickL(topic.name, l) : pickL(notesDoc && notesDoc.intro, l) || INTRO[l]
   );
@@ -83,8 +86,9 @@ export async function renderNotesIndex(env, lang, topicKey) {
 
   const page = notesIndexHtml(l, listHtml, jsonLd, buildOf(env), {
     intro,
-    channel: topic ? '' : channelHtml(notesDoc, homeDoc, l),
-    topics: topicNavHtml(topics, l, topic && topic.key),
+    channel: topic ? '' : typo(channelHtml(notesDoc, homeDoc, l), l),
+    topics: typo(topicNavHtml(topics, l, topic && topic.key, total), l),
+    count: feed.length,
     heading,
     path,
     hasEn,

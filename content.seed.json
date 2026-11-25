@@ -1154,7 +1154,7 @@
             },
             "price": {
               "ru": "$300 / **сессия**",
-              "en": "$300 / **SESSION**"
+              "en": "$300 / **session**"
             },
             "name": {
               "ru": "Разовая консультация",
@@ -1189,7 +1189,7 @@
             },
             "price": {
               "ru": "$2 000 / **месяц**",
-              "en": "$2,000 / **MONTH**"
+              "en": "$2,000 / **month**"
             },
             "name": {
               "ru": "Консалтинговый цикл",
@@ -1621,8 +1621,8 @@
           "en": "The essential kit"
         },
         "prose": {
-          "ru": "Приложения, которые закрывают главные дыры: переписку, почту, пароли, сеть и файлы. Каждое прошло два фильтра:\n\n- **открытый код** — любой специалист может проверить, что программа делает на самом деле, а не верить на слово;\n- **независимый аудит** — сторонняя команда безопасности проверила продукт и опубликовала отчёт. Ссылка на отчёт — в карточке.\n\nОдно исключение вынесено в конец и помечено: блокировщик рекламы — аудированного среди них нет.\n\nАудит — снимок на дату, а не гарантия навсегда. Обновляйте приложения и скачивайте их только с официального сайта — его адрес написан на кнопке.",
-          "en": "Apps that close the main gaps: messages, mail, passwords, network and files. Each one passed two filters:\n\n- **open source** — anyone qualified can check what the program really does instead of taking it on trust;\n- **independent audit** — an outside security team examined the product and published a report. The link to the report is on the card.\n\nOne exception sits at the end and is marked as such: an ad blocker — none of them has been audited.\n\nAn audit is a snapshot of one date, not a lifetime guarantee. Keep the apps updated and download them only from the official site — its address is on the button."
+          "ru": "Приложения, которые закрывают главные дыры: переписку, почту, пароли, сеть и файлы. Каждое прошло два фильтра:\n\n- **открытый код** — любой специалист может проверить, что программа делает на самом деле, а не верить на слово;\n- **независимый аудит** — сторонняя команда безопасности проверила продукт и опубликовала отчёт. Ссылка на отчёт — в строке приложения.\n\nОдно исключение вынесено в конец и помечено: блокировщик рекламы — аудированного среди них нет.\n\nАудит — снимок на дату, а не гарантия навсегда. Обновляйте приложения и скачивайте их только с официального сайта — его адрес указан в строке «Сайт».",
+          "en": "Apps that close the main gaps: messages, mail, passwords, network and files. Each one passed two filters:\n\n- **open source** — anyone qualified can check what the program really does instead of taking it on trust;\n- **independent audit** — an outside security team examined the product and published a report. The link to the report is in the app’s row.\n\nOne exception sits at the end and is marked as such: an ad blocker — none of them has been audited.\n\nAn audit is a snapshot of one date, not a lifetime guarantee. Keep the apps updated and download them only from the official site — its address is in the “Site” line."
         },
         "groups": [
           {
@@ -2384,20 +2384,29 @@
       }
     ],
     "channel": {
-      "kind": "prose",
-      "tag": "CHANNEL",
-      "meta": {
-        "ru": "{telegram} в Telegram",
-        "en": "{telegram} on Telegram"
+      "title": {
+        "ru": "Telegram‑канал «Семён расправил плечи»",
+        "en": "Telegram channel “Семён расправил плечи”"
       },
       "prose": {
-        "ru": "[Telegram‑канал](https://t.me/raschet7) о продукте и карьере — пишу то, что сам хотел бы читать. Разборы кейсов, рабочие фреймворки и личные наблюдения. Пишу с 2022 года.",
-        "en": "[Telegram channel](https://t.me/raschet7) on product and career — writing what I'd want to read myself. Case studies, working frameworks, and personal observations. Writing since 2022."
+        "ru": "О продукте и карьере — пишу то, что сам хотел бы читать: разборы кейсов, рабочие фреймворки и личные наблюдения. В канале посты выходят чаще и в более свободном формате, чем заметки на сайте.",
+        "en": "On product and career — I write what I'd want to read myself: case studies, working frameworks and personal observations. Posts there come out more often and in a looser format than the notes on this site. The channel is in Russian."
+      },
+      "since": {
+        "ru": "пишу с 2022 года",
+        "en": "writing since 2022"
+      },
+      "cta": {
+        "label": {
+          "ru": "Подписаться",
+          "en": "Subscribe"
+        },
+        "href": "https://t.me/raschet7"
       },
       "more": {
         "label": {
-          "ru": "→ Избранные посты",
-          "en": "→ Selected posts"
+          "ru": "Избранные посты",
+          "en": "Selected posts"
         },
         "href": "https://t.me/raschet7/261"
       }

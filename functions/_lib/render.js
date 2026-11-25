@@ -11,7 +11,7 @@
 // The list container itself gets data-edit-list (set in overlay.js).
 // edit=false (the public render) emits none of these → output is byte-identical.
 
-import { pick, NEW_TAB } from './i18n.js';
+import { pick, NEW_TAB, outMark } from './i18n.js';
 import { noteUrl } from './articles.js';
 import { escapeHtml, escapeAttr, isExternal, safeHref, renderInline, renderCtx, renderProse } from './markdown.js';
 
@@ -73,9 +73,7 @@ function moreLink(more, lang, edit, path) {
   const href = safeHref(pick(more.href, lang));
   const label = escapeHtml(plainLabel(pick(more.label, lang)));
   const ext = isExternal(href);
-  const mark = ext
-    ? `<span aria-hidden="true">&nbsp;↗</span><span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span>`
-    : '<span aria-hidden="true">&nbsp;→</span>';
+  const mark = ext ? outMark(lang) : '<span aria-hidden="true">&nbsp;→</span>';
   return `<div class="v4-more"><a href="${escapeAttr(href)}"${
     ext ? ' target="_blank" rel="noopener noreferrer"' : ''
   }><span${path ? eText(edit, path + '.label') : ''}>${label}</span>${mark}</a></div>`;
@@ -196,22 +194,17 @@ function ventureRow(it, lang, edit, path) {
 }
 
 // One card for every card-shaped thing on the site (home products, /uses
-// software, /collaborate tiers): head row (tag [+ live dot] · meta), name,
-// body, CTA. Every text leaf is inline markdown → renderInline escapes it.
-function card({ item, cls, tag, live, liveLabel, meta, metaClass, metaPath, name, nameTag = 'h3', body, cta, edit, path }) {
+// software, /consulting tiers): head row (the caption · a fact), name, body,
+// CTA. Every text leaf is inline markdown → renderInline escapes it.
+// No «live» mark: a product under «Работает» says so by standing there (the
+// pulsing dot beside every card of the list told nothing, owner 2026-11-25);
+// a doc's `live` flag is simply not read.
+function card({ item, cls, tag, meta, metaClass, metaPath, name, nameTag = 'h3', body, cta, edit, path }) {
   // metaPath: the meta's own edit leaf; null when the meta carries its own anchors.
   const metaLeaf = metaPath === undefined ? path + '.version' : metaPath;
-  const liveDot = live
-    ? `\n              <span class="v4-live-dot" aria-hidden="true"></span>${liveLabel ? `<span class="sr-only">${liveLabel}</span>` : ''}`
-    : '';
-  const tagHtml = live
-    ? `<span class="v4-product-tag-row">
-              <span class="v4-tag"${eText(edit, path + '.tag')}>${tag}</span>${liveDot}
-            </span>`
-    : `<span class="v4-tag"${eText(edit, path + '.tag')}>${tag}</span>`;
   return `<article class="v4-product${cls ? ' ' + cls : ''}"${item ? eItem(edit, path) : ''}>
           <div class="v4-product-head">
-            ${tagHtml}
+            <span class="v4-tag"${eText(edit, path + '.tag')}>${tag}</span>
             <span${metaClass ? ` class="${metaClass}"` : ''}${metaLeaf ? eText(edit, metaLeaf) : ''}>${meta}</span>
           </div>
           <${nameTag} class="v4-product-name"${eText(edit, path + '.name')}>${name}</${nameTag}>
@@ -228,9 +221,8 @@ function productCard(it, lang, edit, path) {
   return card({
     item: true,
     tag: renderInline(it.tag),
-    live: !!it.live,
-    liveLabel: lang === 'en' ? 'Live' : 'Работает',
     meta: renderInline(it.version),
+    metaClass: 'v4-version', // data: mono
     name: !edit && href ? `<a href="${escapeAttr(href)}"${isExternal(href) ? ' target="_blank" rel="noopener noreferrer"' : ''}>${name}</a>` : name,
     body: `<p class="v4-product-desc"${eText(edit, path + '.desc')}>${renderInline(pick(it.desc, lang))}</p>`,
     cta: btn(it.cta, lang, edit, path + '.cta', false),
@@ -238,16 +230,34 @@ function productCard(it, lang, edit, path) {
   });
 }
 
-// The Telegram channel block on /notes (v0.31.0 moved it there from the
-// homepage publications): tag + live counter, one line of prose, a «→» link.
+// The Telegram channel block on /notes: a panel that says what the channel is
+// and how it differs from the notes here (posts are more frequent and looser),
+// how many read it — the live counter with its noun declined — and one small
+// «Подписаться» button. It replaced a «CHANNEL» tag with a counter floating at
+// the other end of the row (owner, 2026-11-25).
+const SUBSCRIBERS_RU = ['подписчик', 'подписчика', 'подписчиков'];
 export function channelItem(it, lang, doc) {
-  const meta = fillCounters(pick(it.meta, lang), doc, lang);
-  const more = it.more ? moreLink(it.more, lang, false, '') : '';
-  return `<article class="v4-pub">
-          <div class="v4-pub-head"><span class="v4-tag">${escapeHtml(it.tag)}</span><span>${meta}</span></div>
-          <p class="v4-prose">${renderInline(pick(it.prose, lang))}</p>
-          ${more}
-        </article>`;
+  const l = lang === 'en' ? 'en' : 'ru';
+  const c = counters(doc, l);
+  const n = Number(String(c.telegram == null ? '' : c.telegram).replace(/\D/g, ''));
+  const count = c.telegram && n > 0
+    ? `${c.telegram}&nbsp;${l === 'ru' ? pluralRu(n, SUBSCRIBERS_RU) : n === 1 ? 'subscriber' : 'subscribers'}`
+    : '';
+  const since = pick(it.since, l) ? escapeHtml(pick(it.since, l)) : '';
+  const more = it.more ? extLink({ label: plainLabel(pick(it.more.label, l)), href: it.more.href }, l) : '';
+  const meta = [count, since, more].filter(Boolean).join(' · ');
+  const href = it.cta ? safeHref(pick(it.cta.href, l) || it.cta.href) : '';
+  const cta = href
+    ? `\n          <a class="v4-btn v4-btn--sm" href="${escapeAttr(href)}"${
+      isExternal(href) ? ' target="_blank" rel="noopener noreferrer"' : ''}>${escapeHtml(pick(it.cta.label, l))}</a>`
+    : '';
+  return `<section class="v4-channel" aria-labelledby="channel-title">
+          <div>
+            <h2 class="v4-channel-title" id="channel-title">${renderInline(pick(it.title, l))}</h2>
+            <p class="v4-channel-desc">${renderInline(pick(it.prose, l))}</p>${
+      meta ? `\n            <p class="v4-channel-meta">${meta}</p>` : ''}
+          </div>${cta}
+        </section>`;
 }
 
 // --- /privacy (structured) ---
@@ -267,45 +277,49 @@ function soonCard(it, lang) {
   });
 }
 
-// An off-site link inside a card's spec: «↗» and the new-tab note for screen
-// readers, like every link that leaves the site.
-function extLink(l, lang) {
+// An off-site link inside a block of facts or a line of meta. `mark: false`
+// leaves the «↗» out where every link of the block leaves the site (the kit's
+// facts: six arrows a row said nothing); the new-tab note for screen readers
+// stays either way.
+function extLink(l, lang, { mark = true } = {}) {
   const href = safeHref(pick(l.href, lang) || l.href);
-  return `<a href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer">${renderInline(pick(l.label, lang))}<span aria-hidden="true">&nbsp;↗</span><span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span></a>`;
+  const tail = mark ? outMark(lang) : `<span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span>`;
+  return `<a href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer">${renderInline(pick(l.label, lang))}${tail}</a>`;
 }
 
 const KIT_TERMS = {
-  ru: { audit: 'Аудит', none: 'публичного нет', code: 'Код', os: 'Где работает', alt: 'Ещё' },
-  en: { audit: 'Audit', none: 'none published', code: 'Code', os: 'Runs on', alt: 'Also' },
+  ru: { site: 'Сайт', audit: 'Аудит', none: 'публичного нет', code: 'Код', os: 'Где работает', alt: 'Ещё' },
+  en: { site: 'Site', audit: 'Audit', none: 'none published', code: 'Code', os: 'Runs on', alt: 'Also' },
 };
 
-// «Джентльменский набор»: one card per task — what to install, why, and the
-// proof in the spec: the independent audits and the source code, each a link
-// to the primary source. The button is the product's own site, labelled with
-// its domain so a reader sees where it leads.
-function kitCard(it, lang) {
+// «Джентльменский набор»: one ROW per app — everything about it on one line of
+// the page. Left: the name (a link to the official site), what it is and what
+// it costs. Middle: why this one. Right: the proof as links — the official
+// site by its domain, so a reader sees the address to download from, the
+// independent audits, the source code, the platforms, the alternatives.
+// (They were cards with a spec table and a button: 500px each, two a row.)
+function kitRow(it, lang) {
   const t = KIT_TERMS[lang === 'en' ? 'en' : 'ru'];
   const href = it.cta ? safeHref(pick(it.cta.href, lang) || it.cta.href) : '';
   const name = renderInline(it.name);
+  const kind = [pick(it.tag, lang), pick(it.price, lang)].filter(Boolean).map((x) => renderInline(x)).join(' · ');
+  const link = (l) => extLink(l, lang, { mark: false });
   const rows = [];
-  // A card without an audit says so in the same row — it only appears in a
+  if (href) rows.push([t.site, link({ label: plainLabel(pick(it.cta.label, lang)), href })]);
+  // A row without an audit says so in the same place — it only appears in a
   // group marked `unaudited` (tests/privacy.test.mjs keeps it there).
-  rows.push([t.audit, (it.audits || []).length ? it.audits.map((a) => extLink(a, lang)).join('<br />') : t.none]);
-  if (it.source) rows.push([t.code, extLink(it.source, lang)]);
+  rows.push([t.audit, (it.audits || []).length ? it.audits.map(link).join('; ') : t.none]);
+  if (it.source) rows.push([t.code, link(it.source)]);
   if (it.platforms) rows.push([t.os, renderInline(pick(it.platforms, lang))]);
-  if ((it.alternatives || []).length) rows.push([t.alt, it.alternatives.map((a) => extLink(a, lang)).join(', ')]);
-  const spec = rows.length
-    ? `\n          <dl class="v4-spec v4-spec--card">${rows.map(([dt, dd]) => `<dt>${dt}</dt><dd>${dd}</dd>`).join('')}</dl>`
-    : '';
-  return card({
-    tag: renderInline(pick(it.tag, lang)),
-    meta: renderInline(pick(it.price, lang)),
-    name: href ? `<a href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer">${name}</a>` : name,
-    nameTag: 'h4', // under the group's h3, as /uses names its gear cards
-    body: `<p class="v4-product-desc">${renderInline(pick(it.desc, lang))}</p>${spec}`,
-    cta: it.cta ? btn(it.cta, lang, false, '', false) : '',
-    edit: false, path: '',
-  });
+  if ((it.alternatives || []).length) rows.push([t.alt, it.alternatives.map(link).join(', ')]);
+  return `<article class="v4-kit-row">
+            <div class="v4-kit-id">
+              <h4 class="v4-kit-name">${href ? `<a href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer">${name}<span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span></a>` : name}</h4>${
+      kind ? `\n              <p class="v4-kit-kind">${kind}</p>` : ''}
+            </div>
+            <p class="v4-kit-desc">${renderInline(pick(it.desc, lang))}</p>
+            <dl class="v4-kit-facts">${rows.map(([dt, dd]) => `<div><dt>${dt}</dt> <dd>${dd}</dd></div>`).join('')}</dl>
+          </article>`;
 }
 
 // --- /uses cards (structured) ---
@@ -388,7 +402,7 @@ function feedRow(e, lang) {
   const title = escapeHtml(pick(it.title, lang));
   const link = e.kind === 'note'
     ? `<a class="v4-feed-title" href="${noteUrl(it.slug, lang)}">${title}</a>`
-    : `<a class="v4-feed-title" href="${escapeAttr(safeHref(it.href))}" target="_blank" rel="noopener noreferrer">${title}<span aria-hidden="true">&nbsp;↗</span><span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span></a>`;
+    : `<a class="v4-feed-title" href="${escapeAttr(safeHref(it.href))}" target="_blank" rel="noopener noreferrer">${title}${outMark(lang)}</a>`;
   return `<li class="v4-feed-row"><span class="v4-feed-meta">${meta}</span>${link}</li>`;
 }
 
@@ -439,26 +453,31 @@ export const renderers = {
     return `${rows ? `<ul class="v4-feed">\n            ${rows}\n          </ul>\n          ` : ''}${cta}`;
   },
 
-  // «Связаться»: who writes and why → ONE button (Telegram) with the reply
-  // time beside it → the second channel as a line of text, not a second
-  // button → the link to read more first, last. A cta whose href is mailto:
-  // is the second channel: it never renders as a button.
+  // «Связаться»: one panel. Left — who writes and why. Right — ONE button
+  // (Telegram) and, under it, the lines that go with it: the reply time and
+  // the second channel as a line of text, never a second button. Under the
+  // panel, last — the link to read more first. A cta whose href is mailto: is
+  // the second channel: it never renders as a button.
   contact: (doc, lang, edit) => {
     const sec = doc.sections.contact;
     const hrefOf = (c) => String(pick(c.href, lang) || c.href || '');
     const isMail = (c) => /^mailto:/i.test(hrefOf(c));
     const buttons = sec.ctas.map((c, i) => (isMail(c) ? '' : btn(c, lang, edit, 'sections.contact.ctas.' + i, true)))
-      .filter(Boolean).join('\n          ');
-    const reply = sec.reply ? `\n          <p class="v4-contact-reply"${eText(edit, 'sections.contact.reply')}>${escapeHtml(pick(sec.reply, lang))}</p>` : '';
+      .filter(Boolean).join('\n              ');
+    const reply = sec.reply ? `\n            <p class="v4-contact-reply"${eText(edit, 'sections.contact.reply')}>${escapeHtml(pick(sec.reply, lang))}</p>` : '';
     const mails = sec.ctas.map((c, i) => (isMail(c)
       ? `<a href="${escapeAttr(safeHref(hrefOf(c)))}"${eText(edit, 'sections.contact.ctas.' + i + '.label')}>${escapeHtml(pick(c.label, lang))}</a>`
       : '')).filter(Boolean);
-    const alt = mails.length ? `\n        <p class="v4-contact-alt">${lang === 'en' ? 'or by e-mail: ' : 'или на почту: '}${mails.join(', ')}</p>` : '';
+    const alt = mails.length ? `\n            <p class="v4-contact-alt">${lang === 'en' ? 'Or by e-mail: ' : 'Или на почту: '}${mails.join(', ')}</p>` : '';
     const links = (sec.links || []).map((l, i) => moreLink(l, lang, edit, 'sections.contact.links.' + i)).join('\n          ');
-    return `<p class="v4-contact-note"${eText(edit, 'sections.contact.note')}>${escapeHtml(pick(sec.note, lang))}</p>
-        <div class="v4-cta-row">
-          ${buttons}${reply}
-        </div>${alt}${
+    return `<div class="v4-contact">
+          <p class="v4-contact-note"${eText(edit, 'sections.contact.note')}>${escapeHtml(pick(sec.note, lang))}</p>
+          <div class="v4-contact-act">
+            <div class="v4-cta-row">
+              ${buttons}
+            </div>${reply}${alt}
+          </div>
+        </div>${
       links ? `\n        <div class="v4-contact-links">\n          ${links}\n        </div>` : ''}`;
   },
 
@@ -573,8 +592,8 @@ export const renderers = {
     const s = doc.sections.kit || {};
     const groups = (s.groups || []).map((g) => `<h3 class="v4-h3">${renderInline(pick(g.heading, lang))}</h3>${
       pick(g.note, lang) ? `\n        <div class="v4-prose"><p>${renderInline(pick(g.note, lang))}</p></div>` : ''}
-        <div class="v4-products">
-          ${(g.items || []).map((it) => kitCard(it, lang)).join('\n          ')}
+        <div class="v4-kit">
+          ${(g.items || []).map((it) => kitRow(it, lang)).join('\n          ')}
         </div>`).join('\n        ');
     const note = pick(s.note, lang);
     return `<div class="v4-prose">${renderProse(pick(s.prose, lang))}</div>
@@ -604,15 +623,16 @@ export const renderers = {
       rows ? `<ul class="v4-feed">\n            ${rows}\n          </ul>\n          ` : ''}${more}`;
   },
 
-  // Shared by /collaborate and /privacy: one line, one button.
+  // Shared by /consulting, /collaborate and /privacy: the same panel as the
+  // homepage's — one line, one button.
   collabContact: (doc, lang) => {
     const s = doc.sections.contact;
     return `<div class="v4-contact">
-          <div>
-            <p class="v4-contact-note">${renderInline(pick(s.note, lang))}</p>
-          </div>
-          <div class="v4-cta-row">
-            ${(s.ctas || []).map((c, i) => btn(c, lang, false, '', false, i === 0)).join('\n            ')}
+          <p class="v4-contact-note">${renderInline(pick(s.note, lang))}</p>
+          <div class="v4-contact-act">
+            <div class="v4-cta-row">
+              ${(s.ctas || []).map((c, i) => btn(c, lang, false, '', false, i === 0)).join('\n              ')}
+            </div>
           </div>
         </div>`;
   },

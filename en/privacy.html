@@ -36,15 +36,14 @@
   <meta name="twitter:image:alt" data-cms-content="share.imageAlt" content="Privacy — Semyon Morgunov" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
   <style>
-    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:12px;--v4-label-tracking:.1em;--v4-label-xs-size:12px;--v4-label-xs-tracking:.1em;--v4-label-weight:500;color-scheme:light dark}
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:12px;--v4-label-tracking:.08em;--v4-label-xs-size:12px;--v4-label-xs-tracking:.08em;--v4-label-weight:500;color-scheme:light dark}
     [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f;color-scheme:dark}
     [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000;color-scheme:dark}
     *,*::before,*::after{box-sizing:border-box}
     body{margin:0}
     body.no-transition,body.no-transition *{transition:none!important}
-    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:14px;line-height:1.55;letter-spacing:-0.005em}
-    [data-theme="high-contrast"] body.v4-page{font-size:16px}
-    .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:6px 12px;z-index:100;text-decoration:none;font-size:13px;transition:top .2s}
+    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:16px;line-height:1.6;letter-spacing:-0.005em}
+    .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:8px 12px;z-index:100;text-decoration:none;font-size:14px;transition:top .2s}
     .v4-page .skip-link:focus{top:8px}
   </style>
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-400.woff2" crossorigin />
@@ -139,8 +138,8 @@
       </section>
       <nav class="v4-onpage" aria-label="On this page">
         <a href="#tools">Tools</a>
-        <a href="#kit">Kit</a>
         <a href="#articles">Articles</a>
+        <a href="#kit">Kit</a>
         <a href="#contact">Contact</a>
       </nav>
 
@@ -153,11 +152,8 @@
           <div class="v4-products">
             <article class="v4-product">
             <div class="v4-product-head">
-              <span class="v4-product-tag-row">
-                <span class="v4-tag">WEB</span>
-                <span class="v4-live-dot" aria-hidden="true"></span><span class="sr-only">Live</span>
-              </span>
-              <span>v3.3</span>
+              <span class="v4-tag">WEB</span>
+              <span class="v4-version">v3.3</span>
             </div>
             <h3 class="v4-product-name"><a href="https://fprint.morgunov.tech/en/" target="_blank" rel="noopener noreferrer">Fingerprint</a></h3>
             <p class="v4-product-desc">Online privacy explained in six steps, from opening your laptop to a loaded site: who learns what about you at each step, on your real data, and what to do.</p>
@@ -165,11 +161,8 @@
           </article>
             <article class="v4-product">
             <div class="v4-product-head">
-              <span class="v4-product-tag-row">
-                <span class="v4-tag">WEB</span>
-                <span class="v4-live-dot" aria-hidden="true"></span><span class="sr-only">Live</span>
-              </span>
-              <span>v1.7</span>
+              <span class="v4-tag">WEB</span>
+              <span class="v4-version">v1.7</span>
             </div>
             <h3 class="v4-product-name"><a href="https://foundyou.morgunov.tech/en/" target="_blank" rel="noopener noreferrer">Found You</a></h3>
             <p class="v4-product-desc">Check what a photo reveals before you post it: EXIF and GPS, place context, and a clean privacy-safe copy. Runs in your browser.</p>
@@ -187,152 +180,6 @@
 </div>
       </section>
 
-      <section id="kit" class="v4-section">
-        <div class="v4-section-head">
-          <h2 class="v4-h2" data-cms-text="sections.kit.title">The essential kit</h2>
-        </div>
-        <div data-cms-list="privacyKit">
-  <div class="v4-prose"><p>Apps that close the main gaps: messages, mail, passwords, network and files. Each one passed two filters:</p><ul class="v4-list"><li><strong>open source</strong> — anyone qualified can check what the program really does instead of taking it on trust;</li><li><strong>independent audit</strong> — an outside security team examined the product and published a report. The link to the report is on the card.</li></ul><p>One exception sits at the end and is marked as such: an ad blocker — none of them has been audited.</p><p>An audit is a snapshot of one date, not a lifetime guarantee. Keep the apps updated and download them only from the official site — its address is on the button.</p></div>
-          <h3 class="v4-h3">Communication</h3>
-          <div class="v4-products">
-            <article class="v4-product">
-            <div class="v4-product-head">
-              <span class="v4-tag">Messenger</span>
-              <span>Free</span>
-            </div>
-            <h4 class="v4-product-name"><a href="https://signal.org/" target="_blank" rel="noopener noreferrer">Signal</a></h4>
-            <p class="v4-product-desc">The standard for private messaging: chats, groups and calls are always end-to-end encrypted, and the server knows almost nothing about who talks to whom. Needs a phone number. The protocol has been verified; the app code has had no public audit.</p>
-            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://www.usenix.org/system/files/usenixsecurity24-bhargavan.pdf" target="_blank" rel="noopener noreferrer">Cryspen and Inria, 2024 — protocol<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a><br /><a href="https://eprint.iacr.org/2025/078" target="_blank" rel="noopener noreferrer">NYU and PQShield, 2025 — protocol<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/signalapp" target="_blank" rel="noopener noreferrer">GitHub · AGPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>iOS · Android · macOS · Windows · Linux</dd><dt>Also</dt><dd><a href="https://simplex.chat/" target="_blank" rel="noopener noreferrer">SimpleX Chat<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://threema.com/" target="_blank" rel="noopener noreferrer">Threema<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd></dl>
-            <a class="v4-btn" href="https://signal.org/" target="_blank" rel="noopener noreferrer">signal.org →</a>
-          </article>
-            <article class="v4-product">
-            <div class="v4-product-head">
-              <span class="v4-tag">Email</span>
-              <span>Free plan</span>
-            </div>
-            <h4 class="v4-product-name"><a href="https://proton.me/mail" target="_blank" rel="noopener noreferrer">Proton Mail</a></h4>
-            <p class="v4-product-desc">Mail is stored encrypted so that Proton itself cannot read it, and it is end-to-end encrypted between Proton mailboxes. Switzerland; the free plan has 1 GB. The latest published audit of the mail apps is from 2021.</p>
-            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://proton.me/blog/security-audit" target="_blank" rel="noopener noreferrer">Securitum, 2021<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/ProtonMail" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>iOS · Android · macOS · Windows · Linux · web</dd></dl>
-            <a class="v4-btn" href="https://proton.me/mail" target="_blank" rel="noopener noreferrer">proton.me →</a>
-          </article>
-          </div>
-          <h3 class="v4-h3">Passwords and sign-ins</h3>
-          <div class="v4-products">
-            <article class="v4-product">
-            <div class="v4-product-head">
-              <span class="v4-tag">Password manager</span>
-              <span>Free; Premium $19.80/yr</span>
-            </div>
-            <h4 class="v4-product-name"><a href="https://bitwarden.com/" target="_blank" rel="noopener noreferrer">Bitwarden</a></h4>
-            <p class="v4-product-desc">Passwords on all your devices, with no device limit even on the free plan. Audited every year: four audits in 2025 alone, including a cryptography review by ETH Zurich.</p>
-            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://bitwarden.com/help/is-bitwarden-audited/" target="_blank" rel="noopener noreferrer">Cure53, ETH Zurich and others, 2025<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/bitwarden/clients" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>iOS · Android · macOS · Windows · Linux · browsers</dd><dt>Also</dt><dd><a href="https://keepassxc.org/" target="_blank" rel="noopener noreferrer">KeePassXC<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://proton.me/pass" target="_blank" rel="noopener noreferrer">Proton Pass<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd></dl>
-            <a class="v4-btn" href="https://bitwarden.com/" target="_blank" rel="noopener noreferrer">bitwarden.com →</a>
-          </article>
-            <article class="v4-product">
-            <div class="v4-product-head">
-              <span class="v4-tag">2FA codes</span>
-              <span>Free</span>
-            </div>
-            <h4 class="v4-product-name"><a href="https://bitwarden.com/products/authenticator/" target="_blank" rel="noopener noreferrer">Bitwarden Authenticator</a></h4>
-            <p class="v4-product-desc">One-time sign-in codes — a second lock on your mail, bank and social accounts, so a stolen password is no longer enough. Works without an account.</p>
-            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://bitwarden.com/assets/718YF2IWeVNARWs6nBgYzS/796a7e97eedc6d569773a1892284d034/2025_Mobile_App_Security_Assessment.pdf" target="_blank" rel="noopener noreferrer">Unit 42 (Palo Alto Networks), 2025<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/bitwarden" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>iOS · Android</dd></dl>
-            <a class="v4-btn" href="https://bitwarden.com/products/authenticator/" target="_blank" rel="noopener noreferrer">bitwarden.com →</a>
-          </article>
-          </div>
-          <h3 class="v4-h3">Network</h3>
-          <div class="v4-products">
-            <article class="v4-product">
-            <div class="v4-product-head">
-              <span class="v4-tag">VPN</span>
-              <span>€5 / month</span>
-            </div>
-            <h4 class="v4-product-name"><a href="https://mullvad.net/" target="_blank" rel="noopener noreferrer">Mullvad VPN</a></h4>
-            <p class="v4-product-desc">Hides your IP address from websites and your traffic from your internet provider and public Wi-Fi. No e-mail or phone needed to sign up: the account is just a number. The apps and servers are audited regularly. Sweden; there is no free plan.</p>
-            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://www.x41-dsec.de/static/reports/X41-Mullvad-Audit-Public-Report-2024-12-10.pdf" target="_blank" rel="noopener noreferrer">X41 D-Sec, 2024 — apps<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a><br /><a href="https://mullvad.net/en/blog/fourth-infrastructure-audit-completed-by-cure53" target="_blank" rel="noopener noreferrer">Cure53, 2024 — servers<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/mullvad/mullvadvpn-app" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>Windows · macOS · Linux · iOS · Android</dd><dt>Also</dt><dd><a href="https://protonvpn.com/" target="_blank" rel="noopener noreferrer">Proton VPN<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd></dl>
-            <a class="v4-btn" href="https://mullvad.net/" target="_blank" rel="noopener noreferrer">mullvad.net →</a>
-          </article>
-            <article class="v4-product">
-            <div class="v4-product-head">
-              <span class="v4-tag">DNS</span>
-              <span>In IVPN Plus — $8 / month</span>
-            </div>
-            <h4 class="v4-product-name"><a href="https://moddns.net/" target="_blank" rel="noopener noreferrer">modDNS</a></h4>
-            <p class="v4-product-desc">Encrypts your DNS queries — they show which sites you open — so your internet provider and public Wi-Fi cannot read them. It also blocks ads and trackers by blocklists in every app at once, not only in the browser. The whole server is open source. Needs an IVPN account; the audit covered security, not a no-logs promise.</p>
-            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://www.ivpn.net/resources/IVP-08-report.pdf" target="_blank" rel="noopener noreferrer">Cure53, 2025<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/ivpn/moddns" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>iOS · Android · macOS · Windows</dd></dl>
-            <a class="v4-btn" href="https://moddns.net/" target="_blank" rel="noopener noreferrer">moddns.net →</a>
-          </article>
-            <article class="v4-product">
-            <div class="v4-product-head">
-              <span class="v4-tag">Browser</span>
-              <span>Free</span>
-            </div>
-            <h4 class="v4-product-name"><a href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">Tor Browser</a></h4>
-            <p class="v4-product-desc">Hides your IP address and makes all its users look alike, so websites cannot recognise you by your browser fingerprint. Slower than a regular browser — keep it for what is really worth hiding. Where Tor is blocked, connect through bridges, which are built in.</p>
-            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://blog.torproject.org/code-audit-tor-ecosystem-components/" target="_blank" rel="noopener noreferrer">Radically Open Security, 2023<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a><br /><a href="https://blog.torproject.org/security-audit-report-tor-browser-ooni/" target="_blank" rel="noopener noreferrer">Cure53, 2023<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://gitlab.torproject.org/tpo/applications/tor-browser" target="_blank" rel="noopener noreferrer">GitLab · MPL-2.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>Windows · macOS · Linux · Android</dd></dl>
-            <a class="v4-btn" href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">torproject.org →</a>
-          </article>
-            <article class="v4-product">
-            <div class="v4-product-head">
-              <span class="v4-tag">Operating system</span>
-              <span>Free</span>
-            </div>
-            <h4 class="v4-product-name"><a href="https://tails.net/" target="_blank" rel="noopener noreferrer">Tails</a></h4>
-            <p class="v4-product-desc">An operating system on a USB stick: boot a computer from it, all traffic goes through Tor, and nothing is left behind when you shut down. For when more is at stake than ads. It does not run on Macs with Apple chips.</p>
-            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://tails.net/news/audit_by_ROS_2024/" target="_blank" rel="noopener noreferrer">Radically Open Security, 2024<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://gitlab.tails.net/tails/tails" target="_blank" rel="noopener noreferrer">GitLab · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>PCs, from a USB stick (x86-64)</dd></dl>
-            <a class="v4-btn" href="https://tails.net/" target="_blank" rel="noopener noreferrer">tails.net →</a>
-          </article>
-          </div>
-          <h3 class="v4-h3">Files and notes</h3>
-          <div class="v4-products">
-            <article class="v4-product">
-            <div class="v4-product-head">
-              <span class="v4-tag">Photos</span>
-              <span>10 GB free</span>
-            </div>
-            <h4 class="v4-product-name"><a href="https://ente.com/" target="_blank" rel="noopener noreferrer">Ente Photos</a></h4>
-            <p class="v4-product-desc">A replacement for Google Photos and iCloud with end-to-end encryption: photos are encrypted on your phone, and the server never sees them. Both the encryption in the apps and the server have been audited.</p>
-            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://ente.com/blog/cryptography-audit" target="_blank" rel="noopener noreferrer">Cure53 and Symbolic Software, 2023<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a><br /><a href="https://ente.com/blog/cern-audit" target="_blank" rel="noopener noreferrer">Cure53, 2025 — server<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/ente/ente" target="_blank" rel="noopener noreferrer">GitHub · AGPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>iOS · Android · macOS · Windows · Linux · web</dd><dt>Also</dt><dd><a href="https://proton.me/drive" target="_blank" rel="noopener noreferrer">Proton Drive<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd></dl>
-            <a class="v4-btn" href="https://ente.com/" target="_blank" rel="noopener noreferrer">ente.com →</a>
-          </article>
-            <article class="v4-product">
-            <div class="v4-product-head">
-              <span class="v4-tag">Cloud encryption</span>
-              <span>Free on desktop</span>
-            </div>
-            <h4 class="v4-product-name"><a href="https://cryptomator.org/" target="_blank" rel="noopener noreferrer">Cryptomator</a></h4>
-            <p class="v4-product-desc">Encrypts your files before they reach Dropbox, Google Drive or iCloud, so the cloud stores only ciphertext. The audit is old — 2017 — and covered the cryptographic core.</p>
-            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://cryptomator.org/audits/2017-11-27%20crypto%20cure53.pdf" target="_blank" rel="noopener noreferrer">Cure53, 2017<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/cryptomator/cryptomator" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>Windows · macOS · Linux · iOS · Android</dd></dl>
-            <a class="v4-btn" href="https://cryptomator.org/" target="_blank" rel="noopener noreferrer">cryptomator.org →</a>
-          </article>
-            <article class="v4-product">
-            <div class="v4-product-head">
-              <span class="v4-tag">Notes</span>
-              <span>Free plan</span>
-            </div>
-            <h4 class="v4-product-name"><a href="https://standardnotes.com/" target="_blank" rel="noopener noreferrer">Standard Notes</a></h4>
-            <p class="v4-product-desc">End-to-end encrypted notes on all your devices. Owned by Proton since 2024 and still open source. The server was last audited in 2022, the encryption in the apps in 2020.</p>
-            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://standardnotes.com/help/2/has-standard-notes-completed-a-third-party-security-audit" target="_blank" rel="noopener noreferrer">Cure53, 2022 and Trail of Bits, 2020<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/standardnotes/app" target="_blank" rel="noopener noreferrer">GitHub · AGPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>iOS · Android · macOS · Windows · Linux · web</dd></dl>
-            <a class="v4-btn" href="https://standardnotes.com/" target="_blank" rel="noopener noreferrer">standardnotes.com →</a>
-          </article>
-          </div>
-          <h3 class="v4-h3">Open source, no audit yet</h3>
-          <div class="v4-prose"><p>No browser ad blocker has a public audit. This is the most trustworthy of the open-source ones. To block ads in every app at once, use modDNS from the «Network» group — its audit is published.</p></div>
-          <div class="v4-products">
-            <article class="v4-product">
-            <div class="v4-product-head">
-              <span class="v4-tag">Ad blocker</span>
-              <span>Free</span>
-            </div>
-            <h4 class="v4-product-name"><a href="https://addons.mozilla.org/firefox/addon/ublock-origin/" target="_blank" rel="noopener noreferrer">uBlock Origin</a></h4>
-            <p class="v4-product-desc">Blocks ads and trackers in the browser. One author has made it since 2015, with no monetisation, and Mozilla lists it as Recommended. No independent audit. Firefox gets the full version; Safari and Chrome get uBlock Origin Lite, which is weaker against sites that fight ad blocking.</p>
-            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd>none published</dd><dt>Code</dt><dd><a href="https://github.com/gorhill/uBlock" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>Firefox on Windows, macOS, Linux and Android · Lite: Safari on iOS and macOS, Chrome, Edge</dd><dt>Also</dt><dd><a href="https://apps.apple.com/app/ublock-origin-lite/id6745342698" target="_blank" rel="noopener noreferrer">uBO Lite for Safari<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh" target="_blank" rel="noopener noreferrer">uBO Lite for Chrome<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd></dl>
-            <a class="v4-btn" href="https://addons.mozilla.org/firefox/addon/ublock-origin/" target="_blank" rel="noopener noreferrer">addons.mozilla.org →</a>
-          </article>
-          </div>
-          <p class="v4-terms">Checked on 25 November 2026. No referral links here.</p>
-</div>
-      </section>
-
       <section id="articles" class="v4-section">
         <div class="v4-section-head">
           <h2 class="v4-h2" data-cms-text="sections.articles.title">Articles</h2>
@@ -343,17 +190,139 @@
 </div>
       </section>
 
+      <section id="kit" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2" data-cms-text="sections.kit.title">The essential kit</h2>
+        </div>
+        <div data-cms-list="privacyKit">
+  <div class="v4-prose"><p>Apps that close the main gaps: messages, mail, passwords, network and files. Each one passed two filters:</p><ul class="v4-list"><li><strong>open source</strong> — anyone qualified can check what the program really does instead of taking it on trust;</li><li><strong>independent audit</strong> — an outside security team examined the product and published a report. The link to the report is in the app’s row.</li></ul><p>One exception sits at the end and is marked as such: an ad blocker — none of them has been audited.</p><p>An audit is a snapshot of one date, not a lifetime guarantee. Keep the apps updated and download them only from the official site — its address is in the “Site” line.</p></div>
+          <h3 class="v4-h3">Communication</h3>
+          <div class="v4-kit">
+            <article class="v4-kit-row">
+              <div class="v4-kit-id">
+                <h4 class="v4-kit-name"><a href="https://signal.org/" target="_blank" rel="noopener noreferrer">Signal<span class="sr-only"> (opens in a new tab)</span></a></h4>
+                <p class="v4-kit-kind">Messenger · Free</p>
+              </div>
+              <p class="v4-kit-desc">The standard for private messaging: chats, groups and calls are always end-to-end encrypted, and the server knows almost nothing about who talks to whom. Needs a phone number. The protocol has been verified; the app code has had no public audit.</p>
+              <dl class="v4-kit-facts"><div><dt>Site</dt> <dd><a href="https://signal.org/" target="_blank" rel="noopener noreferrer">signal.org<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Audit</dt> <dd><a href="https://www.usenix.org/system/files/usenixsecurity24-bhargavan.pdf" target="_blank" rel="noopener noreferrer">Cryspen and Inria, 2024 — protocol<span class="sr-only"> (opens in a new tab)</span></a>; <a href="https://eprint.iacr.org/2025/078" target="_blank" rel="noopener noreferrer">NYU and PQShield, 2025 — protocol<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Code</dt> <dd><a href="https://github.com/signalapp" target="_blank" rel="noopener noreferrer">GitHub · AGPL-3.0<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Runs on</dt> <dd>iOS · Android · macOS · Windows · Linux</dd></div><div><dt>Also</dt> <dd><a href="https://simplex.chat/" target="_blank" rel="noopener noreferrer">SimpleX Chat<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://threema.com/" target="_blank" rel="noopener noreferrer">Threema<span class="sr-only"> (opens in a new tab)</span></a></dd></div></dl>
+            </article>
+            <article class="v4-kit-row">
+              <div class="v4-kit-id">
+                <h4 class="v4-kit-name"><a href="https://proton.me/mail" target="_blank" rel="noopener noreferrer">Proton Mail<span class="sr-only"> (opens in a new tab)</span></a></h4>
+                <p class="v4-kit-kind">Email · Free plan</p>
+              </div>
+              <p class="v4-kit-desc">Mail is stored encrypted so that Proton itself cannot read it, and it is end-to-end encrypted between Proton mailboxes. Switzerland; the free plan has 1 GB. The latest published audit of the mail apps is from 2021.</p>
+              <dl class="v4-kit-facts"><div><dt>Site</dt> <dd><a href="https://proton.me/mail" target="_blank" rel="noopener noreferrer">proton.me<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Audit</dt> <dd><a href="https://proton.me/blog/security-audit" target="_blank" rel="noopener noreferrer">Securitum, 2021<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Code</dt> <dd><a href="https://github.com/ProtonMail" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Runs on</dt> <dd>iOS · Android · macOS · Windows · Linux · web</dd></div></dl>
+            </article>
+          </div>
+          <h3 class="v4-h3">Passwords and sign-ins</h3>
+          <div class="v4-kit">
+            <article class="v4-kit-row">
+              <div class="v4-kit-id">
+                <h4 class="v4-kit-name"><a href="https://bitwarden.com/" target="_blank" rel="noopener noreferrer">Bitwarden<span class="sr-only"> (opens in a new tab)</span></a></h4>
+                <p class="v4-kit-kind">Password manager · Free; Premium $19.80/yr</p>
+              </div>
+              <p class="v4-kit-desc">Passwords on all your devices, with no device limit even on the free plan. Audited every year: four audits in 2025 alone, including a cryptography review by ETH Zurich.</p>
+              <dl class="v4-kit-facts"><div><dt>Site</dt> <dd><a href="https://bitwarden.com/" target="_blank" rel="noopener noreferrer">bitwarden.com<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Audit</dt> <dd><a href="https://bitwarden.com/help/is-bitwarden-audited/" target="_blank" rel="noopener noreferrer">Cure53, ETH Zurich and others, 2025<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Code</dt> <dd><a href="https://github.com/bitwarden/clients" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Runs on</dt> <dd>iOS · Android · macOS · Windows · Linux · browsers</dd></div><div><dt>Also</dt> <dd><a href="https://keepassxc.org/" target="_blank" rel="noopener noreferrer">KeePassXC<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://proton.me/pass" target="_blank" rel="noopener noreferrer">Proton Pass<span class="sr-only"> (opens in a new tab)</span></a></dd></div></dl>
+            </article>
+            <article class="v4-kit-row">
+              <div class="v4-kit-id">
+                <h4 class="v4-kit-name"><a href="https://bitwarden.com/products/authenticator/" target="_blank" rel="noopener noreferrer">Bitwarden Authenticator<span class="sr-only"> (opens in a new tab)</span></a></h4>
+                <p class="v4-kit-kind">2FA codes · Free</p>
+              </div>
+              <p class="v4-kit-desc">One-time sign-in codes — a second lock on your mail, bank and social accounts, so a stolen password is no longer enough. Works without an account.</p>
+              <dl class="v4-kit-facts"><div><dt>Site</dt> <dd><a href="https://bitwarden.com/products/authenticator/" target="_blank" rel="noopener noreferrer">bitwarden.com<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Audit</dt> <dd><a href="https://bitwarden.com/assets/718YF2IWeVNARWs6nBgYzS/796a7e97eedc6d569773a1892284d034/2025_Mobile_App_Security_Assessment.pdf" target="_blank" rel="noopener noreferrer">Unit 42 (Palo Alto Networks), 2025<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Code</dt> <dd><a href="https://github.com/bitwarden" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Runs on</dt> <dd>iOS · Android</dd></div></dl>
+            </article>
+          </div>
+          <h3 class="v4-h3">Network</h3>
+          <div class="v4-kit">
+            <article class="v4-kit-row">
+              <div class="v4-kit-id">
+                <h4 class="v4-kit-name"><a href="https://mullvad.net/" target="_blank" rel="noopener noreferrer">Mullvad VPN<span class="sr-only"> (opens in a new tab)</span></a></h4>
+                <p class="v4-kit-kind">VPN · €5 / month</p>
+              </div>
+              <p class="v4-kit-desc">Hides your IP address from websites and your traffic from your internet provider and public Wi-Fi. No e-mail or phone needed to sign up: the account is just a number. The apps and servers are audited regularly. Sweden; there is no free plan.</p>
+              <dl class="v4-kit-facts"><div><dt>Site</dt> <dd><a href="https://mullvad.net/" target="_blank" rel="noopener noreferrer">mullvad.net<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Audit</dt> <dd><a href="https://www.x41-dsec.de/static/reports/X41-Mullvad-Audit-Public-Report-2024-12-10.pdf" target="_blank" rel="noopener noreferrer">X41 D-Sec, 2024 — apps<span class="sr-only"> (opens in a new tab)</span></a>; <a href="https://mullvad.net/en/blog/fourth-infrastructure-audit-completed-by-cure53" target="_blank" rel="noopener noreferrer">Cure53, 2024 — servers<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Code</dt> <dd><a href="https://github.com/mullvad/mullvadvpn-app" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Runs on</dt> <dd>Windows · macOS · Linux · iOS · Android</dd></div><div><dt>Also</dt> <dd><a href="https://protonvpn.com/" target="_blank" rel="noopener noreferrer">Proton VPN<span class="sr-only"> (opens in a new tab)</span></a></dd></div></dl>
+            </article>
+            <article class="v4-kit-row">
+              <div class="v4-kit-id">
+                <h4 class="v4-kit-name"><a href="https://moddns.net/" target="_blank" rel="noopener noreferrer">modDNS<span class="sr-only"> (opens in a new tab)</span></a></h4>
+                <p class="v4-kit-kind">DNS · In IVPN Plus — $8 / month</p>
+              </div>
+              <p class="v4-kit-desc">Encrypts your DNS queries — they show which sites you open — so your internet provider and public Wi-Fi cannot read them. It also blocks ads and trackers by blocklists in every app at once, not only in the browser. The whole server is open source. Needs an IVPN account; the audit covered security, not a no-logs promise.</p>
+              <dl class="v4-kit-facts"><div><dt>Site</dt> <dd><a href="https://moddns.net/" target="_blank" rel="noopener noreferrer">moddns.net<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Audit</dt> <dd><a href="https://www.ivpn.net/resources/IVP-08-report.pdf" target="_blank" rel="noopener noreferrer">Cure53, 2025<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Code</dt> <dd><a href="https://github.com/ivpn/moddns" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Runs on</dt> <dd>iOS · Android · macOS · Windows</dd></div></dl>
+            </article>
+            <article class="v4-kit-row">
+              <div class="v4-kit-id">
+                <h4 class="v4-kit-name"><a href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">Tor Browser<span class="sr-only"> (opens in a new tab)</span></a></h4>
+                <p class="v4-kit-kind">Browser · Free</p>
+              </div>
+              <p class="v4-kit-desc">Hides your IP address and makes all its users look alike, so websites cannot recognise you by your browser fingerprint. Slower than a regular browser — keep it for what is really worth hiding. Where Tor is blocked, connect through bridges, which are built in.</p>
+              <dl class="v4-kit-facts"><div><dt>Site</dt> <dd><a href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">torproject.org<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Audit</dt> <dd><a href="https://blog.torproject.org/code-audit-tor-ecosystem-components/" target="_blank" rel="noopener noreferrer">Radically Open Security, 2023<span class="sr-only"> (opens in a new tab)</span></a>; <a href="https://blog.torproject.org/security-audit-report-tor-browser-ooni/" target="_blank" rel="noopener noreferrer">Cure53, 2023<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Code</dt> <dd><a href="https://gitlab.torproject.org/tpo/applications/tor-browser" target="_blank" rel="noopener noreferrer">GitLab · MPL-2.0<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Runs on</dt> <dd>Windows · macOS · Linux · Android</dd></div></dl>
+            </article>
+            <article class="v4-kit-row">
+              <div class="v4-kit-id">
+                <h4 class="v4-kit-name"><a href="https://tails.net/" target="_blank" rel="noopener noreferrer">Tails<span class="sr-only"> (opens in a new tab)</span></a></h4>
+                <p class="v4-kit-kind">Operating system · Free</p>
+              </div>
+              <p class="v4-kit-desc">An operating system on a USB stick: boot a computer from it, all traffic goes through Tor, and nothing is left behind when you shut down. For when more is at stake than ads. It does not run on Macs with Apple chips.</p>
+              <dl class="v4-kit-facts"><div><dt>Site</dt> <dd><a href="https://tails.net/" target="_blank" rel="noopener noreferrer">tails.net<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Audit</dt> <dd><a href="https://tails.net/news/audit_by_ROS_2024/" target="_blank" rel="noopener noreferrer">Radically Open Security, 2024<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Code</dt> <dd><a href="https://gitlab.tails.net/tails/tails" target="_blank" rel="noopener noreferrer">GitLab · GPL-3.0<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Runs on</dt> <dd>PCs, from a USB stick (x86-64)</dd></div></dl>
+            </article>
+          </div>
+          <h3 class="v4-h3">Files and notes</h3>
+          <div class="v4-kit">
+            <article class="v4-kit-row">
+              <div class="v4-kit-id">
+                <h4 class="v4-kit-name"><a href="https://ente.com/" target="_blank" rel="noopener noreferrer">Ente Photos<span class="sr-only"> (opens in a new tab)</span></a></h4>
+                <p class="v4-kit-kind">Photos · 10 GB free</p>
+              </div>
+              <p class="v4-kit-desc">A replacement for Google Photos and iCloud with end-to-end encryption: photos are encrypted on your phone, and the server never sees them. Both the encryption in the apps and the server have been audited.</p>
+              <dl class="v4-kit-facts"><div><dt>Site</dt> <dd><a href="https://ente.com/" target="_blank" rel="noopener noreferrer">ente.com<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Audit</dt> <dd><a href="https://ente.com/blog/cryptography-audit" target="_blank" rel="noopener noreferrer">Cure53 and Symbolic Software, 2023<span class="sr-only"> (opens in a new tab)</span></a>; <a href="https://ente.com/blog/cern-audit" target="_blank" rel="noopener noreferrer">Cure53, 2025 — server<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Code</dt> <dd><a href="https://github.com/ente/ente" target="_blank" rel="noopener noreferrer">GitHub · AGPL-3.0<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Runs on</dt> <dd>iOS · Android · macOS · Windows · Linux · web</dd></div><div><dt>Also</dt> <dd><a href="https://proton.me/drive" target="_blank" rel="noopener noreferrer">Proton Drive<span class="sr-only"> (opens in a new tab)</span></a></dd></div></dl>
+            </article>
+            <article class="v4-kit-row">
+              <div class="v4-kit-id">
+                <h4 class="v4-kit-name"><a href="https://cryptomator.org/" target="_blank" rel="noopener noreferrer">Cryptomator<span class="sr-only"> (opens in a new tab)</span></a></h4>
+                <p class="v4-kit-kind">Cloud encryption · Free on desktop</p>
+              </div>
+              <p class="v4-kit-desc">Encrypts your files before they reach Dropbox, Google Drive or iCloud, so the cloud stores only ciphertext. The audit is old — 2017 — and covered the cryptographic core.</p>
+              <dl class="v4-kit-facts"><div><dt>Site</dt> <dd><a href="https://cryptomator.org/" target="_blank" rel="noopener noreferrer">cryptomator.org<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Audit</dt> <dd><a href="https://cryptomator.org/audits/2017-11-27%20crypto%20cure53.pdf" target="_blank" rel="noopener noreferrer">Cure53, 2017<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Code</dt> <dd><a href="https://github.com/cryptomator/cryptomator" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Runs on</dt> <dd>Windows · macOS · Linux · iOS · Android</dd></div></dl>
+            </article>
+            <article class="v4-kit-row">
+              <div class="v4-kit-id">
+                <h4 class="v4-kit-name"><a href="https://standardnotes.com/" target="_blank" rel="noopener noreferrer">Standard Notes<span class="sr-only"> (opens in a new tab)</span></a></h4>
+                <p class="v4-kit-kind">Notes · Free plan</p>
+              </div>
+              <p class="v4-kit-desc">End-to-end encrypted notes on all your devices. Owned by Proton since 2024 and still open source. The server was last audited in 2022, the encryption in the apps in 2020.</p>
+              <dl class="v4-kit-facts"><div><dt>Site</dt> <dd><a href="https://standardnotes.com/" target="_blank" rel="noopener noreferrer">standardnotes.com<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Audit</dt> <dd><a href="https://standardnotes.com/help/2/has-standard-notes-completed-a-third-party-security-audit" target="_blank" rel="noopener noreferrer">Cure53, 2022 and Trail of Bits, 2020<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Code</dt> <dd><a href="https://github.com/standardnotes/app" target="_blank" rel="noopener noreferrer">GitHub · AGPL-3.0<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Runs on</dt> <dd>iOS · Android · macOS · Windows · Linux · web</dd></div></dl>
+            </article>
+          </div>
+          <h3 class="v4-h3">Open source, no audit yet</h3>
+          <div class="v4-prose"><p>No browser ad blocker has a public audit. This is the most trustworthy of the open-source ones. To block ads in every app at once, use modDNS from the «Network» group — its audit is published.</p></div>
+          <div class="v4-kit">
+            <article class="v4-kit-row">
+              <div class="v4-kit-id">
+                <h4 class="v4-kit-name"><a href="https://addons.mozilla.org/firefox/addon/ublock-origin/" target="_blank" rel="noopener noreferrer">uBlock Origin<span class="sr-only"> (opens in a new tab)</span></a></h4>
+                <p class="v4-kit-kind">Ad blocker · Free</p>
+              </div>
+              <p class="v4-kit-desc">Blocks ads and trackers in the browser. One author has made it since 2015, with no monetisation, and Mozilla lists it as Recommended. No independent audit. Firefox gets the full version; Safari and Chrome get uBlock Origin Lite, which is weaker against sites that fight ad blocking.</p>
+              <dl class="v4-kit-facts"><div><dt>Site</dt> <dd><a href="https://addons.mozilla.org/firefox/addon/ublock-origin/" target="_blank" rel="noopener noreferrer">addons.mozilla.org<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Audit</dt> <dd>none published</dd></div><div><dt>Code</dt> <dd><a href="https://github.com/gorhill/uBlock" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span class="sr-only"> (opens in a new tab)</span></a></dd></div><div><dt>Runs on</dt> <dd>Firefox on Windows, macOS, Linux and Android · Lite: Safari on iOS and macOS, Chrome, Edge</dd></div><div><dt>Also</dt> <dd><a href="https://apps.apple.com/app/ublock-origin-lite/id6745342698" target="_blank" rel="noopener noreferrer">uBO Lite for Safari<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh" target="_blank" rel="noopener noreferrer">uBO Lite for Chrome<span class="sr-only"> (opens in a new tab)</span></a></dd></div></dl>
+            </article>
+          </div>
+          <p class="v4-terms">Checked on 25 November 2026. No referral links here.</p>
+</div>
+      </section>
+
       <section id="contact" class="v4-section">
         <div class="v4-section-head">
           <h2 class="v4-h2" data-cms-text="sections.contact.title">Know a better tool?</h2>
         </div>
         <div data-cms-list="collabContact">
   <div class="v4-contact">
-            <div>
-              <p class="v4-contact-note">If it is open source and has a published independent audit, tell me — I'll check it and add it.</p>
-            </div>
-            <div class="v4-cta-row">
-              <a class="v4-btn v4-btn-primary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Message me on Telegram</a>
+            <p class="v4-contact-note">If it is open source and has a published independent audit, tell me — I'll check it and add it.</p>
+            <div class="v4-contact-act">
+              <div class="v4-cta-row">
+                <a class="v4-btn v4-btn-primary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Message me on Telegram</a>
+              </div>
             </div>
           </div>
 </div>

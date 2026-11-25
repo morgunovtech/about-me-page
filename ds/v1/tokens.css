@@ -25,17 +25,17 @@
   --v4-on-fg: #f5f2ed;
   --v4-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --v4-sans: "IBM Plex Sans", ui-sans-serif, -apple-system, "Segoe UI", sans-serif;
-  /* Caption scale: every uppercase tracked label is one size, one tracking,
-     one weight — 12px / 0.1em / 500. A page has two caption styles: sans caps
-     for chrome and controls (nav, menus, footer, stat units) and mono caps for
-     labels of data (tags, section numbers, card heads, spec terms). Data set in
-     mono (a date, a source, a count, a version) is plain 12px, never caps.
+  /* The caption: every uppercase label is one size, one tracking, one weight,
+     one family — 12px / 0.08em / 500, sans. A page has ONE caption style (it
+     had two, sans caps and mono caps, and they read as noise side by side):
+     chrome and controls, and the label over a group. Mono is for data — a
+     date, a period, a version, a count — set plain at 13px, never caps.
      `label-xs` holds the same values as `label` since v1.3.0 (it was 10px /
      0.12em); the names stay because the stylesheets and consumers read them. */
   --v4-label-size: 12px;
-  --v4-label-tracking: 0.1em;
+  --v4-label-tracking: 0.08em;
   --v4-label-xs-size: 12px;
-  --v4-label-xs-tracking: 0.1em;
+  --v4-label-xs-tracking: 0.08em;
   --v4-label-weight: 500;
   color-scheme: light dark;
 }

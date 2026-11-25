@@ -10,18 +10,17 @@
 // block below is only the above-the-fold subset, guarded by check-critical.
 
 import { ORIGIN, NAME, VERSION, CHANGELOG_URL } from './site.js';
-import { escapeHtml, renderInline } from './markdown.js';
+import { escapeHtml, renderInline, typo } from './markdown.js';
 
 const CRITICAL_CSS = `
-    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:12px;--v4-label-tracking:.1em;--v4-label-xs-size:12px;--v4-label-xs-tracking:.1em;--v4-label-weight:500;color-scheme:light dark}
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:12px;--v4-label-tracking:.08em;--v4-label-xs-size:12px;--v4-label-xs-tracking:.08em;--v4-label-weight:500;color-scheme:light dark}
     [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f;color-scheme:dark}
     [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000;color-scheme:dark}
     *,*::before,*::after{box-sizing:border-box}
     body{margin:0}
     body.no-transition,body.no-transition *{transition:none!important}
-    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:14px;line-height:1.55;letter-spacing:-0.005em}
-    [data-theme="high-contrast"] body.v4-page{font-size:16px}
-    .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:6px 12px;z-index:100;text-decoration:none;font-size:13px;transition:top .2s}
+    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:16px;line-height:1.6;letter-spacing:-0.005em}
+    .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:8px 12px;z-index:100;text-decoration:none;font-size:14px;transition:top .2s}
     .v4-page .skip-link:focus{top:8px}
 `;
 
@@ -273,7 +272,7 @@ ${barChrome(l, { ru: '/notes', en: '/en/notes', ruAttrs: ' data-cms-href="_urlRu
           <figure class="v4-article-cover" data-cms-html="_coverHtml"></figure>
         </header>
         <div class="v4-article-body" data-cms-html="body"></div>
-        <p class="v4-article-thanks">${renderInline(t.thanksLine.replace('{href}', p(l, '/thanks')))}</p>
+        <p class="v4-article-thanks">${typo(renderInline(t.thanksLine.replace('{href}', p(l, '/thanks'))), l)}</p>
         <footer class="v4-article-foot">
           <a class="v4-btn" href="${notesHref}">${t.back}</a>
         </footer>
@@ -292,13 +291,18 @@ ${tailChrome(l, '<script type="application/ld+json" data-cms-jsonld></script>')}
 // Telegram block that sits between the intro and the feed; `topics` the topic
 // line. A topic page passes its `heading` and RU `path` (/notes/topics/<key>);
 // `hasEn: false` drops the English alternate when the topic has nothing in English.
-export function notesIndexHtml(lang, listHtml, jsonLd, build, { intro, channel = '', topics = '', heading, path = '/notes', hasEn = true } = {}) {
+export function notesIndexHtml(lang, listHtml, jsonLd, build, { intro, channel = '', topics = '', heading, count = 0, path = '/notes', hasEn = true } = {}) {
   const l = L(lang);
   const t = T[l];
   const self = ORIGIN + p(l, path);
   const h1 = heading ? escapeHtml(heading) : t.notes;
   const title = path === '/notes' ? `${t.notes} — ${NAME[l]}` : `${h1} — ${t.notes} — ${NAME[l]}`;
   const enPath = hasEn ? '/en' + path : '/en/notes';
+  // How many publications the page lists, beside its title: «Публикации 52».
+  // The words are for a screen reader; the eye gets the number alone.
+  const counted = count > 0
+    ? ` <span class="v4-h1-count"><span class="sr-only">${l === 'en' ? '— total: ' : '— всего: '}</span>${count}</span>`
+    : '';
   return `<!DOCTYPE html>
 <html lang="${l}">
 <head>
@@ -318,11 +322,15 @@ ${headChrome(l)}
   <div class="v4-root">
 ${barChrome(l, { ru: path, en: enPath })}
     <main id="main">
-      <div class="v4-article">
-        <h1 class="v4-notes-title">${h1}</h1>
-        <p class="v4-notes-intro">${intro}</p>
-        ${topics}
-        ${channel}
+      <section class="v4-hero v4-hero--simple" aria-labelledby="hero-title">
+        <div class="v4-hero-text">
+          <h1 class="v4-h1" id="hero-title">${h1}${counted}</h1>
+          <p class="v4-tagline">${typo(intro, l)}</p>
+        </div>
+      </section>
+      ${topics}
+      ${channel}
+      <div class="v4-notes-feed">
         ${listHtml}
       </div>
     </main>

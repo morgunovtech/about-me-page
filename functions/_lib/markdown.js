@@ -14,6 +14,45 @@ export function escapeAttr(s) {
   return escapeHtml(s).replace(/"/g, '&quot;');
 }
 
+// --- Typography: where a line must not break ---
+// Applied to text on its way to a PUBLIC page (never in the editor: there the
+// text in the page is the text of the doc, and never to an attribute), so the
+// content stays plain and the rule is one for every page:
+//   · a hyphen after a one-letter prefix does not break («e‑com», «e‑grocery»
+//     used to end a line with «e-»);
+//   · a «·» stays with the item before it, a «—» with the word before it — a
+//     line never starts with a separator or a dash;
+//   · Russian: a one- or two-letter preposition, conjunction or «не» / «ни»
+//     stays with the word after it — no «и», «в», «на» hanging at a line's end.
+const NBSP = ' ';
+const RU_SHORT = /(^|[\s («„“"])((?:[вксуоиая]|не|ни|на|но|по|за|из|до|от|об|со|во|ко))[ \t]+(?=\S)/giu;
+export function typoText(s, lang) {
+  let out = String(s == null ? '' : s)
+    .replace(/(^|[^\p{L}\p{N}‑-])(\p{L})-(?=\p{L})/gu, '$1$2‑')
+    .replace(/[ \t]+([·—])(?=[ \t ]|$)/g, NBSP + '$1');
+  if (lang !== 'en') {
+    // Twice: «и в этом» — the second short word starts where the first match ended.
+    out = out.replace(RU_SHORT, '$1$2' + NBSP).replace(RU_SHORT, '$1$2' + NBSP);
+  }
+  return out;
+}
+
+// The same for a fragment of HTML: text only — not tags, and not what is inside
+// <code>, <pre>, <script> or <style> (a non-breaking hyphen in a command would
+// break its copy).
+const TYPO_SKIP = /^<(\/?)(code|pre|script|style|textarea)\b/i;
+export function typo(html, lang) {
+  let skip = 0;
+  return String(html == null ? '' : html).split(/(<[^>]*>)/).map((part, i) => {
+    if (i % 2) {
+      const m = TYPO_SKIP.exec(part);
+      if (m) skip = Math.max(0, skip + (m[1] ? -1 : 1));
+      return part;
+    }
+    return skip ? part : typoText(part, lang);
+  }).join('');
+}
+
 export function isExternal(href) {
   return /^(?:https?:)?\/\//i.test(href);
 }
