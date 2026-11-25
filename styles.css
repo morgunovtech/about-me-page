@@ -654,8 +654,14 @@
   margin: 0 0 14px;
 }
 
-.v4-products + .v4-more + .v4-tier {
+.v4-products + .v4-more + .v4-tier,
+.v4-products + .v4-more + .v4-more + .v4-tier {
   margin-top: 36px;
+}
+
+/* Two «more» links in a row (GitHub, then /privacy): one line apart. */
+.v4-more + .v4-more {
+  margin-top: 8px;
 }
 
 .v4-product-name a {
@@ -694,9 +700,14 @@
   margin-bottom: 12px;
 }
 
-/* The kit: cards in groups by task, a caption over each group. */
+/* The kit: cards in groups by task, a caption over each group (and, for the
+   group without an audit, a line of why under it). */
 .v4-products + .v4-h3 {
   margin-top: 36px;
+}
+
+.v4-h3 + .v4-prose + .v4-products {
+  margin-top: 14px;
 }
 
 /* The proof on a kit card — audits, code, platforms: the /collaborate spec

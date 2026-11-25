@@ -74,9 +74,12 @@ test('«Джентльменский набор»: open source, a published inde
   const items = kitItems();
   assert.ok(items.length >= 10, `${items.length} cards`);
   const https = (h) => /^https:\/\/[a-z0-9.-]+\.[a-z]{2,}(\/|$)/i.test(String(h));
+  const unaudited = new Set(doc.sections.kit.groups.filter((g) => g.unaudited).flatMap((g) => g.items));
   for (const it of items) {
     const name = it.name;
-    assert.ok(it.audits && it.audits.length >= 1, `${name}: an audit`);
+    // Only a card in the marked group may come without an audit — and it must.
+    if (unaudited.has(it)) assert.deepEqual(it.audits, [], `${name}: the unaudited group has no audits`);
+    else assert.ok(it.audits && it.audits.length >= 1, `${name}: an audit`);
     for (const a of it.audits) {
       assert.ok(https(a.href), `${name}: audit link ${a.href}`);
       // «Cure53, 2025»: who audited and when, in both languages.
@@ -138,4 +141,35 @@ test('Sonar counts no copy-paste in the page templates, and its settings are not
   // check-sync and the composition tests keep those twins, not Sonar.
   assert.match(read('.sonarcloud.properties'), /^sonar\.cpd\.exclusions=\*\*\/\*\.html$/m);
   assert.match(read('functions/_middleware.js'), /'\/\.sonarcloud\.properties',/);
+});
+
+test('the homepage leads to /privacy from «Собственные проекты», after the GitHub link', () => {
+  for (const [f, lang] of [['index.html', 'ru'], ['en/index.html', 'en']]) {
+    const projects = read(f).split('id="projects"')[1].split('</section>')[0];
+    const href = lang === 'en' ? '/en/privacy' : '/privacy';
+    const label = seed.home.sections.products.privacy.label[lang];
+    assert.ok(projects.includes(`<a href="${href}" data-cms-href="sections.products.privacy.href"><span data-cms-text="sections.products.privacy.label">${label}</span><span aria-hidden="true">&nbsp;→</span></a>`), f);
+    assert.ok(projects.indexOf('sections.products.more.href') < projects.indexOf('sections.products.privacy.href'), f);
+    assert.equal(seed.home.sections.products.privacy.href[lang], href);
+  }
+});
+
+test('the one exception — an ad blocker without an audit — is marked, last, and says why', () => {
+  const groups = doc.sections.kit.groups;
+  const marked = groups.filter((g) => g.unaudited);
+  assert.equal(marked.length, 1);
+  assert.equal(groups.at(-1), marked[0], 'the exception comes after every audited group');
+  for (const lang of LANGS) {
+    assert.ok(String(marked[0].note[lang]).trim(), `${lang}: the group says why it is there`);
+    assert.match(doc.sections.kit.prose[lang], lang === 'en' ? /One exception/ : /Одно исключение/, `${lang}: the intro names the exception`);
+    const html = renderers.privacyKit(doc, lang);
+    const tail = html.slice(html.lastIndexOf('<h3 class="v4-h3">'));
+    assert.match(tail, /^<h3 class="v4-h3">[^<]+<\/h3>\s*<div class="v4-prose"><p>/, lang);
+    assert.match(tail, lang === 'en' ? /<dt>Audit<\/dt><dd>none published<\/dd>/ : /<dt>Аудит<\/dt><dd>публичного нет<\/dd>/, lang);
+    assert.equal((html.match(/публичного нет|none published/g) || []).length, marked[0].items.length, `${lang}: only the marked cards`);
+  }
+  // DNS made it into the audited part, and Mullvad's public DNS (shut down on 2 Nov 2026) did not.
+  const audited = groups.filter((g) => !g.unaudited).flatMap((g) => g.items).map((it) => it.name);
+  assert.ok(audited.includes('modDNS'));
+  assert.doesNotMatch(JSON.stringify(doc), /dns\.mullvad\.net/);
 });
