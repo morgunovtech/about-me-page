@@ -13,6 +13,7 @@ const TEMPLATES = {
   about: { ru: '/about.html', en: '/en/about.html' },
   collaborate: { ru: '/collaborate.html', en: '/en/collaborate.html' },
   uses: { ru: '/uses.html', en: '/en/uses.html' },
+  privacy: { ru: '/privacy.html', en: '/en/privacy.html' },
 };
 
 export async function onRequestPost({ request, env }) {

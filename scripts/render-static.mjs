@@ -27,6 +27,8 @@ const PAGES = [
   ['en/about.html', 'about', 'en'],
   ['uses.html', 'uses', 'ru'],
   ['en/uses.html', 'uses', 'en'],
+  ['privacy.html', 'privacy', 'ru'],
+  ['en/privacy.html', 'privacy', 'en'],
 ];
 
 // Entities vs. literal NBSP are the same HTML — compare and write the entity form.

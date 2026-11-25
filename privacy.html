@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-cms-text="meta.title">Приватность: мои инструменты и джентльменский набор — Семён Моргунов</title>
+  <meta name="description" data-cms-content="meta.description" content="Мои инструменты покажут, что о вас видят сайты и что выдают фотографии. Джентльменский набор — приложения с открытым кодом и независимым аудитом безопасности, у каждого ссылка на отчёт." />
+  <meta name="author" content="Семён Моргунов" />
+  <meta name="theme-color" content="#edeae5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" media="(prefers-color-scheme: light)" />
+  <link rel="icon" href="/images/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="canonical" href="https://s.morgunov.tech/privacy" />
+  <link rel="alternate" hreflang="ru" href="https://s.morgunov.tech/privacy" />
+  <link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/privacy" />
+  <link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/privacy" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" data-cms-content="share.title" content="Приватность: мои инструменты и джентльменский набор — Семён Моргунов" />
+  <meta property="og:description" data-cms-content="share.description" content="Мои инструменты покажут, что о вас видят сайты и что выдают фотографии. Джентльменский набор — приложения с открытым кодом и независимым аудитом безопасности, у каждого ссылка на отчёт." />
+  <meta property="og:url" content="https://s.morgunov.tech/privacy" />
+  <meta property="og:image" data-cms-abs="share.image" content="https://s.morgunov.tech/images/og-card-ru.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" data-cms-content="share.imageAlt" content="Приватность — Семён Моргунов" />
+  <meta property="og:site_name" content="morgunov.tech" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" data-cms-content="share.title" content="Приватность: мои инструменты и джентльменский набор — Семён Моргунов" />
+  <meta name="twitter:description" data-cms-content="share.description" content="Мои инструменты покажут, что о вас видят сайты и что выдают фотографии. Джентльменский набор — приложения с открытым кодом и независимым аудитом безопасности, у каждого ссылка на отчёт." />
+  <meta name="twitter:image" data-cms-abs="share.image" content="https://s.morgunov.tech/images/og-card-ru.png" />
+  <meta name="twitter:image:alt" data-cms-content="share.imageAlt" content="Приватность — Семён Моргунов" />
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
+  <style>
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:12px;--v4-label-tracking:.1em;--v4-label-xs-size:12px;--v4-label-xs-tracking:.1em;--v4-label-weight:500;color-scheme:light dark}
+    [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f;color-scheme:dark}
+    [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000;color-scheme:dark}
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0}
+    body.no-transition,body.no-transition *{transition:none!important}
+    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:14px;line-height:1.55;letter-spacing:-0.005em}
+    [data-theme="high-contrast"] body.v4-page{font-size:16px}
+    .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:6px 12px;z-index:100;text-decoration:none;font-size:13px;transition:top .2s}
+    .v4-page .skip-link:focus{top:8px}
+  </style>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-cyr-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-cyr-600.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-600.woff2" crossorigin />
+  <!-- Mono renders above the fold (hero eyebrow 400, section numbers 500) — preload both so they don't FOUT. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-cyr-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-latin-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-latin-500.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-cyr-500.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-500.woff2" crossorigin />
+  <link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" />
+  <link rel="stylesheet" href="/ds/v1/tokens.css?v=5629caeb" />
+  <link rel="stylesheet" href="/ds/v1/base.css?v=0e404315" />
+  <link rel="stylesheet" href="/ds/v1/components.css?v=52192cae" />
+  <link rel="stylesheet" href="/styles.css?v=ad0df9a5" />
+  <script data-cfasync="false">
+    (function () {
+      var d = document.documentElement;
+      var p = 'auto';
+      try { p = localStorage.getItem('theme-preference') || 'auto'; } catch (e) {}
+      var t = p === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : p;
+      d.setAttribute('data-theme', t);
+      d.setAttribute('data-theme-preference', p);
+      if (p !== 'auto') {
+        var c = t === 'dark' ? '#14130f' : t === 'high-contrast' ? '#000000' : '#edeae5';
+        var m = document.querySelectorAll('meta[name="theme-color"]');
+        for (var i = 0; i < m.length; i++) m[i].setAttribute('content', c);
+      }
+    })();
+  </script>
+</head>
+<body class="v4-page no-transition" data-lang="ru">
+  <a href="#main" class="skip-link">Перейти к основному содержимому</a>
+  <div class="v4-root">
+    <header class="v4-bar" id="top">
+      <nav class="v4-nav v4-dropdown" aria-label="Основная навигация">
+        <button class="v4-bar-btn v4-nav-toggle" type="button" aria-controls="site-nav">Меню<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+        <div class="v4-bar-mid" id="site-nav">
+          <a href="/">Главная</a>
+          <a href="#tools">Инструменты</a>
+          <a href="#kit">Набор</a>
+          <a href="#contact">Связаться</a>
+        </div>
+      </nav>
+      <div class="v4-bar-right">
+        <div class="v4-dropdown v4-lang">
+          <button class="v4-bar-btn v4-lang-btn" type="button" aria-haspopup="menu" aria-controls="lang-menu" id="lang-toggle" aria-label="RU — сменить язык">RU<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+          <div class="v4-menu" id="lang-menu" role="menu" aria-labelledby="lang-toggle">
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="true" href="/privacy" hreflang="ru" lang="ru">Русский</a>
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="false" href="/en/privacy" hreflang="en" lang="en">English</a>
+          </div>
+        </div>
+        <div class="v4-dropdown v4-theme">
+          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-controls="theme-menu" id="theme-toggle" aria-label="Сменить тему оформления">
+            <svg class="v4-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+              <circle cx="8" cy="8" r="3"></circle>
+              <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"></path>
+            </svg>
+            <svg class="v4-icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M13.5 9A6 6 0 1 1 7 2.5a4.5 4.5 0 0 0 6.5 6.5z"></path>
+            </svg>
+            <svg class="v4-icon-contrast" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <circle cx="8" cy="8" r="6"></circle>
+              <path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path>
+            </svg>
+          </button>
+          <div class="v4-menu v4-theme-menu" id="theme-menu" role="menu" aria-labelledby="theme-toggle">
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">Светлая</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">Тёмная</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">Авто</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">Высокий контраст</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="v4-hero v4-hero--simple" aria-labelledby="hero-title">
+        <div class="v4-hero-text">
+          <p class="v4-hero-meta" data-cms-text="hero.eyebrow">Проверить · Защитить</p>
+          <h1 class="v4-h1" id="hero-title" data-cms-text="hero.name">Приватность</h1>
+          <p class="v4-tagline" data-cms-text="hero.tagline">Сначала посмотрите, что о вас видно, — мои инструменты покажут это на ваших же данных. Потом закройте лишнее приложениями, которые прошли независимый аудит.</p>
+          <div class="v4-cta-row" data-cms-html="hero.ctas">
+            <a class="v4-btn" href="/">← На главную</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="tools" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2" data-cms-text="sections.tools.title">Мои инструменты</h2>
+        </div>
+        <div data-cms-list="privacyTools">
+  <p class="v4-tagline v4-tagline--compact">Три вопроса о себе: что видит сайт, что выдаёт фото и выдержит ли пароль.</p>
+          <div class="v4-products">
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-product-tag-row">
+                <span class="v4-tag">WEB</span>
+                <span class="v4-live-dot" aria-hidden="true"></span><span class="sr-only">Работает</span>
+              </span>
+              <span>v3.3</span>
+            </div>
+            <h3 class="v4-product-name"><a href="https://fprint.morgunov.tech/" target="_blank" rel="noopener noreferrer">Fingerprint</a></h3>
+            <p class="v4-product-desc">Образовательная страница о приватности для людей без технической подготовки: шесть шагов от включения ноутбука до открытого сайта, и на каждом, на ваших реальных данных, кто и что о вас узнаёт и что с этим делать.</p>
+            <a class="v4-btn" href="https://fprint.morgunov.tech/" target="_blank" rel="noopener noreferrer">Проверить браузер →</a>
+          </article>
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-product-tag-row">
+                <span class="v4-tag">WEB</span>
+                <span class="v4-live-dot" aria-hidden="true"></span><span class="sr-only">Работает</span>
+              </span>
+              <span>v1.7</span>
+            </div>
+            <h3 class="v4-product-name"><a href="https://foundyou.morgunov.tech/" target="_blank" rel="noopener noreferrer">Found You</a></h3>
+            <p class="v4-product-desc">Веб-приложение для тех, кто собирается поделиться фотографией: оно показывает, что снимок выдаёт о месте, времени, устройстве и людях в кадре, и делает очищенную копию, никуда не загружая файл.</p>
+            <a class="v4-btn" href="https://foundyou.morgunov.tech/" target="_blank" rel="noopener noreferrer">Очистить фото →</a>
+          </article>
+            <article class="v4-product v4-product--soon">
+            <div class="v4-product-head">
+              <span class="v4-tag">WEB</span>
+              <span>Скоро</span>
+            </div>
+            <h3 class="v4-product-name">Good Pass</h3>
+            <p class="v4-product-desc">Покажет, насколько пароль силён на самом деле, сколько времени уйдёт на его перебор, не утёк ли он, — и что изменить, чтобы он стал сильнее.</p>
+          </article>
+          </div>
+</div>
+      </section>
+
+      <section id="kit" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2" data-cms-text="sections.kit.title">Джентльменский набор</h2>
+        </div>
+        <div data-cms-list="privacyKit">
+  <div class="v4-prose"><p>Приложения, которые закрывают главные дыры: переписку, почту, пароли, сеть и файлы. Каждое прошло два фильтра:</p><ul class="v4-list"><li><strong>открытый код</strong> — любой специалист может проверить, что программа делает на самом деле, а не верить на слово;</li><li><strong>независимый аудит</strong> — сторонняя команда безопасности проверила продукт и опубликовала отчёт. Ссылка на отчёт — в карточке.</li></ul><p>Аудит — снимок на дату, а не гарантия навсегда. Обновляйте приложения и скачивайте их только с официального сайта — его адрес написан на кнопке.</p></div>
+          <h3 class="v4-h3">Общение</h3>
+          <div class="v4-products">
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Мессенджер</span>
+              <span>Бесплатно</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://signal.org/" target="_blank" rel="noopener noreferrer">Signal</a></h4>
+            <p class="v4-product-desc">Стандарт защищённой переписки: сквозное шифрование чатов, групп и звонков включено всегда, о собеседниках сервер почти ничего не знает. Нужен номер телефона. Проверен протокол — код приложений публично не аудировали.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Аудит</dt><dd><a href="https://www.usenix.org/system/files/usenixsecurity24-bhargavan.pdf" target="_blank" rel="noopener noreferrer">Cryspen и Inria, 2024 — протокол<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a><br /><a href="https://eprint.iacr.org/2025/078" target="_blank" rel="noopener noreferrer">NYU и PQShield, 2025 — протокол<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Код</dt><dd><a href="https://github.com/signalapp" target="_blank" rel="noopener noreferrer">GitHub · AGPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Где работает</dt><dd>iOS · Android · macOS · Windows · Linux</dd><dt>Ещё</dt><dd><a href="https://simplex.chat/" target="_blank" rel="noopener noreferrer">SimpleX Chat<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a>, <a href="https://threema.com/" target="_blank" rel="noopener noreferrer">Threema<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd></dl>
+            <a class="v4-btn" href="https://signal.org/" target="_blank" rel="noopener noreferrer">signal.org →</a>
+          </article>
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Почта</span>
+              <span>Есть бесплатный тариф</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://proton.me/mail" target="_blank" rel="noopener noreferrer">Proton Mail</a></h4>
+            <p class="v4-product-desc">Письма хранятся зашифрованными так, что сам Proton их не прочитает; между ящиками Proton — сквозное шифрование. Швейцария, бесплатно — 1 ГБ. Последний опубликованный аудит почты — 2021 года.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Аудит</dt><dd><a href="https://proton.me/blog/security-audit" target="_blank" rel="noopener noreferrer">Securitum, 2021<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Код</dt><dd><a href="https://github.com/ProtonMail" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Где работает</dt><dd>iOS · Android · macOS · Windows · Linux · веб</dd></dl>
+            <a class="v4-btn" href="https://proton.me/mail" target="_blank" rel="noopener noreferrer">proton.me →</a>
+          </article>
+          </div>
+          <h3 class="v4-h3">Пароли и входы</h3>
+          <div class="v4-products">
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Менеджер паролей</span>
+              <span>Бесплатно; Premium — $19,80 в год</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://bitwarden.com/" target="_blank" rel="noopener noreferrer">Bitwarden</a></h4>
+            <p class="v4-product-desc">Пароли на всех устройствах сразу, без лимита устройств даже бесплатно. Аудиты — каждый год: только в 2025-м их было четыре, включая разбор криптографии в ETH Zurich.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Аудит</dt><dd><a href="https://bitwarden.com/help/is-bitwarden-audited/" target="_blank" rel="noopener noreferrer">Cure53, ETH Zurich и другие, 2025<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Код</dt><dd><a href="https://github.com/bitwarden/clients" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Где работает</dt><dd>iOS · Android · macOS · Windows · Linux · браузеры</dd><dt>Ещё</dt><dd><a href="https://keepassxc.org/" target="_blank" rel="noopener noreferrer">KeePassXC<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a>, <a href="https://proton.me/pass" target="_blank" rel="noopener noreferrer">Proton Pass<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd></dl>
+            <a class="v4-btn" href="https://bitwarden.com/" target="_blank" rel="noopener noreferrer">bitwarden.com →</a>
+          </article>
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Коды 2FA</span>
+              <span>Бесплатно</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://bitwarden.com/products/authenticator/" target="_blank" rel="noopener noreferrer">Bitwarden Authenticator</a></h4>
+            <p class="v4-product-desc">Одноразовые коды для входа — второй замок на почте, в банке и соцсетях: украденного пароля уже мало. Работает без аккаунта.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Аудит</dt><dd><a href="https://bitwarden.com/assets/718YF2IWeVNARWs6nBgYzS/796a7e97eedc6d569773a1892284d034/2025_Mobile_App_Security_Assessment.pdf" target="_blank" rel="noopener noreferrer">Unit 42 (Palo Alto Networks), 2025<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Код</dt><dd><a href="https://github.com/bitwarden" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Где работает</dt><dd>iOS · Android</dd></dl>
+            <a class="v4-btn" href="https://bitwarden.com/products/authenticator/" target="_blank" rel="noopener noreferrer">bitwarden.com →</a>
+          </article>
+          </div>
+          <h3 class="v4-h3">Сеть</h3>
+          <div class="v4-products">
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">VPN</span>
+              <span>€5 в месяц</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://mullvad.net/" target="_blank" rel="noopener noreferrer">Mullvad VPN</a></h4>
+            <p class="v4-product-desc">Прячет ваш IP-адрес от сайтов и трафик — от провайдера и публичного Wi-Fi. Для регистрации не нужны ни почта, ни телефон: аккаунт — это просто номер. Приложения и серверы проверяют регулярно. Швеция, бесплатного тарифа нет.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Аудит</dt><dd><a href="https://www.x41-dsec.de/static/reports/X41-Mullvad-Audit-Public-Report-2024-12-10.pdf" target="_blank" rel="noopener noreferrer">X41 D-Sec, 2024 — приложения<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a><br /><a href="https://mullvad.net/en/blog/fourth-infrastructure-audit-completed-by-cure53" target="_blank" rel="noopener noreferrer">Cure53, 2024 — серверы<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Код</dt><dd><a href="https://github.com/mullvad/mullvadvpn-app" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Где работает</dt><dd>Windows · macOS · Linux · iOS · Android</dd><dt>Ещё</dt><dd><a href="https://protonvpn.com/" target="_blank" rel="noopener noreferrer">Proton VPN<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd></dl>
+            <a class="v4-btn" href="https://mullvad.net/" target="_blank" rel="noopener noreferrer">mullvad.net →</a>
+          </article>
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Браузер</span>
+              <span>Бесплатно</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">Tor Browser</a></h4>
+            <p class="v4-product-desc">Прячет ваш IP-адрес и делает всех пользователей одинаковыми, чтобы сайты не узнавали вас по «отпечатку» браузера. Медленнее обычного — держите его для того, что действительно стоит скрыть. Где Tor блокируют, подключайтесь через мосты — они встроены в браузер.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Аудит</dt><dd><a href="https://blog.torproject.org/code-audit-tor-ecosystem-components/" target="_blank" rel="noopener noreferrer">Radically Open Security, 2023<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a><br /><a href="https://blog.torproject.org/security-audit-report-tor-browser-ooni/" target="_blank" rel="noopener noreferrer">Cure53, 2023<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Код</dt><dd><a href="https://gitlab.torproject.org/tpo/applications/tor-browser" target="_blank" rel="noopener noreferrer">GitLab · MPL-2.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Где работает</dt><dd>Windows · macOS · Linux · Android</dd></dl>
+            <a class="v4-btn" href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">torproject.org →</a>
+          </article>
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Система</span>
+              <span>Бесплатно</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://tails.net/" target="_blank" rel="noopener noreferrer">Tails</a></h4>
+            <p class="v4-product-desc">Система на флешке: загружаете с неё компьютер, весь трафик идёт через Tor, а после выключения не остаётся следов. Для случаев, когда на кону больше, чем реклама. На Mac с процессорами Apple не запускается.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Аудит</dt><dd><a href="https://tails.net/news/audit_by_ROS_2024/" target="_blank" rel="noopener noreferrer">Radically Open Security, 2024<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Код</dt><dd><a href="https://gitlab.tails.net/tails/tails" target="_blank" rel="noopener noreferrer">GitLab · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Где работает</dt><dd>ПК с флешки (x86-64)</dd></dl>
+            <a class="v4-btn" href="https://tails.net/" target="_blank" rel="noopener noreferrer">tails.net →</a>
+          </article>
+          </div>
+          <h3 class="v4-h3">Файлы и заметки</h3>
+          <div class="v4-products">
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Фото</span>
+              <span>10 ГБ бесплатно</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://ente.com/" target="_blank" rel="noopener noreferrer">Ente Photos</a></h4>
+            <p class="v4-product-desc">Замена Google Фото и iCloud со сквозным шифрованием: снимки шифруются ещё на телефоне, и сервер их не видит. Проверены и шифрование в приложениях, и сервер.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Аудит</dt><dd><a href="https://ente.com/blog/cryptography-audit" target="_blank" rel="noopener noreferrer">Cure53 и Symbolic Software, 2023<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a><br /><a href="https://ente.com/blog/cern-audit" target="_blank" rel="noopener noreferrer">Cure53, 2025 — сервер<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Код</dt><dd><a href="https://github.com/ente/ente" target="_blank" rel="noopener noreferrer">GitHub · AGPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Где работает</dt><dd>iOS · Android · macOS · Windows · Linux · веб</dd><dt>Ещё</dt><dd><a href="https://proton.me/drive" target="_blank" rel="noopener noreferrer">Proton Drive<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd></dl>
+            <a class="v4-btn" href="https://ente.com/" target="_blank" rel="noopener noreferrer">ente.com →</a>
+          </article>
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Шифрование облака</span>
+              <span>Бесплатно на компьютере</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://cryptomator.org/" target="_blank" rel="noopener noreferrer">Cryptomator</a></h4>
+            <p class="v4-product-desc">Шифрует файлы до того, как они попадут в Dropbox, Google Drive или iCloud: облако хранит только шифр. Аудит был давно, в 2017 году, и проверял криптографическое ядро.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Аудит</dt><dd><a href="https://cryptomator.org/audits/2017-11-27%20crypto%20cure53.pdf" target="_blank" rel="noopener noreferrer">Cure53, 2017<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Код</dt><dd><a href="https://github.com/cryptomator/cryptomator" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Где работает</dt><dd>Windows · macOS · Linux · iOS · Android</dd></dl>
+            <a class="v4-btn" href="https://cryptomator.org/" target="_blank" rel="noopener noreferrer">cryptomator.org →</a>
+          </article>
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Заметки</span>
+              <span>Есть бесплатный тариф</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://standardnotes.com/" target="_blank" rel="noopener noreferrer">Standard Notes</a></h4>
+            <p class="v4-product-desc">Заметки со сквозным шифрованием на всех устройствах. С 2024 года принадлежит Proton и остаётся открытым. Сервер последний раз проверяли в 2022 году, шифрование в приложениях — в 2020-м.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Аудит</dt><dd><a href="https://standardnotes.com/help/2/has-standard-notes-completed-a-third-party-security-audit" target="_blank" rel="noopener noreferrer">Cure53, 2022 и Trail of Bits, 2020<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Код</dt><dd><a href="https://github.com/standardnotes/app" target="_blank" rel="noopener noreferrer">GitHub · AGPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (откроется в новой вкладке)</span></a></dd><dt>Где работает</dt><dd>iOS · Android · macOS · Windows · Linux · веб</dd></dl>
+            <a class="v4-btn" href="https://standardnotes.com/" target="_blank" rel="noopener noreferrer">standardnotes.com →</a>
+          </article>
+          </div>
+          <p class="v4-terms">Список проверен 25 ноября 2026 года. Реферальных ссылок здесь нет.</p>
+</div>
+      </section>
+
+      <section id="contact" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2" data-cms-text="sections.contact.title">Знаете инструмент лучше?</h2>
+        </div>
+        <div data-cms-list="collabContact">
+  <div class="v4-contact">
+            <div>
+              <p class="v4-contact-note">Если у него открытый код и опубликованный независимый аудит — напишите, проверю и добавлю.</p>
+            </div>
+            <div class="v4-cta-row">
+              <a class="v4-btn v4-btn-primary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
+            </div>
+          </div>
+</div>
+      </section>
+    </main>
+
+    <footer class="v4-foot">
+      <span>morgunov.tech · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v1.6.0</a> · <a href="/uses">стек</a> · <a href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">нашли опечатку?</a></span>
+      <span class="v4-foot-privacy">Без cookies, трекеров и аналитики</span>
+    </footer>
+  </div>
+  <script type="application/ld+json" data-cms-jsonld>
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://s.morgunov.tech/privacy#webpage",
+          "url": "https://s.morgunov.tech/privacy",
+          "name": "Приватность: мои инструменты и джентльменский набор — Семён Моргунов",
+          "inLanguage": "ru",
+          "isPartOf": {
+            "@id": "https://s.morgunov.tech/#website"
+          },
+          "about": {
+            "@id": "https://s.morgunov.tech/#person"
+          },
+          "dateModified": "2026-11-25",
+          "breadcrumb": {
+            "@id": "https://s.morgunov.tech/privacy#breadcrumb"
+          },
+          "mainEntity": {
+            "@id": "https://s.morgunov.tech/privacy#kit"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://s.morgunov.tech/privacy#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Главная",
+              "item": "https://s.morgunov.tech/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Приватность",
+              "item": "https://s.morgunov.tech/privacy"
+            }
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://s.morgunov.tech/privacy#kit",
+          "name": "Джентльменский набор",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Signal",
+                "url": "https://signal.org/",
+                "applicationCategory": "Мессенджер"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Proton Mail",
+                "url": "https://proton.me/mail",
+                "applicationCategory": "Почта"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Bitwarden",
+                "url": "https://bitwarden.com/",
+                "applicationCategory": "Менеджер паролей"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Bitwarden Authenticator",
+                "url": "https://bitwarden.com/products/authenticator/",
+                "applicationCategory": "Коды 2FA"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Mullvad VPN",
+                "url": "https://mullvad.net/",
+                "applicationCategory": "VPN"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 6,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Tor Browser",
+                "url": "https://www.torproject.org/",
+                "applicationCategory": "Браузер"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 7,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Tails",
+                "url": "https://tails.net/",
+                "applicationCategory": "Система"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 8,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Ente Photos",
+                "url": "https://ente.com/",
+                "applicationCategory": "Фото"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 9,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Cryptomator",
+                "url": "https://cryptomator.org/",
+                "applicationCategory": "Шифрование облака"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 10,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Standard Notes",
+                "url": "https://standardnotes.com/",
+                "applicationCategory": "Заметки"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  </script>
+  <script data-cfasync="false" defer src="/script.js?v=de52523a"></script>
+</body>
+</html>

@@ -197,7 +197,7 @@ function ventureRow(it, lang, edit, path) {
 // One card for every card-shaped thing on the site (home products, /uses
 // software, /collaborate tiers): head row (tag [+ live dot] · meta), name,
 // body, CTA. Every text leaf is inline markdown → renderInline escapes it.
-function card({ item, tag, live, liveLabel, meta, metaClass, metaPath, name, body, cta, edit, path }) {
+function card({ item, cls, tag, live, liveLabel, meta, metaClass, metaPath, name, nameTag = 'h3', body, cta, edit, path }) {
   // metaPath: the meta's own edit leaf; null when the meta carries its own anchors.
   const metaLeaf = metaPath === undefined ? path + '.version' : metaPath;
   const liveDot = live
@@ -208,14 +208,13 @@ function card({ item, tag, live, liveLabel, meta, metaClass, metaPath, name, bod
               <span class="v4-tag"${eText(edit, path + '.tag')}>${tag}</span>${liveDot}
             </span>`
     : `<span class="v4-tag"${eText(edit, path + '.tag')}>${tag}</span>`;
-  return `<article class="v4-product"${item ? eItem(edit, path) : ''}>
+  return `<article class="v4-product${cls ? ' ' + cls : ''}"${item ? eItem(edit, path) : ''}>
           <div class="v4-product-head">
             ${tagHtml}
             <span${metaClass ? ` class="${metaClass}"` : ''}${metaLeaf ? eText(edit, metaLeaf) : ''}>${meta}</span>
           </div>
-          <h3 class="v4-product-name"${eText(edit, path + '.name')}>${name}</h3>
-          ${body}
-          ${cta}
+          <${nameTag} class="v4-product-name"${eText(edit, path + '.name')}>${name}</${nameTag}>
+          ${body}${cta ? `\n          ${cta}` : ''}
         </article>`;
 }
 
@@ -248,6 +247,62 @@ export function channelItem(it, lang, doc) {
           <p class="v4-prose">${renderInline(pick(it.prose, lang))}</p>
           ${more}
         </article>`;
+}
+
+// --- /privacy (structured) ---
+// «Мои инструменты»: the live tools are the homepage product cards (the same
+// card, version and description synced from GitHub by sync-products.mjs); a
+// tool that is not ready yet is a pale card — «скоро» in place of the version,
+// no link, no button.
+function soonCard(it, lang) {
+  return card({
+    cls: 'v4-product--soon',
+    tag: renderInline(it.tag),
+    meta: escapeHtml(lang === 'en' ? 'Soon' : 'Скоро'),
+    name: renderInline(it.name),
+    body: `<p class="v4-product-desc">${renderInline(pick(it.desc, lang))}</p>`,
+    cta: '',
+    edit: false, path: '',
+  });
+}
+
+// An off-site link inside a card's spec: «↗» and the new-tab note for screen
+// readers, like every link that leaves the site.
+function extLink(l, lang) {
+  const href = safeHref(pick(l.href, lang) || l.href);
+  return `<a href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer">${renderInline(pick(l.label, lang))}<span aria-hidden="true">&nbsp;↗</span><span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span></a>`;
+}
+
+const KIT_TERMS = {
+  ru: { audit: 'Аудит', code: 'Код', os: 'Где работает', alt: 'Ещё' },
+  en: { audit: 'Audit', code: 'Code', os: 'Runs on', alt: 'Also' },
+};
+
+// «Джентльменский набор»: one card per task — what to install, why, and the
+// proof in the spec: the independent audits and the source code, each a link
+// to the primary source. The button is the product's own site, labelled with
+// its domain so a reader sees where it leads.
+function kitCard(it, lang) {
+  const t = KIT_TERMS[lang === 'en' ? 'en' : 'ru'];
+  const href = it.cta ? safeHref(pick(it.cta.href, lang) || it.cta.href) : '';
+  const name = renderInline(it.name);
+  const rows = [];
+  if ((it.audits || []).length) rows.push([t.audit, it.audits.map((a) => extLink(a, lang)).join('<br />')]);
+  if (it.source) rows.push([t.code, extLink(it.source, lang)]);
+  if (it.platforms) rows.push([t.os, renderInline(pick(it.platforms, lang))]);
+  if ((it.alternatives || []).length) rows.push([t.alt, it.alternatives.map((a) => extLink(a, lang)).join(', ')]);
+  const spec = rows.length
+    ? `\n          <dl class="v4-spec v4-spec--card">${rows.map(([dt, dd]) => `<dt>${dt}</dt><dd>${dd}</dd>`).join('')}</dl>`
+    : '';
+  return card({
+    tag: renderInline(pick(it.tag, lang)),
+    meta: renderInline(pick(it.price, lang)),
+    name: href ? `<a href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer">${name}</a>` : name,
+    nameTag: 'h4', // under the group's h3, as /uses names its gear cards
+    body: `<p class="v4-product-desc">${renderInline(pick(it.desc, lang))}</p>${spec}`,
+    cta: it.cta ? btn(it.cta, lang, false, '', false) : '',
+    edit: false, path: '',
+  });
 }
 
 // --- /uses cards (structured) ---
@@ -447,6 +502,31 @@ export const renderers = {
         </div>`;
   },
 
+  // /privacy «Мои инструменты»: a lead line, then the cards.
+  privacyTools: (doc, lang) => {
+    const s = doc.sections.tools || {};
+    const lead = pick(s.prose, lang);
+    const cards = (s.items || []).map((it, i) =>
+      (it.soon ? soonCard(it, lang) : productCard(it, lang, false, 'sections.tools.items.' + i)));
+    return `${lead ? `<p class="v4-tagline v4-tagline--compact">${renderInline(lead)}</p>\n        ` : ''}<div class="v4-products">
+          ${cards.join('\n          ')}
+        </div>`;
+  },
+
+  // /privacy «Джентльменский набор»: how the list was made (block prose), the
+  // cards in groups by task, then the date the list was checked.
+  privacyKit: (doc, lang) => {
+    const s = doc.sections.kit || {};
+    const groups = (s.groups || []).map((g) => `<h3 class="v4-h3">${renderInline(pick(g.heading, lang))}</h3>
+        <div class="v4-products">
+          ${(g.items || []).map((it) => kitCard(it, lang)).join('\n          ')}
+        </div>`).join('\n        ');
+    const note = pick(s.note, lang);
+    return `<div class="v4-prose">${renderProse(pick(s.prose, lang))}</div>
+        ${groups}${note ? `\n        <p class="v4-terms">${renderInline(note)}</p>` : ''}`;
+  },
+
+  // Shared by /collaborate and /privacy: one line, one button.
   collabContact: (doc, lang) => {
     const s = doc.sections.contact;
     return `<div class="v4-contact">

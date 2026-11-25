@@ -25,6 +25,7 @@ export const PAGE_PATHS = {
   collaborate: ['/collaborate', '/en/collaborate', '/sitemap.xml'],
   about: ['/about', '/en/about'], // hidden since v0.31.2: not in the sitemap
   uses: ['/uses', '/en/uses', '/sitemap.xml'],
+  privacy: ['/privacy', '/en/privacy', '/sitemap.xml'],
 };
 // The homepage shows the three newest feed entries, so a notes change purges it too.
 export const NOTES_PATHS = ['/notes', '/en/notes', '/', '/en/', '/sitemap.xml', '/notes/feed.xml', '/en/notes/feed.xml'];

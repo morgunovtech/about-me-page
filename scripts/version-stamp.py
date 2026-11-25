@@ -45,6 +45,8 @@ HTML_FILES = [
     "en/uses.html",
     "about.html",
     "en/about.html",
+    "privacy.html",
+    "en/privacy.html",
     "404.html",
     # Not HTML, but they carry the same ?v= references: the DS integration
     # guide (absolute URLs) and the /admin shell (admin-app.js/css).

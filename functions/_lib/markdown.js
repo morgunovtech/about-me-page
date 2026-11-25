@@ -25,7 +25,7 @@ export function isExternal(href) {
 // Internal pages live at clean URLs (Pages 308-redirects /foo.html → /foo).
 // Older KV docs still carry .html hrefs — normalize them at render time so
 // no visitor click pays a redirect round-trip.
-const INTERNAL_HTML_HREF = /^\/(?:en\/)?(?:collaborate|about|uses)\.html(?=$|[#?])/;
+const INTERNAL_HTML_HREF = /^\/(?:en\/)?(?:collaborate|about|uses|privacy)\.html(?=$|[#?])/;
 
 export function safeHref(href) {
   const h = String(href == null ? '' : href).replace(/[\t\n\r]/g, '').trim();

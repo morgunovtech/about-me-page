@@ -7,7 +7,7 @@ const SITE = 's.morgunov.tech';
 
 // The only page keys the CMS manages. Used to validate untrusted ?page params
 // so an authed request can't probe arbitrary site-scoped KV keys.
-export const PAGES = new Set(['home', 'about', 'collaborate', 'uses']);
+export const PAGES = new Set(['home', 'about', 'collaborate', 'uses', 'privacy']);
 
 // Articles are addressed as the page key `article:<slug>` (so the existing
 // content/save/history machinery keys them at `<site>:article:<slug>` and
