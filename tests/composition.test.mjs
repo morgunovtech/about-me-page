@@ -71,7 +71,7 @@ test('3. a «more» link names what is behind it; «→» stays on the site, «�
       if (external) assert.match(label, / (на|on) [A-Z][A-Za-z]+$/, `${f}: ${label}`);
     }
   }
-  assert.equal(seen, 8, 'four «more» links on each home page');
+  assert.equal(seen, 10, 'five «more» links on each home page');
   // A glyph typed into a stored label is dropped; the stored labels of v1.4 are renamed.
   assert.equal(plainLabel('→ Все публикации'), 'Все публикации');
   assert.equal(plainLabel('Все проекты на GitHub ↗'), 'Все проекты на GitHub');

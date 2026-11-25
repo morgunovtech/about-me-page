@@ -62,7 +62,7 @@
 
 ## Privacy
 
-- [Privacy (RU)](https://s.morgunov.tech/privacy) / [EN](https://s.morgunov.tech/en/privacy) — his privacy page: his own tools — Fingerprint and Found You, a password-strength tool coming soon — and «the essential kit», apps that are open source and have a published independent security audit, each card linking to the audit report and the source code; no referral links
+- [Privacy (RU)](https://s.morgunov.tech/privacy) / [EN](https://s.morgunov.tech/en/privacy) — his privacy page (also at privacy.morgunov.tech): his own tools — Fingerprint and Found You, a password-strength tool coming soon — and «the essential kit», apps that are open source and have a published independent security audit, each card linking to the audit report and the source code (including encrypted DNS: modDNS by IVPN); one open-source ad blocker without a public audit (uBlock Origin) is shown separately and labelled as such; no referral links
 
 ## Uses / Stack
 

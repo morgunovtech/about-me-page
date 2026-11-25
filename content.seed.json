@@ -416,6 +416,16 @@
             "en": "All projects on GitHub"
           },
           "href": "https://github.com/morgunovtech"
+        },
+        "privacy": {
+          "label": {
+            "ru": "Приватность: мои инструменты и джентльменский набор",
+            "en": "Privacy: my tools and the essential kit"
+          },
+          "href": {
+            "ru": "/privacy",
+            "en": "/en/privacy"
+          }
         }
       },
       "ventures": {
@@ -1476,8 +1486,8 @@
         "en": "Privacy: my tools and the essential kit — Semyon Morgunov"
       },
       "description": {
-        "ru": "Мои инструменты покажут, что о вас видят сайты и что выдают фотографии. Джентльменский набор — приложения с открытым кодом и независимым аудитом безопасности, у каждого ссылка на отчёт.",
-        "en": "My tools show what websites see about you and what your photos give away. The essential kit: open-source apps with an independent security audit, each with a link to the report."
+        "ru": "Мои инструменты покажут, что о вас видят сайты и что выдают фотографии. Джентльменский набор — приложения с открытым кодом и независимым аудитом безопасности, со ссылками на отчёты.",
+        "en": "My tools show what websites see about you and what your photos give away. The essential kit: open-source apps with an independent security audit, with links to the reports."
       }
     },
     "share": {
@@ -1486,8 +1496,8 @@
         "en": "Privacy: my tools and the essential kit — Semyon Morgunov"
       },
       "description": {
-        "ru": "Мои инструменты покажут, что о вас видят сайты и что выдают фотографии. Джентльменский набор — приложения с открытым кодом и независимым аудитом безопасности, у каждого ссылка на отчёт.",
-        "en": "My tools show what websites see about you and what your photos give away. The essential kit: open-source apps with an independent security audit, each with a link to the report."
+        "ru": "Мои инструменты покажут, что о вас видят сайты и что выдают фотографии. Джентльменский набор — приложения с открытым кодом и независимым аудитом безопасности, со ссылками на отчёты.",
+        "en": "My tools show what websites see about you and what your photos give away. The essential kit: open-source apps with an independent security audit, with links to the reports."
       },
       "image": {
         "ru": "/images/og-card-ru.png",
@@ -1586,8 +1596,8 @@
           "en": "The essential kit"
         },
         "prose": {
-          "ru": "Приложения, которые закрывают главные дыры: переписку, почту, пароли, сеть и файлы. Каждое прошло два фильтра:\n\n- **открытый код** — любой специалист может проверить, что программа делает на самом деле, а не верить на слово;\n- **независимый аудит** — сторонняя команда безопасности проверила продукт и опубликовала отчёт. Ссылка на отчёт — в карточке.\n\nАудит — снимок на дату, а не гарантия навсегда. Обновляйте приложения и скачивайте их только с официального сайта — его адрес написан на кнопке.",
-          "en": "Apps that close the main gaps: messages, mail, passwords, network and files. Each one passed two filters:\n\n- **open source** — anyone qualified can check what the program really does instead of taking it on trust;\n- **independent audit** — an outside security team examined the product and published a report. The link to the report is on the card.\n\nAn audit is a snapshot of one date, not a lifetime guarantee. Keep the apps updated and download them only from the official site — its address is on the button."
+          "ru": "Приложения, которые закрывают главные дыры: переписку, почту, пароли, сеть и файлы. Каждое прошло два фильтра:\n\n- **открытый код** — любой специалист может проверить, что программа делает на самом деле, а не верить на слово;\n- **независимый аудит** — сторонняя команда безопасности проверила продукт и опубликовала отчёт. Ссылка на отчёт — в карточке.\n\nОдно исключение вынесено в конец и помечено: блокировщик рекламы — аудированного среди них нет.\n\nАудит — снимок на дату, а не гарантия навсегда. Обновляйте приложения и скачивайте их только с официального сайта — его адрес написан на кнопке.",
+          "en": "Apps that close the main gaps: messages, mail, passwords, network and files. Each one passed two filters:\n\n- **open source** — anyone qualified can check what the program really does instead of taking it on trust;\n- **independent audit** — an outside security team examined the product and published a report. The link to the report is on the card.\n\nOne exception sits at the end and is marked as such: an ad blocker — none of them has been audited.\n\nAn audit is a snapshot of one date, not a lifetime guarantee. Keep the apps updated and download them only from the official site — its address is on the button."
         },
         "groups": [
           {
@@ -1878,6 +1888,48 @@
                 }
               },
               {
+                "name": "modDNS",
+                "tag": {
+                  "ru": "DNS",
+                  "en": "DNS"
+                },
+                "price": {
+                  "ru": "В подписке IVPN Plus — $8 в месяц",
+                  "en": "In IVPN Plus — $8 / month"
+                },
+                "desc": {
+                  "ru": "Шифрует DNS-запросы — по ним видно, какие сайты вы открываете, — чтобы их не читали провайдер и публичный Wi-Fi. Заодно режет рекламу и трекеры по спискам сразу во всех приложениях, не только в браузере. Сервер открыт целиком. Нужен аккаунт IVPN; аудит проверял безопасность, а не отсутствие логов.",
+                  "en": "Encrypts your DNS queries — they show which sites you open — so your internet provider and public Wi-Fi cannot read them. It also blocks ads and trackers by blocklists in every app at once, not only in the browser. The whole server is open source. Needs an IVPN account; the audit covered security, not a no-logs promise."
+                },
+                "audits": [
+                  {
+                    "label": {
+                      "ru": "Cure53, 2025",
+                      "en": "Cure53, 2025"
+                    },
+                    "href": "https://www.ivpn.net/resources/IVP-08-report.pdf"
+                  }
+                ],
+                "source": {
+                  "label": {
+                    "ru": "GitHub · GPL-3.0",
+                    "en": "GitHub · GPL-3.0"
+                  },
+                  "href": "https://github.com/ivpn/moddns"
+                },
+                "platforms": {
+                  "ru": "iOS · Android · macOS · Windows",
+                  "en": "iOS · Android · macOS · Windows"
+                },
+                "cta": {
+                  "label": {
+                    "ru": "moddns.net →",
+                    "en": "moddns.net →"
+                  },
+                  "href": "https://moddns.net/"
+                }
+              },
+              {
                 "name": "Tor Browser",
                 "tag": {
                   "ru": "Браузер",
@@ -2116,6 +2168,69 @@
                     "en": "standardnotes.com →"
                   },
                   "href": "https://standardnotes.com/"
+                }
+              }
+            ]
+          },
+          {
+            "heading": {
+              "ru": "Открытый код, аудита пока нет",
+              "en": "Open source, no audit yet"
+            },
+            "unaudited": true,
+            "note": {
+              "ru": "Рекламу в браузере режут только программы, у которых публичного аудита нет ни у одной. Здесь — самая надёжная из открытых. Во всех приложениях сразу рекламу режет modDNS из группы «Сеть» — его аудит опубликован.",
+              "en": "No browser ad blocker has a public audit. This is the most trustworthy of the open-source ones. To block ads in every app at once, use modDNS from the «Network» group — its audit is published."
+            },
+            "items": [
+              {
+                "name": "uBlock Origin",
+                "tag": {
+                  "ru": "Блокировщик рекламы",
+                  "en": "Ad blocker"
+                },
+                "price": {
+                  "ru": "Бесплатно",
+                  "en": "Free"
+                },
+                "desc": {
+                  "ru": "Режет рекламу и трекеры в браузере. Его с 2015 года делает один автор, без монетизации; у Mozilla он в «Рекомендуемых». Независимого аудита нет. В Firefox — полная версия, в Safari и Chrome — uBlock Origin Lite: он слабее против сайтов, которые обходят блокировку.",
+                  "en": "Blocks ads and trackers in the browser. One author has made it since 2015, with no monetisation, and Mozilla lists it as Recommended. No independent audit. Firefox gets the full version; Safari and Chrome get uBlock Origin Lite, which is weaker against sites that fight ad blocking."
+                },
+                "audits": [],
+                "source": {
+                  "label": {
+                    "ru": "GitHub · GPL-3.0",
+                    "en": "GitHub · GPL-3.0"
+                  },
+                  "href": "https://github.com/gorhill/uBlock"
+                },
+                "platforms": {
+                  "ru": "Firefox на Windows, macOS, Linux и Android · Lite: Safari на iOS и macOS, Chrome, Edge",
+                  "en": "Firefox on Windows, macOS, Linux and Android · Lite: Safari on iOS and macOS, Chrome, Edge"
+                },
+                "alternatives": [
+                  {
+                    "label": {
+                      "ru": "uBO Lite для Safari",
+                      "en": "uBO Lite for Safari"
+                    },
+                    "href": "https://apps.apple.com/app/ublock-origin-lite/id6745342698"
+                  },
+                  {
+                    "label": {
+                      "ru": "uBO Lite для Chrome",
+                      "en": "uBO Lite for Chrome"
+                    },
+                    "href": "https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh"
+                  }
+                ],
+                "cta": {
+                  "label": {
+                    "ru": "addons.mozilla.org →",
+                    "en": "addons.mozilla.org →"
+                  },
+                  "href": "https://addons.mozilla.org/firefox/addon/ublock-origin/"
                 }
               }
             ]

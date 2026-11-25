@@ -274,8 +274,8 @@ function extLink(l, lang) {
 }
 
 const KIT_TERMS = {
-  ru: { audit: 'Аудит', code: 'Код', os: 'Где работает', alt: 'Ещё' },
-  en: { audit: 'Audit', code: 'Code', os: 'Runs on', alt: 'Also' },
+  ru: { audit: 'Аудит', none: 'публичного нет', code: 'Код', os: 'Где работает', alt: 'Ещё' },
+  en: { audit: 'Audit', none: 'none published', code: 'Code', os: 'Runs on', alt: 'Also' },
 };
 
 // «Джентльменский набор»: one card per task — what to install, why, and the
@@ -287,7 +287,9 @@ function kitCard(it, lang) {
   const href = it.cta ? safeHref(pick(it.cta.href, lang) || it.cta.href) : '';
   const name = renderInline(it.name);
   const rows = [];
-  if ((it.audits || []).length) rows.push([t.audit, it.audits.map((a) => extLink(a, lang)).join('<br />')]);
+  // A card without an audit says so in the same row — it only appears in a
+  // group marked `unaudited` (tests/privacy.test.mjs keeps it there).
+  rows.push([t.audit, (it.audits || []).length ? it.audits.map((a) => extLink(a, lang)).join('<br />') : t.none]);
   if (it.source) rows.push([t.code, extLink(it.source, lang)]);
   if (it.platforms) rows.push([t.os, renderInline(pick(it.platforms, lang))]);
   if ((it.alternatives || []).length) rows.push([t.alt, it.alternatives.map((a) => extLink(a, lang)).join(', ')]);
@@ -514,10 +516,13 @@ export const renderers = {
   },
 
   // /privacy «Джентльменский набор»: how the list was made (block prose), the
-  // cards in groups by task, then the date the list was checked.
+  // cards in groups by task, then the date the list was checked. A group may
+  // carry a note under its caption — the group of the open-source tools that
+  // have no audit yet explains why it is there.
   privacyKit: (doc, lang) => {
     const s = doc.sections.kit || {};
-    const groups = (s.groups || []).map((g) => `<h3 class="v4-h3">${renderInline(pick(g.heading, lang))}</h3>
+    const groups = (s.groups || []).map((g) => `<h3 class="v4-h3">${renderInline(pick(g.heading, lang))}</h3>${
+      pick(g.note, lang) ? `\n        <div class="v4-prose"><p>${renderInline(pick(g.note, lang))}</p></div>` : ''}
         <div class="v4-products">
           ${(g.items || []).map((it) => kitCard(it, lang)).join('\n          ')}
         </div>`).join('\n        ');
