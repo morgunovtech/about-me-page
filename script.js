@@ -149,6 +149,23 @@
     })
     .filter(Boolean);
 
+  /* The script itself puts focus on a toggle: after a pointer click opens the
+     menu (so Escape and the arrows work) and when a menu closes. Chrome then
+     paints the keyboard focus ring around a button the visitor has just
+     clicked with the mouse. A focus that follows a pointer action is marked
+     with data-pointer-focus, and components.css draws no ring on it; any key
+     press removes the mark, so keyboard navigation keeps its ring. */
+  let byPointer = false;
+  document.addEventListener('pointerdown', () => { byPointer = true; }, true);
+  document.addEventListener('keydown', () => {
+    byPointer = false;
+    dropdowns.forEach((d) => d.toggle.removeAttribute('data-pointer-focus'));
+  }, true);
+  const focusToggle = (d, options) => {
+    if (byPointer) d.toggle.setAttribute('data-pointer-focus', '');
+    d.toggle.focus(options);
+  };
+
   const setOpen = (d, open) => {
     d.root.classList.toggle('is-open', open);
     d.toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -160,6 +177,7 @@
 
   dropdowns.forEach((d) => {
     d.toggle.setAttribute('aria-expanded', 'false');
+    d.toggle.addEventListener('blur', () => d.toggle.removeAttribute('data-pointer-focus'));
     /* Safari/Firefox on macOS don't focus a <button> on mousedown — the
        press only BLURS the current focus, so the focusout handler below
        would close the menu before the click ever lands on the item.
@@ -186,7 +204,7 @@
            on <body>). Park it on the toggle so Escape, arrows and the
            focusout-close work; browsers don't paint :focus-visible after a
            pointer activation, so nothing changes visually. */
-        d.toggle.focus({ preventScroll: true });
+        focusToggle(d, { preventScroll: true });
       }
     });
     d.panel.addEventListener('click', (event) => {
@@ -196,7 +214,7 @@
          nav must not: its links move focus to the target section themselves
          (anchor handler below) and refocusing the toggle would yank the
          viewport back up to the header. */
-      if (d.isMenu) d.toggle.focus();
+      if (d.isMenu) focusToggle(d);
     });
     /* Tab out of the open dropdown → close it. relatedTarget is the element
        receiving focus; null (e.g. focus left the document) also closes. */
@@ -241,7 +259,7 @@
        otherwise Escape on the page background shouldn't yank focus around. */
     const focusInside = open.root.contains(document.activeElement);
     closeDropdowns();
-    if (focusInside) open.toggle.focus();
+    if (focusInside) focusToggle(open);
   });
 
   /* --- Theme buttons --- */

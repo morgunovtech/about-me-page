@@ -117,6 +117,8 @@ async function handle(context) {
     const transformed = overlay(response, doc, route.lang, false, (d, l) => renderPageJsonLd(d, l, route.page));
     const headers = new Headers(transformed.headers);
     headers.set('Cache-Control', 'public, max-age=60, stale-while-revalidate=86400');
+    // The deployed commit: the footer shows the version, so a deploy is checked by this header.
+    headers.set('X-Build', doc._build);
     return withSecurityHeaders(
       new Response(request.method === 'HEAD' ? null : transformed.body, {
         status: transformed.status,

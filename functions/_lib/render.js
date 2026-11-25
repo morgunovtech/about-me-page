@@ -11,7 +11,7 @@
 // The list container itself gets data-edit-list (set in overlay.js).
 // edit=false (the public render) emits none of these → output is byte-identical.
 
-import { pick, fmtDate, NEW_TAB } from './i18n.js';
+import { pick, NEW_TAB } from './i18n.js';
 import { noteUrl } from './articles.js';
 import { escapeHtml, escapeAttr, isExternal, safeHref, renderInline, renderCtx, renderProse } from './markdown.js';
 
@@ -61,13 +61,23 @@ function btn(cta, lang, edit, path, asItem, primary) {
 }
 
 // A "→ ..." footer link (always external in home content).
+// A «more» link names what is behind it; the glyph is the renderer's, never
+// the content's: «→» for a page of this site, «↗» for a link that leaves it.
+// A glyph typed into the label is dropped, so a stored «→ …» cannot double it.
+export function plainLabel(label) {
+  return String(label == null ? '' : label).replace(/^\s*[→↗]\s*/, '').replace(/\s*[→↗]\s*$/, '');
+}
+
 function moreLink(more, lang, edit, path) {
   const href = safeHref(pick(more.href, lang));
-  const label = escapeHtml(pick(more.label, lang));
+  const label = escapeHtml(plainLabel(pick(more.label, lang)));
   const ext = isExternal(href);
+  const mark = ext
+    ? `<span aria-hidden="true">&nbsp;↗</span><span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span>`
+    : '<span aria-hidden="true">&nbsp;→</span>';
   return `<div class="v4-more"><a href="${escapeAttr(href)}"${
     ext ? ' target="_blank" rel="noopener noreferrer"' : ''
-  }${path ? eText(edit, path + '.label') : ''}>${label}</a></div>`;
+  }><span${path ? eText(edit, path + '.label') : ''}>${label}</span>${mark}</a></div>`;
 }
 
 function group(n, sep) {
@@ -150,18 +160,13 @@ function statBlock(s, lang, doc, edit, path) {
 }
 
 function careerRow(it, lang, edit, path) {
-  // company renders inline markdown (may be a link) and, for the current role,
-  // sits alongside an sr-only label + live-dot — so it's an md leaf wrapping
-  // only the company name, never the surrounding structure.
+  // «Now» is said once, by the period («2026 — сейчас») and the first place in
+  // the list: no live dot and no sr-only «current role» beside the company.
   const company = eWrapMd(edit, path + '.company', renderInline(pick(it.company, lang)));
-  const srLabel = lang === 'en' ? 'Current role:' : 'Текущая роль:';
-  const companyInner = it.current
-    ? `<span class="sr-only">${srLabel}</span> ${company} <span class="v4-live-dot" aria-hidden="true"></span>`
-    : company;
   return `<div class="v4-career-row"${eItem(edit, path)}>
             <div class="period"${eText(edit, path + '.period')}>${escapeHtml(pick(it.period, lang))}</div>
             <div>
-              <div class="company">${companyInner}</div>
+              <div class="company">${company}</div>
               <div class="role"${eText(edit, path + '.role')}>${escapeHtml(pick(it.role, lang))}</div>
             </div>
             <div class="ctx"${eMd(edit, path + '.ctx')}>${renderCtx(pick(it.ctx, lang))}</div>
@@ -299,17 +304,34 @@ function tierCard(t, lang) {
   });
 }
 
-// One homepage «Публикации» row: date · tag · title. Own notes stay on the site;
-// external materials open in a new tab with a trailing «→» (they leave the site).
+// Where a feed entry lives, in one word: the platform of an external material
+// (derived from its address, so it cannot be mistyped) or «Заметка» for a note
+// of this site. It replaces the free-text tag (TALK / VIDEO / ARTICLE).
+export function feedSource(e, lang) {
+  if (e.kind === 'note') return lang === 'en' ? 'Note' : 'Заметка';
+  let host = '';
+  try { host = new URL(e.item.href).hostname.replace(/^www\./, ''); } catch { host = ''; }
+  if (host === 'youtu.be' || host === 'youtube.com' || host.endsWith('.youtube.com')) return 'YouTube';
+  return host;
+}
+
+// «06.2025»: the month is enough in a list of links; <time> keeps the full date.
+export function feedMonth(date) {
+  const m = /^(\d{4})-(\d{2})/.exec(String(date || ''));
+  return m ? `${m[2]}.${m[1]}` : '';
+}
+
+// One homepage «Публикации» row: «date · source» in mono, then the title. Own
+// notes stay on the site; external materials open in a new tab with «↗».
 function feedRow(e, lang) {
   const it = e.item;
-  const date = it.date ? `<time class="v4-feed-date" datetime="${escapeAttr(it.date)}">${escapeHtml(fmtDate(it.date, lang))}</time>` : '';
-  const tag = `<span class="v4-tag">${escapeHtml(e.kind === 'note' ? 'NOTE' : it.tag || 'LINK')}</span>`;
+  const date = it.date ? `<time datetime="${escapeAttr(it.date)}">${escapeHtml(feedMonth(it.date))}</time>` : '';
+  const meta = [date, escapeHtml(feedSource(e, lang))].filter(Boolean).join(' · ');
   const title = escapeHtml(pick(it.title, lang));
   const link = e.kind === 'note'
     ? `<a class="v4-feed-title" href="${noteUrl(it.slug, lang)}">${title}</a>`
-    : `<a class="v4-feed-title" href="${escapeAttr(safeHref(it.href))}" target="_blank" rel="noopener noreferrer">${title}<span aria-hidden="true">&nbsp;→</span><span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span></a>`;
-  return `<li class="v4-feed-row">${date}${tag}${link}</li>`;
+    : `<a class="v4-feed-title" href="${escapeAttr(safeHref(it.href))}" target="_blank" rel="noopener noreferrer">${title}<span aria-hidden="true">&nbsp;↗</span><span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span></a>`;
+  return `<li class="v4-feed-row"><span class="v4-feed-meta">${meta}</span>${link}</li>`;
 }
 
 export const renderers = {
@@ -337,23 +359,31 @@ export const renderers = {
   notesFeed: (doc, lang, edit) => {
     const sec = doc.sections.notes || {};
     const rows = (doc._feed || []).slice(0, 3).map((e) => feedRow(e, lang)).join('\n            ');
-    // «→ Все публикации» — a plain «→» link like «→ Подробнее на LinkedIn».
     const cta = sec.cta ? moreLink(sec.cta, lang, edit, 'sections.notes.cta') : '';
     return `${rows ? `<ul class="v4-feed">\n            ${rows}\n          </ul>\n          ` : ''}${cta}`;
   },
 
-  // «Связаться»: who writes and why, the «→» link to read more first, then
-  // one Telegram button with the reply time beside it.
+  // «Связаться»: who writes and why → ONE button (Telegram) with the reply
+  // time beside it → the second channel as a line of text, not a second
+  // button → the link to read more first, last. A cta whose href is mailto:
+  // is the second channel: it never renders as a button.
   contact: (doc, lang, edit) => {
     const sec = doc.sections.contact;
-    const ctas = sec.ctas.map((c, i) => btn(c, lang, edit, 'sections.contact.ctas.' + i, true)).join('\n          ');
+    const hrefOf = (c) => String(pick(c.href, lang) || c.href || '');
+    const isMail = (c) => /^mailto:/i.test(hrefOf(c));
+    const buttons = sec.ctas.map((c, i) => (isMail(c) ? '' : btn(c, lang, edit, 'sections.contact.ctas.' + i, true)))
+      .filter(Boolean).join('\n          ');
     const reply = sec.reply ? `\n          <p class="v4-contact-reply"${eText(edit, 'sections.contact.reply')}>${escapeHtml(pick(sec.reply, lang))}</p>` : '';
+    const mails = sec.ctas.map((c, i) => (isMail(c)
+      ? `<a href="${escapeAttr(safeHref(hrefOf(c)))}"${eText(edit, 'sections.contact.ctas.' + i + '.label')}>${escapeHtml(pick(c.label, lang))}</a>`
+      : '')).filter(Boolean);
+    const alt = mails.length ? `\n        <p class="v4-contact-alt">${lang === 'en' ? 'or by e-mail: ' : 'или на почту: '}${mails.join(', ')}</p>` : '';
     const links = (sec.links || []).map((l, i) => moreLink(l, lang, edit, 'sections.contact.links.' + i)).join('\n          ');
-    return `<p class="v4-contact-note"${eText(edit, 'sections.contact.note')}>${escapeHtml(pick(sec.note, lang))}</p>${
-      links ? `\n        <div class="v4-contact-links">\n          ${links}\n        </div>` : ''}
+    return `<p class="v4-contact-note"${eText(edit, 'sections.contact.note')}>${escapeHtml(pick(sec.note, lang))}</p>
         <div class="v4-cta-row">
-          ${ctas}${reply}
-        </div>`;
+          ${buttons}${reply}
+        </div>${alt}${
+      links ? `\n        <div class="v4-contact-links">\n          ${links}\n        </div>` : ''}`;
   },
 
   usesGear: (doc, lang) =>

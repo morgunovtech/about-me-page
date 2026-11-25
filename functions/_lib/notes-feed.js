@@ -46,7 +46,7 @@ export function feedItemHtml(entry, lang) {
   if (entry.kind === 'note') {
     const ex = escapeHtml(pickL(it.excerpt, lang));
     return `<article class="v4-note-item">
-          <div class="v4-note-head">${date}<span class="v4-tag">NOTE</span></div>
+          <div class="v4-note-head">${date}</div>
           <h2 class="v4-note-title"><a href="${noteUrl(it.slug, lang)}">${escapeHtml(pickL(it.title, lang))}</a></h2>
           ${ex ? `<p class="v4-note-excerpt">${ex}</p>` : ''}
         </article>`;
@@ -55,10 +55,10 @@ export function feedItemHtml(entry, lang) {
   // the screen-reader note says what the arrow and target=_blank mean.
   const meta = [escapeHtml(it.source || ''), viewsLabel(it.views, lang)].filter(Boolean).join(' · ');
   return `<article class="v4-note-item">
-          <div class="v4-note-head">${date}<span class="v4-tag">${escapeHtml(it.tag || 'LINK')}</span></div>
+          <div class="v4-note-head">${date}</div>
           <h2 class="v4-note-title"><a href="${escapeAttr(safeHref(it.href))}" target="_blank" rel="noopener noreferrer">${escapeHtml(
             pickL(it.title, lang)
-          )}<span aria-hidden="true">&nbsp;→</span><span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span></a></h2>
+          )}<span aria-hidden="true">&nbsp;↗</span><span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span></a></h2>
           ${meta ? `<p class="v4-note-meta">${meta}</p>` : ''}
         </article>`;
 }

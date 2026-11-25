@@ -45,12 +45,12 @@ Paste into any service's `<head>`. Load order matters:
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/tokens.css?v=5629caeb" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/base.css?v=0e404315" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=4621707b" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=52192cae" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript>
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/tokens.css?v=5629caeb" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/base.css?v=0e404315" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=4621707b" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=52192cae" />
 </noscript>
 ```
 
@@ -92,7 +92,8 @@ only» is for two cases: a page other people host themselves (see
 | Navigation | `nav.v4-nav.v4-dropdown` with `.v4-bar-mid` | at most five links; a «Меню» dropdown at 640px and below; leave the whole `nav` out when the page has no sections |
 | Language | `.v4-dropdown.v4-lang` | `RU ⌄`; the items are links to the same page in the other language |
 | Theme | `.v4-dropdown.v4-theme` | the icon button; four items in this order: light, dark, auto, high contrast |
-| Footer | `footer.v4-foot` | name · year · build on the left, the privacy line on the right |
+| Footer | `footer.v4-foot` | name · year · the build mark on the left, the privacy line on the right |
+| Build mark | `a.v4-build` in the footer | the release, `vX.Y.Z`; a link to the repository's `CHANGELOG.md` on GitHub, in a new tab |
 
 The right edge has one order everywhere: language, then theme at the very
 edge. Labels, icons and the behaviour of the menus are the site's, not
@@ -141,11 +142,11 @@ look-alikes.
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech / service · 2026 · build&nbsp;<code>BUILD</code></span>
+      <span>morgunov.tech / service · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v1.5.0</a></span>
       <span class="v4-foot-privacy">Без cookies, трекеров и аналитики</span>
     </footer>
   </div>
-  <script defer src="https://s.morgunov.tech/ds/v1/chrome.js?v=ade46cf8"></script>
+  <script defer src="https://s.morgunov.tech/ds/v1/chrome.js?v=57a9beca"></script>
 </body>
 ```
 <!-- chrome:snippet:end -->
@@ -153,6 +154,12 @@ look-alikes.
 English labels: «Skip to main content», «Main navigation», «Menu», «EN — change
 language», «Change colour theme», «Light», «Dark», «Auto», «High contrast»,
 «No cookies, trackers or analytics».
+
+**Build mark.** The footer names the release, not a commit: `vX.Y.Z`, the top entry of the
+service's `CHANGELOG.md`. It is a link, and it always leads to the same place: that file in the
+service's repository on GitHub (`https://github.com/<owner>/<repo>/blob/main/CHANGELOG.md`), where a
+visitor reads the history of versions. Not a modal, not the releases page (a release may be missing,
+the changelog is not), not a commit. A service whose repository is private has no build mark.
 
 `chrome.js` is the site's `script.js` without its site-only parts — a checked
 twin (`scripts/build-chrome.mjs`), so the menus of a service behave exactly as
@@ -167,6 +174,33 @@ Then apply the page class on `<body>`:
 ```html
 <body class="v4-page">
 ```
+
+## Composition rules
+
+Seven rules for a page of the family. On this site they are tests (`tests/composition.test.mjs`);
+a service keeps to them by reading this list.
+
+1. **One state — one sign, and never colour alone.** The selected item of a menu is a round mark
+   before its label (`.v4-menu-item[aria-checked="true"]::before`), not coloured text in a frame.
+   A toggle the script focused after a mouse click shows no focus ring (`chrome.js` marks that
+   focus with `data-pointer-focus`); reached from the keyboard, it keeps the ring. Hover is orange
+   text; do not add a frame, an underline or a fill to say the same thing twice.
+2. **A number marks a sequence.** «Step 1 of 6» is a sequence. Sections of a page are not: a
+   section head is a title and the rule under it, no «01».
+3. **A link that leads on names what is behind it**, as a noun phrase: «Все проекты на GitHub»,
+   not «Подробнее». A link that leaves the site ends with where it leads and carries «↗»; a link
+   to a page of the same site carries «→». The glyph is added by the markup or the renderer, in
+   an `aria-hidden` span after the label, never typed into the label.
+4. **A row in a list of publications says when and where**: `06.2025 · YouTube`, one mono line.
+   The place is the platform, taken from the address. No free-text tag, no filled chip.
+5. **One button in a block.** The second way to do the same thing is a line of text with a link
+   («или на почту: …»), not a second button. A link to read more first is not part of the
+   button row.
+6. **The build mark** — see «Service chrome».
+7. **The only round shape is the live dot** (`.v4-live-dot`) and its two relatives, the busy mark
+   of a button and the selected-item mark of a menu. Everything else keeps `border-radius: 0`. A
+   live dot stands next to something that is running now (a service, a check in progress), not
+   next to a word that already says «now».
 
 ## Captions and button states
 

@@ -9,7 +9,7 @@
 // Long-form styles (.v4-article-*, .v4-note-*) live in styles.css; the inline
 // block below is only the above-the-fold subset, guarded by check-critical.
 
-import { ORIGIN, NAME, BUILD } from './site.js';
+import { ORIGIN, NAME, VERSION, CHANGELOG_URL } from './site.js';
 
 const CRITICAL_CSS = `
     :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:12px;--v4-label-tracking:.1em;--v4-label-xs-size:12px;--v4-label-xs-tracking:.1em;--v4-label-weight:500;color-scheme:light dark}
@@ -65,12 +65,12 @@ const T = {
   },
 };
 
-const STYLES_VER = 'v=18c72bca';
-const SCRIPT_VER = 'v=f0a95eba';
+const STYLES_VER = 'v=c39b4b93';
+const SCRIPT_VER = 'v=de52523a';
 const FONTS_VER = 'v=64eea157';
 const TOKENS_VER = 'v=5629caeb';
 const BASE_VER = 'v=0e404315';
-const COMPONENTS_VER = 'v=4621707b';
+const COMPONENTS_VER = 'v=52192cae';
 
 const L = (lang) => (lang === 'en' ? 'en' : 'ru');
 const p = (lang, path) => (L(lang) === 'en' ? '/en' : '') + path;
@@ -172,15 +172,15 @@ ${themeMenu(l)}
     </header>`;
 }
 
-// Same footer as the static pages. The build hash shows the deployed commit:
-// the article shell gets it via overlay (_build), the server-built
-// notes index receives it as `build`; the literal is the stamped fallback.
+// Same footer as the static pages: name · year · version. The version is the
+// build mark of the family (ds/v1/USAGE.md, «Build mark»): it links to the
+// changelog on GitHub, the history of versions. `build` stays in the
+// signature for the callers; the deployed commit is the X-Build header.
 function footChrome(lang, build) {
   const l = L(lang);
   const t = T[l];
-  const sha = build || BUILD;
   return `    <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · build&nbsp;<code data-cms-text="_build">${sha}</code> · <a href="${p(l, '/uses')}">${t.uses}</a> · <a href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">${t.typo}</a></span>
+      <span>morgunov.tech · 2026 · <a class="v4-build" href="${CHANGELOG_URL}" target="_blank" rel="noopener noreferrer">v${VERSION}</a> · <a href="${p(l, '/uses')}">${t.uses}</a> · <a href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">${t.typo}</a></span>
       <span class="v4-foot-privacy">${t.privacy}</span>
     </footer>`;
 }
