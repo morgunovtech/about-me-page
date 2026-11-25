@@ -14,7 +14,6 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 import { renderers, feedSource, feedMonth, plainLabel } from '../functions/_lib/render.js';
-import { fixStaleContent } from '../functions/_lib/migrations.js';
 import { VERSION, CHANGELOG_URL } from '../functions/_lib/site.js';
 
 const read = (f) => readFileSync(new URL('../' + f, import.meta.url), 'utf8');
@@ -74,12 +73,10 @@ test('3. a «more» link names what is behind it; «→» stays on the site, «�
   }
   // v2.2.2: five — GitHub Sponsors left the page (owner); /privacy now introduces the privacy tools.
   assert.equal(seen, 10, 'five «more» links on each home page');
-  // A glyph typed into a stored label is dropped; the stored labels of v1.4 are renamed.
+  // A glyph typed into a stored label is dropped. (The v1.4 labels stored in KV were renamed
+  // at read time until the /admin Save of 2026-11-25, rev 34, stored the new ones.)
   assert.equal(plainLabel('→ Все публикации'), 'Все публикации');
   assert.equal(plainLabel('Все проекты на GitHub ↗'), 'Все проекты на GitHub');
-  const stored = fixStaleContent({ a: '→ Подробнее на LinkedIn', b: '→ More projects on GitHub', c: '→ Все публикации', d: '← Все публикации' });
-  assert.deepEqual(stored, { a: 'Вся карьера на LinkedIn', b: 'All projects on GitHub', c: 'Все публикации', d: '← Все публикации' });
-  assert.deepEqual(fixStaleContent(structuredClone(stored)), stored, 'a second pass changes nothing');
 });
 
 test('4. a publication row says when and where; there is no free-text tag', () => {
