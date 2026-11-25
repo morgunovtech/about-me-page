@@ -170,7 +170,7 @@
         },
         "unit": {
           "ru": "своих проектов",
-          "en": "own projects"
+          "en": "projects of my own"
         },
         "aside": {
           "ru": "с 2009 · 1 продан · 4 работают",
@@ -186,7 +186,7 @@
         },
         "prose": {
           "ru": "Запускаю цифровые продукты на развивающихся рынках — там, где продукт, операционку и юнит‑экономику необходимо собирать параллельно, под локальный контекст.\n\nКонсультирую компании в России, Узбекистане и Кыргызстане. Среди клиентов [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about) и другие.\n\nС 2009 года запустил четыре бизнеса — один продали сотрудникам, два закрыли, один на паузе. Сейчас делаю небольшие инструменты про приватность, мониторинг и безопасность и веду [Telegram‑канал](https://t.me/raschet7). Живу в Ташкенте с ирландским терьером Тофсом.",
-          "en": "I launch digital products in emerging markets — places where product, operations, and unit economics have to be assembled in parallel, fitted to the local context.\n\nI consult companies in Russia, Uzbekistan, and Kyrgyzstan. Clients include [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about), and others.\n\nSince 2009 I've launched four businesses — one sold to employees, two closed, one on pause. Currently building small privacy, monitoring and security tools and running a [Telegram channel](https://t.me/raschet7). I live in Tashkent with an Irish terrier named Tofs."
+          "en": "I launch digital products in emerging markets — places where product, operations, and unit economics have to be assembled in parallel, fitted to the local context.\n\nI consult for companies in Russia, Uzbekistan, and Kyrgyzstan. Clients include [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about), and others.\n\nSince 2009 I've launched four businesses — one sold to employees, two closed, one on pause. Currently building small privacy, monitoring and security tools and running a [Telegram channel](https://t.me/raschet7). I live in Tashkent with an Irish terrier named Tofs."
         }
       },
       "career": {
@@ -204,7 +204,6 @@
               "ru": "[Yandex Uzbekistan](https://yandex.uz/)",
               "en": "[Yandex Uzbekistan](https://yandex.uz/)"
             },
-            "current": true,
             "role": {
               "ru": "Head of FinTech",
               "en": "Head of FinTech"
@@ -298,7 +297,7 @@
       "projects": {
         "title": {
           "ru": "Собственные проекты",
-          "en": "Own projects"
+          "en": "My projects"
         },
         "live": {
           "ru": "Работает",
@@ -314,7 +313,6 @@
           {
             "repo": "morgunovtech/Tofs_DevOps_bot",
             "tag": "BOT",
-            "live": true,
             "version": "v3.13",
             "name": "TofsDevOps",
             "desc": {
@@ -339,7 +337,6 @@
           {
             "repo": "morgunovtech/social-tracker-bot",
             "tag": "BOT",
-            "live": true,
             "version": "v1.11",
             "name": "Social Tracker Bot",
             "desc": {
@@ -364,7 +361,6 @@
           {
             "repo": "morgunovtech/FoundYou",
             "tag": "WEB",
-            "live": true,
             "version": "v1.7",
             "name": "Found You",
             "desc": {
@@ -388,7 +384,6 @@
           {
             "repo": "morgunovtech/Fingerprint",
             "tag": "WEB",
-            "live": true,
             "version": "v3.3",
             "name": "Fingerprint",
             "desc": {
@@ -551,8 +546,7 @@
           }
         ]
       }
-    },
-    "migration": 31
+    }
   },
   "uses": {
     "site": "s.morgunov.tech",
@@ -594,7 +588,7 @@
         "en": "Uses and principles"
       },
       "tagline": {
-        "ru": "Чем пользуюсь каждый день. Только то, что реально включаю — без полки «забытых гаджетов».",
+        "ru": "Чем пользуюсь каждый день. Только то, что реально включаю, — без полки «забытых гаджетов».",
         "en": "What I actually use every day. Only the stuff that gets switched on — no shelf of forgotten gadgets."
       },
       "ctas": {
@@ -616,7 +610,7 @@
           {
             "heading": {
               "ru": "Рабочее место",
-              "en": "Compute"
+              "en": "Workspace"
             },
             "cards": [
               {
@@ -719,8 +713,8 @@
                   "en": "Phone"
                 },
                 "desc": {
-                  "ru": "Кнопочный мини-телефон от Xiaomi-эко: 2,8″ OLED, T9, Android 11 внутри. Включаю на выходных, чтобы отдохнуть от ленты — остаются только звонки и Telegram.",
-                  "en": "Xiaomi-eco mini button phone: 2.8″ OLED, T9 keypad, Android 11 inside. Weekend detox device — just calls and Telegram, no doomscroll."
+                  "ru": "Кнопочный мини-телефон от Xiaomi-эко: 3,54″ IPS, T9, Android 12 внутри. Включаю на выходных, чтобы отдохнуть от ленты, — остаются только звонки и Telegram.",
+                  "en": "Xiaomi-eco mini button phone: 3.54″ IPS, T9 keypad, Android 12 inside. Weekend detox device — just calls and Telegram, no doomscroll."
                 }
               }
             ]
@@ -791,7 +785,7 @@
                   "en": "Headphones"
                 },
                 "desc": {
-                  "ru": "Студийные мониторные накладки, 250 Ω. Дома — за компом, для долгого фокуса. Звук ровный, велюровые подушки не давят за 5+ часов.",
+                  "ru": "Студийные мониторные наушники, 250 Ω. Дома — за компом, для долгого фокуса. Звук ровный, велюровые подушки не давят за 5+ часов.",
                   "en": "Closed-back studio monitors, 250 Ω. Home use at the desk for long-focus sessions. Flat sound; velour pads don't fatigue after 5+ hours."
                 }
               }
@@ -815,8 +809,8 @@
                   "en": "Powerbank"
                 },
                 "desc": {
-                  "ru": "Прозрачный пауэрбанк на 25 600 mAh с экраном статуса и USB-C PD до 100 W. Хватает заряжать MacBook в дороге без блока питания.",
-                  "en": "Transparent 25,600 mAh power bank with status display and USB-C PD up to 100 W. Enough to charge the MacBook on the road without the brick."
+                  "ru": "Прозрачный пауэрбанк на 24 000 mAh с экраном статуса и USB-C PD до 140 W. Хватает, чтобы заряжать MacBook в дороге без блока питания.",
+                  "en": "Transparent 24,000 mAh power bank with status display and USB-C PD up to 140 W. Enough to charge the MacBook on the road without the brick."
                 }
               },
               {
@@ -855,7 +849,7 @@
                   "en": "Health"
                 },
                 "desc": {
-                  "ru": "Кольцо-трекер: сон, ЧСС покоя, температура тела, циклы. Носится в воду, 5–7 дней без зарядки. Удобнее часов — не цепляется и не отвлекает уведомлениями.",
+                  "ru": "Кольцо-трекер: сон, ЧСС покоя, температура тела, циклы. Не боится воды, 5–7 дней без зарядки. Удобнее часов — не цепляется и не отвлекает уведомлениями.",
                   "en": "Smart ring: sleep, resting heart rate, body temp, cycles. Waterproof; 5–7 days on a charge. Better than a watch — doesn't snag or distract with notifications."
                 }
               },
@@ -871,8 +865,8 @@
                   "en": "Game console"
                 },
                 "desc": {
-                  "ru": "Вертикальный ретро-эмулятор на Android, 4-дюймовый OLED. Играет в PSP, Dreamcast, N64. Карманно, длинный аккумулятор — в дорогу самое то.",
-                  "en": "Vertical retro emulator on Android, 4-inch OLED. Runs PSP, Dreamcast, N64. Pocketable, long battery — perfect travel companion."
+                  "ru": "Вертикальный ретро-эмулятор на Android, 4-дюймовый IPS. Играет в PSP, Dreamcast, N64. Карманно, длинный аккумулятор — в дорогу самое то.",
+                  "en": "Vertical retro emulator on Android, 4-inch IPS. Runs PSP, Dreamcast, N64. Pocketable, long battery — perfect travel companion."
                 }
               }
             ]
@@ -901,7 +895,7 @@
             },
             "desc": {
               "ru": "Менеджер паролей с 5-летним стажем без скандалов и утечек. Внутри Dark Web Monitoring и встроенный 2FA-аутентификатор.",
-              "en": "Password manager, 5 years no breaches. Includes Dark Web Monitoring and a built-in 2FA authenticator."
+              "en": "Password manager: five years without a scandal or a breach. Includes Dark Web Monitoring and a built-in 2FA authenticator."
             },
             "cta": {
               "label": {
@@ -940,7 +934,7 @@
               "en": "AI"
             },
             "price": {
-              "ru": "$100 / мес.",
+              "ru": "$100 / месяц",
               "en": "$100 / mo"
             },
             "desc": {
@@ -1033,8 +1027,8 @@
               "en": "Where the look comes from"
             },
             "body": {
-              "ru": "Ориентир — Дитер Рамс и Braun: бумажный фон, чёрный текст, один оранжевый акцент и сетка без украшений. Мне близка его мысль, что хороший дизайн — это как можно меньше дизайна.\n\nШрифт — IBM Plex: у него открытая лицензия и одна из лучших кириллиц среди бесплатных шрифтов. Оранжевый здесь не бренд, а сигнал: им отмечено то, что активно прямо сейчас, — текущая страница, выбранная тема, работающий сервис.",
-              "en": "The reference is Dieter Rams and Braun: a paper background, black text, one orange accent and a grid without decoration. I like his idea that good design is as little design as possible.\n\nThe typeface is IBM Plex: it has an open licence and one of the best Cyrillic sets among free fonts. Orange here isn’t a brand colour but a signal: it marks what’s active right now — the current page, the chosen theme, a service that’s running."
+              "ru": "Ориентир — Дитер Рамс и Braun: бумажный фон, чёрный текст, один оранжевый акцент и сетка без украшений. Мне близка его мысль, что хороший дизайн — это как можно меньше дизайна.\n\nШрифт — IBM Plex: у него открытая лицензия и одна из лучших кириллиц среди бесплатных шрифтов. Оранжевый здесь не бренд, а сигнал: им отмечено то, что активно прямо сейчас, — текущая страница и выбранная тема.",
+              "en": "The reference is Dieter Rams and Braun: a paper background, black text, one orange accent and a grid without decoration. I like his idea that good design is as little design as possible.\n\nThe typeface is IBM Plex: it has an open licence and one of the best Cyrillic sets among free fonts. Orange here isn’t a brand colour but a signal: it marks what’s active right now — the current page and the chosen theme."
             }
           },
           {
@@ -1044,13 +1038,12 @@
             },
             "body": {
               "ru": "Обычные HTML, CSS и немного JavaScript, без фреймворков и сборщиков. Сайт живёт на Cloudflare Pages, тексты лежат в базе Cloudflare, и я правлю их в своей админке прямо на странице.\n\nКод пишу вместе с Claude Code. Принципы и решения — мои, исполнение — его. Без чёткого брифа ИИ выдаёт что-то среднее, с брифом — то, что нужно.\n\nКод открыт: вот [репозиторий на GitHub](https://github.com/morgunovtech/about-me-page), а у каждой версии есть запись в [истории изменений](https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md). Если что-то сломано или читается странно — [напишите мне](/thanks#bug).",
-              "en": "Plain HTML, CSS and a little JavaScript, no frameworks or build tools. The site runs on Cloudflare Pages, the texts live in a Cloudflare database, and I edit them in my own admin, right on the page.\n\nI write the code together with Claude Code. The principles and decisions are mine, the execution is its. Without a clear brief AI gives you something average; with one, it gives you what you need.\n\nThe code is open: here’s the [repository on GitHub](https://github.com/morgunovtech/about-me-page), and every version has an entry in the [changelog](https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md). If something is broken or reads oddly, [let me know](/en/thanks#bug)."
+              "en": "Plain HTML, CSS and a little JavaScript, no frameworks or build tools. The site runs on Cloudflare Pages, the texts live in a Cloudflare database, and I edit them in my own admin, right on the page.\n\nI write the code together with Claude Code. The principles and decisions are mine, the execution is Claude’s. Without a clear brief AI gives you something average; with one, it gives you what you need.\n\nThe code is open: here’s the [repository on GitHub](https://github.com/morgunovtech/about-me-page), and every version has an entry in the [changelog](https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md). If something is broken or reads oddly, [let me know](/en/thanks#bug)."
             }
           }
         ]
       }
-    },
-    "migration": 30
+    }
   },
   "consulting": {
     "site": "s.morgunov.tech",
@@ -1093,11 +1086,11 @@
       },
       "tagline": {
         "ru": "Помогаю компаниям в e-com, ритейле и FinTech найти точки роста и выстроить продукт. Консультирую разово или веду долгосрочно.",
-        "en": "Helping companies in e-com, retail, and FinTech find growth levers and build great products. Consult one-off or partner long-term."
+        "en": "Helping companies in e-com, retail, and FinTech find growth levers and build great products. One-off consulting or a long-term partnership."
       },
       "ctas": {
-        "ru": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>",
-        "en": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>"
+        "ru": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Написать в Telegram</a>",
+        "en": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Message me on Telegram</a>"
       },
       "eyebrow": {
         "ru": "Консалтинг · Стратегия",
@@ -1177,8 +1170,8 @@
             "cta": {
               "href": "https://t.me/s_mrgnv",
               "label": {
-                "ru": "Написать в Telegram →",
-                "en": "Message me on Telegram →"
+                "ru": "Написать в Telegram",
+                "en": "Message me on Telegram"
               }
             }
           },
@@ -1216,8 +1209,8 @@
             "cta": {
               "href": "https://t.me/s_mrgnv",
               "label": {
-                "ru": "Написать в Telegram →",
-                "en": "Message me on Telegram →"
+                "ru": "Написать в Telegram",
+                "en": "Message me on Telegram"
               }
             }
           }
@@ -1298,8 +1291,8 @@
         "cta": {
           "href": "https://t.me/s_mrgnv",
           "label": {
-            "ru": "Написать →",
-            "en": "Get in touch →"
+            "ru": "Написать в Telegram",
+            "en": "Message me on Telegram"
           }
         },
         "tagline": {
@@ -1318,15 +1311,15 @@
             "items": [
               {
                 "ru": "Провожу аудит в полях; изучаю дашборды и сырые данные; общаюсь с командой; детально фиксирую результаты в итоговом отчёте.",
-                "en": "Conducting field audits; studying dashboards and raw data; communicating with the team; documenting results in detail in a final report."
+                "en": "I run field audits, study dashboards and raw data, talk to the team and document the results in detail in a final report."
               },
               {
                 "ru": "Иду от общего к частному: делюсь своим видением стратегии и её обоснованием; предлагаю конкретные гипотезы, приоритизирую и аргументирую с использованием метрик.",
-                "en": "Going from the general to the specific: I share my vision of the strategy and its rationale; I propose concrete hypotheses, prioritize them and argue using metrics."
+                "en": "I go from the general to the specific: I share my view of the strategy and the reasoning behind it, then propose concrete hypotheses, prioritise them and back them with metrics."
               },
               {
                 "ru": "Помогаю с редизайном процессов, усилением команды, выстраиванием регулярного менеджмента.",
-                "en": "Helping with process redesign, team strengthening, and building regular management practices."
+                "en": "I help redesign processes, strengthen the team and set up regular management routines."
               }
             ]
           },
@@ -1354,7 +1347,7 @@
               },
               {
                 "ru": "Не консультирую прямых конкурентов Яндекса и FinTech-проекты в Узбекистане или с планами туда выйти — пока работаю в Yandex Uzbekistan.",
-                "en": "I don't consult Yandex's direct competitors, or FinTech projects in Uzbekistan or planning to enter it, while I work at Yandex Uzbekistan."
+                "en": "While I work at Yandex Uzbekistan, I don’t consult for Yandex’s direct competitors or for FinTech projects that operate in Uzbekistan or plan to enter it."
               }
             ]
           }
@@ -1373,14 +1366,13 @@
           {
             "href": "https://t.me/s_mrgnv",
             "label": {
-              "ru": "Написать →",
-              "en": "Get in touch →"
+              "ru": "Написать в Telegram",
+              "en": "Message me on Telegram"
             }
           }
         ]
       }
-    },
-    "migration": 30
+    }
   },
   "collaborate": {
     "site": "s.morgunov.tech",
@@ -1412,7 +1404,7 @@
         "en": "/images/og-card-en.png"
       },
       "imageAlt": {
-        "ru": "Сотрудничество — Семён Моргунов",
+        "ru": "Партнёрства и медиа — Семён Моргунов",
         "en": "Collaborate — Semyon Morgunov"
       }
     },
@@ -1426,8 +1418,8 @@
         "en": "I test products, give independent feedback and contribute to technology education."
       },
       "ctas": {
-        "ru": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>",
-        "en": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>"
+        "ru": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Написать в Telegram</a>",
+        "en": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Message me on Telegram</a>"
       },
       "eyebrow": {
         "ru": "Партнёрства · Медиа",
@@ -1469,7 +1461,7 @@
         "cta": {
           "href": "https://t.me/s_mrgnv",
           "label": {
-            "ru": "Написать →",
+            "ru": "Написать в Telegram",
             "en": "Get in touch →"
           }
         }
@@ -1496,8 +1488,7 @@
           }
         ]
       }
-    },
-    "migration": 30
+    }
   },
   "privacy": {
     "site": "s.morgunov.tech",
@@ -1565,7 +1556,6 @@
           {
             "repo": "morgunovtech/Fingerprint",
             "tag": "WEB",
-            "live": true,
             "version": "v3.3",
             "name": "Fingerprint",
             "desc": {
@@ -1586,7 +1576,6 @@
           {
             "repo": "morgunovtech/FoundYou",
             "tag": "WEB",
-            "live": true,
             "version": "v1.7",
             "name": "Found You",
             "desc": {
@@ -1621,7 +1610,7 @@
           "en": "The essential kit"
         },
         "prose": {
-          "ru": "Приложения, которые закрывают главные дыры: переписку, почту, пароли, сеть и файлы. Каждое прошло два фильтра:\n\n- **открытый код** — любой специалист может проверить, что программа делает на самом деле, а не верить на слово;\n- **независимый аудит** — сторонняя команда безопасности проверила продукт и опубликовала отчёт. Ссылка на отчёт — в строке приложения.\n\nОдно исключение вынесено в конец и помечено: блокировщик рекламы — аудированного среди них нет.\n\nАудит — снимок на дату, а не гарантия навсегда. Обновляйте приложения и скачивайте их только с официального сайта — его адрес указан в строке «Сайт».",
+          "ru": "Приложения, которые закрывают главные дыры: переписку, почту, пароли, сеть и файлы. Каждое прошло два фильтра:\n\n- **открытый код** — любой специалист может проверить, что программа делает на самом деле, а не верить на слово;\n- **независимый аудит** — сторонняя команда безопасности проверила продукт и опубликовала отчёт. Ссылка на отчёт — в строке приложения.\n\nОдно исключение вынесено в конец и помечено: блокировщик рекламы — аудированных среди блокировщиков нет.\n\nАудит — снимок на дату, а не гарантия навсегда. Обновляйте приложения и скачивайте их только с официального сайта — его адрес указан в строке «Сайт».",
           "en": "Apps that close the main gaps: messages, mail, passwords, network and files. Each one passed two filters:\n\n- **open source** — anyone qualified can check what the program really does instead of taking it on trust;\n- **independent audit** — an outside security team examined the product and published a report. The link to the report is in the app’s row.\n\nOne exception sits at the end and is marked as such: an ad blocker — none of them has been audited.\n\nAn audit is a snapshot of one date, not a lifetime guarantee. Keep the apps updated and download them only from the official site — its address is in the “Site” line."
         },
         "groups": [
@@ -2204,8 +2193,8 @@
             },
             "unaudited": true,
             "note": {
-              "ru": "Рекламу в браузере режут только программы, у которых публичного аудита нет ни у одной. Здесь — самая надёжная из открытых. Во всех приложениях сразу рекламу режет modDNS из группы «Сеть» — его аудит опубликован.",
-              "en": "No browser ad blocker has a public audit. This is the most trustworthy of the open-source ones. To block ads in every app at once, use modDNS from the «Network» group — its audit is published."
+              "ru": "Рекламу в браузере режут только программы без публичного аудита — его нет ни у одной. Здесь — самая надёжная из открытых. Во всех приложениях сразу рекламу режет modDNS из группы «Сеть» — его аудит опубликован.",
+              "en": "No browser ad blocker has a public audit. This is the most trustworthy of the open-source ones. To block ads in every app at once, use modDNS from the “Network” group — its audit is published."
             },
             "items": [
               {
@@ -2220,7 +2209,7 @@
                 },
                 "desc": {
                   "ru": "Режет рекламу и трекеры в браузере. Его с 2015 года делает один автор, без монетизации; у Mozilla он в «Рекомендуемых». Независимого аудита нет. В Firefox — полная версия, в Safari и Chrome — uBlock Origin Lite: он слабее против сайтов, которые обходят блокировку.",
-                  "en": "Blocks ads and trackers in the browser. One author has made it since 2015, with no monetisation, and Mozilla lists it as Recommended. No independent audit. Firefox gets the full version; Safari and Chrome get uBlock Origin Lite, which is weaker against sites that fight ad blocking."
+                  "en": "Blocks ads and trackers in the browser. A single author has maintained it since 2015, with no monetisation, and Mozilla lists it as Recommended. No independent audit. Firefox gets the full version; Safari and Chrome get uBlock Origin Lite, which is weaker against sites that fight ad blocking."
                 },
                 "audits": [],
                 "source": {
@@ -2312,8 +2301,8 @@
     "site": "s.morgunov.tech",
     "page": "notes",
     "intro": {
-      "ru": "Заметки, статьи и выступления. Свои заметки — то же, что в Telegram-канале, только без привязки к платформе.",
-      "en": "Notes, articles and talks. My notes mirror the Telegram channel, without the platform lock-in."
+      "ru": "Заметки, статьи и выступления. Свои заметки — посты из Telegram-канала, собранные без привязки к платформе.",
+      "en": "Notes, articles and talks. My notes are posts from my Telegram channel, kept here without the platform lock-in."
     },
     "topics": [
       {
@@ -2345,7 +2334,7 @@
           "en": "Career and public presence"
         },
         "intro": {
-          "ru": "Смена домена, работа с карьерным консультантом, самооценка, pet-проекты, соцсети и публичные выступления.",
+          "ru": "Смена домена, работа с карьерным консультантом, самооценка, пет-проекты, соцсети и публичные выступления.",
           "en": "Changing domains, working with a career coach, self-assessment, pet projects, social media and public speaking."
         }
       },
@@ -2356,8 +2345,8 @@
           "en": "History of technology"
         },
         "intro": {
-          "ru": "Истории продуктов и компаний — от Клайва Синклера и Casio F91 до Grab и Luckin Coffee: что сработало, а что нет.",
-          "en": "Stories of products and companies — from Clive Sinclair and the Casio F91 to Grab and Luckin Coffee: what worked and what didn’t."
+          "ru": "Истории продуктов и компаний — от Клайва Синклера и Casio F91W до Grab и Luckin Coffee: что сработало, а что нет.",
+          "en": "Stories of products and companies — from Clive Sinclair and the Casio F91W to Grab and Luckin Coffee: what worked and what didn’t."
         }
       },
       {
@@ -2386,7 +2375,7 @@
     "channel": {
       "title": {
         "ru": "Telegram‑канал «Семён расправил плечи»",
-        "en": "Telegram channel “Семён расправил плечи”"
+        "en": "My Telegram channel"
       },
       "prose": {
         "ru": "О продукте и карьере — пишу то, что сам хотел бы читать: разборы кейсов, рабочие фреймворки и личные наблюдения. В канале посты выходят чаще и в более свободном формате, чем заметки на сайте.",
@@ -2426,7 +2415,7 @@
         "source": "spot.uz",
         "href": "https://www.spot.uz/ru/2026/02/06/semyon-books/",
         "title": {
-          "ru": "5 нон-фикшн книг, которые я считаю полезными для менеджеров",
+          "ru": "5 книг нон-фикшен, которые я считаю полезными для менеджеров",
           "en": "Five non-fiction books I find useful for managers"
         },
         "tags": [
@@ -2439,7 +2428,7 @@
         "href": "https://www.spot.uz/ru/2025/12/10/fuckup-talks/",
         "title": {
           "ru": "Мои 5 факапов на позиции директора электронной коммерции в Korzinka",
-          "en": "My five failures as head of e-commerce at Korzinka"
+          "en": "My five failures as director of e-commerce at Korzinka"
         },
         "tags": [
           "management"
@@ -2478,7 +2467,7 @@
         "source": "YouTube",
         "href": "https://youtu.be/OJXtFmWNZMM",
         "title": {
-          "ru": "Критический разбор платформы крауд-инвестинга brainbox.vc",
+          "ru": "Критический разбор платформы краудинвестинга brainbox.vc",
           "en": "Critical review of crowd-investing platform brainbox.vc"
         },
         "views": 3306,

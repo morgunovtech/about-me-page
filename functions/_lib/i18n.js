@@ -24,13 +24,13 @@ export function resolvePath(doc, path) {
   return path.split('.').reduce((o, k) => (o == null ? undefined : o[k]), doc);
 }
 
-// «26 июня 2025» / «June 26, 2025» — the date of a note, in the feed and in its
+// «26 июня 2025» / «26 June 2025» — the date of a note, in the feed and in its
 // byline. The «г.» Intl appends in Russian is dropped: after a year it says
 // nothing. UTC: a YYYY-MM-DD date has no time zone.
 export function fmtDate(date, lang) {
   if (!date) return '';
   try {
-    return new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'ru-RU', {
+    return new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : 'ru-RU', {
       day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
     }).format(new Date(date)).replace(/\s*г\.$/, '');
   } catch {

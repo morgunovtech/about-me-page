@@ -59,7 +59,24 @@
 <body class="v4-page no-transition" data-lang="ru">
   <a href="#main" class="skip-link" data-i18n-ru="Перейти к основному содержимому" data-i18n-en="Skip to main content">Перейти к основному содержимому</a>
   <div class="v4-root">
-    <header class="v4-bar">
+    <header class="v4-bar" id="top">
+      <nav class="v4-nav v4-dropdown" aria-label="Основная навигация" data-i18n-aria-en="Main navigation">
+        <button class="v4-bar-btn v4-nav-toggle" type="button" aria-controls="site-nav"><span data-i18n-ru="Меню" data-i18n-en="Menu">Меню</span><svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+        <div class="v4-bar-mid" id="site-nav">
+          <a href="/" data-i18n-href-en="/en/" data-i18n-ru="Обо мне" data-i18n-en="About">Обо мне</a>
+          <a href="/notes" data-i18n-href-en="/en/notes" data-i18n-ru="Публикации" data-i18n-en="Publications">Публикации</a>
+          <a href="/privacy" data-i18n-href-en="/en/privacy" data-i18n-ru="Приватность" data-i18n-en="Privacy">Приватность</a>
+          <div class="v4-dropdown v4-nav-group">
+            <button class="v4-nav-group-btn" type="button" aria-controls="nav-work"><span data-i18n-ru="Сотрудничество" data-i18n-en="Work with me">Сотрудничество</span><svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+            <div class="v4-menu v4-nav-sub" id="nav-work">
+              <span class="v4-nav-group-cap" aria-hidden="true" data-i18n-ru="Сотрудничество" data-i18n-en="Work with me">Сотрудничество</span>
+              <a class="v4-menu-item" href="/consulting" data-i18n-href-en="/en/consulting" data-i18n-ru="Консалтинг" data-i18n-en="Consulting">Консалтинг</a>
+              <a class="v4-menu-item" href="/collaborate" data-i18n-href-en="/en/collaborate" data-i18n-ru="Партнёрства и медиа" data-i18n-en="Partnerships &amp; media">Партнёрства и медиа</a>
+            </div>
+          </div>
+          <a href="/uses" data-i18n-href-en="/en/uses" data-i18n-ru="Стек" data-i18n-en="Uses">Стек</a>
+        </div>
+      </nav>
       <div class="v4-bar-right">
         <div class="v4-dropdown v4-lang">
           <button class="v4-bar-btn v4-lang-btn" type="button" aria-haspopup="menu" aria-controls="lang-menu" id="lang-toggle" aria-label="RU — сменить язык" data-i18n-aria-en="EN — change language"><span data-i18n-ru="RU" data-i18n-en="EN">RU</span><svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
@@ -97,18 +114,16 @@
         <div class="v4-hero-text">
           <p class="v4-hero-meta" data-i18n-ru="Ошибка 404" data-i18n-en="Error 404">Ошибка 404</p>
           <h1 class="v4-h1" id="error-title" data-i18n-ru="Страница не найдена" data-i18n-en="Page not found">Страница не найдена</h1>
-          <p class="v4-tagline" data-i18n-ru="Такой страницы нет или она была перемещена." data-i18n-en="This page doesn't exist or has been moved.">Такой страницы нет или она была перемещена.</p>
+          <p class="v4-tagline" data-i18n-ru="Такой страницы нет, или она была перемещена." data-i18n-en="This page doesn't exist or has been moved.">Такой страницы нет, или она была перемещена.</p>
           <div class="v4-cta-row">
             <a class="v4-btn v4-btn-primary" href="/" data-i18n-href-en="/en/" data-i18n-ru="На главную" data-i18n-en="Go to homepage">На главную</a>
-            <a class="v4-btn" href="/consulting" data-i18n-href-en="/en/consulting" data-i18n-ru="Консалтинг" data-i18n-en="Consulting">Консалтинг</a>
-            <a class="v4-btn" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Telegram</a>
           </div>
         </div>
       </section>
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.0.1</a></span>
+      <span>morgunov.tech · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.0.1</a> · <a href="/thanks" data-i18n-href-en="/en/thanks" data-i18n-ru="сказать спасибо или сообщить об ошибке" data-i18n-en="say thanks or report a bug">сказать спасибо или сообщить об ошибке</a></span>
       <span class="v4-foot-privacy" data-i18n-ru="Без cookies, трекеров и аналитики" data-i18n-en="No cookies, no trackers, no analytics">Без cookies, трекеров и аналитики</span>
     </footer>
   </div>

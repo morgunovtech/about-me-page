@@ -90,10 +90,10 @@ only» is for two cases: a page other people host themselves (see
 | Bar | `header.v4-bar` | the full width of the shell, an ink rule under it |
 | Service mark | `a.v4-service` → `https://s.morgunov.tech/` | `MORGUNOV.TECH / NAME`; at 640px and below only the name shows |
 | Navigation | `nav.v4-nav.v4-dropdown` with `.v4-bar-mid` | at most five links; a «Меню» dropdown at 960px and below (640px before v4.0.0 of s.morgunov.tech — five links do not fit one line under ~750px); leave the whole `nav` out when the page has no sections. A service lists its own sections here, never the site's menu: the mark is its way back to the site (owner, 2026-11-25). The current page's link carries `aria-current="page"` (the orange underline; the round mark in the phone's panel). Links of one kind may share a group — `div.v4-dropdown.v4-nav-group` > `button.v4-nav-group-btn[aria-controls]` + `div.v4-menu.v4-nav-sub` of `a.v4-menu-item` (a disclosure, no `role="menu"`; `.is-current` on the group when one of its pages is), with `span.v4-nav-group-cap` for the phone's panel |
-| On-page line | `nav.v4-onpage` right after the hero | a page's sections when the bar lists the site's pages (s.morgunov.tech since v3.0.0): links separated by «·», no buttons |
+| On-page line | `nav.v4-onpage` right after the hero | a page's sections when the bar lists the site's pages (s.morgunov.tech since v3.0.0): a quiet line of links in sentence case, set apart by space (no «·»: it started the second row on a phone), no buttons |
 | Language | `.v4-dropdown.v4-lang` | `RU ⌄`; the items are links to the same page in the other language |
 | Theme | `.v4-dropdown.v4-theme` | the icon button; four items in this order: light, dark, auto, high contrast |
-| Footer | `footer.v4-foot` | name · year · the build mark on the left (then at most two links of the page's own), the privacy line on the right — and nothing else |
+| Footer | `footer.v4-foot` | under a hairline: name · year · the build mark as a quiet line of text (then at most two links of the page's own), and the privacy line as a small framed nameplate on the right — and nothing else |
 | Build mark | `a.v4-build` in the footer | the release, `vX.Y.Z`; a link to the repository's `CHANGELOG.md` on GitHub, in a new tab |
 
 The right edge has one order everywhere: language, then theme at the very
@@ -165,9 +165,14 @@ the changelog is not), not a commit. A service whose repository is private has n
 **Footer.** One module for every page of the family, as the bar is. The left span reads
 `morgunov.tech / <service> · <year> · vX.Y.Z` (on this site, which is the family itself:
 `morgunov.tech · <year> · vX.Y.Z`), the right span is the privacy line, and nothing else goes in:
-no date, no commit, no icon, no button, no second line. It has one slot, as the bar has its nav:
+no date, no commit, no icon, no button, no second line. Since v4.1.0 of the origin the left span
+is plain text — 14px, sentence case, the secondary ink — and the privacy line is a **nameplate**:
+11px caps in a thin frame, the way a maker's plate sits on the back of a device (the one text of
+a page under 12px). It says what the service promises in a few words («Без cookies, трекеров и
+аналитики», «Everything is computed in your browser»); on a phone it sits under the line. The
+markup is unchanged: two spans. It has one slot, as the bar has its nav:
 after the build mark a page may put **up to two links of its own**, each as `· <a>label</a>`, plain
-text links (this site: «стек», «нашли опечатку?»). A third link does not fit the slot — it belongs
+text links (this site has one: «сказать спасибо или сообщить об ошибке»). A third link does not fit the slot — it belongs
 on the page. A service with nothing to link leaves the slot empty, as the snippet above does.
 
 `chrome.js` is the site's `script.js` without its site-only parts — a checked
@@ -186,7 +191,7 @@ Then apply the page class on `<body>`:
 
 ## Composition rules
 
-Seven rules for a page of the family. On this site they are tests (`tests/composition.test.mjs`);
+Eight rules for a page of the family. On this site they are tests (`tests/composition.test.mjs`);
 a service keeps to them by reading this list.
 
 1. **One state — one sign, and never colour alone.** The selected item of a menu is a round mark
@@ -199,7 +204,11 @@ a service keeps to them by reading this list.
 3. **A link that leads on names what is behind it**, as a noun phrase: «Все проекты на GitHub»,
    not «Подробнее». A link that leaves the site ends with where it leads and carries «↗»; a link
    to a page of the same site carries «→». The glyph is added by the markup or the renderer, in
-   an `aria-hidden` span after the label, never typed into the label.
+   an `aria-hidden` span after the label, never typed into the label. The «↗» is not the
+   character: the IBM Plex subsets carry no arrow but ↑ ↓, and a system «↗» is a hairline from a
+   symbol font, so the mark is the line's own «→» turned 45° —
+   `<span aria-hidden="true">&nbsp;<span class="v4-ne">→</span></span>` (`.v4-ne` in
+   `components.css`).
 4. **A row in a list of publications says when and where**: `06.2025 · YouTube`, one mono line.
    The place is the platform, taken from the address. No free-text tag, no filled chip.
 5. **One button in a block.** The second way to do the same thing is a line of text with a link
@@ -209,26 +218,51 @@ a service keeps to them by reading this list.
 7. **The only round shape is the live dot** (`.v4-live-dot`) and its two relatives, the busy mark
    of a button and the selected-item mark of a menu. Everything else keeps `border-radius: 0`. A
    live dot stands next to something that is running now (a service, a check in progress), not
-   next to a word that already says «now».
+   next to a word that already says «now» — and not beside every item of a list titled «Работает»,
+   where it says nothing (this site shows none since v4.1.0).
+8. **One voice.** Every size is one of the scale below; there is ONE caption style (sans caps);
+   mono is for data and is never caps and never a link; weight says the role (600 a title, 500
+   something to press, 400 text); no italics. Two caption styles side by side — sans caps and
+   mono caps — and six sizes for one kind of text read as noise, however each was justified.
 
-## Captions and button states
+## Type, space and button states
 
-Since v1.3.0 of the origin the caption tokens hold one value each:
-`--v4-label-size` and `--v4-label-xs-size` are both 12px (they were 11px and
-10px) and both trackings are 0.1em. The names are unchanged, so a consumer
-needs no edit — its small caps simply grow to 12px with the next sync. A page
-has two caption styles: sans caps for chrome and controls, mono caps for labels
-of data; a date, a count or a version set in mono is plain 12px, never caps.
+Since v4.1.0 of the origin a page of the family speaks in one voice. The layer sets the base and
+the atoms; a service's own stylesheet keeps to the same steps.
+
+| Role | Size | Notes |
+|------|------|-------|
+| Page title | `clamp(40px, 6.2vw, 56px)`; a phone `clamp(32px, 10.6vw, 40px)` | 600 |
+| Section title (`.v4-h2`) | 24px; 20px on a phone | 600, the ink rule under it |
+| Item title (a card, a row of a list) | 18px | 600 |
+| Text — anything read as a sentence | **16px / 1.6 on every device** (`body.v4-page`; 14px on a desktop before v4.1.0) | 400; a lead may be 18px |
+| Secondary line (a source, a note under a button, the footer) | 14px | the secondary ink |
+| Data — a date, a period, a version, a count | 13px mono | plain: never caps, never a link style |
+| Caption — the bar, the menus, the buttons, the label over a group (`.v4-h3`) | 12px caps, 0.08em, 500, sans | the tokens `--v4-label-*`; `--v4-label-xs-*` hold the same values |
+
+There is no mono caps (until v4.1.0 a page had two caption styles, sans caps for chrome and mono
+caps for labels of data; the service mark `.v4-service` was mono too). A consumer needs no edit:
+its captions and its bar simply follow with the next sync; a page that set its own text size
+keeps it — move it to 16px when you touch it.
+
+Space: every gap is one of 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64. Between sections 64 (48 on a
+phone), under a section head 24, between paragraphs 16. The shell (`.v4-root`) pads 32/48/48,
+24/32/40 up to 960px, 16/20/32 up to 640px.
+
+The menus hang from the bar's rule: a panel has no top border of its own. The first link of the
+bar starts on the content's left edge and the theme icon ends on its right edge.
 
 `components.css` styles every state of `.v4-btn` / `.v4-btn-primary`: hover,
-focus, pressed (`:active`), disabled and busy. Disabled is `disabled` on a
+focus, pressed (`:active`), disabled and busy. A button is 44px high;
+`.v4-btn--sm` is the small one beside a line of text (32px on screen, 44px to a
+finger). Disabled is `disabled` on a
 `<button>` or `aria-disabled="true"` on a link — a dashed outline in
 `--v4-dim`. Busy is the class `.is-busy` together with `aria-busy="true"` and
 `aria-disabled="true"` while the request runs: the button keeps its look and
 its focus and shows the pulsing dot before the label. On a device that
 cannot hover (`@media (hover: none)`) hover paints nothing, so a tapped button
 does not stay inverted. A paragraph in `.v4-prose` and an item of `.v4-list`
-stop at 62ch; on a phone (640px and below) `body.v4-page` is 16px.
+stop at 62ch.
 
 ## Self-contained consumers (inline tokens)
 

@@ -87,7 +87,7 @@ export function fmtNum(n, lang) {
 }
 
 // Subscriber counters — THE single source for every number on the page that
-// mentions followers (the stats strip and the /notes channel block meta).
+// mentions followers (the stats strip, the /notes channel panel, llms.txt).
 // Live SocialBot numbers win when the subscribers stat is on auto; otherwise
 // the doc's own channel values. Formatted per language (RU nbsp / EN comma).
 export function counters(doc, lang) {
@@ -102,18 +102,6 @@ export function counters(doc, lang) {
   if (useLive) out.total = fmtNum((+live.telegram || 0) + (+live.linkedin || 0) + (+live.youtube || 0), lang);
   else if (stat && stat.value != null) out.total = escapeHtml(pick(stat.value, lang));
   return out;
-}
-
-// "{telegram} в Telegram" → "1 141 в Telegram". A known counter with no value
-// (no live data AND no subscribers stat in the doc) drops out rather than
-// leaking braces to the page; unknown placeholders stay as-is.
-// Returns HTML-safe text (the counters are already escaped/formatted).
-export function fillCounters(text, doc, lang) {
-  const c = counters(doc, lang);
-  return escapeHtml(text)
-    .replace(/\{(telegram|linkedin|youtube|total)\}/g, (m, k) => (c[k] != null ? c[k] : ''))
-    .replace(/[ \t]{2,}/g, ' ')
-    .trim();
 }
 
 // Russian plural for a counted noun: 1 подписчик · 2 подписчика · 5 подписчиков.
@@ -499,7 +487,7 @@ export const renderers = {
     return `<div class="v4-prose">
               <p>${renderInline(pick(sec.intro, lang))}</p>
             </div>
-            <div class="v4-softs">
+            <div class="v4-products v4-products--after">
               ${(sec.cards || []).map((c) => softCard(c, lang)).join('\n              ')}
             </div>`;
   },

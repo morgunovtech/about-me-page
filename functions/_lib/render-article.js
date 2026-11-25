@@ -53,6 +53,8 @@ export async function renderArticlePage(env, slug, lang, request, opts = {}) {
   doc._url = ORIGIN + (lang === 'en' ? '/en' : '') + '/notes/' + slug;
   doc._urlRu = ORIGIN + '/notes/' + slug;
   doc._urlEn = ORIGIN + '/en/notes/' + slug;
+  doc._pathRu = '/notes/' + slug;
+  doc._pathEn = '/en/notes/' + slug;
   // No EN text yet → the EN URL 404s, so the shell drops the hreflang="en"
   // alternate and the English menu item (data-cms-omit="_noEn").
   doc._noEn = !(nonEmpty(doc.title && doc.title.en) && nonEmpty(doc.body && doc.body.en));

@@ -11,8 +11,8 @@ import { pickL, forLang, buildFeed, feedListHtml, channelHtml, liveTopics, topic
 const xmlEsc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 const INTRO = {
-  ru: 'Заметки, статьи и выступления. Свои заметки — то же, что в Telegram-канале, только без привязки к платформе.',
-  en: 'Notes, articles and talks. My notes mirror the Telegram channel, without the platform lock-in.',
+  ru: 'Заметки, статьи и выступления. Свои заметки — посты из Telegram-канала, собранные без привязки к платформе.',
+  en: 'Notes, articles and talks. My notes are posts from my Telegram channel, kept here without the platform lock-in.',
 };
 
 // The three newest feed entries for the homepage «Публикации» block (_middleware.js

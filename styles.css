@@ -522,23 +522,9 @@
   max-width: 62ch;
 }
 
-.v4-softs {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin: 24px 0 0;
-}
-
-@media (max-width: 960px) {
-  .v4-softs {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 640px) {
-  .v4-softs {
-    grid-template-columns: minmax(0, 1fr);
-  }
+/* A grid of cards after a line of text (the software on /uses). */
+.v4-products--after {
+  margin-top: 24px;
 }
 
 /* --- /consulting --- */
@@ -989,10 +975,9 @@
 }
 
 /* A count after a label: data, mono; inline-block keeps the underline of the
-   link off it. */
+   link off it (the gap is the no-break space the markup puts inside). */
 .v4-count {
   display: inline-block;
-  margin-left: 4px;
   font-family: var(--v4-mono);
   font-size: 13px;
   font-weight: 400;

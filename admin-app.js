@@ -117,7 +117,7 @@
     .cms-edit:hover{outline-color:var(--v4-orange,#d9531e)}
     .cms-edit:focus,.cms-focus{outline:2px solid var(--v4-orange,#d9531e);outline-offset:3px;background:rgba(217,83,30,.07)}
     .cms-en-empty{outline:1px dashed var(--v4-orange,#d9531e);background:rgba(217,83,30,.10)}
-    .section{content-visibility:visible !important}
+    .v4-section{content-visibility:visible !important}
     /* list controls */
     [data-edit-item]{position:relative}
     [data-edit-item]:hover{outline:1px dotted var(--v4-line,#c9c5bd);outline-offset:4px}

@@ -67,7 +67,9 @@ export function liveTopics(articles, notesDoc, lang) {
 export function topicNavHtml(topics, lang, current, total) {
   if (!topics.length) return '';
   const l = lang === 'en' ? 'en' : 'ru';
-  const count = (n) => (n > 0 ? `<span class="v4-count">${fmtNum(n, l)}</span>` : '');
+  // The space is inside the count (a no-break one, kept by the inline-block): the
+  // link's name reads «Team management 8», and the underline stops at the label.
+  const count = (n) => (n > 0 ? `<span class="v4-count">&nbsp;${fmtNum(n, l)}</span>` : '');
   const item = (label, href, on, n) =>
     on ? `<span aria-current="page">${escapeHtml(label)}${count(n)}</span>` : `<a href="${escapeAttr(href)}">${escapeHtml(label)}${count(n)}</a>`;
   const all = item(l === 'en' ? 'All' : 'Все', (l === 'en' ? '/en' : '') + '/notes', !current, total);
@@ -95,7 +97,11 @@ export function feedItemHtml(entry, lang) {
   }
   // A trailing «↗» marks a link that leaves the site (the CTA convention);
   // the screen-reader note says what the arrow and target=_blank mean.
-  const meta = [escapeHtml(it.source || ''), viewsLabel(it.views, lang)].filter(Boolean).join(' · ');
+  // On the English feed the title is translated but the material itself is in
+  // Russian (every external one is today; `lang: 'en'` on an item says otherwise):
+  // the source line says so before the reader follows the link.
+  const foreign = lang === 'en' && (it.lang || 'ru') !== 'en' ? 'in Russian' : '';
+  const meta = [escapeHtml(it.source || ''), foreign, viewsLabel(it.views, lang)].filter(Boolean).join(' · ');
   return `<article class="v4-note-item">
           <div class="v4-note-head">${date}</div>
           <div class="v4-note-main">

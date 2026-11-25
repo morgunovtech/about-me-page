@@ -82,8 +82,10 @@ async function handle(context) {
     return Response.redirect(u.toString(), 308);
   }
 
-  if (MOVED[pathname]) {
-    return withSecurityHeaders(Response.redirect(new URL(MOVED[pathname], request.url).toString(), 301));
+  // The old address in any spelling a link may carry: /about, /about/, /about.html.
+  const moved = MOVED[pathname] || MOVED[pathname.replace(/(?:\.html|\/)$/, '')];
+  if (moved) {
+    return withSecurityHeaders(Response.redirect(new URL(moved, request.url).toString(), 301));
   }
 
   if (blocked(pathname)) {

@@ -262,7 +262,7 @@ ${headChrome(l)}
 <body class="v4-page no-transition" data-lang="${l}">
   <a href="#main" class="skip-link">${t.skip}</a>
   <div class="v4-root">
-${barChrome(l, { ru: '/notes', en: '/en/notes', ruAttrs: ' data-cms-href="_urlRu"', enAttrs: ' data-cms-href="_urlEn" data-cms-omit="_noEn"' })}
+${barChrome(l, { ru: '/notes', en: '/en/notes', ruAttrs: ' data-cms-href="_pathRu"', enAttrs: ' data-cms-href="_pathEn" data-cms-omit="_noEn"' })}
     <main id="main">
       <article class="v4-article">
         <header>
