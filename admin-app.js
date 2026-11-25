@@ -930,7 +930,10 @@
   }
 
   // --- load / save ---
-  async function load() {
+  // `done` — what the status line says once the page is in: the callers that
+  // have an outcome of their own to report (import, delete) pass it here, so it
+  // is shown after the reload instead of being overwritten by «Загружено».
+  async function load(done) {
     setStatus('Загрузка…');
     try {
       const r = await fetch(API + '/content?page=' + encodeURIComponent(page));
@@ -943,7 +946,7 @@
       resetHistory();
       renderSettings();
       await drawPreview();
-      setStatus('Загружено', 'ok');
+      setStatus(done || 'Загружено', 'ok');
     } catch (e) {
       $('#ed-loading').hidden = true;
       setStatus('Ошибка загрузки: ' + e.message, 'error');
@@ -1316,8 +1319,7 @@
       page = 'article:' + res.slug;
       await populatePageSelect();
       $('#page-select').value = page;
-      load();
-      setStatus('Импортировано — черновик создан', 'ok');
+      await load('Импортировано — черновик создан');
     } catch (e) { setStatus('Импорт: ошибка сети', 'error'); }
   }
   async function translateBody() {
@@ -1364,8 +1366,7 @@
       dirty = false; page = 'home';
       await populatePageSelect();
       $('#page-select').value = 'home';
-      load();
-      setStatus('Статья удалена', 'ok');
+      await load('Статья удалена');
     } catch (e) { setStatus('Удаление: ошибка сети', 'error'); }
   }
   function articleStatusField() {

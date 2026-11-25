@@ -7,12 +7,12 @@ export const NAME = { ru: 'Семён Моргунов', en: 'Semyon Morgunov' }
 
 // Short SHA of the deployed commit, stamped by scripts/version-stamp.py and
 // resolved into the `{build}` placeholder of CMS prose (see overlay.js).
-export const BUILD = '3a28205';
+export const BUILD = '47c6341';
 
 // The release, as the top entry of CHANGELOG.md names it; stamped by
 // scripts/version-stamp.py. The footer shows it as the build mark, a link to
 // the changelog on GitHub (ds/v1/USAGE.md, «Build mark»).
-export const VERSION = '1.5.6';
+export const VERSION = '1.5.7';
 export const CHANGELOG_URL = 'https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md';
 
 // The commit actually deployed: Pages exposes CF_PAGES_COMMIT_SHA to Functions;
