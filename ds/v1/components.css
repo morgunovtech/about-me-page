@@ -958,7 +958,8 @@ p.v4-prose,
 }
 
 /* A note under a block (terms, a reply time, a date of a check): the secondary
-   line. Upright — the family ships no italic, a browser would fake one. */
+   line. Upright — the chrome of a page sets nothing in italics (the italic
+   faces of fonts.css are for the author's emphasis in a note). */
 .v4-terms {
   color: var(--v4-muted);
   font-size: 14px;

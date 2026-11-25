@@ -10,10 +10,11 @@
 //   5. One button in a block; the second channel is a line of text.
 //   6. The build mark is the version, a link to the changelog on GitHub.
 //   7. The only round shape is the live dot (and its two relatives).
-//   8. One voice: one scale of sizes, one caption style, mono for data, no italics.
+//   8. One voice: one scale of sizes, one caption style, mono for data, no italics in the
+//      chrome (the italic faces are for the author's emphasis in a note).
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 
 import { renderers, feedSource, feedMonth, plainLabel, privacyRepos } from '../functions/_lib/render.js';
 import { NE_ARROW, outMark } from '../functions/_lib/i18n.js';
@@ -429,15 +430,149 @@ test('8. one voice: ONE caption style — sans caps 12px / 0.08em / 500; mono is
   assert.ok(!LAYER.some((r) => r.selectors.some((s) => s.startsWith('.v4-pricing')) && 'text-transform' in r.decls));
 });
 
-test('8. one voice: weight says the role — 600, 500, 400 — and nothing is set in italics', () => {
+test('8. one voice: weight says the role — 600, 500, 400 — and the chrome sets nothing in italics', () => {
   // 600 a title or a name, 500 something to press, 400 text. IBM Plex ships these three: a 700
   // would be synthesized (smeared) by the browser.
   for (const r of LAYER) {
     if ('font-weight' in r.decls) assert.ok(['400', '500', '600', 'var(--v4-label-weight)'].includes(r.decls['font-weight']), `${where(r)} { font-weight: ${r.decls['font-weight']} }`);
   }
-  // The family ships no italic either: a browser would slant the upright face itself.
+  // No rule of the layer asks for italics: a page's own text is upright. Italics are the
+  // author's emphasis inside a note (<em>), and the two closing lines of a note stay upright.
   for (const r of LAYER) assert.ok(!/italic|oblique/.test(r.decls['font-style'] || ''), where(r));
-  assert.doesNotMatch(noComments(read('ds/v1/fonts.css')), /font-style:\s*(italic|oblique)/, 'no italic face among the shipped fonts');
+  assert.equal(at('.v4-article-body > hr + p:last-child em', 'font-style'), 'normal');
+});
+
+test('a note ends with two quiet lines — where it was first published and the thanks line — whether or not an update stands between the rule and the first', () => {
+  // The «first published» line is the note's own last paragraph: right under its last rule, or
+  // after one paragraph of update under that rule. Both shapes get the secondary style of the
+  // thanks line; in five notes with an update the line used to be body text in italics.
+  const SHAPES = ['.v4-article-body > hr + p:last-child', '.v4-article-body > hr + p + p:last-child'];
+  const quiet = LAYER.find((r) => r.media === '' && r.selectors.includes('.v4-article-thanks') && 'font-size' in r.decls);
+  assert.deepEqual([quiet.decls['font-size'], quiet.decls['line-height'], quiet.decls.color, quiet.decls['max-width']], ['14px', '1.5', 'var(--v4-muted)', '62ch']);
+  for (const shape of SHAPES) {
+    assert.ok(quiet.selectors.includes(shape), `${shape}: the secondary style of the thanks line`);
+    assert.equal(at(shape, 'margin'), '0', shape);
+    assert.equal(at(shape + ' em', 'font-style'), 'normal', `${shape}: upright`);
+    assert.equal(at(shape, 'margin-bottom', PHONE), '0', `${shape}: no paragraph gap on a phone either`);
+  }
+});
+
+// What fonts.css declares: one entry per @font-face.
+const FACES = [...noComments(read('ds/v1/fonts.css')).matchAll(/@font-face\s*\{([^}]*)\}/g)].map(([, body]) => {
+  const get = (prop) => (new RegExp(`${prop}:\\s*([^;]+);`).exec(body) || [])[1];
+  return {
+    family: get('font-family').replace(/"/g, ''),
+    style: get('font-style'),
+    weight: get('font-weight'),
+    display: get('font-display'),
+    file: (/url\("\/fonts\/([^"]+)"\) format\("woff2"\)/.exec(get('src')) || [])[1],
+    range: get('unicode-range').split(',').map((x) => x.trim()),
+  };
+});
+
+test('the fonts: every face names a file that ships and every file is a face', () => {
+  assert.equal(FACES.length, 14);
+  for (const f of FACES) {
+    // The name of a file says what is in it: family, subset, weight, slant.
+    const m = /^plex-(sans|mono)-(latin|cyr)-(400|500|600)(-italic)?\.woff2$/.exec(f.file || '');
+    assert.ok(m, `a face of fonts.css names its file: ${f.file}`);
+    assert.equal(f.family, m[1] === 'sans' ? 'IBM Plex Sans' : 'IBM Plex Mono', f.file);
+    assert.equal(f.weight, m[3], f.file);
+    assert.equal(f.style, m[4] ? 'italic' : 'normal', f.file);
+    assert.equal(f.display, 'swap', f.file);
+    assert.equal(readFileSync(new URL('../fonts/' + f.file, import.meta.url)).toString('latin1', 0, 4), 'wOF2', `${f.file} is a woff2 file`);
+    // A subset is told by its range: Cyrillic starts at U+0400, Latin at U+0000.
+    assert.equal(f.range.some((x) => x.startsWith('U+0400')), m[2] === 'cyr', f.file);
+  }
+  assert.equal(new Set(FACES.map((f) => f.file)).size, FACES.length, 'no file is declared twice');
+  // …and nothing ships that no face uses (a file nobody asks for is a tail).
+  assert.deepEqual(readdirSync(new URL('../fonts/', import.meta.url)).filter((f) => f.endsWith('.woff2')).sort(), FACES.map((f) => f.file).sort());
+});
+
+test('the fonts: the italics are IBM Plex Sans 400 and 600 in both subsets — the author\'s emphasis in a note, and nothing else', () => {
+  // A note sets <em> in its text (400) and, in a few places, <em> inside <strong> (600). Without
+  // the faces a browser slants the upright one itself — letters of the wrong shape. There is no
+  // 500 italic (nothing pressed is in italics) and no mono italic (code is upright).
+  const italic = FACES.filter((f) => f.style !== 'normal');
+  assert.deepEqual(italic.map((f) => f.file).sort(), ['plex-sans-cyr-400-italic.woff2', 'plex-sans-cyr-600-italic.woff2', 'plex-sans-latin-400-italic.woff2', 'plex-sans-latin-600-italic.woff2']);
+  for (const f of italic) {
+    // A character is looked for in the same subset whatever the slant: the italic face covers
+    // nothing its upright twin does not, and both weights of a subset cover the same.
+    const upright = FACES.find((u) => u.file === f.file.replace('-italic', ''));
+    assert.ok(upright, `${f.file}: its upright twin ships too`);
+    for (const x of f.range) assert.ok(upright.range.includes(x), `${f.file}: ${x} is in the upright range`);
+    const otherWeight = italic.find((o) => o !== f && o.file.includes('-cyr-') === f.file.includes('-cyr-'));
+    assert.deepEqual(f.range, otherWeight.range, `${f.file}: one range for both weights`);
+  }
+  // No page preloads an italic face: it is fetched where a note uses it and nowhere else. The
+  // static pages are read as files; the shells of a note and of /notes are read as they are
+  // rendered — their preload names are put together from parts, so the source of the template
+  // never holds the name of a file.
+  for (const file of STATIC) assert.doesNotMatch(read(file), /italic/, file);
+  for (const lang of LANGS) {
+    const shells = notesPages(lang);
+    assert.match(shells, /rel="preload" as="font"[^>]*href="\/fonts\/plex-sans-latin-400\.woff2"/, 'the shells do preload fonts');
+    assert.doesNotMatch(shells, /italic\.woff2/, `the note shell and the /notes page (${lang})`);
+  }
+});
+
+// The tables a woff2 file carries, from its directory (which is not compressed).
+function woff2Tables(file) {
+  const KNOWN = ['cmap', 'head', 'hhea', 'hmtx', 'maxp', 'name', 'OS/2', 'post', 'cvt ', 'fpgm', 'glyf', 'loca', 'prep', 'CFF ', 'VORG', 'EBDT', 'EBLC', 'gasp',
+    'hdmx', 'kern', 'LTSH', 'PCLT', 'VDMX', 'vhea', 'vmtx', 'BASE', 'GDEF', 'GPOS', 'GSUB', 'EBSC', 'JSTF', 'MATH', 'CBDT', 'CBLC', 'COLR', 'CPAL',
+    'SVG ', 'sbix', 'acnt', 'avar', 'bdat', 'bloc', 'bsln', 'cvar', 'fdsc', 'feat', 'fmtx', 'fvar', 'gvar', 'hsty', 'just', 'lcar', 'mort', 'morx',
+    'opbd', 'prop', 'trak', 'Zapf', 'Silf', 'Glat', 'Gloc', 'Feat', 'Sill'];
+  const b = readFileSync(new URL('../fonts/' + file, import.meta.url));
+  let i = 48;
+  const skipBase128 = () => { while (b[i++] & 0x80); };
+  const tags = [];
+  for (let n = b.readUInt16BE(12); n > 0; n--) {
+    const flags = b[i++];
+    let tag = KNOWN[flags & 0x3f];
+    if ((flags & 0x3f) === 63) { tag = b.toString('latin1', i, i + 4); i += 4; }
+    skipBase128();
+    // glyf and loca are stored transformed at version 0, hmtx at version 1: a second length follows.
+    if (((tag === 'glyf' || tag === 'loca') && flags >> 6 === 0) || (tag === 'hmtx' && flags >> 6 === 1)) skipBase128();
+    tags.push(tag);
+  }
+  return tags;
+}
+
+test('the fonts: every file is the same build — a static instance with its hinting', () => {
+  // Google Fonts answers a macOS browser with files that have no hinting and a Windows one with
+  // hinted files, and a request for two weights at once with one variable file. The italics were
+  // first fetched the first way: on Windows a small <em> would have been drawn by other rules
+  // than the upright text around it. Every file here is the static, hinted instance.
+  for (const f of FACES) {
+    const tags = woff2Tables(f.file);
+    for (const t of ['cmap', 'glyf', 'name', 'cvt ', 'fpgm', 'prep']) assert.ok(tags.includes(t), `${f.file} has no ${t.trim()} table`);
+    for (const t of ['fvar', 'gvar']) assert.ok(!tags.includes(t), `${f.file} is a variable font (${t})`);
+  }
+});
+
+test('a note\'s pictures stand in one frame — the portrait\'s: the place is known before the picture loads, the cover fills it, a picture in the text is shown whole', () => {
+  // The sanitizer leaves a picture of a note only its address and its text: no width, no height.
+  // Its place on the page is therefore the stylesheet's — one frame for every picture, or the
+  // text jumps as each one arrives and a tall photo takes a whole screen.
+  const frame = LAYER.find((r) => r.media === '' && r.selectors.includes('.v4-article-cover img') && r.selectors.includes('.v4-article-body img'));
+  assert.ok(frame, 'one rule frames the cover and the pictures in the text');
+  assert.deepEqual([frame.decls.display, frame.decls.width, frame.decls.height, frame.decls['aspect-ratio']], ['block', '100%', 'auto', '4 / 3']);
+  // The frame of the portrait on the homepage: the paper ground, a hairline, 12px of air.
+  for (const prop of ['padding', 'background', 'border', 'transition']) assert.equal(frame.decls[prop], at('.v4-portrait-wrap', prop), prop);
+  assert.deepEqual([frame.decls.padding, frame.decls.background, frame.decls.border], ['12px', 'var(--v4-paper)', '1px solid var(--v4-line)']);
+  // The cover is a photo: it fills the frame. A picture in the text is evidence — a screenshot,
+  // a scheme: it is fitted whole and never enlarged past its own size.
+  assert.equal(at('.v4-article-cover img', 'object-fit'), 'cover');
+  assert.equal(at('.v4-article-body img', 'object-fit'), 'scale-down');
+  // A phone: a square. A picture taller than it is wide is fitted by its height, and a square
+  // leaves it larger than 4:3 would (a 3:4 screenshot takes three quarters of the column).
+  const phone = LAYER.find((r) => r.media === PHONE && r.selectors.includes('.v4-article-cover img') && r.selectors.includes('.v4-article-body img'));
+  assert.deepEqual(phone && phone.decls, { 'aspect-ratio': '1 / 1' });
+  // No other rule gives a note's picture a size of its own.
+  for (const r of LAYER) {
+    if (r === frame || r === phone || !r.selectors.some((s) => /^\.v4-article-(cover|body)\b.*\bimg$/.test(s))) continue;
+    for (const prop of ['width', 'height', 'max-width', 'max-height', 'aspect-ratio', 'padding', 'border', 'background']) assert.ok(!(prop in r.decls), `${where(r)} sets ${prop}`);
+  }
 });
 
 test('the bar: the menus hang from its rule, the group\'s items start under its toggle, the theme icon ends on the content\'s edge', () => {

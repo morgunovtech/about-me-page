@@ -1149,10 +1149,31 @@
   display: none;
 }
 
-.v4-article-cover img {
+/* A picture of a note is set in ONE frame — the template: the paper ground, a
+   hairline and 12px of air, the frame of the portrait on the homepage; 4:3, a
+   square on a phone. Its place is known before it loads, so the text under it
+   does not jump. (The pictures came with no size of their own — tall, wide,
+   square — and the page moved as each one arrived; a tall photo took a whole
+   screen.) The cover is the note's lead photo: it fills the frame, cropped from
+   its upper part, where a face usually is. A picture in the text is evidence —
+   a screenshot, a scheme, a photo — and is shown whole, fitted into the frame,
+   as the photos of the hardware on /uses are: cropping it would cut what the
+   note talks about. */
+.v4-article-cover img,
+.v4-article-body img {
+  display: block;
   width: 100%;
   height: auto;
-  display: block;
+  aspect-ratio: 4 / 3;
+  padding: 12px;
+  background: var(--v4-paper);
+  border: 1px solid var(--v4-line);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.v4-article-cover img {
+  object-fit: cover;
+  object-position: 50% 25%;
 }
 
 /* Long reading is set a step up: the lead size, and its paragraphs a step
@@ -1224,10 +1245,10 @@
   margin: 0 0 8px;
 }
 
+/* Never enlarged past its own size: a small picture stands in the middle of
+   the frame as it is. */
 .v4-article-body img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+  object-fit: scale-down;
   margin: 32px 0;
 }
 
@@ -1291,10 +1312,15 @@
 }
 
 /* The end of a note is two quiet lines under its last rule: where the text
-   was first published (the note's own last paragraph, after its <hr>) and the
-   thanks line — a link to /thanks, not a button, not a box. The same
-   secondary style for both; upright — the family ships no italic. */
+   was first published — the note's own last paragraph — and the thanks line,
+   a link to /thanks, not a button, not a box. The same secondary style for
+   both, upright: the two lines are the page's own, and italics here are the
+   author's emphasis inside the text, nothing else. The last paragraph stands
+   right under the rule or after one paragraph of update («Дополнение, ноябрь
+   2026. …») under that rule: until v4.1.1 only the first shape was known, and
+   in the five notes with an update the line was body text in italics. */
 .v4-article-body > hr + p:last-child,
+.v4-article-body > hr + p + p:last-child,
 .v4-article-thanks {
   max-width: 62ch;
   font-size: 14px;
@@ -1302,11 +1328,13 @@
   color: var(--v4-muted);
 }
 
-.v4-article-body > hr + p:last-child {
+.v4-article-body > hr + p:last-child,
+.v4-article-body > hr + p + p:last-child {
   margin: 0;
 }
 
-.v4-article-body > hr + p:last-child em {
+.v4-article-body > hr + p:last-child em,
+.v4-article-body > hr + p + p:last-child em {
   font-style: normal;
 }
 
@@ -1345,11 +1373,19 @@
     padding-left: 16px;
   }
   .v4-article-body blockquote > :last-child,
-  .v4-article-body > hr + p:last-child {
+  .v4-article-body > hr + p:last-child,
+  .v4-article-body > hr + p + p:last-child {
     margin-bottom: 0;
   }
   .v4-article-body code {
     font-size: 14px;
+  }
+  /* A square on a phone. A picture taller than it is wide is fitted by its
+     height: in a square a 3:4 screenshot takes three quarters of the column
+     and stays readable, in 4:3 it would take a little over a half. */
+  .v4-article-cover img,
+  .v4-article-body img {
+    aspect-ratio: 1 / 1;
   }
   .v4-article-body h2 {
     font-size: 20px;

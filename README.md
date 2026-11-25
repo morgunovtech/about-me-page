@@ -18,7 +18,7 @@ Pure static HTML/CSS/JS. **No build step, no npm, no framework.** Hosted on Clou
   - **`/thanks`** — how to say thanks and where to report a mistake
 - A versioned design-system layer `ds/v1/` (fonts, tokens for 4 themes, base, components) + `styles.css` for page layout. Other projects reuse it: [Fingerprint](https://github.com/morgunovtech/Fingerprint) loads the four stylesheets straight from `https://s.morgunov.tech/ds/v1/`, [Found You](https://github.com/morgunovtech/FoundYou) vendors a copy in its `public/ds/v1/`, the [TofsDevOps](https://github.com/morgunovtech/Tofs_DevOps_bot) status page inlines the tokens and takes only the woff2 files from `/fonts/` (a bot other people self-host must not depend on this site), and the Lenses PDF report (private) uses the print palette with IBM Plex; see [`ds/v1/USAGE.md`](ds/v1/USAGE.md). Since v1.4.0 the layer also ships the behaviour of the bar (`ds/v1/chrome.js`, a checked twin of `script.js`) and a service must repeat the chrome — bar, language and theme menus, footer
 - One script — `script.js` (single IIFE, no dependencies, ≈ 320 lines)
-- Self-hosted IBM Plex Sans + Plex Mono (latin + cyrillic woff2 subsets, `font-display: swap`)
+- Self-hosted IBM Plex Sans (with the italics, for emphasis in a note) + Plex Mono (latin + cyrillic woff2 subsets, `font-display: swap`)
 - Cloudflare config: [`_headers`](_headers), [`_routes.json`](_routes.json), [`_redirects`](_redirects)
 
 ## Privacy
