@@ -72,7 +72,8 @@ test('3. a «more» link names what is behind it; «→» stays on the site, «�
       if (external) assert.match(label, / (на|on) [A-Z][A-Za-z]+( [A-Z][A-Za-z]+)?$/, `${f}: ${label}`);
     }
   }
-  assert.equal(seen, 12, 'six «more» links on each home page');
+  // v2.2.2: five — GitHub Sponsors left the page (owner); /privacy now introduces the privacy tools.
+  assert.equal(seen, 10, 'five «more» links on each home page');
   // A glyph typed into a stored label is dropped; the stored labels of v1.4 are renamed.
   assert.equal(plainLabel('→ Все публикации'), 'Все публикации');
   assert.equal(plainLabel('Все проекты на GitHub ↗'), 'Все проекты на GitHub');

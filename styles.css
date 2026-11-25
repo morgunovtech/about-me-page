@@ -660,7 +660,17 @@
   margin-top: 36px;
 }
 
-/* «More» links in a row (GitHub, /privacy, GitHub Sponsors): one line apart. */
+/* «Работает» on the homepage (v2.2.2): the /privacy link introduces the privacy
+   tools — a gap above it like a new group, the cards right under it. */
+.v4-product-groups > .v4-more {
+  margin: 28px 0 14px;
+}
+
+.v4-product-groups + .v4-more + .v4-tier {
+  margin-top: 36px;
+}
+
+/* «More» links in a row: one line apart. */
 .v4-more + .v4-more {
   margin-top: 8px;
 }

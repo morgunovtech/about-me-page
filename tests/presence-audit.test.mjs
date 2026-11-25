@@ -33,6 +33,21 @@ test('no calendar booking anywhere', () => {
   for (const f of files('')) assert.doesNotMatch(read(f), /book\.morgen\.so|morgen\.so/, f);
 });
 
+test('/consulting (v2.2.2): one proof line under the clients, no dates; who signs the contract after the reply time', () => {
+  for (const lang of ['ru', 'en']) {
+    const about = renderers.collabAbout(seed.consulting, lang);
+    const lines = about.match(/<p class="v4-collab-clients">[^]*?<\/p>/g) || [];
+    assert.equal(lines.length, 2, lang);
+    // The clients line's own shape: a caption, then the names in bold.
+    assert.match(lines[1], /^<p class="v4-collab-clients">[^<]+: <strong>INMerge Tashkent · Click Data MeetUp · Managers Conf · President Tech Award · Startup Weekend \(Techstars\) · TechGenius \((ПРООН|UNDP)\)<\/strong><\/p>$/);
+    assert.doesNotMatch(lines[1], /\b20\d\d\b|<a /, 'no dates, no links to own posts');
+    assert.match(about, /PCI\u00a0DSS\u00a04\.0/);
+    const cons = renderers.collabConsulting(seed.consulting, lang);
+    assert.match(cons, /<p class="v4-terms">[^<]*MOR TECH[^<]*<a href="https:\/\/www\.it-park\.uz\/(ru|en)\/itpark\/residents\/itpark-residents"/);
+    assert.ok(cons.indexOf('MOR TECH') > cons.indexOf(seed.consulting.sections.consulting.note[lang]));
+  }
+});
+
 test('/consulting: the phrase first, tiers to Telegram, the home page reply time beside them', () => {
   const c = seed.consulting.sections.consulting;
   assert.deepEqual(c.prose, PHRASE);
@@ -59,6 +74,7 @@ test('a /consulting doc saved before v1.2.7 still renders: tiers only, the Servi
   const old = clone(seed.consulting);
   delete old.sections.consulting.prose;
   delete old.sections.consulting.note;
+  delete old.sections.consulting.legal;
   const html = renderers.collabConsulting(old, 'ru');
   assert.match(html, /^<div class="v4-products">/);
   assert.doesNotMatch(html, /v4-tagline|v4-terms/);

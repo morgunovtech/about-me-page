@@ -7,7 +7,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-import { renderers } from '../functions/_lib/render.js';
+import { renderers, privacyRepos } from '../functions/_lib/render.js';
 import { renderPageJsonLd } from '../functions/_lib/jsonld.js';
 import { PAGE_PATHS } from '../functions/_lib/cache.js';
 
@@ -143,14 +143,27 @@ test('Sonar counts no copy-paste in the page templates, and its settings are not
   assert.match(read('functions/_middleware.js'), /'\/\.sonarcloud\.properties',/);
 });
 
-test('the homepage leads to /privacy from «Собственные проекты», after the GitHub link', () => {
+test('the homepage: the /privacy link introduces the privacy tools in «Работает», the GitHub link comes after (v2.2.2)', () => {
   for (const [f, lang] of [['index.html', 'ru'], ['en/index.html', 'en']]) {
     const projects = read(f).split('id="projects"')[1].split('</section>')[0];
     const href = lang === 'en' ? '/en/privacy' : '/privacy';
     const label = seed.home.sections.products.privacy.label[lang];
-    assert.ok(projects.includes(`<a href="${href}" data-cms-href="sections.products.privacy.href"><span data-cms-text="sections.products.privacy.label">${label}</span><span aria-hidden="true">&nbsp;→</span></a>`), f);
-    assert.ok(projects.indexOf('sections.products.more.href') < projects.indexOf('sections.products.privacy.href'), f);
+    const link = `<div class="v4-more"><a href="${href}"><span>${label}</span><span aria-hidden="true">&nbsp;→</span></a></div>`;
+    assert.ok(projects.includes(link), f);
+    const at = (s) => projects.indexOf(s);
+    // Bots, then the link, then the two privacy tools in a grid of their own, then GitHub.
+    assert.ok(at('>TofsDevOps<') < at(link) && at(link) < at('>Found You<') && at('>Found You<') < at('>Fingerprint<'), f);
+    assert.ok(at('>Fingerprint<') < at('sections.products.more.href'), f);
+    assert.equal((projects.match(/<div class="v4-products">/g) || []).length, 2, f);
     assert.equal(seed.home.sections.products.privacy.href[lang], href);
+  }
+  // Which products are privacy tools comes from the /privacy doc; without it, one grid and no link inside.
+  assert.deepEqual(privacyRepos(seed.privacy), ['morgunovtech/Fingerprint', 'morgunovtech/FoundYou']);
+  const one = renderers.products({ sections: { products: seed.home.sections.products } }, 'ru', false);
+  assert.equal((one.match(/<div class="v4-products">/g) || []).length, 1);
+  assert.doesNotMatch(one, /v4-more/);
+  for (const f of ['functions/_middleware.js', 'functions/admin/api/preview.js', 'scripts/render-static.mjs']) {
+    assert.match(read(f), /_privacyRepos = privacyRepos\(/, f);
   }
 });
 

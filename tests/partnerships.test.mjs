@@ -52,22 +52,10 @@ test('no rate card, no audience numbers, no employer, no promise of coverage', (
   assert.equal(renderers.collabPartnerships({ sections: {} }, 'ru'), '');
 });
 
-test('one support link on the site: the homepage, after the other «more» links, worded as voluntary', () => {
-  const sup = seed.home.sections.products.support;
-  assert.equal(sup.href, SPONSORS);
-  assert.match(sup.label.en, /^Voluntary support for my open-source work on GitHub Sponsors$/);
-  assert.match(sup.label.ru, /^Добровольная поддержка моих открытых проектов на GitHub Sponsors$/);
-  assert.doesNotMatch(sup.label.ru + sup.label.en, /donat|charit|buy|купи|пожертв|благотвор|донат/i);
-  for (const [f, lang, sr] of [['index.html', 'ru', ' (откроется в новой вкладке)'], ['en/index.html', 'en', ' (opens in a new tab)']]) {
-    const page = read(f);
-    assert.equal(page.split(SPONSORS).length - 1, 1, `${f}: one link`);
-    const projects = page.split('id="projects"')[1].split('</section>')[0];
-    assert.ok(projects.includes(`<a href="${SPONSORS}" target="_blank" rel="noopener noreferrer" data-cms-href="sections.products.support.href"><span data-cms-text="sections.products.support.label">${sup.label[lang]}</span><span aria-hidden="true">&nbsp;↗</span><span class="sr-only">${sr}</span></a>`), f);
-    assert.ok(projects.indexOf('sections.products.privacy.href') < projects.indexOf('sections.products.support.href'), f);
-  }
-  // Nowhere else: not in the footer (its slot is full), not on the other pages.
-  for (const f of ['collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html', 'about.html', 'en/about.html', '404.html']) {
-    assert.doesNotMatch(read(f), /github\.com\/sponsors/, f);
+test('no support link on the pages (v2.2.2, owner): GitHub Sponsors stays in llms.txt only', () => {
+  assert.equal(seed.home.sections.products.support, undefined);
+  for (const f of ['index.html', 'en/index.html', 'collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html', 'about.html', 'en/about.html', '404.html']) {
+    assert.doesNotMatch(read(f), /github\.com\/sponsors|sections\.products\.support/, f);
   }
   const llms = read('llms.txt');
   assert.match(llms, /\[Partnerships & media\]\(https:\/\/s\.morgunov\.tech\/en\/collaborate#partnerships\)/);
