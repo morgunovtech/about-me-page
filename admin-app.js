@@ -164,7 +164,17 @@
     if (pendingEl) commit(pendingEl, pendingPath);
   }
 
+  // Entry point for the event handlers, which call it without awaiting: it
+  // never rejects and never leaves the loading veil over the editor.
   async function renderPreview() {
+    try {
+      await drawPreview();
+    } catch (e) {
+      $('#ed-loading').hidden = true;
+      setStatus('Превью: ' + ((e && e.message) || e), 'error');
+    }
+  }
+  async function drawPreview() {
     flushPending();
     // Remember scroll position + the focused field so a structural re-render or
     // language switch doesn't fling the page back to the top.
@@ -932,9 +942,10 @@
       savedSnapshot = clone(doc);
       resetHistory();
       renderSettings();
-      await renderPreview();
+      await drawPreview();
       setStatus('Загружено', 'ok');
     } catch (e) {
+      $('#ed-loading').hidden = true;
       setStatus('Ошибка загрузки: ' + e.message, 'error');
     }
   }
