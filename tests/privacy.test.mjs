@@ -132,3 +132,10 @@ test('the page is in llms.txt and the sitemap, and is indexable', () => {
   assert.match(llms, /- Privacy \(EN\): https:\/\/s\.morgunov\.tech\/en\/privacy$/m);
   for (const f of ['privacy.html', 'en/privacy.html']) assert.doesNotMatch(read(f), /name="robots" content="noindex"/, f);
 });
+
+test('Sonar counts no copy-paste in the page templates, and its settings are not served', () => {
+  // Every page repeats the head, the bar and the footer by design (no build step);
+  // check-sync and the composition tests keep those twins, not Sonar.
+  assert.match(read('.sonarcloud.properties'), /^sonar\.cpd\.exclusions=\*\*\/\*\.html$/m);
+  assert.match(read('functions/_middleware.js'), /'\/\.sonarcloud\.properties',/);
+});

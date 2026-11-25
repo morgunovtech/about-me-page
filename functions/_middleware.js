@@ -40,6 +40,7 @@ const BLOCKED = [
   '/README.md',
   '/wrangler.toml',
   '/.gitignore',
+  '/.sonarcloud.properties', // SonarQube Cloud analysis settings
   '/.github/', // CI workflows, Dependabot config
   '/scripts/',
   '/tests/',
