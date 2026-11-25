@@ -691,17 +691,17 @@
   }
 
   // --- verbatim HTML blocks → inline rich editing ---
-  // Every data-cms-html block (article body, about/collaborate section bodies)
+  // Every data-cms-html block (article body, collaborate section bodies)
   // edits inline: contenteditable + the block toolbar (B/I/link/H2/H3/quote/
   // image/hr). innerHTML is committed on blur and sanitized server-side on save,
   // so messy contenteditable output is fine.
   function attachHtmlBlock(node) {
     const path = node.getAttribute('data-cms-html');
-    // Inline rich editing only where the content is prose: the article body and
-    // about's section bodies. collaborate carries structural layout (cards, dl,
-    // classed divs) that the sanitizer would flatten — it keeps the raw-HTML
-    // popover until it gets its own structured model.
-    if (path === 'body' || page === 'about') return attachInlineHtml(node, path);
+    // Inline rich editing only where the content is prose: the article body.
+    // collaborate carries structural layout (cards, dl, classed divs) that the
+    // sanitizer would flatten — it keeps the raw-HTML popover until it gets its
+    // own structured model.
+    if (path === 'body') return attachInlineHtml(node, path);
     node.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); openSourceModal(path, 'html'); });
     attachHtmlImages(node, path);
   }
@@ -1242,7 +1242,7 @@
     let articles = [];
     try { articles = (await fetch(API + '/articles').then((r) => r.json())).articles || []; } catch { /* ignore */ }
     sel.textContent = '';
-    for (const p of ['home', 'collaborate', 'consulting', 'about', 'uses', 'privacy']) {
+    for (const p of ['home', 'collaborate', 'consulting', 'uses', 'privacy']) {
       sel.append(Object.assign(el('option'), { value: p, textContent: p }));
     }
     if (articles.length) {
@@ -1554,23 +1554,6 @@
         box.append(node);
       }
       box.append(ctrlBtn('Обновить превью', () => renderPreview()));
-    }
-    // /about: per-section visibility toggle (hide removes the section + its nav
-    // links via the data-cms-omit overlay hook).
-    if (page === 'about' && doc.sections && !Array.isArray(doc.sections)) {
-      const d = el('details', 'f-group'); d.open = false;
-      d.append(Object.assign(el('summary'), { textContent: 'Секции (видимость)' }));
-      const body = el('div', 'f-group-body');
-      for (const k of Object.keys(doc.sections)) {
-        const sec = doc.sections[k];
-        if (!sec || !sec.title) continue; // intro (lead, no title) isn't hideable
-        const lab = el('label', 'f-bool');
-        const cb = el('input'); cb.type = 'checkbox'; cb.checked = !sec.hidden;
-        cb.addEventListener('change', () => { sec.hidden = !cb.checked; markDirty(); renderPreview(); });
-        lab.append(cb, document.createTextNode(' ' + ((sec.title.ru || sec.title.en) || k)));
-        body.append(lab);
-      }
-      d.append(body); box.append(d);
     }
     if (doc.share) box.append(renderCardPreview());
     for (const k of ['meta', 'share', 'seo']) {

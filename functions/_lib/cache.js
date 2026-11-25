@@ -24,8 +24,7 @@ export const PAGE_PATHS = {
   home: ['/', '/en/', '/llms.txt', '/sitemap.xml'],
   collaborate: ['/collaborate', '/en/collaborate', '/sitemap.xml'],
   consulting: ['/consulting', '/en/consulting', '/sitemap.xml'],
-  about: ['/about', '/en/about'], // hidden since v0.31.2: not in the sitemap
-  uses: ['/uses', '/en/uses'], // hidden since v3.0.0: not in the sitemap
+  uses: ['/uses', '/en/uses', '/sitemap.xml'],
   privacy: ['/privacy', '/en/privacy', '/sitemap.xml'],
 };
 // The homepage shows the three newest feed entries and /privacy lists some notes

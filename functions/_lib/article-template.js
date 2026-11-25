@@ -39,6 +39,7 @@ const T = {
     work: 'Сотрудничество',
     consulting: 'Консалтинг',
     collaborate: 'Партнёрства и медиа',
+    usesNav: 'Стек',
     thanks: 'сказать спасибо или сообщить об ошибке',
     thanksLine: 'Если заметка пригодилась — [вот как можно сказать спасибо]({href}).',
     back: '← Все публикации',
@@ -60,6 +61,7 @@ const T = {
     work: 'Work with me',
     consulting: 'Consulting',
     collaborate: 'Partnerships &amp; media',
+    usesNav: 'Uses',
     thanks: 'say thanks or report a bug',
     thanksLine: 'If this note was useful, [here’s how you can say thanks]({href}).',
     back: '← All publications',
@@ -75,11 +77,11 @@ const T = {
 };
 
 const STYLES_VER = 'v=3a965f09';
-const SCRIPT_VER = 'v=57fc68cc';
+const SCRIPT_VER = 'v=4aadf13a';
 const FONTS_VER = 'v=64eea157';
 const TOKENS_VER = 'v=5629caeb';
 const BASE_VER = 'v=0e404315';
-const COMPONENTS_VER = 'v=9b3765bd';
+const COMPONENTS_VER = 'v=9c2b749b';
 
 const L = (lang) => (lang === 'en' ? 'en' : 'ru');
 const p = (lang, path) => (L(lang) === 'en' ? '/en' : '') + path;
@@ -174,7 +176,8 @@ export function siteNav(lang, active) {
               <a class="v4-menu-item" href="${p(l, '/consulting')}"${cur('consulting')}>${t.consulting}</a>
               <a class="v4-menu-item" href="${p(l, '/collaborate')}"${cur('collaborate')}>${t.collaborate}</a>
             </div>
-          </div>`;
+          </div>
+          <a href="${p(l, '/uses')}"${cur('uses')}>${t.usesNav}</a>`;
 }
 
 // The top bar. `ru`/`en` are the two language hrefs; `enAttrs` lets the

@@ -129,7 +129,7 @@ test('copy: no «two tools», the channel since 2022, the Korzinka Go video is a
 const PROMISE = /angel|ангел|advis|эдвайз|инвестор|investor|вкладыва|invest capital|#angel/i;
 
 test('pages promise no angel investing or advisory (v1.2.8)', () => {
-  for (const f of ['collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'index.html', 'en/index.html', 'uses.html', 'en/uses.html', 'about.html', 'en/about.html', 'llms.txt']) {
+  for (const f of ['collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'index.html', 'en/index.html', 'uses.html', 'en/uses.html', 'llms.txt']) {
     // «CHANGELOG» (the build mark's address) holds the letters «angel».
     assert.doesNotMatch(read(f).replace(/crowd-invest\w*|крауд-инвест\w*|CHANGELOG/gi, ''), PROMISE, f);
   }

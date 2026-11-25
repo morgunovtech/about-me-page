@@ -246,10 +246,11 @@
     if (!event.target.closest('.v4-dropdown')) closeDropdowns();
   });
 
-  /* The mobile nav panel only exists ≤640px: crossing that boundary with a
-     panel open (rotation, window resize) would leave the hidden toggle at
-     aria-expanded="true" and the inline links under the open-panel handlers. */
-  onMediaChange(window.matchMedia('(max-width: 640px)'), () => closeDropdowns());
+  /* The «Меню» nav panel only exists ≤960px (v4.0.0; 640px before): crossing
+     that boundary with a panel open (rotation, window resize) would leave the
+     hidden toggle at aria-expanded="true" and the inline links under the
+     open-panel handlers. */
+  onMediaChange(window.matchMedia('(max-width: 960px)'), () => closeDropdowns());
 
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;

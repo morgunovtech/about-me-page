@@ -10,8 +10,8 @@ import { siteNav, notesIndexHtml } from '../functions/_lib/article-template.js';
 
 const read = (f) => readFileSync(new URL('../' + f, import.meta.url), 'utf8');
 const MENU = {
-  ru: [['/', 'Обо мне'], ['/notes', 'Публикации'], ['/privacy', 'Приватность'], ['/consulting', 'Консалтинг'], ['/collaborate', 'Партнёрства и медиа']],
-  en: [['/en/', 'About'], ['/en/notes', 'Publications'], ['/en/privacy', 'Privacy'], ['/en/consulting', 'Consulting'], ['/en/collaborate', 'Partnerships &amp; media']],
+  ru: [['/', 'Обо мне'], ['/notes', 'Публикации'], ['/privacy', 'Приватность'], ['/consulting', 'Консалтинг'], ['/collaborate', 'Партнёрства и медиа'], ['/uses', 'Стек']],
+  en: [['/en/', 'About'], ['/en/notes', 'Publications'], ['/en/privacy', 'Privacy'], ['/en/consulting', 'Consulting'], ['/en/collaborate', 'Partnerships &amp; media'], ['/en/uses', 'Uses']],
 };
 const PAGES = [
   ['index.html', 'ru', '/'], ['en/index.html', 'en', '/en/'],
@@ -19,8 +19,7 @@ const PAGES = [
   ['collaborate.html', 'ru', '/collaborate'], ['en/collaborate.html', 'en', '/en/collaborate'],
   ['privacy.html', 'ru', '/privacy'], ['en/privacy.html', 'en', '/en/privacy'],
   ['thanks.html', 'ru', null], ['en/thanks.html', 'en', null],
-  ['uses.html', 'ru', null], ['en/uses.html', 'en', null],
-  ['about.html', 'ru', null], ['en/about.html', 'en', null],
+  ['uses.html', 'ru', '/uses'], ['en/uses.html', 'en', '/en/uses'],
 ];
 const bar = (html) => /<div class="v4-bar-mid" id="site-nav">([\s\S]*?)\n        <\/div>\n      <\/nav>/.exec(html)[1];
 
@@ -30,7 +29,7 @@ test('every page has the same site menu, in order, with the current page marked 
   for (const [f, lang, current, html] of [...PAGES.map(([f, l, c]) => [f, l, c, read(f)]), ...shells]) {
     const nav = bar(html);
     const links = [...nav.matchAll(/<a (?:class="v4-menu-item" )?href="([^"]+)"( aria-current="page")?>([^<]+)<\/a>/g)];
-    assert.deepEqual(links.map((m) => [m[1], m[3]]), MENU[lang], `${f}: the five links`);
+    assert.deepEqual(links.map((m) => [m[1], m[3]]), MENU[lang], `${f}: the six links`);
     const marked = links.filter((m) => m[2]).map((m) => m[1]);
     assert.deepEqual(marked, current ? [current] : [], `${f}: aria-current`);
     // The group reads as current when one of its pages is.
@@ -67,7 +66,7 @@ test('/thanks: the dogs first, then support, the free ways and where to report a
     assert.match(html, /href="https:\/\/github\.com\/sponsors\/morgunovtech"/, f);
     assert.match(html, /href="https:\/\/t\.me\/boost\/raschet7"/, f);
     // The referral links go to /uses when it comes back (owner): not here.
-    assert.doesNotMatch(html, /href="(\/en)?\/uses"/, f);
+    assert.doesNotMatch(html.replace(/<header class="v4-bar"[\s\S]*?<\/header>/, ''), /href="(\/en)?\/uses"/, `${f}: the site menu aside`);
     // Mehr: straight to the payment details, not through the channel.
     assert.doesNotMatch(html, /t\.me\/raschet7\/152/, f);
     // «Бесплатно»: one action a line, the channel first.
@@ -85,10 +84,15 @@ test('/thanks: the dogs first, then support, the free ways and where to report a
   for (const f of ['scripts/check-sync.py', 'scripts/check-critical.py', 'scripts/version-stamp.py']) assert.match(read(f), /thanks\.html/, f);
 });
 
-test('/uses is hidden with /about: out of the sitemap and llms.txt; every note ends with the thanks line', () => {
+test('/uses («Стек и принципы», v4.0.0) is public: in the sitemap and llms.txt, with «Как устроен этот сайт»; every note ends with the thanks line', () => {
   const sm = read('functions/_lib/render-notes.js');
-  assert.doesNotMatch(sm, /loc: '\/(en\/)?uses'/);
-  assert.doesNotMatch(read('llms.txt'), /## Uses|s\.morgunov\.tech\/(en\/)?uses/);
+  assert.match(sm, /loc: '\/uses'/);
+  assert.match(read('llms.txt'), /s\.morgunov\.tech\/uses/);
+  for (const f of ['uses.html', 'en/uses.html']) {
+    const html = read(f);
+    assert.match(html, /<section id="principles" class="v4-section">[\s\S]*?data-cms-list="usesPrinciples"/, f);
+    assert.match(html, /<nav class="v4-onpage"[^>]*>[\s\S]*?href="#principles"/, f);
+  }
   const shell = read('functions/_lib/article-template.js');
   assert.match(shell, /<p class="v4-article-thanks">\$\{renderInline\(t\.thanksLine\.replace\('\{href\}', p\(l, '\/thanks'\)\)\)\}<\/p>/);
   assert.match(shell, /thanksLine: 'Если заметка пригодилась — \[вот как можно сказать спасибо\]\(\{href\}\)\.'/);

@@ -24,7 +24,7 @@ import { tmpdir } from 'node:os';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 's.morgunov.tech';
 const HISTORY_MAX = 20; // as in functions/admin/api/save.js
-const PAGES = ['home', 'collaborate', 'consulting', 'about', 'uses', 'privacy'];
+const PAGES = ['home', 'collaborate', 'consulting', 'uses', 'privacy'];
 
 const args = process.argv.slice(2);
 const page = args.find((a) => !a.startsWith('--'));

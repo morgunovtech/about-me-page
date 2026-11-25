@@ -270,11 +270,11 @@ test('renderPageJsonLd: consulting offers follow the doc, about gets a breadcrum
   assert.equal(page.dateModified, '2026-09-03');
   const offers = g.find((n) => n['@type'] === 'Service').hasOfferCatalog.itemListElement;
   assert.deepEqual(offers.map((o) => [o.name, o.price, o.description]), [['Single consultation', '250', '75 minutes'], ['Cycle', '2000', '5 sessions']]);
-  const about = { dateModified: '2026-05-11', meta: { title: { ru: 'Принципы — Семён Моргунов', en: 'Principles — Semyon Morgunov' } }, hero: { name: { ru: 'Принципы', en: 'Principles' } }, sections: {} };
-  const ga = JSON.parse(renderPageJsonLd(about, 'ru', 'about'))['@graph'];
+  const uses = { dateModified: '2026-11-25', meta: { title: { ru: 'Стек и принципы — Семён Моргунов', en: 'Uses and principles — Semyon Morgunov' } }, hero: { name: { ru: 'Стек и принципы', en: 'Uses and principles' } }, sections: {} };
+  const ga = JSON.parse(renderPageJsonLd(uses, 'ru', 'uses'))['@graph'];
   const bc = ga.find((n) => n['@type'] === 'BreadcrumbList');
-  assert.deepEqual(bc.itemListElement.map((i) => i.name), ['Главная', 'Принципы']);
-  assert.equal(ga.find((n) => n['@type'] === 'WebPage').breadcrumb['@id'], 'https://s.morgunov.tech/about#breadcrumb');
+  assert.deepEqual(bc.itemListElement.map((i) => i.name), ['Главная', 'Стек и принципы']);
+  assert.equal(ga.find((n) => n['@type'] === 'WebPage').breadcrumb['@id'], 'https://s.morgunov.tech/uses#breadcrumb');
 });
 
 test('home JSON-LD: ProfilePage + mainEntity, Person url stable across languages, product free/version', () => {

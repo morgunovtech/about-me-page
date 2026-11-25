@@ -11,10 +11,10 @@ import { renderJsonLd } from '../functions/_lib/jsonld.js';
 
 const read = (p) => readFileSync(new URL('../' + p, import.meta.url), 'utf8');
 const seed = JSON.parse(read('content.seed.json'));
-const PAGES = ['index.html', 'en/index.html', 'collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'about.html', 'en/about.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html'];
+const PAGES = ['index.html', 'en/index.html', 'collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html'];
 
 test('e-mail only where the owner put it: home «Связаться», llms.txt, JSON-LD; Telegram stays first', () => {
-  for (const f of ['collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'about.html', 'en/about.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html', '.well-known/security.txt']) {
+  for (const f of ['collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html', '.well-known/security.txt']) {
     assert.doesNotMatch(read(f), /mailto:|s@morgunov\.tech/, f);
   }
   for (const f of ['index.html', 'en/index.html']) {
@@ -46,10 +46,16 @@ test('footer (v3.0.0): one link of its own — «сказать спасибо �
   }
 });
 
-test('/about and /uses are hidden (v3.0.0 for /uses): noindex, out of llms.txt', () => {
-  for (const f of ['about.html', 'en/about.html', 'uses.html', 'en/uses.html']) assert.match(read(f), /<meta name="robots" content="noindex" \/>/);
-  for (const f of ['index.html', 'collaborate.html', 'consulting.html', 'privacy.html', 'thanks.html', 'en/thanks.html']) assert.doesNotMatch(read(f), /name="robots" content="noindex"/);
-  assert.doesNotMatch(read('llms.txt'), /s\.morgunov\.tech\/(en\/)?(about|uses)\b/);
+test('v4.0.0: /about is a section of /uses — the pages are gone, the old URLs redirect, every page is indexable', () => {
+  for (const f of ['about.html', 'en/about.html']) assert.throws(() => read(f), f);
+  for (const f of ['index.html', 'collaborate.html', 'consulting.html', 'privacy.html', 'uses.html', 'en/uses.html', 'thanks.html', 'en/thanks.html']) assert.doesNotMatch(read(f), /name="robots" content="noindex"/, f);
+  const mw = read('functions/_middleware.js');
+  assert.match(mw, /'\/about': '\/uses#principles'/);
+  assert.match(mw, /'\/en\/about': '\/en\/uses#principles'/);
+  assert.match(mw, /Response\.redirect\(new URL\(MOVED\[pathname\], request\.url\)\.toString\(\), 301\)/);
+  assert.doesNotMatch(mw, /page: 'about'/);
+  assert.doesNotMatch(read('llms.txt'), /s\.morgunov\.tech\/(en\/)?about\b/);
+  assert.match(read('llms.txt'), /s\.morgunov\.tech\/uses/);
 });
 
 test('/consulting: the contact goes to Telegram, one contact button', () => {

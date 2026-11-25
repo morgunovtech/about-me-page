@@ -20,8 +20,6 @@ import { notFound } from './_lib/render-article.js';
 const ROUTES = {
   '/': { page: 'home', lang: 'ru' },
   '/en/': { page: 'home', lang: 'en' },
-  '/about': { page: 'about', lang: 'ru' },
-  '/en/about': { page: 'about', lang: 'en' },
   '/collaborate': { page: 'collaborate', lang: 'ru' },
   '/en/collaborate': { page: 'collaborate', lang: 'en' },
   '/consulting': { page: 'consulting', lang: 'ru' },
@@ -30,6 +28,13 @@ const ROUTES = {
   '/en/uses': { page: 'uses', lang: 'en' },
   '/privacy': { page: 'privacy', lang: 'ru' },
   '/en/privacy': { page: 'privacy', lang: 'en' },
+};
+
+// v4.0.0: «Принципы» became a section of /uses; the old addresses answer with a
+// permanent redirect to it (the fragment rides in Location).
+export const MOVED = {
+  '/about': '/uses#principles',
+  '/en/about': '/en/uses#principles',
 };
 
 // The deploy output IS the repo root, so tracked internal files ship as
@@ -75,6 +80,10 @@ async function handle(context) {
     const u = new URL(request.url);
     u.pathname = pathname;
     return Response.redirect(u.toString(), 308);
+  }
+
+  if (MOVED[pathname]) {
+    return withSecurityHeaders(Response.redirect(new URL(MOVED[pathname], request.url).toString(), 301));
   }
 
   if (blocked(pathname)) {
