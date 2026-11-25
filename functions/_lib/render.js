@@ -36,6 +36,7 @@ export const LIST_PATHS = {
   contact: 'sections.contact.ctas',
   usesGear: 'sections.hardware.groups',
   usesProducts: 'sections.software.cards',
+  usesPrinciples: 'sections.principles.groups',
 };
 
 // Subscribers stat channels: mono abbreviations, not icons — the design system
@@ -459,6 +460,16 @@ export const renderers = {
           ${buttons}${reply}
         </div>${alt}${
       links ? `\n        <div class="v4-contact-links">\n          ${links}\n        </div>` : ''}`;
+  },
+
+  // «Как устроен этот сайт» on /uses (v4.0.0, the former /about «Принципы»):
+  // a few short parts, each a caption and markdown prose.
+  usesPrinciples: (doc, lang) => {
+    const s = doc.sections.principles;
+    if (!s) return '';
+    return (s.groups || [])
+      .map((g) => `<h3 class="v4-h3">${escapeHtml(pick(g.title, lang))}</h3>\n            ${renderProse(pick(g.body, lang))}`)
+      .join('\n            ');
   },
 
   usesGear: (doc, lang) =>

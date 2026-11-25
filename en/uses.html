@@ -3,8 +3,6 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Hidden with /about since v3.0.0 until the owner rewrites both: reachable by URL, kept out of search, the sitemap and the menu. -->
-  <meta name="robots" content="noindex" />
   <title data-cms-text="meta.title">Uses — Semyon Morgunov</title>
   <meta name="description" data-cms-content="meta.description" content="The hardware I use every day: MacBook Pro 16, iPhone 15 Pro Max, Dell U3223QE, Oura Ring, and more. Only the stuff that actually gets switched on." />
   <meta name="author" content="Semyon Morgunov" />
@@ -58,7 +56,7 @@
   <link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" />
   <link rel="stylesheet" href="/ds/v1/tokens.css?v=5629caeb" />
   <link rel="stylesheet" href="/ds/v1/base.css?v=0e404315" />
-  <link rel="stylesheet" href="/ds/v1/components.css?v=9b3765bd" />
+  <link rel="stylesheet" href="/ds/v1/components.css?v=9c2b749b" />
   <link rel="stylesheet" href="/styles.css?v=3a965f09" />
   <script data-cfasync="false">
     (function () {
@@ -94,6 +92,7 @@
               <a class="v4-menu-item" href="/en/collaborate">Partnerships &amp; media</a>
             </div>
           </div>
+          <a href="/en/uses" aria-current="page">Uses</a>
         </div>
       </nav>
       <div class="v4-bar-right">
@@ -135,13 +134,13 @@
           <h1 class="v4-h1" id="hero-title" data-cms-text="hero.name">Uses</h1>
           <p class="v4-tagline" data-cms-text="hero.tagline">What I actually use every day. Only the stuff that gets switched on — no shelf of forgotten gadgets.</p>
           <div class="v4-cta-row" data-cms-html="hero.ctas">
-            <a class="v4-btn" href="/en/">← Home</a>
           </div>
         </div>
       </section>
       <nav class="v4-onpage" aria-label="On this page">
         <a href="#hardware">Hardware</a>
         <a href="#software">Software</a>
+        <a href="#principles" data-cms-text="sections.principles.title">How this site works</a>
       </nav>
 
       <section id="hardware" class="v4-section">
@@ -346,10 +345,29 @@
 </div>
         </div>
       </section>
+      <section id="principles" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2" data-cms-text="sections.principles.title">How this site works</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose" data-cms-list="usesPrinciples">
+  <h3 class="v4-h3">Why it exists</h3>
+              <p>It’s not a business card or a portfolio. This is where I keep what I make, write and use, and I treat the site as a product: it has versions, a changelog and a user. The user is mostly me, but I hope it’s useful to you too.</p><p>Hence a simple rule: every decision needs a reason. “Everyone does it” and “it looks nice” are not reasons.</p>
+              <h3 class="v4-h3">What matters to me</h3>
+              <ul class="v4-list"><li><strong>Privacy.</strong> No cookies, no trackers, no analytics. I build privacy tools, and I can’t do that while tracking my readers. Easy to check: DevTools → Network.</li><li><strong>Honesty.</strong> The version in the footer links to the changelog. Referral links are marked. Followers are listed per platform, not added up into one nice number.</li><li><strong>Accessibility.</strong> There’s a high-contrast mode, the text reads on a phone without zooming, and everything works from the keyboard.</li><li><strong>Nothing extra.</strong> No pop-ups, newsletters, chatbots or animation for its own sake. One accent colour and one button per block.</li></ul>
+              <h3 class="v4-h3">Where the look comes from</h3>
+              <p>The reference is Dieter Rams and Braun: a paper background, black text, one orange accent and a grid without decoration. I like his idea that good design is as little design as possible.</p><p>The typeface is IBM Plex: it has an open licence and one of the best Cyrillic sets among free fonts. Orange here isn’t a brand colour but a signal: it marks what’s active right now — the current page, the chosen theme, a service that’s running.</p>
+              <h3 class="v4-h3">How it’s built</h3>
+              <p>Plain HTML, CSS and a little JavaScript, no frameworks or build tools. The site runs on Cloudflare Pages, the texts live in a Cloudflare database, and I edit them in my own admin, right on the page.</p><p>I write the code together with Claude Code. The principles and decisions are mine, the execution is its. Without a clear brief AI gives you something average; with one, it gives you what you need.</p><p>The code is open: here’s the <a href="https://github.com/morgunovtech/about-me-page" target="_blank" rel="noopener noreferrer">repository on GitHub</a>, and every version has an entry in the <a href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">changelog</a>. If something is broken or reads oddly, <a href="/en/thanks#bug">let me know</a>.</p>
+</div>
+        </div>
+      </section>
+
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v3.0.0</a> · <a href="/en/thanks">say thanks or report a bug</a></span>
+      <span>morgunov.tech · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.0.0</a> · <a href="/en/thanks">say thanks or report a bug</a></span>
       <span class="v4-foot-privacy">No cookies, no trackers, no analytics</span>
     </footer>
   </div>
@@ -361,7 +379,7 @@
           "@type": "WebPage",
           "@id": "https://s.morgunov.tech/en/uses#webpage",
           "url": "https://s.morgunov.tech/en/uses",
-          "name": "Uses — Semyon Morgunov",
+          "name": "Uses and principles — Semyon Morgunov",
           "inLanguage": "en",
           "isPartOf": {
             "@id": "https://s.morgunov.tech/#website"
@@ -387,7 +405,7 @@
             {
               "@type": "ListItem",
               "position": 2,
-              "name": "Uses",
+              "name": "Uses and principles",
               "item": "https://s.morgunov.tech/en/uses"
             }
           ]
@@ -395,6 +413,6 @@
       ]
     }
   </script>
-  <script data-cfasync="false" defer src="/script.js?v=57fc68cc"></script>
+  <script data-cfasync="false" defer src="/script.js?v=4aadf13a"></script>
 </body>
 </html>

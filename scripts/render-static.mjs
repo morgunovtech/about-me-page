@@ -25,8 +25,6 @@ const PAGES = [
   ['en/collaborate.html', 'collaborate', 'en'],
   ['consulting.html', 'consulting', 'ru'],
   ['en/consulting.html', 'consulting', 'en'],
-  ['about.html', 'about', 'ru'],
-  ['en/about.html', 'about', 'en'],
   ['uses.html', 'uses', 'ru'],
   ['en/uses.html', 'uses', 'en'],
   ['privacy.html', 'privacy', 'ru'],

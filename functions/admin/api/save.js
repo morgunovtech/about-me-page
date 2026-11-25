@@ -96,19 +96,6 @@ export async function onRequestPost({ request, env }) {
     }
   }
 
-  // about edits its section bodies inline (contenteditable), so those HTML
-  // fields are a trust boundary — sanitize them on save.
-  if (page === 'about') {
-    for (const sk of Object.keys(doc.sections || {})) {
-      const body = doc.sections[sk] && doc.sections[sk].body;
-      if (body && typeof body === 'object') {
-        for (const l of ['ru', 'en']) {
-          if (typeof body[l] === 'string') body[l] = await sanitizeHtml(body[l]);
-        }
-      }
-    }
-  }
-
   // uses/collaborate/consulting/privacy section leaves are a markdown subset escaped at
   // render time by renderInline/renderProse — stored verbatim. Only hero.ctas
   // is styled <a> markup, so it gets the button-aware sanitizer (keeps class,

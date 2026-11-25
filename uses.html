@@ -3,8 +3,6 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Hidden with /about since v3.0.0 until the owner rewrites both: reachable by URL, kept out of search, the sitemap and the menu. -->
-  <meta name="robots" content="noindex" />
   <title data-cms-text="meta.title">Стек — Семён Моргунов</title>
   <meta name="description" data-cms-content="meta.description" content="Железо, которым пользуюсь каждый день: MacBook Pro 16, iPhone 15 Pro Max, Dell U3223QE, Oura Ring и другое. Только то, что реально включаю." />
   <meta name="author" content="Семён Моргунов" />
@@ -62,7 +60,7 @@
   <link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" />
   <link rel="stylesheet" href="/ds/v1/tokens.css?v=5629caeb" />
   <link rel="stylesheet" href="/ds/v1/base.css?v=0e404315" />
-  <link rel="stylesheet" href="/ds/v1/components.css?v=9b3765bd" />
+  <link rel="stylesheet" href="/ds/v1/components.css?v=9c2b749b" />
   <link rel="stylesheet" href="/styles.css?v=3a965f09" />
   <script data-cfasync="false">
     (function () {
@@ -98,6 +96,7 @@
               <a class="v4-menu-item" href="/collaborate">Партнёрства и медиа</a>
             </div>
           </div>
+          <a href="/uses" aria-current="page">Стек</a>
         </div>
       </nav>
       <div class="v4-bar-right">
@@ -139,13 +138,13 @@
           <h1 class="v4-h1" id="hero-title" data-cms-text="hero.name">Стек</h1>
           <p class="v4-tagline" data-cms-text="hero.tagline">Чем пользуюсь каждый день. Только то, что реально включаю — без полки «забытых гаджетов».</p>
           <div class="v4-cta-row" data-cms-html="hero.ctas">
-            <a class="v4-btn" href="/">← На главную</a>
           </div>
         </div>
       </section>
       <nav class="v4-onpage" aria-label="На этой странице">
         <a href="#hardware">Железо</a>
         <a href="#software">Софт</a>
+        <a href="#principles" data-cms-text="sections.principles.title">Как устроен этот сайт</a>
       </nav>
 
       <section id="hardware" class="v4-section">
@@ -350,10 +349,29 @@
 </div>
         </div>
       </section>
+      <section id="principles" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2" data-cms-text="sections.principles.title">Как устроен этот сайт</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div class="v4-prose" data-cms-list="usesPrinciples">
+  <h3 class="v4-h3">Зачем он</h3>
+              <p>Это не визитка и не портфолио. Здесь я собираю то, что делаю, пишу и чем пользуюсь, и отношусь к сайту как к продукту: у него есть версии, история изменений и пользователь. Пользователь в первую очередь я сам, но надеюсь, что пригодится и вам.</p><p>Отсюда простое правило: у каждого решения должна быть причина. «Потому что у всех так» и «потому что красиво» — не причины.</p>
+              <h3 class="v4-h3">Что для меня важно</h3>
+              <ul class="v4-list"><li><strong>Приватность.</strong> На сайте нет cookies, трекеров и аналитики. Я делаю инструменты про приватность и не могу при этом следить за читателями. Проверить легко: DevTools → Network.</li><li><strong>Честность.</strong> Версия в подвале ведёт на историю изменений. Реферальные ссылки помечены. Подписчики разложены по площадкам, а не сложены в одно красивое число.</li><li><strong>Доступность.</strong> Есть режим высокого контраста, текст читается с телефона без зума, всё работает с клавиатуры.</li><li><strong>Ничего лишнего.</strong> Никаких всплывающих окон, рассылок, чат-ботов и анимаций ради анимаций. Один акцентный цвет и одна кнопка в блоке.</li></ul>
+              <h3 class="v4-h3">Откуда такой вид</h3>
+              <p>Ориентир — Дитер Рамс и Braun: бумажный фон, чёрный текст, один оранжевый акцент и сетка без украшений. Мне близка его мысль, что хороший дизайн — это как можно меньше дизайна.</p><p>Шрифт — IBM Plex: у него открытая лицензия и одна из лучших кириллиц среди бесплатных шрифтов. Оранжевый здесь не бренд, а сигнал: им отмечено то, что активно прямо сейчас, — текущая страница, выбранная тема, работающий сервис.</p>
+              <h3 class="v4-h3">Как это сделано</h3>
+              <p>Обычные HTML, CSS и немного JavaScript, без фреймворков и сборщиков. Сайт живёт на Cloudflare Pages, тексты лежат в базе Cloudflare, и я правлю их в своей админке прямо на странице.</p><p>Код пишу вместе с Claude Code. Принципы и решения — мои, исполнение — его. Без чёткого брифа ИИ выдаёт что-то среднее, с брифом — то, что нужно.</p><p>Код открыт: вот <a href="https://github.com/morgunovtech/about-me-page" target="_blank" rel="noopener noreferrer">репозиторий на GitHub</a>, а у каждой версии есть запись в <a href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">истории изменений</a>. Если что-то сломано или читается странно — <a href="/thanks#bug">напишите мне</a>.</p>
+</div>
+        </div>
+      </section>
+
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v3.0.0</a> · <a href="/thanks">сказать спасибо или сообщить об ошибке</a></span>
+      <span>morgunov.tech · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.0.0</a> · <a href="/thanks">сказать спасибо или сообщить об ошибке</a></span>
       <span class="v4-foot-privacy">Без cookies, трекеров и аналитики</span>
     </footer>
   </div>
@@ -365,7 +383,7 @@
           "@type": "WebPage",
           "@id": "https://s.morgunov.tech/uses#webpage",
           "url": "https://s.morgunov.tech/uses",
-          "name": "Стек — Семён Моргунов",
+          "name": "Стек и принципы — Семён Моргунов",
           "inLanguage": "ru",
           "isPartOf": {
             "@id": "https://s.morgunov.tech/#website"
@@ -391,7 +409,7 @@
             {
               "@type": "ListItem",
               "position": 2,
-              "name": "Стек",
+              "name": "Стек и принципы",
               "item": "https://s.morgunov.tech/uses"
             }
           ]
@@ -399,6 +417,6 @@
       ]
     }
   </script>
-  <script data-cfasync="false" defer src="/script.js?v=57fc68cc"></script>
+  <script data-cfasync="false" defer src="/script.js?v=4aadf13a"></script>
 </body>
 </html>

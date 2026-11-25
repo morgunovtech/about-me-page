@@ -54,7 +54,7 @@ test('no rate card, no audience numbers, no employer, no promise of coverage', (
 
 test('no support link on the pages (v2.2.2, owner): GitHub Sponsors stays in llms.txt only', () => {
   assert.equal(seed.home.sections.products.support, undefined);
-  for (const f of ['index.html', 'en/index.html', 'collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html', 'about.html', 'en/about.html', '404.html']) {
+  for (const f of ['index.html', 'en/index.html', 'collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html', '404.html']) {
     assert.doesNotMatch(read(f), /github\.com\/sponsors|sections\.products\.support/, f);
   }
   const llms = read('llms.txt');

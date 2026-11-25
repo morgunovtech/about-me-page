@@ -139,9 +139,9 @@ test('mobile nav: a link click closes the panel without stealing focus from the 
   assert.equal(about.getAttribute('tabindex'), '-1');
 });
 
-test('crossing the 640px breakpoint closes an open panel', () => {
+test('crossing the 960px breakpoint (the «Меню» panel, v4.0.0) closes an open panel', () => {
   click(navToggle); assert.ok(isOpen(nav));
-  mql('(max-width: 640px)').fire();
+  mql('(max-width: 960px)').fire();
   assert.equal(isOpen(nav), false); assert.equal(navToggle.getAttribute('aria-expanded'), 'false');
 });
 

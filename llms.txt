@@ -73,6 +73,10 @@
 
 - [Privacy (RU)](https://s.morgunov.tech/privacy) / [EN](https://s.morgunov.tech/en/privacy) — his privacy page (also at privacy.morgunov.tech): his own tools — Fingerprint and Found You, a password-strength tool coming soon — and «the essential kit», apps that are open source and have a published independent security audit, each card linking to the audit report and the source code (including encrypted DNS: modDNS by IVPN); one open-source ad blocker without a public audit (uBlock Origin) is shown separately and labelled as such; no referral links
 
+## Uses and principles
+
+- [Uses and principles (RU)](https://s.morgunov.tech/uses) / [EN](https://s.morgunov.tech/en/uses) — the hardware and software he uses every day (referral links marked), and how this site works: why it exists, what matters (privacy: no cookies, trackers or analytics; honesty; accessibility; nothing extra), the look (Dieter Rams and Braun, IBM Plex) and how it's built (plain HTML/CSS/JS on Cloudflare Pages, written together with Claude Code, open source)
+
 ## Pages
 
 - Russian homepage: https://s.morgunov.tech/
@@ -83,6 +87,8 @@
 - Partnerships & media (EN): https://s.morgunov.tech/en/collaborate
 - Privacy (RU): https://s.morgunov.tech/privacy
 - Privacy (EN): https://s.morgunov.tech/en/privacy
+- Uses and principles (RU): https://s.morgunov.tech/uses
+- Uses and principles (EN): https://s.morgunov.tech/en/uses
 - Say thanks (RU): https://s.morgunov.tech/thanks
 - Say thanks (EN): https://s.morgunov.tech/en/thanks
 

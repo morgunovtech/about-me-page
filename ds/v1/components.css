@@ -578,24 +578,22 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
    collapses into a «Меню» dropdown (left) while the language and theme
    dropdowns keep the right edge. All three controls share .v4-dropdown /
    .v4-menu, so the header reads as one system on every viewport. */
-@media (max-width: 640px) {
-  .v4-bar {
-    padding-bottom: 10px;
-    margin-bottom: 22px;
-  }
+/* The site menu folds into «Меню» up to 960px (v4.0.0): five items need about
+   750px in one line, and a wrapped second row read as a layout bug. The
+   phone's sizes (44px controls, the tighter bar) stay in the 640px block. */
+@media (max-width: 960px) {
   .v4-nav-toggle {
     display: inline-flex;
-    min-height: 44px;
     margin-left: -8px;
   }
   /* The link list becomes a panel with exactly the .v4-menu / .v4-menu-item
      metrics (11px / 500 / 10px padding / 170px), so the three dropdowns open
-     identical rows side by side. 44px control + 10px padding + 1px rule →
-     +11px drops the panels just under the header rule. */
+     identical rows side by side; +15px lands it under the header rule like
+     the menus (+11px on the phone, below). */
   .v4-bar-mid {
     position: absolute;
     left: 0;
-    top: calc(100% + 11px);
+    top: calc(100% + 15px);
     display: none;
     flex-direction: column;
     align-items: stretch;
@@ -626,7 +624,7 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
     color: var(--v4-orange-text);
     text-decoration: none;
   }
-  /* The phone's menu panel marks the current page as every menu does — the
+  /* The menu panel marks the current page as every menu does — the
      round mark, no underline; the group's items follow its caption, indented,
      with no toggle of their own. */
   .v4-bar-mid a[aria-current="page"] {
@@ -659,6 +657,18 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
     padding: 10px 10px 4px 24px;
     color: var(--v4-dim);
   }
+}
+
+@media (max-width: 640px) {
+  .v4-bar {
+    padding-bottom: 10px;
+    margin-bottom: 22px;
+  }
+  .v4-nav-toggle {
+    min-height: 44px;
+  }
+  /* 44px control + 10px padding + 1px rule → +11px under the header rule. */
+  .v4-bar-mid,
   .v4-menu {
     top: calc(100% + 11px);
   }
