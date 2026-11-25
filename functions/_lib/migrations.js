@@ -55,3 +55,30 @@ export function fixStaleContent(node) {
   }
   return node;
 }
+
+// Fields a renderer reads that a KV doc saved before they existed may lack:
+// the seed supplies them, only when missing — never over what the owner saved —
+// until the next /admin Save stores them with the doc. v2.2.2 moved the
+// homepage /privacy link from the template into the products renderer, and
+// the home doc in KV (rev 33) has no `sections.products.privacy`: the link
+// vanished from the live page until v2.2.3 filled it here.
+export const SEED_FILL = { home: ['sections.products.privacy'] };
+
+export function fillFromSeed(doc, page, from) {
+  const paths = SEED_FILL[page];
+  const src = from && from[page];
+  if (!doc || !paths || !src || doc === src) return doc;
+  for (const path of paths) {
+    const keys = path.split('.');
+    const value = keys.reduce((o, k) => (o == null ? undefined : o[k]), src);
+    if (value === undefined) continue;
+    let node = doc;
+    for (const k of keys.slice(0, -1)) {
+      if (node[k] == null || typeof node[k] !== 'object') { node = null; break; }
+      node = node[k];
+    }
+    const last = keys[keys.length - 1];
+    if (node && node[last] === undefined) node[last] = JSON.parse(JSON.stringify(value));
+  }
+  return doc;
+}

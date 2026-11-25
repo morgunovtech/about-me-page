@@ -8,9 +8,11 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 import { renderers, privacyRepos } from '../functions/_lib/render.js';
+import { fillFromSeed, SEED_FILL } from '../functions/_lib/migrations.js';
 import { renderPageJsonLd } from '../functions/_lib/jsonld.js';
 import { PAGE_PATHS } from '../functions/_lib/cache.js';
 
+const clone = (o) => JSON.parse(JSON.stringify(o));
 const read = (f) => readFileSync(new URL('../' + f, import.meta.url), 'utf8');
 const seed = JSON.parse(read('content.seed.json'));
 const doc = seed.privacy;
@@ -231,4 +233,22 @@ test('«Статьи»: the notes the doc names, in its order; English only once
   // With no notes yet (the static twin) the section is the lead and the link.
   d._articles = [];
   assert.doesNotMatch(renderers.privacyArticles(d, 'ru'), /v4-feed/);
+});
+
+test('v2.2.3: a home doc saved before the /privacy link moved into the renderer gets the link from the seed', () => {
+  // The live home doc (KV rev 33) has products.items and .more, no .privacy.
+  const kv = { page: 'home', sections: { products: { items: clone(seed.home.sections.products.items), more: { label: { ru: 'Все проекты на GitHub', en: 'All projects on GitHub' }, href: 'https://github.com/morgunovtech' } } } };
+  fillFromSeed(kv, 'home', seed);
+  assert.deepEqual(kv.sections.products.privacy, seed.home.sections.products.privacy);
+  assert.notEqual(kv.sections.products.privacy, seed.home.sections.products.privacy, 'a copy, not the seed object');
+  // The rendered page has the link above the privacy tools again.
+  const html = renderers.products({ ...kv, _privacyRepos: privacyRepos(seed.privacy) }, 'ru', false);
+  assert.match(html, /<div class="v4-more"><a href="\/privacy">/);
+  // What the owner saved wins; other pages and the seed itself are left alone.
+  const own = { sections: { products: { items: [], privacy: { label: { ru: 'Своё', en: 'Own' }, href: { ru: '/privacy', en: '/en/privacy' } } } } };
+  assert.equal(fillFromSeed(own, 'home', seed).sections.products.privacy.label.ru, 'Своё');
+  assert.equal(fillFromSeed(seed.home, 'home', seed), seed.home);
+  assert.deepEqual(Object.keys(SEED_FILL), ['home']);
+  assert.equal(fillFromSeed(null, 'home', seed), null);
+  assert.match(read('functions/_lib/content.js'), /fixStaleContent\(fillFromSeed\(await loadDocRaw\(env, page\), page, seed\)\)/);
 });
