@@ -20,12 +20,12 @@ about-me-page/
 ├── en/                 # English twins: index, collaborate, about, uses (lang="en")
 ├── content.seed.json   # Committed content fallback for every CMS page (KV wins when present)
 ├── CHANGELOG.md        # Release history (one entry per version); CLAUDE.md keeps conventions only
-├── ds/v1/              # Shared design-system layer: fonts, tokens, base, components (+ USAGE.md)
+├── ds/v1/              # Shared design-system layer: fonts, tokens, base, components, chrome.js (+ USAGE.md)
 ├── styles.css          # Page-specific layout only (hero, stats, cards, /uses, /collaborate, notes)
 ├── script.js           # Theme, generic dropdown controller, anchor smooth-scroll
 ├── admin-app.js/.css   # /admin inline editor client (public, no secrets)
 ├── functions/          # Pages Functions: edge render, CMS API, notes, sitemap, llms.txt, /404
-├── scripts/            # check.sh, check-sync.py, check-critical.py, render-static.mjs, version-stamp.py, sync-products.mjs, kv-push.mjs, hash-password.mjs
+├── scripts/            # check.sh, check-sync.py, check-critical.py, render-static.mjs, build-chrome.mjs, version-stamp.py, sync-products.mjs, kv-push.mjs, hash-password.mjs
 ├── tests/              # node --test suites for the pure functions
 ├── llms.txt            # AI/LLM navigation file (llmstxt.org) — a template: {total}/{telegram}/… filled by functions/llms.txt.js
 ├── _headers            # Cloudflare: X-Robots-Tag, Cache-Control and Content-Type (LICENSE, NOTICE, fonts/OFL.txt → text/plain) for static assets
@@ -97,7 +97,7 @@ Claude Design project «morgunov.tech Design System» (`fb2dcd4c-710d-43e3-8d7d-
 
 ### One-command verification
 
-`scripts/check.sh` runs everything below in order: `node --check` on all JS, `node --test`, RU↔EN sync, critical-CSS drift, the static-twin check, and (unless `NO_BUILD=1`) `wrangler pages functions build`. Run it before every commit.
+`scripts/check.sh` runs everything below in order: `node --check` on all JS, `node --test`, RU↔EN sync, critical-CSS drift, the `chrome.js` twin check, the static-twin check, and (unless `NO_BUILD=1`) `wrangler pages functions build`. Run it before every commit.
 
 ### RU↔EN sync check
 
@@ -134,6 +134,7 @@ together with check-sync before committing anything that touches CSS.
 - **Phone type** (≤640px): 16px for anything read as a sentence (body, card copy, the contact note), 14px for a secondary line (role, venture arc, `.v4-terms`), 12px for captions and mono meta. The career row is one column there; `.v4-h1` and `.v4-notes-title` scale below 377px (`clamp(32px, 10.6vw, 40px)`).
 - **Measure:** `.v4-prose p`, `.v4-list li` and card copy stop at 62ch.
 - **Only controls answer the pointer:** `.v4-product` and `.v4-use` have no `:hover`. `.v4-btn` has a pressed look (`:active`), a disabled one (`:disabled` / `aria-disabled="true"`: dashed outline in `--v4-dim`) and a busy one (`.is-busy`: the pulsing square before the label). Under `@media (hover: none)` hover paints nothing, so a tapped button does not stay inverted.
+- **Service chrome:** a family service repeats this site's bar, language and theme menus and footer — the markup snippet and the rule are «Service chrome» in `ds/v1/USAGE.md` (`tests/chrome.test.mjs` keeps the snippet whole). `.v4-service` in `components.css` is the mark «MORGUNOV.TECH / NAME» that a service puts at the left of the bar; this site has none — it is the family.
 - **CSS delivery:** the five stylesheets (`ds/v1/{fonts,tokens,base,components}.css`, `styles.css`) are plain render-blocking `<link rel="stylesheet">` (immutable, content-hashed). The inline critical block is only tokens + body + skip-link. Fonts preload 400/500/600 sans (cyr+latin on RU pages, latin on EN) and mono 400 (+ mono 500 on every page but 404).
 - **Hero rhythm:** `.v4-hero--simple` (subpages) shares the homepage's 4px top padding.
 - `font-size` and `line-height` are set on `:root` (not body) so theme overrides work correctly
@@ -151,6 +152,7 @@ together with check-sync before committing anything that touches CSS.
 ## JavaScript Conventions
 
 - All code is in a single IIFE in `script.js` — no modules, no imports
+- **`ds/v1/chrome.js` is a twin of `script.js`** for the services of the family: the same file without the regions between `/* site-only:start … */` and `/* site-only:end */` (the 404 page's EN copy, the console greeting). Never edit it by hand: change `script.js`, run `node scripts/build-chrome.mjs --write`; `check.sh` fails on drift (`--check`, `tests/chrome.test.mjs`). Code that only this site needs goes inside a site-only region; everything else ships to the services
 - Theme preference stored in `localStorage` under key `theme-preference`
 - On init, `script.js` only syncs `aria-checked` on the theme menu items (theme is already applied by inline script)
 - No scroll listener today; if one comes back it uses `requestAnimationFrame` throttling

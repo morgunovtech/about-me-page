@@ -66,11 +66,11 @@ const T = {
 };
 
 const STYLES_VER = 'v=18c72bca';
-const SCRIPT_VER = 'v=a375e8a3';
+const SCRIPT_VER = 'v=f0a95eba';
 const FONTS_VER = 'v=64eea157';
 const TOKENS_VER = 'v=5629caeb';
 const BASE_VER = 'v=0e404315';
-const COMPONENTS_VER = 'v=724d4169';
+const COMPONENTS_VER = 'v=4621707b';
 
 const L = (lang) => (lang === 'en' ? 'en' : 'ru');
 const p = (lang, path) => (L(lang) === 'en' ? '/en' : '') + path;

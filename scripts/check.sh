@@ -13,6 +13,7 @@ echo "→ node --check (functions + client JS)"
 while IFS= read -r f; do node --check "$f"; done < <(find functions -name '*.js')
 node --check admin-app.js
 node --check script.js
+node --check ds/v1/chrome.js
 for f in scripts/*.mjs; do node --check "$f"; done
 echo "  ok"
 
@@ -25,6 +26,10 @@ echo "  ok"
 
 echo "→ check-critical.py (inline critical ↔ external CSS)"
 python3 scripts/check-critical.py >/dev/null
+echo "  ok"
+
+echo "→ build-chrome.mjs --check (ds/v1/chrome.js is script.js without the site-only parts)"
+node scripts/build-chrome.mjs --check >/dev/null
 echo "  ok"
 
 echo "→ render-static.mjs --check (templates are the seed's twins)"
