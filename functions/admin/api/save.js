@@ -1,8 +1,8 @@
 import { json, sameOrigin } from '../../_lib/http.js';
 import { validPageKey, isArticlePage } from '../../_lib/content.js';
-import { INDEX_KEY, indexEntry } from '../../_lib/articles.js';
+import { INDEX_KEY, indexEntry, cleanTags } from '../../_lib/articles.js';
 import { sanitizeHtml, sanitizeButtons } from '../../_lib/sanitize.js';
-import { purge, PAGE_PATHS, articlePaths } from '../../_lib/cache.js';
+import { purge, PAGE_PATHS, articlePaths, topicPaths } from '../../_lib/cache.js';
 
 const SITE = 's.morgunov.tech';
 // v0.31.1: help → /collaborate, publications → the /notes feed; projects (tier
@@ -88,6 +88,7 @@ export async function onRequestPost({ request, env }) {
   // server-side before persisting (editor output / imported t.me HTML).
   if (article) {
     doc.slug = slug;
+    doc.tags = cleanTags(doc.tags);
     if (doc.body && typeof doc.body === 'object') {
       for (const l of ['ru', 'en']) {
         if (typeof doc.body[l] === 'string') doc.body[l] = await sanitizeHtml(doc.body[l]);
@@ -136,7 +137,7 @@ export async function onRequestPost({ request, env }) {
 
   await env.CONTENT.put(`${SITE}:${page}`, JSON.stringify(doc));
   // The edge cache holds rendered copies of every URL this doc feeds.
-  await purge(request, article ? articlePaths(page.slice('article:'.length)) : PAGE_PATHS[page] || [], env);
+  await purge(request, article ? [...articlePaths(page.slice('article:'.length)), ...topicPaths(doc.tags)] : PAGE_PATHS[page] || [], env);
 
   // Keep the article index (feed/sitemap source) in sync with this save.
   if (article) {

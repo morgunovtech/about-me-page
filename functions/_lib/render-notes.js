@@ -7,7 +7,7 @@ import { notesIndexHtml } from './article-template.js';
 import { serializeLd } from './jsonld.js';
 import { escapeHtml } from './markdown.js';
 import { ORIGIN, NAME, buildOf } from './site.js';
-import { pickL, forLang, buildFeed, feedListHtml, channelHtml } from './notes-feed.js';
+import { pickL, forLang, buildFeed, feedListHtml, channelHtml, liveTopics, topicNavHtml, topicUrl, topicsOf } from './notes-feed.js';
 const xmlEsc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 const INTRO = {
@@ -28,7 +28,12 @@ export async function loadPublishedArticles(env) {
   return publishedSorted(await loadArticleIndex(env));
 }
 
-export async function renderNotesIndex(env, lang) {
+// /notes, or with `topicKey` the page of one topic (/notes/topics/<key>): the
+// same feed filtered by the tag, the topic's name and intro on top, the channel
+// block only on /notes. An unknown topic, or one with nothing in this language,
+// returns null (the route answers 404).
+export async function renderNotesIndex(env, lang, topicKey) {
+  const l = lang === 'en' ? 'en' : 'ru';
   const [index, notesDoc, homeDoc, subs] = await Promise.all([
     loadArticleIndex(env),
     loadDoc(env, 'notes'),
@@ -36,11 +41,22 @@ export async function renderNotesIndex(env, lang) {
     loadSubscribers(env),
   ]);
   if (homeDoc && subs) homeDoc._live = { subscribers: subs };
-  const feed = buildFeed(publishedSorted(index), notesDoc, lang);
-  const listHtml = feedListHtml(feed, lang);
-  const intro = escapeHtml(pickL(notesDoc && notesDoc.intro, lang) || INTRO[lang === 'en' ? 'en' : 'ru']);
+  const articles = publishedSorted(index);
+  const topics = liveTopics(articles, notesDoc, l);
+  const topic = topicKey ? topics.find((t) => t.key === topicKey) : null;
+  if (topicKey && !topic) return null;
+  const feed = buildFeed(articles, notesDoc, l, topicKey);
+  const listHtml = feedListHtml(feed, l);
+  const intro = escapeHtml(
+    topic ? pickL(topic.intro, l) || pickL(topic.name, l) : pickL(notesDoc && notesDoc.intro, l) || INTRO[l]
+  );
+  const publications = l === 'en' ? 'Publications' : 'Публикации';
+  const heading = topic ? pickL(topic.name, l) : publications;
+  // The English twin of a topic page exists only when the topic has English pieces.
+  const hasEn = !topic || liveTopics(articles, notesDoc, 'en').some((t) => t.key === topic.key);
 
-  const self = ORIGIN + (lang === 'en' ? '/en' : '') + '/notes';
+  const path = topic ? topicUrl(topic.key, 'ru') : '/notes';
+  const self = ORIGIN + (topic ? topicUrl(topic.key, l) : (l === 'en' ? '/en' : '') + '/notes');
   const jsonLd = serializeLd({
     '@context': 'https://schema.org',
     '@graph': [
@@ -48,10 +64,10 @@ export async function renderNotesIndex(env, lang) {
         '@type': 'CollectionPage',
         '@id': self + '#webpage',
         url: self,
-        name: (lang === 'en' ? 'Publications' : 'Публикации') + ' — ' + NAME[lang === 'en' ? 'en' : 'ru'],
-        inLanguage: lang,
+        name: (topic ? heading + ' — ' + publications : publications) + ' — ' + NAME[l],
+        inLanguage: l,
         isPartOf: { '@id': ORIGIN + '/#website' },
-        about: { '@id': ORIGIN + '/#person' },
+        about: topic ? { '@type': 'Thing', name: heading } : { '@id': ORIGIN + '/#person' },
       },
       {
         '@type': 'ItemList',
@@ -65,7 +81,14 @@ export async function renderNotesIndex(env, lang) {
     ],
   });
 
-  const page = notesIndexHtml(lang, listHtml, jsonLd, buildOf(env), { intro, channel: channelHtml(notesDoc, homeDoc, lang) });
+  const page = notesIndexHtml(l, listHtml, jsonLd, buildOf(env), {
+    intro,
+    channel: topic ? '' : channelHtml(notesDoc, homeDoc, l),
+    topics: topicNavHtml(topics, l, topic && topic.key),
+    heading,
+    path,
+    hasEn,
+  });
   return new Response(page, {
     headers: {
       'content-type': 'text/html; charset=utf-8',
@@ -87,7 +110,10 @@ export async function renderSitemap(env) {
   );
   const mod = (doc, fallback) =>
     (doc && (doc.dateModified || (doc.updatedAt || '').slice(0, 10))) || fallback;
-  const all = publishedSorted(await loadArticleIndex(env));
+  const [all, notesDoc] = await Promise.all([
+    loadArticleIndex(env).then(publishedSorted),
+    loadDoc(env, 'notes'),
+  ]);
   // The notes index changes when an article does — never «today» by default
   // (a lastmod that moves without content makes crawlers distrust all of them).
   const notesMod = all.map((a) => (a.updatedAt || a.date || '').slice(0, 10)).filter(Boolean).sort().pop();
@@ -106,6 +132,17 @@ export async function renderSitemap(env) {
     { loc: '/en/notes', ru: '/notes', en: '/en/notes', lastmod: notesMod },
   ];
   const urls = [...STATIC];
+  // Topic pages: one per topic that has something in that language; lastmod is
+  // its newest note (external materials have no page here and no say).
+  const enTopics = new Set(liveTopics(all, notesDoc, 'en').map((t) => t.key));
+  for (const t of liveTopics(all, notesDoc, 'ru')) {
+    const ru = topicUrl(t.key, 'ru');
+    const en = enTopics.has(t.key) ? topicUrl(t.key, 'en') : null;
+    const lastmod = all.filter((a) => (a.tags || []).includes(t.key))
+      .map((a) => (a.updatedAt || a.date || '').slice(0, 10)).filter(Boolean).sort().pop();
+    urls.push({ loc: ru, ru, en, lastmod });
+    if (en) urls.push({ loc: en, ru, en, lastmod });
+  }
   for (const a of all) {
     const hasEn = a.title && String(a.title.en || '').trim();
     urls.push({ loc: '/notes/' + a.slug, ru: '/notes/' + a.slug, en: hasEn ? '/en/notes/' + a.slug : null, lastmod: (a.updatedAt || a.date || '').slice(0, 10) });
@@ -127,12 +164,15 @@ export async function renderSitemap(env) {
 // carries only translated pieces (same rule as the EN index).
 export async function renderFeed(env, lang = 'ru') {
   const l = lang === 'en' ? 'en' : 'ru';
-  const items = forLang(publishedSorted(await loadArticleIndex(env)), l).slice(0, 50);
+  const [index, notesDoc] = await Promise.all([loadArticleIndex(env), loadDoc(env, 'notes')]);
+  const items = forLang(publishedSorted(index), l).slice(0, 50);
+  const names = new Map(topicsOf(notesDoc).map((t) => [t.key, pickL(t.name, l)]));
   const base = ORIGIN + (l === 'en' ? '/en' : '') + '/notes';
   const entries = items.map((a) => {
     const link = base + '/' + a.slug;
     const pub = a.date ? new Date(a.date + 'T00:00:00Z').toUTCString() : '';
-    return `    <item>\n      <title>${xmlEsc(pickL(a.title, l))}</title>\n      <link>${link}</link>\n      <guid isPermaLink="true">${link}</guid>\n      ${pub ? `<pubDate>${pub}</pubDate>\n      ` : ''}<description>${xmlEsc(pickL(a.excerpt, l))}</description>\n    </item>`;
+    const cats = (a.tags || []).filter((k) => names.has(k)).map((k) => `<category>${xmlEsc(names.get(k))}</category>\n      `).join('');
+    return `    <item>\n      <title>${xmlEsc(pickL(a.title, l))}</title>\n      <link>${link}</link>\n      <guid isPermaLink="true">${link}</guid>\n      ${pub ? `<pubDate>${pub}</pubDate>\n      ` : ''}${cats}<description>${xmlEsc(pickL(a.excerpt, l))}</description>\n    </item>`;
   }).join('\n');
   const latest = items.map((a) => a.updatedAt || a.date || '').filter(Boolean).sort().pop();
   const built = latest ? new Date(latest.length > 10 ? latest : latest + 'T00:00:00Z').toUTCString() : '';

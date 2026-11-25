@@ -2374,12 +2374,7 @@
           "ru": "Мои посты о приватности из Telegram-канала — целиком и в одном месте.",
           "en": "My Telegram channel posts on privacy — in full and in one place."
         },
-        "items": [
-          "email-security",
-          "yubikey",
-          "self-hosted-vpn",
-          "privacy-myths"
-        ],
+        "topic": "privacy",
         "more": {
           "label": {
             "ru": "Все публикации",
@@ -2419,6 +2414,74 @@
       "ru": "Заметки, статьи и выступления. Свои заметки — то же, что в Telegram-канале, только без привязки к платформе.",
       "en": "Notes, articles and talks. My notes mirror the Telegram channel, without the platform lock-in."
     },
+    "topics": [
+      {
+        "key": "management",
+        "name": {
+          "ru": "Менеджмент команды",
+          "en": "Team management"
+        },
+        "intro": {
+          "ru": "Доверие, встречи, переезд в Узбекистан, выводы после двух лет руководства, риски и манипуляции в корпоративной среде — из личного опыта.",
+          "en": "Trust, meetings, moving to Uzbekistan, lessons from two years of leading a team, risks and manipulation at work — from my own experience."
+        }
+      },
+      {
+        "key": "productivity",
+        "name": {
+          "ru": "Личная эффективность",
+          "en": "Personal effectiveness"
+        },
+        "intro": {
+          "ru": "Дневник, энергия, отпуск, годовое планирование и спокойное отношение к входящим — что помогает мне держать темп.",
+          "en": "Journaling, energy, holidays, annual planning and a calm attitude to incoming messages — what helps me keep my pace."
+        }
+      },
+      {
+        "key": "career",
+        "name": {
+          "ru": "Развитие карьеры и публичность",
+          "en": "Career and public presence"
+        },
+        "intro": {
+          "ru": "Смена домена, работа с карьерным консультантом, самооценка, pet-проекты, соцсети и публичные выступления.",
+          "en": "Changing domains, working with a career coach, self-assessment, pet projects, social media and public speaking."
+        }
+      },
+      {
+        "key": "tech-history",
+        "name": {
+          "ru": "История технологий",
+          "en": "History of technology"
+        },
+        "intro": {
+          "ru": "Истории продуктов и компаний — от Клайва Синклера и Casio F91 до Grab и Luckin Coffee: что сработало, а что нет.",
+          "en": "Stories of products and companies — from Clive Sinclair and the Casio F91 to Grab and Luckin Coffee: what worked and what didn’t."
+        }
+      },
+      {
+        "key": "tools",
+        "name": {
+          "ru": "Инструменты",
+          "en": "Tools"
+        },
+        "intro": {
+          "ru": "Приложения для macOS, Apple Notes, ChatGPT и горячие клавиши Telegram — как я ими пользуюсь.",
+          "en": "Apps for macOS, Apple Notes, ChatGPT and Telegram shortcuts — how I use them."
+        }
+      },
+      {
+        "key": "privacy",
+        "name": {
+          "ru": "Безопасность и приватность",
+          "en": "Security and privacy"
+        },
+        "intro": {
+          "ru": "Что о нас знают сервисы и как это ограничить: VPN, пароли, аппаратные ключи, почта. Проверенные приложения — на странице «Приватность».",
+          "en": "What services know about us and how to limit it: VPNs, passwords, hardware keys, email. Vetted apps are on the Privacy page."
+        }
+      }
+    ],
     "channel": {
       "kind": "prose",
       "tag": "CHANNEL",
@@ -2439,6 +2502,30 @@
       }
     },
     "external": [
+      {
+        "date": "2026-02-06",
+        "source": "spot.uz",
+        "href": "https://www.spot.uz/ru/2026/02/06/semyon-books/",
+        "title": {
+          "ru": "5 нон-фикшн книг, которые я считаю полезными для менеджеров",
+          "en": "Five non-fiction books I find useful for managers"
+        },
+        "tags": [
+          "management"
+        ]
+      },
+      {
+        "date": "2025-12-10",
+        "source": "spot.uz",
+        "href": "https://www.spot.uz/ru/2025/12/10/fuckup-talks/",
+        "title": {
+          "ru": "Мои 5 факапов на позиции директора электронной коммерции в Korzinka",
+          "en": "My five failures as head of e-commerce at Korzinka"
+        },
+        "tags": [
+          "management"
+        ]
+      },
       {
         "date": "2025-06-26",
         "source": "Click Data MeetUp / Product Edition · YouTube",

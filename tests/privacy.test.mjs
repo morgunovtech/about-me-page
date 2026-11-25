@@ -196,14 +196,22 @@ test('«Статьи»: the notes the doc names, in its order; English only once
   assert.ok(NOTES_PATHS.includes('/privacy') && NOTES_PATHS.includes('/en/privacy'));
   assert.match(read('functions/_middleware.js'), /route\.page === 'privacy' \? loadPublishedArticles\(env\) : null/);
   assert.match(read('functions/admin/api/preview.js'), /if \(page === 'privacy'\) doc\._articles = await loadPublishedArticles\(env\);/);
+  // v2.2.0: the section follows a topic — every published note tagged with it, newest first.
+  assert.equal(doc.sections.articles.topic, 'privacy');
+  assert.equal(doc.sections.articles.items, undefined);
   const d = structuredClone(doc);
-  d.sections.articles.items = ['second', 'missing', 'first'];
   d._articles = [
-    { slug: 'first', date: '2025-06-01', title: { ru: 'Первая', en: 'First' }, status: 'published' },
-    { slug: 'second', date: '2025-07-15', title: { ru: 'Вторая', en: '' }, status: 'published' },
+    { slug: 'second', date: '2025-07-15', title: { ru: 'Вторая', en: '' }, status: 'published', tags: ['privacy'] },
+    { slug: 'other', date: '2025-07-01', title: { ru: 'Другая', en: 'Other' }, status: 'published', tags: ['management'] },
+    { slug: 'first', date: '2025-06-01', title: { ru: 'Первая', en: 'First' }, status: 'published', tags: ['privacy', 'tools'] },
   ];
   const ru = renderers.privacyArticles(d, 'ru');
-  assert.deepEqual([...ru.matchAll(/href="([^"]+)"/g)].map((m) => m[1]), ['/notes/second', '/notes/first', '/notes'], 'doc order, the missing slug skipped, then the link to all');
+  assert.deepEqual([...ru.matchAll(/href="([^"]+)"/g)].map((m) => m[1]), ['/notes/second', '/notes/first', '/notes'], 'the topic’s notes, newest first, then the link to all');
+  // A doc saved before v2.2.0 still lists its slugs in its own order.
+  const old = structuredClone(d);
+  delete old.sections.articles.topic;
+  old.sections.articles.items = ['first', 'missing', 'second'];
+  assert.deepEqual([...renderers.privacyArticles(old, 'ru').matchAll(/href="([^"]+)"/g)].map((m) => m[1]), ['/notes/first', '/notes/second', '/notes']);
   assert.match(ru, /<span class="v4-feed-meta"><time datetime="2025-07-15">07\.2025<\/time> · Заметка<\/span><a class="v4-feed-title" href="\/notes\/second">Вторая<\/a>/);
   const en = renderers.privacyArticles(d, 'en');
   assert.deepEqual([...en.matchAll(/href="([^"]+)"/g)].map((m) => m[1]), ['/en/notes/first', '/en/notes'], 'an untranslated note stays off the English page');

@@ -549,16 +549,20 @@ export const renderers = {
         ${groups}${note ? `\n        <p class="v4-terms">${renderInline(note)}</p>` : ''}`;
   },
 
-  // /privacy «Статьи»: the notes the doc names by slug, in its order, as rows of
-  // the publications feed («11.2025 · Заметка» + title → /notes/<slug>), then
-  // «Все публикации →». Published notes only (`_articles`, attached by
-  // _middleware.js / the admin preview); the English page lists a note only
-  // once it has an English title — /en/notes/<slug> exists from then on.
+  // /privacy «Статьи»: the published notes of the doc's `topic` (newest first),
+  // or — a doc saved before v2.2.0 — the notes it names by slug in `items`, in
+  // that order; as rows of the publications feed («11.2025 · Заметка» + title →
+  // /notes/<slug>), then «Все публикации →». `_articles` is attached by
+  // _middleware.js / the admin preview; the English page lists a note only once
+  // it has an English title — /en/notes/<slug> exists from then on.
   privacyArticles: (doc, lang) => {
     const s = doc.sections.articles || {};
-    const bySlug = new Map((doc._articles || []).map((a) => [a.slug, a]));
-    const rows = (s.items || [])
-      .map((slug) => bySlug.get(slug))
+    const all = doc._articles || [];
+    const bySlug = new Map(all.map((a) => [a.slug, a]));
+    const picked = s.topic
+      ? all.filter((a) => Array.isArray(a.tags) && a.tags.includes(s.topic))
+      : (s.items || []).map((slug) => bySlug.get(slug));
+    const rows = picked
       .filter((a) => a && (lang !== 'en' || String((a.title && a.title.en) || '').trim()))
       .map((a) => feedRow({ kind: 'note', item: a }, lang))
       .join('\n            ');

@@ -53,9 +53,21 @@ export function makeArticleDoc(p = {}) {
     body: p.body || loc(),
     meta: p.meta || { title: loc(), description: loc() },
     share: p.share || { image: loc(), title: loc(), description: loc() },
+    tags: cleanTags(p.tags),
     ...(p.source ? { source: p.source } : {}),
     rev: 0,
   };
+}
+
+// Topic keys of a note (the `notes` doc names the topics): lowercase slugs,
+// no duplicates, at most five. Anything else is dropped, not rejected.
+export function cleanTags(tags) {
+  const out = [];
+  for (const t of Array.isArray(tags) ? tags : []) {
+    const k = String(t || '').trim().toLowerCase();
+    if (SLUG_RE.test(k) && k.length <= 40 && !out.includes(k)) out.push(k);
+  }
+  return out.slice(0, 5);
 }
 
 // The feed/sitemap index row derived from a doc. One definition (was duplicated
@@ -67,6 +79,7 @@ export function indexEntry(doc) {
     excerpt: doc.excerpt || loc(),
     date: doc.date || '',
     status: doc.status || 'draft',
+    tags: cleanTags(doc.tags),
     cover: doc.cover && doc.cover.src ? { src: doc.cover.src } : null,
     updatedAt: doc.updatedAt || new Date().toISOString(),
   };

@@ -15,25 +15,27 @@ const article = (slug, date, ru, en = '', status = 'published') => ({
 });
 
 test('seed: external materials are complete, dated and linked out', () => {
-  assert.ok(Array.isArray(notes.external) && notes.external.length === 5);
+  assert.ok(Array.isArray(notes.external) && notes.external.length === 7);
   for (const x of notes.external) {
     assert.match(x.date, /^\d{4}-\d{2}-\d{2}$/);
     assert.match(x.href, /^https:\/\//);
     // No free-text tag since v1.5.0: the feed names the platform from the address.
     assert.equal(x.tag, undefined);
     assert.ok(x.title.ru.trim() && x.title.en.trim(), 'both languages');
-    assert.ok(Number.isInteger(x.views) && x.views > 0);
+    // A view count where the platform shows one (vc.ru, YouTube); spot.uz shows none (v2.2.0).
+    if (x.views !== undefined) assert.ok(Number.isInteger(x.views) && x.views > 0);
+    else assert.equal(x.source, 'spot.uz');
   }
   assert.equal(notes.channel.tag, 'CHANNEL');
 });
 
 test('feed with no articles: external materials only, newest first', () => {
   const feed = buildFeed([], notes, 'ru');
-  assert.deepEqual(feed.map((e) => e.date), ['2025-06-26', '2024-02-18', '2022-08-08', '2022-07-08', '2022-06-19']);
+  assert.deepEqual(feed.map((e) => e.date), ['2026-02-06', '2025-12-10', '2025-06-26', '2024-02-18', '2022-08-08', '2022-07-08', '2022-06-19']);
   assert.ok(feed.every((e) => e.kind === 'external'));
   const html = feedListHtml(feed, 'ru');
   assert.ok(!html.includes('Пока нет заметок'));
-  assert.equal((html.match(/target="_blank" rel="noopener noreferrer"/g) || []).length, 5);
+  assert.equal((html.match(/target="_blank" rel="noopener noreferrer"/g) || []).length, 7);
   assert.ok(html.includes('откроется в новой вкладке'));
 });
 
@@ -45,7 +47,7 @@ test('feed interleaves published articles by date, drafts stay out', () => {
   ];
   const feed = buildFeed(publishedSorted(idx), notes, 'ru');
   assert.deepEqual(feed.map((e) => (e.kind === 'note' ? e.item.slug : e.date)),
-    ['fresh', '2025-06-26', '2024-02-18', 'mid', '2022-08-08', '2022-07-08', '2022-06-19']);
+    ['fresh', '2026-02-06', '2025-12-10', '2025-06-26', '2024-02-18', 'mid', '2022-08-08', '2022-07-08', '2022-06-19']);
   const first = feedItemHtml(feed[0], 'ru');
   assert.ok(!first.includes('v4-tag'));
   assert.ok(first.includes('href="/notes/fresh"'));
