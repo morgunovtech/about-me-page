@@ -138,10 +138,12 @@ test('the page is in llms.txt and the sitemap, and is indexable', () => {
   for (const f of ['privacy.html', 'en/privacy.html']) assert.doesNotMatch(read(f), /name="robots" content="noindex"/, f);
 });
 
-test('Sonar counts no copy-paste in the page templates, and its settings are not served', () => {
+test('Sonar counts no copy-paste in the page templates and the chrome.js twin, and its settings are not served', () => {
   // Every page repeats the head, the bar and the footer by design (no build step);
-  // check-sync and the composition tests keep those twins, not Sonar.
-  assert.match(read('.sonarcloud.properties'), /^sonar\.cpd\.exclusions=\*\*\/\*\.html$/m);
+  // check-sync and the composition tests keep those twins, not Sonar. ds/v1/chrome.js
+  // is generated from script.js (v4.0.0): build-chrome --check keeps that twin.
+  // Nothing else is excluded.
+  assert.match(read('.sonarcloud.properties'), /^sonar\.cpd\.exclusions=\*\*\/\*\.html,ds\/v1\/chrome\.js$/m);
   assert.match(read('functions/_middleware.js'), /'\/\.sonarcloud\.properties',/);
 });
 
