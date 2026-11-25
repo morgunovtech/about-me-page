@@ -27,8 +27,9 @@ export const PAGE_PATHS = {
   uses: ['/uses', '/en/uses', '/sitemap.xml'],
   privacy: ['/privacy', '/en/privacy', '/sitemap.xml'],
 };
-// The homepage shows the three newest feed entries, so a notes change purges it too.
-export const NOTES_PATHS = ['/notes', '/en/notes', '/', '/en/', '/sitemap.xml', '/notes/feed.xml', '/en/notes/feed.xml'];
+// The homepage shows the three newest feed entries and /privacy lists some notes
+// by slug («Статьи»), so a notes change purges them too.
+export const NOTES_PATHS = ['/notes', '/en/notes', '/', '/en/', '/privacy', '/en/privacy', '/sitemap.xml', '/notes/feed.xml', '/en/notes/feed.xml'];
 export const articlePaths = (slug) => ['/notes/' + slug, '/en/notes/' + slug, ...NOTES_PATHS];
 
 const edge = () => {

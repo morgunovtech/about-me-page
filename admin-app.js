@@ -1535,7 +1535,7 @@
     }
     // /privacy: the same form engine — tools, the kit groups and cards, contact.
     if (page === 'privacy' && doc.sections && doc.sections.kit) {
-      for (const k of ['tools', 'kit', 'contact']) {
+      for (const k of ['tools', 'kit', 'articles', 'contact']) {
         if (!doc.sections[k]) continue;
         const node = fieldRow(doc.sections, k);
         if (node.tagName === 'DETAILS') node.open = false;

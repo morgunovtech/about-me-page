@@ -190,3 +190,24 @@ test('/privacy has its own share card: the family template, 1200×630, per langu
   // The site's own cards stay on the other pages.
   assert.equal(seed.home.share.image.ru, '/images/og-card-ru.png');
 });
+
+test('«Статьи»: the notes the doc names, in its order; English only once translated; a note change refreshes /privacy', async () => {
+  const { NOTES_PATHS } = await import('../functions/_lib/cache.js');
+  assert.ok(NOTES_PATHS.includes('/privacy') && NOTES_PATHS.includes('/en/privacy'));
+  assert.match(read('functions/_middleware.js'), /route\.page === 'privacy' \? loadPublishedArticles\(env\) : null/);
+  assert.match(read('functions/admin/api/preview.js'), /if \(page === 'privacy'\) doc\._articles = await loadPublishedArticles\(env\);/);
+  const d = structuredClone(doc);
+  d.sections.articles.items = ['second', 'missing', 'first'];
+  d._articles = [
+    { slug: 'first', date: '2025-06-01', title: { ru: 'Первая', en: 'First' }, status: 'published' },
+    { slug: 'second', date: '2025-07-15', title: { ru: 'Вторая', en: '' }, status: 'published' },
+  ];
+  const ru = renderers.privacyArticles(d, 'ru');
+  assert.deepEqual([...ru.matchAll(/href="([^"]+)"/g)].map((m) => m[1]), ['/notes/second', '/notes/first', '/notes'], 'doc order, the missing slug skipped, then the link to all');
+  assert.match(ru, /<span class="v4-feed-meta"><time datetime="2025-07-15">07\.2025<\/time> · Заметка<\/span><a class="v4-feed-title" href="\/notes\/second">Вторая<\/a>/);
+  const en = renderers.privacyArticles(d, 'en');
+  assert.deepEqual([...en.matchAll(/href="([^"]+)"/g)].map((m) => m[1]), ['/en/notes/first', '/en/notes'], 'an untranslated note stays off the English page');
+  // With no notes yet (the static twin) the section is the lead and the link.
+  d._articles = [];
+  assert.doesNotMatch(renderers.privacyArticles(d, 'ru'), /v4-feed/);
+});

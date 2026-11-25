@@ -22,6 +22,12 @@ export async function loadHomeFeed(env, lang) {
   return buildFeed(publishedSorted(index), notesDoc, lang).slice(0, 3);
 }
 
+// Published notes, newest first, for the pages that list some of them by slug
+// (/privacy «Статьи»): _middleware.js and the /admin preview attach them as `_articles`.
+export async function loadPublishedArticles(env) {
+  return publishedSorted(await loadArticleIndex(env));
+}
+
 export async function renderNotesIndex(env, lang) {
   const [index, notesDoc, homeDoc, subs] = await Promise.all([
     loadArticleIndex(env),
