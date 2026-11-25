@@ -67,7 +67,7 @@ test('/uses names its referral links and promises no bonus without one', () => {
   assert.match(sw.intro.ru, /ссылки реферальные/);
   assert.match(sw.intro.en, /referral links/);
   assert.doesNotMatch(sw.intro.ru, /не партнёрские/);
-  const referral = /dashlane\.com\/en\/im\/|go\.setapp\.com\/invite\/|ref\.airalo\.com\//;
+  const referral = /dashlane\.com\/en\/im\/|go\.setapp\.com\/invite\/|airalo\.go\.link\//;
   const named = sw.cards.filter((c) => referral.test(c.cta.href)).map((c) => c.name);
   assert.deepEqual(named, ['Dashlane', 'Setapp', 'Airalo']);
   for (const name of named) assert.ok(sw.intro.ru.includes(name) && sw.intro.en.includes(name), name);
