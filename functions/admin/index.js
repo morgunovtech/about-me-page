@@ -20,6 +20,7 @@ const SHELL = `<!DOCTYPE html>
         <option value="collaborate">collaborate</option>
         <option value="about">about</option>
         <option value="uses">uses</option>
+        <option value="privacy">privacy</option>
       </select>
       <span id="sync-note" class="ed-sync"></span>
     </div>
@@ -46,7 +47,7 @@ const SHELL = `<!DOCTYPE html>
     </div>
     <div class="ed-drawer-body" id="settings"></div>
   </aside>
-  <script data-cfasync="false" src="/admin-app.js?v=198b3283"></script>
+  <script data-cfasync="false" src="/admin-app.js?v=2936f2d0"></script>
 </body>
 </html>`;
 

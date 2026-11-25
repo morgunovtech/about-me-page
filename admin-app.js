@@ -1242,7 +1242,7 @@
     let articles = [];
     try { articles = (await fetch(API + '/articles').then((r) => r.json())).articles || []; } catch { /* ignore */ }
     sel.textContent = '';
-    for (const p of ['home', 'collaborate', 'about', 'uses']) {
+    for (const p of ['home', 'collaborate', 'about', 'uses', 'privacy']) {
       sel.append(Object.assign(el('option'), { value: p, textContent: p }));
     }
     if (articles.length) {
@@ -1526,6 +1526,16 @@
     // (tiers/groups/ctas add-reorder-delete + per-field). Re-render on demand.
     if (page === 'collaborate' && doc.sections && doc.sections.consulting && doc.sections.consulting.tiers) {
       for (const k of ['about', 'consulting', 'strategy', 'angel', 'contact']) {
+        if (!doc.sections[k]) continue;
+        const node = fieldRow(doc.sections, k);
+        if (node.tagName === 'DETAILS') node.open = false;
+        box.append(node);
+      }
+      box.append(ctrlBtn('Обновить превью', () => renderPreview()));
+    }
+    // /privacy: the same form engine — tools, the kit groups and cards, contact.
+    if (page === 'privacy' && doc.sections && doc.sections.kit) {
+      for (const k of ['tools', 'kit', 'contact']) {
         if (!doc.sections[k]) continue;
         const node = fieldRow(doc.sections, k);
         if (node.tagName === 'DETAILS') node.open = false;

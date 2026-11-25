@@ -38,6 +38,7 @@ HTML_PAGES = [
     "collaborate.html", "en/collaborate.html",
     "about.html", "en/about.html",
     "uses.html", "en/uses.html",
+    "privacy.html", "en/privacy.html",
     "404.html",
 ]
 
