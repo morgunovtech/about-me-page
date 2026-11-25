@@ -15,7 +15,7 @@ Pure static HTML/CSS/JS. **No build step, no npm, no framework.** Hosted on Clou
   - **`/uses`** — hardware and software;
   - **`/about`** — unlisted (`noindex`) until it is rewritten
 - A versioned design-system layer `ds/v1/` (fonts, tokens for 4 themes, base, components) + `styles.css` for page layout. Other projects reuse it: [Fingerprint](https://github.com/morgunovtech/Fingerprint) loads `fonts`, `tokens` and `base` straight from `https://s.morgunov.tech/ds/v1/` (not `components.css`), [Found You](https://github.com/morgunovtech/FoundYou) vendors a copy in its `public/ds/v1/`, the [TofsDevOps](https://github.com/morgunovtech/Tofs_DevOps_bot) status page inlines the tokens and takes only the woff2 files from `/fonts/` (a bot other people self-host must not depend on this site), and the Lenses PDF report (private) uses the print palette with IBM Plex; see [`ds/v1/USAGE.md`](ds/v1/USAGE.md). Since v1.4.0 the layer also ships the behaviour of the bar (`ds/v1/chrome.js`, a checked twin of `script.js`) and a service must repeat the chrome — bar, language and theme menus, footer
-- One script — `script.js` (single IIFE, no dependencies, ≈ 290 lines)
+- One script — `script.js` (single IIFE, no dependencies, ≈ 320 lines)
 - Self-hosted IBM Plex Sans + Plex Mono (latin + cyrillic woff2 subsets, `font-display: swap`)
 - Cloudflare config: [`_headers`](_headers), [`_routes.json`](_routes.json), [`_redirects`](_redirects)
 
@@ -108,7 +108,10 @@ The site exposes `POST /api/ingest/subscribers` (header `Authorization: Bearer <
 - The Pages environment secrets listed above; the SocialBot ingest token also lives on the bot's side (Railway).
 - The Claude Design project «morgunov.tech Design System» — a mirror of `ds/v1`, synced by hand after every DS change.
 - Search engines: the Google Search Console domain property for morgunov.tech plus an address property for this site, the Yandex Webmaster site (its verification file sits in the repo root) and the Bing Webmaster import; the owner's TofsDevOps bot watches the site — remove it there.
-- No third-party API keys: the site calls nothing outside Cloudflare.
+- An Anthropic API account and key (`ANTHROPIC_API_KEY`) — `/admin` calls `api.anthropic.com` for AI translate / proofread. Revoke the key in the Anthropic Console to tear down.
+- A Telegram bot from @BotFather (`TELEGRAM_BOT_TOKEN`), an admin of the channel in `TELEGRAM_CHANNEL` — `/admin` publishes notes through `api.telegram.org`. Remove the bot from the channel's admins and delete it (or revoke its token) in BotFather.
+- A SonarQube Cloud project for this repo, fed by the SonarQube Cloud GitHub App (automatic analysis, no config in the repo). Delete the project on sonarcloud.io and remove the repo from the app's access on GitHub.
+- The public pages call nothing outside Cloudflare. Only `/admin` does: the Anthropic API and the Telegram Bot API above, plus keyless reads of public `t.me` post pages and Telegram's CDN when importing a channel post.
 
 ## Built with
 
