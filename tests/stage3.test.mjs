@@ -36,19 +36,20 @@ test('e-mail only where the owner put it: home «Связаться», llms.txt,
   assert.doesNotMatch(renderJsonLd(old, 'en'), /"email"/);
 });
 
-test('footer: «стек · нашли опечатку?» → Telegram; no notes/about links', () => {
+test('footer (v3.0.0): one link of its own — «сказать спасибо или сообщить об ошибке» → /thanks; no notes/about/uses links', () => {
   const footers = PAGES.map((f) => read(f).match(/<footer class="v4-foot">[\s\S]*?<\/footer>/)[0]);
   footers.push(notesIndexHtml('ru', '', '{}', 'abc1234', { intro: 'x' }).match(/<footer class="v4-foot">[\s\S]*?<\/footer>/)[0]);
   for (const f of footers) {
-    assert.doesNotMatch(f, /href="(\/en)?\/(notes|about)"/);
-    assert.match(f, /<a href="https:\/\/t\.me\/s_mrgnv" target="_blank" rel="noopener noreferrer">(нашли опечатку\?|found a typo\?)<\/a>/);
+    assert.doesNotMatch(f, /href="(\/en)?\/(notes|about|uses)"/);
+    assert.match(f, /<a href="(\/en)?\/thanks">(сказать спасибо или сообщить об ошибке|say thanks or report a bug)<\/a><\/span>/);
+    assert.doesNotMatch(f, /t\.me\/s_mrgnv/, 'mistakes are reported from /thanks');
   }
 });
 
-test('/about is hidden: noindex, out of llms.txt', () => {
-  for (const f of ['about.html', 'en/about.html']) assert.match(read(f), /<meta name="robots" content="noindex" \/>/);
-  for (const f of ['index.html', 'collaborate.html', 'consulting.html', 'uses.html', 'privacy.html']) assert.doesNotMatch(read(f), /name="robots" content="noindex"/);
-  assert.doesNotMatch(read('llms.txt'), /s\.morgunov\.tech\/(en\/)?about/);
+test('/about and /uses are hidden (v3.0.0 for /uses): noindex, out of llms.txt', () => {
+  for (const f of ['about.html', 'en/about.html', 'uses.html', 'en/uses.html']) assert.match(read(f), /<meta name="robots" content="noindex" \/>/);
+  for (const f of ['index.html', 'collaborate.html', 'consulting.html', 'privacy.html', 'thanks.html', 'en/thanks.html']) assert.doesNotMatch(read(f), /name="robots" content="noindex"/);
+  assert.doesNotMatch(read('llms.txt'), /s\.morgunov\.tech\/(en\/)?(about|uses)\b/);
 });
 
 test('/consulting: the contact goes to Telegram, one contact button', () => {

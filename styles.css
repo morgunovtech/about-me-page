@@ -990,6 +990,27 @@
   color: var(--v4-fg);
 }
 
+/* The thanks line under a note (v3.0.0): one quiet sentence before «← Все
+   публикации», a link to /thanks — not a button, not a box. */
+.v4-article-thanks {
+  margin: 32px 0 0;
+  color: var(--v4-muted);
+  max-width: 62ch;
+}
+
+.v4-article-thanks a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--v4-line);
+}
+
+.v4-article-thanks a:hover,
+.v4-article-thanks a:focus-visible {
+  color: var(--v4-orange-text);
+  text-decoration-color: currentColor;
+}
+
 .v4-article-cover {
   margin: 0 0 28px;
 }

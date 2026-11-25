@@ -104,9 +104,10 @@ export async function renderSitemap(env) {
   // must not point at redirects. lastmod for CMS-managed pages comes from
   // the live KV doc (save.js bumps dateModified on every admin save), so
   // the sitemap agrees with the JSON-LD freshness signal without a redeploy.
-  // /about («Принципы») is hidden until the owner rewrites it: noindex, not listed.
-  const [home, collaborate, consulting, uses, privacy] = await Promise.all(
-    ['home', 'collaborate', 'consulting', 'uses', 'privacy'].map((p) => loadDoc(env, p))
+  // /about («Принципы») and /uses («Стек») are hidden until the owner rewrites
+  // them (/uses since v3.0.0): noindex, not listed. /thanks is a static page.
+  const [home, collaborate, consulting, privacy] = await Promise.all(
+    ['home', 'collaborate', 'consulting', 'privacy'].map((p) => loadDoc(env, p))
   );
   const mod = (doc, fallback) =>
     (doc && (doc.dateModified || (doc.updatedAt || '').slice(0, 10))) || fallback;
@@ -124,8 +125,8 @@ export async function renderSitemap(env) {
     { loc: '/en/collaborate', ru: '/collaborate', en: '/en/collaborate', lastmod: mod(collaborate, '2026-05-04') },
     { loc: '/consulting', ru: '/consulting', en: '/en/consulting', lastmod: mod(consulting, '2026-11-25') },
     { loc: '/en/consulting', ru: '/consulting', en: '/en/consulting', lastmod: mod(consulting, '2026-11-25') },
-    { loc: '/uses', ru: '/uses', en: '/en/uses', lastmod: mod(uses, '2026-05-11') },
-    { loc: '/en/uses', ru: '/uses', en: '/en/uses', lastmod: mod(uses, '2026-05-11') },
+    { loc: '/thanks', ru: '/thanks', en: '/en/thanks', lastmod: '2026-11-25' },
+    { loc: '/en/thanks', ru: '/thanks', en: '/en/thanks', lastmod: '2026-11-25' },
     { loc: '/privacy', ru: '/privacy', en: '/en/privacy', lastmod: mod(privacy, '2026-11-25') },
     { loc: '/en/privacy', ru: '/privacy', en: '/en/privacy', lastmod: mod(privacy, '2026-11-25') },
     { loc: '/notes', ru: '/notes', en: '/en/notes', lastmod: notesMod },

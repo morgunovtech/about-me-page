@@ -45,12 +45,12 @@ Paste into any service's `<head>`. Load order matters:
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/tokens.css?v=5629caeb" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/base.css?v=0e404315" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=52192cae" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=9b3765bd" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript>
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/tokens.css?v=5629caeb" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/base.css?v=0e404315" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=52192cae" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=9b3765bd" />
 </noscript>
 ```
 
@@ -89,7 +89,8 @@ only» is for two cases: a page other people host themselves (see
 | Shell | `div.v4-root` | up to 1280px wide |
 | Bar | `header.v4-bar` | the full width of the shell, an ink rule under it |
 | Service mark | `a.v4-service` → `https://s.morgunov.tech/` | `MORGUNOV.TECH / NAME`; at 640px and below only the name shows |
-| Navigation | `nav.v4-nav.v4-dropdown` with `.v4-bar-mid` | at most five links; a «Меню» dropdown at 640px and below; leave the whole `nav` out when the page has no sections |
+| Navigation | `nav.v4-nav.v4-dropdown` with `.v4-bar-mid` | at most five links; a «Меню» dropdown at 640px and below; leave the whole `nav` out when the page has no sections. The current page's link carries `aria-current="page"` (the orange underline; the round mark in the phone's panel). Links of one kind may share a group — `div.v4-dropdown.v4-nav-group` > `button.v4-nav-group-btn[aria-controls]` + `div.v4-menu.v4-nav-sub` of `a.v4-menu-item` (a disclosure, no `role="menu"`; `.is-current` on the group when one of its pages is), with `span.v4-nav-group-cap` for the phone's panel |
+| On-page line | `nav.v4-onpage` right after the hero | a page's sections when the bar lists the site's pages (s.morgunov.tech since v3.0.0): links separated by «·», no buttons |
 | Language | `.v4-dropdown.v4-lang` | `RU ⌄`; the items are links to the same page in the other language |
 | Theme | `.v4-dropdown.v4-theme` | the icon button; four items in this order: light, dark, auto, high contrast |
 | Footer | `footer.v4-foot` | name · year · the build mark on the left (then at most two links of the page's own), the privacy line on the right — and nothing else |
@@ -142,11 +143,11 @@ look-alikes.
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech / service · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v2.2.3</a></span>
+      <span>morgunov.tech / service · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v3.0.0</a></span>
       <span class="v4-foot-privacy">Без cookies, трекеров и аналитики</span>
     </footer>
   </div>
-  <script defer src="https://s.morgunov.tech/ds/v1/chrome.js?v=57a9beca"></script>
+  <script defer src="https://s.morgunov.tech/ds/v1/chrome.js?v=68418885"></script>
 </body>
 ```
 <!-- chrome:snippet:end -->

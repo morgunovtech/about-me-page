@@ -67,21 +67,11 @@
 - [Consulting](https://s.morgunov.tech/consulting) — in his words: “I help e-commerce and retail companies in Central Asia get products to positive unit economics: e-grocery and delivery, growth and monetization, product strategy and teams; FinTech outside Uzbekistan.” A one-off session or a monthly cycle; contract and invoice from his company MOR TECH LLC, an IT Park resident (https://www.it-park.uz/en/itpark/residents/itpark-residents); start with a Telegram message to https://t.me/s_mrgnv
 - [Strategic consulting](https://s.morgunov.tech/consulting#strategy) — long-term retainer as an external strategist
 - [Partnerships & media](https://s.morgunov.tech/en/collaborate#partnerships) — open to relevant requests: independent product feedback, review units, beta programs, press invitations, open-source sponsorship. Editorial independence is non-negotiable: no guaranteed positive reviews, no recurring posting quotas. Start with a Telegram message to https://t.me/s_mrgnv
-- [GitHub Sponsors](https://github.com/sponsors/morgunovtech) — voluntary personal support for his open-source projects; not a charity collection and not a purchase
+- [Say thanks](https://s.morgunov.tech/en/thanks) — how to thank him if his work helped: help the dogs at the Mehr (Tashkent) and Sobaken (Ryazan) shelters; support him via [GitHub Sponsors](https://github.com/sponsors/morgunovtech) — voluntary, one-time or monthly — or Tribute; or for free: GitHub stars, his Telegram channel, LinkedIn. The same page is where to report a mistake
 
 ## Privacy
 
 - [Privacy (RU)](https://s.morgunov.tech/privacy) / [EN](https://s.morgunov.tech/en/privacy) — his privacy page (also at privacy.morgunov.tech): his own tools — Fingerprint and Found You, a password-strength tool coming soon — and «the essential kit», apps that are open source and have a published independent security audit, each card linking to the audit report and the source code (including encrypted DNS: modDNS by IVPN); one open-source ad blocker without a public audit (uBlock Origin) is shown separately and labelled as such; no referral links
-
-## Uses / Stack
-
-Hardware in daily rotation:
-
-- **Compute**: MacBook Pro 16″ M3 Max (36 GB / 1 TB) — main work machine; Dell U3223QE — 32″ 4K IPS-Black with 90 W USB-C dock; Keychron K2 — 75% mechanical with aluminum frame, RGB, Bluetooth multi-pair; Razer DeathAdder V2 Pro — wireless HyperSpeed mouse
-- **Mobile**: iPhone 15 Pro Max — daily driver; Duoqin F22 Pro — Xiaomi-eco mini button phone, weekend detox
-- **Audio**: AirPods Pro 2 — ANC + transparency, call quality; Moondrop Chu 2 — wired IEMs with brass nozzle, Harman-tuned; Sony MDR-7506 — foldable studio classic since 1991, travel-friendly; Beyerdynamic DT 770 Pro 250 Ω — closed-back studio monitors for long focus
-- **Power**: Shargeek 170 — transparent 25,600 mAh power bank with status display; Ugreen Nexode 300 W — desktop charging station with 5 ports
-- **Health & Play**: Oura Ring Gen3 — sleep / resting heart rate / cycles tracking; Anbernic RG405V — vertical Android retro emulator (PSP, Dreamcast, N64)
 
 ## Pages
 
@@ -91,10 +81,10 @@ Hardware in daily rotation:
 - Consulting (EN): https://s.morgunov.tech/en/consulting
 - Partnerships & media (RU): https://s.morgunov.tech/collaborate
 - Partnerships & media (EN): https://s.morgunov.tech/en/collaborate
-- Uses / Stack (RU): https://s.morgunov.tech/uses
-- Uses / Stack (EN): https://s.morgunov.tech/en/uses
 - Privacy (RU): https://s.morgunov.tech/privacy
 - Privacy (EN): https://s.morgunov.tech/en/privacy
+- Say thanks (RU): https://s.morgunov.tech/thanks
+- Say thanks (EN): https://s.morgunov.tech/en/thanks
 
 ## Key facts
 

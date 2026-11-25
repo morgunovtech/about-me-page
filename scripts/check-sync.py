@@ -26,6 +26,7 @@ PAIRS = [
     ("consulting.html", "en/consulting.html"),
     ("privacy.html", "en/privacy.html"),
     ("uses.html", "en/uses.html"),
+    ("thanks.html", "en/thanks.html"),
     ("about.html", "en/about.html"),
 ]
 SKIP_SUBTREE = {"style", "script", "svg", "noscript"}

@@ -1196,8 +1196,8 @@
         "en": "Helping companies in e-com, retail, and FinTech find growth levers and build great products. Consult one-off or partner long-term."
       },
       "ctas": {
-        "ru": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n<a class=\"v4-btn\" href=\"/\">← На главную</a>",
-        "en": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n<a class=\"v4-btn\" href=\"/en/\">← Home</a>"
+        "ru": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>",
+        "en": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>"
       },
       "eyebrow": {
         "ru": "Консалтинг · Стратегия",
@@ -1518,16 +1518,16 @@
     },
     "hero": {
       "name": {
-        "ru": "Сотрудничество",
-        "en": "Collaborate"
+        "ru": "Партнёрства и медиа",
+        "en": "Partnerships & media"
       },
       "tagline": {
         "ru": "Тестирую продукты, даю независимую обратную связь и участвую в технологическом просвещении.",
         "en": "I test products, give independent feedback and contribute to technology education."
       },
       "ctas": {
-        "ru": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n<a class=\"v4-btn\" href=\"/\">← На главную</a>",
-        "en": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n<a class=\"v4-btn\" href=\"/en/\">← Home</a>"
+        "ru": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>",
+        "en": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>"
       },
       "eyebrow": {
         "ru": "Партнёрства · Медиа",
@@ -1647,8 +1647,8 @@
         "en": "First see what is visible about you — my tools show it on your own data. Then close the gaps with apps that passed an independent audit."
       },
       "ctas": {
-        "ru": "<a class=\"v4-btn\" href=\"/\">← На главную</a>",
-        "en": "<a class=\"v4-btn\" href=\"/en/\">← Home</a>"
+        "ru": "",
+        "en": ""
       }
     },
     "sections": {

@@ -263,7 +263,9 @@
 
   /* --- Anchor navigation (handles repeated clicks on same anchor) --- */
 
-  const navLinks = Array.from(document.querySelectorAll('.v4-bar-mid a[href^="#"]'));
+  /* The on-page line under the hero (v3.0.0) holds a page's section links;
+     the bar keeps them on pages of the family that still list sections there. */
+  const navLinks = Array.from(document.querySelectorAll('.v4-onpage a[href^="#"], .v4-bar-mid a[href^="#"]'));
 
   navLinks.forEach((link) => {
     link.addEventListener('click', (e) => {
