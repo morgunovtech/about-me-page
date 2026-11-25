@@ -48,6 +48,7 @@ about-me-page/
     ├── favicon-dark.svg           # Favicon for prefers-color-scheme: dark
     ├── icon-192.png, icon-512.png # PWA icons from site.webmanifest
     ├── og-card-ru.png, og-card-en.png  # Share cards (og:image / twitter:image), per language — renders of the design system's share-card template (cards site-ru, site-en), never drawn by hand
+    ├── og-card-privacy-{ru,en}.png    # /privacy's own share cards — the same template, cards privacy-ru, privacy-en (v1.6.3)
     └── uses/                      # /uses hardware photos, one webp per card (14)
 ```
 
