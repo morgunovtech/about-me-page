@@ -276,6 +276,11 @@ test('home JSON-LD: ProfilePage + mainEntity, Person url stable across languages
     const g = JSON.parse(renderJsonLd(doc, lang))['@graph'];
     const page = g.find((n) => Array.isArray(n['@type']) && n['@type'].includes('ProfilePage'));
     assert.equal(page.mainEntity['@id'], 'https://s.morgunov.tech/#person');
+    // Search Console rejects a bare date here: both must be full date-times with an offset.
+    const dateTime = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/;
+    assert.match(page.dateCreated, dateTime);
+    assert.equal(page.dateModified, '2026-05-26T00:00:00Z');
+    assert.equal(JSON.parse(renderJsonLd({ ...doc, updatedAt: '2026-11-25T09:30:00.000Z' }, lang))['@graph'][1].dateModified, '2026-11-25T09:30:00.000Z');
     assert.equal(g.find((n) => n['@type'] === 'Person').url, 'https://s.morgunov.tech/');
     const item = g.find((n) => n['@type'] === 'ItemList').itemListElement[0].item;
     assert.equal(item.softwareVersion, '2.5');

@@ -6,8 +6,17 @@ import { pick } from './i18n.js';
 import { ORIGIN } from './site.js';
 
 const HERO_IMAGE = ORIGIN + '/images/Hero_Photo.webp';
-// First commit of the site (v0.1) — ProfilePage.dateCreated.
-const SITE_LAUNCHED = '2025-10-07';
+// First commit of the site (v0.1) — ProfilePage.dateCreated. Google's profile
+// page markup takes a full ISO 8601 date-time with an offset: a bare date is
+// reported in Search Console as an invalid date/time value.
+const SITE_LAUNCHED = '2025-10-07T11:18:39+05:00';
+
+// The doc's last change as a full date-time: `updatedAt` when the doc has one
+// (save.js and kv-push.mjs write it), else midnight UTC of `dateModified`.
+function modifiedAt(doc) {
+  if (doc.updatedAt) return doc.updatedAt;
+  return /^\d{4}-\d{2}-\d{2}$/.test(doc.dateModified || '') ? doc.dateModified + 'T00:00:00Z' : doc.dateModified;
+}
 
 // Serialize a JSON-LD graph and escape characters that could break out of the
 // <script> element it's injected into (JSON.stringify escapes none of these).
@@ -115,7 +124,7 @@ export function renderJsonLd(doc, lang) {
         about: { '@id': ORIGIN + '/#person' },
         mainEntity: { '@id': ORIGIN + '/#person' },
         dateCreated: SITE_LAUNCHED,
-        dateModified: doc.dateModified,
+        dateModified: modifiedAt(doc),
       },
       person,
       products,
