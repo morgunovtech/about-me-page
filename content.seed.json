@@ -641,8 +641,8 @@
       },
       "stack": {
         "body": {
-          "ru": "<p>Страница <a href=\"/uses\">/uses</a> — отдельный продукт со своей логикой. В традиции <a href=\"https://uses.tech\" target=\"_blank\" rel=\"noopener noreferrer\">uses.tech</a> — публичных списков «чем я пользуюсь», которые ведут разработчики и дизайнеры с начала 2010-х. Но я переосмыслил жанр под свои принципы.</p>\n            <p>Принципиальное отличие — это не TOP-10, не «best of 2026» и не подборка «что купить». Это срез того, что у меня <strong>реально включено</strong> в каждый день. Таглайн страницы: «Только то, что реально включаю — без полки забытых гаджетов».</p>\n            <p><strong>Структура.</strong> Две секции — «Железо» и «Софт». Своя локальная навигация (только два пункта, без главного меню), кнопка «← На главную» для возврата. На странице нет якорной нумерации справа — она здесь не нужна, секций две, обе видны.</p>\n            <p><strong>Карточки.</strong> Каждая — строго одного формата: продуктовое фото на светлой подложке, категорийная метка в caps-mono (<code>Laptop</code>, <code>Monitor</code>, <code>Keyboard</code>, <code>Mouse</code>, <code>Phone</code>, <code>Earphones</code>, <code>Headphones</code>, <code>Powerbank</code>, <code>Charger</code>, <code>Health</code>, <code>Game console</code>), название модели, 2–3&nbsp;предложения о том, <strong>почему именно это</strong>. Не характеристики (их можно найти у производителя), а контекст: <em>«Беспроводная HyperSpeed-мышь, 20K&nbsp;DPI, форма проверена годами. Заряжается раз в неделю, два боковых клавиша — под навигацию между вкладками»</em>. Это пользовательский опыт, не спецификация.</p>\n            <p><strong>Группировка.</strong> Железо — <code>COMPUTE</code> (ноутбук, монитор, клавиатура), <code>MOUSE</code>, <code>MOBILE</code>, <code>AUDIO</code>, <code>POWER</code>, <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code>. Группы — не «категории магазина», а сценарии использования. <code>POWER</code> — это про дорогу: пауэрбанк и зарядная станция стоят рядом, потому что решают связанную задачу. <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code> — про не-работу.</p>\n            <p><strong>Софт.</strong> Прайс-теги вместо описаний: <code>$5 / mo</code>, <code>FREE</code>, <code>$10 / mo</code>, <code>$100 / mo</code>, <code>PAY-AS-YOU-GO</code>. Цена — главный фильтр выбора софта. Скрыть стоимость в карточке — значит спрятать контекст.</p>\n            <p><strong>Аффилиатные ссылки.</strong> На страницу /uses встроены реферальные ссылки на Dashlane, SetApp, Airalo, Claude&nbsp;Max. Под каждой — кнопка-CTA вида «6 месяцев Premium →», «Скидка $3 →». Над всем разделом стоит дисклеймер прямым текстом: <em>«Сервисы, которыми пользуюсь регулярно. Платные — со скидками по моей ссылке, если оформите подписку: бонус и вам, и мне»</em>. Промокод (<code>SEMYON5076</code> для Airalo) виден в теле описания.</p>\n            <p>Это позиция: если ссылка партнёрская — я скажу честно, что получаю бонус. И одновременно дам бонус читателю. Скрытые UTM-партнёрки без раскрытия — нечестная практика. Раскрытая партнёрская ссылка с реальной скидкой — это win-win, в котором ничего не прячется. Это продолжение принципа <code>honest</code> из списка Рамса в новый, специфический контекст монетизации.</p>",
-          "en": "<p>The <a href=\"/en/uses\">/uses</a> page is its own product with its own logic. In the <a href=\"https://uses.tech\" target=\"_blank\" rel=\"noopener noreferrer\">uses.tech</a> tradition — public «what I use» lists kept by developers and designers since the early 2010s. But I reframed the genre to fit my principles.</p>\n            <p>The key difference: not a TOP-10, not «best of 2026», not a «what to buy» shopping list. It's a cross-section of what I actually have <strong>switched on</strong> every day. Page tagline: «Only the stuff that actually gets switched on — no shelf of forgotten gadgets».</p>\n            <p><strong>Structure.</strong> Two sections — Hardware and Software. A local nav (only two items, no main menu), a «← Home» button to get back. No anchored numbering column on the right — not needed here, two sections, both visible.</p>\n            <p><strong>Cards.</strong> Every card is strictly the same format: product photo on a light backdrop, category label in caps-mono (<code>Laptop</code>, <code>Monitor</code>, <code>Keyboard</code>, <code>Mouse</code>, <code>Phone</code>, <code>Earphones</code>, <code>Headphones</code>, <code>Powerbank</code>, <code>Charger</code>, <code>Health</code>, <code>Game console</code>), model name, 2–3&nbsp;sentences on <strong>why this specifically</strong>. Not specs (you can find those on the manufacturer's page), but context: <em>«Wireless HyperSpeed mouse, 20K&nbsp;DPI, shape I've been using for years. Charges weekly; two side buttons mapped to tab navigation»</em>. User experience, not specification.</p>\n            <p><strong>Grouping.</strong> Hardware — <code>COMPUTE</code> (laptop, monitor, keyboard), <code>MOUSE</code>, <code>MOBILE</code>, <code>AUDIO</code>, <code>POWER</code>, <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code>. Groups aren't «shop categories» — they're use scenarios. <code>POWER</code> is about travel: the power bank and the charging station sit together because they solve a related problem. <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code> is about not-work.</p>\n            <p><strong>Software.</strong> Price tags instead of descriptions: <code>$5 / mo</code>, <code>FREE</code>, <code>$10 / mo</code>, <code>$100 / mo</code>, <code>PAY-AS-YOU-GO</code>. Price is the main filter for software choice. Hiding the cost in the card means hiding the context.</p>\n            <p><strong>Affiliate links.</strong> /uses has affiliate links on Dashlane, SetApp, Airalo, and Claude&nbsp;Max. Under each is a CTA — «6 months premium →», «$3 off →». Above the whole section, in plain text: <em>«Services I use regularly. Paid ones — discounted via my link, if you sign up: a small bonus for both of us»</em>. The promo code (<code>SEMYON5076</code> for Airalo) is visible in the description body.</p>\n            <p>It's a position: if a link is affiliate, I say so honestly — and I share the bonus with the reader. Hidden UTM-partner links without disclosure are dishonest practice. A disclosed affiliate link with a real discount is win-win with nothing hidden. This extends the <code>honest</code> principle from Rams's list into a new, specific monetization context.</p>"
+          "ru": "<p>Страница <a href=\"/uses\">/uses</a> — отдельный продукт со своей логикой. В традиции <a href=\"https://uses.tech\" target=\"_blank\" rel=\"noopener noreferrer\">uses.tech</a> — публичных списков «чем я пользуюсь», которые ведут разработчики и дизайнеры с начала 2010-х. Но я переосмыслил жанр под свои принципы.</p>\n            <p>Принципиальное отличие — это не TOP-10, не «best of 2026» и не подборка «что купить». Это срез того, что у меня <strong>реально включено</strong> в каждый день. Таглайн страницы: «Только то, что реально включаю — без полки забытых гаджетов».</p>\n            <p><strong>Структура.</strong> Две секции — «Железо» и «Софт». Своя локальная навигация (только два пункта, без главного меню), кнопка «← На главную» для возврата. На странице нет якорной нумерации справа — она здесь не нужна, секций две, обе видны.</p>\n            <p><strong>Карточки.</strong> Каждая — строго одного формата: продуктовое фото на светлой подложке, категорийная метка в caps-mono (<code>Laptop</code>, <code>Monitor</code>, <code>Keyboard</code>, <code>Mouse</code>, <code>Phone</code>, <code>Earphones</code>, <code>Headphones</code>, <code>Powerbank</code>, <code>Charger</code>, <code>Health</code>, <code>Game console</code>), название модели, 2–3&nbsp;предложения о том, <strong>почему именно это</strong>. Не характеристики (их можно найти у производителя), а контекст: <em>«Беспроводная HyperSpeed-мышь, 20K&nbsp;DPI, форма проверена годами. Заряжается раз в неделю, два боковых клавиша — под навигацию между вкладками»</em>. Это пользовательский опыт, не спецификация.</p>\n            <p><strong>Группировка.</strong> Железо — <code>COMPUTE</code> (ноутбук, монитор, клавиатура), <code>MOUSE</code>, <code>MOBILE</code>, <code>AUDIO</code>, <code>POWER</code>, <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code>. Группы — не «категории магазина», а сценарии использования. <code>POWER</code> — это про дорогу: пауэрбанк и зарядная станция стоят рядом, потому что решают связанную задачу. <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code> — про не-работу.</p>\n            <p><strong>Софт.</strong> Прайс-теги вместо описаний: <code>$5 / mo</code>, <code>FREE</code>, <code>$10 / mo</code>, <code>$100 / mo</code>, <code>PAY-AS-YOU-GO</code>. Цена — главный фильтр выбора софта. Скрыть стоимость в карточке — значит спрятать контекст.</p>\n            <p><strong>Аффилиатные ссылки.</strong> На страницу /uses встроены реферальные ссылки на Dashlane, Setapp и Airalo; у Claude реферальной программы нет, и ссылка на него обычная. Под каждой из трёх — кнопка-CTA вида «6 месяцев Premium →», «Скидка $3 →». Над всем разделом стоит дисклеймер прямым текстом: <em>«У Dashlane, Setapp и Airalo ссылки реферальные: вам по ним дают бонус, мне — бесплатные месяцы или кредит на счёт. Остальные ссылки обычные»</em>. Промокод (<code>SEMYON5076</code> для Airalo) виден в теле описания.</p>\n            <p>Это позиция: если ссылка партнёрская — я скажу честно, что получаю бонус. И одновременно дам бонус читателю. Скрытые UTM-партнёрки без раскрытия — нечестная практика. Раскрытая партнёрская ссылка с реальной скидкой — это win-win, в котором ничего не прячется. Это продолжение принципа <code>honest</code> из списка Рамса в новый, специфический контекст монетизации.</p>",
+          "en": "<p>The <a href=\"/en/uses\">/uses</a> page is its own product with its own logic. In the <a href=\"https://uses.tech\" target=\"_blank\" rel=\"noopener noreferrer\">uses.tech</a> tradition — public «what I use» lists kept by developers and designers since the early 2010s. But I reframed the genre to fit my principles.</p>\n            <p>The key difference: not a TOP-10, not «best of 2026», not a «what to buy» shopping list. It's a cross-section of what I actually have <strong>switched on</strong> every day. Page tagline: «Only the stuff that actually gets switched on — no shelf of forgotten gadgets».</p>\n            <p><strong>Structure.</strong> Two sections — Hardware and Software. A local nav (only two items, no main menu), a «← Home» button to get back. No anchored numbering column on the right — not needed here, two sections, both visible.</p>\n            <p><strong>Cards.</strong> Every card is strictly the same format: product photo on a light backdrop, category label in caps-mono (<code>Laptop</code>, <code>Monitor</code>, <code>Keyboard</code>, <code>Mouse</code>, <code>Phone</code>, <code>Earphones</code>, <code>Headphones</code>, <code>Powerbank</code>, <code>Charger</code>, <code>Health</code>, <code>Game console</code>), model name, 2–3&nbsp;sentences on <strong>why this specifically</strong>. Not specs (you can find those on the manufacturer's page), but context: <em>«Wireless HyperSpeed mouse, 20K&nbsp;DPI, shape I've been using for years. Charges weekly; two side buttons mapped to tab navigation»</em>. User experience, not specification.</p>\n            <p><strong>Grouping.</strong> Hardware — <code>COMPUTE</code> (laptop, monitor, keyboard), <code>MOUSE</code>, <code>MOBILE</code>, <code>AUDIO</code>, <code>POWER</code>, <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code>. Groups aren't «shop categories» — they're use scenarios. <code>POWER</code> is about travel: the power bank and the charging station sit together because they solve a related problem. <code>HEALTH&nbsp;&amp;&nbsp;PLAY</code> is about not-work.</p>\n            <p><strong>Software.</strong> Price tags instead of descriptions: <code>$5 / mo</code>, <code>FREE</code>, <code>$10 / mo</code>, <code>$100 / mo</code>, <code>PAY-AS-YOU-GO</code>. Price is the main filter for software choice. Hiding the cost in the card means hiding the context.</p>\n            <p><strong>Affiliate links.</strong> /uses has referral links on Dashlane, Setapp and Airalo; Claude has no referral program, and its link is a plain one. Under each of the three is a CTA — «6 months of Premium →», «$3 off →». Above the whole section, in plain text: <em>«The Dashlane, Setapp and Airalo links are referral links: you get a bonus, I get free months or account credit. The rest are plain links»</em>. The promo code (<code>SEMYON5076</code> for Airalo) is visible in the description body.</p>\n            <p>It's a position: if a link is affiliate, I say so honestly — and I share the bonus with the reader. Hidden UTM-partner links without disclosure are dishonest practice. A disclosed affiliate link with a real discount is win-win with nothing hidden. This extends the <code>honest</code> principle from Rams's list into a new, specific monetization context.</p>"
         },
         "title": {
           "ru": "/uses — стек как отдельный продукт",
@@ -696,8 +696,8 @@
     "site": "s.morgunov.tech",
     "page": "uses",
     "rev": 1,
-    "updatedAt": "2026-05-25T00:00:00Z",
-    "dateModified": "2026-05-11",
+    "updatedAt": "2026-11-25T00:00:00Z",
+    "dateModified": "2026-11-25",
     "meta": {
       "title": {
         "ru": "Стек — Семён Моргунов",
@@ -1023,8 +1023,8 @@
           "en": "Software"
         },
         "intro": {
-          "ru": "Сервисы, которыми пользуюсь регулярно. Ссылки обычные, не партнёрские; у Airalo есть промокод — он даёт $3 на первую покупку.",
-          "en": "Services I use regularly. Plain links, no affiliate programs; Airalo has a promo code worth $3 off the first purchase."
+          "ru": "Сервисы, которыми пользуюсь регулярно. У Dashlane, Setapp и Airalo ссылки реферальные: вам по ним дают бонус, мне — бесплатные месяцы или кредит на счёт. Остальные ссылки обычные.",
+          "en": "Services I use regularly. The Dashlane, Setapp and Airalo links are referral links: you get a bonus, I get free months or account credit. The rest are plain links."
         },
         "cards": [
           {
@@ -1034,8 +1034,8 @@
               "en": "Password manager"
             },
             "price": {
-              "ru": "$5 / мес.",
-              "en": "$5 / mo"
+              "ru": "$45 / год",
+              "en": "$45 / yr"
             },
             "desc": {
               "ru": "Менеджер паролей с 5-летним стажем без скандалов и утечек. Внутри Dark Web Monitoring и встроенный 2FA-аутентификатор.",
@@ -1043,32 +1043,10 @@
             },
             "cta": {
               "label": {
-                "ru": "Попробовать →",
-                "en": "Try it →"
+                "ru": "6 месяцев Premium →",
+                "en": "6 months of Premium →"
               },
-              "href": "https://www.dashlane.com/"
-            }
-          },
-          {
-            "name": "Arc Browser",
-            "tag": {
-              "ru": "Браузер",
-              "en": "Browser"
-            },
-            "price": {
-              "ru": "Бесплатно",
-              "en": "Free"
-            },
-            "desc": {
-              "ru": "Браузер. Идеальная организация вкладок и рабочих пространств, аккуратно встроенный AI. Команда переключилась на Dia, но текущий релиз стабильно работает.",
-              "en": "Browser. Best-in-class tab and workspace management, AI features tastefully integrated. The team moved on to Dia, but the current release is stable."
-            },
-            "cta": {
-              "label": {
-                "ru": "Скачать →",
-                "en": "Download →"
-              },
-              "href": "https://arc.net/"
+              "href": "https://www.dashlane.com/en/im/tvsrQ4t8FzbP"
             }
           },
           {
@@ -1078,19 +1056,19 @@
               "en": "App bundle"
             },
             "price": {
-              "ru": "$10 / мес.",
-              "en": "$10 / mo"
+              "ru": "$130 / год",
+              "en": "$130 / yr"
             },
             "desc": {
-              "ru": "Подписка на 250+ Mac-приложений за фиксированную плату. Топ-5: Craft (Notion на стероидах), Numi (калькулятор-конвертер), CleanShot X, CleanMyMac, Dato.",
-              "en": "Subscription bundle of 250+ Mac apps. Top 5: Craft (Notion on steroids), Numi (calculator-converter), CleanShot X, CleanMyMac, Dato."
+              "ru": "Подписка на 250+ Mac-приложений за фиксированную плату. Топ-4: Craft (Notion на стероидах), Numi (калькулятор-конвертер), CleanShot X, CleanMyMac. По моей ссылке: когда оплатите первый месяц, Setapp добавит по бесплатному месяцу и вам, и мне.",
+              "en": "Subscription bundle of 250+ Mac apps. Top 4: Craft (Notion on steroids), Numi (calculator-converter), CleanShot X, CleanMyMac. Via my link: once you pay for the first month, Setapp adds a free month for you and for me."
             },
             "cta": {
               "label": {
-                "ru": "7 дней бесплатно →",
-                "en": "7 days free →"
+                "ru": "Месяц в подарок →",
+                "en": "A bonus month →"
               },
-              "href": "https://setapp.com/"
+              "href": "https://go.setapp.com/invite/gfyijdwt"
             }
           },
           {
@@ -1134,7 +1112,7 @@
                 "ru": "Скидка $3 →",
                 "en": "$3 off →"
               },
-              "href": "https://www.airalo.com/"
+              "href": "https://ref.airalo.com/wn9E"
             }
           },
           {

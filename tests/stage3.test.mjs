@@ -61,12 +61,21 @@ test('/collaborate: the contact goes to Telegram, one contact button', () => {
   assert.match(html, /href="https:\/\/t\.me\/s_mrgnv"[^>]*>Написать →</);
 });
 
-test('/uses promises no referral discounts it does not have', () => {
+test('/uses names its referral links and promises no bonus without one', () => {
   const sw = seed.uses.sections.software;
-  assert.doesNotMatch(sw.intro.ru, /по моей ссылке|скидк/);
-  assert.match(sw.intro.ru, /не партнёрские/);
-  const labels = sw.cards.map((c) => c.cta.label.ru);
-  assert.ok(!labels.includes('6 месяцев premium →'));
+  // Since v1.5.2 three cards carry the owner's referral links again; the intro says which.
+  assert.match(sw.intro.ru, /ссылки реферальные/);
+  assert.match(sw.intro.en, /referral links/);
+  assert.doesNotMatch(sw.intro.ru, /не партнёрские/);
+  const referral = /dashlane\.com\/en\/im\/|go\.setapp\.com\/invite\/|ref\.airalo\.com\//;
+  const named = sw.cards.filter((c) => referral.test(c.cta.href)).map((c) => c.name);
+  assert.deepEqual(named, ['Dashlane', 'Setapp', 'Airalo']);
+  for (const name of named) assert.ok(sw.intro.ru.includes(name) && sw.intro.en.includes(name), name);
+  // A card without a referral link does not promise a bonus.
+  for (const c of sw.cards.filter((c) => !named.includes(c.name))) {
+    assert.doesNotMatch(c.cta.label.ru, /бесплатно|скидк|месяц/i, c.name);
+  }
+  assert.ok(!sw.cards.some((c) => c.name === 'Arc Browser'));
 });
 
 test('no side column, back-to-top or progress bar left in markup, CSS or JS', () => {
