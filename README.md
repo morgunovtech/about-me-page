@@ -118,4 +118,7 @@ Designed and built by Semyon Morgunov with Claude Code as pair programmer.
 
 [MIT](LICENSE) for the code. Personal content (text, portrait photo, OG cards) is
 © 2026 Semyon Morgunov, all rights reserved. The IBM Plex fonts in `fonts/` are
-© IBM Corp. under the SIL Open Font License 1.1 — [fonts/OFL.txt](fonts/OFL.txt). Both notes are also in [NOTICE](NOTICE).
+© IBM Corp. under the SIL Open Font License 1.1 — [fonts/OFL.txt](fonts/OFL.txt).
+The product images in `images/uses/` are manufacturers' press images: they belong
+to their respective manufacturers, are used as illustrations on the /uses page
+and are not covered by the MIT licence. All three notes are also in [NOTICE](NOTICE).

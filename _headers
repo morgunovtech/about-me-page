@@ -75,3 +75,17 @@ https://:version.:project.pages.dev/*
 
 /script.js
   Cache-Control: public, max-age=31536000, immutable
+
+# LICENSE, NOTICE and fonts/OFL.txt are served on purpose (the MIT licence, the
+# personal-content notice, the OFL that ships with IBM Plex). LICENSE and NOTICE
+# have no extension, so Pages typed them application/octet-stream and, with
+# nosniff above, a browser downloaded them instead of showing the text. OFL.txt
+# already resolves to text/plain by its extension; the rule pins the intent.
+/LICENSE
+  Content-Type: text/plain; charset=utf-8
+
+/NOTICE
+  Content-Type: text/plain; charset=utf-8
+
+/fonts/OFL.txt
+  Content-Type: text/plain; charset=utf-8
