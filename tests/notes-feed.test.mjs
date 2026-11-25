@@ -15,27 +15,28 @@ const article = (slug, date, ru, en = '', status = 'published') => ({
 });
 
 test('seed: external materials are complete, dated and linked out', () => {
-  assert.ok(Array.isArray(notes.external) && notes.external.length === 7);
+  assert.ok(Array.isArray(notes.external) && notes.external.length === 9);
   for (const x of notes.external) {
     assert.match(x.date, /^\d{4}-\d{2}-\d{2}$/);
     assert.match(x.href, /^https:\/\//);
     // No free-text tag since v1.5.0: the feed names the platform from the address.
     assert.equal(x.tag, undefined);
     assert.ok(x.title.ru.trim() && x.title.en.trim(), 'both languages');
-    // A view count where the platform shows one (vc.ru, YouTube); spot.uz shows none (v2.2.0).
+    // A view count for the owner's own material where the platform shows one (vc.ru, YouTube);
+    // press and company news (spot.uz, tashkenttimes.uz, a company's channel) carry none (v2.2.1).
     if (x.views !== undefined) assert.ok(Number.isInteger(x.views) && x.views > 0);
-    else assert.equal(x.source, 'spot.uz');
+    else assert.doesNotMatch(x.href, /^https:\/\/(vc\.ru|youtu\.be|www\.youtube\.com)\//, x.href);
   }
   assert.equal(notes.channel.tag, 'CHANNEL');
 });
 
 test('feed with no articles: external materials only, newest first', () => {
   const feed = buildFeed([], notes, 'ru');
-  assert.deepEqual(feed.map((e) => e.date), ['2026-02-06', '2025-12-10', '2025-06-26', '2024-02-18', '2022-08-08', '2022-07-08', '2022-06-19']);
+  assert.deepEqual(feed.map((e) => e.date), ['2026-03-02', '2026-02-06', '2025-12-10', '2025-06-26', '2025-01-28', '2024-02-18', '2022-08-08', '2022-07-08', '2022-06-19']);
   assert.ok(feed.every((e) => e.kind === 'external'));
   const html = feedListHtml(feed, 'ru');
   assert.ok(!html.includes('Пока нет заметок'));
-  assert.equal((html.match(/target="_blank" rel="noopener noreferrer"/g) || []).length, 7);
+  assert.equal((html.match(/target="_blank" rel="noopener noreferrer"/g) || []).length, 9);
   assert.ok(html.includes('откроется в новой вкладке'));
 });
 
@@ -47,7 +48,7 @@ test('feed interleaves published articles by date, drafts stay out', () => {
   ];
   const feed = buildFeed(publishedSorted(idx), notes, 'ru');
   assert.deepEqual(feed.map((e) => (e.kind === 'note' ? e.item.slug : e.date)),
-    ['fresh', '2026-02-06', '2025-12-10', '2025-06-26', '2024-02-18', 'mid', '2022-08-08', '2022-07-08', '2022-06-19']);
+    ['fresh', '2026-03-02', '2026-02-06', '2025-12-10', '2025-06-26', '2025-01-28', '2024-02-18', 'mid', '2022-08-08', '2022-07-08', '2022-06-19']);
   const first = feedItemHtml(feed[0], 'ru');
   assert.ok(!first.includes('v4-tag'));
   assert.ok(first.includes('href="/notes/fresh"'));

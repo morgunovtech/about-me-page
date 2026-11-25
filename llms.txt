@@ -7,7 +7,7 @@
 - Name: Semyon Morgunov (Семён Моргунов)
 - Positioning: builds products in Central Asia's fast-growing markets — assembles product, operations, and unit economics in parallel. Brings products to positive unit economics, not just to launch.
 - Current role: Head of FinTech @ Yandex Uzbekistan, Tashkent, Uzbekistan (since April 2026) — Yandex Split BNPL, FinTech for Yandex Pro, strategic fintech partnerships
-- Past roles: Director of E-commerce / CPO Korzinka Go @ Korzinka (2023–2026, orders ×23 in 3 years (peak 10,000/day), expansion 1 → 9 cities in 10 months, revenue ×2 YoY with positive EBITDA, payments module from scratch with 3 BNPL providers and PCI DSS 4.0, CSAT 4.2 → 4.5); Head of Product @ Yandex Services / Yandex.Uslugi (2022–2023, 30+ products in home services, ~6.5M MAU, GMV ×2.2, EBITDA turned positive); Head of Growth & Monetization @ Skyeng / Skysmart (2017–2022, activated 7M+ users, products that became top-3 acquisition channels with positive unit economics); Certified Sales Trainer @ Apple Russia (2018–2019, contractor)
+- Past roles: Director of E-commerce / CPO Korzinka Go @ Korzinka (2023–2026, orders ×23 in 3 years (peak 10,000/day), expansion 1 → 9 cities in 12 months, revenue ×2 YoY with positive EBITDA, payments module from scratch with 3 BNPL providers and PCI DSS 4.0, CSAT 4.2 → 4.5); Head of Product @ Yandex Services / Yandex.Uslugi (2022–2023, 30+ products in home services, ~6.5M MAU, GMV ×2.2, EBITDA turned positive); Head of Growth & Monetization @ Skyeng / Skysmart (2017–2022, activated 7M+ users, products that became top-3 acquisition channels with positive unit economics); Certified Sales Trainer @ Apple Russia (2018–2019, contractor)
 - Geography: works in Russia and Uzbekistan, consults companies in Kyrgyzstan
 - Skills: FinTech, P&L Management, Product Strategy, E-Commerce, Growth, Monetization, 0→1 Launches
 - Industries: FinTech, e-com, RetailTech, EdTech
@@ -26,20 +26,25 @@
 - [Publications / Публикации](https://s.morgunov.tech/notes) — one feed of own notes (the Telegram channel's writing, platform-independent and citable) and articles and talks published elsewhere (vc.ru, YouTube); English at https://s.morgunov.tech/en/notes
 - RSS feed (own notes only): https://s.morgunov.tech/notes/feed.xml
 - Topics: each has its own page at https://s.morgunov.tech/notes/topics/<topic> (English: /en/notes/topics/<topic>)
-- [How low-cost airlines make money](https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 6,200+ views
-- [How discount grocers make money](https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru, 30,500+ views
+- [How low-cost airlines make money](https://vc.ru/id679509/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 6,200+ views
+- [How discount grocers make money](https://vc.ru/id679509/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru, 30,500+ views
 - [Lessons from 3 years of personal finance management](https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami) — vc.ru, 38,100+ views
 - [Critical review of crowd-investing platform brainbox.vc](https://youtu.be/OJXtFmWNZMM) — YouTube, 3,300+ views
+- [Investable startup or a misunderstanding: a critical review of PlovMe](https://youtu.be/URi59Tq9Zu4) — YouTube, in Russian: a critical look at an Uzbek foodtech startup
+- [How to plan your life years ahead and achieve your goals](https://youtu.be/1aL2xFrcGkU) — YouTube, in Russian: a long-range planning session
 {notes}
 
 ## Talks and press
 
 - [Two years of Korzinka Go: how we emerged, evolved, and ended up in a red ocean](https://youtu.be/BthlUR9eO1M) — talk at Click Data MeetUp / Product Edition (CLICK UZ on YouTube, in Russian), 3,600+ views
-- [INMerge Tashkent 2026](https://www.inmerge.az/inmerge-tashkent-2026) — panel speaker as Head of Fintech, Yandex Uzbekistan (30 April 2026, in English)
+- [INMerge Tashkent 2026](https://www.inmerge.az/inmerge-tashkent-2026) — panel speaker as Head of Fintech, Yandex Uzbekistan, «Building Everyday Ecosystems: Designing Products Around the Customer Journey» (30 April 2026, in English; [Tashkent Times report](https://tashkenttimes.uz/tech/17488-inmerge-innovation-summit-continues-its-roadshow-series-with-inmerge-tashkent))
+- [Spot.uz: Yandex Uzbekistan Big Table — key insights for restaurants, retail and foodtech](https://www.spot.uz/ru/2026/04/29/yandex/) — quoted as head of fintech at Yandex Uzbekistan on instalments, fast delivery and the «Food+» model (29 April 2026, in Russian, advertorial)
 - [Managers Conf, May 2026](https://t.me/raschet7/318) — talk on informal influence in organizations (his channel post about it, in Russian)
 - [Spot.uz: Fuckup Talks, five management mistakes](https://www.spot.uz/ru/2025/12/10/fuckup-talks/) — 10 December 2025, in Russian
 - [Spot.uz: five books for managers](https://www.spot.uz/ru/2026/02/06/semyon-books/) — 6 February 2026, in Russian
 - [Spot.uz: expert comment on Wolt leaving Uzbekistan](https://www.spot.uz/ru/2026/03/02/wolt-opinion/) — 2 March 2026, in Russian
+- [Korzinka: Korzinka Go adopts PCI DSS 4.0 for customer data](https://t.me/korzinkanews/576) — quoted as director of e-commerce (5 March 2025, in Russian)
+- [Korzinka: 5% cashback with TBC Bank in Korzinka Go](https://t.me/korzinkanews/594) — quoted on cashless payments in Uzbekistan (7 May 2025, in Russian)
 - [IT Park: President Tech Award 2024 hackathon results](https://www.it-park.uz/ru/itpark/news/itogi-hakatona-president-tech-award-2024) — one of the 10 hackathon mentors (September 2024), in Russian
 
 ## Products

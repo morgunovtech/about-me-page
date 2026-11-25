@@ -228,8 +228,8 @@
               "en": "Director of e-commerce / CPO Korzinka Go"
             },
             "ctx": {
-              "ru": "Строил продукт, затем отвечал за P&L в крупнейшем e-grocery Узбекистана.\n\n- Заказы в день: ×23 за 3 года, пик — 10 000 (ATH)\n- Расширение: 1 → 9 городов за 10 месяцев\n- Выручка: ×2 год к году при положительной EBITDA\n- CSAT: 4,2 → 4,5",
-              "en": "Built the product, then owned the full P&L at Uzbekistan's largest e-grocery.\n\n- Daily orders: ×23 over 3 years, peaking at 10,000 (ATH)\n- Expansion: 1 → 9 cities in 10 months\n- Revenue: ×2 year-over-year at positive EBITDA\n- CSAT: 4.2 → 4.5"
+              "ru": "Строил продукт, затем отвечал за P&L в крупнейшем e-grocery Узбекистана.\n\n- Заказы в день: ×23 за 3 года, пик — 10 000 (ATH)\n- Расширение: 1 → 9 городов за 12 месяцев\n- Выручка: ×2 год к году при положительной EBITDA\n- CSAT: 4,2 → 4,5",
+              "en": "Built the product, then owned the full P&L at Uzbekistan's largest e-grocery.\n\n- Daily orders: ×23 over 3 years, peaking at 10,000 (ATH)\n- Expansion: 1 → 9 cities in 12 months\n- Revenue: ×2 year-over-year at positive EBITDA\n- CSAT: 4.2 → 4.5"
             }
           },
           {
@@ -2503,6 +2503,15 @@
     },
     "external": [
       {
+        "date": "2026-03-02",
+        "source": "spot.uz",
+        "href": "https://www.spot.uz/ru/2026/03/02/wolt-opinion/",
+        "title": {
+          "ru": "«Это не диагноз рынку Узбекистана»: что думает эксперт об уходе Wolt из страны",
+          "en": "“Not a verdict on Uzbekistan’s market”: an expert on Wolt leaving the country"
+        }
+      },
+      {
         "date": "2026-02-06",
         "source": "spot.uz",
         "href": "https://www.spot.uz/ru/2026/02/06/semyon-books/",
@@ -2535,7 +2544,24 @@
           "en": "Two years of Korzinka Go: how we emerged, evolved, and ended up in a red ocean"
         },
         "views": 3611,
-        "viewsAt": "2026-11-09"
+        "viewsAt": "2026-11-09",
+        "tags": [
+          "career"
+        ]
+      },
+      {
+        "date": "2025-01-28",
+        "source": "YouTube",
+        "href": "https://youtu.be/1aL2xFrcGkU",
+        "title": {
+          "ru": "Как планировать жизнь на годы вперёд и добиваться задуманного",
+          "en": "How to plan your life years ahead and achieve what you set out to do"
+        },
+        "views": 989,
+        "viewsAt": "2026-11-25",
+        "tags": [
+          "productivity"
+        ]
       },
       {
         "date": "2024-02-18",
@@ -2562,7 +2588,7 @@
       {
         "date": "2022-07-08",
         "source": "vc.ru",
-        "href": "https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery",
+        "href": "https://vc.ru/id679509/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery",
         "title": {
           "ru": "На чём зарабатывают продуктовые дискаунтеры",
           "en": "How discount grocers make money"
@@ -2573,7 +2599,7 @@
       {
         "date": "2022-06-19",
         "source": "vc.ru",
-        "href": "https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery",
+        "href": "https://vc.ru/id679509/445698-na-chem-zarabatyvayut-loukostery",
         "title": {
           "ru": "На чём зарабатывают авиакомпании-лоукостеры",
           "en": "How low-cost airlines make money"

@@ -33,6 +33,11 @@ const STALE = [
   // doc in KV (rev 33, read 2026-11-25) links `/collaborate#consulting` and
   // `/en/collaborate#consulting`. One substring swap covers both.
   ['/collaborate#consulting', '/consulting#consulting'],
+  // v2.2.1 — Korzinka Go reached 9 cities in 12 months, not 10 (owner, 2026-11-25;
+  // his LinkedIn says «8 cities in 12 months»). The homepage doc in KV (rev 33,
+  // read 2026-11-25) holds these strings with plain spaces.
+  ['1 → 9 городов за 10 месяцев', '1 → 9 городов за 12 месяцев'],
+  ['1 → 9 cities in 10 months', '1 → 9 cities in 12 months'],
 ];
 
 export function fixStaleContent(node) {

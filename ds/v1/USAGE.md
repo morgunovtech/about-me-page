@@ -142,7 +142,7 @@ look-alikes.
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech / service · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v2.2.0</a></span>
+      <span>morgunov.tech / service · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v2.2.1</a></span>
       <span class="v4-foot-privacy">Без cookies, трекеров и аналитики</span>
     </footer>
   </div>
