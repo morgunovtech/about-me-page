@@ -64,9 +64,16 @@ test('/thanks: the dogs first, then support, the free ways and where to report a
     assert.match(html, /href="https:\/\/www\.instagram\.com\/mehr_shelter\/"/, `${f}: Mehr, payment details on its own page`);
     assert.match(html, /href="https:\/\/t\.me\/raschet7\/151"/, `${f}: Sobaken`);
     assert.match(html, /href="https:\/\/github\.com\/sponsors\/morgunovtech"/, f);
-    assert.match(html, /href="https:\/\/web\.tribute\.tg\/d\/fqH"/, f);
     assert.match(html, /href="https:\/\/t\.me\/boost\/raschet7"/, f);
-    assert.match(html, new RegExp(`href="${lang === 'en' ? '/en' : ''}/uses"`), `${f}: the referral links are on the uses page`);
+    // Tribute and the referral links go to /uses when it comes back (owner): not here.
+    assert.doesNotMatch(html, /tribute\.tg|href="(\/en)?\/uses"/, f);
+    // Mehr: straight to the payment details, not through the channel.
+    assert.doesNotMatch(html, /t\.me\/raschet7\/152/, f);
+    // «Бесплатно»: one action a line, the channel first.
+    const free = /<section id="free"[\s\S]*?<\/section>/.exec(html)[0];
+    const items = [...free.matchAll(/<li>/g)].length;
+    assert.equal(items, 6, `${f}: six free ways`);
+    assert.match(free, /<ul class="v4-list v4-list--spaced"><li>(Подписаться на|Subscribe to my) <a href="https:\/\/t\.me\/raschet7"/, f);
     assert.doesNotMatch(html, /\b\d{4}[ -]?\d{4}[ -]?\d{4}[ -]?\d{4}\b/, `${f}: no card numbers`);
     assert.equal((html.match(/class="v4-btn/g) || []).length, 1, `${f}: one button — Telegram, for mistakes`);
     assert.match(html, new RegExp(`<link rel="canonical" href="https://s\\.morgunov\\.tech${lang === 'en' ? '/en' : ''}/thanks" />`), f);
