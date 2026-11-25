@@ -173,3 +173,20 @@ test('the one exception — an ad blocker without an audit — is marked, last, 
   assert.ok(audited.includes('modDNS'));
   assert.doesNotMatch(JSON.stringify(doc), /dns\.mullvad\.net/);
 });
+
+test('/privacy has its own share card: the family template, 1200×630, per language', () => {
+  for (const lang of LANGS) {
+    const path = `/images/og-card-privacy-${lang}.png`;
+    assert.equal(doc.share.image[lang], path);
+    // A PNG's IHDR holds the size: the card is the Open Graph 1200×630.
+    const png = readFileSync(new URL('..' + path, import.meta.url));
+    assert.equal(png.subarray(1, 4).toString('latin1'), 'PNG');
+    assert.deepEqual([png.readUInt32BE(16), png.readUInt32BE(20)], [1200, 630], path);
+    const page = read(lang === 'en' ? 'en/privacy.html' : 'privacy.html');
+    for (const tag of ['property="og:image"', 'name="twitter:image"']) {
+      assert.ok(page.includes(`<meta ${tag} data-cms-abs="share.image" content="https://s.morgunov.tech${path}" />`), `${lang}: ${tag}`);
+    }
+  }
+  // The site's own cards stay on the other pages.
+  assert.equal(seed.home.share.image.ru, '/images/og-card-ru.png');
+});
