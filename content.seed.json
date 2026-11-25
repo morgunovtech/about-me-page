@@ -1546,8 +1546,8 @@
         "en": "My tools show what websites see about you and what your photos give away. The essential kit: open-source apps with an independent security audit, with links to the reports."
       },
       "image": {
-        "ru": "/images/og-card-ru.png",
-        "en": "/images/og-card-en.png"
+        "ru": "/images/og-card-privacy-ru.png",
+        "en": "/images/og-card-privacy-en.png"
       },
       "imageAlt": {
         "ru": "Приватность — Семён Моргунов",
