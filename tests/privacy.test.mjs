@@ -237,10 +237,11 @@ test('«Статьи»: the notes the doc names, in its order; English only once
   assert.doesNotMatch(renderers.privacyArticles(d, 'ru'), /v4-feed/);
 });
 
-test('v2.2.3: a home doc saved before the /privacy link moved into the renderer gets the link from the seed', () => {
-  // The live home doc (KV rev 33) has products.items and .more, no .privacy.
+test('fillFromSeed: a field the renderer starts reading is filled from the seed, only when missing (v2.2.3; the table is empty since v4.0.1)', () => {
+  // v2.2.3's entry, kept here as the example: the home doc of KV rev 33 had products.items and .more, no .privacy.
+  const TABLE = { home: ['sections.products.privacy'] };
   const kv = { page: 'home', sections: { products: { items: clone(seed.home.sections.products.items), more: { label: { ru: 'Все проекты на GitHub', en: 'All projects on GitHub' }, href: 'https://github.com/morgunovtech' } } } };
-  fillFromSeed(kv, 'home', seed);
+  fillFromSeed(kv, 'home', seed, TABLE);
   assert.deepEqual(kv.sections.products.privacy, seed.home.sections.products.privacy);
   assert.notEqual(kv.sections.products.privacy, seed.home.sections.products.privacy, 'a copy, not the seed object');
   // The rendered page has the link above the privacy tools again.
@@ -248,9 +249,12 @@ test('v2.2.3: a home doc saved before the /privacy link moved into the renderer 
   assert.match(html, /<div class="v4-more"><a href="\/privacy">/);
   // What the owner saved wins; other pages and the seed itself are left alone.
   const own = { sections: { products: { items: [], privacy: { label: { ru: 'Своё', en: 'Own' }, href: { ru: '/privacy', en: '/en/privacy' } } } } };
-  assert.equal(fillFromSeed(own, 'home', seed).sections.products.privacy.label.ru, 'Своё');
-  assert.equal(fillFromSeed(seed.home, 'home', seed), seed.home);
-  assert.deepEqual(Object.keys(SEED_FILL), ['home']);
-  assert.equal(fillFromSeed(null, 'home', seed), null);
+  assert.equal(fillFromSeed(own, 'home', seed, TABLE).sections.products.privacy.label.ru, 'Своё');
+  assert.equal(fillFromSeed(seed.home, 'home', seed, TABLE), seed.home);
+  assert.equal(fillFromSeed(null, 'home', seed, TABLE), null);
+  // The rev 34 Save (2026-11-25) stored the link: nothing is filled any more.
+  assert.deepEqual(SEED_FILL, {});
+  const bare = { sections: { products: { items: [] } } };
+  assert.equal(fillFromSeed(bare, 'home', seed).sections.products.privacy, undefined);
   assert.match(read('functions/_lib/content.js'), /fixStaleContent\(fillFromSeed\(await loadDocRaw\(env, page\), page, seed\)\)/);
 });
