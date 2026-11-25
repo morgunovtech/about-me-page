@@ -6,7 +6,7 @@ Personal homepage for Semyon Morgunov, deployed on Cloudflare Pages.
 
 - **Pure static HTML/CSS/JS** — no framework, no build step, no npm
 - **CSS Custom Properties** for theming (4 themes: light, dark, auto, high-contrast)
-- **Vanilla JS** wrapped in an IIFE, ~290 lines: theme, one generic dropdown controller (mobile nav / language / theme), anchor smooth-scroll, the 404 page's client-side EN copy. No scroll listener: the side column, «↑» and the progress bar are gone (v0.31.1–v0.31.2)
+- **Vanilla JS** wrapped in an IIFE, ~320 lines: theme, one generic dropdown controller (mobile nav / language / theme), anchor smooth-scroll, the 404 page's client-side EN copy. No scroll listener: the side column, «↑» and the progress bar are gone (v0.31.1–v0.31.2)
 - **Cloudflare Pages** for hosting with `_headers` and `_redirects` config files
 
 ## File Structure
@@ -68,7 +68,7 @@ about-me-page/
 3. No build command — files are served as-is
 4. `_headers` and `_redirects` are processed by Cloudflare automatically
 
-There is no build step and no deploy pipeline of our own — Cloudflare Pages deploys on push. GitHub Actions only check, never deploy: `ci.yml` runs on every PR and on every push to `main` (`scripts/check.sh`, the Functions build, gitleaks over the whole history) and auto-merges Dependabot minor/patch bumps once CI passes.
+There is no build step and no deploy pipeline of our own — Cloudflare Pages deploys on push. GitHub Actions only check, never deploy: `ci.yml` runs on every PR and on every push to `main` (`scripts/check.sh`, the Functions build, gitleaks over the whole history); a separate workflow, `dependabot-automerge.yml`, auto-merges Dependabot minor/patch bumps once CI passes.
 
 ### Release flow
 
