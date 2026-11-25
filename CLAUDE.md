@@ -46,7 +46,7 @@ about-me-page/
     ├── favicon.svg                # SVG favicon with initials "SM" (light scheme; also in site.webmanifest)
     ├── favicon-dark.svg           # Favicon for prefers-color-scheme: dark
     ├── icon-192.png, icon-512.png # PWA icons from site.webmanifest
-    ├── og-card-ru.png, og-card-en.png  # Share cards (og:image / twitter:image), per language
+    ├── og-card-ru.png, og-card-en.png  # Share cards (og:image / twitter:image), per language — renders of the design system's share-card template (cards site-ru, site-en), never drawn by hand
     └── uses/                      # /uses hardware photos, one webp per card (14)
 ```
 
@@ -194,6 +194,7 @@ together with check-sync before committing anything that touches CSS.
 
 - **Canonical URL:** `https://s.morgunov.tech/` — use this domain consistently everywhere. The apex `morgunov.tech` and `www.morgunov.tech` 301 to it through a Cloudflare Redirect Rule in the zone (outside the repo); the Pages project's technical host `about-me-page-cr2.pages.dev` and its previews get `X-Robots-Tag: noindex` — from `_headers` for static files, from `noindexOnTechnicalHost()` (`_lib/http.js`, applied in `_middleware.js`) for everything Functions build
 - OG/Twitter images and JSON-LD images must use **absolute URLs**
+- **Share cards are renders of one template.** `images/og-card-{ru,en}.png` come from the design system's `templates/share-card` (cards `site-ru`, `site-en`; rules in its `guidelines/IMAGERY.md`), like the cards of every family service — a link to any morgunov.tech page looks the same in a feed. To change a card: edit its text in the template's `cards.js`, render there, copy the PNG here. The file keeps its name (KV docs point at it), so Telegram and LinkedIn show the new picture only after their own cache is refreshed (@WebpageBot, Post Inspector)
 - `<meta name="theme-color">` set for both light and dark schemes
 - JSON-LD Person schema: keep `description`, `knowsAbout`, `worksFor`, `sameAs` and `email` in sync
 - `sitemap.xml` `lastmod` should be updated when content changes significantly
