@@ -30,9 +30,10 @@ export function resolvePath(doc, path) {
 export function fmtDate(date, lang) {
   if (!date) return '';
   try {
-    return new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : 'ru-RU', {
+    const text = new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : 'ru-RU', {
       day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
-    }).format(new Date(date)).replace(/\s*г\.$/, '');
+    }).format(new Date(date));
+    return text.endsWith('г.') ? text.slice(0, -2).trimEnd() : text;
   } catch {
     return date;
   }

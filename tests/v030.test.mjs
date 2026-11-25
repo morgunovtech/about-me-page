@@ -232,6 +232,20 @@ test('typo: an inline tag does not hide a rule from its neighbours; a block does
   assert.equal(typo("<a title='a > и в'>и в</a>", 'ru'), `<a title='a > и в'>и${NB}в</a>`);
 });
 
+test('typoText / typo: a long run of spaces costs milliseconds (no rule is retried from every space)', () => {
+  // A regular expression that starts or ends with «one or more spaces» is tried again from each
+  // space of a run: quadratic. The separator and arrow rules scan back from the mark instead,
+  // and the trailing run of a text node is counted from its end.
+  const run = ' '.repeat(200000);
+  const started = Date.now();
+  assert.equal(typoText(run, 'ru'), run);
+  assert.equal(typoText(`a${run}— b`, 'ru'), `a${NB}— b`);
+  assert.equal(typoText(`a${run}→`, 'ru'), `a${NB}→`);
+  assert.equal(typo(`<p>в${run}</p>`, 'ru'), `<p>в${run}</p>`);
+  assert.equal(typo(`<p>слово${run}<b>— и</b></p>`, 'ru'), `<p>слово${NB}<b>— и</b></p>`);
+  assert.ok(Date.now() - started < 2000, `took ${Date.now() - started} ms`);
+});
+
 test('typoText: English has no preposition rule; a second pass changes nothing; no text — an empty string', () => {
   assert.equal(typoText('in a house, at a table', 'en'), 'in a house, at a table');
   // Russian words on an English page (a quoted title) are not typeset as Russian.

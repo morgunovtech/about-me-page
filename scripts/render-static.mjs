@@ -152,7 +152,13 @@ function processLeaves(html, doc, lang) {
       if (cur && unent(cur[2]) === want) continue;
       drift.push(m[1]);
       const written = ent(escapeAttr(want));
-      t = cur ? t.replace(re, (all, a, b, c) => a + written + c) : t.replace(/\s*\/?>$/, (close) => ` ${attr}="${written}"${close}`);
+      if (cur) {
+        t = t.replace(re, (all, a, b, c) => a + written + c);
+      } else {
+        // Before the tag's own close («>» or «/>»), whatever white space stands there.
+        const close = t.endsWith('/>') ? '/>' : '>';
+        t = `${t.slice(0, -close.length).trimEnd()} ${attr}="${written}"${close.length === 2 ? ' ' : ''}${close}`;
+      }
     }
     return t;
   });

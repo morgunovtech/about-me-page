@@ -43,15 +43,37 @@ const NOT_COUNTED = new Set(
   ('в во к ко с со у о об и а я не ни на но по за из до от или для при под над без что как то же ли бы '
     + 'a an and as at by for from in is it of on or the to was were with we i he she they but are').split(' ')
 );
+// The spaces before a mark become one no-break space. A scan from the mark
+// back, not a regular expression: one that starts with «one or more spaces»
+// is tried again from every space of a long run.
+const isBlank = (ch) => ch === ' ' || ch === '\t';
+function tieToPrevious(s, isMark) {
+  let out = '';
+  let from = 0;
+  for (let i = 0; i < s.length; i++) {
+    if (!isMark(s, i)) continue;
+    let j = i;
+    while (j > from && isBlank(s[j - 1])) j--;
+    if (j === i) continue;
+    out += s.slice(from, j) + NBSP;
+    from = i;
+  }
+  return out + s.slice(from);
+}
+// «·» or «—» standing as a separator: a space, a no-break space or the end after it.
+const isSeparator = (s, i) =>
+  (s[i] === '·' || s[i] === '—') && (i + 1 === s.length || isBlank(s[i + 1]) || s[i + 1] === NBSP);
+const isArrow = (s, i) => s[i] === '→';
+
 export function typoText(s, lang) {
   let out = String(s == null ? '' : s)
-    .replace(/(^|[^\p{L}\p{N}\u2011-])(\p{L})-(?=\p{L})/gu, '$1$2' + NBHY)
-    .replace(/[ \t]+([·—])(?=[ \t\u00a0]|$)/g, NBSP + '$1')
+    .replace(/(^|[^\p{L}\p{N}\u2011-])(\p{L})-(?=\p{L})/gu, '$1$2' + NBHY);
+  out = tieToPrevious(out, isSeparator)
     .replace(/(\d)[ \t]+(?=\d{3}(?!\d))/g, '$1' + NBSP)
     .replace(NUM_WORD, (m, pre, num, word) => (NOT_COUNTED.has(word.toLowerCase()) ? m : pre + num + NBSP))
     .replace(/(\d)–(?=\d)/g, '$1–' + WJ)
-    .replace(/[ \t]+(?=→)/g, NBSP)
     .replace(/←[ \t]+(?=\S)/g, '←' + NBSP);
+  out = tieToPrevious(out, isArrow);
   if (lang !== 'en') {
     // Twice: «и в этом» — the second short word starts where the first match ended.
     out = out.replace(RU_SHORT, '$1$2' + NBSP).replace(RU_SHORT, '$1$2' + NBSP);
@@ -119,7 +141,11 @@ export function typo(html, lang) {
       const neighbours = (prev.opens || prev.closes) && (next.opens || next.closes);
       return ties(prev.text, next.text, neighbours) ? NBSP : text;
     }
-    const tail = /[ \t]+$/.exec(text);
+    // Where the trailing run of spaces starts (counted back from the end: a
+    // regular expression for it is tried from every space of the text).
+    let end = text.length;
+    while (end > 0 && isBlank(text[end - 1])) end--;
+    const tail = end < text.length ? { index: end } : null;
     if (tail && tail.index > 0) {
       const next = across(i, 1);
       if (ties(text.slice(0, tail.index), next.text, next.opens && next.closes)) text = text.slice(0, tail.index) + NBSP;

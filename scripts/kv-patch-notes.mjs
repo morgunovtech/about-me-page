@@ -30,6 +30,10 @@ const HISTORY_MAX = 20; // as in functions/admin/api/save.js
 const FIELD = /^(title|excerpt|body)\.(ru|en)$/;
 const COPIES = { title: [['meta', 'title'], ['share', 'title']], excerpt: [['meta', 'description'], ['share', 'description']] };
 
+// npx by its full path — the one that ships with the Node running this script —
+// not whatever a PATH entry happens to resolve first.
+const NPX = join(dirname(process.execPath), process.platform === 'win32' ? 'npx.cmd' : 'npx');
+
 const count = (text, part) => (part ? String(text).split(part).length - 1 : 0);
 
 // Pure: the corrected doc and what happened to each entry. No I/O — tests call it.
@@ -89,7 +93,7 @@ function main() {
   const patch = JSON.parse(readFileSync(resolve(process.cwd(), file), 'utf8')).notes || {};
 
   const wrangler = (...a) =>
-    execFileSync('npx', ['wrangler', 'kv', 'key', ...a, '--binding', 'CONTENT', '--remote'], {
+    execFileSync(NPX, ['wrangler', 'kv', 'key', ...a, '--binding', 'CONTENT', '--remote'], {
       cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], maxBuffer: 64 * 1024 * 1024,
     });
   const kvGet = (key) => {
