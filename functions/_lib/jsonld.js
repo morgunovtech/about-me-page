@@ -154,6 +154,7 @@ export function renderArticleJsonLd(doc, lang) {
         mainEntityOfPage: url,
         datePublished: doc.date,
         dateModified: doc.dateModified || doc.date,
+        ...(doc._keywords && doc._keywords.length ? { keywords: doc._keywords.join(', ') } : {}),
         image: /^https?:/i.test(image) ? image : ORIGIN + image,
         author: { '@id': ORIGIN + '/#person' },
         publisher: { '@id': ORIGIN + '/#person' },

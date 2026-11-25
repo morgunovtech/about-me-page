@@ -1483,6 +1483,18 @@
     tools.append(row);
     box.append(tools);
     box.append(articleStatusField());
+    // Topics: keys from the notes doc (`topics`), comma-separated — privacy,
+    // management… The server keeps lowercase slugs only (cleanTags).
+    const twrap = el('div', 'f-field');
+    twrap.append(Object.assign(el('div', 'f-label'), { textContent: 'Темы (ключи через запятую)' }));
+    const tin = el('input', 'f-input'); tin.type = 'text';
+    tin.value = (Array.isArray(doc.tags) ? doc.tags : []).join(', ');
+    tin.addEventListener('input', () => {
+      doc.tags = tin.value.split(',').map((x) => x.trim().toLowerCase()).filter(Boolean);
+      markDirty();
+    });
+    twrap.append(tin);
+    box.append(twrap);
     const dwrap = el('div', 'f-field');
     dwrap.append(Object.assign(el('div', 'f-label'), { textContent: 'Дата (YYYY-MM-DD)' }));
     dwrap.append(scalarInput(doc, 'date'));

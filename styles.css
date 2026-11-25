@@ -926,6 +926,8 @@
 
 /* Links in the article surfaces use the site's prose link idiom. */
 .v4-article-eyebrow a,
+.v4-article-byline a,
+.v4-notes-topics a,
 .v4-article-body a {
   color: inherit;
   text-decoration: underline;
@@ -937,6 +939,10 @@
 
 .v4-article-eyebrow a:hover,
 .v4-article-eyebrow a:focus-visible,
+.v4-article-byline a:hover,
+.v4-article-byline a:focus-visible,
+.v4-notes-topics a:hover,
+.v4-notes-topics a:focus-visible,
 .v4-article-body a:hover,
 .v4-article-body a:focus-visible {
   color: var(--v4-orange-text);
@@ -956,6 +962,22 @@
   font-size: 12px;
   color: var(--v4-dim);
   margin: 0 0 28px;
+}
+
+/* Topics above the /notes feed: navigation, so sans caps like the bar; the page
+   you are on is plain text (aria-current), the others are links. */
+.v4-notes-topics {
+  font-size: var(--v4-label-size);
+  font-weight: var(--v4-label-weight);
+  text-transform: uppercase;
+  letter-spacing: var(--v4-label-tracking);
+  color: var(--v4-muted);
+  margin: 0 0 24px;
+  line-height: 2;
+}
+
+.v4-notes-topics [aria-current="page"] {
+  color: var(--v4-fg);
 }
 
 .v4-article-cover {

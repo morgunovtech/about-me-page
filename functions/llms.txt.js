@@ -4,6 +4,8 @@
 // disagree with the page.
 import { loadDoc, loadSubscribers } from './_lib/content.js';
 import { counters } from './_lib/render.js';
+import { loadArticleIndex, publishedSorted } from './_lib/articles.js';
+import { notesList } from './_lib/notes-feed.js';
 import { cached } from './_lib/cache.js';
 
 export async function onRequest(ctx) {
@@ -15,12 +17,15 @@ export async function onRequest(ctx) {
 }
 
 async function render(env, request) {
-  const [asset, doc, subs] = await Promise.all([
+  const [asset, doc, subs, index, notesDoc] = await Promise.all([
     env.ASSETS.fetch(new URL('/llms.txt', request.url)),
     loadDoc(env, 'home'),
     loadSubscribers(env),
+    loadArticleIndex(env),
+    loadDoc(env, 'notes'),
   ]);
   let text = await asset.text();
+  text = text.replace('{notes}\n', notesList(publishedSorted(index), notesDoc));
   if (doc) {
     if (subs) doc._live = { subscribers: subs };
     const c = counters(doc, 'en');

@@ -25,10 +25,12 @@
 
 - [Publications / Публикации](https://s.morgunov.tech/notes) — one feed of own notes (the Telegram channel's writing, platform-independent and citable) and articles and talks published elsewhere (vc.ru, YouTube); English at https://s.morgunov.tech/en/notes
 - RSS feed (own notes only): https://s.morgunov.tech/notes/feed.xml
+- Topics: each has its own page at https://s.morgunov.tech/notes/topics/<topic> (English: /en/notes/topics/<topic>)
 - [How low-cost airlines make money](https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 6,200+ views
 - [How discount grocers make money](https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru, 30,500+ views
 - [Lessons from 3 years of personal finance management](https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami) — vc.ru, 38,100+ views
 - [Critical review of crowd-investing platform brainbox.vc](https://youtu.be/OJXtFmWNZMM) — YouTube, 3,300+ views
+{notes}
 
 ## Talks and press
 

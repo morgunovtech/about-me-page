@@ -7,6 +7,8 @@ import { renderArticleJsonLd } from './jsonld.js';
 import { overlay } from './overlay.js';
 import { articleShell } from './article-template.js';
 import { loadArticle } from './articles.js';
+import { loadDoc } from './content.js';
+import { topicsOf, topicUrl, pickL } from './notes-feed.js';
 import { ORIGIN, NAME, buildOf } from './site.js';
 
 function dateDisplay(date, lang) {
@@ -49,7 +51,7 @@ export async function notFound(env, request) {
 // opts: { doc?, preview? }. Returns a Response, or null when the article is
 // missing / unpublished / not available in the requested language.
 export async function renderArticlePage(env, slug, lang, request, opts = {}) {
-  const doc = opts.doc || (await loadArticle(env, slug));
+  const [doc, notesDoc] = await Promise.all([opts.doc || loadArticle(env, slug), loadDoc(env, 'notes')]);
   if (!doc) return null;
   if (doc.status !== 'published' && !opts.preview) return null;
 
@@ -70,6 +72,14 @@ export async function renderArticlePage(env, slug, lang, request, opts = {}) {
   // <time> needs a machine-readable datetime next to the localized text.
   doc._dateHtml = doc.date
     ? `<time datetime="${escapeAttr(doc.date)}">${escapeHtml(doc._dateDisplay)}</time>`
+    : '';
+  // The note's topics after the date, each a link to its page; their names are
+  // the JSON-LD keywords. A tag the notes doc does not name is skipped.
+  const known = new Map(topicsOf(notesDoc).map((t) => [t.key, pickL(t.name, lang)]));
+  const topics = (Array.isArray(doc.tags) ? doc.tags : []).filter((k) => known.has(k));
+  doc._keywords = topics.map((k) => known.get(k));
+  doc._topicsHtml = topics.length
+    ? ' · ' + topics.map((k) => `<a href="${escapeAttr(topicUrl(k, lang))}">${escapeHtml(known.get(k))}</a>`).join(', ')
     : '';
 
   const coverSrc = pick(doc.cover && doc.cover.src, lang);

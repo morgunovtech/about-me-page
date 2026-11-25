@@ -30,8 +30,10 @@ export const PAGE_PATHS = {
 };
 // The homepage shows the three newest feed entries and /privacy lists some notes
 // by slug («Статьи»), so a notes change purges them too.
-export const NOTES_PATHS = ['/notes', '/en/notes', '/', '/en/', '/privacy', '/en/privacy', '/sitemap.xml', '/notes/feed.xml', '/en/notes/feed.xml'];
+export const NOTES_PATHS = ['/notes', '/en/notes', '/', '/en/', '/privacy', '/en/privacy', '/llms.txt', '/sitemap.xml', '/notes/feed.xml', '/en/notes/feed.xml'];
 export const articlePaths = (slug) => ['/notes/' + slug, '/en/notes/' + slug, ...NOTES_PATHS];
+// The pages of a note's topics (/notes/topics/<key>, both languages) — purged with the note.
+export const topicPaths = (tags) => (tags || []).flatMap((k) => ['/notes/topics/' + k, '/en/notes/topics/' + k]);
 
 const edge = () => {
   try {

@@ -71,7 +71,7 @@ test('notes block: up to three rows, own notes stay on site, external ones open 
   assert.match(ext, /target="_blank" rel="noopener noreferrer">2 года Korzinka Go[^<]*<span aria-hidden="true">&nbsp;↗<\/span><span class="sr-only"> \(откроется в новой вкладке\)<\/span>/);
   // The source is the platform, derived from the address: it cannot be mistyped.
   assert.match(ext, /<span class="v4-feed-meta"><time datetime="2025-06-26">06\.2025<\/time> · YouTube<\/span>/);
-  assert.match(ext, /<time datetime="2022-08-08">08\.2022<\/time> · vc\.ru<\/span>/);
+  assert.match(ext, /<time datetime="2026-02-06">02\.2026<\/time> · spot\.uz<\/span>/);
   // EN: untranslated notes drop out; the CTA points at /en/notes.
   doc._feed = buildFeed(notes(2).reverse(), seed.notes, 'en').slice(0, 3);
   const en = renderers.notesFeed(doc, 'en', false);

@@ -10,6 +10,7 @@
 // block below is only the above-the-fold subset, guarded by check-critical.
 
 import { ORIGIN, NAME, VERSION, CHANGELOG_URL } from './site.js';
+import { escapeHtml } from './markdown.js';
 
 const CRITICAL_CSS = `
     :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:12px;--v4-label-tracking:.1em;--v4-label-xs-size:12px;--v4-label-xs-tracking:.1em;--v4-label-weight:500;color-scheme:light dark}
@@ -65,7 +66,7 @@ const T = {
   },
 };
 
-const STYLES_VER = 'v=a29d9630';
+const STYLES_VER = 'v=ecb99753';
 const SCRIPT_VER = 'v=de52523a';
 const FONTS_VER = 'v=64eea157';
 const TOKENS_VER = 'v=5629caeb';
@@ -236,7 +237,7 @@ ${barChrome(l, { ru: '/notes', en: '/en/notes', ruAttrs: ' data-cms-href="_urlRu
         <header>
           <p class="v4-article-eyebrow"><a href="${notesHref}">${t.notes}</a></p>
           <h1 class="v4-article-title" data-cms-text="title"></h1>
-          <p class="v4-article-byline">${NAME[l]} · <span data-cms-html="_dateHtml"></span></p>
+          <p class="v4-article-byline">${NAME[l]} · <span data-cms-html="_dateHtml"></span><span data-cms-html="_topicsHtml"></span></p>
           <figure class="v4-article-cover" data-cms-html="_coverHtml"></figure>
         </header>
         <div class="v4-article-body" data-cms-html="body"></div>
@@ -255,12 +256,16 @@ ${tailChrome(l, '<script type="application/ld+json" data-cms-jsonld></script>')}
 // The /notes feed/index page. Server-built (no KV overlay): listHtml and jsonLd
 // are assembled by render-notes.js. Same chrome as articleShell.
 // `intro` arrives HTML-escaped (it is content); `channel` is the rendered
-// Telegram block that sits between the intro and the feed.
-export function notesIndexHtml(lang, listHtml, jsonLd, build, { intro, channel = '' } = {}) {
+// Telegram block that sits between the intro and the feed; `topics` the topic
+// line. A topic page passes its `heading` and RU `path` (/notes/topics/<key>);
+// `hasEn: false` drops the English alternate when the topic has nothing in English.
+export function notesIndexHtml(lang, listHtml, jsonLd, build, { intro, channel = '', topics = '', heading, path = '/notes', hasEn = true } = {}) {
   const l = L(lang);
   const t = T[l];
-  const self = ORIGIN + p(l, '/notes');
-  const title = `${t.notes} — ${NAME[l]}`;
+  const self = ORIGIN + p(l, path);
+  const h1 = heading ? escapeHtml(heading) : t.notes;
+  const title = path === '/notes' ? `${t.notes} — ${NAME[l]}` : `${h1} — ${t.notes} — ${NAME[l]}`;
+  const enPath = hasEn ? '/en' + path : '/en/notes';
   return `<!DOCTYPE html>
 <html lang="${l}">
 <head>
@@ -269,9 +274,8 @@ export function notesIndexHtml(lang, listHtml, jsonLd, build, { intro, channel =
   <title>${title}</title>
   <meta name="description" content="${intro}" />
   <link rel="canonical" href="${self}" />
-  <link rel="alternate" hreflang="ru" href="${ORIGIN}/notes" />
-  <link rel="alternate" hreflang="en" href="${ORIGIN}/en/notes" />
-  <link rel="alternate" hreflang="x-default" href="${ORIGIN}/notes" />
+  <link rel="alternate" hreflang="ru" href="${ORIGIN}${path}" />
+${hasEn ? `  <link rel="alternate" hreflang="en" href="${ORIGIN}/en${path}" />\n` : ''}  <link rel="alternate" hreflang="x-default" href="${ORIGIN}${path}" />
   <link rel="alternate" type="application/rss+xml" title="${t.feed}" href="${p(l, '/notes')}/feed.xml" />
 ${shareChrome(l, { title, description: intro, url: self })}
 ${headChrome(l)}
@@ -279,11 +283,12 @@ ${headChrome(l)}
 <body class="v4-page no-transition" data-lang="${l}">
   <a href="#main" class="skip-link">${t.skip}</a>
   <div class="v4-root">
-${barChrome(l, { ru: '/notes', en: '/en/notes' })}
+${barChrome(l, { ru: path, en: enPath })}
     <main id="main">
       <div class="v4-article">
-        <h1 class="v4-notes-title">${t.notes}</h1>
+        <h1 class="v4-notes-title">${h1}</h1>
         <p class="v4-notes-intro">${intro}</p>
+        ${topics}
         ${channel}
         ${listHtml}
       </div>
