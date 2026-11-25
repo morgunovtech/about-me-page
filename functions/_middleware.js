@@ -29,7 +29,8 @@ const ROUTES = {
 
 // The deploy output IS the repo root, so tracked internal files ship as
 // static assets. None of them belong on the public origin. Entries ending
-// with '/' block the whole prefix.
+// with '/' block the whole prefix. LICENSE, NOTICE and fonts/OFL.txt are
+// served on purpose (_headers types them text/plain).
 const BLOCKED = [
   '/content.seed.json', // internal render fallback, not a public endpoint
   '/CLAUDE.md',
@@ -37,6 +38,7 @@ const BLOCKED = [
   '/README.md',
   '/wrangler.toml',
   '/.gitignore',
+  '/.github/', // CI workflows, Dependabot config
   '/scripts/',
   '/tests/',
 ];
