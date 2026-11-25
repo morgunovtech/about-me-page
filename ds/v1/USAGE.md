@@ -11,7 +11,7 @@ License: the layer is MIT (© Semyon Morgunov, [LICENSE](../../LICENSE) in the r
 | File | What it gives you | Reusable? |
 |------|-------------------|-----------|
 | `tokens.css` | colour + type tokens (`--v4-*`) for 4 themes | **the brand source of truth** |
-| `fonts.css` | `@font-face` for IBM Plex Sans + Mono | yes |
+| `fonts.css` | `@font-face` for IBM Plex Sans (400/500/600, italic 400/600) + Mono (400/500) | yes |
 | `base.css` | reset, body/type defaults, `.sr-only`, `.skip-link` | yes |
 | `components.css` | top bar, service mark, language switch, theme switcher, buttons (`.v4-btn`), section heads, lists, prose, footer, focus ring, `.v4-root` shell | yes |
 | `chrome.js` | the behaviour of the bar: theme, the dropdown controller, anchor navigation | yes — required with the service chrome |
@@ -42,15 +42,15 @@ Paste into any service's `<head>`. Load order matters:
 
 ```html
 <!-- morgunov.tech design system v1 — non-blocking preload-swap -->
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/fonts.css?v=499be680" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/tokens.css?v=50fa198d" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/base.css?v=03b78c6e" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=8a12b6d5" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=639adaab" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript>
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/fonts.css?v=499be680" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/tokens.css?v=50fa198d" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/base.css?v=03b78c6e" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=8a12b6d5" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=639adaab" />
 </noscript>
 ```
 
@@ -143,7 +143,7 @@ look-alikes.
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech / service&nbsp;· 2026&nbsp;· <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.1.0</a></span>
+      <span>morgunov.tech / service&nbsp;· 2026&nbsp;· <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.1.1</a></span>
       <span class="v4-foot-privacy">Без cookies, трекеров и аналитики</span>
     </footer>
   </div>
@@ -236,7 +236,9 @@ a service keeps to them by reading this list.
    mono is the label column of a table (a period, a year, a date) and inline code — never caps,
    never a link, and not a number inside a line of text (a version, a count and the build mark
    are set in the line's own face); weight says the role (600 a title, 500 something to press,
-   400 text); no italics. Two caption styles side by side — sans caps and
+   400 text); no italics in the chrome — the italic faces of `fonts.css` (400 and 600) are for
+   an author's emphasis in long reading, an `<em>` in a note, and a browser fetches one only
+   where it is used. Two caption styles side by side — sans caps and
    mono caps — and six sizes for one kind of text read as noise, however each was justified.
 
 ## Type, space and button states
@@ -315,6 +317,15 @@ it weekly and opens a PR when anything changed, so a change here reaches
 every copy as a reviewable PR within a week (or at once: run the workflow by
 hand). The hash algorithm is therefore part of this layer's contract: keep
 `?v=` at `sha1[:8]`.
+
+A copy of `fonts.css` goes with every font file it names. The manifest lists
+files one by one, so a face added here does not reach a copy by itself: since
+v4.1.1 `fonts.css` names four more files — the italics,
+`fonts/plex-sans-{latin,cyr}-{400,600}-italic.woff2` — and a copy that syncs
+`fonts.css` adds them to its `ds.json` in the same PR. A browser asks for a
+face only where a text is set in it, so a service with no italics shows no
+difference; one that sets an `<em>` without the file gets the system font
+there.
 
 The consumers that link this origin directly (Fingerprint) pin the
 same `?v=` values in their HTML; the origin ignores the query and serves the
