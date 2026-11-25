@@ -2250,7 +2250,12 @@
           "ru": "Мои посты о приватности из Telegram-канала — целиком и в одном месте.",
           "en": "My Telegram channel posts on privacy — in full and in one place."
         },
-        "items": [],
+        "items": [
+          "email-security",
+          "yubikey",
+          "self-hosted-vpn",
+          "privacy-myths"
+        ],
         "more": {
           "label": {
             "ru": "Все публикации",

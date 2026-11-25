@@ -7,7 +7,7 @@ export const NAME = { ru: 'Семён Моргунов', en: 'Semyon Morgunov' }
 
 // Short SHA of the deployed commit, stamped by scripts/version-stamp.py and
 // resolved into the `{build}` placeholder of CMS prose (see overlay.js).
-export const BUILD = 'cbd59e5';
+export const BUILD = '07811f1';
 
 // The release, as the top entry of CHANGELOG.md names it; stamped by
 // scripts/version-stamp.py. The footer shows it as the build mark, a link to
