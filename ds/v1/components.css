@@ -65,6 +65,135 @@
   text-underline-offset: 4px;
 }
 
+/* The current page in the site menu (v3.0.0): the link of the page, or the
+   «Work with me» group when the page is one of its items, keeps the hover
+   look — full colour, the orange underline. One sign for one state. */
+.v4-bar-mid a[aria-current="page"],
+.v4-nav-group.is-current > .v4-nav-group-btn {
+  color: var(--v4-fg);
+  text-decoration: underline;
+  text-decoration-color: var(--v4-orange);
+  text-underline-offset: 4px;
+}
+
+/* A group of the site menu: a toggle that reads as a menu link, and a .v4-menu
+   panel under it — the dropdown the language and theme menus use. On the
+   phone the group's items sit in the menu panel under a caption instead. */
+.v4-nav-group-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 4px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-weight: var(--v4-label-weight);
+  letter-spacing: inherit;
+  text-transform: inherit;
+  white-space: nowrap;
+  transition: color 0.15s ease;
+}
+
+.v4-nav-group-btn:hover,
+.v4-nav-group-btn:focus-visible {
+  color: var(--v4-fg);
+  text-decoration: underline;
+  text-decoration-color: var(--v4-orange);
+  text-underline-offset: 4px;
+}
+
+.v4-nav-group-btn .v4-chevron {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.v4-nav-group.is-open > .v4-nav-group-btn .v4-chevron {
+  transform: rotate(180deg);
+}
+
+/* Under the group's own toggle, from its left edge (the bar's menus open from
+   the right). +21px: the link's 8px padding, the bar's 14px and its rule,
+   less the 1px the panel's border overlaps. */
+.v4-nav-sub {
+  left: 0;
+  right: auto;
+  top: calc(100% + 21px);
+}
+
+/* The group's items are menu items, not bar links: the .v4-menu-item metrics
+   and hover win over the bar's link rules (.v4-bar-mid a), and the current
+   page is the round mark below — no underline inside a menu. */
+.v4-nav-sub .v4-menu-item {
+  padding: 10px 10px 10px 24px;
+  color: var(--v4-fg);
+}
+
+.v4-nav-sub .v4-menu-item:hover,
+.v4-nav-sub .v4-menu-item:focus-visible,
+.v4-nav-sub .v4-menu-item[aria-current="page"] {
+  text-decoration: none;
+}
+
+/* The page's own item in the group: the selected-item mark of a menu. */
+.v4-nav-sub .v4-menu-item[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: var(--v4-orange);
+}
+
+.v4-nav-group-cap {
+  display: none;
+}
+
+/* The page's sections, under its hero (v3.0.0): the links that used to fill
+   the top bar, now a quiet line in the shape of the topic line on /notes. */
+.v4-onpage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 0;
+  margin: 0 0 36px;
+  font-size: var(--v4-label-size);
+  font-weight: var(--v4-label-weight);
+  text-transform: uppercase;
+  letter-spacing: var(--v4-label-tracking);
+  color: var(--v4-muted);
+}
+
+.v4-onpage a {
+  color: inherit;
+  padding: 4px 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--v4-line);
+  transition: color 0.15s ease;
+}
+
+.v4-onpage a:hover,
+.v4-onpage a:focus-visible {
+  color: var(--v4-orange-text);
+  text-decoration-color: currentColor;
+}
+
+/* «·» between the links: inline-block so the link's underline skips it. */
+.v4-onpage a + a::before {
+  content: "·";
+  display: inline-block;
+  margin: 0 10px;
+  color: var(--v4-dim);
+}
+
 .v4-bar-right {
   display: flex;
   gap: 12px;
@@ -483,7 +612,8 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
     display: flex;
   }
   .v4-bar-mid a {
-    padding: 10px 10px;
+    position: relative;
+    padding: 10px 10px 10px 24px;
     border: 1px solid transparent;
     color: var(--v4-fg);
     font-size: var(--v4-label-size);
@@ -495,6 +625,39 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
     background: var(--v4-bg);
     color: var(--v4-orange-text);
     text-decoration: none;
+  }
+  /* The phone's menu panel marks the current page as every menu does — the
+     round mark, no underline; the group's items follow its caption, indented,
+     with no toggle of their own. */
+  .v4-bar-mid a[aria-current="page"] {
+    text-decoration: none;
+  }
+  .v4-bar-mid a[aria-current="page"]::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    margin-top: -3px;
+    border-radius: 50%;
+    background: var(--v4-orange);
+  }
+  .v4-nav-group-btn {
+    display: none;
+  }
+  .v4-nav-group .v4-nav-sub {
+    position: static;
+    display: flex;
+    min-width: 0;
+    padding: 0 0 0 12px;
+    border: 0;
+    background: transparent;
+  }
+  .v4-nav-group-cap {
+    display: block;
+    padding: 10px 10px 4px 24px;
+    color: var(--v4-dim);
   }
   .v4-menu {
     top: calc(100% + 11px);

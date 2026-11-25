@@ -73,7 +73,8 @@ test('v2.0.0: /consulting holds what /collaborate held; /collaborate ends with o
     assert.doesNotMatch(html, /target="_blank"/, 'a page of this site opens in place');
   }
   for (const f of ['consulting.html', 'en/consulting.html']) {
-    const page = read(f);
+    // The site menu (v3.0.0) links every page; the page itself keeps to its own URLs.
+    const page = read(f).replace(/<header class="v4-bar"[\s\S]*?<\/header>/, '');
     assert.doesNotMatch(page, /\/collaborate/, `${f}: its own URLs only`);
     assert.doesNotMatch(page, /id="partnerships"/, f);
     assert.match(page, /"@type": "Service"/, f);

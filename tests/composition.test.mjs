@@ -134,9 +134,11 @@ test('6. the build mark is the version, a link to the changelog on GitHub', () =
   assert.match(read('functions/_middleware.js'), /headers\.set\('X-Build', doc\._build\)/);
 });
 
-test('7. the only round shapes: the live dot, the busy mark, the selected-item mark; none in the career', () => {
+test('7. the only round shapes: the live dot, the busy mark, the selected-item mark (of a menu and of the site menu); none in the career', () => {
   const round = rules(COMPONENTS + STYLES).filter(([, body]) => /border-radius:\s*(?!0[;\s])\S/.test(body)).map(([sel]) => sel);
-  assert.deepEqual(round.sort(), ['.v4-btn.is-busy::before', '.v4-live-dot', '.v4-menu-item[aria-checked="true"]::before']);
+  // v3.0.0: the site menu marks the current page as a menu marks its choice — in the
+  // «Work with me» group and in the phone's menu panel.
+  assert.deepEqual(round.sort(), ['.v4-bar-mid a[aria-current="page"]::before', '.v4-btn.is-busy::before', '.v4-live-dot', '.v4-menu-item[aria-checked="true"]::before', '.v4-nav-sub .v4-menu-item[aria-current="page"]::before'].sort());
   for (const f of HOME) {
     const career = section(read(f), 'career');
     assert.doesNotMatch(career, /v4-live-dot|Текущая роль|Current role/, f);

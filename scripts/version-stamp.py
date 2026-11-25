@@ -47,6 +47,8 @@ HTML_FILES = [
     "en/uses.html",
     "about.html",
     "en/about.html",
+    "thanks.html",
+    "en/thanks.html",
     "privacy.html",
     "en/privacy.html",
     "404.html",

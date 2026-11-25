@@ -37,15 +37,15 @@ test('/privacy is a managed page like /collaborate: route, KV doc, cache, sitema
   assert.match(read('scripts/kv-push.mjs'), /'privacy'/);
 });
 
-test('the bar points at real sections; the language menu at the twin page', () => {
+test('the on-page line points at real sections; the language menu at the twin page', () => {
   for (const [f, lang] of [['privacy.html', 'ru'], ['en/privacy.html', 'en']]) {
     const page = read(f);
-    const nav = /<div class="v4-bar-mid" id="site-nav">([\s\S]*?)<\/div>/.exec(page)[1];
+    const nav = /<nav class="v4-onpage"[^>]*>([\s\S]*?)<\/nav>/.exec(page)[1];
     for (const [, id] of nav.matchAll(/href="#([a-z]+)"/g)) assert.match(page, new RegExp(`<section id="${id}" class="v4-section">`), `${f} #${id}`);
     assert.match(page, /<a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="(true|false)" href="\/privacy" hreflang="ru"/, f);
     assert.match(page, /href="\/en\/privacy" hreflang="en"/, f);
     assert.match(page, new RegExp(`<link rel="canonical" href="https://s\\.morgunov\\.tech${lang === 'en' ? '/en' : ''}/privacy" />`), f);
-    assert.doesNotMatch(page, /collaborate/, `${f}: nothing left of the page it was cut from`);
+    assert.doesNotMatch(page.replace(/<header class="v4-bar"[\s\S]*?<\/header>/, ''), /collaborate/, `${f}: nothing left of the page it was cut from (the site menu aside)`);
   }
 });
 

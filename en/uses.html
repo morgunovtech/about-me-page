@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Hidden with /about since v3.0.0 until the owner rewrites both: reachable by URL, kept out of search, the sitemap and the menu. -->
+  <meta name="robots" content="noindex" />
   <title data-cms-text="meta.title">Uses — Semyon Morgunov</title>
   <meta name="description" data-cms-content="meta.description" content="The hardware I use every day: MacBook Pro 16, iPhone 15 Pro Max, Dell U3223QE, Oura Ring, and more. Only the stuff that actually gets switched on." />
   <meta name="author" content="Semyon Morgunov" />
@@ -56,8 +58,8 @@
   <link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" />
   <link rel="stylesheet" href="/ds/v1/tokens.css?v=5629caeb" />
   <link rel="stylesheet" href="/ds/v1/base.css?v=0e404315" />
-  <link rel="stylesheet" href="/ds/v1/components.css?v=52192cae" />
-  <link rel="stylesheet" href="/styles.css?v=51fc65a8" />
+  <link rel="stylesheet" href="/ds/v1/components.css?v=9b3765bd" />
+  <link rel="stylesheet" href="/styles.css?v=3a965f09" />
   <script data-cfasync="false">
     (function () {
       var d = document.documentElement;
@@ -81,8 +83,17 @@
       <nav class="v4-nav v4-dropdown" aria-label="Main navigation">
         <button class="v4-bar-btn v4-nav-toggle" type="button" aria-controls="site-nav">Menu<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
         <div class="v4-bar-mid" id="site-nav">
-          <a href="#hardware">Hardware</a>
-          <a href="#software">Software</a>
+          <a href="/en/">About</a>
+          <a href="/en/notes">Publications</a>
+          <a href="/en/privacy">Privacy</a>
+          <div class="v4-dropdown v4-nav-group">
+            <button class="v4-nav-group-btn" type="button" aria-controls="nav-work">Work with me<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+            <div class="v4-menu v4-nav-sub" id="nav-work">
+              <span class="v4-nav-group-cap" aria-hidden="true">Work with me</span>
+              <a class="v4-menu-item" href="/en/consulting">Consulting</a>
+              <a class="v4-menu-item" href="/en/collaborate">Partnerships &amp; media</a>
+            </div>
+          </div>
         </div>
       </nav>
       <div class="v4-bar-right">
@@ -128,6 +139,10 @@
           </div>
         </div>
       </section>
+      <nav class="v4-onpage" aria-label="On this page">
+        <a href="#hardware">Hardware</a>
+        <a href="#software">Software</a>
+      </nav>
 
       <section id="hardware" class="v4-section">
         <div class="v4-section-head">
@@ -334,7 +349,7 @@
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v2.2.4</a> · <a href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">found a typo?</a></span>
+      <span>morgunov.tech · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v3.0.0</a> · <a href="/en/thanks">say thanks or report a bug</a></span>
       <span class="v4-foot-privacy">No cookies, no trackers, no analytics</span>
     </footer>
   </div>
@@ -380,6 +395,6 @@
       ]
     }
   </script>
-  <script data-cfasync="false" defer src="/script.js?v=de52523a"></script>
+  <script data-cfasync="false" defer src="/script.js?v=57fc68cc"></script>
 </body>
 </html>

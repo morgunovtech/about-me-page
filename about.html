@@ -62,8 +62,8 @@
   <link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" />
   <link rel="stylesheet" href="/ds/v1/tokens.css?v=5629caeb" />
   <link rel="stylesheet" href="/ds/v1/base.css?v=0e404315" />
-  <link rel="stylesheet" href="/ds/v1/components.css?v=52192cae" />
-  <link rel="stylesheet" href="/styles.css?v=51fc65a8" />
+  <link rel="stylesheet" href="/ds/v1/components.css?v=9b3765bd" />
+  <link rel="stylesheet" href="/styles.css?v=3a965f09" />
   <script data-cfasync="false">
     (function () {
       var d = document.documentElement;
@@ -87,13 +87,17 @@
       <nav class="v4-nav v4-dropdown" aria-label="Основная навигация">
         <button class="v4-bar-btn v4-nav-toggle" type="button" aria-controls="site-nav">Меню<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
         <div class="v4-bar-mid" id="site-nav">
-          <a href="#product" data-cms-omit="sections.product.hidden">Продукт</a>
-          <a href="#principles" data-cms-omit="sections.principles.hidden">Принципы</a>
-          <a href="#layers" data-cms-omit="sections.layers.hidden">Решения</a>
-          <a href="#stack" data-cms-omit="sections.stack.hidden">Стек</a>
-          <a href="#omitted" data-cms-omit="sections.omitted.hidden">Чего нет</a>
-          <a href="#tool" data-cms-omit="sections.tool.hidden">Инструмент</a>
-          <a href="#ethics" data-cms-omit="sections.ethics.hidden">Этика</a>
+          <a href="/">Обо мне</a>
+          <a href="/notes">Публикации</a>
+          <a href="/privacy">Приватность</a>
+          <div class="v4-dropdown v4-nav-group">
+            <button class="v4-nav-group-btn" type="button" aria-controls="nav-work">Сотрудничество<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+            <div class="v4-menu v4-nav-sub" id="nav-work">
+              <span class="v4-nav-group-cap" aria-hidden="true">Сотрудничество</span>
+              <a class="v4-menu-item" href="/consulting">Консалтинг</a>
+              <a class="v4-menu-item" href="/collaborate">Партнёрства и медиа</a>
+            </div>
+          </div>
         </div>
       </nav>
       <div class="v4-bar-right">
@@ -139,6 +143,15 @@
           </div>
         </div>
       </section>
+      <nav class="v4-onpage" aria-label="На этой странице">
+        <a href="#product" data-cms-omit="sections.product.hidden">Продукт</a>
+        <a href="#principles" data-cms-omit="sections.principles.hidden">Принципы</a>
+        <a href="#layers" data-cms-omit="sections.layers.hidden">Решения</a>
+        <a href="#stack" data-cms-omit="sections.stack.hidden">Стек</a>
+        <a href="#omitted" data-cms-omit="sections.omitted.hidden">Чего нет</a>
+        <a href="#tool" data-cms-omit="sections.tool.hidden">Инструмент</a>
+        <a href="#ethics" data-cms-omit="sections.ethics.hidden">Этика</a>
+      </nav>
 
       <section class="v4-section" aria-label="Введение">
         <div class="v4-body">
@@ -315,7 +328,7 @@
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v2.2.4</a> · <a href="/uses">стек</a> · <a href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">нашли опечатку?</a></span>
+      <span>morgunov.tech · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v3.0.0</a> · <a href="/thanks">сказать спасибо или сообщить об ошибке</a></span>
       <span class="v4-foot-privacy">Без cookies, трекеров и аналитики</span>
     </footer>
   </div>
@@ -361,6 +374,6 @@
       ]
     }
   </script>
-  <script data-cfasync="false" defer src="/script.js?v=de52523a"></script>
+  <script data-cfasync="false" defer src="/script.js?v=57fc68cc"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@
 // block below is only the above-the-fold subset, guarded by check-critical.
 
 import { ORIGIN, NAME, VERSION, CHANGELOG_URL } from './site.js';
-import { escapeHtml } from './markdown.js';
+import { escapeHtml, renderInline } from './markdown.js';
 
 const CRITICAL_CSS = `
     :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:12px;--v4-label-tracking:.1em;--v4-label-xs-size:12px;--v4-label-xs-tracking:.1em;--v4-label-weight:500;color-scheme:light dark}
@@ -34,15 +34,19 @@ const T = {
     skip: 'Перейти к основному содержимому',
     mainNav: 'Основная навигация',
     notes: 'Публикации',
-    home: 'Главная',
+    home: 'Обо мне',
+    privacyNav: 'Приватность',
+    work: 'Сотрудничество',
+    consulting: 'Консалтинг',
+    collaborate: 'Партнёрства и медиа',
+    thanks: 'сказать спасибо или сообщить об ошибке',
+    thanksLine: 'Если заметка пригодилась — [вот как можно сказать спасибо]({href}).',
     back: '← Все публикации',
     menu: 'Меню',
     langLabel: 'сменить язык',
     themeLabel: 'Сменить тему оформления',
     themes: ['Светлая', 'Тёмная', 'Авто', 'Высокий контраст'],
     privacy: 'Без cookies, трекеров и аналитики',
-    uses: 'стек',
-    typo: 'нашли опечатку?',
     feed: 'Заметки — RSS',
     locale: 'ru_RU',
     altLocale: 'en_US',
@@ -51,27 +55,31 @@ const T = {
     skip: 'Skip to main content',
     mainNav: 'Main navigation',
     notes: 'Publications',
-    home: 'Home',
+    home: 'About',
+    privacyNav: 'Privacy',
+    work: 'Work with me',
+    consulting: 'Consulting',
+    collaborate: 'Partnerships &amp; media',
+    thanks: 'say thanks or report a bug',
+    thanksLine: 'If this note was useful, [here’s how you can say thanks]({href}).',
     back: '← All publications',
     menu: 'Menu',
     langLabel: 'change language',
     themeLabel: 'Switch theme',
     themes: ['Light', 'Dark', 'Auto', 'High contrast'],
     privacy: 'No cookies, no trackers, no analytics',
-    uses: 'uses',
-    typo: 'found a typo?',
     feed: 'Notes — RSS',
     locale: 'en_US',
     altLocale: 'ru_RU',
   },
 };
 
-const STYLES_VER = 'v=51fc65a8';
-const SCRIPT_VER = 'v=de52523a';
+const STYLES_VER = 'v=3a965f09';
+const SCRIPT_VER = 'v=57fc68cc';
 const FONTS_VER = 'v=64eea157';
 const TOKENS_VER = 'v=5629caeb';
 const BASE_VER = 'v=0e404315';
-const COMPONENTS_VER = 'v=52192cae';
+const COMPONENTS_VER = 'v=9b3765bd';
 
 const L = (lang) => (lang === 'en' ? 'en' : 'ru');
 const p = (lang, path) => (L(lang) === 'en' ? '/en' : '') + path;
@@ -147,6 +155,28 @@ function themeMenu(lang) {
         </div>`;
 }
 
+// The site menu (v3.0.0) — the same items as the static pages' bar: About,
+// Publications, Privacy and the «Work with me» group; `active` is the item of
+// the current page (aria-current, the orange underline; inside the group, the
+// selected-item mark of a menu).
+export function siteNav(lang, active) {
+  const l = L(lang);
+  const t = T[l];
+  const cur = (k) => (k === active ? ' aria-current="page"' : '');
+  const grp = active === 'consulting' || active === 'collaborate';
+  return `          <a href="${p(l, '/')}"${cur('home')}>${t.home}</a>
+          <a href="${p(l, '/notes')}"${cur('notes')}>${t.notes}</a>
+          <a href="${p(l, '/privacy')}"${cur('privacy')}>${t.privacyNav}</a>
+          <div class="v4-dropdown v4-nav-group${grp ? ' is-current' : ''}">
+            <button class="v4-nav-group-btn" type="button" aria-controls="nav-work">${t.work}${CHEVRON}</button>
+            <div class="v4-menu v4-nav-sub" id="nav-work">
+              <span class="v4-nav-group-cap" aria-hidden="true">${t.work}</span>
+              <a class="v4-menu-item" href="${p(l, '/consulting')}"${cur('consulting')}>${t.consulting}</a>
+              <a class="v4-menu-item" href="${p(l, '/collaborate')}"${cur('collaborate')}>${t.collaborate}</a>
+            </div>
+          </div>`;
+}
+
 // The top bar. `ru`/`en` are the two language hrefs; `enAttrs` lets the
 // article shell tag the English item for removal when no EN text exists.
 function barChrome(lang, { ru, en, ruAttrs = '', enAttrs = '' }) {
@@ -156,8 +186,7 @@ function barChrome(lang, { ru, en, ruAttrs = '', enAttrs = '' }) {
       <nav class="v4-nav v4-dropdown" aria-label="${t.mainNav}">
         <button class="v4-bar-btn v4-nav-toggle" type="button" aria-controls="site-nav">${t.menu}${CHEVRON}</button>
         <div class="v4-bar-mid" id="site-nav">
-          <a href="${p(l, '/')}">${t.home}</a>
-          <a href="${p(l, '/notes')}">${t.notes}</a>
+${siteNav(l, 'notes')}
         </div>
       </nav>
       <div class="v4-bar-right">
@@ -181,7 +210,7 @@ function footChrome(lang, build) {
   const l = L(lang);
   const t = T[l];
   return `    <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · <a class="v4-build" href="${CHANGELOG_URL}" target="_blank" rel="noopener noreferrer">v${VERSION}</a> · <a href="${p(l, '/uses')}">${t.uses}</a> · <a href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">${t.typo}</a></span>
+      <span>morgunov.tech · 2026 · <a class="v4-build" href="${CHANGELOG_URL}" target="_blank" rel="noopener noreferrer">v${VERSION}</a> · <a href="${p(l, '/thanks')}">${t.thanks}</a></span>
       <span class="v4-foot-privacy">${t.privacy}</span>
     </footer>`;
 }
@@ -241,6 +270,7 @@ ${barChrome(l, { ru: '/notes', en: '/en/notes', ruAttrs: ' data-cms-href="_urlRu
           <figure class="v4-article-cover" data-cms-html="_coverHtml"></figure>
         </header>
         <div class="v4-article-body" data-cms-html="body"></div>
+        <p class="v4-article-thanks">${renderInline(t.thanksLine.replace('{href}', p(l, '/thanks')))}</p>
         <footer class="v4-article-foot">
           <a class="v4-btn" href="${notesHref}">${t.back}</a>
         </footer>
