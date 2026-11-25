@@ -62,6 +62,8 @@ function processPage(html, page, lang) {
   // The «Публикации» block: the seed has no articles, so the twin holds the three
   // newest external materials (the live page adds published notes on top).
   if (page === 'home') doc._feed = buildFeed([], seed.notes, lang).slice(0, 3);
+  // /privacy «Статьи» lists notes from KV: the seed has none, so the twin holds the lead and the link.
+  if (page === 'privacy') doc._articles = [];
   const drift = [];
   let out = '';
   let pos = 0;

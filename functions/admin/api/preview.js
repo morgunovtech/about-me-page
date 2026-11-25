@@ -2,7 +2,7 @@ import { overlay } from '../../_lib/overlay.js';
 import { json, sameOrigin } from '../../_lib/http.js';
 import { loadSubscribers, isArticlePage } from '../../_lib/content.js';
 import { renderArticlePage } from '../../_lib/render-article.js';
-import { loadHomeFeed } from '../../_lib/render-notes.js';
+import { loadHomeFeed, loadPublishedArticles } from '../../_lib/render-notes.js';
 import { renderPageJsonLd } from '../../_lib/jsonld.js';
 
 // Maps a page+lang to its static template. The raw template (fetched via the
@@ -46,6 +46,7 @@ export async function onRequestPost({ request, env }) {
     if (subs) doc._live = { subscribers: subs };
     doc._feed = feed;
   }
+  if (page === 'privacy') doc._articles = await loadPublishedArticles(env);
   // Same per-page JSON-LD as the public render (_middleware.js) — the preview
   // must not show the home graph on /collaborate.
   const rendered = overlay(template, doc, lang, true, (d, l) => renderPageJsonLd(d, l, page));

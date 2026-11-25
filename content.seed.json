@@ -2365,6 +2365,32 @@
           "en": "Checked on 25 November 2026. No referral links here."
         }
       },
+      "articles": {
+        "title": {
+          "ru": "Статьи",
+          "en": "Articles"
+        },
+        "prose": {
+          "ru": "Мои посты о приватности из Telegram-канала — целиком и в одном месте.",
+          "en": "My Telegram channel posts on privacy — in full and in one place."
+        },
+        "items": [
+          "email-security",
+          "yubikey",
+          "self-hosted-vpn",
+          "privacy-myths"
+        ],
+        "more": {
+          "label": {
+            "ru": "Все публикации",
+            "en": "All publications"
+          },
+          "href": {
+            "ru": "/notes",
+            "en": "/en/notes"
+          }
+        }
+      },
       "contact": {
         "title": {
           "ru": "Знаете инструмент лучше?",

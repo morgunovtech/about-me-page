@@ -1026,6 +1026,24 @@
   margin: 24px 0;
 }
 
+/* A picture with a caption (sanitize.js allows figure/figcaption): on the text
+   column, not the browser's 40px indent; the caption is a line of data —
+   plain mono 12px, like a date. */
+.v4-article-body figure {
+  margin: 24px 0;
+}
+
+.v4-article-body figure img {
+  margin: 0;
+}
+
+.v4-article-body figcaption {
+  margin-top: 8px;
+  font-family: var(--v4-mono);
+  font-size: 12px;
+  color: var(--v4-muted);
+}
+
 .v4-article-body pre {
   background: var(--v4-paper);
   border: 1px solid var(--v4-line);

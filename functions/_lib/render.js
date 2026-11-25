@@ -549,6 +549,25 @@ export const renderers = {
         ${groups}${note ? `\n        <p class="v4-terms">${renderInline(note)}</p>` : ''}`;
   },
 
+  // /privacy «Статьи»: the notes the doc names by slug, in its order, as rows of
+  // the publications feed («11.2025 · Заметка» + title → /notes/<slug>), then
+  // «Все публикации →». Published notes only (`_articles`, attached by
+  // _middleware.js / the admin preview); the English page lists a note only
+  // once it has an English title — /en/notes/<slug> exists from then on.
+  privacyArticles: (doc, lang) => {
+    const s = doc.sections.articles || {};
+    const bySlug = new Map((doc._articles || []).map((a) => [a.slug, a]));
+    const rows = (s.items || [])
+      .map((slug) => bySlug.get(slug))
+      .filter((a) => a && (lang !== 'en' || String((a.title && a.title.en) || '').trim()))
+      .map((a) => feedRow({ kind: 'note', item: a }, lang))
+      .join('\n            ');
+    const lead = pick(s.prose, lang);
+    const more = s.more ? moreLink(s.more, lang, false, '') : '';
+    return `${lead ? `<p class="v4-tagline v4-tagline--compact">${renderInline(lead)}</p>\n        ` : ''}${
+      rows ? `<ul class="v4-feed">\n            ${rows}\n          </ul>\n          ` : ''}${more}`;
+  },
+
   // Shared by /collaborate and /privacy: one line, one button.
   collabContact: (doc, lang) => {
     const s = doc.sections.contact;
