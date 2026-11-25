@@ -319,7 +319,7 @@
             "name": "TofsDevOps",
             "desc": {
               "ru": "Сам себе DevOps в Telegram. Мониторит сайты, чинит что может, проверяет, что тебя видят поисковики и ИИ-ассистенты, — и молчит, пока всё в порядке.",
-              "en": "Your personal DevOps in Telegram: uptime, SSL, DNS, search and AI-assistant visibility. Fixes what it can and stays quiet while everything is fine."
+              "en": "Your personal DevOps in Telegram: uptime, SSL, DNS, broken links, search and AI-assistant visibility. Fixes what it can and stays quiet while everything is fine."
             },
             "cta": {
               "label": {
