@@ -6,12 +6,28 @@
    Depends on tokens.css + base.css. Page-specific layout (hero, stats,
    career, ventures, cards, /uses, /collaborate, contact) lives in each
    site's own stylesheet, loaded after this file.
+
+   TYPE — one voice. Every size on a page is one of these:
+     56 / 44 / 32–40  page title (desktop / tablet / phone)
+     24 / 20          section title
+     18               item title (a card, a note in a list), the hero lead
+     16               text: anything read as a sentence, on every device
+     14               secondary line (a role, a source, a version, a count,
+                      a note under a button)
+     13 mono          the label column of a table: a period, a year, a date
+     12 caps          caption: chrome, buttons, the label over a group
+   Weight says the role: 600 a title or a name, 500 something to press,
+   400 text. Mono is never caps and never a link; caps are never mono. Inline
+   code is mono a step under its text, on a quiet ground.
+
+   SPACE — 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64. Between sections 64 (48 on a
+   phone), under a section head 24, between paragraphs 16, between rows 16.
    ============================================================ */
 
 .v4-root {
   background: var(--v4-bg);
   color: var(--v4-fg);
-  padding: 36px 56px 56px;
+  padding: 32px 48px 48px;
   max-width: 1280px;
   margin: 0 auto;
   transition: background-color 0.2s ease, color 0.2s ease;
@@ -23,57 +39,68 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 0 14px;
-  margin-bottom: 32px;
+  padding: 0 0 16px;
+  margin-bottom: 48px;
   border-bottom: 1px solid var(--v4-fg);
   font-size: var(--v4-label-size);
+  line-height: 1.4;
   text-transform: uppercase;
   letter-spacing: var(--v4-label-tracking);
 }
 
 .v4-bar-mid {
   display: flex;
-  gap: 6px 22px;
-  /* Wrapped rows (641–~900px) align with the content edge, not centred
-     under the first row — the list is a flex item inside .v4-nav. */
+  align-items: center;
+  gap: 0 28px;
+  /* Wrapped rows align with the content edge, not centred under the first
+     row — the list is a flex item inside .v4-nav. */
   justify-content: flex-start;
   color: var(--v4-muted);
-  /* Wrap to a second row when 7 links don't fit (around 768–960 px).
-     Without wrap, flex squishes labels and breaks them inside words
-     («ОБО / МНЕ»). */
+  /* Wrap to a second row when the links don't fit. Without wrap, flex
+     squishes labels and breaks them inside words («ОБО / МНЕ»). */
   flex-wrap: wrap;
 }
 
+/* A bar link is as tall as the bar's controls (36px) and has no side padding:
+   the first one starts on the content's left edge, like everything under it. */
 .v4-bar-mid a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
   color: inherit;
-  /* The caption weight on every width; the links used to take it only inside
-     the phone menu, which made the nav a caption style of its own. */
   font-weight: var(--v4-label-weight);
   text-decoration: none;
-  padding: 8px 4px;
-  /* Keep multi-word labels («Обо мне», «Своё дело») on one line —
-     they should break between links, not inside a label. */
+  /* Keep multi-word labels («Обо мне») on one line — they should break
+     between links, not inside a label. */
   white-space: nowrap;
   transition: color 0.15s ease;
 }
 
+/* Under the pointer a link takes the full ink and nothing else: the orange
+   underline belongs to the current page alone (a hover that drew the same
+   line showed two «current» items in the bar). */
 .v4-bar-mid a:hover,
 .v4-bar-mid a:focus-visible {
   color: var(--v4-fg);
-  text-decoration: underline;
-  text-decoration-color: var(--v4-orange);
-  text-underline-offset: 4px;
 }
 
-/* The current page in the site menu (v3.0.0): the link of the page, or the
-   «Work with me» group when the page is one of its items, keeps the hover
-   look — full colour, the orange underline. One sign for one state. */
+/* In high contrast the secondary ink and the full ink are both white (1.15:1):
+   there the pointer is answered with the accent, as an item of a menu answers. */
+[data-theme="high-contrast"] .v4-bar-mid a:not([aria-current="page"]):hover,
+[data-theme="high-contrast"] .v4-bar-mid a:not([aria-current="page"]):focus-visible {
+  color: var(--v4-orange-text);
+}
+
+/* The current page in the site menu: the link of the page, or the «Work with
+   me» group when the page is one of its items — full colour and the orange
+   underline. One sign for one state. */
 .v4-bar-mid a[aria-current="page"],
 .v4-nav-group.is-current > .v4-nav-group-btn {
   color: var(--v4-fg);
   text-decoration: underline;
   text-decoration-color: var(--v4-orange);
-  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
 }
 
 /* A group of the site menu: a toggle that reads as a menu link, and a .v4-menu
@@ -83,7 +110,8 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 4px;
+  min-height: 36px;
+  padding: 0;
   border: none;
   background: transparent;
   color: inherit;
@@ -96,12 +124,17 @@
   transition: color 0.15s ease;
 }
 
+/* Hover and the open group: the full ink (and the chevron turns) — the same
+   answer a bar link gives, no underline. */
 .v4-nav-group-btn:hover,
-.v4-nav-group-btn:focus-visible {
+.v4-nav-group-btn:focus-visible:not([data-pointer-focus]),
+.v4-nav-group.is-open > .v4-nav-group-btn {
   color: var(--v4-fg);
-  text-decoration: underline;
-  text-decoration-color: var(--v4-orange);
-  text-underline-offset: 4px;
+}
+
+[data-theme="high-contrast"] .v4-nav-group:not(.is-current) > .v4-nav-group-btn:hover,
+[data-theme="high-contrast"] .v4-nav-group:not(.is-current) > .v4-nav-group-btn:focus-visible:not([data-pointer-focus]) {
+  color: var(--v4-orange-text);
 }
 
 .v4-nav-group-btn .v4-chevron {
@@ -115,20 +148,21 @@
   transform: rotate(180deg);
 }
 
-/* Under the group's own toggle, from its left edge (the bar's menus open from
-   the right). +21px: the link's 8px padding, the bar's 14px and its rule,
-   less the 1px the panel's border overlaps. */
-.v4-nav-sub {
-  left: 0;
+/* Under the group's own toggle. −34px (the panel's border and padding, the
+   item's own border and its room for the mark) puts the items' labels on the
+   toggle's left edge: the menu reads as a continuation of the word above it. */
+.v4-nav-group > .v4-nav-sub {
+  left: -34px;
   right: auto;
-  top: calc(100% + 21px);
 }
 
 /* The group's items are menu items, not bar links: the .v4-menu-item metrics
    and hover win over the bar's link rules (.v4-bar-mid a), and the current
    page is the round mark below — no underline inside a menu. */
 .v4-nav-sub .v4-menu-item {
-  padding: 10px 10px 10px 24px;
+  display: block;
+  min-height: 0;
+  padding: 10px 12px 10px 28px;
   color: var(--v4-fg);
 }
 
@@ -138,11 +172,18 @@
   text-decoration: none;
 }
 
+/* …and they answer the pointer as the items of every menu do. (The bar's link
+   rule kept them in the ink: in high contrast that was no answer at all.) */
+.v4-nav-sub .v4-menu-item:hover,
+.v4-nav-sub .v4-menu-item:focus-visible {
+  color: var(--v4-orange-text);
+}
+
 /* The page's own item in the group: the selected-item mark of a menu. */
 .v4-nav-sub .v4-menu-item[aria-current="page"]::before {
   content: "";
   position: absolute;
-  left: 10px;
+  left: 12px;
   top: 50%;
   width: 6px;
   height: 6px;
@@ -155,29 +196,34 @@
   display: none;
 }
 
-/* The page's sections, under its hero (v3.0.0): the links that used to fill
-   the top bar, now a quiet line in the shape of the topic line on /notes. */
+/* The page's sections, under its hero: a quiet line of contents. Sentence
+   case, the secondary size — the caps belong to the site menu above. */
 .v4-onpage {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 2px 0;
-  margin: 0 0 36px;
-  font-size: var(--v4-label-size);
-  font-weight: var(--v4-label-weight);
-  text-transform: uppercase;
-  letter-spacing: var(--v4-label-tracking);
+  margin: 0 0 48px;
+  font-size: 14px;
+  /* 28px a row: the line and the gap between two wrapped rows. */
+  line-height: 2;
   color: var(--v4-muted);
+  /* A line that wraps splits evenly — two links and two, not three and a
+     lone last one. (Where the browser cannot balance, it wraps as text does.) */
+  text-wrap: balance;
 }
 
+/* The links are words of that line: set apart by space alone — 20px and the
+   space between two words (a «·» between them started the second row whenever
+   the line wrapped on a phone) — and never broken inside. Inline, not boxes: a
+   box kept the space before it at the start of a balanced second row, 3px off
+   the content's edge. */
 .v4-onpage a {
+  white-space: nowrap;
+  margin-right: 20px;
   color: inherit;
   padding: 4px 0;
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-thickness: 1px;
   text-decoration-color: var(--v4-line);
-  transition: color 0.15s ease;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 
 .v4-onpage a:hover,
@@ -186,21 +232,17 @@
   text-decoration-color: currentColor;
 }
 
-/* «·» between the links: inline-block so the link's underline skips it. */
-.v4-onpage a + a::before {
-  content: "·";
-  display: inline-block;
-  margin: 0 10px;
-  color: var(--v4-dim);
-}
-
 .v4-bar-right {
+  /* The language and the theme panels are placed against this group, not
+     against their own toggles: both end on the content's right edge (the
+     language panel used to end 38px inside it, under nothing). */
+  position: relative;
   display: flex;
   gap: 12px;
   justify-content: flex-end;
   align-items: center;
-  /* Keeps the controls on the right edge even when the bar has no nav
-     (404 page) — space-between alone would park a lone child on the left. */
+  /* Keeps the controls on the right edge even when the bar has no nav (a
+     service page) — space-between alone would park a lone child on the left. */
   margin-left: auto;
   color: var(--v4-fg);
 }
@@ -235,8 +277,13 @@
   transition: color 0.15s ease;
 }
 
+/* Orange is the answer to the pointer, the look of keyboard focus and the
+   sign of an open menu. A toggle the script focused after a click
+   (data-pointer-focus) is none of these once its menu is closed — it used to
+   stay orange until the next click somewhere on the page. */
 .v4-bar-btn:hover,
-.v4-bar-btn:focus-visible {
+.v4-bar-btn:focus-visible:not([data-pointer-focus]),
+.v4-dropdown.is-open > .v4-bar-btn {
   color: var(--v4-orange-text);
 }
 
@@ -257,26 +304,32 @@
   display: none;
 }
 
-/* --- Dropdown (shared by the language menu, the theme menu and, on mobile,
-   the section nav). One mechanism, one look: a toggle button + a paper panel.
-   JS toggles .is-open on the container and aria-expanded on the toggle. --- */
+/* --- Dropdown (shared by the language menu, the theme menu, the menu's group
+   and, on mobile, the site nav). One mechanism, one look: a toggle button + a
+   paper panel. JS toggles .is-open on the container and aria-expanded on the
+   toggle. --- */
 
 .v4-dropdown {
   position: relative;
 }
 
+/* The panel hangs from the bar's rule: +17px is the bar's 16px padding and its
+   1px rule under a 36px control, and the panel has no top border of its own —
+   the ink rule is its top edge. */
 .v4-menu {
   position: absolute;
   right: 0;
-  /* Anchored to the 36px control; the bar's 14px padding + 1px rule sit
-     below it, so +15px lands the panel just under the header rule. */
-  top: calc(100% + 15px);
+  top: calc(100% + 17px);
   display: none;
   flex-direction: column;
   background: var(--v4-paper);
   border: 1px solid var(--v4-line);
-  padding: 6px;
-  min-width: 170px;
+  border-top: 0;
+  padding: 4px;
+  /* As wide as its longest label: the items never wrap, and a panel narrower
+     than its text let «Партнёрства и медиа» run past the border. */
+  width: max-content;
+  min-width: 180px;
   z-index: 50;
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
@@ -292,21 +345,35 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   display: flex;
 }
 
+/* …and a bridge over the bar's padding and rule between a toggle and its
+   panel, or a panel opened by hover closes before the pointer reaches it. */
+html:not([data-js]) .v4-menu::before,
+html:not([data-js]) .v4-bar-mid::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 17px;
+}
+
 .v4-menu-item {
   display: block;
   position: relative;
   background: transparent;
   border: 1px solid transparent;
   color: var(--v4-fg);
-  /* 24px on the left: the room where the selected item's mark sits, so the
+  /* 28px on the left: the room where the selected item's mark sits, so the
      labels of a menu stay on one edge. */
-  padding: 10px 10px 10px 24px;
+  padding: 10px 12px 10px 28px;
   font-size: var(--v4-label-size);
   font-weight: var(--v4-label-weight);
+  line-height: 1.4;
   text-transform: uppercase;
   letter-spacing: var(--v4-label-tracking);
   text-align: left;
   text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
   font-family: inherit;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
@@ -324,7 +391,7 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
 .v4-menu-item[aria-checked="true"]::before {
   content: "";
   position: absolute;
-  left: 10px;
+  left: 12px;
   top: 50%;
   width: 6px;
   height: 6px;
@@ -378,13 +445,25 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
 }
 
 .v4-icon-btn:hover,
-.v4-icon-btn:focus-visible {
+.v4-icon-btn:focus-visible:not([data-pointer-focus]),
+.v4-dropdown.is-open > .v4-icon-btn {
   color: var(--v4-orange-text);
 }
 
 .v4-icon-btn svg {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
+}
+
+/* The icon sits in the middle of a 36px button, 10px from its right side:
+   pulled out by those 10px, the icon itself ends on the content's right edge,
+   under which the bar's rule ends too. The menu keeps to that edge. */
+.v4-theme {
+  margin-right: -10px;
+}
+
+.v4-bar-right > .v4-dropdown {
+  position: static;
 }
 
 /* Theme icons: only one visible at a time, driven by [data-theme] on <html>.
@@ -410,17 +489,20 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   display: block;
 }
 
+/* --- Buttons --- */
+
 .v4-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 11px 16px;
-  min-height: 40px;
-  font-size: 12px;
-  font-weight: 500;
+  padding: 12px 20px;
+  min-height: 44px;
+  font-size: var(--v4-label-size);
+  font-weight: var(--v4-label-weight);
+  line-height: 1.4;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--v4-label-tracking);
   text-decoration: none;
   cursor: pointer;
   border: 1px solid var(--v4-fg);
@@ -436,20 +518,32 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   color: var(--v4-bg);
 }
 
+/* The small button: a secondary action beside a line of text («Подписаться»
+   in the channel block). 32px on screen, 44px to a finger. */
+.v4-btn--sm {
+  position: relative;
+  min-height: 32px;
+  padding: 6px 12px;
+}
+
+.v4-btn--sm::after {
+  content: "";
+  position: absolute;
+  inset: -6px 0;
+}
+
 .v4-btn-primary {
   background: var(--v4-orange);
   color: var(--v4-on-accent);
   border-color: var(--v4-orange);
 }
 
+/* Under the pointer the primary button answers like every button: the ink
+   fill. (It used to lighten its orange by 6% — an answer nobody saw; a darker
+   orange drops the label under 4.5:1.) Its border follows the fill. */
 .v4-btn-primary:hover,
 .v4-btn-primary:focus-visible {
-  /* Lighten, don't darken: dark text on the darkened orange fell to 3.9:1 in
-     the light theme (AA needs 4.5:1 for 12px caps). */
-  filter: brightness(1.06);
-  background: var(--v4-orange);
-  color: var(--v4-on-accent);
-  border-color: var(--v4-orange);
+  border-color: var(--v4-fg);
 }
 
 /* Pressed, disabled, busy: a tap gets an answer and a disabled button does not
@@ -458,14 +552,6 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   background: var(--v4-muted);
   border-color: var(--v4-muted);
   color: var(--v4-bg);
-}
-
-.v4-btn-primary:active {
-  /* Lighter again, never darker — same reason as the hover rule. */
-  filter: brightness(1.12);
-  background: var(--v4-orange);
-  border-color: var(--v4-orange);
-  color: var(--v4-on-accent);
 }
 
 /* Disabled is a dashed outline in the tertiary ink: it reads without colour
@@ -505,13 +591,13 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   }
 
   .v4-btn-primary:hover:not(:focus-visible, :active, :disabled, [aria-disabled="true"]) {
-    filter: none;
     background: var(--v4-orange);
+    border-color: var(--v4-orange);
     color: var(--v4-on-accent);
   }
 
-  .v4-bar-btn:hover:not(:focus-visible),
-  .v4-icon-btn:hover:not(:focus-visible) {
+  .v4-dropdown:not(.is-open) > .v4-bar-btn:hover:not(:focus-visible),
+  .v4-dropdown:not(.is-open) > .v4-icon-btn:hover:not(:focus-visible) {
     color: var(--v4-fg);
   }
 }
@@ -523,7 +609,6 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--v4-mono);
   font-size: var(--v4-label-size);
   font-weight: var(--v4-label-weight);
   letter-spacing: var(--v4-label-tracking);
@@ -531,7 +616,7 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   color: var(--v4-fg);
   text-decoration: none;
   white-space: nowrap;
-  margin-right: 22px;
+  margin-right: 28px;
   padding: 8px 0;
 }
 
@@ -573,27 +658,25 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   }
 }
 
-/* --- Mobile top bar: one row ---
-   Below 640px the seven nav links no longer wrap into two rows: the nav
-   collapses into a «Меню» dropdown (left) while the language and theme
-   dropdowns keep the right edge. All three controls share .v4-dropdown /
-   .v4-menu, so the header reads as one system on every viewport. */
-/* The site menu folds into «Меню» up to 960px (v4.0.0): five items need about
-   750px in one line, and a wrapped second row read as a layout bug. The
-   phone's sizes (44px controls, the tighter bar) stay in the 640px block. */
+/* --- The folded top bar: one row ---
+   The site menu folds into a «Меню» dropdown (left) up to 960px: five items
+   need about 750px in one line, and a wrapped second row read as a layout
+   bug. The language and theme dropdowns keep the right edge. All three
+   controls share .v4-dropdown / .v4-menu, so the header reads as one system on
+   every viewport. The phone's sizes (44px controls, the tighter bar) are in
+   the 640px block below. */
 @media (max-width: 960px) {
   .v4-nav-toggle {
     display: inline-flex;
     margin-left: -8px;
   }
   /* The link list becomes a panel with exactly the .v4-menu / .v4-menu-item
-     metrics (11px / 500 / 10px padding / 170px), so the three dropdowns open
-     identical rows side by side; +15px lands it under the header rule like
-     the menus (+11px on the phone, below). */
+     metrics, so the three dropdowns open identical rows side by side; like
+     them it hangs from the bar's rule (+17px; +13px on the phone, below). */
   .v4-bar-mid {
     position: absolute;
     left: 0;
-    top: calc(100% + 15px);
+    top: calc(100% + 17px);
     display: none;
     flex-direction: column;
     align-items: stretch;
@@ -601,8 +684,10 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
     margin: 0;
     background: var(--v4-paper);
     border: 1px solid var(--v4-line);
-    padding: 6px;
-    min-width: 170px;
+    border-top: 0;
+    padding: 4px;
+    width: max-content;
+    min-width: 180px;
     z-index: 50;
   }
   .v4-nav.is-open > .v4-bar-mid,
@@ -610,8 +695,10 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
     display: flex;
   }
   .v4-bar-mid a {
+    display: block;
     position: relative;
-    padding: 10px 10px 10px 24px;
+    min-height: 0;
+    padding: 10px 12px 10px 28px;
     border: 1px solid transparent;
     color: var(--v4-fg);
     font-size: var(--v4-label-size);
@@ -624,16 +711,17 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
     color: var(--v4-orange-text);
     text-decoration: none;
   }
-  /* The menu panel marks the current page as every menu does — the
-     round mark, no underline; the group's items follow its caption, indented,
-     with no toggle of their own. */
+  /* The menu panel marks the current page as every menu does — the round
+     mark, no underline. The group's items follow its caption with no toggle of
+     their own, and the group is set off by hairlines, not by an indent: every
+     label of the panel starts on one edge and every mark sits in one gutter. */
   .v4-bar-mid a[aria-current="page"] {
     text-decoration: none;
   }
   .v4-bar-mid a[aria-current="page"]::before {
     content: "";
     position: absolute;
-    left: 10px;
+    left: 12px;
     top: 50%;
     width: 6px;
     height: 6px;
@@ -644,33 +732,42 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
   .v4-nav-group-btn {
     display: none;
   }
+  .v4-nav-group {
+    margin: 4px 0;
+    padding: 4px 0;
+    border-top: 1px solid var(--v4-line-soft);
+    border-bottom: 1px solid var(--v4-line-soft);
+  }
   .v4-nav-group .v4-nav-sub {
     position: static;
     display: flex;
+    width: auto;
     min-width: 0;
-    padding: 0 0 0 12px;
+    padding: 0;
     border: 0;
     background: transparent;
   }
+  /* 29px: an item's 28px and its 1px border — the caption stands on the labels' edge. */
   .v4-nav-group-cap {
     display: block;
-    padding: 10px 10px 4px 24px;
+    padding: 8px 12px 4px 29px;
     color: var(--v4-dim);
+    font-weight: var(--v4-label-weight);
   }
 }
 
 @media (max-width: 640px) {
   .v4-bar {
-    padding-bottom: 10px;
-    margin-bottom: 22px;
+    padding-bottom: 12px;
+    margin-bottom: 32px;
   }
   .v4-nav-toggle {
     min-height: 44px;
   }
-  /* 44px control + 10px padding + 1px rule → +11px under the header rule. */
+  /* 44px control + 12px padding + 1px rule → +13px hangs the panels from the rule. */
   .v4-bar-mid,
   .v4-menu {
-    top: calc(100% + 11px);
+    top: calc(100% + 13px);
   }
   .v4-bar-btn {
     min-height: 44px;
@@ -679,50 +776,56 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
     width: 44px;
     height: 44px;
   }
+  /* The icon is 14px from the side of a 44px button. */
+  .v4-theme {
+    margin-right: -14px;
+  }
 }
 
 /* --- Sections --- */
 
 .v4-section {
-  margin-bottom: 36px;
-  scroll-margin-top: 40px;
+  margin-bottom: 64px;
+  scroll-margin-top: 24px;
 }
 
-/* Defer rendering of below-fold sections until they're scrolled near.
-   First section (#about) renders immediately so the page feels snappy.
-   `auto 800px`: 800px is only the pre-render estimate — once a section has
-   been rendered the browser remembers its real height, so scrollHeight
-   stops drifting and anchor jumps across unrendered sections land true. */
-.v4-section + .v4-section {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 800px;
+.v4-section:last-child {
+  margin-bottom: 0;
 }
 
-/* Mono section number sits on the title's baseline («01  Обо мне») —
-   one line instead of two, same idiom as the right-column section nav. */
+/* Sections are rendered as written. Until v4.1.0 the ones below the fold were
+   deferred (content-visibility: auto). The pages are a dozen short sections —
+   there was nothing to win — and the containment it turns on clipped whatever
+   a section paints past its own box: the focus ring of every link and button
+   on a section's edge (17 cut rings on /privacy), once the underline of a
+   «more» link; a jump to an anchor landed by an estimate of the heights. */
+
+/* A section head is a title and the ink rule under it. */
 .v4-section-head {
   display: flex;
   align-items: baseline;
-  gap: 14px;
+  gap: 16px;
   padding-bottom: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   border-bottom: 1px solid var(--v4-fg);
 }
 
-
 .v4-h2 {
-  font-size: 22px;
+  font-size: 24px;
+  line-height: 1.2;
   font-weight: 600;
   margin: 0;
   letter-spacing: -0.015em;
 }
 
+/* The caption over a group inside a section: the one caps style of a page. */
 .v4-h3 {
   font-size: var(--v4-label-size);
+  line-height: 1.4;
   text-transform: uppercase;
   letter-spacing: var(--v4-label-tracking);
   color: var(--v4-muted);
-  margin: 18px 0 8px;
+  margin: 32px 0 12px;
   font-weight: var(--v4-label-weight);
 }
 
@@ -750,18 +853,18 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
 }
 
 .v4-list li {
-  padding-left: 18px;
+  padding-left: 22px;
   position: relative;
-  line-height: 1.5;
   margin-bottom: 0;
 }
 
+/* The dash sits on the middle of the first line (line-height 1.6 → 0.8em). */
 .v4-list li::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 0.65em;
-  width: 8px;
+  top: 0.8em;
+  width: 10px;
   height: 1px;
   background: var(--v4-fg);
 }
@@ -782,14 +885,13 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
 }
 
 .v4-list--spaced {
-  margin-top: 12px;
+  margin-top: 16px;
 }
 
 /* --- Prose --- */
 
 .v4-prose p {
-  margin: 0 0 12px;
-  line-height: 1.55;
+  margin: 0 0 16px;
 }
 
 .v4-prose p:last-child {
@@ -797,7 +899,7 @@ html:not([data-js]) .v4-dropdown:is(:focus-within, :hover) > .v4-menu {
 }
 
 /* Measure: a paragraph or a list item never runs past 62ch. Without it a
-   paragraph at 1280px ran 1168px, 156 characters a line. */
+   paragraph at 1280px ran the full width, 150 characters a line. */
 .v4-prose p,
 p.v4-prose,
 .v4-list li {
@@ -813,7 +915,8 @@ p.v4-prose,
   font-weight: 600;
 }
 
-.v4-prose a {
+.v4-prose a,
+.v4-terms a {
   color: var(--v4-fg);
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -823,21 +926,23 @@ p.v4-prose,
 }
 
 .v4-prose a:hover,
-.v4-prose a:focus-visible {
+.v4-prose a:focus-visible,
+.v4-terms a:hover,
+.v4-terms a:focus-visible {
   color: var(--v4-orange-text);
   text-decoration-color: var(--v4-orange-text);
 }
 
-/* Inline code in prose — small mono pill with paper bg + soft border.
-   Used heavily on /about for build hashes, file paths, colour tokens,
-   English-loanwords («git log», «#FF6600», «SEMYON5076»). */
+/* Inline code — a key, a promo code, a command: mono a step under its text
+   (14px in 16px text) on a quiet ground with a hairline, so it reads as an
+   object you can copy and not as a stray change of font. */
 .v4-prose code,
 .v4-list code,
 .v4-product-desc code,
 .v4-use-desc code {
   font-family: var(--v4-mono);
-  font-size: 0.92em;
-  padding: 1px 5px;
+  font-size: 14px;
+  padding: 0 4px;
   background: var(--v4-bg);
   border: 1px solid var(--v4-line-soft);
   border-radius: 0;
@@ -849,21 +954,45 @@ p.v4-prose,
    .v4-list itself has no bottom margin; without this rule the closing
    paragraph would butt right up against the last list item. */
 .v4-list + .v4-prose {
-  margin-top: 18px;
+  margin-top: 16px;
 }
 
+/* A note under a block (terms, a reply time, a date of a check): the secondary
+   line. Upright — the family ships no italic, a browser would fake one. */
 .v4-terms {
-  font-style: italic;
   color: var(--v4-muted);
-  font-size: 13px;
-  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 62ch;
+  margin: 16px 0 0;
 }
 
-/* Live indicator dot (current role in #02 + active product in #05).
-   Pulses to suggest «вот это сейчас работает». Reduced-motion users get
-   a static dot via the global animation-duration: 0.001ms override. */
-/* The one round shape of the system: a live dot reads as «on air», a square of
-   the same size reads as a list bullet. */
+.v4-terms + .v4-terms {
+  margin-top: 4px;
+}
+
+/* «↗» after a link that leaves the site. The IBM Plex subsets carry no arrow
+   but ↑ ↓, and a system «↗» comes from a symbol font of one hairline weight
+   (thin and tall beside a 600 title on macOS). So the mark is the line's own
+   «→» turned 45°: the weight of the text it stands in, on every platform.
+   The arrow is a box (a transform needs one), and a line may break before a
+   box: .v4-out is a no-wrap span that opens with a word joiner, so the arrow
+   never starts a line alone. The gap before the arrow is its margin, not a
+   space — the underline of a link stops at its last word. */
+.v4-out {
+  white-space: nowrap;
+}
+
+.v4-ne {
+  display: inline-block;
+  margin-left: 0.25em;
+  transform: rotate(-45deg);
+}
+
+/* Live indicator dot. Pulses to suggest «вот это сейчас работает». The one
+   round shape of the system: a live dot reads as «on air», a square of the
+   same size reads as a list bullet. Reduced-motion users get a static dot via
+   the global animation-duration override. */
 .v4-live-dot {
   display: inline-block;
   width: 6px;
@@ -879,32 +1008,42 @@ p.v4-prose,
   50% { opacity: 0.3; }
 }
 
-/* --- Footer --- */
+/* --- Footer ---
+   One module for the family: a hairline, the name · year · build mark and the
+   page's own links as a quiet line of text, and the privacy line as a
+   nameplate — small caps in a thin frame, the way a maker's plate sits on the
+   back of a device. The plate is the one text of a page set under 12px. */
 
 .v4-foot {
-  margin-top: 40px;
-  padding-top: 16px;
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--v4-line);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: var(--v4-label-xs-size);
-  color: var(--v4-muted);
-  text-transform: uppercase;
-  letter-spacing: var(--v4-label-xs-tracking);
   flex-wrap: wrap;
-  gap: 12px;
-  font-weight: var(--v4-label-weight);
+  gap: 12px 24px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--v4-muted);
 }
 
 .v4-foot-privacy {
-  text-align: right;
+  padding: 3px 8px;
+  border: 1px solid var(--v4-line);
+  font-size: 11px;
+  font-weight: var(--v4-label-weight);
+  line-height: 1.45;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .v4-foot a {
   color: inherit;
   text-decoration: underline;
   text-decoration-color: var(--v4-line);
-  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
   transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 
@@ -914,63 +1053,45 @@ p.v4-prose,
   text-decoration-color: var(--v4-orange-text);
 }
 
-/* The build mark: the release as a link to the changelog on GitHub. Data in
-   mono, plain, like every mono value. */
+/* The build mark: the release as a link to the changelog on GitHub — a word
+   of the footer's line, in the line's own face. */
 .v4-foot .v4-build {
-  font-family: var(--v4-mono);
-  font-weight: 400;
-  letter-spacing: 0;
-  text-transform: none;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .v4-foot code {
   font-family: var(--v4-mono);
-  font-size: inherit;
-  /* The build hash is data, not a label: regular weight, like every mono value. */
+  font-size: 13px;
   font-weight: 400;
   letter-spacing: 0;
   text-transform: none;
 }
 
-/* --- Responsive shell (moved from styles.css so the layer is self-contained) --- */
+/* --- Responsive shell --- */
 
 @media (max-width: 960px) {
   .v4-root {
-    padding: 28px 32px 40px;
+    padding: 24px 32px 40px;
   }
 }
 
 @media (max-width: 640px) {
   .v4-root {
-    padding: 20px 18px 32px;
-  }
-  /* Phones read at 16px (13.5px before v1.3.0): three sizes on a phone — 16px
-     for anything read as a sentence, 14px for a secondary line, 12px for
-     captions and mono meta. Set on body (not .v4-root), next to the
-     high-contrast 16px rule in base.css. */
-  body.v4-page {
-    font-size: 16px;
+    padding: 16px 20px 32px;
   }
   .v4-section {
-    margin-bottom: 28px;
-  }
-  .v4-section-head {
-    padding-bottom: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 48px;
   }
   .v4-h2 {
-    font-size: 18px;
+    font-size: 20px;
   }
-  .v4-terms {
-    font-size: 14px;
+  .v4-onpage {
+    margin-bottom: 32px;
   }
   .v4-foot {
+    margin-top: 48px;
     flex-direction: column;
-    gap: 6px;
     align-items: flex-start;
-  }
-  .v4-foot-privacy {
-    text-align: left;
   }
 }
 
@@ -981,18 +1102,78 @@ p.v4-prose,
   .skip-link {
     display: none !important;
   }
-
-  /* content-visibility: auto would print below-fold sections blank. */
-  .v4-section + .v4-section {
-    content-visibility: visible;
-  }
 }
 
 /* --- Focus ring --- */
 
+/* One focus sign for the page. A focused button takes the ink fill, so the
+   orange ring never sits on an orange button. */
 .v4-page :focus-visible {
   outline: 2px solid var(--v4-orange);
   outline-offset: 2px;
+}
+
+/* A section that takes focus from the on-page line (script.js gives it
+   tabindex="-1") is not a control: no ring around a whole section. */
+.v4-page [tabindex="-1"]:focus-visible {
+  outline: none;
+}
+
+/* Inside a panel the ring stays within the item: a panel has 4px of padding,
+   and a ring outside the item re-framed the whole panel in orange. The links of
+   the bar are items of a panel only while the menu is folded — in the open bar
+   they have no side padding, and a ring drawn inside would cross their first
+   and last letters. */
+.v4-page .v4-menu-item:focus-visible {
+  outline-offset: -2px;
+}
+
+@media (max-width: 960px) {
+  .v4-page .v4-bar-mid a:focus-visible {
+    outline-offset: -2px;
+  }
+}
+
+/* The skip link is the first thing a keyboard visitor meets: a button of the
+   page's own kind — the caption style, 44px — that covers the bar's row from
+   the content's left edge. (It was a 14px plate in the window's corner that
+   cut the menu's labels in half.) It is seen only while it has focus, so it
+   wears a focused button's look: the ink fill inside the orange ring.
+   base.css keeps it off the screen until then. */
+.v4-page a.skip-link {
+  left: max(48px, calc(50vw - 592px));
+  background: var(--v4-fg);
+  color: var(--v4-bg);
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 20px;
+  font-size: var(--v4-label-size);
+  font-weight: var(--v4-label-weight);
+  letter-spacing: var(--v4-label-tracking);
+  text-transform: uppercase;
+}
+
+.v4-page a.skip-link:focus {
+  top: 28px;
+}
+
+@media (max-width: 960px) {
+  .v4-page a.skip-link {
+    left: 32px;
+  }
+  .v4-page a.skip-link:focus {
+    top: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .v4-page a.skip-link {
+    left: 20px;
+  }
+  .v4-page a.skip-link:focus {
+    top: 16px;
+  }
 }
 
 /* --- Reduced motion ---

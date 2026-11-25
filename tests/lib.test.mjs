@@ -151,8 +151,8 @@ test('auth: password verify + session round-trip', async () => {
   assert.equal(await verifySession(secret, '@@@.@@@'), null);
 });
 
-// --- Subscriber counters: one source for the stats strip AND the channel meta ---
-import { counters, fillCounters, renderers, channelItem } from '../functions/_lib/render.js';
+// --- Subscriber counters: one source for the stats strip AND the channel panel ---
+import { counters, renderers, channelItem } from '../functions/_lib/render.js';
 
 const homeDocFor = (live) => ({
   _live: live ? { subscribers: live } : undefined,
@@ -165,13 +165,7 @@ const homeDocFor = (live) => ({
       channels: { telegram: { ru: '1 141', en: '1,141' }, linkedin: { ru: '4 800', en: '4,800' }, youtube: { ru: '128', en: '128' } },
     },
   ],
-  sections: {
-    publications: {
-      items: [
-        { kind: 'prose', tag: 'CHANNEL', meta: { ru: '{telegram} в Telegram', en: '{telegram} on Telegram' }, prose: { ru: 'p', en: 'p' } },
-      ],
-    },
-  },
+  sections: {},
 });
 
 test('counters: live SocialBot numbers win and are formatted per language', () => {
@@ -187,24 +181,50 @@ test('counters: falls back to the doc channels when no live data (or auto=false)
   assert.equal(counters(off, 'ru').total, '6 069');
 });
 
-// The CHANNEL item renders on /notes (v0.31.0) through channelItem.
-const channelOf = (doc) => channelItem(doc.sections.publications.items[0], 'ru', doc);
+// The channel panel on /notes (seed: notes.channel) goes through channelItem: what the channel
+// is, how many read it — the same counter as the stats strip — and one small button.
+const CHANNEL = {
+  title: { ru: 'Канал', en: 'Channel' },
+  prose: { ru: 'О чём канал.', en: 'What it is about.' },
+  since: { ru: 'пишу с 2022 года', en: 'writing since 2022' },
+  cta: { label: { ru: 'Подписаться', en: 'Subscribe' }, href: 'https://t.me/raschet7' },
+  more: { label: { ru: 'Избранные посты', en: 'Selected posts' }, href: 'https://t.me/raschet7/261' },
+};
+// The first fact of the panel's meta line: how many read the channel.
+const readers = (doc, lang = 'ru') => /<p class="v4-channel-meta">([^·<]*)/.exec(channelItem(CHANNEL, lang, doc))[1].trim();
 
-test('channel meta and stats strip render the same Telegram number', () => {
+test('channel panel and stats strip render the same Telegram number', () => {
   const doc = homeDocFor({ telegram: 1200, linkedin: 5000, youtube: 130 });
-  const pubs = channelOf(doc);
+  const panel = channelItem(CHANNEL, 'ru', doc);
   const stats = renderers.stats(doc, 'ru', false);
-  assert.match(pubs, /1 200 в Telegram/);
-  assert.match(stats, /Telegram:<\/span>&nbsp;1 200/);
-  // Channels are mono abbreviations, never icons.
+  const tg = counters(doc, 'ru').telegram;
+  assert.equal(tg, '1\u00a0200');
+  assert.ok(panel.includes(`<p class="v4-channel-meta">${tg}&nbsp;подписчиков · `), panel);
+  assert.ok(stats.includes(`Telegram:</span>&nbsp;${tg}`), stats);
+  // Channels are abbreviations, never icons.
   assert.match(stats, /<span aria-hidden="true">TG<\/span>/);
   assert.doesNotMatch(stats, /<svg/);
-  assert.doesNotMatch(pubs, /\{telegram\}/);
+  // No placeholder is left for a reader: the number is rendered, not substituted into a template.
+  assert.doesNotMatch(panel + stats, /\{(telegram|linkedin|youtube|total)\}/);
+  // With the stat off auto both show the doc's own number.
+  const off = homeDocFor({ telegram: 9, linkedin: 9, youtube: 9 });
+  off.stats[1].auto = false;
+  assert.equal(readers(off), '1\u00a0141&nbsp;подписчик');
+  assert.ok(renderers.stats(off, 'ru', false).includes('Telegram:</span>&nbsp;1\u00a0141'));
 });
 
-test('fillCounters escapes HTML and leaves unknown placeholders alone', () => {
-  const doc = homeDocFor(null);
-  assert.equal(fillCounters('<b>{telegram}</b> {nope}', doc, 'en'), '&lt;b&gt;1,141&lt;/b&gt; {nope}');
+test('channel panel declines «подписчик» by the number it shows; no number — no count', () => {
+  const live = (telegram) => homeDocFor({ telegram, linkedin: 0, youtube: 0 });
+  // The number is live, so the noun has to agree with whatever arrives.
+  for (const [n, text] of [[1, '1&nbsp;подписчик'], [2, '2&nbsp;подписчика'], [5, '5&nbsp;подписчиков'], [11, '11&nbsp;подписчиков'], [21, '21&nbsp;подписчик'], [1157, '1\u00a0157&nbsp;подписчиков'], [1234, '1\u00a0234&nbsp;подписчика']]) {
+    assert.equal(readers(live(n)), text);
+  }
+  assert.equal(readers(live(1), 'en'), '1&nbsp;subscriber');
+  assert.equal(readers(live(1234), 'en'), '1,234&nbsp;subscribers');
+  // Nothing to count: the line starts with the next fact, never «0 подписчиков» or a bare noun.
+  assert.equal(readers(live(0)), 'пишу с 2022 года');
+  assert.equal(readers({ stats: [], sections: {} }), 'пишу с 2022 года');
+  assert.equal(readers({ stats: [], sections: {} }, 'en'), 'writing since 2022');
 });
 
 test('renderJsonLd: product schema overrides (type/category/license)', () => {
@@ -245,13 +265,6 @@ test('stats strip declines the unit for the live number (not in edit mode)', () 
   assert.match(renderers.stats(doc, 'ru', false), /5\u00a0772<\/div>\s*<div class="v4-stat-unit">подписчика</);
   assert.match(renderers.stats(doc, 'ru', true), />подписчика</); // editor sees the stored unit
 });
-
-test('fillCounters drops a known counter that has no value instead of leaking braces', () => {
-  const doc = { stats: [], sections: {} };
-  assert.equal(fillCounters('{telegram} в Telegram', doc, 'ru'), 'в Telegram');
-});
-
-
 
 test('renderPageJsonLd: consulting offers follow the doc, about gets a breadcrumb', () => {
   const collab = {
@@ -305,13 +318,6 @@ test('safeHref / isExternal treat protocol-relative //host as an external https 
 
 /* --- v0.30.1 / v0.30.4: dead content is rewritten at read time --- */
 import { fixStaleContent } from '../functions/_lib/migrations.js';
-
-
-
-
-
-
-
 
 test('fixStaleContent: with an empty table it hands every doc back untouched', () => {
   const doc = { a: { b: 'Belissimo' }, list: ['x', { y: 'https://korzinka.uz/go' }] };

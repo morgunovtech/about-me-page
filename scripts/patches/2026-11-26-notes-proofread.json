@@ -1,0 +1,446 @@
+{
+ "notes": {
+  "slow-replies": [
+   {
+    "field": "body.en",
+    "from": "The right not to reply at once and the right to be unavailable sometimes is not rudeness but attention hygiene",
+    "to": "The right not to reply at once and the right to be unavailable sometimes are not rudeness but attention hygiene",
+    "why": "Subject–verb agreement: a compound subject (“The right … and the right …”) with a singular verb. RU: «Право не отвечать сразу и право иногда быть недоступным — это не хамство, а гигиена внимания»."
+   }
+  ],
+  "worse-or-louder": [
+   {
+    "field": "body.en",
+    "from": "In 2007 the mass user literally had to be taught how to use new interfaces",
+    "to": "In 2007 the average user literally had to be taught how to use new interfaces",
+    "why": "Calque of «массового пользователя»: “the mass user” is not an English collocation."
+   },
+   {
+    "field": "body.en",
+    "from": "the processor has to deliver high performance, energy efficiency and ever more complex AI models all at once",
+    "to": "the processor has to deliver high performance and energy efficiency and run ever more complex AI models, all at once",
+    "why": "RU: «обеспечивать высокую производительность, энергоэффективность и работу всё более сложных AI-моделей» — the chip runs the models; in EN it “delivers … AI models”, as if it supplied them."
+   },
+   {
+    "field": "body.en",
+    "from": "Hence the scathing reaction from people who follow technology",
+    "to": "Hence the caustic reaction from people who follow technology",
+    "why": "“scathing” is used twice in one sentence (“…and then getting scathing reviews in the first week of sales”); RU has two different words: «язвительная реакция» and «разгромные отзывы»."
+   },
+   {
+    "field": "body.ru",
+    "from": "Apple исторически сформировала более высокие ожидания к качеству своих продуктов",
+    "to": "Apple исторически сформировала более высокие ожидания от качества своих продуктов",
+    "why": "Управление: «ожидания к чему-либо» — смешение с «требования к»; норма — «ожидания от чего-либо»."
+   }
+  ],
+  "swatch-internet-time": [
+   {
+    "field": "body.en",
+    "from": "As someone who occasionally works from holidays, I find this very convenient.",
+    "to": "As someone who occasionally works while on holiday, I find this very convenient.",
+    "why": "Calque of «работающему из отпусков»: one works “while on holiday”, not “from holidays”."
+   },
+   {
+    "field": "body.en",
+    "from": "ever more powerful smartphones made mass-market car navigators disappear",
+    "to": "ever more powerful smartphones made mass-market car satnavs disappear",
+    "why": "«автомобильных навигаторов»: in English the device is a sat-nav (GPS unit); a “navigator” is a person."
+   },
+   {
+    "field": "body.en",
+    "from": "the lack of any global coordination of the rollout and, as a result, no network effect",
+    "to": "the lack of any global coordination of the rollout and, as a result, the absence of a network effect",
+    "why": "Broken parallelism: the sentence says Swatch Group “ran up … against a habit …, the lack of … and … no network effect” — one cannot run up against “no network effect”. RU: «…и, как следствие, с отсутс"
+   },
+   {
+    "field": "body.ru",
+    "from": "<li>1 beat = 86,4 секунды, а значит, час в этой системе длится ~42 .beats.</li>",
+    "to": "<li>1 .beat = 86,4 секунды, а значит, час в этой системе длится ~42 .beats.</li>",
+    "why": "Единица во всей заметке пишется с точкой (.beat / .beats — 8 раз, в том числе в предыдущем пункте и ниже: «Один .beat = 86,4 секунды»), здесь — без точки."
+   },
+   {
+    "field": "body.ru",
+    "from": "href=\"https://beats.wiki/\"",
+    "to": "href=\"https://web.archive.org/web/20260711024929/https://beats.wiki/\"",
+    "why": "dead link → the archived copy"
+   },
+   {
+    "field": "body.en",
+    "from": "href=\"https://beats.wiki/\"",
+    "to": "href=\"https://web.archive.org/web/20260711024929/https://beats.wiki/\"",
+    "why": "dead link → the archived copy"
+   }
+  ],
+  "email-security": [
+   {
+    "field": "excerpt.en",
+    "from": "recovery hygiene, plus addressing and disposable mail",
+    "to": "recovery hygiene, plus-addressing and disposable mail",
+    "why": "Garden path: after a comma “plus” reads as the conjunction (“…, plus addressing and disposable mail” = “and also addressing…”), not as the technique. RU: «plus-адреса и одноразовая почта»."
+   },
+   {
+    "field": "body.ru",
+    "from": "Так же не стоит брать бесплатные номера из сети, чтобы получать SMS-коды при регистрации.",
+    "to": "Также не стоит брать бесплатные номера из сети, чтобы получать SMS-коды при регистрации.",
+    "why": "В начале предложения в значении «кроме того, тоже» союз пишется слитно: «также». Раздельное «так же» (= «таким же образом») требует сравнения («так же, как…») — оно было в телеграм-оригинале («Также, "
+   }
+  ],
+  "pet-projects": [
+   {
+    "field": "body.en",
+    "from": "thanks to Azamat aka for <a href=\"https://t.me/uzbekux/813\"",
+    "to": "thanks to Azamat-aka for <a href=\"https://t.me/uzbekux/813\"",
+    "why": "RU «спасибо Азамату-ака» uses the Uzbek honorific «ака» (older brother). In English, a bare «aka» reads as «also known as», which leaves the sentence broken."
+   },
+   {
+    "field": "body.ru",
+    "from": "IT-продукты можно создавать за считанные часы или дни",
+    "to": "IT-продукты можно создавать за считаные часы или дни",
+    "why": "Прилагательное «считаный» (= очень немногие) по действующей норме пишется с одной «н»: «считаные часы, дни, минуты» (РОС РАН, Грамота.ру); «считанный» с двумя «н» — только причастие («считанные кассир"
+   }
+  ],
+  "self-hosted-vpn": [
+   {
+    "field": "body.en",
+    "from": "Follow the law and the terms of the services you use.",
+    "to": "Follow Russian law and the terms of the services you use.",
+    "why": "The legal disclaimer drops the jurisdiction. RU: «Соблюдайте законодательство РФ и условия сервисов»."
+   },
+   {
+    "field": "body.ru",
+    "from": "поэтому пока делюсь видео-инструкцией: как поднять VPN-сервис",
+    "to": "поэтому пока делюсь видеоинструкцией: как поднять VPN-сервис",
+    "why": "«видео-инструкцией» is hyphenated. Compounds with the first part «видео…» are written solid (orthographic dictionary: видео… — слитно). The other notes already write «видеозапись/видеозаписи» solid; t"
+   }
+  ],
+  "luckin-coffee": [
+   {
+    "field": "body.en",
+    "from": "made it real with Drinkit</s></a> (in Russian) people in China thought so too",
+    "to": "made it real with Drinkit</s></a> people in China thought so too",
+    "why": "The «(in Russian)» marker sits between the struck-out joke and its continuation «people in China thought so too». This breaks the sentence. RU: «<s>…</s></a> в Китае так подумали». The same paragraph "
+   },
+   {
+    "field": "body.ru",
+    "from": "кейсов блицскейлинга в тех-индустрии</em>).",
+    "to": "кейсов блицскейлинга в техиндустрии</em>).",
+    "why": "«тех-индустрии» with a hyphen: the abbreviated first part «тех…» (техподдержка, техотдел, техосмотр) is written solid; the hyphen is a calque of «tech industry». The neighbouring «блицскейлинга» in th"
+   },
+   {
+    "field": "body.ru",
+    "from": "href=\"https://www.drinkitcoffee.world/ru/franshiza\"",
+    "to": "href=\"https://web.archive.org/web/20250408175751/https://www.drinkitcoffee.world/ru/franshiza\"",
+    "why": "dead link → the archived copy"
+   },
+   {
+    "field": "body.en",
+    "from": "href=\"https://www.drinkitcoffee.world/ru/franshiza\"",
+    "to": "href=\"https://web.archive.org/web/20250408175751/https://www.drinkitcoffee.world/ru/franshiza\"",
+    "why": "dead link → the archived copy"
+   }
+  ],
+  "two-years-lessons": [
+   {
+    "field": "body.en",
+    "from": "you can’t count on help and support from the team “off the record”",
+    "to": "you can’t count on help and support from the team “beyond the call of duty”",
+    "why": "Wrong idiom. RU: «невозможно рассчитывать на помощь и поддержку команды «вне протокола»» — help beyond what the formal process requires. “Off the record” in English is about statements not meant for p"
+   },
+   {
+    "field": "body.en",
+    "from": "accepted it as an inevitable recovery process that I should enjoy rather than feel ashamed of my “low” performance",
+    "to": "accepted it as an inevitable recovery process — something to enjoy, not a reason to feel ashamed of my “low” performance",
+    "why": "The clause does not parse: “a process that I should enjoy rather than feel ashamed of my performance” — “that” is the object of “enjoy” but has no role in “feel ashamed of my performance”. RU: «принял"
+   },
+   {
+    "field": "body.ru",
+    "from": "</em>» и так далее, и тому подобное.</p>",
+    "to": "</em>» и так далее и тому подобное.</p>",
+    "why": "Лишняя запятая: «и так далее и тому подобное» (как и «и т. д. и т. п.») — устойчивое сочетание, запятая внутри него не ставится."
+   },
+   {
+    "field": "body.en",
+    "from": "while I was growing Khvost:",
+    "to": "while I was growing Hvost:",
+    "why": "The salon is “Hvost” on the English homepage (its own Latin spelling)."
+   }
+  ],
+  "morning-thoughts": [
+   {
+    "field": "body.en",
+    "from": "For the past six months I’ve changed the method and removed the phone from my morning routine entirely.",
+    "to": "Over the past six months I’ve changed the method and removed the phone from my morning routine entirely.",
+    "why": "“For the past six months” needs an ongoing action; with a one-off change (“I’ve changed … and removed”) it is ungrammatical. RU: «Последние полгода я поменял методологию и полностью исключил телефон и"
+   },
+   {
+    "field": "body.ru",
+    "from": "<a href=\"https://www.dropbox.com/scl/fi/e52s0ko9fe2q6wsgolt2m/OO-Defrag-20.gif?rlkey=t7c56z7m4iiwptamv8lw9aupp&amp;raw=1\" target=\"_blank\" rel=\"noopener noreferrer\">функцию дефрагментации</a>",
+    "to": "функцию дефрагментации",
+    "why": "dead link with no archived copy → the text stays, the link goes"
+   },
+   {
+    "field": "body.en",
+    "from": "<a href=\"https://www.dropbox.com/scl/fi/e52s0ko9fe2q6wsgolt2m/OO-Defrag-20.gif?rlkey=t7c56z7m4iiwptamv8lw9aupp&amp;raw=1\" target=\"_blank\" rel=\"noopener noreferrer\">defragmentation tool</a>",
+    "to": "defragmentation tool",
+    "why": "dead link with no archived copy → the text stays, the link goes"
+   }
+  ],
+  "uzbekistan-korzinka": [
+   {
+    "field": "body.en",
+    "from": "The median age of the population is about 30",
+    "to": "The average age of the population is about 30",
+    "why": "RU: «Средний возраст населения — около 30 лет» — the average (mean) age; stat.uz reports about 29. “Median age” is a different statistic, and for Uzbekistan it is lower (UN / Our World in Data: about "
+   },
+   {
+    "field": "body.ru",
+    "from": "хотя мне сходу заявили, что оффер делать не будут",
+    "to": "хотя мне с ходу заявили, что оффер делать не будут",
+    "why": "Наречное сочетание «с ходу» (сразу, без подготовки) пишется раздельно; «сходу» — только форма существительного «сход»."
+   },
+   {
+    "field": "body.ru",
+    "from": "href=\"https://assets.kpmg.com/content/dam/kpmg/uz/pdf/2023/E-commerce%20in%20Uzbekistan_to-upload.pdf\"",
+    "to": "href=\"https://web.archive.org/web/20241226143129/https://assets.kpmg.com/content/dam/kpmg/uz/pdf/2023/E-commerce%20in%20Uzbekistan_to-upload.pdf\"",
+    "why": "dead link → the archived copy"
+   },
+   {
+    "field": "body.en",
+    "from": "href=\"https://assets.kpmg.com/content/dam/kpmg/uz/pdf/2023/E-commerce%20in%20Uzbekistan_to-upload.pdf\"",
+    "to": "href=\"https://web.archive.org/web/20241226143129/https://assets.kpmg.com/content/dam/kpmg/uz/pdf/2023/E-commerce%20in%20Uzbekistan_to-upload.pdf\"",
+    "why": "dead link → the archived copy"
+   }
+  ],
+  "apple-notes": [
+   {
+    "field": "body.en",
+    "from": "</ul>\n<ul>\n<li>The total number of notes never exceeds 1,000.",
+    "to": "<li>The total number of notes never exceeds 1,000.",
+    "why": "One list of eight points is cut into two <ul> after the fourth («…Inbox Work (unsorted);</li></ul><ul><li>The total number…»; in body.ru before «Общее число заметок не превышает 1 000»). In the Telegr"
+   },
+   {
+    "field": "body.ru",
+    "from": "</ul>\n<ul>\n<li>Общее число заметок",
+    "to": "<li>Общее число заметок",
+    "why": "Один список из восьми пунктов разорван на два после четвёртого (в оригинале в Telegram список один)."
+   }
+  ],
+  "selectavision": [
+   {
+    "field": "body.en",
+    "from": "The (in narrow circles) legendary",
+    "to": "The legendary (in certain circles)",
+    "why": "Calque of «Легендарная (в узких кругах)»: “in narrow circles” is not an English collocation, and a parenthesis between the article and the adjective reads broken."
+   },
+   {
+    "field": "body.ru",
+    "from": "Небольшой спойлер: RCA запретили две ключевые вещи",
+    "to": "Небольшой спойлер: RCA запретила две ключевые вещи",
+    "why": "Рассогласование в числе: в этой же заметке RCA согласуется в единственном числе (excerpt: «RCA … обещала … потеряла … проиграла»; body: «разработала компания RCA»). Со множественным числом фраза ещё и"
+   }
+  ],
+  "restoring-energy": [
+   {
+    "field": "body.en",
+    "from": "After stepping on the same rake a few times, I tried to build a system that helps me:",
+    "to": "After making the same mistake a few times, I tried to build a system that helps me:",
+    "why": "Word-for-word rendering of the Russian idiom «Несколько раз наступив на одни и те же грабли»; English has no “step on the same rake” idiom."
+   },
+   {
+    "field": "body.en",
+    "from": "This simple truth only reached me four years ago.",
+    "to": "This simple truth only dawned on me four years ago.",
+    "why": "Calque of «До меня эта простая истина дошла лишь четыре года назад»: a truth does not “reach” a person in English."
+   }
+  ],
+  "macos-apps": [
+   {
+    "field": "body.en",
+    "from": "and fine-tuning through a graphical interface",
+    "to": "and fine-grained settings through a graphical interface",
+    "why": "RU «тонкой настройкой через графический интерфейс» means fine-grained settings; next to ChatGPT, «fine-tuning» reads as model fine-tuning, a different thing."
+   }
+  ],
+  "nintendo-app-store": [
+   {
+    "field": "excerpt.en",
+    "from": "controlled its platform harder than Apple and Google do today",
+    "to": "controlled its platform more tightly than Apple and Google do today",
+    "why": "«controlled … harder» is unidiomatic; RU «контролировала жёстче»."
+   }
+  ],
+  "better-gpt-answers": [
+   {
+    "field": "body.ru",
+    "from": "учитывай бытовой контекст только для тем про быт/досуг/еда/поездки/жильё/покупки",
+    "to": "учитывай бытовой контекст только для тем про быт/досуг/еду/поездки/жильё/покупки",
+    "why": "Неверный падеж: после предлога «про» нужен винительный — «про … еду». У остальных слов ряда винительный совпадает с именительным, поэтому ошибка видна только в слове «еда»."
+   }
+  ],
+  "ecom-to-fintech": [
+   {
+    "field": "body.ru",
+    "from": "Например, на третий год в Корзинке я интуитивно понимал",
+    "to": "Например, на третий год в «Корзинке» я интуитивно понимал",
+    "why": "Название компании кириллицей без кавычек; условные названия компаний пишутся в кавычках. В заметке hiking-for-pms так и сделано («ушёл из «Корзинки»»), латиницей (Korzinka) кавычки не нужны. Без кавыч"
+   }
+  ],
+  "chatgpt-instructions": [
+   {
+    "field": "body.ru",
+    "from": "Это мета-инструкции, поэтому правила по умолчанию будут применяться ко всем чатам и проектам",
+    "to": "Это метаинструкции, поэтому правила по умолчанию будут применяться ко всем чатам и проектам",
+    "why": "Первая часть сложных слов «мета…» пишется слитно (метаданные, метаязык, метаанализ — «Русский орфографический словарь» РАН); дефис здесь — орфографическая ошибка."
+   }
+  ],
+  "corporate-manipulation": [
+   {
+    "field": "body.ru",
+    "from": "про модели токсичного менеджмента, так что если тема вам интересна — ",
+    "to": "про модели токсичного менеджмента, так что, если тема вам интересна — ",
+    "why": "Стык союзов «так что если»: второй части двойного союза («то») нет, поэтому после «так что» нужна запятая."
+   }
+  ],
+  "vacation-rules": [
+   {
+    "field": "body.ru",
+    "from": "В итоге раздражённый, уставший, голодный я слоняюсь по городу",
+    "to": "В итоге, раздражённый, уставший, голодный, я слоняюсь по городу",
+    "why": "Attributes that refer to a personal pronoun are always set off, wherever they stand (the textbook case: «Изнурённые, грязные, мокрые, мы достигли наконец берега»). The comma before «я» is missing; the"
+   }
+  ],
+  "public-speaking": [
+   {
+    "field": "body.ru",
+    "from": "это увеличивает поток входящих лидов и делает найм более дешёвым и быстрым;",
+    "to": "это увеличивает поток входящих лидов и делает наём более дешёвым и быстрым;",
+    "why": "«найм» as the accusative: the dictionary form is «наём» (наём, найма, наймом, о найме); «найм» is not in the orthographic dictionary. The oblique forms across the notes are right («найма», «наймом», «"
+   },
+   {
+    "field": "body.ru",
+    "from": "моё восприятие, но когда я вижу C-level-сотрудника компании X",
+    "to": "моё восприятие, но, когда я вижу C-level-сотрудника компании X",
+    "why": "Junction of two conjunctions: after the subordinate clause there is no «то» («…ноябре и декабре, у меня рождается резонный вопрос»), so the rule asks for a comma between «но» and «когда». The same not"
+   }
+  ],
+  "risk-management": [
+   {
+    "field": "body.ru",
+    "from": "(запах одоранта, добавляемого в газо-бензиновую смесь)",
+    "to": "(запах одоранта, добавляемого в газобензиновую смесь)",
+    "why": "Compounds with the first part «газо…» are written solid: «газобензиновую». The hyphen is copied verbatim from the quoted Wikipedia paragraph (the lead of the same Wikipedia article spells «газобензино"
+   },
+   {
+    "field": "body.ru",
+    "from": "href=\"https://www.kazenergy.com/upload/document/development/kiosh_2024/31/Chernov_Dmitry.pdf\"",
+    "to": "href=\"https://web.archive.org/web/20241203010606/https://www.kazenergy.com/upload/document/development/kiosh_2024/31/Chernov_Dmitry.pdf\"",
+    "why": "dead link → the archived copy"
+   },
+   {
+    "field": "body.en",
+    "from": "href=\"https://www.kazenergy.com/upload/document/development/kiosh_2024/31/Chernov_Dmitry.pdf\"",
+    "to": "href=\"https://web.archive.org/web/20241203010606/https://www.kazenergy.com/upload/document/development/kiosh_2024/31/Chernov_Dmitry.pdf\"",
+    "why": "dead link → the archived copy"
+   }
+  ],
+  "clive-sinclair": [
+   {
+    "field": "body.ru",
+    "from": "прекрасно написанная, но, к сожалению, не завершённая биография Синклера",
+    "to": "прекрасно написанная, но, к сожалению, незавершённая биография Синклера",
+    "why": "Полное причастие без зависимых слов пишется с «не» слитно («к сожалению» — вводное, не зависимое слово)."
+   }
+  ],
+  "18-years-principles": [
+   {
+    "field": "body.ru",
+    "from": "а с друзьями и близкими весь такой смелый и прямой из себя. Не консистентно.",
+    "to": "а с друзьями и близкими весь такой смелый и прямой из себя. Неконсистентно.",
+    "why": "Наречие/краткая форма без противопоставления пишется с «не» слитно."
+   },
+   {
+    "field": "body.ru",
+    "from": "t.me/raschet7/76</a> и <a href=\"https://t.me/raschet7/77\"",
+    "to": "t.me/raschet7/76</a>, <a href=\"https://t.me/raschet7/77\"",
+    "why": "Перечисление из трёх ссылок через «и … и …»; при однородных членах — запятая, «и» только перед последним."
+   },
+   {
+    "field": "body.ru",
+    "from": "href=\"https://www.baltinfo.ru/\"",
+    "to": "href=\"https://web.archive.org/web/20120529084226/http://www.baltinfo.ru/\"",
+    "why": "dead link → the archived copy"
+   },
+   {
+    "field": "body.en",
+    "from": "href=\"https://www.baltinfo.ru/\"",
+    "to": "href=\"https://web.archive.org/web/20120529084226/http://www.baltinfo.ru/\"",
+    "why": "dead link → the archived copy"
+   }
+  ],
+  "social-media": [
+   {
+    "field": "body.ru",
+    "from": "href=\"https://www.youtube.com/@user-yu2sj7wj2h\"",
+    "to": "href=\"https://web.archive.org/web/20240903081043/https://www.youtube.com/@user-yu2sj7wj2h\"",
+    "why": "dead link → the archived copy"
+   },
+   {
+    "field": "body.en",
+    "from": "href=\"https://www.youtube.com/@user-yu2sj7wj2h\"",
+    "to": "href=\"https://web.archive.org/web/20240903081043/https://www.youtube.com/@user-yu2sj7wj2h\"",
+    "why": "dead link → the archived copy"
+   }
+  ],
+  "icloud-pmf": [
+   {
+    "field": "body.ru",
+    "from": "<a href=\"https://www.youtube.com/watch?v=SKN31rX4Aic\" target=\"_blank\" rel=\"noopener noreferrer\">здесь</a>",
+    "to": "здесь",
+    "why": "dead link with no archived copy → the text stays, the link goes"
+   },
+   {
+    "field": "body.ru",
+    "from": "<a href=\"https://youtu.be/KTrO2wUxh0Q\" target=\"_blank\" rel=\"noopener noreferrer\">презентуется</a>",
+    "to": "презентуется",
+    "why": "dead link with no archived copy → the text stays, the link goes"
+   },
+   {
+    "field": "body.ru",
+    "from": "<a href=\"https://youtu.be/VPxIFh7OyhI\" target=\"_blank\" rel=\"noopener noreferrer\">MobileMe</a>",
+    "to": "MobileMe",
+    "why": "dead link with no archived copy → the text stays, the link goes"
+   },
+   {
+    "field": "body.ru",
+    "from": "<a href=\"https://youtu.be/zdUB8dL92fs?t=1087\" target=\"_blank\" rel=\"noopener noreferrer\">презентацию 2000 года</a>",
+    "to": "презентацию 2000 года",
+    "why": "dead link with no archived copy → the text stays, the link goes"
+   },
+   {
+    "field": "body.en",
+    "from": "<a href=\"https://www.youtube.com/watch?v=SKN31rX4Aic\" target=\"_blank\" rel=\"noopener noreferrer\">here</a>",
+    "to": "here",
+    "why": "dead link with no archived copy → the text stays, the link goes"
+   },
+   {
+    "field": "body.en",
+    "from": "<a href=\"https://youtu.be/KTrO2wUxh0Q\" target=\"_blank\" rel=\"noopener noreferrer\">unveiled</a>",
+    "to": "unveiled",
+    "why": "dead link with no archived copy → the text stays, the link goes"
+   },
+   {
+    "field": "body.en",
+    "from": "<a href=\"https://youtu.be/VPxIFh7OyhI\" target=\"_blank\" rel=\"noopener noreferrer\">MobileMe</a>",
+    "to": "MobileMe",
+    "why": "dead link with no archived copy → the text stays, the link goes"
+   },
+   {
+    "field": "body.en",
+    "from": "<a href=\"https://youtu.be/zdUB8dL92fs?t=1087\" target=\"_blank\" rel=\"noopener noreferrer\">2000 keynote</a>",
+    "to": "2000 keynote",
+    "why": "dead link with no archived copy → the text stays, the link goes"
+   }
+  ]
+ }
+}

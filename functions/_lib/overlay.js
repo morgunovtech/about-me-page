@@ -8,7 +8,7 @@
 
 import { renderers, LIST_PATHS } from './render.js';
 import { pick, resolvePath } from './i18n.js';
-import { renderProse, safeHref } from './markdown.js';
+import { renderProse, safeHref, typo, typoText } from './markdown.js';
 import { renderJsonLd } from './jsonld.js';
 import { ORIGIN, BUILD } from './site.js';
 const absolutize = (p) => (!p ? p : /^https?:\/\//i.test(p) ? p : ORIGIN + p);
@@ -28,21 +28,27 @@ const guard = (fn) => ({
 });
 
 export function overlay(response, doc, lang, edit = false, jsonld = renderJsonLd) {
+  // The public page gets the typography pass (markdown.js: no line breaks after
+  // a one-letter prefix, before «·» and «—», after a short Russian preposition).
+  // The editor does not: there the text on the page is the text of the doc.
+  const pub = (html) => (edit ? html : typo(html, lang));
   return new HTMLRewriter()
     .on('[data-cms-text]', guard((el) => {
       const val = pick(resolvePath(doc, el.getAttribute('data-cms-text')), lang);
-      if (val != null) el.setInnerContent(String(val), { html: false });
+      if (val == null) return;
+      // <title> stays plain: it is read by browsers' chrome, search and share cards.
+      el.setInnerContent(edit || el.tagName === 'title' ? String(val) : typoText(String(val), lang), { html: false });
     }))
     .on('[data-cms-md]', guard((el) => {
       const md = pick(resolvePath(doc, el.getAttribute('data-cms-md')), lang);
-      if (md != null) el.setInnerContent(renderProse(md), { html: true });
+      if (md != null) el.setInnerContent(pub(renderProse(md)), { html: true });
     }))
     // Raw stored HTML fragment (verbatim) — for rich prose edited as one block.
     // `{build}` inside prose resolves to the deployed short SHA, so the text
     // never carries a hash that a redeploy would leave stale.
     .on('[data-cms-html]', guard((el) => {
       const html = pick(resolvePath(doc, el.getAttribute('data-cms-html')), lang);
-      if (html != null) el.setInnerContent(String(html).replace(/\{build\}/g, doc._build || BUILD), { html: true });
+      if (html != null) el.setInnerContent(pub(String(html).replace(/\{build\}/g, doc._build || BUILD)), { html: true });
     }))
     .on('[data-cms-href]', guard((el) => {
       const val = pick(resolvePath(doc, el.getAttribute('data-cms-href')), lang);
@@ -55,7 +61,7 @@ export function overlay(response, doc, lang, edit = false, jsonld = renderJsonLd
     .on('[data-cms-list]', guard((el) => {
       const slot = el.getAttribute('data-cms-list');
       const fn = renderers[slot];
-      if (fn) el.setInnerContent(fn(doc, lang, edit), { html: true });
+      if (fn) el.setInnerContent(pub(fn(doc, lang, edit)), { html: true });
       // Mark the container so the editor knows where "+ add" appends.
       if (edit && LIST_PATHS[slot]) el.setAttribute('data-edit-list', LIST_PATHS[slot]);
     }))

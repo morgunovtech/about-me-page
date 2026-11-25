@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>404 — Страница не найдена | morgunov.tech</title>
   <meta name="robots" content="noindex" />
+  <meta name="description" content="Страница не найдена. Page not found — morgunov.tech" />
   <meta name="theme-color" content="#edeae5" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -13,15 +14,14 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <style>
-    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:12px;--v4-label-tracking:.1em;--v4-label-xs-size:12px;--v4-label-xs-tracking:.1em;--v4-label-weight:500;color-scheme:light dark}
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:12px;--v4-label-tracking:.08em;--v4-label-xs-size:12px;--v4-label-xs-tracking:.08em;--v4-label-weight:500;color-scheme:light dark}
     [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f;color-scheme:dark}
     [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000;color-scheme:dark}
     *,*::before,*::after{box-sizing:border-box}
     body{margin:0}
     body.no-transition,body.no-transition *{transition:none!important}
-    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:14px;line-height:1.55;letter-spacing:-0.005em}
-    [data-theme="high-contrast"] body.v4-page{font-size:16px}
-    .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:6px 12px;z-index:100;text-decoration:none;font-size:13px;transition:top .2s}
+    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:16px;line-height:1.6;letter-spacing:-0.005em}
+    .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:8px 12px;z-index:100;text-decoration:none;font-size:14px;transition:top .2s}
     .v4-page .skip-link:focus{top:8px}
   </style>
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-cyr-400.woff2" crossorigin />
@@ -33,10 +33,10 @@
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-cyr-500.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-500.woff2" crossorigin />
   <link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" />
-  <link rel="stylesheet" href="/ds/v1/tokens.css?v=5629caeb" />
-  <link rel="stylesheet" href="/ds/v1/base.css?v=0e404315" />
-  <link rel="stylesheet" href="/ds/v1/components.css?v=9c2b749b" />
-  <link rel="stylesheet" href="/styles.css?v=3a965f09" />
+  <link rel="stylesheet" href="/ds/v1/tokens.css?v=50fa198d" />
+  <link rel="stylesheet" href="/ds/v1/base.css?v=03b78c6e" />
+  <link rel="stylesheet" href="/ds/v1/components.css?v=8a12b6d5" />
+  <link rel="stylesheet" href="/styles.css?v=f5fae2e5" />
   <script data-cfasync="false">
     (function () {
       var d = document.documentElement;
@@ -60,7 +60,24 @@
 <body class="v4-page no-transition" data-lang="ru">
   <a href="#main" class="skip-link" data-i18n-ru="Перейти к основному содержимому" data-i18n-en="Skip to main content">Перейти к основному содержимому</a>
   <div class="v4-root">
-    <header class="v4-bar">
+    <header class="v4-bar" id="top">
+      <nav class="v4-nav v4-dropdown" aria-label="Основная навигация" data-i18n-aria-en="Main navigation">
+        <button class="v4-bar-btn v4-nav-toggle" type="button" aria-controls="site-nav"><span data-i18n-ru="Меню" data-i18n-en="Menu">Меню</span><svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+        <div class="v4-bar-mid" id="site-nav">
+          <a href="/" data-i18n-href-en="/en/" data-i18n-ru="Обо мне" data-i18n-en="About">Обо мне</a>
+          <a href="/notes" data-i18n-href-en="/en/notes" data-i18n-ru="Публикации" data-i18n-en="Publications">Публикации</a>
+          <a href="/privacy" data-i18n-href-en="/en/privacy" data-i18n-ru="Приватность" data-i18n-en="Privacy">Приватность</a>
+          <div class="v4-dropdown v4-nav-group">
+            <button class="v4-nav-group-btn" type="button" aria-controls="nav-work"><span data-i18n-ru="Сотрудничество" data-i18n-en="Work with me">Сотрудничество</span><svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+            <div class="v4-menu v4-nav-sub" id="nav-work">
+              <span class="v4-nav-group-cap" aria-hidden="true" data-i18n-ru="Сотрудничество" data-i18n-en="Work with me">Сотрудничество</span>
+              <a class="v4-menu-item" href="/consulting" data-i18n-href-en="/en/consulting" data-i18n-ru="Консалтинг" data-i18n-en="Consulting">Консалтинг</a>
+              <a class="v4-menu-item" href="/collaborate" data-i18n-href-en="/en/collaborate" data-i18n-ru="Партнёрства и медиа" data-i18n-en="Partnerships &amp; media">Партнёрства и медиа</a>
+            </div>
+          </div>
+          <a href="/uses" data-i18n-href-en="/en/uses" data-i18n-ru="Стек" data-i18n-en="Uses">Стек</a>
+        </div>
+      </nav>
       <div class="v4-bar-right">
         <div class="v4-dropdown v4-lang">
           <button class="v4-bar-btn v4-lang-btn" type="button" aria-haspopup="menu" aria-controls="lang-menu" id="lang-toggle" aria-label="RU — сменить язык" data-i18n-aria-en="EN — change language"><span data-i18n-ru="RU" data-i18n-en="EN">RU</span><svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
@@ -97,22 +114,20 @@
       <section class="v4-hero v4-hero--simple" aria-labelledby="error-title">
         <div class="v4-hero-text">
           <p class="v4-hero-meta" data-i18n-ru="Ошибка 404" data-i18n-en="Error 404">Ошибка 404</p>
-          <h1 class="v4-h1" id="error-title" data-i18n-ru="Страница не найдена" data-i18n-en="Page not found">Страница не найдена</h1>
-          <p class="v4-tagline" data-i18n-ru="Такой страницы нет или она была перемещена." data-i18n-en="This page doesn't exist or has been moved.">Такой страницы нет или она была перемещена.</p>
+          <h1 class="v4-h1" id="error-title" data-i18n-ru="Страница не найдена" data-i18n-en="Page not found">Страница не&nbsp;найдена</h1>
+          <p class="v4-tagline" data-i18n-ru="Такой страницы нет, или она была перемещена." data-i18n-en="This page doesn't exist or has been moved.">Такой страницы нет, или она была перемещена.</p>
           <div class="v4-cta-row">
-            <a class="v4-btn v4-btn-primary" href="/" data-i18n-href-en="/en/" data-i18n-ru="На главную" data-i18n-en="Go to homepage">На главную</a>
-            <a class="v4-btn" href="/consulting" data-i18n-href-en="/en/consulting" data-i18n-ru="Консалтинг" data-i18n-en="Consulting">Консалтинг</a>
-            <a class="v4-btn" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Telegram</a>
+            <a class="v4-btn v4-btn-primary" href="/" data-i18n-href-en="/en/" data-i18n-ru="На главную" data-i18n-en="Go to homepage">На&nbsp;главную</a>
           </div>
         </div>
       </section>
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.0.1</a></span>
-      <span class="v4-foot-privacy" data-i18n-ru="Без cookies, трекеров и аналитики" data-i18n-en="No cookies, no trackers, no analytics">Без cookies, трекеров и аналитики</span>
+      <span>morgunov.tech&nbsp;· 2026&nbsp;· <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.1.0</a>&nbsp;· <a href="/thanks" data-i18n-href-en="/en/thanks" data-i18n-ru="сказать спасибо или сообщить об ошибке" data-i18n-en="say thanks or report a bug">сказать спасибо или сообщить об&nbsp;ошибке</a></span>
+      <span class="v4-foot-privacy" data-i18n-ru="Без cookies, трекеров и аналитики" data-i18n-en="No cookies, no trackers, no analytics">Без cookies, трекеров и&nbsp;аналитики</span>
     </footer>
   </div>
-  <script data-cfasync="false" defer src="/script.js?v=4aadf13a"></script>
+  <script data-cfasync="false" defer src="/script.js?v=f2317f0d"></script>
 </body>
 </html>

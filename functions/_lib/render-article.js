@@ -1,7 +1,7 @@
 // Builds the public (or preview) Response for a single article: precompute the
 // scalar helper fields, then overlay the doc onto the embedded shell using the
 // Article JSON-LD renderer.
-import { pick } from './i18n.js';
+import { pick, fmtDate } from './i18n.js';
 import { escapeAttr, escapeHtml } from './markdown.js';
 import { renderArticleJsonLd } from './jsonld.js';
 import { overlay } from './overlay.js';
@@ -11,17 +11,6 @@ import { loadDoc } from './content.js';
 import { topicsOf, topicUrl, pickL } from './notes-feed.js';
 import { ORIGIN, NAME, buildOf } from './site.js';
 
-function dateDisplay(date, lang) {
-  if (!date) return '';
-  try {
-    return new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'ru-RU', {
-      day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
-    }).format(new Date(date));
-  } catch {
-    return date;
-  }
-}
-
 const nonEmpty = (v) => !!(v && String(v).trim());
 
 // _headers never applies to Function responses, so the 404 page's headers
@@ -30,12 +19,7 @@ export async function notFound(env, request) {
   try {
     const r = await env.ASSETS.fetch(new URL('/404.html', request.url));
     if (!r.ok) throw new Error('404 template unavailable');
-    // The static template carries the stamped build; show the deployed one.
-    const build = buildOf(env);
-    const page = new HTMLRewriter()
-      .on('[data-cms-text="_build"]', { element(el) { el.setInnerContent(build); } })
-      .transform(new Response(r.body, r));
-    return new Response(request.method === 'HEAD' ? null : page.body, {
+    return new Response(request.method === 'HEAD' ? null : r.body, {
       status: 404,
       headers: {
         'content-type': 'text/html; charset=utf-8',
@@ -64,10 +48,12 @@ export async function renderArticlePage(env, slug, lang, request, opts = {}) {
   doc._url = ORIGIN + (lang === 'en' ? '/en' : '') + '/notes/' + slug;
   doc._urlRu = ORIGIN + '/notes/' + slug;
   doc._urlEn = ORIGIN + '/en/notes/' + slug;
+  doc._pathRu = '/notes/' + slug;
+  doc._pathEn = '/en/notes/' + slug;
   // No EN text yet → the EN URL 404s, so the shell drops the hreflang="en"
   // alternate and the English menu item (data-cms-omit="_noEn").
   doc._noEn = !(nonEmpty(doc.title && doc.title.en) && nonEmpty(doc.body && doc.body.en));
-  doc._dateDisplay = dateDisplay(doc.date, lang);
+  doc._dateDisplay = fmtDate(doc.date, lang);
   doc._build = buildOf(env);
   // <time> needs a machine-readable datetime next to the localized text.
   doc._dateHtml = doc.date

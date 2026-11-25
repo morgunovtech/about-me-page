@@ -1,41 +1,51 @@
 /* ============================================================
-   morgunov.tech — V4 page styles (about-me-page specific)
-   Page layout + components NOT (yet) in the shared design system.
+   morgunov.tech — page styles (about-me-page specific)
+   Page layout + components NOT in the shared design system.
    Shared layer loaded first: /ds/v1/{fonts,tokens,base,components}.css
+
+   The type scale, the weights and the spacing steps are the layer's — see the
+   head of components.css. In short: 16px for anything read as a sentence,
+   14px for a secondary line, 13px mono for data, 12px caps for a caption,
+   18px for an item's title, 24px for a section's, and every gap is one of
+   4 · 8 · 12 · 16 · 24 · 32 · 48 · 64.
+
+   One grid for every «label | content» table of the site — the career, the
+   ventures, the feeds: the first column is 160px, the gap is 24px.
    ============================================================ */
 
 /* --- Hero --- */
 
 .v4-hero {
   display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 40px;
-  padding: 4px 0 36px;
-  margin: 0 0 28px;
+  /* The portrait column follows the window: 360px on a wide screen, 200px at
+     641px — the name still fits beside it on one line. */
+  grid-template-columns: minmax(0, 1fr) clamp(200px, 30vw, 360px);
+  gap: 48px;
+  margin: 0 0 32px;
   align-items: start;
 }
 
-/* Same top rhythm as the homepage hero — the variant only drops the portrait. */
+/* A page without a portrait: the same block, one column. */
 .v4-hero--simple {
-  grid-template-columns: 1fr;
-  padding: 4px 0 0;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .v4-hero-text {
   min-width: 0;
 }
 
+/* The line over the name: the caption style. */
 .v4-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 0 0 16px;
   font-size: var(--v4-label-size);
   font-weight: var(--v4-label-weight);
+  line-height: 1.4;
   text-transform: uppercase;
   letter-spacing: var(--v4-label-tracking);
   color: var(--v4-muted);
-  margin-bottom: 16px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  font-family: var(--v4-mono);
 }
 
 .v4-hero-meta b {
@@ -43,32 +53,61 @@
   font-weight: var(--v4-label-weight);
 }
 
+/* The page title: one style on every page — the homepage, a subpage, the
+   publications, a topic. 56px on a desktop, down to 40px beside the portrait
+   at 641px. */
 .v4-h1 {
-  font-size: 64px;
-  line-height: 1;
+  font-size: clamp(40px, 6.2vw, 56px);
+  line-height: 1.04;
   letter-spacing: -0.025em;
   font-weight: 600;
   margin: 0 0 16px;
 }
 
+/* How many there are, beside the title of a list («Публикации 52»): data, so
+   it is quiet — the section-title size, regular, muted, on the cap line. */
+.v4-h1-count {
+  display: inline-block;
+  margin-left: 0.2em;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--v4-muted);
+  vertical-align: top;
+  position: relative;
+  top: 0.22em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
 .v4-tagline {
   font-size: 18px;
+  line-height: 1.5;
+  max-width: 54ch;
+  margin: 0;
   color: var(--v4-fg);
-  line-height: 1.45;
-  max-width: 52ch;
-  margin: 0 0 24px;
   font-weight: 400;
 }
 
+/* The first line of a section, before its cards or list: plain text. */
 .v4-tagline--compact {
-  font-size: 16px;
-  margin-bottom: 18px;
+  font-size: inherit;
+  line-height: inherit;
+  max-width: 62ch;
+  margin-bottom: 24px;
 }
 
 .v4-cta-row {
   display: flex;
+  align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+}
+
+/* The gap over the hero's buttons belongs to the buttons: a page without any
+   (the row is there for the CMS, empty) leaves no hole under the lead. */
+.v4-hero .v4-cta-row > * {
+  margin-top: 24px;
 }
 
 /* --- Portrait --- */
@@ -91,47 +130,44 @@
   border-radius: 0;
 }
 
-/* --- Stats strip --- */
+/* --- Stats strip ---
+   Four figures in one band. The first one starts on the content's left edge;
+   the next ones are set off by a hairline. */
 
 .v4-stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  margin-bottom: 36px;
-  border-top: 1px solid var(--v4-fg);
-  border-bottom: 1px solid var(--v4-fg);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0 0 64px;
+  border-top: 1px solid var(--v4-line);
+  border-bottom: 1px solid var(--v4-line);
 }
 
 .v4-stat {
-  padding: 18px 16px;
-  border-right: 1px solid var(--v4-line);
+  padding: 24px 24px 24px 0;
 }
 
-.v4-stat:last-child {
-  border-right: none;
+.v4-stat + .v4-stat {
+  padding-left: 24px;
+  border-left: 1px solid var(--v4-line);
 }
 
 .v4-stat-value {
-  font-size: 36px;
+  font-size: 40px;
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.025em;
 }
 
 .v4-stat-unit {
-  font-size: var(--v4-label-xs-size);
-  text-transform: uppercase;
-  letter-spacing: var(--v4-label-xs-tracking);
-  color: var(--v4-muted);
   margin-top: 8px;
-  font-weight: var(--v4-label-weight);
+  line-height: 1.4;
 }
 
 .v4-stat-aside {
-  font-family: var(--v4-mono);
-  font-size: 12px;
-  letter-spacing: 0;
-  color: var(--v4-dim);
-  margin-top: 6px;
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--v4-muted);
 }
 
 /* "TG 1 141" never splits across lines; the row wraps at the separators. */
@@ -143,20 +179,27 @@
 
 .v4-career-row {
   display: grid;
-  grid-template-columns: 110px 220px 1fr;
-  gap: 20px;
+  grid-template-columns: 160px 280px minmax(0, 1fr);
+  gap: 8px 24px;
   align-items: baseline;
-  padding: 14px 0;
+  padding: 24px 0;
   border-bottom: 1px solid var(--v4-line-soft);
 }
 
-.v4-career-row:last-child {
-  border-bottom: none;
+.v4-career-row:first-child {
+  padding-top: 0;
 }
 
-.v4-career-row .period {
+/* The label column of a table — a period, a year, a date (with its source on
+   the homepage's feed): the one use of mono on a page. */
+.v4-career-row .period,
+.v4-venture .year,
+.v4-feed-meta,
+.v4-note-date {
   font-family: var(--v4-mono);
-  font-size: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0;
   color: var(--v4-muted);
 }
 
@@ -168,50 +211,44 @@
   flex-wrap: wrap;
 }
 
-.v4-career-row .company a {
+.v4-career-row .company a,
+.v4-venture .name a {
   color: inherit;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.15s ease;
+  transition: color 0.15s ease;
 }
 
 .v4-career-row .company a:hover,
-.v4-career-row .company a:focus-visible {
-  border-bottom-color: var(--v4-orange);
+.v4-career-row .company a:focus-visible,
+.v4-venture .name a:hover,
+.v4-venture .name a:focus-visible {
+  color: var(--v4-orange-text);
 }
 
-/* The role is a label of data, set like the period: mono caps. In 13px grey
-   sans it was the weakest text of the row and ran into the description. */
+/* The role under the company: a secondary line, in the case it is written. */
 .v4-career-row .role {
-  font-family: var(--v4-mono);
-  font-size: var(--v4-label-size);
-  font-weight: var(--v4-label-weight);
-  letter-spacing: var(--v4-label-tracking);
-  text-transform: uppercase;
+  margin-top: 2px;
+  font-size: 14px;
   line-height: 1.5;
   color: var(--v4-muted);
-  margin-top: 5px;
 }
 
 .v4-career-row .ctx {
-  color: var(--v4-fg);
-  font-size: 14px;
-  max-width: 60ch;
+  max-width: 62ch;
 }
 
 .v4-career-row .ctx p {
-  margin: 0 0 8px;
-  line-height: 1.55;
+  margin: 0 0 12px;
 }
 
 .v4-career-row .ctx p:last-child {
   margin-bottom: 0;
 }
 
-/* --- Button row under a block (homepage «Все публикации →», /collaborate) --- */
+/* --- Button row under a block --- */
 
 .v4-help-cta {
-  margin-top: 20px;
+  margin-top: 24px;
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
@@ -221,37 +258,24 @@
 
 .v4-venture {
   display: grid;
-  grid-template-columns: 70px 1fr;
-  gap: 16px;
-  padding: 14px 0;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 4px 24px;
+  padding: 16px 0;
   align-items: baseline;
   border-bottom: 1px solid var(--v4-line-soft);
 }
 
-.v4-venture:last-child {
-  border-bottom: none;
+.v4-venture:first-child {
+  padding-top: 0;
 }
 
-.v4-venture .year {
-  font-family: var(--v4-mono);
-  font-size: 12px;
-  color: var(--v4-muted);
+.v4-venture:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .v4-venture .name {
   font-weight: 600;
-}
-
-.v4-venture .name a {
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.15s ease;
-}
-
-.v4-venture .name a:hover,
-.v4-venture .name a:focus-visible {
-  border-bottom-color: var(--v4-orange);
 }
 
 .v4-venture .role-aside {
@@ -260,47 +284,32 @@
 }
 
 .v4-venture .arc {
+  margin-top: 2px;
+  font-size: 14px;
+  line-height: 1.5;
   color: var(--v4-muted);
-  font-size: 13px;
-  margin-top: 4px;
 }
 
-/* --- Products --- */
+/* --- Cards (a product, a tier, a tool) --- */
 
 .v4-products {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 
-/* Three or more cards on a wide screen → three a row on a six-track grid, two
-   tracks a card: a last row of two splits the width in halves and a single
-   last card takes all of it, so 4, 5 or 7 cards leave no hole. Content-driven
-   (:has), so the CMS can add a card without a modifier class; /collaborate's
-   two tiers keep 2-up. Browsers without :has() simply keep the 2-column grid.
-   :where() keeps the container rule at (0,1,0) so the later ≤640px `1fr` rule
-   wins by source order; :nth-of-type counts <article> cards only (the CMS
-   editor appends a <button> to this container). */
+/* Three or more cards on a wide screen → three a row. A card keeps the width
+   of its column in every row: a short last row leaves room after it and the
+   gutters of the rows stay on one line (the last cards used to stretch — a
+   row of three over a row of two halves, no two gutters aligned). Content-
+   driven (:has), so the CMS can add a card without a modifier class;
+   /consulting's two tiers keep 2-up. Browsers without :has() simply keep the
+   2-column grid. :where() keeps the container rule at (0,1,0) so the later
+   ≤640px `1fr` rule wins by source order; :nth-of-type counts <article> cards
+   only (the CMS editor appends a <button> to this container). */
 @media (min-width: 1101px) {
   .v4-products:where(:has(> .v4-product:nth-of-type(3))) {
-    grid-template-columns: repeat(6, 1fr);
-  }
-  .v4-products:where(:has(> .v4-product:nth-of-type(3))) > .v4-product {
-    grid-column: span 2;
-  }
-  .v4-products:where(:has(> .v4-product:nth-of-type(3))) > .v4-product:nth-of-type(3n+1):nth-last-of-type(2),
-  .v4-products:where(:has(> .v4-product:nth-of-type(3))) > .v4-product:nth-of-type(3n+2):last-of-type {
-    grid-column: span 3;
-  }
-  .v4-products:where(:has(> .v4-product:nth-of-type(3))) > .v4-product:nth-of-type(3n+1):last-of-type {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 1100px) {
-  /* An odd last card spans the row instead of leaving a hole. */
-  .v4-products > .v4-product:nth-of-type(odd):last-of-type {
-    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -309,97 +318,109 @@
   flex-direction: column;
   background: var(--v4-paper);
   border: 1px solid var(--v4-line);
-  padding: 22px;
+  padding: 24px;
   /* Theme switch only. The card does not answer the pointer: it is not a
-     control — the link in its name and its button are (no :hover since v1.3.0). */
-  transition: border-color 0.15s ease, outline-color 0.15s ease, background-color 0.2s ease, color 0.2s ease;
+     control — the link in its name and its button are. */
+  transition: border-color 0.15s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
+/* The head of a card: what it is on the left (the caption), a fact on the
+   right — a version, a price, «скоро» — in one secondary style, whatever the
+   fact is. No mark of «running»: a card under «Работает» says it by standing
+   there. */
 .v4-product-head {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   flex-wrap: wrap;
-  gap: 6px 12px;
-  margin-bottom: 16px;
-  font-size: var(--v4-label-xs-size);
-  font-weight: var(--v4-label-weight);
-  text-transform: uppercase;
-  letter-spacing: var(--v4-label-xs-tracking);
+  gap: 4px 16px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  line-height: 1.5;
   color: var(--v4-muted);
-  font-family: var(--v4-mono);
 }
 
+/* The caption of a card: a word in the one caps style, no fill. */
 .v4-tag {
-  background: var(--v4-fg);
-  color: var(--v4-on-fg);
-  padding: 3px 8px;
-  /* Self-contained chip: the same tracked mono caps whether it sits in a
-     product/pub head or alone in a /uses gear card. */
-  font-family: var(--v4-mono);
-  font-size: var(--v4-label-xs-size);
+  font-size: var(--v4-label-size);
   font-weight: var(--v4-label-weight);
   line-height: 1.4;
   text-transform: uppercase;
-  letter-spacing: var(--v4-label-xs-tracking);
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-/* Groups WEB tag + live-dot together so they read as one unit; version
-   stays on the right via .v4-product-head's space-between. */
-.v4-product-tag-row {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  letter-spacing: var(--v4-label-tracking);
+  color: var(--v4-muted);
 }
 
 .v4-product-name {
-  font-size: 22px;
+  font-size: 18px;
+  line-height: 1.3;
   font-weight: 600;
-  margin: 0 0 14px;
-  letter-spacing: -0.015em;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+
+.v4-product-name a,
+.v4-kit-name a,
+.v4-note-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.v4-product-name a:hover,
+.v4-product-name a:focus-visible,
+.v4-kit-name a:hover,
+.v4-kit-name a:focus-visible,
+.v4-note-title a:hover,
+.v4-note-title a:focus-visible {
+  color: var(--v4-orange-text);
 }
 
 .v4-product-desc {
   flex: 1;
-  margin: 0 0 18px;
+  margin: 0 0 24px;
   /* 62ch, as .v4-prose p: a card that spans the row keeps a readable line. */
   max-width: 62ch;
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--v4-fg);
 }
 
-/* /collaborate tiers put a .v4-list where home cards have .v4-product-desc —
+/* The last thing in a card without a button keeps no gap under it. */
+.v4-product > :last-child {
+  margin-bottom: 0;
+}
+
+/* /consulting tiers put a .v4-list where home cards have .v4-product-desc —
    same slot, same rhythm, so the CTAs bottom-align across the grid. */
 .v4-product > .v4-list {
   flex: 1;
-  margin-bottom: 18px;
+  margin-bottom: 24px;
 }
 
 .v4-product .v4-btn {
   align-self: flex-start;
 }
 
+/* --- A link that leads on («Все проекты на GitHub ↗») ---
+   A line of text you can press: the weight of a control, the orange underline
+   of an action. Sentence case — it is a phrase, not a caption. */
+
 .v4-more {
-  margin-top: 14px;
-  /* Room under the link's underline: the last «more» link of a section sat
-     0.6px above the edge where content-visibility clips painting, and Chrome
-     on iOS cut the line off. */
-  padding-bottom: 3px;
-  font-size: var(--v4-label-size);
-  font-weight: var(--v4-label-weight);
-  text-transform: uppercase;
-  letter-spacing: var(--v4-label-tracking);
-  font-family: var(--v4-mono);
+  margin-top: 24px;
+  /* Room under the underline. */
+  padding-bottom: 4px;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
 .v4-more a {
   color: var(--v4-fg);
   text-decoration: none;
-  border-bottom: 1px solid var(--v4-orange);
-  padding-bottom: 1px;
   transition: color 0.15s ease;
+}
+
+/* The line is under the words, not under the arrow after them; a border, not
+   a text-decoration: it lands on a whole pixel, so the orange stays orange. */
+.v4-more a > span:first-child {
+  border-bottom: 1px solid var(--v4-orange);
+  padding-bottom: 2px;
 }
 
 .v4-more a:hover,
@@ -407,13 +428,36 @@
   color: var(--v4-orange-text);
 }
 
-/* --- Uses page (hardware/software grid) --- */
+/* «More» links in a row: one line apart. */
+.v4-more + .v4-more {
+  margin-top: 8px;
+}
+
+/* --- Own projects: two tiers --- */
+
+/* «Работает» / «До этого»: the caption of a group; the second tier opens a
+   full step below the first. */
+.v4-tier {
+  margin: 0 0 16px;
+}
+
+.v4-more + .v4-tier {
+  margin-top: 48px;
+}
+
+/* «Работает» on the homepage: the /privacy link introduces the privacy tools
+   — a step above it like a new group, the cards right under it. */
+.v4-product-groups > .v4-more {
+  margin: 32px 0 16px;
+}
+
+/* --- /uses (hardware and software) --- */
 
 .v4-uses {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
-  margin: 0 0 28px;
+  margin: 0;
 }
 
 .v4-use {
@@ -421,14 +465,16 @@
   flex-direction: column;
   background: var(--v4-paper);
   border: 1px solid var(--v4-line);
-  padding: 16px;
+  /* The inset of every card of the site: the software cards under this grid
+     start their text on the same line. */
+  padding: 24px;
   /* No :hover, same as .v4-product: a photo card is not a control. */
-  transition: border-color 0.15s ease, outline-color 0.15s ease, background-color 0.2s ease, color 0.2s ease;
+  transition: border-color 0.15s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .v4-use-image {
   aspect-ratio: 1 / 1;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -445,189 +491,112 @@
 
 .v4-use .v4-tag {
   align-self: flex-start;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .v4-use-name {
-  font-size: 16px;
+  font-size: 18px;
+  line-height: 1.3;
   font-weight: 600;
-  margin: 0 0 6px;
-  letter-spacing: -0.015em;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
 }
 
 .v4-use-desc {
   margin: 0;
   max-width: 62ch;
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--v4-fg);
 }
 
-/* Inline code is 0.92em in the layer, which is 11.96px inside 13px card copy;
-   nothing on a page is set under 12px. */
-.v4-product-desc code,
-.v4-use-desc code {
-  font-size: max(12px, 0.92em);
+/* A grid of cards after a line of text (the software on /uses). */
+.v4-products--after {
+  margin-top: 24px;
 }
 
-/* Software section on /uses — same card primitive as .v4-product
-   (paper bg, border, hover effect), denser 3-col grid since 6 items. */
+/* --- /consulting --- */
 
-.v4-softs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin: 0 0 28px;
-}
-
-@media (max-width: 960px) {
-  .v4-softs {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .v4-softs {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* --- Collaborate page extras --- */
-
-/* The amount takes the size of the tier's name: at the label size the price
-   was the smallest text on a tier card. The unit stays a caption. */
+/* A price is the fact in the head of its card — the head's secondary line.
+   Where the amount is marked («**$300** / сессия»), it alone is set in the ink
+   and the weight of a name, a step under the card's title; the unit stays
+   quiet. Ink, not orange — orange is what you can press or what is current. */
 .v4-pricing {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 6px;
-  font-family: var(--v4-mono);
-  font-size: 22px;
-  line-height: 1;
-  color: var(--v4-orange-text);
-  letter-spacing: -0.015em;
-  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .v4-pricing strong {
-  font-size: var(--v4-label-size);
-  font-weight: var(--v4-label-weight);
-  color: var(--v4-fg);
-  letter-spacing: var(--v4-label-tracking);
-}
-
-.v4-spec {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 8px 16px;
-  margin: 0 0 18px;
-  padding: 0;
-  font-size: 13px;
-}
-
-.v4-spec dt {
-  font-family: var(--v4-mono);
-  font-size: var(--v4-label-xs-size);
-  font-weight: var(--v4-label-weight);
-  text-transform: uppercase;
-  letter-spacing: var(--v4-label-xs-tracking);
-  color: var(--v4-muted);
-  padding-top: 2px;
-}
-
-.v4-spec dd {
-  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--v4-fg);
 }
 
+/* «Клиенты: …», «Выступления, менторство и жюри: …» — a word of what follows
+   and the names: the word is secondary, the names are the text (the ink is
+   the difference; weight stays for titles and for things to press). */
 .v4-collab-clients {
-  font-family: var(--v4-mono);
-  font-size: var(--v4-label-size);
-  font-weight: var(--v4-label-weight);
-  text-transform: uppercase;
-  letter-spacing: var(--v4-label-tracking);
   color: var(--v4-muted);
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid var(--v4-line);
 }
 
-/* A label over a full-width hairline, not a paragraph to read: no 62ch measure. */
 .v4-prose p.v4-collab-clients {
-  max-width: none;
+  max-width: 78ch;
+  margin: 24px 0 0;
+}
+
+.v4-prose p.v4-collab-clients + p.v4-collab-clients {
+  margin-top: 8px;
 }
 
 .v4-collab-clients b,
 .v4-collab-clients strong {
   color: var(--v4-fg);
-  font-weight: 500;
-  letter-spacing: 0;
-  text-transform: none;
-  font-family: var(--v4-sans);
-  font-size: 13px;
+  font-weight: 400;
 }
 
-/* --- Publications --- */
-
-.v4-pub {
-  padding: 0;
-}
-
-.v4-pub-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  font-size: var(--v4-label-xs-size);
-  font-weight: var(--v4-label-weight);
-  text-transform: uppercase;
-  letter-spacing: var(--v4-label-xs-tracking);
-  color: var(--v4-muted);
-  font-family: var(--v4-mono);
-}
-
-/* --- Contact --- */
+/* --- Contact: one panel on every page ---
+   Who should write on the left; the one button and, under it, the lines that
+   go with it — the reply time, the second channel — on the right. */
 
 .v4-contact {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+  gap: 24px 48px;
   align-items: center;
+  padding: 32px;
+  background: var(--v4-paper);
+  border: 1px solid var(--v4-line);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
+/* Who should write: a sentence, in the size of every sentence. */
 .v4-contact-note {
-  color: var(--v4-fg);
-  font-size: 15px;
-  line-height: 1.5;
   margin: 0;
-  max-width: 62ch;
+  max-width: 52ch;
 }
 
-/* Homepage contact: who writes and why → ONE button with the reply time
-   beside it → the second channel as a line of text → the link to read more. */
-.v4-reach .v4-contact-note {
-  margin-bottom: 18px;
+.v4-contact-act {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 300px;
 }
 
-.v4-reach .v4-cta-row {
-  align-items: center;
-  gap: 16px;
-}
-
-.v4-contact-reply {
-  margin: 0;
-  color: var(--v4-muted);
-}
-
+.v4-contact-reply,
 .v4-contact-alt {
-  margin: 14px 0 0;
+  margin: 0;
   font-size: 14px;
+  line-height: 1.5;
   color: var(--v4-muted);
+}
+
+.v4-contact-reply + .v4-contact-alt {
+  margin-top: -8px;
 }
 
 .v4-contact-alt a {
   color: var(--v4-fg);
   text-decoration: underline;
   text-decoration-color: var(--v4-line);
+  text-decoration-thickness: 1px;
   text-underline-offset: 3px;
   transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
@@ -638,51 +607,22 @@
   text-decoration-color: var(--v4-orange-text);
 }
 
+/* The link to read more first: under the panel, last. */
 .v4-contact-links {
-  margin: 22px 0 0;
+  margin: 24px 0 0;
 }
 
 .v4-contact-links .v4-more {
   margin-top: 0;
 }
 
-/* --- Own projects: two tiers --- */
-
-/* «Работает» / «До этого» — the same small caps as the /collaborate
-   subheads; the second tier opens a full gap below the cards. */
-.v4-tier {
-  margin: 0 0 14px;
-}
-
-.v4-products + .v4-more + .v4-tier,
-.v4-products + .v4-more + .v4-more + .v4-tier,
-.v4-products + .v4-more + .v4-more + .v4-more + .v4-tier {
-  margin-top: 36px;
-}
-
-/* «Работает» on the homepage (v2.2.2): the /privacy link introduces the privacy
-   tools — a gap above it like a new group, the cards right under it. */
-.v4-product-groups > .v4-more {
-  margin: 28px 0 14px;
-}
-
-.v4-product-groups + .v4-more + .v4-tier {
-  margin-top: 36px;
-}
-
-/* «More» links in a row: one line apart. */
-.v4-more + .v4-more {
-  margin-top: 8px;
-}
-
-.v4-product-name a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.v4-product-name a:hover,
-.v4-product-name a:focus-visible {
-  color: var(--v4-orange-text);
+@media (max-width: 800px) {
+  .v4-contact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .v4-contact-act {
+    max-width: none;
+  }
 }
 
 /* --- /privacy --- */
@@ -695,11 +635,8 @@
   border: 1px dashed var(--v4-dim);
 }
 
-.v4-product--soon .v4-tag {
-  background: var(--v4-dim);
-  color: var(--v4-bg);
-}
-
+.v4-product--soon .v4-tag,
+.v4-product--soon .v4-product-head,
 .v4-product--soon .v4-product-name,
 .v4-product--soon .v4-product-desc {
   color: var(--v4-dim);
@@ -708,27 +645,102 @@
 /* Block prose (renderProse) may put a paragraph after a list: the list keeps
    the paragraph rhythm of .v4-prose p, so they do not touch. */
 .v4-prose > .v4-list:not(:last-child) {
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
-/* The kit: cards in groups by task, a caption over each group (and, for the
-   group without an audit, a line of why under it). */
+/* The kit: the apps as rows in groups by task. A row holds everything about
+   one app on one line of the page: what it is called, what it is and what it
+   costs; why this one; and the proof — the site, the audits, the code, the
+   platforms, the alternatives — as links. (They were cards 500px tall, two a
+   row: the list ran eight screens and hid the section under it.) */
+.v4-kit {
+  border-top: 1px solid var(--v4-line);
+}
+
+.v4-kit + .v4-h3,
 .v4-products + .v4-h3 {
-  margin-top: 36px;
+  margin-top: 48px;
 }
 
-.v4-h3 + .v4-prose + .v4-products {
-  margin-top: 14px;
+/* A note under the caption of a group (why the last group is an exception):
+   the secondary line, so the group reads like the others — a caption, the
+   rule, the rows. */
+.v4-h3 + .v4-kit-note {
+  max-width: 78ch;
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--v4-muted);
 }
 
-/* The proof on a kit card — audits, code, platforms: the /collaborate spec
-   list at a card's width (the term column takes its longest label). */
-.v4-product .v4-spec--card {
-  grid-template-columns: max-content 1fr;
-  gap: 6px 14px;
+.v4-kit-row {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr) minmax(0, 340px);
+  gap: 8px 24px;
+  align-items: start;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--v4-line-soft);
 }
 
-.v4-spec--card a {
+.v4-kit-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.v4-kit-name {
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.v4-kit-kind {
+  margin: 2px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--v4-muted);
+}
+
+.v4-kit-desc {
+  margin: 0;
+  max-width: 62ch;
+}
+
+/* The proof: a line a fact — «Сайт: signal.org», «Аудит: …», «Код: …» — the
+   term in the secondary ink, the value a link. */
+.v4-kit-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* A fact that wraps hangs under its own first line, a step in: the next line
+   is seen to continue it and not to start a fact without a term. */
+.v4-kit-facts > div {
+  padding-left: 12px;
+  text-indent: -12px;
+}
+
+.v4-kit-facts dt,
+.v4-kit-facts dd {
+  display: inline;
+  margin: 0;
+}
+
+.v4-kit-facts dt {
+  color: var(--v4-muted);
+}
+
+.v4-kit-facts dt::after {
+  content: ":";
+}
+
+.v4-kit-facts a {
   color: var(--v4-fg);
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -737,13 +749,34 @@
   transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 
-.v4-spec--card a:hover,
-.v4-spec--card a:focus-visible {
+.v4-kit-facts a:hover,
+.v4-kit-facts a:focus-visible {
   color: var(--v4-orange-text);
   text-decoration-color: var(--v4-orange-text);
 }
 
-/* --- Notes on the homepage: date · tag · title --- */
+/* A narrower window: the name and its line across the top, then why and the
+   proof side by side — the proof takes its share of the row (it was a fixed
+   260px beside a column whose text stopped at 62ch: every fact wrapped next
+   to an empty strip). */
+@media (max-width: 1100px) {
+  .v4-kit-row {
+    grid-template-columns: minmax(0, 1.4fr) minmax(260px, 1fr);
+  }
+  .v4-kit-id {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 12px;
+  }
+  .v4-kit-kind {
+    margin-top: 0;
+  }
+}
+
+/* --- A feed of links: date and place, then the title (the homepage, the
+   articles on /privacy) --- */
 
 .v4-feed {
   list-style: none;
@@ -753,29 +786,27 @@
 
 .v4-feed-row {
   display: grid;
-  grid-template-columns: 170px 1fr;
-  gap: 16px;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 4px 24px;
   align-items: baseline;
-  padding: 14px 0;
+  padding: 16px 0;
   border-bottom: 1px solid var(--v4-line-soft);
+}
+
+.v4-feed-row:first-child {
+  padding-top: 0;
 }
 
 .v4-feed-row:last-child {
   border-bottom: none;
-}
-
-/* «06.2025 · YouTube»: when and where, one quiet mono line instead of a date
-   column and a filled tag. */
-.v4-feed-meta {
-  font-family: var(--v4-mono);
-  font-size: 12px;
-  color: var(--v4-muted);
+  padding-bottom: 0;
 }
 
 .v4-feed-title {
   color: var(--v4-fg);
   font-weight: 500;
   text-decoration: none;
+  transition: color 0.15s ease;
 }
 
 .v4-feed-title:hover,
@@ -783,69 +814,40 @@
   color: var(--v4-orange-text);
 }
 
-@media (max-width: 640px) {
-  .v4-feed-row {
-    grid-template-columns: 1fr;
-    gap: 4px;
-  }
-}
-
 /* --- Responsive --- */
 
 @media (max-width: 960px) {
   .v4-hero {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  .v4-portrait-wrap {
-    max-width: 280px;
-    margin-inline: auto;
-  }
-  .v4-h1 {
-    font-size: 52px;
+    gap: 32px;
   }
   .v4-stats {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .v4-stat {
-    border-right: 1px solid var(--v4-line);
+  .v4-stat:nth-child(odd) {
+    padding-left: 0;
+    border-left: none;
+  }
+  .v4-stat:nth-child(-n + 2) {
     border-bottom: 1px solid var(--v4-line);
   }
-  .v4-stat:nth-child(2n) {
-    border-right: none;
-  }
-  .v4-stat:nth-last-child(-n + 2) {
-    border-bottom: none;
-  }
+  /* The company and the role over the context, beside the period. */
   .v4-career-row {
-    grid-template-columns: 130px 1fr;
-    gap: 14px;
+    grid-template-columns: 160px minmax(0, 1fr);
   }
   .v4-career-row .ctx {
-    grid-column: 2 / -1;
-    padding-top: 4px;
-    color: var(--v4-muted);
-    font-size: 13px;
-  }
-  .v4-venture {
-    grid-template-columns: 56px 1fr;
-  }
-  .v4-contact {
-    grid-template-columns: 1fr;
+    grid-column: 2;
   }
   .v4-uses {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 640px) {
+  /* A phone: one column. The text, the button, then the portrait across the
+     whole width — the same column the stats use. */
   .v4-hero {
-    padding-bottom: 26px;
-    margin-bottom: 22px;
-    gap: 22px;
-  }
-  .v4-hero--simple {
-    padding-bottom: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
   }
   /* A fixed 40px pushed a long word («Сотрудничество») past a 320px screen:
      the size follows the screen below 377px and a word that still does not
@@ -855,89 +857,253 @@
     letter-spacing: -0.02em;
     overflow-wrap: break-word;
   }
-  .v4-tagline {
-    font-size: 16px;
+  .v4-h1-count {
+    font-size: 20px;
   }
-  /* Type for reading, not for density (body is 16px here, components.css):
-     16px for what is read as a sentence, 14px for a secondary line. */
-  .v4-career-row .ctx,
-  .v4-product-desc,
-  .v4-use-desc,
-  .v4-spec,
-  .v4-contact-note {
-    font-size: 16px;
+  .v4-stats {
+    margin-bottom: 48px;
   }
-  .v4-venture .arc,
-  .v4-collab-clients b,
-  .v4-collab-clients strong {
-    font-size: 14px;
+  .v4-stat {
+    padding: 16px 16px 16px 0;
   }
-  /* Career: the 130px period column left the context 195px, 19 characters a
-     line. One column: period, then company and role, then context. */
-  .v4-career-row {
-    grid-template-columns: 1fr;
-    gap: 6px;
+  .v4-stat + .v4-stat {
+    padding-left: 16px;
+  }
+  .v4-stat:nth-child(odd) {
+    padding-left: 0;
+  }
+  .v4-stat-value {
+    font-size: 32px;
+  }
+  /* Tables of «label | content» fold into one column: the label first. */
+  .v4-career-row,
+  .v4-venture,
+  .v4-feed-row,
+  .v4-kit-row {
+    grid-template-columns: minmax(0, 1fr);
   }
   .v4-career-row .ctx {
     grid-column: auto;
-    padding-top: 2px;
+    padding-top: 4px;
   }
-  /* Full content width — the same column the stacked CTA buttons and the
-     stats strip use, so the hero reads as one grid instead of a centred
-     240px picture under edge-to-edge buttons. */
-  .v4-portrait-wrap {
-    max-width: none;
+  .v4-kit-id {
+    grid-column: auto;
+    margin-bottom: 4px;
   }
-  .v4-stat-value {
-    font-size: 28px;
-  }
-  .v4-stat {
-    padding: 14px 12px;
-  }
-  .v4-products {
-    grid-template-columns: 1fr;
-  }
-  .v4-product {
-    padding: 18px;
-  }
+  .v4-products,
   .v4-uses {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
-  .v4-use {
-    padding: 14px;
+  .v4-product,
+  .v4-use,
+  .v4-contact {
+    padding: 16px;
   }
-  .v4-product-name {
-    font-size: 19px;
-  }
-  .v4-spec {
-    grid-template-columns: 100px 1fr;
-    gap: 6px 12px;
+  .v4-more + .v4-tier,
+  .v4-kit + .v4-h3,
+  .v4-products + .v4-h3 {
+    margin-top: 32px;
   }
 }
 
-/* --- Notes & articles (/notes, /notes/<slug>) ---
-   Rendered by functions/_lib/article-template.js; its inline critical block is
-   the above-the-fold subset of these rules (check-critical compares them). */
+/* The narrowest phones (320px): two figures a row left 124px a cell and broke
+   «своих проектов» in two. One figure a row there. */
+@media (max-width: 360px) {
+  .v4-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .v4-stat,
+  .v4-stat + .v4-stat {
+    padding: 16px 0;
+    border-left: none;
+  }
+  .v4-stat:nth-child(-n + 2) {
+    border-bottom: none;
+  }
+  .v4-stat + .v4-stat {
+    border-top: 1px solid var(--v4-line);
+  }
+}
 
+/* --- Publications (/notes, a topic) and a note (/notes/<slug>) ---
+   Rendered by functions/_lib/article-template.js; its inline critical block is
+   the above-the-fold subset of the layer (check-critical compares them). */
+
+/* The topics above the feed: where you can go from here, with how much is
+   there. The page you are on is text with the bar's sign of «current». */
+.v4-notes-topics {
+  margin: 0 0 32px;
+  font-size: 14px;
+  /* 28px a row, as the on-page line. */
+  line-height: 2;
+  color: var(--v4-muted);
+  /* Seven topics do not fit one line: they split evenly, four and three, and
+     the last one is not left alone on a row of its own. */
+  text-wrap: balance;
+}
+
+/* Like the on-page line: words of a line, set apart by space alone, never
+   broken inside. */
+.v4-notes-topics > * {
+  white-space: nowrap;
+  margin-right: 20px;
+  padding: 4px 0;
+}
+
+.v4-notes-topics a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--v4-line);
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.v4-notes-topics a:hover,
+.v4-notes-topics a:focus-visible {
+  color: var(--v4-orange-text);
+  text-decoration-color: currentColor;
+}
+
+.v4-notes-topics [aria-current="page"] {
+  color: var(--v4-fg);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--v4-orange);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* A count after a label: the line's own face, regular and quiet; inline-block
+   keeps the underline of the link off it (the gap is the no-break space the
+   markup puts inside). */
+.v4-count {
+  display: inline-block;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--v4-muted);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* The Telegram channel between the topics and the feed: a panel like the
+   contact one — what is there and how it differs, how many read it, and one
+   small button. */
+.v4-channel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px 32px;
+  align-items: center;
+  margin: 0 0 48px;
+  padding: 24px;
+  background: var(--v4-paper);
+  border: 1px solid var(--v4-line);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.v4-channel-title {
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 4px;
+}
+
+.v4-channel-desc {
+  margin: 0;
+  max-width: 62ch;
+}
+
+.v4-channel-meta {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--v4-muted);
+}
+
+.v4-channel-meta a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--v4-line);
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.v4-channel-meta a:hover,
+.v4-channel-meta a:focus-visible {
+  color: var(--v4-orange-text);
+  text-decoration-color: var(--v4-orange-text);
+}
+
+/* The feed: the site's table — the date in the first column, the title and
+   what is under it in the second. */
+.v4-note-item {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 4px 24px;
+  align-items: baseline;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--v4-line-soft);
+}
+
+.v4-note-item:first-child {
+  border-top: 1px solid var(--v4-line);
+}
+
+.v4-note-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.v4-note-title {
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.v4-note-excerpt {
+  margin: 4px 0 0;
+  max-width: 62ch;
+  color: var(--v4-muted);
+}
+
+/* «spot.uz · 6 200+ просмотров» under an external material. */
+.v4-note-meta {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--v4-muted);
+}
+
+/* An empty feed. */
+.v4-notes-empty {
+  margin: 0;
+  color: var(--v4-muted);
+}
+
+/* A note: the reading column hangs from the content's left edge, like every
+   block of the site. */
 .v4-article {
-  max-width: 680px;
-  margin: 0 auto;
+  max-width: 720px;
+  margin: 0;
 }
 
 .v4-article-eyebrow {
-  font-family: var(--v4-mono);
+  margin: 0 0 16px;
   font-size: var(--v4-label-size);
   font-weight: var(--v4-label-weight);
+  line-height: 1.4;
   text-transform: uppercase;
   letter-spacing: var(--v4-label-tracking);
   color: var(--v4-muted);
-  margin: 0 0 16px;
 }
 
 /* Links in the article surfaces use the site's prose link idiom. */
 .v4-article-eyebrow a,
 .v4-article-byline a,
-.v4-notes-topics a,
+.v4-article-thanks a,
 .v4-article-body a {
   color: inherit;
   text-decoration: underline;
@@ -951,68 +1117,36 @@
 .v4-article-eyebrow a:focus-visible,
 .v4-article-byline a:hover,
 .v4-article-byline a:focus-visible,
-.v4-notes-topics a:hover,
-.v4-notes-topics a:focus-visible,
+.v4-article-thanks a:hover,
+.v4-article-thanks a:focus-visible,
 .v4-article-body a:hover,
 .v4-article-body a:focus-visible {
   color: var(--v4-orange-text);
   text-decoration-color: var(--v4-orange-text);
 }
 
+/* A note's title is a sentence, so it is set a step under a page title. */
 .v4-article-title {
-  font-size: 44px;
-  line-height: 1.05;
+  font-size: 40px;
+  line-height: 1.1;
   letter-spacing: -0.02em;
   font-weight: 600;
-  margin: 0 0 14px;
+  margin: 0 0 16px;
 }
 
 .v4-article-byline {
-  font-family: var(--v4-mono);
-  font-size: 12px;
-  color: var(--v4-dim);
-  margin: 0 0 28px;
-}
-
-/* Topics above the /notes feed: navigation, so sans caps like the bar; the page
-   you are on is plain text (aria-current), the others are links. */
-.v4-notes-topics {
-  font-size: var(--v4-label-size);
-  font-weight: var(--v4-label-weight);
-  text-transform: uppercase;
-  letter-spacing: var(--v4-label-tracking);
+  margin: 0 0 32px;
+  font-size: 14px;
+  line-height: 1.5;
   color: var(--v4-muted);
-  margin: 0 0 24px;
-  line-height: 2;
-}
-
-.v4-notes-topics [aria-current="page"] {
-  color: var(--v4-fg);
-}
-
-/* The thanks line under a note (v3.0.0): one quiet sentence before «← Все
-   публикации», a link to /thanks — not a button, not a box. */
-.v4-article-thanks {
-  margin: 32px 0 0;
-  color: var(--v4-muted);
-  max-width: 62ch;
-}
-
-.v4-article-thanks a {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: var(--v4-line);
-}
-
-.v4-article-thanks a:hover,
-.v4-article-thanks a:focus-visible {
-  color: var(--v4-orange-text);
-  text-decoration-color: currentColor;
 }
 
 .v4-article-cover {
-  margin: 0 0 28px;
+  margin: 0 0 32px;
+}
+
+.v4-article-cover:empty {
+  display: none;
 }
 
 .v4-article-cover img {
@@ -1021,22 +1155,28 @@
   display: block;
 }
 
+/* Long reading is set a step up: the lead size, and its paragraphs a step
+   further apart (24px; 16px on a phone, where the text is 16px). */
 .v4-article-body {
-  font-size: 17px;
-  line-height: 1.65;
+  font-size: 18px;
+  line-height: 1.6;
+  /* A word that cannot fit a line of the column — an address, «a/b/c/d» in
+     brackets — breaks where it must instead of pushing the page sideways (a
+     320px screen scrolled by 27px on one note). */
+  overflow-wrap: break-word;
 }
 
 .v4-article-body p {
-  margin: 0 0 18px;
+  margin: 0 0 24px;
 }
 
-/* H2 renders like a page section head: the rule UNDER the title
-   (.v4-section-head idiom). No number: a number is for a sequence. */
+/* H2 renders like a page section head: the rule UNDER the title. */
 .v4-article-body h2 {
   border-bottom: 1px solid var(--v4-fg);
-  padding-bottom: 10px;
-  margin: 40px 0 16px;
-  font-size: 22px;
+  padding-bottom: 12px;
+  margin: 48px 0 24px;
+  font-size: 24px;
+  line-height: 1.2;
   font-weight: 600;
   letter-spacing: -0.015em;
 }
@@ -1045,45 +1185,56 @@
   margin-top: 0;
 }
 
-/* H3 = the site's sub-head idiom (.v4-h3): small tracked caps, muted. */
+/* H3 = the caption over a group (.v4-h3). */
 .v4-article-body h3 {
+  margin: 32px 0 12px;
   font-size: var(--v4-label-size);
   font-weight: var(--v4-label-weight);
+  line-height: 1.4;
   text-transform: uppercase;
   letter-spacing: var(--v4-label-tracking);
   color: var(--v4-muted);
-  margin: 28px 0 8px;
 }
 
+/* A caption right under a section title: the title's own gap is enough. */
+.v4-article-body h2 + h3 {
+  margin-top: 0;
+}
+
+/* The bar of a quote is as tall as its text: the last paragraph inside keeps
+   no margin (it used to push the bar 20px past the last line). */
 .v4-article-body blockquote {
-  margin: 0 0 18px;
-  padding: 2px 0 2px 18px;
+  margin: 0 0 24px;
+  padding: 0 0 0 24px;
   border-left: 2px solid var(--v4-orange);
   color: var(--v4-muted);
 }
 
+.v4-article-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
 .v4-article-body ul,
 .v4-article-body ol {
-  margin: 0 0 18px;
-  padding-left: 22px;
+  margin: 0 0 24px;
+  padding-left: 24px;
 }
 
 .v4-article-body li {
-  margin: 0 0 6px;
+  margin: 0 0 8px;
 }
 
 .v4-article-body img {
   max-width: 100%;
   height: auto;
   display: block;
-  margin: 24px 0;
+  margin: 32px 0;
 }
 
 /* A picture with a caption (sanitize.js allows figure/figcaption): on the text
-   column, not the browser's 40px indent; the caption is a line of data —
-   plain mono 12px, like a date. */
+   column, not the browser's 40px indent; the caption is a secondary line. */
 .v4-article-body figure {
-  margin: 24px 0;
+  margin: 32px 0;
 }
 
 .v4-article-body figure img {
@@ -1092,163 +1243,168 @@
 
 .v4-article-body figcaption {
   margin-top: 8px;
-  font-family: var(--v4-mono);
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 1.5;
   color: var(--v4-muted);
 }
 
 .v4-article-body pre {
   background: var(--v4-paper);
   border: 1px solid var(--v4-line);
-  padding: 14px;
+  padding: 16px;
   overflow: auto;
   font-family: var(--v4-mono);
-  font-size: 13px;
-  margin: 0 0 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 24px;
 }
 
+/* Inline code in a note: the site's code idiom (components.css), a step under
+   the note's 18px. */
 .v4-article-body code {
   font-family: var(--v4-mono);
-  font-size: 0.9em;
+  font-size: 16px;
+  padding: 0 4px;
+  background: var(--v4-paper);
+  border: 1px solid var(--v4-line-soft);
+  letter-spacing: 0;
+}
+
+.v4-article-body pre code {
+  font-size: inherit;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+/* An underline is the sign of a link. The author's underline (Telegram's
+   formatting) is emphasis, and emphasis here is the weight of <strong>. */
+.v4-article-body u {
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .v4-article-body hr {
   border: none;
   border-top: 1px solid var(--v4-line);
-  margin: 30px 0;
+  margin: 32px 0;
 }
 
+/* The end of a note is two quiet lines under its last rule: where the text
+   was first published (the note's own last paragraph, after its <hr>) and the
+   thanks line — a link to /thanks, not a button, not a box. The same
+   secondary style for both; upright — the family ships no italic. */
+.v4-article-body > hr + p:last-child,
+.v4-article-thanks {
+  max-width: 62ch;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--v4-muted);
+}
+
+.v4-article-body > hr + p:last-child {
+  margin: 0;
+}
+
+.v4-article-body > hr + p:last-child em {
+  font-style: normal;
+}
+
+.v4-article-thanks {
+  margin: 8px 0 0;
+}
+
+/* «← Все публикации»: under the two lines, no rule of its own — the note's
+   last <hr> above and the footer's hairline below are the rules of this part. */
 .v4-article-foot {
-  margin-top: 40px;
-  padding-top: 20px;
-  border-top: 1px solid var(--v4-line);
-}
-
-.v4-notes-title {
-  font-size: 40px;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  font-weight: 600;
-  margin: 0 0 8px;
-}
-
-.v4-notes-intro {
-  color: var(--v4-muted);
-  margin: 0 0 32px;
-  max-width: 62ch;
-}
-
-.v4-note-item {
-  padding: 0 0 22px;
-  margin: 0 0 22px;
-  border-bottom: 1px solid var(--v4-line-soft);
-}
-
-.v4-note-item:last-child {
-  border-bottom: none;
-}
-
-/* The Telegram channel block between the intro and the feed — the homepage's
-   CHANNEL publication, closed off from the feed by a full-strength rule. */
-.v4-notes-channel {
-  padding: 0 0 22px;
-  margin: 0 0 22px;
-  border-bottom: 1px solid var(--v4-line);
-}
-
-/* Date + tag (NOTE / ARTICLE / VIDEO) on one line above the title. */
-.v4-note-head {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* «vc.ru · 6 200+ просмотров» under an external material — same label as the date. */
-.v4-note-meta {
-  margin: 0;
-}
-
-/* A date, a source and a count are data, not labels: plain 12px mono, as the
-   homepage feed and the career table set them. In caps they made three caps
-   lines around every title; the tag is the only caption of an entry now. */
-.v4-note-date,
-.v4-note-meta {
-  font-family: var(--v4-mono);
-  font-size: 12px;
-  letter-spacing: 0;
-  color: var(--v4-dim);
-}
-
-.v4-note-title {
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  margin: 6px 0 6px;
-}
-
-.v4-note-title a {
-  color: var(--v4-fg);
-  text-decoration: none;
-}
-
-.v4-note-title a:hover,
-.v4-note-title a:focus-visible {
-  color: var(--v4-orange-text);
-}
-
-.v4-note-excerpt {
-  color: var(--v4-muted);
-  margin: 0;
-  max-width: 62ch;
+  margin-top: 32px;
 }
 
 @media (max-width: 960px) {
   .v4-article-title {
-    font-size: 36px;
+    font-size: 34px;
   }
 }
 
 @media (max-width: 640px) {
   .v4-article-title {
-    font-size: 30px;
+    font-size: 28px;
     overflow-wrap: break-word;
   }
   .v4-article-body {
     font-size: 16px;
   }
-  /* As .v4-h1 on a phone. */
-  .v4-notes-title {
-    font-size: clamp(32px, 10.6vw, 40px);
-    overflow-wrap: break-word;
+  .v4-article-body p,
+  .v4-article-body ul,
+  .v4-article-body ol,
+  .v4-article-body blockquote,
+  .v4-article-body pre {
+    margin-bottom: 16px;
+  }
+  .v4-article-body blockquote {
+    padding-left: 16px;
+  }
+  .v4-article-body blockquote > :last-child,
+  .v4-article-body > hr + p:last-child {
+    margin-bottom: 0;
+  }
+  .v4-article-body code {
+    font-size: 14px;
+  }
+  .v4-article-body h2 {
+    font-size: 20px;
+    margin: 32px 0 24px;
+  }
+  .v4-note-item {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 16px 0;
+  }
+  .v4-channel {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 20px;
+    margin-bottom: 32px;
+  }
+  .v4-channel .v4-btn {
+    justify-self: start;
   }
 }
 
 /* --- Tabular figures (lined up columns of digits) --- */
 
 .v4-stat-value,
+.v4-stat-aside,
 .v4-career-row .period,
 .v4-venture .year,
 .v4-product-head,
-.v4-pub-head,
+.v4-feed-meta,
+.v4-note-date,
 .v4-note-meta,
-.v4-foot code,
+.v4-channel-meta,
+.v4-pricing,
+.v4-foot .v4-build,
 time {
   font-variant-numeric: tabular-nums lining-nums;
 }
 
-/* Below 480px the 3-button hero CTA-row wraps unevenly. Stack full-width
-   for stronger tap targets and a calmer rhythm. */
+/* Below 480px a row of buttons wraps unevenly. Stack them full-width: stronger
+   tap targets and a calmer rhythm. */
 @media (max-width: 480px) {
   .v4-hero .v4-cta-row,
   .v4-contact .v4-cta-row,
-  .v4-reach .v4-cta-row {
+  .v4-contact-act,
+  .v4-help-cta {
     flex-direction: column;
     align-items: stretch;
+    align-self: stretch;
   }
   .v4-hero .v4-cta-row .v4-btn,
   .v4-contact .v4-cta-row .v4-btn,
-  .v4-reach .v4-cta-row .v4-btn {
+  .v4-contact-act .v4-btn,
+  .v4-help-cta .v4-btn {
     width: 100%;
+  }
+  .v4-hero .v4-cta-row > * + * {
+    margin-top: 0;
   }
 }
 
@@ -1264,4 +1420,3 @@ time {
     transition-duration: 0.001ms !important;
   }
 }
-

@@ -5,14 +5,14 @@ import { loadArticleIndex, publishedSorted, noteUrl } from './articles.js';
 import { loadDoc, loadSubscribers } from './content.js';
 import { notesIndexHtml } from './article-template.js';
 import { serializeLd } from './jsonld.js';
-import { escapeHtml } from './markdown.js';
+import { escapeAttr, typo } from './markdown.js';
 import { ORIGIN, NAME, buildOf } from './site.js';
 import { pickL, forLang, buildFeed, feedListHtml, channelHtml, liveTopics, topicNavHtml, topicUrl, topicsOf } from './notes-feed.js';
 const xmlEsc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 const INTRO = {
-  ru: 'Заметки, статьи и выступления. Свои заметки — то же, что в Telegram-канале, только без привязки к платформе.',
-  en: 'Notes, articles and talks. My notes mirror the Telegram channel, without the platform lock-in.',
+  ru: 'Заметки, статьи и выступления. Свои заметки — посты из Telegram-канала, собранные без привязки к платформе.',
+  en: 'Notes, articles and talks. My notes are posts from my Telegram channel, kept here without the platform lock-in.',
 };
 
 // The three newest feed entries for the homepage «Публикации» block (_middleware.js
@@ -46,8 +46,13 @@ export async function renderNotesIndex(env, lang, topicKey) {
   const topic = topicKey ? topics.find((t) => t.key === topicKey) : null;
   if (topicKey && !topic) return null;
   const feed = buildFeed(articles, notesDoc, l, topicKey);
-  const listHtml = feedListHtml(feed, l);
-  const intro = escapeHtml(
+  // How many publications there are in this language: «Все 52» in the topic
+  // line; the number beside the page title is the feed on this page.
+  const total = topicKey ? buildFeed(articles, notesDoc, l).length : feed.length;
+  const listHtml = typo(feedListHtml(feed, l), l);
+  // Escaped for an attribute: the intro goes into <meta content="…"> as well as
+  // into the page, and a straight quote in it would end the attribute.
+  const intro = escapeAttr(
     topic ? pickL(topic.intro, l) || pickL(topic.name, l) : pickL(notesDoc && notesDoc.intro, l) || INTRO[l]
   );
   const publications = l === 'en' ? 'Publications' : 'Публикации';
@@ -83,8 +88,9 @@ export async function renderNotesIndex(env, lang, topicKey) {
 
   const page = notesIndexHtml(l, listHtml, jsonLd, buildOf(env), {
     intro,
-    channel: topic ? '' : channelHtml(notesDoc, homeDoc, l),
-    topics: topicNavHtml(topics, l, topic && topic.key),
+    channel: topic ? '' : typo(channelHtml(notesDoc, homeDoc, l), l),
+    topics: typo(topicNavHtml(topics, l, topic && topic.key, total), l),
+    count: feed.length,
     heading,
     path,
     hasEn,

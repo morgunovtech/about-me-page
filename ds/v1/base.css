@@ -15,6 +15,9 @@ button, input, select, textarea {
 
 html {
   scroll-behavior: smooth;
+  /* A phone turned on its side must not inflate the text on its own. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -35,15 +38,13 @@ body.no-transition * {
   transition: none !important;
 }
 
+/* 16px on every device and in every theme: anything read as a sentence is one
+   size (it was 14px on a desktop and 16px on a phone and in high contrast). */
 body.v4-page {
   font-family: var(--v4-sans);
-  font-size: 14px;
-  line-height: 1.55;
-  letter-spacing: -0.005em;
-}
-
-[data-theme="high-contrast"] body.v4-page {
   font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: -0.005em;
 }
 
 /* IBM Plex is shipped in 400/500/600 only: keep emphasis on a real face
@@ -71,10 +72,10 @@ body.v4-page {
   left: 16px;
   background: var(--v4-orange);
   color: var(--v4-on-accent);
-  padding: 6px 12px;
+  padding: 8px 12px;
   z-index: 100;
   text-decoration: none;
-  font-size: 13px;
+  font-size: 14px;
   transition: top 0.2s;
 }
 

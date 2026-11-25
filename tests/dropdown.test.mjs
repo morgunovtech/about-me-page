@@ -32,6 +32,8 @@ class El {
   querySelector(sel) { return this.querySelectorAll(sel)[0] || null; }
   focus() { doc.activeElement = this; }
   getBoundingClientRect() { return { top: 0, height: 0 }; }
+  // Rendered unless the test says otherwise (display: none has no boxes).
+  getClientRects() { return 'data-test-hidden' in this.attrs ? [] : [{ width: 1, height: 1 }]; }
   scrollIntoView() {}
   dispatchEvent(ev) { ev.target = ev.target || this; for (let x = this; x; x = x.parentNode) { for (const fn of x.listeners[ev.type] || []) fn(ev); if (ev._stop || !ev.bubbles) break; } for (const fn of doc.listeners[ev.type] || []) if (!ev._stop) fn(ev); return !ev.defaultPrevented; }
 }
@@ -73,7 +75,9 @@ function select(root, sel) {
 const el = (tag, attrs, children) => new El(tag, attrs, children);
 const navToggle = el('button', { class: 'v4-bar-btn v4-nav-toggle', 'aria-controls': 'site-nav' });
 const navLinks = [el('a', { href: '#about' }), el('a', { href: '#career' })];
-const navPanel = el('div', { class: 'v4-bar-mid', id: 'site-nav' }, navLinks);
+// The group's toggle: in the panel's markup, not on the screen while the menu is folded.
+const hiddenGroupToggle = el('button', { class: 'v4-nav-group-btn', 'data-test-hidden': '' });
+const navPanel = el('div', { class: 'v4-bar-mid', id: 'site-nav' }, [navLinks[0], hiddenGroupToggle, navLinks[1]]);
 const nav = el('nav', { class: 'v4-nav v4-dropdown' }, [navToggle, navPanel]);
 const langToggle = el('button', { class: 'v4-bar-btn v4-lang-btn', 'aria-haspopup': 'menu', 'aria-controls': 'lang-menu' });
 const langItems = [el('a', { class: 'v4-menu-item v4-lang-link', role: 'menuitemradio', href: '/' }), el('a', { class: 'v4-menu-item v4-lang-link', role: 'menuitemradio', href: '/en/' })];
@@ -130,6 +134,20 @@ test('keyboard open focuses the first item; arrows wrap; Escape returns focus to
   assert.equal(isOpen(lang), false); assert.equal(doc.activeElement, langToggle);
 });
 
+test('the arrows walk what is on the screen: an item of the panel that is not rendered is passed over', () => {
+  // In the folded «Меню» the group's toggle stays in the panel's markup with display: none.
+  // The arrows used to stop on it for good: «Консалтинг», «Партнёрства и медиа» and «Стек»
+  // could not be reached with them.
+  click(navToggle, 0);
+  assert.ok(isOpen(nav)); assert.equal(doc.activeElement, navLinks[0]);
+  key(navLinks[0], 'ArrowDown'); assert.equal(doc.activeElement, navLinks[1]);
+  key(navLinks[1], 'ArrowDown'); assert.equal(doc.activeElement, navLinks[0]);
+  key(navLinks[0], 'ArrowUp'); assert.equal(doc.activeElement, navLinks[1]);
+  key(navLinks[1], 'Home'); assert.equal(doc.activeElement, navLinks[0]);
+  key(navLinks[0], 'End'); assert.equal(doc.activeElement, navLinks[1]);
+  click(navToggle); assert.equal(isOpen(nav), false);
+});
+
 test('mobile nav: a link click closes the panel without stealing focus from the section', () => {
   click(navToggle);
   assert.ok(isOpen(nav));
@@ -149,4 +167,39 @@ test('theme item click applies the theme and closes the menu', () => {
   click(themeToggle); click(themeItems[1]);
   assert.equal(html.getAttribute('data-theme'), 'dark'); assert.equal(isOpen(theme), false);
   assert.equal(themeItems[1].getAttribute('aria-checked'), 'true');
+});
+
+test('a toggle focused after a pointer click is marked (no focus ring); a shortcut or a lone modifier keeps the mark, a navigation key removes it', () => {
+  const marked = (n) => n.hasAttribute('data-pointer-focus');
+  const press = (n, init) => n.dispatchEvent(new KeyboardEvent('keydown', { target: n, ...init }));
+  const pointer = (n) => { n.dispatchEvent(new Ev('pointerdown', { target: n })); click(n); };
+  // The visitor opens the language menu with the mouse: the script parks focus on the toggle
+  // (so Escape and the arrows work) and marks that focus — components.css draws no ring on it.
+  pointer(langToggle);
+  assert.ok(isOpen(lang)); assert.equal(doc.activeElement, langToggle); assert.ok(marked(langToggle));
+  // A screenshot (⌘⇧4), a copy (Ctrl+C), a shortcut with Alt, or a modifier pressed on its own
+  // is not navigation: the ring must not appear around a menu that was opened with the mouse.
+  for (const init of [{ key: 'Meta', metaKey: true }, { key: 'Shift', shiftKey: true }, { key: '4', metaKey: true, shiftKey: true }, { key: 'c', ctrlKey: true }, { key: 'Control', ctrlKey: true }, { key: 'Alt', altKey: true }, { key: 'd', altKey: true }, { key: 'CapsLock' }]) {
+    press(langToggle, init);
+    assert.ok(marked(langToggle), JSON.stringify(init));
+    assert.ok(isOpen(lang), JSON.stringify(init));
+  }
+  // Shift+Tab is navigation (Shift is not a shortcut by itself): the keyboard takes over and the
+  // ring is the visitor's again.
+  press(langToggle, { key: 'Tab', shiftKey: true });
+  assert.equal(marked(langToggle), false);
+  // The same for an arrow: it moves into the menu, and the toggle is no longer «pointer-focused».
+  about.dispatchEvent(new Ev('click', { target: about })); body.focus();
+  pointer(themeToggle);
+  assert.ok(isOpen(theme)); assert.ok(marked(themeToggle));
+  press(themeToggle, { key: 'ArrowDown' });
+  assert.equal(doc.activeElement, themeItems[0]); assert.equal(marked(themeToggle), false);
+  // Escape hands focus back to the toggle — after a key press, so with its ring.
+  press(themeItems[0], { key: 'Escape' });
+  assert.equal(isOpen(theme), false); assert.equal(doc.activeElement, themeToggle); assert.equal(marked(themeToggle), false);
+  // A menu opened from the keyboard never marks its toggle.
+  click(langToggle, 0);
+  assert.ok(isOpen(lang)); assert.equal(doc.activeElement, langItems[0]); assert.equal(marked(langToggle), false);
+  press(langItems[0], { key: 'Escape' });
+  assert.equal(isOpen(lang), false); assert.equal(marked(langToggle), false);
 });

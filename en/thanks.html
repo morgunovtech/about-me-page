@@ -36,15 +36,14 @@
   <meta name="twitter:image:alt" content="Say thanks — Semyon Morgunov" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
   <style>
-    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:12px;--v4-label-tracking:.1em;--v4-label-xs-size:12px;--v4-label-xs-tracking:.1em;--v4-label-weight:500;color-scheme:light dark}
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:12px;--v4-label-tracking:.08em;--v4-label-xs-size:12px;--v4-label-xs-tracking:.08em;--v4-label-weight:500;color-scheme:light dark}
     [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f;color-scheme:dark}
     [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000;color-scheme:dark}
     *,*::before,*::after{box-sizing:border-box}
     body{margin:0}
     body.no-transition,body.no-transition *{transition:none!important}
-    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:14px;line-height:1.55;letter-spacing:-0.005em}
-    [data-theme="high-contrast"] body.v4-page{font-size:16px}
-    .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:6px 12px;z-index:100;text-decoration:none;font-size:13px;transition:top .2s}
+    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:16px;line-height:1.6;letter-spacing:-0.005em}
+    .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:8px 12px;z-index:100;text-decoration:none;font-size:14px;transition:top .2s}
     .v4-page .skip-link:focus{top:8px}
   </style>
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-400.woff2" crossorigin />
@@ -54,10 +53,10 @@
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-latin-500.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-500.woff2" crossorigin />
   <link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" />
-  <link rel="stylesheet" href="/ds/v1/tokens.css?v=5629caeb" />
-  <link rel="stylesheet" href="/ds/v1/base.css?v=0e404315" />
-  <link rel="stylesheet" href="/ds/v1/components.css?v=9c2b749b" />
-  <link rel="stylesheet" href="/styles.css?v=3a965f09" />
+  <link rel="stylesheet" href="/ds/v1/tokens.css?v=50fa198d" />
+  <link rel="stylesheet" href="/ds/v1/base.css?v=03b78c6e" />
+  <link rel="stylesheet" href="/ds/v1/components.css?v=8a12b6d5" />
+  <link rel="stylesheet" href="/styles.css?v=f5fae2e5" />
   <script data-cfasync="false">
     (function () {
       var d = document.documentElement;
@@ -130,7 +129,7 @@
     <main id="main">
       <section class="v4-hero v4-hero--simple" aria-labelledby="hero-title">
         <div class="v4-hero-text">
-          <p class="v4-hero-meta">Dogs · Me · Free</p>
+          <p class="v4-hero-meta">Dogs&nbsp;· Me&nbsp;· Free</p>
           <h1 class="v4-h1" id="hero-title">Say thanks</h1>
           <p class="v4-tagline">If what I make has been useful to you, here’s how you can say thanks. And this is also the place to report a mistake.</p>
         </div>
@@ -151,12 +150,12 @@
           <div>
             <div class="v4-prose">
               <p>Tofs, my dog, joining the family is one of the best things that ever happened to me. Thanks to him I move more, I have a steady routine, and I’ve learned care and responsibility.</p>
-              <p>Most of all, a dog is an endless source of joy and happiness. He loves me no matter what and is up for any idea: lying on the warm bathroom floor in a hug, chasing through the snow in the mountains, getting his belly scratched while we watch YouTube.</p>
+              <p>Most of all, a dog is an endless source of joy and happiness. He loves me no matter what and is up for any idea: cuddling on the warm bathroom floor, chasing each other through the snow in the mountains, getting his belly scratched while we watch YouTube.</p>
               <p>Tofs made me pay more attention to dogs who were far less lucky: some were thrown out on the street by their owners, some had a paw hurt by a car, some got into a fight with aggressive dogs and lost an ear or an eye.</p>
               <p>There are many dogs in the world who need care, attention, medicine and food. So even one dog treated and fed is an incredible win.</p>
               <p>For several years I’ve been helping dogs from shelters in Uzbekistan and Russia, and I know their founders, staff and volunteers personally. If you want to say thanks, help them: I know the money will reach them and the dogs will get proper care.</p>
               <h3 class="v4-h3">Who needs help</h3>
-              <p><strong>Mehr</strong>, Tashkent, Uzbekistan. Sponsoring one dog (shelter, care, treatment, food) costs 350,000 UZS a month. Payment details are on <a href="https://www.instagram.com/mehr_shelter/" target="_blank" rel="noopener noreferrer">the shelter’s Instagram</a>.</p>
+              <p><strong>Mehr</strong>, Tashkent, Uzbekistan. Sponsoring one dog (shelter, care, treatment, food) costs 350,000&nbsp;UZS a month. Payment details are on <a href="https://www.instagram.com/mehr_shelter/" target="_blank" rel="noopener noreferrer">the shelter’s Instagram</a>.</p>
               <h3 class="v4-h3">How you can help</h3>
               <ul class="v4-list"><li>Send money</li><li>Volunteer: walks and hands-on help</li><li>Adopt one of the dogs</li><li>Tell people who can help about the shelter</li></ul>
             </div>
@@ -173,7 +172,7 @@
           <div>
             <div class="v4-prose">
               <p>If you’d like to support my open-source projects and writing directly:</p>
-              <ul class="v4-list"><li><a href="https://github.com/sponsors/morgunovtech" target="_blank" rel="noopener noreferrer">GitHub Sponsors</a> — one-time or monthly</li><li><a href="https://web.tribute.tg/d/fqH" target="_blank" rel="noopener noreferrer">Tribute</a> — via Telegram</li></ul>
+              <ul class="v4-list"><li><a href="https://github.com/sponsors/morgunovtech" target="_blank" rel="noopener noreferrer">GitHub Sponsors</a>&nbsp;— one-time or monthly</li><li><a href="https://web.tribute.tg/d/fqH" target="_blank" rel="noopener noreferrer">Tribute</a>&nbsp;— via Telegram</li></ul>
             </div>
           </div>
         </div>
@@ -187,7 +186,7 @@
           <div class="v4-body-aside"></div>
           <div>
             <div class="v4-prose">
-              <ul class="v4-list v4-list--spaced"><li>Subscribe to my <a href="https://t.me/raschet7" target="_blank" rel="noopener noreferrer">Telegram channel</a> (in Russian)</li><li>Forward a post or a note to people who’ll find it useful: in your channel or in private messages</li><li>React to a post or leave a comment</li><li><a href="https://t.me/boost/raschet7" target="_blank" rel="noopener noreferrer">Boost the channel</a> — it’s free if you have Telegram Premium</li><li>Star a repo on GitHub: <a href="https://github.com/morgunovtech/Tofs_DevOps_bot" target="_blank" rel="noopener noreferrer">TofsDevOps</a>, <a href="https://github.com/morgunovtech/social-tracker-bot" target="_blank" rel="noopener noreferrer">Social Tracker Bot</a>, <a href="https://github.com/morgunovtech/FoundYou" target="_blank" rel="noopener noreferrer">Found You</a>, <a href="https://github.com/morgunovtech/Fingerprint" target="_blank" rel="noopener noreferrer">Fingerprint</a></li><li>Like or comment on a post on <a href="https://www.linkedin.com/in/semyon-morgunov/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li></ul>
+              <ul class="v4-list v4-list--spaced"><li>Subscribe to my <a href="https://t.me/raschet7" target="_blank" rel="noopener noreferrer">Telegram channel</a> (in Russian)</li><li>Forward a post or a note to people who’ll find it useful: in your channel or in private messages</li><li>React to a post or leave a comment</li><li><a href="https://t.me/boost/raschet7" target="_blank" rel="noopener noreferrer">Boost the channel</a>&nbsp;— it’s free if you have Telegram Premium</li><li>Star a repo on GitHub: <a href="https://github.com/morgunovtech/Tofs_DevOps_bot" target="_blank" rel="noopener noreferrer">TofsDevOps</a>, <a href="https://github.com/morgunovtech/social-tracker-bot" target="_blank" rel="noopener noreferrer">Social Tracker Bot</a>, <a href="https://github.com/morgunovtech/FoundYou" target="_blank" rel="noopener noreferrer">Found You</a>, <a href="https://github.com/morgunovtech/Fingerprint" target="_blank" rel="noopener noreferrer">Fingerprint</a></li><li>Like or comment on a post on <a href="https://www.linkedin.com/in/semyon-morgunov/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li></ul>
             </div>
           </div>
         </div>
@@ -207,10 +206,10 @@
           </div>
         </div>
       </section>
-
+    </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.0.1</a> · <a href="/en/thanks">say thanks or report a bug</a></span>
+      <span>morgunov.tech&nbsp;· 2026&nbsp;· <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.1.0</a>&nbsp;· <a href="/en/thanks">say thanks or report a bug</a></span>
       <span class="v4-foot-privacy">No cookies, no trackers, no analytics</span>
     </footer>
   </div>
@@ -256,6 +255,6 @@
   ]
 }
   </script>
-  <script data-cfasync="false" defer src="/script.js?v=4aadf13a"></script>
+  <script data-cfasync="false" defer src="/script.js?v=f2317f0d"></script>
 </body>
 </html>

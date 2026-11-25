@@ -46,30 +46,79 @@ test('a topic filters the feed — own notes and external materials alike — an
   for (const e of buildFeed(articles, notesDoc, 'ru')) assert.doesNotMatch(feedItemHtml(e, 'ru'), /Приватность|Менеджмент/);
 });
 
-test('the topic line: «Все» and each live topic; the current page is text, not a link', () => {
+test('the topic line: «Все» with the total and each live topic with its count, set apart by space alone; the current page is text, not a link', () => {
+  const name = (key, lang) => notesDoc.topics.find((t) => t.key === key).name[lang];
+  // Every item says how much is behind it. The number is quiet — the line's own face, regular,
+  // muted — and the space before it is a no-break one INSIDE the count: a link's name reads «Менеджмент команды 3»,
+  // not «…команды3», and the underline of the link stops at the label.
+  const count = (n) => `<span class="v4-count">&nbsp;${n}</span>`;
   const live = liveTopics(articles, notesDoc, 'ru');
-  const all = topicNavHtml(live, 'ru');
-  assert.match(all, /^<nav class="v4-notes-topics" aria-label="Темы"><span aria-current="page">Все<\/span>/);
-  assert.match(all, /<a href="\/notes\/topics\/privacy">Безопасность и приватность<\/a>/);
-  const on = topicNavHtml(live, 'en', 'privacy');
-  assert.match(on, /<a href="\/en\/notes">All<\/a>/);
-  assert.match(on, /<span aria-current="page">Security and privacy<\/span>/);
+  const total = buildFeed(articles, notesDoc, 'ru').length;
+  assert.equal(total, 13);
+  // No «·» between the items — space alone sets them apart (a margin and the space between two
+  // words: the line wraps like text and splits evenly), as in the on-page line of a page, where
+  // a separator started the second row whenever the line wrapped.
+  assert.equal(topicNavHtml(live, 'ru', undefined, total), '<nav class="v4-notes-topics" aria-label="Темы">'
+    + `<span aria-current="page">Все${count(13)}</span>`
+    + ` <a href="/notes/topics/management">${name('management', 'ru')}${count(3)}</a>`
+    + ` <a href="/notes/topics/productivity">${name('productivity', 'ru')}${count(1)}</a>`
+    + ` <a href="/notes/topics/career">${name('career', 'ru')}${count(1)}</a>`
+    + ` <a href="/notes/topics/privacy">${name('privacy', 'ru')}${count(2)}</a>`
+    + '</nav>');
+  // On a topic's page «All» is a link again and still carries the total; the topic is the text.
+  const liveEn = liveTopics(articles, notesDoc, 'en');
+  const on = topicNavHtml(liveEn, 'en', 'privacy', buildFeed(articles, notesDoc, 'en').length);
+  assert.ok(on.startsWith(`<nav class="v4-notes-topics" aria-label="Topics"><a href="/en/notes">All${count(12)}</a>`), on);
+  assert.ok(on.includes(`<span aria-current="page">Security and privacy${count(2)}</span>`), on);
   assert.doesNotMatch(on, /href="\/en\/notes\/topics\/privacy"/);
-  assert.equal(topicNavHtml([], 'ru'), '');
+  assert.equal((on.match(/aria-current="page"/g) || []).length, 1, 'one sign for one state');
+  assert.doesNotMatch(on, /·/);
+  // A count is formatted as every number of the page; a missing or zero one is not shown at all.
+  assert.ok(topicNavHtml(liveEn, 'en', undefined, 1234).includes(`All${count('1,234')}</span>`));
+  assert.ok(topicNavHtml(live, 'ru', undefined, 1234).includes(`Все${count('1\u00a0234')}</span>`));
+  assert.ok(topicNavHtml(live, 'ru').startsWith('<nav class="v4-notes-topics" aria-label="Темы"><span aria-current="page">Все</span> <a '));
+  assert.ok(topicNavHtml(live, 'ru', undefined, 0).includes('<span aria-current="page">Все</span>'));
+  assert.equal(topicNavHtml([], 'ru', undefined, 5), '');
   assert.equal(topicUrl('tools', 'en'), '/en/notes/topics/tools');
+  // The count is an inline-block: a link's underline is not drawn under it.
+  assert.match(read('styles.css'), /\.v4-count \{[^}]*display: inline-block;/);
+  // «Все» gets the whole feed of the language, on /notes and on a topic's page alike.
+  const rn = read('functions/_lib/render-notes.js');
+  assert.match(rn, /const total = topicKey \? buildFeed\(articles, notesDoc, l\)\.length : feed\.length;/);
+  assert.match(rn, /topicNavHtml\(topics, l, topic && topic\.key, total\)/);
 });
 
-test('a topic page: its heading, canonical, hreflang only when the topic has English pieces', () => {
-  const page = notesIndexHtml('ru', '<ul></ul>', '{}', 'abc', { intro: 'i', heading: 'Безопасность и приватность', path: '/notes/topics/privacy', hasEn: false, topics: '<nav class="v4-notes-topics"></nav>' });
+test('a topic page: the site\'s page title with how many publications it lists, canonical, hreflang only when the topic has English pieces', () => {
+  const page = notesIndexHtml('ru', '<article class="v4-note-item"></article>', '{}', 'abc', { intro: 'i', heading: 'Безопасность и приватность', count: 7, path: '/notes/topics/privacy', hasEn: false, topics: '<nav class="v4-notes-topics"></nav>' });
   assert.match(page, /<title>Безопасность и приватность — Публикации — /);
-  assert.match(page, /<h1 class="v4-notes-title">Безопасность и приватность<\/h1>/);
+  // The title is the one page title of the site (.v4-h1 in the hero every page opens with), not
+  // a style of its own. Beside it — how many publications the page lists: the number for the
+  // eye, the words for a screen reader («Безопасность и приватность — всего: 7»).
+  assert.ok(page.includes('<section class="v4-hero v4-hero--simple" aria-labelledby="hero-title">'));
+  assert.ok(page.includes('<h1 class="v4-h1" id="hero-title">Безопасность и приватность <span class="v4-h1-count"><span class="sr-only">— всего: </span>7</span></h1>'));
+  assert.ok(page.includes('<p class="v4-tagline">i</p>'));
+  assert.equal((page.match(/<h1[\s>]/g) || []).length, 1);
+  assert.doesNotMatch(page, /v4-notes-title|v4-notes-intro|v4-notes-channel|<div class="v4-article">/);
   assert.match(page, /<link rel="canonical" href="https:\/\/s\.morgunov\.tech\/notes\/topics\/privacy" \/>/);
   assert.doesNotMatch(page, /<link rel="alternate" hreflang="en"/);
-  assert.match(page, /<nav class="v4-notes-topics">/);
-  const en = notesIndexHtml('en', '', '{}', 'abc', { intro: 'i', heading: 'Security and privacy', path: '/notes/topics/privacy', hasEn: true });
+  // Under the title: the topic line, then the feed in its own container (the first row draws
+  // the table's top rule as the container's first child).
+  const at = (s) => page.indexOf(s);
+  assert.ok(at('</section>') > 0 && at('</section>') < at('<nav class="v4-notes-topics">') && at('<nav class="v4-notes-topics">') < at('<div class="v4-notes-feed">'));
+  assert.match(page, /<div class="v4-notes-feed">\s*<article class="v4-note-item"><\/article>\s*<\/div>\s*<\/main>/);
+  const en = notesIndexHtml('en', '', '{}', 'abc', { intro: 'i', heading: 'Security and privacy', count: 2, path: '/notes/topics/privacy', hasEn: true });
+  assert.ok(en.includes('<h1 class="v4-h1" id="hero-title">Security and privacy <span class="v4-h1-count"><span class="sr-only">— total: </span>2</span></h1>'));
   assert.match(en, /<link rel="canonical" href="https:\/\/s\.morgunov\.tech\/en\/notes\/topics\/privacy" \/>/);
   assert.match(en, /hreflang="en" href="https:\/\/s\.morgunov\.tech\/en\/notes\/topics\/privacy"/);
-  // /notes itself is unchanged.
+  // /notes itself: «Публикации» with the count of the whole feed, the channel panel between the
+  // topic line and the feed; a page with nothing to count shows the title alone, never «0».
+  const index = notesIndexHtml('ru', '', '{}', 'abc', { intro: 'i', count: 52, topics: '<nav class="v4-notes-topics"></nav>', channel: '<section class="v4-channel"></section>' });
+  assert.ok(index.includes('<h1 class="v4-h1" id="hero-title">Публикации <span class="v4-h1-count"><span class="sr-only">— всего: </span>52</span></h1>'));
+  assert.ok(index.indexOf('<nav class="v4-notes-topics">') < index.indexOf('<section class="v4-channel">') && index.indexOf('<section class="v4-channel">') < index.indexOf('<div class="v4-notes-feed">'));
+  assert.ok(notesIndexHtml('ru', '', '{}', 'abc', { intro: 'i' }).includes('<h1 class="v4-h1" id="hero-title">Публикации</h1>'));
+  assert.ok(notesIndexHtml('en', '', '{}', 'abc', { intro: 'i', count: 0 }).includes('<h1 class="v4-h1" id="hero-title">Publications</h1>'));
+  // The number beside the title is the feed of this page — a topic's own on a topic's page.
+  assert.match(read('functions/_lib/render-notes.js'), /count: feed\.length,/);
   assert.match(notesIndexHtml('ru', '', '{}', 'abc', { intro: 'i' }), /<link rel="canonical" href="https:\/\/s\.morgunov\.tech\/notes" \/>/);
   for (const f of ['functions/notes/topics/[key].js', 'functions/en/notes/topics/[key].js']) {
     assert.match(read(f), /renderNotesIndex\(env, '(ru|en)', String\(key \|\| ''\)\)/, f);
