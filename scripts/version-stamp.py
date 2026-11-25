@@ -176,6 +176,26 @@ def main() -> int:
             print(f"  STAMPED functions/_lib/site.js (build:{k})")
             total += k
 
+    # Pass 4c: the build mark. The footer of every page shows the release — the
+    # top entry of CHANGELOG.md — as a link to the changelog on GitHub.
+    m = re.search(r"^- v(\d+\.\d+\.\d+) — ", (ROOT / "CHANGELOG.md").read_text(encoding="utf-8"), re.M)
+    if m:
+        version = m.group(1)
+        if site.exists():
+            text, k = re.subn(r"(VERSION = ')\d+\.\d+\.\d+(')", rf"\g<1>{version}\g<2>", site.read_text(encoding="utf-8"))
+            if k:
+                site.write_text(text, encoding="utf-8")
+                total += k
+        n = 0
+        for rel in HTML_FILES:
+            path = ROOT / rel
+            text, k = re.subn(r'(<a class="v4-build"[^>]*>)v\d+\.\d+\.\d+(</a>)', rf"\g<1>v{version}\g<2>", path.read_text(encoding="utf-8"))
+            if k:
+                path.write_text(text, encoding="utf-8")
+                n += k
+        print(f"  STAMPED build mark v{version} (pages:{n})")
+        total += n
+
     # Pass 5: /uses card images now live in content.seed.json (structured cards),
     # not in the static HTML, so stamp their ?v=<hash> here too — otherwise the
     # immutable-cached /images/uses/* can't be busted when their bytes change.

@@ -61,36 +61,42 @@ test('notes block: up to three rows, own notes stay on site, external ones open 
     doc._feed = buildFeed(notes(n).reverse(), seed.notes, 'ru').slice(0, 3);
     const html = renderers.notesFeed(doc, 'ru', false);
     assert.equal((html.match(/class="v4-feed-row"/g) || []).length, 3, `${n} notes`);
-    assert.equal((html.match(/<span class="v4-tag">NOTE<\/span>/g) || []).length, Math.min(n, 3));
-    assert.match(html, /<div class="v4-more"><a href="\/notes">→ Все публикации<\/a><\/div>/);
+    // «date · source» in one mono line; no tag chip (v1.5.0). An own note says «Заметка».
+    assert.doesNotMatch(html, /v4-tag/);
+    assert.equal((html.match(/ · Заметка<\/span>/g) || []).length, Math.min(n, 3));
+    assert.match(html, /<div class="v4-more"><a href="\/notes"><span>Все публикации<\/span><span aria-hidden="true">&nbsp;→<\/span><\/a><\/div>/);
   }
   doc._feed = buildFeed([], seed.notes, 'ru').slice(0, 3);
   const ext = renderers.notesFeed(doc, 'ru', false);
-  assert.match(ext, /target="_blank" rel="noopener noreferrer">2 года Korzinka Go[^<]*<span aria-hidden="true">&nbsp;→<\/span><span class="sr-only"> \(откроется в новой вкладке\)<\/span>/);
-  assert.match(ext, /<time class="v4-feed-date" datetime="2025-06-26">26 июня 2025/);
+  assert.match(ext, /target="_blank" rel="noopener noreferrer">2 года Korzinka Go[^<]*<span aria-hidden="true">&nbsp;↗<\/span><span class="sr-only"> \(откроется в новой вкладке\)<\/span>/);
+  // The source is the platform, derived from the address: it cannot be mistyped.
+  assert.match(ext, /<span class="v4-feed-meta"><time datetime="2025-06-26">06\.2025<\/time> · YouTube<\/span>/);
+  assert.match(ext, /<time datetime="2022-08-08">08\.2022<\/time> · vc\.ru<\/span>/);
   // EN: untranslated notes drop out; the CTA points at /en/notes.
   doc._feed = buildFeed(notes(2).reverse(), seed.notes, 'en').slice(0, 3);
   const en = renderers.notesFeed(doc, 'en', false);
-  assert.doesNotMatch(en, />NOTE</);
-  assert.match(en, /<div class="v4-more"><a href="\/en\/notes">→ All publications<\/a><\/div>/);
+  assert.doesNotMatch(en, / · Note</);
+  assert.match(en, /<div class="v4-more"><a href="\/en\/notes"><span>All publications<\/span><span aria-hidden="true">&nbsp;→<\/span><\/a><\/div>/);
   assert.doesNotMatch(en, /v4-btn/);
   // No feed (KV down) → just the button.
   delete doc._feed;
   assert.doesNotMatch(renderers.notesFeed(doc, 'ru', false), /v4-feed/);
 });
 
-test('contact: who writes, the consulting link, then Telegram, the e-mail and the reply time', () => {
+test('contact: who writes, ONE button with the reply time, the e-mail as a line, the consulting link last', () => {
   const ru = renderers.contact(seed.home, 'ru', false);
-  // Telegram is the main contact (primary, first); e-mail the second (v1.2.7).
-  assert.equal((ru.match(/class="v4-btn/g) || []).length, 2);
-  assert.match(ru, /<a class="v4-btn v4-btn-primary" href="https:\/\/t\.me\/s_mrgnv" target="_blank" rel="noopener noreferrer">Написать в Telegram<\/a>\n {10}<a class="v4-btn" href="mailto:s@morgunov\.tech">s@morgunov\.tech<\/a>/);
-  assert.match(ru, /Обычно отвечаю в течение 10 рабочих дней\./);
-  assert.match(ru, /href="\/collaborate#consulting">→ Консалтинг: форматы и цены</);
+  // Telegram is the main contact and the block's only button; e-mail, the second
+  // channel (v1.2.7), is a line of text since v1.5.0.
+  assert.equal((ru.match(/class="v4-btn/g) || []).length, 1);
+  assert.match(ru, /<a class="v4-btn v4-btn-primary" href="https:\/\/t\.me\/s_mrgnv" target="_blank" rel="noopener noreferrer">Написать в Telegram<\/a>\n {10}<p class="v4-contact-reply">Обычно отвечаю в течение 10 рабочих дней\.<\/p>/);
+  assert.match(ru, /<p class="v4-contact-alt">или на почту: <a href="mailto:s@morgunov\.tech">s@morgunov\.tech<\/a><\/p>/);
+  assert.match(ru, /href="\/collaborate#consulting"><span>Форматы и цены консалтинга<\/span><span aria-hidden="true">&nbsp;→<\/span>/);
   assert.doesNotMatch(ru, /#angel/);
-  // note → link → button row, in that order
+  // note → button row → e-mail line → link, in that order
   const at = (re) => ru.search(re);
-  assert.ok(at(/v4-contact-note/) < at(/v4-contact-links/) && at(/v4-contact-links/) < at(/v4-cta-row/));
+  assert.ok(at(/v4-contact-note/) < at(/v4-cta-row/) && at(/v4-cta-row/) < at(/v4-contact-alt/) && at(/v4-contact-alt/) < at(/v4-contact-links/));
   const en = renderers.contact(seed.home, 'en', false);
+  assert.match(en, /or by e-mail: <a href="mailto:s@morgunov\.tech">/);
   assert.match(en, /href="\/en\/collaborate#consulting">/);
   assert.doesNotMatch(en, /#angel/);
 });
@@ -100,8 +106,6 @@ test('/collaborate gains «Как работаю» with the owner\'s live copy',
   assert.match(html, /Провожу аудит в полях/);
   assert.match(html, /<h3 class="v4-h3">Чего не делаю<\/h3>/);
   // 04 and 05 since the angel section left (v1.2.8).
-  assert.equal(seed.collaborate.sections.work.num, '04');
-  assert.equal(seed.collaborate.sections.contact.num, '05');
   assert.match(renderers.collabWork(seed.collaborate, 'en'), /What I don't do/);
 });
 

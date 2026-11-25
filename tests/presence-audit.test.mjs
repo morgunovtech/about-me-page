@@ -104,7 +104,7 @@ test('copy: no «two tools», the channel since 2022, the Korzinka Go video is a
   assert.match(ch.en, /Writing since 2022\.$/);
   assert.doesNotMatch(ch.ru + ch.en, /1–2/);
   const talk = seed.notes.external.find((x) => x.href === 'https://youtu.be/BthlUR9eO1M');
-  assert.equal(talk.tag, 'TALK');
+  assert.equal(talk.tag, undefined);
   assert.match(feedItemHtml({ kind: 'external', item: talk }, 'ru'), /<p class="v4-note-meta">Click Data MeetUp \/ Product Edition · YouTube · 3 600\+ просмотров<\/p>/);
 });
 
@@ -114,21 +114,21 @@ const PROMISE = /angel|ангел|advis|эдвайз|инвестор|investor|�
 
 test('pages promise no angel investing or advisory (v1.2.8)', () => {
   for (const f of ['collaborate.html', 'en/collaborate.html', 'index.html', 'en/index.html', 'uses.html', 'en/uses.html', 'about.html', 'en/about.html', 'llms.txt']) {
-    assert.doesNotMatch(read(f).replace(/crowd-invest\w*|крауд-инвест\w*/gi, ''), PROMISE, f);
+    // «CHANGELOG» (the build mark's address) holds the letters «angel».
+    assert.doesNotMatch(read(f).replace(/crowd-invest\w*|крауд-инвест\w*|CHANGELOG/gi, ''), PROMISE, f);
   }
   assert.doesNotMatch(JSON.stringify(seed.collaborate), PROMISE);
   assert.doesNotMatch(JSON.stringify(seed.home), PROMISE);
 });
 
-test('/collaborate without #angel: sections numbered in page order, menu points at real sections', () => {
+test('/collaborate without #angel: sections in page order and unnumbered, menu points at real sections', () => {
   assert.deepEqual(Object.keys(seed.collaborate.sections), ['about', 'consulting', 'strategy', 'work', 'contact']);
-  assert.deepEqual(Object.values(seed.collaborate.sections).map((x) => x.num), ['01', '02', '03', '04', '05']);
   for (const f of ['collaborate.html', 'en/collaborate.html']) {
     const page = read(f);
     const ids = [...page.matchAll(/<section id="([^"]+)"/g)].map((m) => m[1]);
     assert.deepEqual(ids, ['about', 'consulting', 'strategy', 'work', 'contact'], f);
     for (const [, id] of page.matchAll(/<a href="#([^"]+)"/g)) assert.ok(id === 'main' || ids.includes(id), `${f}: #${id}`);
-    assert.deepEqual([...page.matchAll(/data-cms-text="sections\.(\w+)\.num">(\d+)</g)].map((m) => m[2]), ['01', '02', '03', '04', '05'], f);
+    assert.doesNotMatch(page, /v4-section-num/, f);
   }
 });
 

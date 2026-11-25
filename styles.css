@@ -180,10 +180,17 @@
   border-bottom-color: var(--v4-orange);
 }
 
+/* The role is a label of data, set like the period: mono caps. In 13px grey
+   sans it was the weakest text of the row and ran into the description. */
 .v4-career-row .role {
+  font-family: var(--v4-mono);
+  font-size: var(--v4-label-size);
+  font-weight: var(--v4-label-weight);
+  letter-spacing: var(--v4-label-tracking);
+  text-transform: uppercase;
+  line-height: 1.5;
   color: var(--v4-muted);
-  font-size: 13px;
-  margin-top: 3px;
+  margin-top: 5px;
 }
 
 .v4-career-row .ctx {
@@ -376,6 +383,10 @@
 
 .v4-more {
   margin-top: 14px;
+  /* Room under the link's underline: the last «more» link of a section sat
+     0.6px above the edge where content-visibility clips painting, and Chrome
+     on iOS cut the line off. */
+  padding-bottom: 3px;
   font-size: var(--v4-label-size);
   font-weight: var(--v4-label-weight);
   text-transform: uppercase;
@@ -591,10 +602,10 @@
   max-width: 62ch;
 }
 
-/* Homepage contact: who writes and why → the Telegram button with the reply
-   time beside it → two ways to read more first. */
+/* Homepage contact: who writes and why → ONE button with the reply time
+   beside it → the second channel as a line of text → the link to read more. */
 .v4-reach .v4-contact-note {
-  margin-bottom: 0;
+  margin-bottom: 18px;
 }
 
 .v4-reach .v4-cta-row {
@@ -607,8 +618,28 @@
   color: var(--v4-muted);
 }
 
+.v4-contact-alt {
+  margin: 14px 0 0;
+  font-size: 14px;
+  color: var(--v4-muted);
+}
+
+.v4-contact-alt a {
+  color: var(--v4-fg);
+  text-decoration: underline;
+  text-decoration-color: var(--v4-line);
+  text-underline-offset: 3px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.v4-contact-alt a:hover,
+.v4-contact-alt a:focus-visible {
+  color: var(--v4-orange-text);
+  text-decoration-color: var(--v4-orange-text);
+}
+
 .v4-contact-links {
-  margin: 12px 0 22px;
+  margin: 22px 0 0;
 }
 
 .v4-contact-links .v4-more {
@@ -647,7 +678,7 @@
 
 .v4-feed-row {
   display: grid;
-  grid-template-columns: 150px 76px 1fr;
+  grid-template-columns: 170px 1fr;
   gap: 16px;
   align-items: baseline;
   padding: 14px 0;
@@ -658,11 +689,9 @@
   border-bottom: none;
 }
 
-.v4-feed-row .v4-tag {
-  justify-self: start;
-}
-
-.v4-feed-date {
+/* «06.2025 · YouTube»: when and where, one quiet mono line instead of a date
+   column and a filled tag. */
+.v4-feed-meta {
   font-family: var(--v4-mono);
   font-size: 12px;
   color: var(--v4-muted);
@@ -670,7 +699,7 @@
 
 .v4-feed-title {
   color: var(--v4-fg);
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
 }
 
@@ -681,11 +710,8 @@
 
 @media (max-width: 640px) {
   .v4-feed-row {
-    grid-template-columns: auto 1fr;
-    gap: 6px 12px;
-  }
-  .v4-feed-title {
-    grid-column: 1 / -1;
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 }
 
@@ -766,7 +792,6 @@
   .v4-contact-note {
     font-size: 16px;
   }
-  .v4-career-row .role,
   .v4-venture .arc,
   .v4-collab-clients b,
   .v4-collab-clients strong {
@@ -881,38 +906,21 @@
 .v4-article-body {
   font-size: 17px;
   line-height: 1.65;
-  counter-reset: sec;
 }
 
 .v4-article-body p {
   margin: 0 0 18px;
 }
 
-/* H2 renders exactly like a page section head: inline mono counter, then the
-   rule UNDER the title (.v4-section-head idiom). */
+/* H2 renders like a page section head: the rule UNDER the title
+   (.v4-section-head idiom). No number: a number is for a sequence. */
 .v4-article-body h2 {
-  counter-increment: sec;
   border-bottom: 1px solid var(--v4-fg);
   padding-bottom: 10px;
   margin: 40px 0 16px;
   font-size: 22px;
   font-weight: 600;
   letter-spacing: -0.015em;
-}
-
-.v4-article-body h2::before {
-  /* Trailing space: generated content joins the heading's accessible name,
-     so «01» must not glue onto the title («01Заголовок»). */
-  content: counter(sec, decimal-leading-zero) " ";
-  display: inline-block;
-  font-family: var(--v4-mono);
-  font-size: var(--v4-label-size);
-  font-weight: var(--v4-label-weight);
-  text-transform: uppercase;
-  letter-spacing: var(--v4-label-tracking);
-  color: var(--v4-muted);
-  margin-right: 14px;
-  vertical-align: baseline;
 }
 
 .v4-article-body h2:first-child {

@@ -19,8 +19,8 @@ test('seed: external materials are complete, dated and linked out', () => {
   for (const x of notes.external) {
     assert.match(x.date, /^\d{4}-\d{2}-\d{2}$/);
     assert.match(x.href, /^https:\/\//);
-    // TALK — a talk on someone else's stage, the venue in `source` (v1.2.7).
-    assert.ok(['ARTICLE', 'VIDEO', 'TALK'].includes(x.tag));
+    // No free-text tag since v1.5.0: the feed names the platform from the address.
+    assert.equal(x.tag, undefined);
     assert.ok(x.title.ru.trim() && x.title.en.trim(), 'both languages');
     assert.ok(Number.isInteger(x.views) && x.views > 0);
   }
@@ -47,7 +47,7 @@ test('feed interleaves published articles by date, drafts stay out', () => {
   assert.deepEqual(feed.map((e) => (e.kind === 'note' ? e.item.slug : e.date)),
     ['fresh', '2025-06-26', '2024-02-18', 'mid', '2022-08-08', '2022-07-08', '2022-06-19']);
   const first = feedItemHtml(feed[0], 'ru');
-  assert.ok(first.includes('<span class="v4-tag">NOTE</span>'));
+  assert.ok(!first.includes('v4-tag'));
   assert.ok(first.includes('href="/notes/fresh"'));
   assert.ok(!first.includes('target="_blank"'));
 });
