@@ -92,7 +92,7 @@ only» is for two cases: a page other people host themselves (see
 | Navigation | `nav.v4-nav.v4-dropdown` with `.v4-bar-mid` | at most five links; a «Меню» dropdown at 640px and below; leave the whole `nav` out when the page has no sections |
 | Language | `.v4-dropdown.v4-lang` | `RU ⌄`; the items are links to the same page in the other language |
 | Theme | `.v4-dropdown.v4-theme` | the icon button; four items in this order: light, dark, auto, high contrast |
-| Footer | `footer.v4-foot` | name · year · the build mark on the left, the privacy line on the right |
+| Footer | `footer.v4-foot` | name · year · the build mark on the left (then at most two links of the page's own), the privacy line on the right — and nothing else |
 | Build mark | `a.v4-build` in the footer | the release, `vX.Y.Z`; a link to the repository's `CHANGELOG.md` on GitHub, in a new tab |
 
 The right edge has one order everywhere: language, then theme at the very
@@ -142,7 +142,7 @@ look-alikes.
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech / service · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v1.5.0</a></span>
+      <span>morgunov.tech / service · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v1.5.1</a></span>
       <span class="v4-foot-privacy">Без cookies, трекеров и аналитики</span>
     </footer>
   </div>
@@ -160,6 +160,14 @@ service's `CHANGELOG.md`. It is a link, and it always leads to the same place: t
 service's repository on GitHub (`https://github.com/<owner>/<repo>/blob/main/CHANGELOG.md`), where a
 visitor reads the history of versions. Not a modal, not the releases page (a release may be missing,
 the changelog is not), not a commit. A service whose repository is private has no build mark.
+
+**Footer.** One module for every page of the family, as the bar is. The left span reads
+`morgunov.tech / <service> · <year> · vX.Y.Z` (on this site, which is the family itself:
+`morgunov.tech · <year> · vX.Y.Z`), the right span is the privacy line, and nothing else goes in:
+no date, no commit, no icon, no button, no second line. It has one slot, as the bar has its nav:
+after the build mark a page may put **up to two links of its own**, each as `· <a>label</a>`, plain
+text links (this site: «стек», «нашли опечатку?»). A third link does not fit the slot — it belongs
+on the page. A service with nothing to link leaves the slot empty, as the snippet above does.
 
 `chrome.js` is the site's `script.js` without its site-only parts — a checked
 twin (`scripts/build-chrome.mjs`), so the menus of a service behave exactly as

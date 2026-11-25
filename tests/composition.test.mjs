@@ -118,6 +118,15 @@ test('6. the build mark is the version, a link to the changelog on GitHub', () =
     const foot = /<footer class="v4-foot">[\s\S]*?<\/footer>/.exec(read(f))[0];
     assert.ok(foot.includes(`<a class="v4-build" href="${CHANGELOG_URL}" target="_blank" rel="noopener noreferrer">v${top}</a>`), f);
     assert.doesNotMatch(foot, /_build|<code/, f);
+    // The footer is one module: the left span, the privacy line, nothing else. Its one slot is
+    // «up to two links of the page's own» after the build mark (ds/v1/USAGE.md, «Footer»).
+    const spans = foot.match(/<span[\s>]/g) || [];
+    assert.equal(spans.length, 2, `${f}: the footer is two spans`);
+    assert.match(foot, /<span class="v4-foot-privacy"[^>]*>[^<]+<\/span>\s*<\/footer>$/, f);
+    const links = foot.match(/<a\s[^>]*>/g) || [];
+    assert.ok(links[0].includes('class="v4-build"'), `${f}: the build mark is the first link`);
+    assert.ok(links.length - 1 <= 2, `${f}: ${links.length - 1} own links in the footer, the slot holds two`);
+    assert.doesNotMatch(foot, /<(button|svg|img|br|p|div|ul|nav)[\s>]/, f);
   }
   assert.ok(read('functions/_lib/article-template.js').includes('<a class="v4-build" href="${CHANGELOG_URL}" target="_blank" rel="noopener noreferrer">v${VERSION}</a>'));
   assert.match(read('functions/_middleware.js'), /headers\.set\('X-Build', doc\._build\)/);
