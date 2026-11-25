@@ -46,11 +46,21 @@ async function hmac(secret, data) {
   return new Uint8Array(await crypto.subtle.sign('HMAC', key, enc.encode(data)));
 }
 
+// Workers' Web Crypto refuses PBKDF2 above this count (see scripts/hash-password.mjs).
+export const MAX_PBKDF2_ITERATIONS = 100000;
+const HEX = /^(?:[0-9a-f]{2})+$/i;
+
+// A malformed or out-of-range stored hash is a failed login, never an exception:
+// an exception is a 1101 page for the owner and says nothing about the cause.
 export async function verifyPassword(password, stored) {
   if (!stored || typeof stored !== 'string') return false;
-  const parts = stored.split('$');
+  const parts = stored.trim().split('$');
   if (parts.length !== 5 || parts[0] !== 'pbkdf2' || parts[1] !== 'sha256') return false;
   const iterations = Number.parseInt(parts[2], 10);
+  if (!(iterations > 0 && iterations <= MAX_PBKDF2_ITERATIONS) || !HEX.test(parts[3]) || !HEX.test(parts[4])) {
+    console.error('ADMIN_PASSWORD_HASH is unusable: pbkdf2 iterations must be 1…' + MAX_PBKDF2_ITERATIONS + ', salt and hash hex');
+    return false;
+  }
   const salt = fromHex(parts[3]);
   const expected = fromHex(parts[4]);
   const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, [

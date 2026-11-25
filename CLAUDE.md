@@ -239,7 +239,7 @@ The public pages are **edge-rendered from Cloudflare KV** via Pages Functions: t
 
 **Privacy contract preserved on public pages:** no cookies, trackers, analytics, or AI calls. The session cookie is `HttpOnly; Secure; SameSite=Strict; Path=/admin` — never sent on public pages. AI runs server-side only, key never on the client.
 
-**Build/deploy:** still no build step or npm committed for the static site; Pages bundles Functions on push. `wrangler.toml` declares bindings `CONTENT` (KV) + `MEDIA` (R2). Secrets via `wrangler pages secret put`: `ADMIN_PASSWORD_HASH` (generate with `scripts/hash-password.mjs`), `SESSION_SECRET`, `ANTHROPIC_API_KEY`, `SOCIALBOT_INGEST_TOKEN`, and for publishing notes to the channel `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHANNEL`. Local: `npx wrangler pages dev` + gitignored `.dev.vars` (+ `AI_DEV_MOCK=1` to stub AI, `TG_DEV_MOCK=1` to stub Telegram publishing). `.wrangler/` and `.dev.vars` are gitignored.
+**Build/deploy:** still no build step or npm committed for the static site; Pages bundles Functions on push. `wrangler.toml` declares bindings `CONTENT` (KV) + `MEDIA` (R2). Secrets via `wrangler pages secret put`: `ADMIN_PASSWORD_HASH` (generate with `scripts/hash-password.mjs` — PBKDF2 at 100 000 iterations, the most Workers' Web Crypto accepts; a 600 000-iteration hash throws there and locked the owner out until v2.1.1; the secret reaches the site with the next deployment), `SESSION_SECRET`, `ANTHROPIC_API_KEY`, `SOCIALBOT_INGEST_TOKEN`, and for publishing notes to the channel `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHANNEL`. Local: `npx wrangler pages dev` + gitignored `.dev.vars` (+ `AI_DEV_MOCK=1` to stub AI, `TG_DEV_MOCK=1` to stub Telegram publishing). `.wrangler/` and `.dev.vars` are gitignored.
 
 ## Changelog
 

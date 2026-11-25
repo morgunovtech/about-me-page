@@ -132,6 +132,14 @@ test('auth: password verify + session round-trip', async () => {
   const stored = `pbkdf2$sha256$1000$${hex(salt)}$${hex(bits)}`;
   assert.equal(await verifyPassword('secret', stored), true);
   assert.equal(await verifyPassword('wrong', stored), false);
+  // A trailing newline (a hash piped into `wrangler secret put`) still verifies.
+  assert.equal(await verifyPassword('secret', stored + '\n'), true);
+  // Above the Workers ceiling, or malformed: a failed login, never an exception (2026-11-25: a
+  // 600 000-iteration hash threw «Pbkdf2 failed …» and the owner saw Error 1101).
+  const [, , , s, h] = stored.split('$');
+  assert.equal(await verifyPassword('secret', `pbkdf2$sha256$600000$${s}$${h}`), false);
+  assert.equal(await verifyPassword('secret', `pbkdf2$sha256$1000$${s}$${h}x`), false);
+  assert.equal(await verifyPassword('secret', 'pbkdf2$sha256$abc$00$00'), false);
 
   const secret = 'test-secret';
   const token = await createSession(secret);
@@ -325,4 +333,15 @@ test('noindexOnTechnicalHost marks pages.dev hosts only, replacing any earlier v
   const moved = noindexOnTechnicalHost(Response.redirect('https://about-me-page-cr2.pages.dev/x', 308), 'https://about-me-page-cr2.pages.dev//x');
   assert.equal(moved.status, 308);
   assert.equal(moved.headers.get('x-robots-tag'), 'noindex');
+});
+
+test('scripts/hash-password.mjs makes hashes the site can verify (Workers: at most 100 000 PBKDF2 iterations)', async () => {
+  const { execFileSync } = await import('node:child_process');
+  const { MAX_PBKDF2_ITERATIONS } = await import('../functions/_lib/auth.js');
+  const script = new URL('../scripts/hash-password.mjs', import.meta.url).pathname;
+  const out = execFileSync(process.execPath, [script, 'pw'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+  assert.doesNotMatch(out, /\n$/, 'no newline when piped');
+  const iterations = Number(out.split('$')[2]);
+  assert.ok(iterations <= MAX_PBKDF2_ITERATIONS, `${iterations} iterations`);
+  assert.equal(await verifyPassword('pw', out), true);
 });
