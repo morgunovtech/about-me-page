@@ -31,7 +31,7 @@ export async function onRequestPost({ request, env }) {
   // caps fetch subrequests at 50/request, so keep the batch well under that when
   // relinking. Without relink we can take a bigger bite.
   const cap = relinkMedia ? 15 : 100;
-  const limit = Math.min(Math.max(parseInt(body.limit, 10) || cap, 1), cap);
+  const limit = Math.min(Math.max(Number.parseInt(body.limit, 10) || cap, 1), cap);
 
   const posts = parseArchive(body.export || body);
   const idx = (await loadArticleIndex(env)) || [];
