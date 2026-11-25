@@ -27,6 +27,7 @@
 
 .v4-hero-meta {
   font-size: var(--v4-label-size);
+  font-weight: var(--v4-label-weight);
   text-transform: uppercase;
   letter-spacing: var(--v4-label-tracking);
   color: var(--v4-muted);
@@ -127,8 +128,8 @@
 
 .v4-stat-aside {
   font-family: var(--v4-mono);
-  font-size: 10px;
-  letter-spacing: 0.06em;
+  font-size: 12px;
+  letter-spacing: 0;
   color: var(--v4-dim);
   margin-top: 6px;
 }
@@ -302,19 +303,9 @@
   background: var(--v4-paper);
   border: 1px solid var(--v4-line);
   padding: 22px;
-  /* 0.15s — hover affordance; 0.2s — theme switch, in step with body/.v4-root. */
+  /* Theme switch only. The card does not answer the pointer: it is not a
+     control — the link in its name and its button are (no :hover since v1.3.0). */
   transition: border-color 0.15s ease, outline-color 0.15s ease, background-color 0.2s ease, color 0.2s ease;
-}
-
-.v4-product:hover {
-  border-color: var(--v4-fg);
-}
-
-/* In high-contrast theme, --v4-line and --v4-fg are both #fff, so the default
-   border-color hover is invisible. Use an outline ring instead. */
-[data-theme="high-contrast"] .v4-product:hover {
-  outline: 2px solid var(--v4-orange);
-  outline-offset: -2px;
 }
 
 .v4-product-head {
@@ -336,7 +327,7 @@
   background: var(--v4-fg);
   color: var(--v4-on-fg);
   padding: 3px 8px;
-  /* Self-contained chip: the same 10px tracked caps whether it sits in a
+  /* Self-contained chip: the same tracked mono caps whether it sits in a
      product/pub head or alone in a /uses gear card. */
   font-family: var(--v4-mono);
   font-size: var(--v4-label-xs-size);
@@ -365,6 +356,8 @@
 .v4-product-desc {
   flex: 1;
   margin: 0 0 18px;
+  /* 62ch, as .v4-prose p: a card that spans the row keeps a readable line. */
+  max-width: 62ch;
   font-size: 13px;
   line-height: 1.55;
   color: var(--v4-fg);
@@ -418,18 +411,8 @@
   background: var(--v4-paper);
   border: 1px solid var(--v4-line);
   padding: 16px;
+  /* No :hover, same as .v4-product: a photo card is not a control. */
   transition: border-color 0.15s ease, outline-color 0.15s ease, background-color 0.2s ease, color 0.2s ease;
-}
-
-.v4-use:hover {
-  border-color: var(--v4-fg);
-}
-
-/* HC theme: --v4-line and --v4-fg are both #fff, so hover border isn't
-   visible. Same pattern as .v4-product. */
-[data-theme="high-contrast"] .v4-use:hover {
-  outline: 2px solid var(--v4-orange);
-  outline-offset: -2px;
 }
 
 .v4-use-image {
@@ -463,9 +446,17 @@
 
 .v4-use-desc {
   margin: 0;
+  max-width: 62ch;
   font-size: 13px;
   line-height: 1.55;
   color: var(--v4-fg);
+}
+
+/* Inline code is 0.92em in the layer, which is 11.96px inside 13px card copy;
+   nothing on a page is set under 12px. */
+.v4-product-desc code,
+.v4-use-desc code {
+  font-size: max(12px, 0.92em);
 }
 
 /* Software section on /uses — same card primitive as .v4-product
@@ -492,22 +483,25 @@
 
 /* --- Collaborate page extras --- */
 
+/* The amount takes the size of the tier's name: at the label size the price
+   was the smallest text on a tier card. The unit stays a caption. */
 .v4-pricing {
   display: inline-flex;
   align-items: baseline;
-  gap: 4px;
+  gap: 6px;
   font-family: var(--v4-mono);
-  font-size: var(--v4-label-size);
+  font-size: 22px;
+  line-height: 1;
   color: var(--v4-orange-text);
-  letter-spacing: var(--v4-label-tracking);
+  letter-spacing: -0.015em;
   text-transform: uppercase;
 }
 
 .v4-pricing strong {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--v4-label-size);
+  font-weight: var(--v4-label-weight);
   color: var(--v4-fg);
-  letter-spacing: 0;
+  letter-spacing: var(--v4-label-tracking);
 }
 
 .v4-spec {
@@ -522,6 +516,7 @@
 .v4-spec dt {
   font-family: var(--v4-mono);
   font-size: var(--v4-label-xs-size);
+  font-weight: var(--v4-label-weight);
   text-transform: uppercase;
   letter-spacing: var(--v4-label-xs-tracking);
   color: var(--v4-muted);
@@ -536,12 +531,18 @@
 .v4-collab-clients {
   font-family: var(--v4-mono);
   font-size: var(--v4-label-size);
+  font-weight: var(--v4-label-weight);
   text-transform: uppercase;
   letter-spacing: var(--v4-label-tracking);
   color: var(--v4-muted);
   margin-top: 16px;
   padding-top: 12px;
   border-top: 1px solid var(--v4-line);
+}
+
+/* A label over a full-width hairline, not a paragraph to read: no 62ch measure. */
+.v4-prose p.v4-collab-clients {
+  max-width: none;
 }
 
 .v4-collab-clients b,
@@ -587,6 +588,7 @@
   font-size: 15px;
   line-height: 1.5;
   margin: 0;
+  max-width: 62ch;
 }
 
 /* Homepage contact: who writes and why → the Telegram button with the reply
@@ -744,12 +746,41 @@
   .v4-hero--simple {
     padding-bottom: 0;
   }
+  /* A fixed 40px pushed a long word («Сотрудничество») past a 320px screen:
+     the size follows the screen below 377px and a word that still does not
+     fit may break. */
   .v4-h1 {
-    font-size: 40px;
+    font-size: clamp(32px, 10.6vw, 40px);
     letter-spacing: -0.02em;
+    overflow-wrap: break-word;
   }
   .v4-tagline {
     font-size: 16px;
+  }
+  /* Type for reading, not for density (body is 16px here, components.css):
+     16px for what is read as a sentence, 14px for a secondary line. */
+  .v4-career-row .ctx,
+  .v4-product-desc,
+  .v4-use-desc,
+  .v4-spec,
+  .v4-contact-note {
+    font-size: 16px;
+  }
+  .v4-career-row .role,
+  .v4-venture .arc,
+  .v4-collab-clients b,
+  .v4-collab-clients strong {
+    font-size: 14px;
+  }
+  /* Career: the 130px period column left the context 195px, 19 characters a
+     line. One column: period, then company and role, then context. */
+  .v4-career-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .v4-career-row .ctx {
+    grid-column: auto;
+    padding-top: 2px;
   }
   /* Full content width — the same column the stacked CTA buttons and the
      stats strip use, so the hero reads as one grid instead of a centred
@@ -796,6 +827,7 @@
 .v4-article-eyebrow {
   font-family: var(--v4-mono);
   font-size: var(--v4-label-size);
+  font-weight: var(--v4-label-weight);
   text-transform: uppercase;
   letter-spacing: var(--v4-label-tracking);
   color: var(--v4-muted);
@@ -959,6 +991,7 @@
 .v4-notes-intro {
   color: var(--v4-muted);
   margin: 0 0 32px;
+  max-width: 62ch;
 }
 
 .v4-note-item {
@@ -991,12 +1024,14 @@
   margin: 0;
 }
 
+/* A date, a source and a count are data, not labels: plain 12px mono, as the
+   homepage feed and the career table set them. In caps they made three caps
+   lines around every title; the tag is the only caption of an entry now. */
 .v4-note-date,
 .v4-note-meta {
   font-family: var(--v4-mono);
-  font-size: var(--v4-label-size);
-  text-transform: uppercase;
-  letter-spacing: var(--v4-label-tracking);
+  font-size: 12px;
+  letter-spacing: 0;
   color: var(--v4-dim);
 }
 
@@ -1020,6 +1055,7 @@
 .v4-note-excerpt {
   color: var(--v4-muted);
   margin: 0;
+  max-width: 62ch;
 }
 
 @media (max-width: 960px) {
@@ -1031,9 +1067,15 @@
 @media (max-width: 640px) {
   .v4-article-title {
     font-size: 30px;
+    overflow-wrap: break-word;
   }
   .v4-article-body {
     font-size: 16px;
+  }
+  /* As .v4-h1 on a phone. */
+  .v4-notes-title {
+    font-size: clamp(32px, 10.6vw, 40px);
+    overflow-wrap: break-word;
   }
 }
 

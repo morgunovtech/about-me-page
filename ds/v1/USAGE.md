@@ -42,14 +42,14 @@ Paste into any service's `<head>`. Load order matters:
 ```html
 <!-- morgunov.tech design system v1 — non-blocking preload-swap -->
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/tokens.css?v=fa7fc139" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/tokens.css?v=5629caeb" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/base.css?v=0e404315" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=f7d07a70" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=724d4169" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript>
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/tokens.css?v=fa7fc139" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/tokens.css?v=5629caeb" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/base.css?v=0e404315" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=f7d07a70" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=724d4169" />
 </noscript>
 ```
 
@@ -90,6 +90,25 @@ Then apply the page class on `<body>`:
 ```html
 <body class="v4-page">
 ```
+
+## Captions and button states
+
+Since v1.3.0 of the origin the caption tokens hold one value each:
+`--v4-label-size` and `--v4-label-xs-size` are both 12px (they were 11px and
+10px) and both trackings are 0.1em. The names are unchanged, so a consumer
+needs no edit — its small caps simply grow to 12px with the next sync. A page
+has two caption styles: sans caps for chrome and controls, mono caps for labels
+of data; a date, a count or a version set in mono is plain 12px, never caps.
+
+`components.css` styles every state of `.v4-btn` / `.v4-btn-primary`: hover,
+focus, pressed (`:active`), disabled and busy. Disabled is `disabled` on a
+`<button>` or `aria-disabled="true"` on a link — a dashed outline in
+`--v4-dim`. Busy is the class `.is-busy` together with `aria-busy="true"` and
+`aria-disabled="true"` while the request runs: the button keeps its look and
+its focus and shows the pulsing square before the label. On a device that
+cannot hover (`@media (hover: none)`) hover paints nothing, so a tapped button
+does not stay inverted. A paragraph in `.v4-prose` and an item of `.v4-list`
+stop at 62ch; on a phone (640px and below) `body.v4-page` is 16px.
 
 ## Self-contained consumers (inline tokens)
 
