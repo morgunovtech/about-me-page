@@ -655,11 +655,12 @@
 }
 
 .v4-products + .v4-more + .v4-tier,
-.v4-products + .v4-more + .v4-more + .v4-tier {
+.v4-products + .v4-more + .v4-more + .v4-tier,
+.v4-products + .v4-more + .v4-more + .v4-more + .v4-tier {
   margin-top: 36px;
 }
 
-/* Two «more» links in a row (GitHub, then /privacy): one line apart. */
+/* «More» links in a row (GitHub, /privacy, GitHub Sponsors): one line apart. */
 .v4-more + .v4-more {
   margin-top: 8px;
 }

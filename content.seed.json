@@ -426,6 +426,13 @@
             "ru": "/privacy",
             "en": "/en/privacy"
           }
+        },
+        "support": {
+          "label": {
+            "ru": "Добровольная поддержка моих открытых проектов на GitHub Sponsors",
+            "en": "Voluntary support for my open-source work on GitHub Sponsors"
+          },
+          "href": "https://github.com/sponsors/morgunovtech"
         }
       },
       "ventures": {
@@ -1156,8 +1163,8 @@
     "site": "s.morgunov.tech",
     "page": "collaborate",
     "rev": 1,
-    "updatedAt": "2026-11-24T00:00:00Z",
-    "dateModified": "2026-11-24",
+    "updatedAt": "2026-11-25T00:00:00Z",
+    "dateModified": "2026-11-25",
     "meta": {
       "title": {
         "ru": "Консалтинг по e-com и продукту в Центральной Азии — Семён Моргунов",
@@ -1451,6 +1458,45 @@
             ]
           }
         ]
+      },
+      "partnerships": {
+        "title": {
+          "ru": "Партнёрства и медиа",
+          "en": "Partnerships & Media"
+        },
+        "prose": {
+          "ru": "Открыт к уместным предложениям: тестировать продукты, давать независимую обратную связь, приезжать на производства и участвовать в технологическом просвещении. Редакционная независимость не обсуждается: не обещаю положительных отзывов и не беру обязательств по числу публикаций.",
+          "en": "I welcome relevant opportunities to test products, provide independent feedback, visit manufacturing facilities and contribute to technology education. Editorial independence is non-negotiable; I do not accept guaranteed positive reviews or recurring posting quotas."
+        },
+        "items": [
+          {
+            "ru": "Независимая обратная связь по продукту",
+            "en": "Independent product feedback"
+          },
+          {
+            "ru": "Устройства на обзор",
+            "en": "Review units"
+          },
+          {
+            "ru": "Бета-программы",
+            "en": "Beta programs"
+          },
+          {
+            "ru": "Приглашения для прессы",
+            "en": "Press invitations"
+          },
+          {
+            "ru": "Спонсорство открытых проектов",
+            "en": "Open-source sponsorship"
+          }
+        ],
+        "cta": {
+          "href": "https://t.me/s_mrgnv",
+          "label": {
+            "ru": "Написать →",
+            "en": "Get in touch →"
+          }
+        }
       },
       "contact": {
         "title": {

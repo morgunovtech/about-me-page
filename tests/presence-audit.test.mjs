@@ -122,11 +122,11 @@ test('pages promise no angel investing or advisory (v1.2.8)', () => {
 });
 
 test('/collaborate without #angel: sections in page order and unnumbered, menu points at real sections', () => {
-  assert.deepEqual(Object.keys(seed.collaborate.sections), ['about', 'consulting', 'strategy', 'work', 'contact']);
+  assert.deepEqual(Object.keys(seed.collaborate.sections), ['about', 'consulting', 'strategy', 'work', 'partnerships', 'contact']);
   for (const f of ['collaborate.html', 'en/collaborate.html']) {
     const page = read(f);
     const ids = [...page.matchAll(/<section id="([^"]+)"/g)].map((m) => m[1]);
-    assert.deepEqual(ids, ['about', 'consulting', 'strategy', 'work', 'contact'], f);
+    assert.deepEqual(ids, ['about', 'consulting', 'strategy', 'work', 'partnerships', 'contact'], f);
     for (const [, id] of page.matchAll(/<a href="#([^"]+)"/g)) assert.ok(id === 'main' || ids.includes(id), `${f}: #${id}`);
     assert.doesNotMatch(page, /v4-section-num/, f);
   }

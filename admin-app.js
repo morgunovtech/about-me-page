@@ -1525,7 +1525,7 @@
     // /collaborate: structured sections edited via the generic form engine
     // (tiers/groups/ctas add-reorder-delete + per-field). Re-render on demand.
     if (page === 'collaborate' && doc.sections && doc.sections.consulting && doc.sections.consulting.tiers) {
-      for (const k of ['about', 'consulting', 'strategy', 'angel', 'contact']) {
+      for (const k of ['about', 'consulting', 'strategy', 'angel', 'partnerships', 'contact']) {
         if (!doc.sections[k]) continue;
         const node = fieldRow(doc.sections, k);
         if (node.tagName === 'DETAILS') node.open = false;
