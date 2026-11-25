@@ -62,11 +62,12 @@ test('/thanks: the dogs first, then support, the free ways and where to report a
     const ids = [...html.matchAll(/<section id="([a-z]+)" class="v4-section">/g)].map((m) => m[1]);
     assert.deepEqual(ids, ['dogs', 'support', 'free', 'bug'], f);
     assert.match(html, /href="https:\/\/www\.instagram\.com\/mehr_shelter\/"/, `${f}: Mehr, payment details on its own page`);
-    assert.match(html, /href="https:\/\/t\.me\/raschet7\/151"/, `${f}: Sobaken`);
+    assert.doesNotMatch(html, /Sobaken|raschet7\/151/, `${f}: only Mehr, the shelter the owner vouches for`);
+    assert.match(html, /href="https:\/\/web\.tribute\.tg\/d\/fqH"/, `${f}: Tribute — a direct donation, next to GitHub Sponsors`);
     assert.match(html, /href="https:\/\/github\.com\/sponsors\/morgunovtech"/, f);
     assert.match(html, /href="https:\/\/t\.me\/boost\/raschet7"/, f);
-    // Tribute and the referral links go to /uses when it comes back (owner): not here.
-    assert.doesNotMatch(html, /tribute\.tg|href="(\/en)?\/uses"/, f);
+    // The referral links go to /uses when it comes back (owner): not here.
+    assert.doesNotMatch(html, /href="(\/en)?\/uses"/, f);
     // Mehr: straight to the payment details, not through the channel.
     assert.doesNotMatch(html, /t\.me\/raschet7\/152/, f);
     // «Бесплатно»: one action a line, the channel first.
