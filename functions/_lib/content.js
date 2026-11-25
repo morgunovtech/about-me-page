@@ -22,13 +22,14 @@ export function validPageKey(page) {
 }
 
 // Code-side fixes for KV content live in migrations.js (no seed import there).
-import { fixStaleContent } from './migrations.js';
+import { fixStaleContent, fillFromSeed } from './migrations.js';
 
 // Wraps both return paths — the KV doc and the seed fallback — so a code-side
 // fix in migrations.js reaches whichever one serves the page.
 export async function loadDoc(env, page) {
-  return fixStaleContent(await loadDocRaw(env, page));
+  return fixStaleContent(fillFromSeed(await loadDocRaw(env, page), page, seed));
 }
+
 
 async function loadDocRaw(env, page) {
   const key = `${SITE}:${page}`;
