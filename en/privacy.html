@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-cms-text="meta.title">Privacy: my tools and the essential kit — Semyon Morgunov</title>
+  <meta name="description" data-cms-content="meta.description" content="My tools show what websites see about you and what your photos give away. The essential kit: open-source apps with an independent security audit, each with a link to the report." />
+  <meta name="author" content="Semyon Morgunov" />
+  <meta name="theme-color" content="#edeae5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" media="(prefers-color-scheme: light)" />
+  <link rel="icon" href="/images/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="canonical" href="https://s.morgunov.tech/en/privacy" />
+  <link rel="alternate" hreflang="ru" href="https://s.morgunov.tech/privacy" />
+  <link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/privacy" />
+  <link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/privacy" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" data-cms-content="share.title" content="Privacy: my tools and the essential kit — Semyon Morgunov" />
+  <meta property="og:description" data-cms-content="share.description" content="My tools show what websites see about you and what your photos give away. The essential kit: open-source apps with an independent security audit, each with a link to the report." />
+  <meta property="og:url" content="https://s.morgunov.tech/en/privacy" />
+  <meta property="og:image" data-cms-abs="share.image" content="https://s.morgunov.tech/images/og-card-en.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" data-cms-content="share.imageAlt" content="Privacy — Semyon Morgunov" />
+  <meta property="og:site_name" content="morgunov.tech" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ru_RU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" data-cms-content="share.title" content="Privacy: my tools and the essential kit — Semyon Morgunov" />
+  <meta name="twitter:description" data-cms-content="share.description" content="My tools show what websites see about you and what your photos give away. The essential kit: open-source apps with an independent security audit, each with a link to the report." />
+  <meta name="twitter:image" data-cms-abs="share.image" content="https://s.morgunov.tech/images/og-card-en.png" />
+  <meta name="twitter:image:alt" data-cms-content="share.imageAlt" content="Privacy — Semyon Morgunov" />
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
+  <style>
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:12px;--v4-label-tracking:.1em;--v4-label-xs-size:12px;--v4-label-xs-tracking:.1em;--v4-label-weight:500;color-scheme:light dark}
+    [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f;color-scheme:dark}
+    [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000;color-scheme:dark}
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0}
+    body.no-transition,body.no-transition *{transition:none!important}
+    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:14px;line-height:1.55;letter-spacing:-0.005em}
+    [data-theme="high-contrast"] body.v4-page{font-size:16px}
+    .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:6px 12px;z-index:100;text-decoration:none;font-size:13px;transition:top .2s}
+    .v4-page .skip-link:focus{top:8px}
+  </style>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-600.woff2" crossorigin />
+  <!-- Mono renders above the fold (hero eyebrow 400, section numbers 500) — preload both so they don't FOUT. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-latin-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-latin-500.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-500.woff2" crossorigin />
+  <link rel="stylesheet" href="/ds/v1/fonts.css?v=64eea157" />
+  <link rel="stylesheet" href="/ds/v1/tokens.css?v=5629caeb" />
+  <link rel="stylesheet" href="/ds/v1/base.css?v=0e404315" />
+  <link rel="stylesheet" href="/ds/v1/components.css?v=52192cae" />
+  <link rel="stylesheet" href="/styles.css?v=ad0df9a5" />
+  <script data-cfasync="false">
+    (function () {
+      var d = document.documentElement;
+      var p = 'auto';
+      try { p = localStorage.getItem('theme-preference') || 'auto'; } catch (e) {}
+      var t = p === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : p;
+      d.setAttribute('data-theme', t);
+      d.setAttribute('data-theme-preference', p);
+      if (p !== 'auto') {
+        var c = t === 'dark' ? '#14130f' : t === 'high-contrast' ? '#000000' : '#edeae5';
+        var m = document.querySelectorAll('meta[name="theme-color"]');
+        for (var i = 0; i < m.length; i++) m[i].setAttribute('content', c);
+      }
+    })();
+  </script>
+</head>
+<body class="v4-page no-transition" data-lang="en">
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <div class="v4-root">
+    <header class="v4-bar" id="top">
+      <nav class="v4-nav v4-dropdown" aria-label="Main navigation">
+        <button class="v4-bar-btn v4-nav-toggle" type="button" aria-controls="site-nav">Menu<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+        <div class="v4-bar-mid" id="site-nav">
+          <a href="/en/">Home</a>
+          <a href="#tools">Tools</a>
+          <a href="#kit">Kit</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+      <div class="v4-bar-right">
+        <div class="v4-dropdown v4-lang">
+          <button class="v4-bar-btn v4-lang-btn" type="button" aria-haspopup="menu" aria-controls="lang-menu" id="lang-toggle" aria-label="EN — change language">EN<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+          <div class="v4-menu" id="lang-menu" role="menu" aria-labelledby="lang-toggle">
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="false" href="/privacy" hreflang="ru" lang="ru">Русский</a>
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="true" href="/en/privacy" hreflang="en" lang="en">English</a>
+          </div>
+        </div>
+        <div class="v4-dropdown v4-theme">
+          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-controls="theme-menu" id="theme-toggle" aria-label="Switch theme">
+            <svg class="v4-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+              <circle cx="8" cy="8" r="3"></circle>
+              <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"></path>
+            </svg>
+            <svg class="v4-icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M13.5 9A6 6 0 1 1 7 2.5a4.5 4.5 0 0 0 6.5 6.5z"></path>
+            </svg>
+            <svg class="v4-icon-contrast" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <circle cx="8" cy="8" r="6"></circle>
+              <path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path>
+            </svg>
+          </button>
+          <div class="v4-menu v4-theme-menu" id="theme-menu" role="menu" aria-labelledby="theme-toggle">
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">Light</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">Dark</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">Auto</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">High contrast</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="v4-hero v4-hero--simple" aria-labelledby="hero-title">
+        <div class="v4-hero-text">
+          <p class="v4-hero-meta" data-cms-text="hero.eyebrow">Check · Protect</p>
+          <h1 class="v4-h1" id="hero-title" data-cms-text="hero.name">Privacy</h1>
+          <p class="v4-tagline" data-cms-text="hero.tagline">First see what is visible about you — my tools show it on your own data. Then close the gaps with apps that passed an independent audit.</p>
+          <div class="v4-cta-row" data-cms-html="hero.ctas">
+            <a class="v4-btn" href="/en/">← Home</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="tools" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2" data-cms-text="sections.tools.title">My tools</h2>
+        </div>
+        <div data-cms-list="privacyTools">
+  <p class="v4-tagline v4-tagline--compact">Three questions about yourself: what a website sees, what a photo gives away, and whether your password holds.</p>
+          <div class="v4-products">
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-product-tag-row">
+                <span class="v4-tag">WEB</span>
+                <span class="v4-live-dot" aria-hidden="true"></span><span class="sr-only">Live</span>
+              </span>
+              <span>v3.3</span>
+            </div>
+            <h3 class="v4-product-name"><a href="https://fprint.morgunov.tech/en/" target="_blank" rel="noopener noreferrer">Fingerprint</a></h3>
+            <p class="v4-product-desc">Online privacy explained in six steps, from opening your laptop to a loaded site: who learns what about you at each step, on your real data, and what to do.</p>
+            <a class="v4-btn" href="https://fprint.morgunov.tech/en/" target="_blank" rel="noopener noreferrer">Check browser →</a>
+          </article>
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-product-tag-row">
+                <span class="v4-tag">WEB</span>
+                <span class="v4-live-dot" aria-hidden="true"></span><span class="sr-only">Live</span>
+              </span>
+              <span>v1.7</span>
+            </div>
+            <h3 class="v4-product-name"><a href="https://foundyou.morgunov.tech/en/" target="_blank" rel="noopener noreferrer">Found You</a></h3>
+            <p class="v4-product-desc">Check what a photo reveals before you post it: EXIF and GPS, place context, and a clean privacy-safe copy. Runs in your browser.</p>
+            <a class="v4-btn" href="https://foundyou.morgunov.tech/en/" target="_blank" rel="noopener noreferrer">Clean photo →</a>
+          </article>
+            <article class="v4-product v4-product--soon">
+            <div class="v4-product-head">
+              <span class="v4-tag">WEB</span>
+              <span>Soon</span>
+            </div>
+            <h3 class="v4-product-name">Good Pass</h3>
+            <p class="v4-product-desc">Will show how strong a password really is, how long it takes to crack, whether it has leaked — and what to change to make it stronger.</p>
+          </article>
+          </div>
+</div>
+      </section>
+
+      <section id="kit" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2" data-cms-text="sections.kit.title">The essential kit</h2>
+        </div>
+        <div data-cms-list="privacyKit">
+  <div class="v4-prose"><p>Apps that close the main gaps: messages, mail, passwords, network and files. Each one passed two filters:</p><ul class="v4-list"><li><strong>open source</strong> — anyone qualified can check what the program really does instead of taking it on trust;</li><li><strong>independent audit</strong> — an outside security team examined the product and published a report. The link to the report is on the card.</li></ul><p>An audit is a snapshot of one date, not a lifetime guarantee. Keep the apps updated and download them only from the official site — its address is on the button.</p></div>
+          <h3 class="v4-h3">Communication</h3>
+          <div class="v4-products">
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Messenger</span>
+              <span>Free</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://signal.org/" target="_blank" rel="noopener noreferrer">Signal</a></h4>
+            <p class="v4-product-desc">The standard for private messaging: chats, groups and calls are always end-to-end encrypted, and the server knows almost nothing about who talks to whom. Needs a phone number. The protocol has been verified; the app code has had no public audit.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://www.usenix.org/system/files/usenixsecurity24-bhargavan.pdf" target="_blank" rel="noopener noreferrer">Cryspen and Inria, 2024 — protocol<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a><br /><a href="https://eprint.iacr.org/2025/078" target="_blank" rel="noopener noreferrer">NYU and PQShield, 2025 — protocol<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/signalapp" target="_blank" rel="noopener noreferrer">GitHub · AGPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>iOS · Android · macOS · Windows · Linux</dd><dt>Also</dt><dd><a href="https://simplex.chat/" target="_blank" rel="noopener noreferrer">SimpleX Chat<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://threema.com/" target="_blank" rel="noopener noreferrer">Threema<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd></dl>
+            <a class="v4-btn" href="https://signal.org/" target="_blank" rel="noopener noreferrer">signal.org →</a>
+          </article>
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Email</span>
+              <span>Free plan</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://proton.me/mail" target="_blank" rel="noopener noreferrer">Proton Mail</a></h4>
+            <p class="v4-product-desc">Mail is stored encrypted so that Proton itself cannot read it, and it is end-to-end encrypted between Proton mailboxes. Switzerland; the free plan has 1 GB. The latest published audit of the mail apps is from 2021.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://proton.me/blog/security-audit" target="_blank" rel="noopener noreferrer">Securitum, 2021<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/ProtonMail" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>iOS · Android · macOS · Windows · Linux · web</dd></dl>
+            <a class="v4-btn" href="https://proton.me/mail" target="_blank" rel="noopener noreferrer">proton.me →</a>
+          </article>
+          </div>
+          <h3 class="v4-h3">Passwords and sign-ins</h3>
+          <div class="v4-products">
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Password manager</span>
+              <span>Free; Premium $19.80/yr</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://bitwarden.com/" target="_blank" rel="noopener noreferrer">Bitwarden</a></h4>
+            <p class="v4-product-desc">Passwords on all your devices, with no device limit even on the free plan. Audited every year: four audits in 2025 alone, including a cryptography review by ETH Zurich.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://bitwarden.com/help/is-bitwarden-audited/" target="_blank" rel="noopener noreferrer">Cure53, ETH Zurich and others, 2025<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/bitwarden/clients" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>iOS · Android · macOS · Windows · Linux · browsers</dd><dt>Also</dt><dd><a href="https://keepassxc.org/" target="_blank" rel="noopener noreferrer">KeePassXC<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://proton.me/pass" target="_blank" rel="noopener noreferrer">Proton Pass<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd></dl>
+            <a class="v4-btn" href="https://bitwarden.com/" target="_blank" rel="noopener noreferrer">bitwarden.com →</a>
+          </article>
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">2FA codes</span>
+              <span>Free</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://bitwarden.com/products/authenticator/" target="_blank" rel="noopener noreferrer">Bitwarden Authenticator</a></h4>
+            <p class="v4-product-desc">One-time sign-in codes — a second lock on your mail, bank and social accounts, so a stolen password is no longer enough. Works without an account.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://bitwarden.com/assets/718YF2IWeVNARWs6nBgYzS/796a7e97eedc6d569773a1892284d034/2025_Mobile_App_Security_Assessment.pdf" target="_blank" rel="noopener noreferrer">Unit 42 (Palo Alto Networks), 2025<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/bitwarden" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>iOS · Android</dd></dl>
+            <a class="v4-btn" href="https://bitwarden.com/products/authenticator/" target="_blank" rel="noopener noreferrer">bitwarden.com →</a>
+          </article>
+          </div>
+          <h3 class="v4-h3">Network</h3>
+          <div class="v4-products">
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">VPN</span>
+              <span>€5 / month</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://mullvad.net/" target="_blank" rel="noopener noreferrer">Mullvad VPN</a></h4>
+            <p class="v4-product-desc">Hides your IP address from websites and your traffic from your internet provider and public Wi-Fi. No e-mail or phone needed to sign up: the account is just a number. The apps and servers are audited regularly. Sweden; there is no free plan.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://www.x41-dsec.de/static/reports/X41-Mullvad-Audit-Public-Report-2024-12-10.pdf" target="_blank" rel="noopener noreferrer">X41 D-Sec, 2024 — apps<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a><br /><a href="https://mullvad.net/en/blog/fourth-infrastructure-audit-completed-by-cure53" target="_blank" rel="noopener noreferrer">Cure53, 2024 — servers<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/mullvad/mullvadvpn-app" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>Windows · macOS · Linux · iOS · Android</dd><dt>Also</dt><dd><a href="https://protonvpn.com/" target="_blank" rel="noopener noreferrer">Proton VPN<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd></dl>
+            <a class="v4-btn" href="https://mullvad.net/" target="_blank" rel="noopener noreferrer">mullvad.net →</a>
+          </article>
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Browser</span>
+              <span>Free</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">Tor Browser</a></h4>
+            <p class="v4-product-desc">Hides your IP address and makes all its users look alike, so websites cannot recognise you by your browser fingerprint. Slower than a regular browser — keep it for what is really worth hiding. Where Tor is blocked, connect through bridges, which are built in.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://blog.torproject.org/code-audit-tor-ecosystem-components/" target="_blank" rel="noopener noreferrer">Radically Open Security, 2023<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a><br /><a href="https://blog.torproject.org/security-audit-report-tor-browser-ooni/" target="_blank" rel="noopener noreferrer">Cure53, 2023<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://gitlab.torproject.org/tpo/applications/tor-browser" target="_blank" rel="noopener noreferrer">GitLab · MPL-2.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>Windows · macOS · Linux · Android</dd></dl>
+            <a class="v4-btn" href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">torproject.org →</a>
+          </article>
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Operating system</span>
+              <span>Free</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://tails.net/" target="_blank" rel="noopener noreferrer">Tails</a></h4>
+            <p class="v4-product-desc">An operating system on a USB stick: boot a computer from it, all traffic goes through Tor, and nothing is left behind when you shut down. For when more is at stake than ads. It does not run on Macs with Apple chips.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://tails.net/news/audit_by_ROS_2024/" target="_blank" rel="noopener noreferrer">Radically Open Security, 2024<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://gitlab.tails.net/tails/tails" target="_blank" rel="noopener noreferrer">GitLab · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>PCs, from a USB stick (x86-64)</dd></dl>
+            <a class="v4-btn" href="https://tails.net/" target="_blank" rel="noopener noreferrer">tails.net →</a>
+          </article>
+          </div>
+          <h3 class="v4-h3">Files and notes</h3>
+          <div class="v4-products">
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Photos</span>
+              <span>10 GB free</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://ente.com/" target="_blank" rel="noopener noreferrer">Ente Photos</a></h4>
+            <p class="v4-product-desc">A replacement for Google Photos and iCloud with end-to-end encryption: photos are encrypted on your phone, and the server never sees them. Both the encryption in the apps and the server have been audited.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://ente.com/blog/cryptography-audit" target="_blank" rel="noopener noreferrer">Cure53 and Symbolic Software, 2023<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a><br /><a href="https://ente.com/blog/cern-audit" target="_blank" rel="noopener noreferrer">Cure53, 2025 — server<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/ente/ente" target="_blank" rel="noopener noreferrer">GitHub · AGPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>iOS · Android · macOS · Windows · Linux · web</dd><dt>Also</dt><dd><a href="https://proton.me/drive" target="_blank" rel="noopener noreferrer">Proton Drive<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd></dl>
+            <a class="v4-btn" href="https://ente.com/" target="_blank" rel="noopener noreferrer">ente.com →</a>
+          </article>
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Cloud encryption</span>
+              <span>Free on desktop</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://cryptomator.org/" target="_blank" rel="noopener noreferrer">Cryptomator</a></h4>
+            <p class="v4-product-desc">Encrypts your files before they reach Dropbox, Google Drive or iCloud, so the cloud stores only ciphertext. The audit is old — 2017 — and covered the cryptographic core.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://cryptomator.org/audits/2017-11-27%20crypto%20cure53.pdf" target="_blank" rel="noopener noreferrer">Cure53, 2017<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/cryptomator/cryptomator" target="_blank" rel="noopener noreferrer">GitHub · GPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>Windows · macOS · Linux · iOS · Android</dd></dl>
+            <a class="v4-btn" href="https://cryptomator.org/" target="_blank" rel="noopener noreferrer">cryptomator.org →</a>
+          </article>
+            <article class="v4-product">
+            <div class="v4-product-head">
+              <span class="v4-tag">Notes</span>
+              <span>Free plan</span>
+            </div>
+            <h4 class="v4-product-name"><a href="https://standardnotes.com/" target="_blank" rel="noopener noreferrer">Standard Notes</a></h4>
+            <p class="v4-product-desc">End-to-end encrypted notes on all your devices. Owned by Proton since 2024 and still open source. The server was last audited in 2022, the encryption in the apps in 2020.</p>
+            <dl class="v4-spec v4-spec--card"><dt>Audit</dt><dd><a href="https://standardnotes.com/help/2/has-standard-notes-completed-a-third-party-security-audit" target="_blank" rel="noopener noreferrer">Cure53, 2022 and Trail of Bits, 2020<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Code</dt><dd><a href="https://github.com/standardnotes/app" target="_blank" rel="noopener noreferrer">GitHub · AGPL-3.0<span aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (opens in a new tab)</span></a></dd><dt>Runs on</dt><dd>iOS · Android · macOS · Windows · Linux · web</dd></dl>
+            <a class="v4-btn" href="https://standardnotes.com/" target="_blank" rel="noopener noreferrer">standardnotes.com →</a>
+          </article>
+          </div>
+          <p class="v4-terms">Checked on 25 November 2026. No referral links here.</p>
+</div>
+      </section>
+
+      <section id="contact" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2" data-cms-text="sections.contact.title">Know a better tool?</h2>
+        </div>
+        <div data-cms-list="collabContact">
+  <div class="v4-contact">
+            <div>
+              <p class="v4-contact-note">If it is open source and has a published independent audit, tell me — I'll check it and add it.</p>
+            </div>
+            <div class="v4-cta-row">
+              <a class="v4-btn v4-btn-primary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Message me on Telegram</a>
+            </div>
+          </div>
+</div>
+      </section>
+    </main>
+
+    <footer class="v4-foot">
+      <span>morgunov.tech · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v1.6.0</a> · <a href="/en/uses">uses</a> · <a href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">found a typo?</a></span>
+      <span class="v4-foot-privacy">No cookies, no trackers, no analytics</span>
+    </footer>
+  </div>
+  <script type="application/ld+json" data-cms-jsonld>
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://s.morgunov.tech/en/privacy#webpage",
+          "url": "https://s.morgunov.tech/en/privacy",
+          "name": "Privacy: my tools and the essential kit — Semyon Morgunov",
+          "inLanguage": "en",
+          "isPartOf": {
+            "@id": "https://s.morgunov.tech/#website"
+          },
+          "about": {
+            "@id": "https://s.morgunov.tech/#person"
+          },
+          "dateModified": "2026-11-25",
+          "breadcrumb": {
+            "@id": "https://s.morgunov.tech/en/privacy#breadcrumb"
+          },
+          "mainEntity": {
+            "@id": "https://s.morgunov.tech/en/privacy#kit"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://s.morgunov.tech/en/privacy#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://s.morgunov.tech/en/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Privacy",
+              "item": "https://s.morgunov.tech/en/privacy"
+            }
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://s.morgunov.tech/en/privacy#kit",
+          "name": "The essential kit",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Signal",
+                "url": "https://signal.org/",
+                "applicationCategory": "Messenger"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Proton Mail",
+                "url": "https://proton.me/mail",
+                "applicationCategory": "Email"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Bitwarden",
+                "url": "https://bitwarden.com/",
+                "applicationCategory": "Password manager"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Bitwarden Authenticator",
+                "url": "https://bitwarden.com/products/authenticator/",
+                "applicationCategory": "2FA codes"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Mullvad VPN",
+                "url": "https://mullvad.net/",
+                "applicationCategory": "VPN"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 6,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Tor Browser",
+                "url": "https://www.torproject.org/",
+                "applicationCategory": "Browser"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 7,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Tails",
+                "url": "https://tails.net/",
+                "applicationCategory": "Operating system"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 8,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Ente Photos",
+                "url": "https://ente.com/",
+                "applicationCategory": "Photos"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 9,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Cryptomator",
+                "url": "https://cryptomator.org/",
+                "applicationCategory": "Cloud encryption"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 10,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "Standard Notes",
+                "url": "https://standardnotes.com/",
+                "applicationCategory": "Notes"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  </script>
+  <script data-cfasync="false" defer src="/script.js?v=de52523a"></script>
+</body>
+</html>

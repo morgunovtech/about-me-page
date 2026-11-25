@@ -8,11 +8,12 @@ Live at **[s.morgunov.tech](https://s.morgunov.tech)** — the apex `morgunov.te
 
 Pure static HTML/CSS/JS. **No build step, no npm, no framework.** Hosted on Cloudflare Pages.
 
-- 9 HTML templates (RU + EN twins and a bilingual `404.html`) plus the `/notes` shells rendered by Pages Functions:
+- 11 HTML templates (RU + EN twins and a bilingual `404.html`) plus the `/notes` shells rendered by Pages Functions:
   - **home** — about, career, own projects (live products + past ventures), publications, contact (Telegram, e-mail as the second channel);
   - **`/notes`** — publications: own notes and articles/talks published elsewhere, one feed;
   - **`/collaborate`** — consulting, strategic consulting, how I work;
   - **`/uses`** — hardware and software;
+  - **`/privacy`** — my privacy tools and the essential kit: open-source apps with a published independent audit (`privacy.morgunov.tech` redirects here — a Redirect Rule in the zone);
   - **`/about`** — unlisted (`noindex`) until it is rewritten
 - A versioned design-system layer `ds/v1/` (fonts, tokens for 4 themes, base, components) + `styles.css` for page layout. Other projects reuse it: [Fingerprint](https://github.com/morgunovtech/Fingerprint) loads `fonts`, `tokens` and `base` straight from `https://s.morgunov.tech/ds/v1/` (not `components.css`), [Found You](https://github.com/morgunovtech/FoundYou) vendors a copy in its `public/ds/v1/`, the [TofsDevOps](https://github.com/morgunovtech/Tofs_DevOps_bot) status page inlines the tokens and takes only the woff2 files from `/fonts/` (a bot other people self-host must not depend on this site), and the Lenses PDF report (private) uses the print palette with IBM Plex; see [`ds/v1/USAGE.md`](ds/v1/USAGE.md). Since v1.4.0 the layer also ships the behaviour of the bar (`ds/v1/chrome.js`, a checked twin of `script.js`) and a service must repeat the chrome — bar, language and theme menus, footer
 - One script — `script.js` (single IIFE, no dependencies, ≈ 320 lines)

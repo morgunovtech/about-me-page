@@ -1,13 +1,14 @@
 #!/usr/bin/env node
-// Syncs the homepage product cards (content.seed.json → home.sections.products)
-// with their GitHub repos. Zero dependencies; reads GitHub through `gh api`
+// Syncs the product cards (content.seed.json → home.sections.products and the
+// /privacy tools, privacy.sections.tools) with their GitHub repos. Zero dependencies; reads GitHub through `gh api`
 // (your gh login).
 //
 //   node scripts/sync-products.mjs           # dry run: prints what would change
 //   node scripts/sync-products.mjs --write   # updates content.seed.json
 //
 // Then: `node scripts/render-static.mjs --write` (static twins) and, to put it
-// live, `node scripts/kv-push.mjs home` — the live page renders from KV.
+// live, `node scripts/kv-push.mjs home` (and `privacy`) — the live pages render
+// from KV. A card on both pages gets the same version and description.
 //
 // Per card with a `repo` field:
 // - version: the highest version the repo declares — latest release, tags,
@@ -97,18 +98,23 @@ export function ruFromReadme(md) {
 
 function main() {
   const seed = JSON.parse(readFileSync(SEED, 'utf8'));
-  const items = seed.home.sections.products.items;
+  const touched = new Set();
+  const items = [
+    ...seed.home.sections.products.items.map((it) => ['home', it]),
+    ...((seed.privacy && seed.privacy.sections.tools.items) || []).map((it) => ['privacy', it]),
+  ];
   let changed = 0;
   const warn = [];
-  for (const it of items) {
+  for (const [page, it] of items) {
     if (!it.repo) continue;
     const repo = gh(`repos/${it.repo}`);
     if (!repo) { warn.push(`${it.name}: ${it.repo} not reachable with gh — skipped`); continue; }
     const v = versionFrom(it.repo);
     if (!v) warn.push(`${it.name}: no version on GitHub (release, tag, package.json, pyproject.toml, CHANGELOG) — kept ${it.version}`);
     else if (v.version !== it.version) {
-      console.log(`${it.name}: version ${it.version} → ${v.version} (${v.sources.join(', ')})`);
+      console.log(`${page} · ${it.name}: version ${it.version} → ${v.version} (${v.sources.join(', ')})`);
       it.version = v.version;
+      touched.add(page);
       changed++;
     }
     const en = sentence(plain(repo.description));
@@ -118,8 +124,9 @@ function main() {
       continue;
     }
     if (it.desc.en !== en || it.desc.ru !== ru) {
-      console.log(`${it.name}: description\n  EN ${it.desc.en}\n   → ${en}\n  RU ${it.desc.ru}\n   → ${ru}`);
+      console.log(`${page} · ${it.name}: description\n  EN ${it.desc.en}\n   → ${en}\n  RU ${it.desc.ru}\n   → ${ru}`);
       it.desc = { ru, en };
+      touched.add(page);
       changed++;
     }
   }
@@ -127,7 +134,7 @@ function main() {
   if (!changed) console.log('products are in sync with GitHub');
   else if (WRITE) {
     writeFileSync(SEED, JSON.stringify(seed, null, 2) + '\n');
-    console.log(`wrote ${changed} change(s) to content.seed.json — next: node scripts/render-static.mjs --write, then node scripts/kv-push.mjs home`);
+    console.log(`wrote ${changed} change(s) to content.seed.json — next: node scripts/render-static.mjs --write, then ${[...touched].map((p) => `node scripts/kv-push.mjs ${p}`).join(' and ')}`);
   } else console.log(`${changed} change(s) — run with --write to apply`);
 }
 

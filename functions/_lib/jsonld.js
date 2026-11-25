@@ -258,5 +258,29 @@ export function renderPageJsonLd(doc, lang, page) {
       ],
     });
   }
+  // /privacy: the kit as an ItemList of the recommended apps — each by its
+  // official site, the same link the card's button carries.
+  if (page === 'privacy') {
+    const kit = (doc.sections && doc.sections.kit) || {};
+    const items = (kit.groups || []).flatMap((g) => g.items || []);
+    if (items.length) {
+      webpage.mainEntity = { '@id': url + '#kit' };
+      graph.push({
+        '@type': 'ItemList',
+        '@id': url + '#kit',
+        name: plain(pick(kit.title, l)),
+        itemListElement: items.map((it, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          item: {
+            '@type': 'SoftwareApplication',
+            name: plain(it.name),
+            url: it.cta ? String(pick(it.cta.href, l) || it.cta.href) : undefined,
+            applicationCategory: plain(pick(it.tag, l)),
+          },
+        })),
+      });
+    }
+  }
   return serializeLd({ '@context': 'https://schema.org', '@graph': graph });
 }

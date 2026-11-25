@@ -668,6 +668,59 @@
   color: var(--v4-orange-text);
 }
 
+/* --- /privacy --- */
+
+/* A tool that is not ready yet: the card without paper — a dashed outline in
+   --v4-dim and dim text (the sign of a disabled button), «Скоро» where the
+   version goes, no link and no button. */
+.v4-product--soon {
+  background: transparent;
+  border: 1px dashed var(--v4-dim);
+}
+
+.v4-product--soon .v4-tag {
+  background: var(--v4-dim);
+  color: var(--v4-bg);
+}
+
+.v4-product--soon .v4-product-name,
+.v4-product--soon .v4-product-desc {
+  color: var(--v4-dim);
+}
+
+/* Block prose (renderProse) may put a paragraph after a list: the list keeps
+   the paragraph rhythm of .v4-prose p, so they do not touch. */
+.v4-prose > .v4-list:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+/* The kit: cards in groups by task, a caption over each group. */
+.v4-products + .v4-h3 {
+  margin-top: 36px;
+}
+
+/* The proof on a kit card — audits, code, platforms: the /collaborate spec
+   list at a card's width (the term column takes its longest label). */
+.v4-product .v4-spec--card {
+  grid-template-columns: max-content 1fr;
+  gap: 6px 14px;
+}
+
+.v4-spec--card a {
+  color: var(--v4-fg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--v4-line);
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.v4-spec--card a:hover,
+.v4-spec--card a:focus-visible {
+  color: var(--v4-orange-text);
+  text-decoration-color: var(--v4-orange-text);
+}
+
 /* --- Notes on the homepage: date · tag · title --- */
 
 .v4-feed {

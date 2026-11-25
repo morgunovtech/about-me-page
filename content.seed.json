@@ -1464,6 +1464,689 @@
     },
     "migration": 30
   },
+  "privacy": {
+    "site": "s.morgunov.tech",
+    "page": "privacy",
+    "rev": 1,
+    "updatedAt": "2026-11-25T00:00:00Z",
+    "dateModified": "2026-11-25",
+    "meta": {
+      "title": {
+        "ru": "Приватность: мои инструменты и джентльменский набор — Семён Моргунов",
+        "en": "Privacy: my tools and the essential kit — Semyon Morgunov"
+      },
+      "description": {
+        "ru": "Мои инструменты покажут, что о вас видят сайты и что выдают фотографии. Джентльменский набор — приложения с открытым кодом и независимым аудитом безопасности, у каждого ссылка на отчёт.",
+        "en": "My tools show what websites see about you and what your photos give away. The essential kit: open-source apps with an independent security audit, each with a link to the report."
+      }
+    },
+    "share": {
+      "title": {
+        "ru": "Приватность: мои инструменты и джентльменский набор — Семён Моргунов",
+        "en": "Privacy: my tools and the essential kit — Semyon Morgunov"
+      },
+      "description": {
+        "ru": "Мои инструменты покажут, что о вас видят сайты и что выдают фотографии. Джентльменский набор — приложения с открытым кодом и независимым аудитом безопасности, у каждого ссылка на отчёт.",
+        "en": "My tools show what websites see about you and what your photos give away. The essential kit: open-source apps with an independent security audit, each with a link to the report."
+      },
+      "image": {
+        "ru": "/images/og-card-ru.png",
+        "en": "/images/og-card-en.png"
+      },
+      "imageAlt": {
+        "ru": "Приватность — Семён Моргунов",
+        "en": "Privacy — Semyon Morgunov"
+      }
+    },
+    "hero": {
+      "eyebrow": {
+        "ru": "Проверить · Защитить",
+        "en": "Check · Protect"
+      },
+      "name": {
+        "ru": "Приватность",
+        "en": "Privacy"
+      },
+      "tagline": {
+        "ru": "Сначала посмотрите, что о вас видно, — мои инструменты покажут это на ваших же данных. Потом закройте лишнее приложениями, которые прошли независимый аудит.",
+        "en": "First see what is visible about you — my tools show it on your own data. Then close the gaps with apps that passed an independent audit."
+      },
+      "ctas": {
+        "ru": "<a class=\"v4-btn\" href=\"/\">← На главную</a>",
+        "en": "<a class=\"v4-btn\" href=\"/en/\">← Home</a>"
+      }
+    },
+    "sections": {
+      "tools": {
+        "title": {
+          "ru": "Мои инструменты",
+          "en": "My tools"
+        },
+        "prose": {
+          "ru": "Три вопроса о себе: что видит сайт, что выдаёт фото и выдержит ли пароль.",
+          "en": "Three questions about yourself: what a website sees, what a photo gives away, and whether your password holds."
+        },
+        "items": [
+          {
+            "repo": "morgunovtech/Fingerprint",
+            "tag": "WEB",
+            "live": true,
+            "version": "v3.3",
+            "name": "Fingerprint",
+            "desc": {
+              "ru": "Образовательная страница о приватности для людей без технической подготовки: шесть шагов от включения ноутбука до открытого сайта, и на каждом, на ваших реальных данных, кто и что о вас узнаёт и что с этим делать.",
+              "en": "Online privacy explained in six steps, from opening your laptop to a loaded site: who learns what about you at each step, on your real data, and what to do."
+            },
+            "cta": {
+              "label": {
+                "ru": "Проверить браузер →",
+                "en": "Check browser →"
+              },
+              "href": {
+                "ru": "https://fprint.morgunov.tech/",
+                "en": "https://fprint.morgunov.tech/en/"
+              }
+            }
+          },
+          {
+            "repo": "morgunovtech/FoundYou",
+            "tag": "WEB",
+            "live": true,
+            "version": "v1.7",
+            "name": "Found You",
+            "desc": {
+              "ru": "Веб-приложение для тех, кто собирается поделиться фотографией: оно показывает, что снимок выдаёт о месте, времени, устройстве и людях в кадре, и делает очищенную копию, никуда не загружая файл.",
+              "en": "Check what a photo reveals before you post it: EXIF and GPS, place context, and a clean privacy-safe copy. Runs in your browser."
+            },
+            "cta": {
+              "label": {
+                "ru": "Очистить фото →",
+                "en": "Clean photo →"
+              },
+              "href": {
+                "ru": "https://foundyou.morgunov.tech/",
+                "en": "https://foundyou.morgunov.tech/en/"
+              }
+            }
+          },
+          {
+            "soon": true,
+            "tag": "WEB",
+            "name": "Good Pass",
+            "desc": {
+              "ru": "Покажет, насколько пароль силён на самом деле, сколько времени уйдёт на его перебор, не утёк ли он, — и что изменить, чтобы он стал сильнее.",
+              "en": "Will show how strong a password really is, how long it takes to crack, whether it has leaked — and what to change to make it stronger."
+            }
+          }
+        ]
+      },
+      "kit": {
+        "title": {
+          "ru": "Джентльменский набор",
+          "en": "The essential kit"
+        },
+        "prose": {
+          "ru": "Приложения, которые закрывают главные дыры: переписку, почту, пароли, сеть и файлы. Каждое прошло два фильтра:\n\n- **открытый код** — любой специалист может проверить, что программа делает на самом деле, а не верить на слово;\n- **независимый аудит** — сторонняя команда безопасности проверила продукт и опубликовала отчёт. Ссылка на отчёт — в карточке.\n\nАудит — снимок на дату, а не гарантия навсегда. Обновляйте приложения и скачивайте их только с официального сайта — его адрес написан на кнопке.",
+          "en": "Apps that close the main gaps: messages, mail, passwords, network and files. Each one passed two filters:\n\n- **open source** — anyone qualified can check what the program really does instead of taking it on trust;\n- **independent audit** — an outside security team examined the product and published a report. The link to the report is on the card.\n\nAn audit is a snapshot of one date, not a lifetime guarantee. Keep the apps updated and download them only from the official site — its address is on the button."
+        },
+        "groups": [
+          {
+            "heading": {
+              "ru": "Общение",
+              "en": "Communication"
+            },
+            "items": [
+              {
+                "name": "Signal",
+                "tag": {
+                  "ru": "Мессенджер",
+                  "en": "Messenger"
+                },
+                "price": {
+                  "ru": "Бесплатно",
+                  "en": "Free"
+                },
+                "desc": {
+                  "ru": "Стандарт защищённой переписки: сквозное шифрование чатов, групп и звонков включено всегда, о собеседниках сервер почти ничего не знает. Нужен номер телефона. Проверен протокол — код приложений публично не аудировали.",
+                  "en": "The standard for private messaging: chats, groups and calls are always end-to-end encrypted, and the server knows almost nothing about who talks to whom. Needs a phone number. The protocol has been verified; the app code has had no public audit."
+                },
+                "audits": [
+                  {
+                    "label": {
+                      "ru": "Cryspen и Inria, 2024 — протокол",
+                      "en": "Cryspen and Inria, 2024 — protocol"
+                    },
+                    "href": "https://www.usenix.org/system/files/usenixsecurity24-bhargavan.pdf"
+                  },
+                  {
+                    "label": {
+                      "ru": "NYU и PQShield, 2025 — протокол",
+                      "en": "NYU and PQShield, 2025 — protocol"
+                    },
+                    "href": "https://eprint.iacr.org/2025/078"
+                  }
+                ],
+                "source": {
+                  "label": {
+                    "ru": "GitHub · AGPL-3.0",
+                    "en": "GitHub · AGPL-3.0"
+                  },
+                  "href": "https://github.com/signalapp"
+                },
+                "platforms": {
+                  "ru": "iOS · Android · macOS · Windows · Linux",
+                  "en": "iOS · Android · macOS · Windows · Linux"
+                },
+                "alternatives": [
+                  {
+                    "label": {
+                      "ru": "SimpleX Chat",
+                      "en": "SimpleX Chat"
+                    },
+                    "href": "https://simplex.chat/"
+                  },
+                  {
+                    "label": {
+                      "ru": "Threema",
+                      "en": "Threema"
+                    },
+                    "href": "https://threema.com/"
+                  }
+                ],
+                "cta": {
+                  "label": {
+                    "ru": "signal.org →",
+                    "en": "signal.org →"
+                  },
+                  "href": "https://signal.org/"
+                }
+              },
+              {
+                "name": "Proton Mail",
+                "tag": {
+                  "ru": "Почта",
+                  "en": "Email"
+                },
+                "price": {
+                  "ru": "Есть бесплатный тариф",
+                  "en": "Free plan"
+                },
+                "desc": {
+                  "ru": "Письма хранятся зашифрованными так, что сам Proton их не прочитает; между ящиками Proton — сквозное шифрование. Швейцария, бесплатно — 1 ГБ. Последний опубликованный аудит почты — 2021 года.",
+                  "en": "Mail is stored encrypted so that Proton itself cannot read it, and it is end-to-end encrypted between Proton mailboxes. Switzerland; the free plan has 1 GB. The latest published audit of the mail apps is from 2021."
+                },
+                "audits": [
+                  {
+                    "label": {
+                      "ru": "Securitum, 2021",
+                      "en": "Securitum, 2021"
+                    },
+                    "href": "https://proton.me/blog/security-audit"
+                  }
+                ],
+                "source": {
+                  "label": {
+                    "ru": "GitHub · GPL-3.0",
+                    "en": "GitHub · GPL-3.0"
+                  },
+                  "href": "https://github.com/ProtonMail"
+                },
+                "platforms": {
+                  "ru": "iOS · Android · macOS · Windows · Linux · веб",
+                  "en": "iOS · Android · macOS · Windows · Linux · web"
+                },
+                "cta": {
+                  "label": {
+                    "ru": "proton.me →",
+                    "en": "proton.me →"
+                  },
+                  "href": "https://proton.me/mail"
+                }
+              }
+            ]
+          },
+          {
+            "heading": {
+              "ru": "Пароли и входы",
+              "en": "Passwords and sign-ins"
+            },
+            "items": [
+              {
+                "name": "Bitwarden",
+                "tag": {
+                  "ru": "Менеджер паролей",
+                  "en": "Password manager"
+                },
+                "price": {
+                  "ru": "Бесплатно; Premium — $19,80 в год",
+                  "en": "Free; Premium $19.80/yr"
+                },
+                "desc": {
+                  "ru": "Пароли на всех устройствах сразу, без лимита устройств даже бесплатно. Аудиты — каждый год: только в 2025-м их было четыре, включая разбор криптографии в ETH Zurich.",
+                  "en": "Passwords on all your devices, with no device limit even on the free plan. Audited every year: four audits in 2025 alone, including a cryptography review by ETH Zurich."
+                },
+                "audits": [
+                  {
+                    "label": {
+                      "ru": "Cure53, ETH Zurich и другие, 2025",
+                      "en": "Cure53, ETH Zurich and others, 2025"
+                    },
+                    "href": "https://bitwarden.com/help/is-bitwarden-audited/"
+                  }
+                ],
+                "source": {
+                  "label": {
+                    "ru": "GitHub · GPL-3.0",
+                    "en": "GitHub · GPL-3.0"
+                  },
+                  "href": "https://github.com/bitwarden/clients"
+                },
+                "platforms": {
+                  "ru": "iOS · Android · macOS · Windows · Linux · браузеры",
+                  "en": "iOS · Android · macOS · Windows · Linux · browsers"
+                },
+                "alternatives": [
+                  {
+                    "label": {
+                      "ru": "KeePassXC",
+                      "en": "KeePassXC"
+                    },
+                    "href": "https://keepassxc.org/"
+                  },
+                  {
+                    "label": {
+                      "ru": "Proton Pass",
+                      "en": "Proton Pass"
+                    },
+                    "href": "https://proton.me/pass"
+                  }
+                ],
+                "cta": {
+                  "label": {
+                    "ru": "bitwarden.com →",
+                    "en": "bitwarden.com →"
+                  },
+                  "href": "https://bitwarden.com/"
+                }
+              },
+              {
+                "name": "Bitwarden Authenticator",
+                "tag": {
+                  "ru": "Коды 2FA",
+                  "en": "2FA codes"
+                },
+                "price": {
+                  "ru": "Бесплатно",
+                  "en": "Free"
+                },
+                "desc": {
+                  "ru": "Одноразовые коды для входа — второй замок на почте, в банке и соцсетях: украденного пароля уже мало. Работает без аккаунта.",
+                  "en": "One-time sign-in codes — a second lock on your mail, bank and social accounts, so a stolen password is no longer enough. Works without an account."
+                },
+                "audits": [
+                  {
+                    "label": {
+                      "ru": "Unit 42 (Palo Alto Networks), 2025",
+                      "en": "Unit 42 (Palo Alto Networks), 2025"
+                    },
+                    "href": "https://bitwarden.com/assets/718YF2IWeVNARWs6nBgYzS/796a7e97eedc6d569773a1892284d034/2025_Mobile_App_Security_Assessment.pdf"
+                  }
+                ],
+                "source": {
+                  "label": {
+                    "ru": "GitHub · GPL-3.0",
+                    "en": "GitHub · GPL-3.0"
+                  },
+                  "href": "https://github.com/bitwarden"
+                },
+                "platforms": {
+                  "ru": "iOS · Android",
+                  "en": "iOS · Android"
+                },
+                "cta": {
+                  "label": {
+                    "ru": "bitwarden.com →",
+                    "en": "bitwarden.com →"
+                  },
+                  "href": "https://bitwarden.com/products/authenticator/"
+                }
+              }
+            ]
+          },
+          {
+            "heading": {
+              "ru": "Сеть",
+              "en": "Network"
+            },
+            "items": [
+              {
+                "name": "Mullvad VPN",
+                "tag": {
+                  "ru": "VPN",
+                  "en": "VPN"
+                },
+                "price": {
+                  "ru": "€5 в месяц",
+                  "en": "€5 / month"
+                },
+                "desc": {
+                  "ru": "Прячет ваш IP-адрес от сайтов и трафик — от провайдера и публичного Wi-Fi. Для регистрации не нужны ни почта, ни телефон: аккаунт — это просто номер. Приложения и серверы проверяют регулярно. Швеция, бесплатного тарифа нет.",
+                  "en": "Hides your IP address from websites and your traffic from your internet provider and public Wi-Fi. No e-mail or phone needed to sign up: the account is just a number. The apps and servers are audited regularly. Sweden; there is no free plan."
+                },
+                "audits": [
+                  {
+                    "label": {
+                      "ru": "X41 D-Sec, 2024 — приложения",
+                      "en": "X41 D-Sec, 2024 — apps"
+                    },
+                    "href": "https://www.x41-dsec.de/static/reports/X41-Mullvad-Audit-Public-Report-2024-12-10.pdf"
+                  },
+                  {
+                    "label": {
+                      "ru": "Cure53, 2024 — серверы",
+                      "en": "Cure53, 2024 — servers"
+                    },
+                    "href": "https://mullvad.net/en/blog/fourth-infrastructure-audit-completed-by-cure53"
+                  }
+                ],
+                "source": {
+                  "label": {
+                    "ru": "GitHub · GPL-3.0",
+                    "en": "GitHub · GPL-3.0"
+                  },
+                  "href": "https://github.com/mullvad/mullvadvpn-app"
+                },
+                "platforms": {
+                  "ru": "Windows · macOS · Linux · iOS · Android",
+                  "en": "Windows · macOS · Linux · iOS · Android"
+                },
+                "alternatives": [
+                  {
+                    "label": {
+                      "ru": "Proton VPN",
+                      "en": "Proton VPN"
+                    },
+                    "href": "https://protonvpn.com/"
+                  }
+                ],
+                "cta": {
+                  "label": {
+                    "ru": "mullvad.net →",
+                    "en": "mullvad.net →"
+                  },
+                  "href": "https://mullvad.net/"
+                }
+              },
+              {
+                "name": "Tor Browser",
+                "tag": {
+                  "ru": "Браузер",
+                  "en": "Browser"
+                },
+                "price": {
+                  "ru": "Бесплатно",
+                  "en": "Free"
+                },
+                "desc": {
+                  "ru": "Прячет ваш IP-адрес и делает всех пользователей одинаковыми, чтобы сайты не узнавали вас по «отпечатку» браузера. Медленнее обычного — держите его для того, что действительно стоит скрыть. Где Tor блокируют, подключайтесь через мосты — они встроены в браузер.",
+                  "en": "Hides your IP address and makes all its users look alike, so websites cannot recognise you by your browser fingerprint. Slower than a regular browser — keep it for what is really worth hiding. Where Tor is blocked, connect through bridges, which are built in."
+                },
+                "audits": [
+                  {
+                    "label": {
+                      "ru": "Radically Open Security, 2023",
+                      "en": "Radically Open Security, 2023"
+                    },
+                    "href": "https://blog.torproject.org/code-audit-tor-ecosystem-components/"
+                  },
+                  {
+                    "label": {
+                      "ru": "Cure53, 2023",
+                      "en": "Cure53, 2023"
+                    },
+                    "href": "https://blog.torproject.org/security-audit-report-tor-browser-ooni/"
+                  }
+                ],
+                "source": {
+                  "label": {
+                    "ru": "GitLab · MPL-2.0",
+                    "en": "GitLab · MPL-2.0"
+                  },
+                  "href": "https://gitlab.torproject.org/tpo/applications/tor-browser"
+                },
+                "platforms": {
+                  "ru": "Windows · macOS · Linux · Android",
+                  "en": "Windows · macOS · Linux · Android"
+                },
+                "cta": {
+                  "label": {
+                    "ru": "torproject.org →",
+                    "en": "torproject.org →"
+                  },
+                  "href": "https://www.torproject.org/"
+                }
+              },
+              {
+                "name": "Tails",
+                "tag": {
+                  "ru": "Система",
+                  "en": "Operating system"
+                },
+                "price": {
+                  "ru": "Бесплатно",
+                  "en": "Free"
+                },
+                "desc": {
+                  "ru": "Система на флешке: загружаете с неё компьютер, весь трафик идёт через Tor, а после выключения не остаётся следов. Для случаев, когда на кону больше, чем реклама. На Mac с процессорами Apple не запускается.",
+                  "en": "An operating system on a USB stick: boot a computer from it, all traffic goes through Tor, and nothing is left behind when you shut down. For when more is at stake than ads. It does not run on Macs with Apple chips."
+                },
+                "audits": [
+                  {
+                    "label": {
+                      "ru": "Radically Open Security, 2024",
+                      "en": "Radically Open Security, 2024"
+                    },
+                    "href": "https://tails.net/news/audit_by_ROS_2024/"
+                  }
+                ],
+                "source": {
+                  "label": {
+                    "ru": "GitLab · GPL-3.0",
+                    "en": "GitLab · GPL-3.0"
+                  },
+                  "href": "https://gitlab.tails.net/tails/tails"
+                },
+                "platforms": {
+                  "ru": "ПК с флешки (x86-64)",
+                  "en": "PCs, from a USB stick (x86-64)"
+                },
+                "cta": {
+                  "label": {
+                    "ru": "tails.net →",
+                    "en": "tails.net →"
+                  },
+                  "href": "https://tails.net/"
+                }
+              }
+            ]
+          },
+          {
+            "heading": {
+              "ru": "Файлы и заметки",
+              "en": "Files and notes"
+            },
+            "items": [
+              {
+                "name": "Ente Photos",
+                "tag": {
+                  "ru": "Фото",
+                  "en": "Photos"
+                },
+                "price": {
+                  "ru": "10 ГБ бесплатно",
+                  "en": "10 GB free"
+                },
+                "desc": {
+                  "ru": "Замена Google Фото и iCloud со сквозным шифрованием: снимки шифруются ещё на телефоне, и сервер их не видит. Проверены и шифрование в приложениях, и сервер.",
+                  "en": "A replacement for Google Photos and iCloud with end-to-end encryption: photos are encrypted on your phone, and the server never sees them. Both the encryption in the apps and the server have been audited."
+                },
+                "audits": [
+                  {
+                    "label": {
+                      "ru": "Cure53 и Symbolic Software, 2023",
+                      "en": "Cure53 and Symbolic Software, 2023"
+                    },
+                    "href": "https://ente.com/blog/cryptography-audit"
+                  },
+                  {
+                    "label": {
+                      "ru": "Cure53, 2025 — сервер",
+                      "en": "Cure53, 2025 — server"
+                    },
+                    "href": "https://ente.com/blog/cern-audit"
+                  }
+                ],
+                "source": {
+                  "label": {
+                    "ru": "GitHub · AGPL-3.0",
+                    "en": "GitHub · AGPL-3.0"
+                  },
+                  "href": "https://github.com/ente/ente"
+                },
+                "platforms": {
+                  "ru": "iOS · Android · macOS · Windows · Linux · веб",
+                  "en": "iOS · Android · macOS · Windows · Linux · web"
+                },
+                "alternatives": [
+                  {
+                    "label": {
+                      "ru": "Proton Drive",
+                      "en": "Proton Drive"
+                    },
+                    "href": "https://proton.me/drive"
+                  }
+                ],
+                "cta": {
+                  "label": {
+                    "ru": "ente.com →",
+                    "en": "ente.com →"
+                  },
+                  "href": "https://ente.com/"
+                }
+              },
+              {
+                "name": "Cryptomator",
+                "tag": {
+                  "ru": "Шифрование облака",
+                  "en": "Cloud encryption"
+                },
+                "price": {
+                  "ru": "Бесплатно на компьютере",
+                  "en": "Free on desktop"
+                },
+                "desc": {
+                  "ru": "Шифрует файлы до того, как они попадут в Dropbox, Google Drive или iCloud: облако хранит только шифр. Аудит был давно, в 2017 году, и проверял криптографическое ядро.",
+                  "en": "Encrypts your files before they reach Dropbox, Google Drive or iCloud, so the cloud stores only ciphertext. The audit is old — 2017 — and covered the cryptographic core."
+                },
+                "audits": [
+                  {
+                    "label": {
+                      "ru": "Cure53, 2017",
+                      "en": "Cure53, 2017"
+                    },
+                    "href": "https://cryptomator.org/audits/2017-11-27%20crypto%20cure53.pdf"
+                  }
+                ],
+                "source": {
+                  "label": {
+                    "ru": "GitHub · GPL-3.0",
+                    "en": "GitHub · GPL-3.0"
+                  },
+                  "href": "https://github.com/cryptomator/cryptomator"
+                },
+                "platforms": {
+                  "ru": "Windows · macOS · Linux · iOS · Android",
+                  "en": "Windows · macOS · Linux · iOS · Android"
+                },
+                "cta": {
+                  "label": {
+                    "ru": "cryptomator.org →",
+                    "en": "cryptomator.org →"
+                  },
+                  "href": "https://cryptomator.org/"
+                }
+              },
+              {
+                "name": "Standard Notes",
+                "tag": {
+                  "ru": "Заметки",
+                  "en": "Notes"
+                },
+                "price": {
+                  "ru": "Есть бесплатный тариф",
+                  "en": "Free plan"
+                },
+                "desc": {
+                  "ru": "Заметки со сквозным шифрованием на всех устройствах. С 2024 года принадлежит Proton и остаётся открытым. Сервер последний раз проверяли в 2022 году, шифрование в приложениях — в 2020-м.",
+                  "en": "End-to-end encrypted notes on all your devices. Owned by Proton since 2024 and still open source. The server was last audited in 2022, the encryption in the apps in 2020."
+                },
+                "audits": [
+                  {
+                    "label": {
+                      "ru": "Cure53, 2022 и Trail of Bits, 2020",
+                      "en": "Cure53, 2022 and Trail of Bits, 2020"
+                    },
+                    "href": "https://standardnotes.com/help/2/has-standard-notes-completed-a-third-party-security-audit"
+                  }
+                ],
+                "source": {
+                  "label": {
+                    "ru": "GitHub · AGPL-3.0",
+                    "en": "GitHub · AGPL-3.0"
+                  },
+                  "href": "https://github.com/standardnotes/app"
+                },
+                "platforms": {
+                  "ru": "iOS · Android · macOS · Windows · Linux · веб",
+                  "en": "iOS · Android · macOS · Windows · Linux · web"
+                },
+                "cta": {
+                  "label": {
+                    "ru": "standardnotes.com →",
+                    "en": "standardnotes.com →"
+                  },
+                  "href": "https://standardnotes.com/"
+                }
+              }
+            ]
+          }
+        ],
+        "note": {
+          "ru": "Список проверен 25 ноября 2026 года. Реферальных ссылок здесь нет.",
+          "en": "Checked on 25 November 2026. No referral links here."
+        }
+      },
+      "contact": {
+        "title": {
+          "ru": "Знаете инструмент лучше?",
+          "en": "Know a better tool?"
+        },
+        "note": {
+          "ru": "Если у него открытый код и опубликованный независимый аудит — напишите, проверю и добавлю.",
+          "en": "If it is open source and has a published independent audit, tell me — I'll check it and add it."
+        },
+        "ctas": [
+          {
+            "href": "https://t.me/s_mrgnv",
+            "label": {
+              "ru": "Написать в Telegram",
+              "en": "Message me on Telegram"
+            }
+          }
+        ]
+      }
+    }
+  },
   "notes": {
     "site": "s.morgunov.tech",
     "page": "notes",

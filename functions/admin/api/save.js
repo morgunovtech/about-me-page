@@ -108,11 +108,11 @@ export async function onRequestPost({ request, env }) {
     }
   }
 
-  // uses/collaborate section leaves are a markdown subset escaped at render
-  // time by renderInline/renderProse — stored verbatim. Only hero.ctas is
-  // styled <a> markup, so it gets the button-aware sanitizer (keeps class,
+  // uses/collaborate/privacy section leaves are a markdown subset escaped at
+  // render time by renderInline/renderProse — stored verbatim. Only hero.ctas
+  // is styled <a> markup, so it gets the button-aware sanitizer (keeps class,
   // strips scripts/handlers).
-  if (page === 'uses' || page === 'collaborate') {
+  if (page === 'uses' || page === 'collaborate' || page === 'privacy') {
     const ctas = doc.hero && doc.hero.ctas;
     if (ctas && typeof ctas === 'object') {
       for (const l of ['ru', 'en']) {

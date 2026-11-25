@@ -25,6 +25,8 @@ const ROUTES = {
   '/en/collaborate': { page: 'collaborate', lang: 'en' },
   '/uses': { page: 'uses', lang: 'ru' },
   '/en/uses': { page: 'uses', lang: 'en' },
+  '/privacy': { page: 'privacy', lang: 'ru' },
+  '/en/privacy': { page: 'privacy', lang: 'en' },
 };
 
 // The deploy output IS the repo root, so tracked internal files ship as

@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PAIRS = [
     ("index.html", "en/index.html"),
     ("collaborate.html", "en/collaborate.html"),
+    ("privacy.html", "en/privacy.html"),
     ("uses.html", "en/uses.html"),
     ("about.html", "en/about.html"),
 ]
