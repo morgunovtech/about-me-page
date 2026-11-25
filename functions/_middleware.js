@@ -23,6 +23,8 @@ const ROUTES = {
   '/en/about': { page: 'about', lang: 'en' },
   '/collaborate': { page: 'collaborate', lang: 'ru' },
   '/en/collaborate': { page: 'collaborate', lang: 'en' },
+  '/consulting': { page: 'consulting', lang: 'ru' },
+  '/en/consulting': { page: 'consulting', lang: 'en' },
   '/uses': { page: 'uses', lang: 'ru' },
   '/en/uses': { page: 'uses', lang: 'en' },
   '/privacy': { page: 'privacy', lang: 'ru' },

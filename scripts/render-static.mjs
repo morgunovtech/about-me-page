@@ -23,6 +23,8 @@ const PAGES = [
   ['en/index.html', 'home', 'en'],
   ['collaborate.html', 'collaborate', 'ru'],
   ['en/collaborate.html', 'collaborate', 'en'],
+  ['consulting.html', 'consulting', 'ru'],
+  ['en/consulting.html', 'consulting', 'en'],
   ['about.html', 'about', 'ru'],
   ['en/about.html', 'about', 'en'],
   ['uses.html', 'uses', 'ru'],

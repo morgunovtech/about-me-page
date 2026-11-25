@@ -41,6 +41,8 @@ HTML_FILES = [
     "en/index.html",
     "collaborate.html",
     "en/collaborate.html",
+    "consulting.html",
+    "en/consulting.html",
     "uses.html",
     "en/uses.html",
     "about.html",

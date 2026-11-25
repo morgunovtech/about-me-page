@@ -90,23 +90,23 @@ test('contact: who writes, ONE button with the reply time, the e-mail as a line,
   assert.equal((ru.match(/class="v4-btn/g) || []).length, 1);
   assert.match(ru, /<a class="v4-btn v4-btn-primary" href="https:\/\/t\.me\/s_mrgnv" target="_blank" rel="noopener noreferrer">Написать в Telegram<\/a>\n {10}<p class="v4-contact-reply">Обычно отвечаю в течение 10 рабочих дней\.<\/p>/);
   assert.match(ru, /<p class="v4-contact-alt">или на почту: <a href="mailto:s@morgunov\.tech">s@morgunov\.tech<\/a><\/p>/);
-  assert.match(ru, /href="\/collaborate#consulting"><span>Форматы и цены консалтинга<\/span><span aria-hidden="true">&nbsp;→<\/span>/);
+  assert.match(ru, /href="\/consulting#consulting"><span>Форматы и цены консалтинга<\/span><span aria-hidden="true">&nbsp;→<\/span>/);
   assert.doesNotMatch(ru, /#angel/);
   // note → button row → e-mail line → link, in that order
   const at = (re) => ru.search(re);
   assert.ok(at(/v4-contact-note/) < at(/v4-cta-row/) && at(/v4-cta-row/) < at(/v4-contact-alt/) && at(/v4-contact-alt/) < at(/v4-contact-links/));
   const en = renderers.contact(seed.home, 'en', false);
   assert.match(en, /or by e-mail: <a href="mailto:s@morgunov\.tech">/);
-  assert.match(en, /href="\/en\/collaborate#consulting">/);
+  assert.match(en, /href="\/en\/consulting#consulting">/);
   assert.doesNotMatch(en, /#angel/);
 });
 
-test('/collaborate gains «Как работаю» with the owner\'s live copy', () => {
-  const html = renderers.collabWork(seed.collaborate, 'ru');
+test('/consulting gains «Как работаю» with the owner\'s live copy', () => {
+  const html = renderers.collabWork(seed.consulting, 'ru');
   assert.match(html, /Провожу аудит в полях/);
   assert.match(html, /<h3 class="v4-h3">Чего не делаю<\/h3>/);
   // 04 and 05 since the angel section left (v1.2.8).
-  assert.match(renderers.collabWork(seed.collaborate, 'en'), /What I don't do/);
+  assert.match(renderers.collabWork(seed.consulting, 'en'), /What I don't do/);
 });
 
 test('seed home: five sections, the stats count matches the page', () => {

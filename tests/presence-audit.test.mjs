@@ -33,8 +33,8 @@ test('no calendar booking anywhere', () => {
   for (const f of files('')) assert.doesNotMatch(read(f), /book\.morgen\.so|morgen\.so/, f);
 });
 
-test('/collaborate: the phrase first, tiers to Telegram, the home page reply time beside them', () => {
-  const c = seed.collaborate.sections.consulting;
+test('/consulting: the phrase first, tiers to Telegram, the home page reply time beside them', () => {
+  const c = seed.consulting.sections.consulting;
   assert.deepEqual(c.prose, PHRASE);
   assert.deepEqual(c.tiers.map((t) => t.cta.href), ['https://t.me/s_mrgnv', 'https://t.me/s_mrgnv']);
   assert.deepEqual(c.tiers.map((t) => t.cta.label), [0, 1].map(() => ({ ru: 'Написать в Telegram →', en: 'Message me on Telegram →' })));
@@ -43,32 +43,32 @@ test('/collaborate: the phrase first, tiers to Telegram, the home page reply tim
   assert.deepEqual(c.tiers.map((t) => t.price.ru), ['$300 / **сессия**', '$2\u00a0000 / **месяц**']);
   assert.equal(c.tiers[0].features[0].ru, '75 минут встречи + до 45 минут подготовки');
   for (const lang of ['ru', 'en']) {
-    const html = renderers.collabConsulting(seed.collaborate, lang);
+    const html = renderers.collabConsulting(seed.consulting, lang);
     const at = (s) => html.indexOf(s);
     assert.ok(at(PHRASE[lang]) >= 0 && at(PHRASE[lang]) < at('v4-products') && at('v4-products') < at('v4-terms'), lang);
   }
-  assert.equal(seed.collaborate.meta.title.ru, 'Консалтинг по e-com и продукту в Центральной Азии — Семён Моргунов');
-  assert.equal(seed.collaborate.meta.title.en, 'E-com and product consulting in Central Asia — Semyon Morgunov');
-  for (const f of ['collaborate.html', 'en/collaborate.html']) {
+  assert.equal(seed.consulting.meta.title.ru, 'Консалтинг по e-com и продукту в Центральной Азии — Семён Моргунов');
+  assert.equal(seed.consulting.meta.title.en, 'E-com and product consulting in Central Asia — Semyon Morgunov');
+  for (const f of ['consulting.html', 'en/consulting.html']) {
     const lang = f.startsWith('en/') ? 'en' : 'ru';
-    assert.ok(read(f).includes(`<title data-cms-text="meta.title">${seed.collaborate.meta.title[lang]}</title>`), f);
+    assert.ok(read(f).includes(`<title data-cms-text="meta.title">${seed.consulting.meta.title[lang]}</title>`), f);
   }
 });
 
-test('a /collaborate doc saved before v1.2.7 still renders: tiers only, the Service falls back', () => {
-  const old = clone(seed.collaborate);
+test('a /consulting doc saved before v1.2.7 still renders: tiers only, the Service falls back', () => {
+  const old = clone(seed.consulting);
   delete old.sections.consulting.prose;
   delete old.sections.consulting.note;
   const html = renderers.collabConsulting(old, 'ru');
   assert.match(html, /^<div class="v4-products">/);
   assert.doesNotMatch(html, /v4-tagline|v4-terms/);
-  const svc = JSON.parse(renderPageJsonLd(old, 'en', 'collaborate'))['@graph'].find((n) => n['@type'] === 'Service');
+  const svc = JSON.parse(renderPageJsonLd(old, 'en', 'consulting'))['@graph'].find((n) => n['@type'] === 'Service');
   assert.equal(svc.description, PHRASE.en);
 });
 
 test('JSON-LD: consulting Service in the phrase, no angel or advisor claims', () => {
   for (const lang of ['ru', 'en']) {
-    const ld = renderPageJsonLd(seed.collaborate, lang, 'collaborate');
+    const ld = renderPageJsonLd(seed.consulting, lang, 'consulting');
     const svc = JSON.parse(ld)['@graph'].find((n) => n['@type'] === 'Service');
     assert.equal(svc.description, PHRASE[lang]);
     assert.deepEqual(svc.areaServed, ['Uzbekistan', 'Kyrgyzstan', 'Russia']);
@@ -113,17 +113,17 @@ test('copy: no «two tools», the channel since 2022, the Korzinka Go video is a
 const PROMISE = /angel|ангел|advis|эдвайз|инвестор|investor|вкладыва|invest capital|#angel/i;
 
 test('pages promise no angel investing or advisory (v1.2.8)', () => {
-  for (const f of ['collaborate.html', 'en/collaborate.html', 'index.html', 'en/index.html', 'uses.html', 'en/uses.html', 'about.html', 'en/about.html', 'llms.txt']) {
+  for (const f of ['collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'index.html', 'en/index.html', 'uses.html', 'en/uses.html', 'about.html', 'en/about.html', 'llms.txt']) {
     // «CHANGELOG» (the build mark's address) holds the letters «angel».
     assert.doesNotMatch(read(f).replace(/crowd-invest\w*|крауд-инвест\w*|CHANGELOG/gi, ''), PROMISE, f);
   }
-  assert.doesNotMatch(JSON.stringify(seed.collaborate), PROMISE);
+  assert.doesNotMatch(JSON.stringify(seed.consulting), PROMISE);
   assert.doesNotMatch(JSON.stringify(seed.home), PROMISE);
 });
 
-test('/collaborate without #angel: sections in page order and unnumbered, menu points at real sections', () => {
-  assert.deepEqual(Object.keys(seed.collaborate.sections), ['about', 'consulting', 'strategy', 'work', 'contact']);
-  for (const f of ['collaborate.html', 'en/collaborate.html']) {
+test('/consulting without #angel: sections in page order and unnumbered, menu points at real sections', () => {
+  assert.deepEqual(Object.keys(seed.consulting.sections), ['about', 'consulting', 'strategy', 'work', 'contact']);
+  for (const f of ['consulting.html', 'en/consulting.html']) {
     const page = read(f);
     const ids = [...page.matchAll(/<section id="([^"]+)"/g)].map((m) => m[1]);
     assert.deepEqual(ids, ['about', 'consulting', 'strategy', 'work', 'contact'], f);
@@ -132,8 +132,8 @@ test('/collaborate without #angel: sections in page order and unnumbered, menu p
   }
 });
 
-test('/collaborate meta and share card: the phrase without the FinTech tail, the share title is the page title', () => {
-  const c = seed.collaborate;
+test('/consulting meta and share card: the phrase without the FinTech tail, the share title is the page title', () => {
+  const c = seed.consulting;
   for (const lang of ['ru', 'en']) {
     const desc = PHRASE[lang].replace(/; (финтех — вне Узбекистана|FinTech outside Uzbekistan)\.$/, '.');
     assert.equal(c.meta.description[lang], desc);
@@ -143,7 +143,7 @@ test('/collaborate meta and share card: the phrase without the FinTech tail, the
   }
   assert.equal(c.hero.eyebrow.ru, 'Консалтинг · Стратегия');
   assert.equal(c.hero.eyebrow.en, 'Consulting · Strategy');
-  for (const f of ['collaborate.html', 'en/collaborate.html']) {
+  for (const f of ['consulting.html', 'en/consulting.html']) {
     const lang = f.startsWith('en/') ? 'en' : 'ru';
     const page = read(f);
     for (const [k, v] of [['meta.description', c.meta.description], ['share.title', c.share.title], ['share.description', c.share.description]]) {
