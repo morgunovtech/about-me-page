@@ -315,7 +315,7 @@
             "repo": "morgunovtech/Tofs_DevOps_bot",
             "tag": "BOT",
             "live": true,
-            "version": "v3.12",
+            "version": "v3.13",
             "name": "TofsDevOps",
             "desc": {
               "ru": "Сам себе DevOps в Telegram. Мониторит сайты, чинит что может, проверяет, что тебя видят поисковики и ИИ-ассистенты, — и молчит, пока всё в порядке.",
@@ -340,7 +340,7 @@
             "repo": "morgunovtech/social-tracker-bot",
             "tag": "BOT",
             "live": true,
-            "version": "v1.10",
+            "version": "v1.11",
             "name": "Social Tracker Bot",
             "desc": {
               "ru": "Telegram-бот на вашем сервере для ваших соцсетей: подписчики в Telegram, YouTube, Instagram и LinkedIn, жизнь канала и безопасность аккаунтов — признаки угона, письма безопасности, опасные комментарии, — а ещё недельный отчёт о том, как вас находят люди и ИИ-ассистенты. Молчит, пока всё в порядке.",
