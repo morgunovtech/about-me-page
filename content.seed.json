@@ -696,8 +696,8 @@
     "site": "s.morgunov.tech",
     "page": "uses",
     "rev": 1,
-    "updatedAt": "2026-05-25T00:00:00Z",
-    "dateModified": "2026-05-11",
+    "updatedAt": "2026-11-25T00:00:00Z",
+    "dateModified": "2026-11-25",
     "meta": {
       "title": {
         "ru": "Стек — Семён Моргунов",
@@ -1023,8 +1023,8 @@
           "en": "Software"
         },
         "intro": {
-          "ru": "Сервисы, которыми пользуюсь регулярно. Ссылки обычные, не партнёрские; у Airalo есть промокод — он даёт $3 на первую покупку.",
-          "en": "Services I use regularly. Plain links, no affiliate programs; Airalo has a promo code worth $3 off the first purchase."
+          "ru": "Сервисы, которыми пользуюсь регулярно. У Dashlane, Setapp и Airalo ссылки реферальные: вам по ним дают бонус, мне — бесплатные месяцы или кредит на счёт. Остальные ссылки обычные.",
+          "en": "Services I use regularly. The Dashlane, Setapp and Airalo links are referral links: you get a bonus, I get free months or account credit. The rest are plain links."
         },
         "cards": [
           {
@@ -1034,8 +1034,8 @@
               "en": "Password manager"
             },
             "price": {
-              "ru": "$5 / мес.",
-              "en": "$5 / mo"
+              "ru": "$45 / год",
+              "en": "$45 / yr"
             },
             "desc": {
               "ru": "Менеджер паролей с 5-летним стажем без скандалов и утечек. Внутри Dark Web Monitoring и встроенный 2FA-аутентификатор.",
@@ -1043,32 +1043,10 @@
             },
             "cta": {
               "label": {
-                "ru": "Попробовать →",
-                "en": "Try it →"
+                "ru": "6 месяцев Premium →",
+                "en": "6 months of Premium →"
               },
-              "href": "https://www.dashlane.com/"
-            }
-          },
-          {
-            "name": "Arc Browser",
-            "tag": {
-              "ru": "Браузер",
-              "en": "Browser"
-            },
-            "price": {
-              "ru": "Бесплатно",
-              "en": "Free"
-            },
-            "desc": {
-              "ru": "Браузер. Идеальная организация вкладок и рабочих пространств, аккуратно встроенный AI. Команда переключилась на Dia, но текущий релиз стабильно работает.",
-              "en": "Browser. Best-in-class tab and workspace management, AI features tastefully integrated. The team moved on to Dia, but the current release is stable."
-            },
-            "cta": {
-              "label": {
-                "ru": "Скачать →",
-                "en": "Download →"
-              },
-              "href": "https://arc.net/"
+              "href": "https://www.dashlane.com/en/im/tvsrQ4t8FzbP"
             }
           },
           {
@@ -1078,8 +1056,8 @@
               "en": "App bundle"
             },
             "price": {
-              "ru": "$10 / мес.",
-              "en": "$10 / mo"
+              "ru": "$130 / год",
+              "en": "$130 / yr"
             },
             "desc": {
               "ru": "Подписка на 250+ Mac-приложений за фиксированную плату. Топ-5: Craft (Notion на стероидах), Numi (калькулятор-конвертер), CleanShot X, CleanMyMac, Dato.",
@@ -1087,10 +1065,10 @@
             },
             "cta": {
               "label": {
-                "ru": "7 дней бесплатно →",
-                "en": "7 days free →"
+                "ru": "Месяц бесплатно →",
+                "en": "A free month →"
               },
-              "href": "https://setapp.com/"
+              "href": "https://go.setapp.com/invite/gfyijdwt"
             }
           },
           {
@@ -1134,7 +1112,7 @@
                 "ru": "Скидка $3 →",
                 "en": "$3 off →"
               },
-              "href": "https://www.airalo.com/"
+              "href": "https://ref.airalo.com/wn9E"
             }
           },
           {
