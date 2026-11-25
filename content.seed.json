@@ -2503,30 +2503,6 @@
     },
     "external": [
       {
-        "date": "2026-04-30",
-        "source": "tashkenttimes.uz",
-        "href": "https://tashkenttimes.uz/tech/17488-inmerge-innovation-summit-continues-its-roadshow-series-with-inmerge-tashkent",
-        "title": {
-          "ru": "Панель «Building Everyday Ecosystems» на INMerge Tashkent 2026: продукты вокруг пути клиента",
-          "en": "The “Building Everyday Ecosystems” panel at INMerge Tashkent 2026: designing products around the customer journey"
-        },
-        "tags": [
-          "career"
-        ]
-      },
-      {
-        "date": "2026-04-29",
-        "source": "spot.uz",
-        "href": "https://www.spot.uz/ru/2026/04/29/yandex/",
-        "title": {
-          "ru": "Yandex Uzbekistan собрал рестораторов, ритейл и фудтех: ключевые инсайты Big Table",
-          "en": "Yandex Uzbekistan’s Big Table for restaurants, retail and foodtech: the key insights"
-        },
-        "tags": [
-          "career"
-        ]
-      },
-      {
         "date": "2026-03-02",
         "source": "spot.uz",
         "href": "https://www.spot.uz/ru/2026/03/02/wolt-opinion/",
@@ -2574,24 +2550,6 @@
         ]
       },
       {
-        "date": "2025-05-07",
-        "source": "t.me",
-        "href": "https://t.me/korzinkanews/594",
-        "title": {
-          "ru": "Кешбэк 5% от покупок: Korzinka Go и TBC Bank запустили партнёрскую программу",
-          "en": "5% cashback on purchases: Korzinka Go and TBC Bank launch a partner programme"
-        }
-      },
-      {
-        "date": "2025-03-05",
-        "source": "t.me",
-        "href": "https://t.me/korzinkanews/576",
-        "title": {
-          "ru": "В приложении Korzinka Go действует стандарт защиты клиентских данных PCI DSS 4.0",
-          "en": "The Korzinka Go app protects customer data to the PCI DSS 4.0 standard"
-        }
-      },
-      {
         "date": "2025-01-28",
         "source": "YouTube",
         "href": "https://youtu.be/1aL2xFrcGkU",
@@ -2604,17 +2562,6 @@
         "tags": [
           "productivity"
         ]
-      },
-      {
-        "date": "2024-09-05",
-        "source": "YouTube",
-        "href": "https://youtu.be/URi59Tq9Zu4",
-        "title": {
-          "ru": "Стартап для инвестиций или недоразумение: критический разбор PlovMe",
-          "en": "An investable startup or a misunderstanding? A critical review of PlovMe"
-        },
-        "views": 667,
-        "viewsAt": "2026-11-25"
       },
       {
         "date": "2024-02-18",

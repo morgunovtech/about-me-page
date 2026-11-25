@@ -41,7 +41,7 @@ test('a topic filters the feed — own notes and external materials alike — an
   // English: an untranslated note is not there; the topic still lives through its external materials.
   assert.deepEqual(buildFeed(articles, notesDoc, 'en', 'management').map((e) => e.kind), ['external', 'external']);
   const live = liveTopics(articles, notesDoc, 'ru');
-  assert.deepEqual(live.map((t) => [t.key, t.count]), [['management', 3], ['productivity', 1], ['career', 3], ['privacy', 2]]);
+  assert.deepEqual(live.map((t) => [t.key, t.count]), [['management', 3], ['productivity', 1], ['career', 1], ['privacy', 2]]);
   // Feed rows stay «date · where»: no topic in the row.
   for (const e of buildFeed(articles, notesDoc, 'ru')) assert.doesNotMatch(feedItemHtml(e, 'ru'), /Приватность|Менеджмент/);
 });

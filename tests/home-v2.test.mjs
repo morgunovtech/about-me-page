@@ -68,10 +68,10 @@ test('notes block: up to three rows, own notes stay on site, external ones open 
   }
   doc._feed = buildFeed([], seed.notes, 'ru').slice(0, 3);
   const ext = renderers.notesFeed(doc, 'ru', false);
-  assert.match(ext, /target="_blank" rel="noopener noreferrer">Панель «Building Everyday Ecosystems»[^<]*<span aria-hidden="true">&nbsp;↗<\/span><span class="sr-only"> \(откроется в новой вкладке\)<\/span>/);
+  assert.match(ext, /target="_blank" rel="noopener noreferrer">«Это не диагноз рынку Узбекистана»[^<]*<span aria-hidden="true">&nbsp;↗<\/span><span class="sr-only"> \(откроется в новой вкладке\)<\/span>/);
   // The source is the platform, derived from the address: it cannot be mistyped.
-  assert.match(ext, /<span class="v4-feed-meta"><time datetime="2026-04-30">04\.2026<\/time> · tashkenttimes\.uz<\/span>/);
-  assert.match(ext, /<time datetime="2026-03-02">03\.2026<\/time> · spot\.uz<\/span>/);
+  assert.match(ext, /<span class="v4-feed-meta"><time datetime="2026-03-02">03\.2026<\/time> · spot\.uz<\/span>/);
+  assert.match(ext, /<time datetime="2026-02-06">02\.2026<\/time> · spot\.uz<\/span>/);
   assert.equal(feedSource({ kind: 'external', item: { href: 'https://youtu.be/BthlUR9eO1M' } }, 'ru'), 'YouTube');
   // EN: untranslated notes drop out; the CTA points at /en/notes.
   doc._feed = buildFeed(notes(2).reverse(), seed.notes, 'en').slice(0, 3);
