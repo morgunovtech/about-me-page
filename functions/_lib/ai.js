@@ -30,7 +30,7 @@ export async function callClaude(env, { system, user, maxTokens = 1024, model = 
 export async function aiRateLimit(env, ip, max = 40, windowSec = 60) {
   if (!env.CONTENT) return true;
   const key = `rl:ai:${ip}`;
-  const current = parseInt((await env.CONTENT.get(key)) || '0', 10);
+  const current = Number.parseInt((await env.CONTENT.get(key)) || '0', 10);
   if (current >= max) return false;
   await env.CONTENT.put(key, String(current + 1), { expirationTtl: windowSec });
   return true;

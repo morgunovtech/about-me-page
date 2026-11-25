@@ -24,7 +24,7 @@ function b64urlDecode(str) {
 
 function fromHex(h) {
   const a = new Uint8Array(h.length / 2);
-  for (let i = 0; i < a.length; i++) a[i] = parseInt(h.substr(i * 2, 2), 16);
+  for (let i = 0; i < a.length; i++) a[i] = Number.parseInt(h.substr(i * 2, 2), 16);
   return a;
 }
 
@@ -50,7 +50,7 @@ export async function verifyPassword(password, stored) {
   if (!stored || typeof stored !== 'string') return false;
   const parts = stored.split('$');
   if (parts.length !== 5 || parts[0] !== 'pbkdf2' || parts[1] !== 'sha256') return false;
-  const iterations = parseInt(parts[2], 10);
+  const iterations = Number.parseInt(parts[2], 10);
   const salt = fromHex(parts[3]);
   const expected = fromHex(parts[4]);
   const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, [
@@ -131,7 +131,7 @@ export function clientIp(request) {
 export async function loginRateLimit(env, ip, max = 8, windowSec = 600) {
   if (!env.CONTENT) return true;
   const key = `rl:login:${ip}`;
-  const current = parseInt((await env.CONTENT.get(key)) || '0', 10);
+  const current = Number.parseInt((await env.CONTENT.get(key)) || '0', 10);
   if (current >= max) return false;
   await env.CONTENT.put(key, String(current + 1), { expirationTtl: windowSec });
   return true;

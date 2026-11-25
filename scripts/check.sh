@@ -38,7 +38,7 @@ echo "  ok"
 
 # Bundle Functions the way Pages does — catches cross-module import errors that
 # node --check (per-file syntax only) misses. Opt out with NO_BUILD=1 (offline).
-if [ "${NO_BUILD:-0}" != "1" ]; then
+if [[ "${NO_BUILD:-0}" != "1" ]]; then
   echo "→ wrangler pages functions build"
   rm -rf /tmp/fnbuild
   if npx --offline wrangler pages functions build --outdir /tmp/fnbuild >/tmp/fnbuild.log 2>&1; then
