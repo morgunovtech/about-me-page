@@ -18,6 +18,7 @@ const SHELL = `<!DOCTYPE html>
       <select id="page-select" aria-label="Страница">
         <option value="home">home</option>
         <option value="collaborate">collaborate</option>
+        <option value="consulting">consulting</option>
         <option value="about">about</option>
         <option value="uses">uses</option>
         <option value="privacy">privacy</option>
@@ -47,7 +48,7 @@ const SHELL = `<!DOCTYPE html>
     </div>
     <div class="ed-drawer-body" id="settings"></div>
   </aside>
-  <script data-cfasync="false" src="/admin-app.js?v=4927ac7c"></script>
+  <script data-cfasync="false" src="/admin-app.js?v=da51840d"></script>
 </body>
 </html>`;
 

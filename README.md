@@ -8,10 +8,11 @@ Live at **[s.morgunov.tech](https://s.morgunov.tech)** — the apex `morgunov.te
 
 Pure static HTML/CSS/JS. **No build step, no npm, no framework.** Hosted on Cloudflare Pages.
 
-- 11 HTML templates (RU + EN twins and a bilingual `404.html`) plus the `/notes` shells rendered by Pages Functions:
+- 13 HTML templates (RU + EN twins and a bilingual `404.html`) plus the `/notes` shells rendered by Pages Functions:
   - **home** — about, career, own projects (live products + past ventures), publications, contact (Telegram, e-mail as the second channel);
   - **`/notes`** — publications: own notes and articles/talks published elsewhere, one feed;
-  - **`/collaborate`** — consulting, strategic consulting, how I work;
+  - **`/consulting`** — consulting formats and prices, strategic consulting, how I work;
+  - **`/collaborate`** — partnerships & media: what I am open to outside paid consulting;
   - **`/uses`** — hardware and software;
   - **`/privacy`** — my privacy tools and the essential kit: open-source apps with a published independent audit (`privacy.morgunov.tech` redirects here — a Redirect Rule in the zone);
   - **`/about`** — unlisted (`noindex`) until it is rewritten

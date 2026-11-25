@@ -12,6 +12,7 @@ const TEMPLATES = {
   home: { ru: '/index.html', en: '/en/index.html' },
   about: { ru: '/about.html', en: '/en/about.html' },
   collaborate: { ru: '/collaborate.html', en: '/en/collaborate.html' },
+  consulting: { ru: '/consulting.html', en: '/en/consulting.html' },
   uses: { ru: '/uses.html', en: '/en/uses.html' },
   privacy: { ru: '/privacy.html', en: '/en/privacy.html' },
 };

@@ -170,7 +170,7 @@ export function renderArticleJsonLd(doc, lang) {
   return serializeLd(graph);
 }
 
-// --- Sub-pages: WebPage (+ Service/OfferCatalog on /collaborate, BreadcrumbList
+// --- Sub-pages: WebPage (+ Service/OfferCatalog on /consulting, BreadcrumbList
 // elsewhere) regenerated from the page doc, so name/dateModified/prices follow
 // KV edits and agree with the sitemap. Home keeps its own richer graph.
 // The Service describes consulting only: angel investing and advisory stay off
@@ -219,7 +219,7 @@ export function renderPageJsonLd(doc, lang, page) {
     dateModified: doc.dateModified,
   };
   const graph = [webpage];
-  if (page === 'collaborate') {
+  if (page === 'consulting') {
     const consulting = (doc.sections && doc.sections.consulting) || {};
     const tiers = consulting.tiers || [];
     const priceOf = (t) => {

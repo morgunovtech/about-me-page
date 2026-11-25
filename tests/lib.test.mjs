@@ -245,7 +245,7 @@ test('fillCounters drops a known counter that has no value instead of leaking br
 
 
 
-test('renderPageJsonLd: collaborate offers follow the doc, about gets a breadcrumb', () => {
+test('renderPageJsonLd: consulting offers follow the doc, about gets a breadcrumb', () => {
   const collab = {
     dateModified: '2026-09-03',
     meta: { title: { ru: 'Сотрудничество — Семён Моргунов | morgunov.tech', en: 'Collaborate — Semyon Morgunov | morgunov.tech' } },
@@ -255,10 +255,10 @@ test('renderPageJsonLd: collaborate offers follow the doc, about gets a breadcru
       { name: { ru: 'Цикл', en: 'Cycle' }, price: { ru: '$2&nbsp;000 / <strong>MONTH</strong>', en: '$2,000 / <strong>MONTH</strong>' }, features: [{ ru: '5 сессий', en: '5 sessions' }] },
     ] } },
   };
-  const g = JSON.parse(renderPageJsonLd(collab, 'en', 'collaborate'))['@graph'];
+  const g = JSON.parse(renderPageJsonLd(collab, 'en', 'consulting'))['@graph'];
   const page = g.find((n) => n['@type'] === 'WebPage');
   assert.equal(page.name, 'Collaborate — Semyon Morgunov');
-  assert.equal(page.url, 'https://s.morgunov.tech/en/collaborate');
+  assert.equal(page.url, 'https://s.morgunov.tech/en/consulting');
   assert.equal(page.dateModified, '2026-09-03');
   const offers = g.find((n) => n['@type'] === 'Service').hasOfferCatalog.itemListElement;
   assert.deepEqual(offers.map((o) => [o.name, o.price, o.description]), [['Single consultation', '250', '75 minutes'], ['Cycle', '2000', '5 sessions']]);

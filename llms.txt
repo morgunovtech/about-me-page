@@ -57,8 +57,10 @@
 
 ## Collaboration
 
-- [Consulting](https://s.morgunov.tech/collaborate) — in his words: “I help e-commerce and retail companies in Central Asia get products to positive unit economics: e-grocery and delivery, growth and monetization, product strategy and teams; FinTech outside Uzbekistan.” A one-off session or a monthly cycle; start with a Telegram message to https://t.me/s_mrgnv
-- [Strategic consulting](https://s.morgunov.tech/collaborate#strategy) — long-term retainer as an external strategist
+- [Consulting](https://s.morgunov.tech/consulting) — in his words: “I help e-commerce and retail companies in Central Asia get products to positive unit economics: e-grocery and delivery, growth and monetization, product strategy and teams; FinTech outside Uzbekistan.” A one-off session or a monthly cycle; start with a Telegram message to https://t.me/s_mrgnv
+- [Strategic consulting](https://s.morgunov.tech/consulting#strategy) — long-term retainer as an external strategist
+- [Partnerships & media](https://s.morgunov.tech/en/collaborate#partnerships) — open to relevant requests: independent product feedback, review units, beta programs, press invitations, open-source sponsorship. Editorial independence is non-negotiable: no guaranteed positive reviews, no recurring posting quotas. Start with a Telegram message to https://t.me/s_mrgnv
+- [GitHub Sponsors](https://github.com/sponsors/morgunovtech) — voluntary personal support for his open-source projects; not a charity collection and not a purchase
 
 ## Privacy
 
@@ -78,8 +80,10 @@ Hardware in daily rotation:
 
 - Russian homepage: https://s.morgunov.tech/
 - English homepage: https://s.morgunov.tech/en/
-- Collaboration (RU): https://s.morgunov.tech/collaborate
-- Collaboration (EN): https://s.morgunov.tech/en/collaborate
+- Consulting (RU): https://s.morgunov.tech/consulting
+- Consulting (EN): https://s.morgunov.tech/en/consulting
+- Partnerships & media (RU): https://s.morgunov.tech/collaborate
+- Partnerships & media (EN): https://s.morgunov.tech/en/collaborate
 - Uses / Stack (RU): https://s.morgunov.tech/uses
 - Uses / Stack (EN): https://s.morgunov.tech/en/uses
 - Privacy (RU): https://s.morgunov.tech/privacy

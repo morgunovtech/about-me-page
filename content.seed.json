@@ -426,6 +426,13 @@
             "ru": "/privacy",
             "en": "/en/privacy"
           }
+        },
+        "support": {
+          "label": {
+            "ru": "Добровольная поддержка моих открытых проектов на GitHub Sponsors",
+            "en": "Voluntary support for my open-source work on GitHub Sponsors"
+          },
+          "href": "https://github.com/sponsors/morgunovtech"
         }
       },
       "ventures": {
@@ -545,8 +552,8 @@
               "en": "Consulting formats and pricing"
             },
             "href": {
-              "ru": "/collaborate#consulting",
-              "en": "/en/collaborate#consulting"
+              "ru": "/consulting#consulting",
+              "en": "/en/consulting#consulting"
             }
           }
         ]
@@ -1152,12 +1159,12 @@
     },
     "migration": 30
   },
-  "collaborate": {
+  "consulting": {
     "site": "s.morgunov.tech",
-    "page": "collaborate",
+    "page": "consulting",
     "rev": 1,
-    "updatedAt": "2026-11-24T00:00:00Z",
-    "dateModified": "2026-11-24",
+    "updatedAt": "2026-11-25T00:00:00Z",
+    "dateModified": "2026-11-25",
     "meta": {
       "title": {
         "ru": "Консалтинг по e-com и продукту в Центральной Азии — Семён Моргунов",
@@ -1182,14 +1189,14 @@
         "en": "/images/og-card-en.png"
       },
       "imageAlt": {
-        "ru": "Сотрудничество — Семён Моргунов",
-        "en": "Collaborate — Semyon Morgunov"
+        "ru": "Консалтинг — Семён Моргунов",
+        "en": "Consulting — Semyon Morgunov"
       }
     },
     "hero": {
       "name": {
-        "ru": "Сотрудничество",
-        "en": "Collaborate"
+        "ru": "Консалтинг",
+        "en": "Consulting"
       },
       "tagline": {
         "ru": "Помогаю компаниям в e-com, ритейле и FinTech найти точки роста и выстроить продукт. Консультирую разово или веду долгосрочно.",
@@ -1235,8 +1242,8 @@
       },
       "consulting": {
         "title": {
-          "ru": "Консалтинг",
-          "en": "Consulting"
+          "ru": "Форматы и цены",
+          "en": "Formats and pricing"
         },
         "prose": {
           "ru": "Помогаю e-com и ритейлу в Центральной Азии довести продукт до положительной юнит-экономики: e-grocery и доставка, рост и монетизация, продуктовая стратегия и команда; финтех — вне Узбекистана.",
@@ -1467,6 +1474,123 @@
             "label": {
               "ru": "Написать →",
               "en": "Get in touch →"
+            }
+          }
+        ]
+      }
+    },
+    "migration": 30
+  },
+  "collaborate": {
+    "site": "s.morgunov.tech",
+    "page": "collaborate",
+    "rev": 1,
+    "updatedAt": "2026-11-25T00:00:00Z",
+    "dateModified": "2026-11-25",
+    "meta": {
+      "title": {
+        "ru": "Партнёрства и медиа — Семён Моргунов",
+        "en": "Partnerships & Media — Semyon Morgunov"
+      },
+      "description": {
+        "ru": "Открыт к уместным предложениям: тестировать продукты, давать независимую обратную связь, участвовать в технологическом просвещении. Без обещаний положительных отзывов и обязательств по числу публикаций.",
+        "en": "Open to relevant opportunities: testing products, independent feedback, technology education. No guaranteed positive reviews and no posting quotas."
+      }
+    },
+    "share": {
+      "title": {
+        "ru": "Партнёрства и медиа — Семён Моргунов",
+        "en": "Partnerships & Media — Semyon Morgunov"
+      },
+      "description": {
+        "ru": "Открыт к уместным предложениям: тестировать продукты, давать независимую обратную связь, участвовать в технологическом просвещении. Без обещаний положительных отзывов и обязательств по числу публикаций.",
+        "en": "Open to relevant opportunities: testing products, independent feedback, technology education. No guaranteed positive reviews and no posting quotas."
+      },
+      "image": {
+        "ru": "/images/og-card-ru.png",
+        "en": "/images/og-card-en.png"
+      },
+      "imageAlt": {
+        "ru": "Сотрудничество — Семён Моргунов",
+        "en": "Collaborate — Semyon Morgunov"
+      }
+    },
+    "hero": {
+      "name": {
+        "ru": "Сотрудничество",
+        "en": "Collaborate"
+      },
+      "tagline": {
+        "ru": "Тестирую продукты, даю независимую обратную связь и участвую в технологическом просвещении.",
+        "en": "I test products, give independent feedback and contribute to technology education."
+      },
+      "ctas": {
+        "ru": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n<a class=\"v4-btn\" href=\"/\">← На главную</a>",
+        "en": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n<a class=\"v4-btn\" href=\"/en/\">← Home</a>"
+      },
+      "eyebrow": {
+        "ru": "Партнёрства · Медиа",
+        "en": "Partnerships · Media"
+      }
+    },
+    "sections": {
+      "partnerships": {
+        "title": {
+          "ru": "Партнёрства и медиа",
+          "en": "Partnerships & Media"
+        },
+        "prose": {
+          "ru": "Открыт к уместным предложениям: тестировать продукты, давать независимую обратную связь, приезжать на производства и участвовать в технологическом просвещении. Редакционная независимость не обсуждается: не обещаю положительных отзывов и не беру обязательств по числу публикаций.",
+          "en": "I welcome relevant opportunities to test products, provide independent feedback, visit manufacturing facilities and contribute to technology education. Editorial independence is non-negotiable; I do not accept guaranteed positive reviews or recurring posting quotas."
+        },
+        "items": [
+          {
+            "ru": "Независимая обратная связь по продукту",
+            "en": "Independent product feedback"
+          },
+          {
+            "ru": "Устройства на обзор",
+            "en": "Review units"
+          },
+          {
+            "ru": "Бета-программы",
+            "en": "Beta programs"
+          },
+          {
+            "ru": "Приглашения для прессы",
+            "en": "Press invitations"
+          },
+          {
+            "ru": "Спонсорство открытых проектов",
+            "en": "Open-source sponsorship"
+          }
+        ],
+        "cta": {
+          "href": "https://t.me/s_mrgnv",
+          "label": {
+            "ru": "Написать →",
+            "en": "Get in touch →"
+          }
+        }
+      },
+      "contact": {
+        "title": {
+          "ru": "Нужен консалтинг?",
+          "en": "Looking for consulting?"
+        },
+        "note": {
+          "ru": "Форматы и цены консалтинга — на отдельной странице.",
+          "en": "Consulting formats and pricing are on a separate page."
+        },
+        "ctas": [
+          {
+            "href": {
+              "ru": "/consulting",
+              "en": "/en/consulting"
+            },
+            "label": {
+              "ru": "Консалтинг →",
+              "en": "Consulting →"
             }
           }
         ]

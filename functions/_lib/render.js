@@ -504,6 +504,24 @@ export const renderers = {
         </div>`;
   },
 
+  // «Партнёрства и медиа» (v1.7.0): what the owner is open to outside paid
+  // consulting, the independence terms in the same paragraph, one button to the
+  // page's contact. No prices, no audience numbers.
+  collabPartnerships: (doc, lang) => {
+    const s = doc.sections.partnerships;
+    if (!s) return '';
+    return `<div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              ${renderProse(pick(s.prose, lang))}
+              ${liList(s.items, lang, 'v4-list v4-list--spaced')}
+            </div>
+            <div class="v4-help-cta">${btn(s.cta, lang, false, '', false, false)}</div>
+          </div>
+        </div>`;
+  },
+
   // /privacy «Мои инструменты»: a lead line, then the cards.
   privacyTools: (doc, lang) => {
     const s = doc.sections.tools || {};

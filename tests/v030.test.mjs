@@ -17,7 +17,7 @@ test('renderInline: `code` and **bold** render, HTML in text is escaped', () => 
 // --- HTML fragment → markdown subset (seed + KV migration share it) ---
 
 
-test('/uses and /collaborate renderers escape a hostile leaf and keep markdown emphasis', () => {
+test('/uses and /consulting renderers escape a hostile leaf and keep markdown emphasis', () => {
   const uses = { sections: { software: { intro: { ru: 'i', en: 'i' }, cards: [{ name: 'N <script>x</script>', tag: { ru: 't', en: 't' }, price: { ru: '$5 / **mo**', en: '$5 / **mo**' }, desc: { ru: 'code `Z`', en: 'code `Z`' }, cta: { href: 'https://a.example', label: { ru: 'go', en: 'go' } } }] } } };
   const html = renderers.usesProducts(uses, 'ru');
   assert.doesNotMatch(html, /<script>/);
@@ -131,6 +131,6 @@ test('overlay: text is escaped, {build} resolves, omit removes, jsonld regenerat
 test('renderPageJsonLd strips markdown from Offer names/descriptions', () => {
   const doc = { dateModified: '2026-09-11', meta: { title: { ru: 'Сотрудничество — Семён Моргунов', en: 'Collaborate' } }, hero: { name: { ru: 'x', en: 'x' } },
     sections: { consulting: { tiers: [{ name: { ru: '**Разовая** `консультация`', en: 'Single' }, price: { ru: '$2\u00a0000 / **MONTH**', en: '$2,000' }, features: [{ ru: 'см. [сайт](https://x.test) и `код`', en: 'f' }] }] } } };
-  const offer = JSON.parse(renderPageJsonLd(doc, 'ru', 'collaborate'))['@graph'][1].hasOfferCatalog.itemListElement[0];
+  const offer = JSON.parse(renderPageJsonLd(doc, 'ru', 'consulting'))['@graph'][1].hasOfferCatalog.itemListElement[0];
   assert.equal(offer.name, 'Разовая консультация'); assert.equal(offer.price, '2000'); assert.equal(offer.description, 'см. сайт и код');
 });

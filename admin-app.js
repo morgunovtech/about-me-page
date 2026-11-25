@@ -1242,7 +1242,7 @@
     let articles = [];
     try { articles = (await fetch(API + '/articles').then((r) => r.json())).articles || []; } catch { /* ignore */ }
     sel.textContent = '';
-    for (const p of ['home', 'collaborate', 'about', 'uses', 'privacy']) {
+    for (const p of ['home', 'collaborate', 'consulting', 'about', 'uses', 'privacy']) {
       sel.append(Object.assign(el('option'), { value: p, textContent: p }));
     }
     if (articles.length) {
@@ -1522,10 +1522,10 @@
       }
       box.append(ctrlBtn('Обновить превью', () => renderPreview()));
     }
-    // /collaborate: structured sections edited via the generic form engine
+    // /consulting and /collaborate: structured sections edited via the generic form engine
     // (tiers/groups/ctas add-reorder-delete + per-field). Re-render on demand.
-    if (page === 'collaborate' && doc.sections && doc.sections.consulting && doc.sections.consulting.tiers) {
-      for (const k of ['about', 'consulting', 'strategy', 'angel', 'contact']) {
+    if ((page === 'consulting' || page === 'collaborate') && doc.sections) {
+      for (const k of ['about', 'consulting', 'strategy', 'angel', 'partnerships', 'contact']) {
         if (!doc.sections[k]) continue;
         const node = fieldRow(doc.sections, k);
         if (node.tagName === 'DETAILS') node.open = false;

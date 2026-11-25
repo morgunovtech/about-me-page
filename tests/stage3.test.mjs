@@ -11,10 +11,10 @@ import { renderJsonLd } from '../functions/_lib/jsonld.js';
 
 const read = (p) => readFileSync(new URL('../' + p, import.meta.url), 'utf8');
 const seed = JSON.parse(read('content.seed.json'));
-const PAGES = ['index.html', 'en/index.html', 'collaborate.html', 'en/collaborate.html', 'about.html', 'en/about.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html'];
+const PAGES = ['index.html', 'en/index.html', 'collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'about.html', 'en/about.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html'];
 
 test('e-mail only where the owner put it: home «Связаться», llms.txt, JSON-LD; Telegram stays first', () => {
-  for (const f of ['collaborate.html', 'en/collaborate.html', 'about.html', 'en/about.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html', '.well-known/security.txt']) {
+  for (const f of ['collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'about.html', 'en/about.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html', '.well-known/security.txt']) {
     assert.doesNotMatch(read(f), /mailto:|s@morgunov\.tech/, f);
   }
   for (const f of ['index.html', 'en/index.html']) {
@@ -47,12 +47,12 @@ test('footer: «стек · нашли опечатку?» → Telegram; no note
 
 test('/about is hidden: noindex, out of llms.txt', () => {
   for (const f of ['about.html', 'en/about.html']) assert.match(read(f), /<meta name="robots" content="noindex" \/>/);
-  for (const f of ['index.html', 'collaborate.html', 'uses.html', 'privacy.html']) assert.doesNotMatch(read(f), /name="robots" content="noindex"/);
+  for (const f of ['index.html', 'collaborate.html', 'consulting.html', 'uses.html', 'privacy.html']) assert.doesNotMatch(read(f), /name="robots" content="noindex"/);
   assert.doesNotMatch(read('llms.txt'), /s\.morgunov\.tech\/(en\/)?about/);
 });
 
-test('/collaborate: the contact goes to Telegram, one contact button', () => {
-  const c = seed.collaborate;
+test('/consulting: the contact goes to Telegram, one contact button', () => {
+  const c = seed.consulting;
   // The angel section with its «Отправить питч →» is gone since v1.2.8.
   assert.equal(c.sections.angel, undefined);
   assert.equal(c.sections.strategy.cta.href, 'https://t.me/s_mrgnv');
@@ -93,11 +93,11 @@ test('home copy: Korzinka ×23, one channel line, a kiosk chain (seed = the save
   assert.match(h, /×23 за 3 года, пик/);
   assert.ok(!h.includes('about what I learn at work'));
   assert.ok(h.includes('Snack kiosk chain') && !h.includes('Snack vending'));
-  assert.match(JSON.stringify(seed.collaborate), /×23/);
+  assert.match(JSON.stringify(seed.consulting), /×23/);
 });
 
-test('RU pages speak Russian: /collaborate units, /uses headings, tags and prices', () => {
-  const tiers = seed.collaborate.sections.consulting.tiers;
+test('RU pages speak Russian: /consulting units, /uses headings, tags and prices', () => {
+  const tiers = seed.consulting.sections.consulting.tiers;
   assert.deepEqual(tiers.map((t) => t.price.ru), ['$300 / **сессия**', '$2 000 / **месяц**']);
   assert.deepEqual(tiers.map((t) => t.price.en), ['$300 / **SESSION**', '$2,000 / **MONTH**']);
   const u = seed.uses.sections;
@@ -110,13 +110,13 @@ test('RU pages speak Russian: /collaborate units, /uses headings, tags and price
   assert.equal(u.hardware.groups[0].heading.en, 'Compute'); // EN untouched
 });
 
-test('/collaborate v0.31.5: two-business-day async reply, the FinTech conflict-of-interest line', () => {
-  const c = seed.collaborate.sections;
+test('/consulting v0.31.5: two-business-day async reply, the FinTech conflict-of-interest line', () => {
+  const c = seed.consulting.sections;
   const asyncLine = c.consulting.tiers[1].features.find((f) => f.ru.startsWith('Async'));
   assert.equal(asyncLine.ru, 'Async-поддержка между сессиями (ответ в течение двух рабочих дней)');
   assert.equal(asyncLine.en, 'Async support between sessions (reply within two business days)');
   const not = c.work.blocks[2].items.at(-1);
   assert.match(not.ru, /^Не консультирую прямых конкурентов Яндекса и FinTech-проекты в Узбекистане/);
   assert.match(not.en, /^I don't consult Yandex's direct competitors, or FinTech projects in Uzbekistan/);
-  assert.match(renderers.collabWork(seed.collaborate, 'ru'), /пока работаю в Yandex Uzbekistan/);
+  assert.match(renderers.collabWork(seed.consulting, 'ru'), /пока работаю в Yandex Uzbekistan/);
 });
