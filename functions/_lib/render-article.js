@@ -19,12 +19,7 @@ export async function notFound(env, request) {
   try {
     const r = await env.ASSETS.fetch(new URL('/404.html', request.url));
     if (!r.ok) throw new Error('404 template unavailable');
-    // The static template carries the stamped build; show the deployed one.
-    const build = buildOf(env);
-    const page = new HTMLRewriter()
-      .on('[data-cms-text="_build"]', { element(el) { el.setInnerContent(build); } })
-      .transform(new Response(r.body, r));
-    return new Response(request.method === 'HEAD' ? null : page.body, {
+    return new Response(request.method === 'HEAD' ? null : r.body, {
       status: 404,
       headers: {
         'content-type': 'text/html; charset=utf-8',

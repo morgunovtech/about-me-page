@@ -111,11 +111,13 @@ test('3. a «more» link names what is behind it; «→» stays on the site, the
     const lang = f.startsWith('en/') ? 'en' : 'ru';
     for (const [, attrs, inner] of page.matchAll(/<div class="v4-more">\s*<a ([^>]*)>([\s\S]*?)<\/a>/g)) {
       seen++;
-      // One «→» in an aria-hidden span after the label. For a link that leaves the site it sits
-      // in .v4-ne, which turns it into «↗», and the new-tab note for a screen reader follows.
-      const m = /^<span[^>]*>([^<]+)<\/span><span aria-hidden="true">&nbsp;(→|<span class="v4-ne">→<\/span>)<\/span>(?:<span class="sr-only">([^<]+)<\/span>)?$/.exec(inner.trim());
+      // One «→» in an aria-hidden span after the label. For a link that leaves the site it is
+      // the renderer's mark (NE_ARROW: .v4-ne turns the arrow into «↗»), and the new-tab note
+      // for a screen reader follows.
+      const m = /^<span[^>]*>([^<]+)<\/span>(<span aria-hidden="true">&nbsp;→<\/span>|<span class="v4-out" aria-hidden="true">&#8288;<span class="v4-ne">→<\/span><\/span>)(?:<span class="sr-only">([^<]+)<\/span>)?$/.exec(inner.trim());
       assert.ok(m, `${f}: ${inner}`);
-      const [, label, glyph, note] = m;
+      const [, label, mark, note] = m;
+      const glyph = mark === NE_ARROW ? 'turned' : '→';
       assert.doesNotMatch(label, /[→↗←]/, `${f}: the label carries no glyph`);
       assert.doesNotMatch(label, VAGUE, `${f}: «${label}» does not say what is there`);
       const external = /target="_blank"/.test(attrs);
@@ -137,13 +139,19 @@ test('3. a «more» link names what is behind it; «→» stays on the site, the
 test('3. the mark of a link that leaves the site is the line\'s own «→» turned 45°: the character «↗» is on no page and in no renderer output', () => {
   // The IBM Plex subsets carry no arrow but ↑ ↓, so a typed «↗» came from a system symbol font —
   // a hairline beside a 600 title. The mark is «→» in .v4-ne and CSS turns it; without CSS it
-  // degrades to «→».
-  assert.equal(NE_ARROW, '<span aria-hidden="true">&nbsp;<span class="v4-ne">→</span></span>');
+  // degrades to «→». The arrow is a box, and a line may break before a box even after a
+  // no-break space: .v4-out is a no-wrap span that opens with a word joiner, so the arrow never
+  // starts a line alone; the gap is the arrow's margin, so a link's underline stops at its
+  // last word.
+  assert.equal(NE_ARROW, '<span class="v4-out" aria-hidden="true">&#8288;<span class="v4-ne">→</span></span>');
   for (const lang of LANGS) assert.equal(outMark(lang), `${NE_ARROW}<span class="sr-only">${NEW_TAB_NOTE[lang]}</span>`);
   const ne = rules(COMPONENTS).find(([sel]) => sel === '.v4-ne');
   assert.ok(ne, '.v4-ne is a rule of the layer');
   assert.match(ne[1], /transform: rotate\(-45deg\)/);
   assert.match(ne[1], /display: inline-block/, 'a transform does not apply to an inline box');
+  assert.match(ne[1], /margin-left: 0\.25em/, 'the gap before the arrow is a margin: no underline under it');
+  const out = rules(COMPONENTS).find(([sel]) => sel === '.v4-out');
+  assert.ok(out && /white-space: nowrap/.test(out[1]), '.v4-out does not wrap: the arrow stays with the last word');
   const outputs = [
     ...STATIC.map((f) => [f, read(f)]),
     ...LANGS.flatMap((lang) => [[`renderers, ${lang}`, rendered(lang)], [`renderers, ${lang}, edit`, rendered(lang, true)], [`notes pages, ${lang}`, notesPages(lang)]]),
@@ -248,6 +256,11 @@ test('7. the only round shapes: the live dot, the busy mark, the selected-item m
     assert.doesNotMatch(rendered(lang, true), DOT, `${lang}, edit`);
     assert.doesNotMatch(notesPages(lang), DOT, `${lang}, notes`);
   }
+  // /uses says what orange marks here: the current page and the chosen theme — no longer «a
+  // service that is running», which was the dot.
+  const look = JSON.stringify(seed.uses.sections.principles);
+  assert.ok(look.includes('— текущая страница и выбранная тема.') && look.includes('— the current page and the chosen theme.'));
+  assert.doesNotMatch(look, /работающий сервис|service that’s running/);
   // A `live` flag left in a stored doc is not read.
   const flagged = structuredClone(seed.home);
   const plain = structuredClone(seed.home);
@@ -260,6 +273,8 @@ test('7. the only round shapes: the live dot, the busy mark, the selected-item m
     // «Now» is said by the period of the first row.
     assert.match(career, /<div class="period">\d{4} — (сейчас|now|present)<\/div>/, f);
   }
+  // …so the doc keeps no flag for it either (`current` asked for a dot beside the company).
+  for (const it of seed.home.sections.career.items) assert.equal(it.current, undefined, it.period.ru);
 });
 
 // --- 8. One voice ---
@@ -324,15 +339,13 @@ test('8. one voice: every size is a step of one scale — 16px text on every dev
 
   // 12 caption (the tokens) · 13 data · 14 secondary line · 16 text · 18 item title · 20 / 24
   // section title · 28 / 34 / 40 a note's title · 32 / 40 the figures of the stats strip;
-  // 0.875em is inline code.
-  const SCALE = ['var(--v4-label-size)', 'var(--v4-label-xs-size)', 'inherit', '13px', '14px', '16px', '18px', '20px', '24px', '28px', '32px', '34px', '40px', '0.875em'];
-  // A size that belongs to one rule alone: the page title follows the window, the nameplate is
-  // the one text under 12px, and the button writes the caption's 12px as a literal.
+  const SCALE = ['var(--v4-label-size)', 'var(--v4-label-xs-size)', 'inherit', '13px', '14px', '16px', '18px', '20px', '24px', '28px', '32px', '34px', '40px'];
+  // A size that belongs to one rule alone: the page title follows the window, and the nameplate
+  // is the one text under 12px.
   const ONLY = {
     'clamp(40px, 6.2vw, 56px)': '.v4-h1',
     'clamp(32px, 10.6vw, 40px)': '.v4-h1',
     '11px': '.v4-foot-privacy',
-    '12px': '.v4-btn',
   };
   let sized = 0;
   for (const r of LAYER) {
@@ -379,20 +392,32 @@ test('8. one voice: ONE caption style — sans caps 12px / 0.08em / 500; mono is
     assert.ok(['var(--v4-label-tracking)', 'var(--v4-label-xs-tracking)', '0.08em'].includes(d['letter-spacing']), `${where(r)} { letter-spacing: ${d['letter-spacing']} }`);
     if ('font-weight' in d) assert.ok(['var(--v4-label-weight)', '500'].includes(d['font-weight']), `${where(r)} { font-weight: ${d['font-weight']} }`);
   }
-  // Mono is for data — a date, a period, a version, a count, the build mark: 13px, plain. Code is
-  // the one other thing set in mono (0.875em in a line, 14px in a block).
+  // Mono is the label column of a table — a period, a year, a date (with its source on the
+  // homepage's feed): 13px, plain. Code is the one other thing set in mono: a step under its
+  // text — 14px in a line of 16px text and in a block, 16px in a note's 18px (13px in a footer).
   const mono = LAYER.filter((r) => /var\(--v4-mono\)/.test(r.decls['font-family'] || ''));
   assert.ok(mono.length >= 4, 'the mono rules were found');
   for (const r of mono) {
     assert.notEqual(r.decls['text-transform'], 'uppercase', `${where(r)}: mono is never caps`);
-    if (r.selectors.every((s) => /(^|\s)(code|pre)$/.test(s))) assert.ok(['0.875em', '14px'].includes(r.decls['font-size']), where(r));
-    else assert.equal(r.decls['font-size'], '13px', `${where(r)}: data in mono is 13px`);
+    if (r.selectors.every((s) => /(^|\s)(code|pre)$/.test(s))) assert.ok(['13px', '14px', '16px'].includes(r.decls['font-size']), where(r));
+    else assert.equal(r.decls['font-size'], '13px', `${where(r)}: a table's label in mono is 13px`);
   }
   // …and nothing is mono in one rule and caps in another.
   const monoSelectors = new Set(mono.flatMap((r) => r.selectors));
   for (const r of caps) for (const s of r.selectors) assert.ok(!monoSelectors.has(s), `${s} is mono in one rule and caps in another`);
-  for (const sel of ['.v4-career-row .period', '.v4-venture .year', '.v4-feed-meta', '.v4-note-date', '.v4-version', '.v4-count']) {
-    assert.equal(at(sel, 'font-family'), 'var(--v4-mono)', `${sel}: data`);
+  for (const sel of ['.v4-career-row .period', '.v4-venture .year', '.v4-feed-meta', '.v4-note-date']) {
+    assert.equal(at(sel, 'font-family'), 'var(--v4-mono)', `${sel}: the label column of a table`);
+  }
+  // A number inside a line of text is set in the line's own face: a version in the head of a
+  // card, a count after a topic, the build mark in the footer. (They were mono — a second face
+  // in the middle of a sans line, and the build mark a mono link.)
+  for (const sel of ['.v4-version', '.v4-count', '.v4-foot .v4-build', '.v4-h1-count', '.v4-pricing']) {
+    assert.ok(!LAYER.some((r) => r.selectors.includes(sel) && 'font-family' in r.decls), `${sel}: no face of its own`);
+  }
+  // Inline code is one idiom: the same quiet ground in a page's text and in a note.
+  for (const sel of ['.v4-prose code', '.v4-article-body code']) {
+    const r = LAYER.find((x) => x.selectors.includes(sel) && 'font-family' in x.decls);
+    assert.ok(r && /^1px solid var\(--v4-line-soft\)$/.test(r.decls.border) && /^var\(--v4-(bg|paper)\)$/.test(r.decls.background), `${sel}: a ground and a hairline`);
   }
   // The role under the company was a mono caps label; it is a secondary line now, in the case it
   // is written — the period beside it is the row's data.
@@ -441,16 +466,27 @@ test('the bar: the menus hang from its rule, the group\'s items start under its 
   for (const panel of ['.v4-menu', '.v4-bar-mid']) assert.equal(at(panel, 'top', PHONE), `calc(100% + ${phonePad + rule}px)`, panel);
 
   // The group's items start where its toggle's label does: the panel is pulled left by its own
-  // border and padding and by the room an item keeps for the selected-item mark.
-  const inset = px(at('.v4-menu', 'border')) + sides(at('.v4-menu', 'padding')).left + sides(at('.v4-nav-sub .v4-menu-item', 'padding')).left;
-  assert.equal(at('.v4-nav-sub', 'left'), `-${inset}px`);
+  // border and padding, by the item's border and by the room an item keeps for the
+  // selected-item mark. (The item's 1px border was forgotten: the labels stood 1px off.) The
+  // rule outweighs `.v4-menu { right: 0 }`, which stands below it.
+  const inset = px(at('.v4-menu', 'border')) + sides(at('.v4-menu', 'padding')).left
+    + px(at('.v4-menu-item', 'border')) + sides(at('.v4-nav-sub .v4-menu-item', 'padding')).left;
+  assert.equal(at('.v4-nav-group > .v4-nav-sub', 'left'), `-${inset}px`);
+  assert.equal(at('.v4-nav-group > .v4-nav-sub', 'right'), 'auto');
+  // A panel is as wide as its longest label («Партнёрства и медиа» ran 13px past the border).
+  assert.equal(at('.v4-menu', 'width'), 'max-content');
 
   // The theme icon sits in the middle of its button; pulled out by the room beside it, the icon
-  // itself ends on the content's right edge — where the bar's rule ends — and the menu keeps to it.
+  // itself ends on the content's right edge — where the bar's rule ends.
   const icon = px(at('.v4-icon-btn svg', 'width'));
   for (const media of ['', PHONE]) {
     const room = (px(at('.v4-icon-btn', 'width', media)) - icon) / 2;
     assert.equal(at('.v4-theme', 'margin-right', media), `-${room}px`, media || 'desktop');
-    assert.equal(at('.v4-theme > .v4-menu', 'right', media), `${room}px`, media || 'desktop');
   }
+  // The language and the theme panels share that corner: both are placed against the bar's
+  // right group and end on the content's edge. (The language panel ended 38px inside it.)
+  assert.equal(at('.v4-bar-right', 'position'), 'relative');
+  assert.equal(at('.v4-bar-right > .v4-dropdown', 'position'), 'static');
+  assert.equal(at('.v4-menu', 'right'), '0');
+  assert.ok(!LAYER.some((r) => r.selectors.includes('.v4-theme > .v4-menu')), 'no offset of its own for the theme panel');
 });

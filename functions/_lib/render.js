@@ -347,7 +347,6 @@ function collabGroups(groups, lang) {
   return (groups || []).map((g) => {
     let inner = '';
     if (g.kind === 'list') inner = liList(g.items, lang);
-    else if (g.kind === 'spec') inner = `<dl class="v4-spec">${(g.rows || []).map((r) => `<dt>${renderInline(pick(r.term, lang))}</dt><dd>${renderInline(pick(r.def, lang))}</dd>`).join('')}</dl>`;
     else inner = `<div class="v4-prose">${renderProse(pick(g.prose, lang))}</div>`;
     return `<h3 class="v4-h3">${renderInline(pick(g.heading, lang))}</h3>\n            ${inner}`;
   }).join('\n            ');
@@ -382,11 +381,14 @@ export function feedMonth(date) {
 }
 
 // One homepage «Публикации» row: «date · source» in mono, then the title. Own
-// notes stay on the site; external materials open in a new tab with «↗».
+// notes stay on the site; external materials open in a new tab with «↗». On
+// the English page an external material is in Russian unless it says otherwise
+// (`lang: 'en'`), and the row says so — as its row on /en/notes does.
 function feedRow(e, lang) {
   const it = e.item;
   const date = it.date ? `<time datetime="${escapeAttr(it.date)}">${escapeHtml(feedMonth(it.date))}</time>` : '';
-  const meta = [date, escapeHtml(feedSource(e, lang))].filter(Boolean).join(' · ');
+  const foreign = e.kind !== 'note' && lang === 'en' && (it.lang || 'ru') !== 'en' ? 'in Russian' : '';
+  const meta = [date, escapeHtml(feedSource(e, lang)), foreign].filter(Boolean).join(' · ');
   const title = escapeHtml(pick(it.title, lang));
   const link = e.kind === 'note'
     ? `<a class="v4-feed-title" href="${noteUrl(it.slug, lang)}">${title}</a>`
@@ -579,7 +581,7 @@ export const renderers = {
   privacyKit: (doc, lang) => {
     const s = doc.sections.kit || {};
     const groups = (s.groups || []).map((g) => `<h3 class="v4-h3">${renderInline(pick(g.heading, lang))}</h3>${
-      pick(g.note, lang) ? `\n        <div class="v4-prose"><p>${renderInline(pick(g.note, lang))}</p></div>` : ''}
+      pick(g.note, lang) ? `\n        <p class="v4-kit-note">${renderInline(pick(g.note, lang))}</p>` : ''}
         <div class="v4-kit">
           ${(g.items || []).map((it) => kitRow(it, lang)).join('\n          ')}
         </div>`).join('\n        ');

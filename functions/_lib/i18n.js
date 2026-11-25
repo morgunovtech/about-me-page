@@ -46,5 +46,11 @@ export const NEW_TAB = { ru: ' (откроется в новой вкладке)
 // ds/v1/components.css): the IBM Plex subsets carry no arrow but ↑ ↓, and a
 // system «↗» comes from a symbol font of one hairline weight, thin and tall
 // beside a 600 title. With no CSS the mark degrades to «→».
-export const NE_ARROW = '<span aria-hidden="true">&nbsp;<span class="v4-ne">→</span></span>';
+// The turned arrow is a box, and a line may break before a box even after a
+// no-break space — the arrow then starts a line alone (measured: 30 window
+// widths of 230). So the mark is a no-wrap span (.v4-out) that opens with a
+// word joiner (&#8288;): no break before the joiner, none inside the span. The
+// gap before the arrow is the arrow's margin, not a space: the underline of a
+// link ends at its last word.
+export const NE_ARROW = '<span class="v4-out" aria-hidden="true">&#8288;<span class="v4-ne">→</span></span>';
 export const outMark = (lang) => `${NE_ARROW}<span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span>`;

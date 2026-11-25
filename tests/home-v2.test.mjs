@@ -20,19 +20,35 @@ test('the seed home doc renders every slot, public and edit mode', () => {
   }
 });
 
-test('product cards: TofsDevOps first, bots then web apps, version only (no year), the name links out, the live dot is labelled', () => {
+test('product cards: TofsDevOps first, bots then web apps; the head is the caption and the version — no year, no live dot; the name links out', () => {
+  const items = seed.home.sections.products.items;
+  assert.deepEqual(items.map((it) => it.name), ['TofsDevOps', 'Social Tracker Bot', 'Found You', 'Fingerprint']);
+  for (const lang of ['ru', 'en']) {
+    const html = renderers.products(seed.home, lang, false);
+    // The head of a card: what it is (the one caps style) and one fact — the version, synced
+    // from GitHub by scripts/sync-products.mjs and set as data (.v4-version: mono, plain).
+    const heads = [...html.matchAll(/<div class="v4-product-head">\s*<span class="v4-tag">([^<]+)<\/span>\s*<span class="v4-version">([^<]+)<\/span>\s*<\/div>/g)];
+    assert.deepEqual(heads.map((m) => [m[1], m[2]]), items.map((it) => [it.tag, it.version]), lang);
+    assert.doesNotMatch(html, / · /, lang);
+    // No mark of «running»: a card under «Работает» says it by standing there. The pulsing dot
+    // beside every card of the list told nothing, and its sr-only label went with it.
+    assert.doesNotMatch(html, /v4-live-dot|v4-product-tag-row|<span class="sr-only">(Работает|Live)<\/span>/, lang);
+  }
+  for (const it of items) {
+    assert.match(it.version, /^v\d+\.\d+$/, it.name);
+    assert.equal(it.year, undefined, it.name);
+    // The flag that asked for the dot is gone from the seed with it.
+    assert.equal(it.live, undefined, it.name);
+  }
+  // …and a doc that still stores the flag (KV) renders the same card.
+  const flagged = clone(seed.home);
+  flagged.sections.products.items.forEach((it) => { it.live = true; });
+  assert.equal(renderers.products(flagged, 'ru', false), renderers.products(seed.home, 'ru', false));
   const html = renderers.products(seed.home, 'ru', false);
-  assert.deepEqual(seed.home.sections.products.items.map((it) => it.name), ['TofsDevOps', 'Social Tracker Bot', 'Found You', 'Fingerprint']);
-  // The head carries the version alone — synced from GitHub by scripts/sync-products.mjs.
-  assert.equal((html.match(/<\/span>\n {12}<span>v\d+\.\d+<\/span>\n {10}<\/div>/g) || []).length, 4);
-  assert.doesNotMatch(html, / · /);
-  for (const it of seed.home.sections.products.items) assert.equal(it.year, undefined, it.name);
   assert.match(html, /<h3 class="v4-product-name"><a href="https:\/\/foundyou\.morgunov\.tech\/" target="_blank" rel="noopener noreferrer">Found You<\/a><\/h3>/);
-  assert.match(html, /<span class="sr-only">Работает<\/span>/);
-  assert.match(renderers.products(seed.home, 'en', false), /<span class="sr-only">Live<\/span>/);
   // The editor gets plain, editable leaves — no link to click through.
   const edit = renderers.products(seed.home, 'ru', true);
-  assert.match(edit, /data-cms-text="sections\.products\.items\.0\.version">v\d+\.\d+</);
+  assert.match(edit, /<span class="v4-version" data-cms-text="sections\.products\.items\.0\.version">v\d+\.\d+<\/span>/);
   assert.doesNotMatch(edit, /\.year"/);
   assert.doesNotMatch(edit, /<h3 class="v4-product-name"[^>]*><a /);
 });
@@ -64,11 +80,18 @@ test('notes block: up to three rows, own notes stay on site, external ones open 
     // «date · source» in one mono line; no tag chip (v1.5.0). An own note says «Заметка».
     assert.doesNotMatch(html, /v4-tag/);
     assert.equal((html.match(/ · Заметка<\/span>/g) || []).length, Math.min(n, 3));
+    // An own note stays on the site: no new tab and no mark of one; an external row has both.
+    assert.equal((html.match(/target="_blank"/g) || []).length, 3 - Math.min(n, 3), `${n} notes`);
+    assert.equal((html.match(/class="v4-ne"/g) || []).length, 3 - Math.min(n, 3), `${n} notes`);
     assert.match(html, /<div class="v4-more"><a href="\/notes"><span>Все публикации<\/span><span aria-hidden="true">&nbsp;→<\/span><\/a><\/div>/);
   }
   doc._feed = buildFeed([], seed.notes, 'ru').slice(0, 3);
   const ext = renderers.notesFeed(doc, 'ru', false);
-  assert.match(ext, /target="_blank" rel="noopener noreferrer">«Это не диагноз рынку Узбекистана»[^<]*<span aria-hidden="true">&nbsp;↗<\/span><span class="sr-only"> \(откроется в новой вкладке\)<\/span>/);
+  // A material published elsewhere says that it leaves the site: for the eye the line's own «→»
+  // turned 45° by .v4-ne (never the character «↗» — the IBM Plex subsets have none, a system
+  // one is a hairline), for a screen reader the new-tab note.
+  assert.match(ext, /target="_blank" rel="noopener noreferrer">«Это не диагноз рынку Узбекистана»[^<]*<span class="v4-out" aria-hidden="true">&#8288;<span class="v4-ne">→<\/span><\/span><span class="sr-only"> \(откроется в новой вкладке\)<\/span><\/a><\/li>/);
+  assert.doesNotMatch(ext, /↗/);
   // The source is the platform, derived from the address: it cannot be mistyped.
   assert.match(ext, /<span class="v4-feed-meta"><time datetime="2026-03-02">03\.2026<\/time> · spot\.uz<\/span>/);
   assert.match(ext, /<time datetime="2026-02-06">02\.2026<\/time> · spot\.uz<\/span>/);
@@ -84,22 +107,50 @@ test('notes block: up to three rows, own notes stay on site, external ones open 
   assert.doesNotMatch(renderers.notesFeed(doc, 'ru', false), /v4-feed/);
 });
 
-test('contact: who writes, ONE button with the reply time, the e-mail as a line, the consulting link last', () => {
+test('contact: one panel — who writes; ONE button, the reply time and the e-mail as lines under it; the consulting link after the panel', () => {
+  const c = seed.home.sections.contact;
+  const re = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const ru = renderers.contact(seed.home, 'ru', false);
   // Telegram is the main contact and the block's only button; e-mail, the second
   // channel (v1.2.7), is a line of text since v1.5.0.
   assert.equal((ru.match(/class="v4-btn/g) || []).length, 1);
-  assert.match(ru, /<a class="v4-btn v4-btn-primary" href="https:\/\/t\.me\/s_mrgnv" target="_blank" rel="noopener noreferrer">Написать в Telegram<\/a>\n {10}<p class="v4-contact-reply">Обычно отвечаю в течение 10 рабочих дней\.<\/p>/);
-  assert.match(ru, /<p class="v4-contact-alt">или на почту: <a href="mailto:s@morgunov\.tech">s@morgunov\.tech<\/a><\/p>/);
-  assert.match(ru, /href="\/consulting#consulting"><span>Форматы и цены консалтинга<\/span><span aria-hidden="true">&nbsp;→<\/span>/);
+  // The whole block: .v4-contact holds the note and .v4-contact-act — the button row, then the
+  // two lines that go with the button, each a sentence (so «Или» with a capital); the link to
+  // read more first is not a way to write, so it follows the panel.
+  assert.match(ru, new RegExp([
+    '^<div class="v4-contact">',
+    `<p class="v4-contact-note">${re(c.note.ru)}</p>`,
+    '<div class="v4-contact-act">',
+    '<div class="v4-cta-row">',
+    '<a class="v4-btn v4-btn-primary" href="https://t\\.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>',
+    '</div>',
+    `<p class="v4-contact-reply">${re(c.reply.ru)}</p>`,
+    '<p class="v4-contact-alt">Или на почту: <a href="mailto:s@morgunov\\.tech">s@morgunov\\.tech</a></p>',
+    '</div>',
+    '</div>',
+    '<div class="v4-contact-links">',
+    '<div class="v4-more"><a href="/consulting#consulting"><span>Форматы и цены консалтинга</span><span aria-hidden="true">&nbsp;→</span></a></div>',
+    '</div>$',
+  ].join('\\s*')));
+  assert.equal(c.reply.ru, 'Обычно отвечаю в течение 10 рабочих дней.');
   assert.doesNotMatch(ru, /#angel/);
-  // note → button row → e-mail line → link, in that order
-  const at = (re) => ru.search(re);
-  assert.ok(at(/v4-contact-note/) < at(/v4-cta-row/) && at(/v4-cta-row/) < at(/v4-contact-alt/) && at(/v4-contact-alt/) < at(/v4-contact-links/));
   const en = renderers.contact(seed.home, 'en', false);
-  assert.match(en, /or by e-mail: <a href="mailto:s@morgunov\.tech">/);
+  assert.match(en, /<p class="v4-contact-reply">[^<]+<\/p>\s*<p class="v4-contact-alt">Or by e-mail: <a href="mailto:s@morgunov\.tech">s@morgunov\.tech<\/a><\/p>\s*<\/div>\s*<\/div>\s*<div class="v4-contact-links">/);
+  assert.match(en, /<a class="v4-btn v4-btn-primary" href="https:\/\/t\.me\/s_mrgnv" target="_blank" rel="noopener noreferrer">Message me on Telegram<\/a>/);
   assert.match(en, /href="\/en\/consulting#consulting">/);
   assert.doesNotMatch(en, /#angel/);
+  // A doc without the optional parts (no reply time, no e-mail, no links) is the bare panel:
+  // nothing is rendered empty.
+  const bare = clone(seed.home);
+  delete bare.sections.contact.reply;
+  delete bare.sections.contact.links;
+  bare.sections.contact.ctas = bare.sections.contact.ctas.filter((x) => !String(x.href).startsWith('mailto:'));
+  assert.doesNotMatch(renderers.contact(bare, 'ru', false), /v4-contact-reply|v4-contact-alt|v4-contact-links|<p[^>]*><\/p>/);
+  // The editor edits the same leaves: the note, the button's label, the reply time, the address.
+  const edit = renderers.contact(seed.home, 'ru', true);
+  for (const path of ['sections.contact.note', 'sections.contact.ctas.0.label', 'sections.contact.reply', 'sections.contact.ctas.1.label', 'sections.contact.links.0.label']) {
+    assert.ok(edit.includes(`data-cms-text="${path}"`), path);
+  }
 });
 
 test('/consulting gains «Как работаю» with the owner\'s live copy', () => {

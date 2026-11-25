@@ -74,7 +74,8 @@ export function topicNavHtml(topics, lang, current, total) {
     on ? `<span aria-current="page">${escapeHtml(label)}${count(n)}</span>` : `<a href="${escapeAttr(href)}">${escapeHtml(label)}${count(n)}</a>`;
   const all = item(l === 'en' ? 'All' : 'Все', (l === 'en' ? '/en' : '') + '/notes', !current, total);
   const rest = topics.map((t) => item(pickL(t.name, l), topicUrl(t.key, l), t.key === current, t.count));
-  return `<nav class="v4-notes-topics" aria-label="${l === 'en' ? 'Topics' : 'Темы'}">${[all, ...rest].join('')}</nav>`;
+  // A space between the items: the line wraps there like text (and splits evenly).
+  return `<nav class="v4-notes-topics" aria-label="${l === 'en' ? 'Topics' : 'Темы'}">${[all, ...rest].join(' ')}</nav>`;
 }
 
 export function feedItemHtml(entry, lang) {

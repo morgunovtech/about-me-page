@@ -5,7 +5,7 @@ import { loadArticleIndex, publishedSorted, noteUrl } from './articles.js';
 import { loadDoc, loadSubscribers } from './content.js';
 import { notesIndexHtml } from './article-template.js';
 import { serializeLd } from './jsonld.js';
-import { escapeHtml, typo } from './markdown.js';
+import { escapeAttr, typo } from './markdown.js';
 import { ORIGIN, NAME, buildOf } from './site.js';
 import { pickL, forLang, buildFeed, feedListHtml, channelHtml, liveTopics, topicNavHtml, topicUrl, topicsOf } from './notes-feed.js';
 const xmlEsc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -50,7 +50,9 @@ export async function renderNotesIndex(env, lang, topicKey) {
   // line; the number beside the page title is the feed on this page.
   const total = topicKey ? buildFeed(articles, notesDoc, l).length : feed.length;
   const listHtml = typo(feedListHtml(feed, l), l);
-  const intro = escapeHtml(
+  // Escaped for an attribute: the intro goes into <meta content="…"> as well as
+  // into the page, and a straight quote in it would end the attribute.
+  const intro = escapeAttr(
     topic ? pickL(topic.intro, l) || pickL(topic.name, l) : pickL(notesDoc && notesDoc.intro, l) || INTRO[l]
   );
   const publications = l === 'en' ? 'Publications' : 'Публикации';

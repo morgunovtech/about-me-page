@@ -166,6 +166,12 @@
     byPointer = false;
     dropdowns.forEach((d) => d.toggle.removeAttribute('data-pointer-focus'));
   }, true);
+  /* What a visitor can reach in a panel: its links and buttons that are
+     rendered. In the folded «Меню» the group's toggle is in the panel's markup
+     but not on the screen (display: none) — the arrows stopped on it for good,
+     and the three items after it could not be reached with them. */
+  const itemsOf = (d) =>
+    Array.from(d.panel.querySelectorAll('button, a')).filter((el) => el.getClientRects().length > 0);
   const focusToggle = (d, options) => {
     if (byPointer) d.toggle.setAttribute('data-pointer-focus', '');
     d.toggle.focus(options);
@@ -203,7 +209,7 @@
          event.detail === 0 means a synthesised keyboard activation; pointer
          activation reports a positive click count. */
       if (willOpen && event.detail === 0) {
-        d.panel.querySelector('button, a')?.focus();
+        itemsOf(d)[0]?.focus();
       } else if (willOpen && !d.root.contains(document.activeElement)) {
         /* Pointer open: the mousedown above kept focus where it was (possibly
            on <body>). Park it on the toggle so Escape, arrows and the
@@ -228,7 +234,7 @@
     });
     d.root.addEventListener('keydown', (event) => {
       if (!d.root.classList.contains('is-open')) return;
-      const items = Array.from(d.panel.querySelectorAll('button, a'));
+      const items = itemsOf(d);
       if (!items.length) return;
       const i = items.indexOf(document.activeElement);
       if (event.key === 'ArrowDown') {

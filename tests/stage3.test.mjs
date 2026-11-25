@@ -18,7 +18,7 @@ test('e-mail only where the owner put it: home «Связаться», llms.txt,
     assert.doesNotMatch(read(f), /mailto:|s@morgunov\.tech/, f);
   }
   for (const f of ['index.html', 'en/index.html']) {
-    // One mailto, in the contact block's button row, after the Telegram button.
+    // One mailto, in the contact panel, in a line under the Telegram button.
     const row = read(f).split('data-cms-list="contact"')[1].split('</section>')[0];
     assert.ok(row.indexOf('href="https://t.me/s_mrgnv"') < row.indexOf('href="mailto:s@morgunov.tech"'), f);
     assert.equal((read(f).match(/mailto:/g) || []).length, 1, f);
@@ -41,7 +41,10 @@ test('footer (v3.0.0): one link of its own — «сказать спасибо �
   footers.push(notesIndexHtml('ru', '', '{}', 'abc1234', { intro: 'x' }).match(/<footer class="v4-foot">[\s\S]*?<\/footer>/)[0]);
   for (const f of footers) {
     assert.doesNotMatch(f, /href="(\/en)?\/(notes|about|uses)"/);
-    assert.match(f, /<a href="(\/en)?\/thanks">(сказать спасибо или сообщить об ошибке|say thanks or report a bug)<\/a><\/span>/);
+    // Typeset: «об» stays with «ошибке» (an entity in a template, the character in the notes shell).
+    assert.match(f, /<a href="(\/en)?\/thanks">(сказать спасибо или сообщить об(?:&nbsp;|\s)ошибке|say thanks or report a bug)<\/a><\/span>/);
+    // …and no «·» of the line can start a row of its own.
+    assert.doesNotMatch(f, /[ \t\n]·/, 'a separator stays with the word before it');
     assert.doesNotMatch(f, /t\.me\/s_mrgnv/, 'mistakes are reported from /thanks');
   }
 });
@@ -52,20 +55,87 @@ test('v4.0.0: /about is a section of /uses — the pages are gone, the old URLs 
   const mw = read('functions/_middleware.js');
   assert.match(mw, /'\/about': '\/uses#principles'/);
   assert.match(mw, /'\/en\/about': '\/en\/uses#principles'/);
-  assert.match(mw, /Response\.redirect\(new URL\(MOVED\[pathname\], request\.url\)\.toString\(\), 301\)/);
+  // The old address redirects in any spelling a link may carry — /about, /about/ and
+  // /about.html (the page was a file, so old links name the file too): the table is looked up
+  // as asked and then without the «.html» or the slash at the end.
+  assert.match(mw, /const moved = MOVED\[pathname\] \|\| MOVED\[pathname\.replace\(\/\(\?:\\\.html\|\\\/\)\$\/, ''\)\];\s+if \(moved\) \{\s+return withSecurityHeaders\(Response\.redirect\(new URL\(moved, request\.url\)\.toString\(\), 301\)\);\s+\}/);
+  // The same lookup, run: the table and the expression are read from the source.
+  const MOVED = Object.fromEntries([.../export const MOVED = \{([\s\S]*?)\};/.exec(mw)[1].matchAll(/'([^']+)': '([^']+)'/g)].map((m) => [m[1], m[2]]));
+  assert.deepEqual(MOVED, { '/about': '/uses#principles', '/en/about': '/en/uses#principles' });
+  const tail = new RegExp(/MOVED\[pathname\.replace\(\/(.+?)\/, ''\)\]/.exec(mw)[1]);
+  const moved = (pathname) => MOVED[pathname] || MOVED[pathname.replace(tail, '')];
+  for (const [prefix, to] of [['', '/uses#principles'], ['/en', '/en/uses#principles']]) {
+    for (const spelling of ['/about', '/about/', '/about.html']) assert.equal(moved(prefix + spelling), to, prefix + spelling);
+  }
+  // Nothing else is caught: a longer path, another page, the root.
+  for (const path of ['/', '/en/', '/uses', '/uses/', '/aboutus', '/about/team', '/about.htm', '/notes/about', '/en/about/x.html']) {
+    assert.equal(moved(path), undefined, path);
+  }
   assert.doesNotMatch(mw, /page: 'about'/);
   assert.doesNotMatch(read('llms.txt'), /s\.morgunov\.tech\/(en\/)?about\b/);
   assert.match(read('llms.txt'), /s\.morgunov\.tech\/uses/);
 });
 
-test('/consulting: the contact goes to Telegram, one contact button', () => {
+test('/consulting: the contact goes to Telegram — the homepage\'s panel with one button and nothing under it', () => {
   const c = seed.consulting;
   // The angel section with its «Отправить питч →» is gone since v1.2.8.
   assert.equal(c.sections.angel, undefined);
   assert.equal(c.sections.strategy.cta.href, 'https://t.me/s_mrgnv');
   const html = renderers.collabContact(c, 'ru');
   assert.equal((html.match(/class="v4-btn/g) || []).length, 1);
-  assert.match(html, /href="https:\/\/t\.me\/s_mrgnv"[^>]*>Написать →</);
+  // One panel for every page: the line on the left, the button on the right. The reply time
+  // and the e-mail line are the homepage's own.
+  assert.match(html, /^<div class="v4-contact">\s*<p class="v4-contact-note">[^<]+<\/p>\s*<div class="v4-contact-act">\s*<div class="v4-cta-row">\s*<a class="v4-btn v4-btn-primary" href="https:\/\/t\.me\/s_mrgnv" target="_blank" rel="noopener noreferrer">Написать в Telegram<\/a>\s*<\/div>\s*<\/div>\s*<\/div>$/);
+  assert.doesNotMatch(html, /v4-contact-reply|v4-contact-alt|v4-contact-links|mailto:/);
+});
+
+test('ONE label for one action: every button that opens the Telegram chat reads «Написать в Telegram» / “Message me on Telegram”', () => {
+  // The same button read «Telegram» in a hero, «Написать →» in a contact block, «Написать в
+  // Telegram →» on a tier and «Get in touch →» under a list. It is one action — one label, and
+  // no arrow: a plain contact button carries none (the CTA convention).
+  const LABEL = { ru: 'Написать в Telegram', en: 'Message me on Telegram' };
+  const CHAT = 'https://t.me/s_mrgnv';
+  const off = [];
+  // On the pages: the hero buttons of the homepage and /consulting, both tiers, the strategy
+  // button, the partnerships button, the contact panels, «Сообщить об ошибке» on /thanks. A
+  // template's hero.ctas block is not a list slot — render-static.mjs does not regenerate it —
+  // so the pages are read as well as the seed.
+  let seen = 0;
+  for (const f of [...PAGES, 'thanks.html', 'en/thanks.html', '404.html']) {
+    const lang = f.startsWith('en/') ? 'en' : 'ru';
+    for (const [, attrs, label] of read(f).matchAll(/<a ([^>]*)>([^<]*)<\/a>/g)) {
+      if (!/class="v4-btn[ "]/.test(attrs) || !attrs.includes(`href="${CHAT}"`)) continue;
+      seen++;
+      // A static page is typeset in the file (scripts/typo-static.mjs): the label is the same words.
+      if (label.replace(/&nbsp;/g, ' ') !== LABEL[lang]) off.push(`${f}: «${label}»`);
+    }
+  }
+  assert.ok(seen >= 12, `${seen} Telegram chat buttons on the pages`);
+  // In the seed: every button { href, label } that leads to the chat, and the hero buttons a
+  // page stores as markup (hero.ctas).
+  let stored = 0;
+  const walk = (v, path) => {
+    if (typeof v === 'string') {
+      const lang = path.endsWith('.en') ? 'en' : 'ru';
+      for (const [, attrs, label] of v.matchAll(/<a ([^>]*)>([^<]*)<\/a>/g)) {
+        if (!attrs.includes('class="v4-btn') || !attrs.includes(`href="${CHAT}"`)) continue;
+        stored++;
+        if (label !== LABEL[lang]) off.push(`seed ${path}: «${label}»`);
+      }
+    } else if (Array.isArray(v)) v.forEach((x, i) => walk(x, `${path}.${i}`));
+    else if (v && typeof v === 'object') {
+      if (v.href === CHAT && v.label && typeof v.label === 'object') {
+        stored++;
+        for (const lang of ['ru', 'en']) if (v.label[lang] !== LABEL[lang]) off.push(`seed ${path}.label.${lang}: «${v.label[lang]}»`);
+      }
+      for (const k of Object.keys(v)) walk(v[k], path ? `${path}.${k}` : k);
+    }
+  };
+  walk(seed, '');
+  assert.ok(stored >= 8, `${stored} Telegram chat buttons in the seed`);
+  assert.deepEqual(off, [], 'a Telegram chat button with a label of its own');
+  // A button that leads elsewhere keeps its own words and, where it starts a flow, its arrow.
+  assert.equal(seed.collaborate.sections.contact.ctas[0].label.ru, 'Консалтинг →');
 });
 
 test('/uses names its referral links and promises no bonus without one', () => {
@@ -83,6 +153,24 @@ test('/uses names its referral links and promises no bonus without one', () => {
     assert.doesNotMatch(c.cta.label.ru, /бесплатно|скидк|месяц/i, c.name);
   }
   assert.ok(!sw.cards.some((c) => c.name === 'Arc Browser'));
+});
+
+test('/uses: the facts of three devices as checked against the devices', () => {
+  const cards = Object.fromEntries(seed.uses.sections.hardware.groups.flatMap((g) => g.cards).map((c) => [typeof c.name === 'string' ? c.name : c.name.en, c.desc]));
+  const nb = '\u00a0';
+  // Duoqin F22 Pro: a 3.54″ IPS screen and Android 12 (the card said 2.8″ OLED and Android 11).
+  assert.ok(cards['Duoqin F22 Pro'].ru.includes(`3,54″ IPS, T9, Android${nb}12`));
+  assert.ok(cards['Duoqin F22 Pro'].en.includes(`3.54″ IPS, T9 keypad, Android${nb}12`));
+  // Shargeek 170: 24 000 mAh and 140 W (it said 25 600 mAh and 100 W).
+  assert.match(cards['Shargeek 170'].ru, new RegExp(`24${nb}000${nb}mAh .+ до 140${nb}W`));
+  assert.match(cards['Shargeek 170'].en, new RegExp(`24,000${nb}mAh .+ up to 140${nb}W`));
+  // Anbernic RG405V: an IPS screen (it said OLED).
+  assert.ok(cards['Anbernic RG405V'].ru.includes('4-дюймовый IPS') && cards['Anbernic RG405V'].en.includes('4-inch IPS'));
+  for (const name of ['Duoqin F22 Pro', 'Shargeek 170', 'Anbernic RG405V']) {
+    assert.doesNotMatch(cards[name].ru + cards[name].en, /OLED|2[,.]8″|Android\s11|25[\s,]600|100\sW/, name);
+  }
+  // Oura Ring: «не боится воды» — a ring is not «worn into water».
+  assert.ok(cards['Oura Ring Gen3'].ru.includes('Не боится воды'));
 });
 
 test('no side column, back-to-top or progress bar left in markup, CSS or JS', () => {
@@ -105,8 +193,15 @@ test('home copy: Korzinka ×23, one channel line, a kiosk chain (seed = the save
 
 test('RU pages speak Russian: /consulting units, /uses headings, tags and prices', () => {
   const tiers = seed.consulting.sections.consulting.tiers;
-  assert.deepEqual(tiers.map((t) => t.price.ru), ['$300 / **сессия**', '$2 000 / **месяц**']);
-  assert.deepEqual(tiers.map((t) => t.price.en), ['$300 / **SESSION**', '$2,000 / **MONTH**']);
+  assert.deepEqual(tiers.map((t) => t.price.ru), ['**$300** / сессия', '**$2 000** / месяц']);
+  // The emphasis of a price is the amount — «**$300** / сессия» — and the unit is a plain word
+  // after it, in the case it is shown. «SESSION» / «MONTH» were a style typed into the content:
+  // the stylesheet set the <strong> of a price in caps, and the doc followed.
+  assert.deepEqual(tiers.map((t) => t.price.en), ['**$300** / session', '**$2,000** / month']);
+  for (const t of tiers) for (const l of ['ru', 'en']) assert.match(t.price[l], /^\*\*\$\d[\d,\u00a0]*\*\* \/ [a-zа-яё]+$/, `${l}: ${t.price[l]}`);
+  assert.ok(renderers.collabConsulting(seed.consulting, 'en').includes('<span class="v4-pricing"><strong>$300</strong> / session</span>'));
+  assert.ok(renderers.collabConsulting(seed.consulting, 'ru').includes('<span class="v4-pricing"><strong>$2\u00a0000</strong> / месяц</span>'));
+  assert.doesNotMatch(read('styles.css').replace(/\/\*[\s\S]*?\*\//g, ''), /\.v4-pricing[^{}]*\{[^}]*text-transform/, 'the stylesheet no longer sets a price in caps');
   const u = seed.uses.sections;
   const ruLabels = [
     ...u.hardware.groups.flatMap((g) => [g.heading.ru, ...g.cards.map((c) => c.tag.ru)]),
@@ -114,7 +209,10 @@ test('RU pages speak Russian: /consulting units, /uses headings, tags and prices
   ];
   const english = ruLabels.filter((s) => /[A-Za-z]/.test(s) && !/[А-Яа-яЁё]/.test(s) && s !== 'eSIM');
   assert.deepEqual(english, []);
-  assert.equal(u.hardware.groups[0].heading.en, 'Compute'); // EN untouched
+  // A period is a word, not an abbreviation: «$100 / месяц», as «$45 / год» beside it.
+  for (const c of u.software.cards) assert.doesNotMatch(c.price.ru, /мес\.|\bг\./, c.name);
+  // The English headings are English words for the same things («Рабочее место» — a workspace).
+  assert.equal(u.hardware.groups[0].heading.en, 'Workspace');
 });
 
 test('/consulting v0.31.5: two-business-day async reply, the FinTech conflict-of-interest line', () => {
@@ -124,6 +222,48 @@ test('/consulting v0.31.5: two-business-day async reply, the FinTech conflict-of
   assert.equal(asyncLine.en, 'Async support between sessions (reply within two business days)');
   const not = c.work.blocks[2].items.at(-1);
   assert.match(not.ru, /^Не консультирую прямых конкурентов Яндекса и FinTech-проекты в Узбекистане/);
-  assert.match(not.en, /^I don't consult Yandex's direct competitors, or FinTech projects in Uzbekistan/);
+  assert.equal(not.en, 'While I work at Yandex Uzbekistan, I don’t consult for Yandex’s direct competitors or for FinTech projects that operate in Uzbekistan or plan to enter it.');
   assert.match(renderers.collabWork(seed.consulting, 'ru'), /пока работаю в Yandex Uzbekistan/);
+  // «How I work» in English is three sentences that say who does it («I run…», «I go…», «I
+  // help…») — they were participles without a subject («Conducting field audits; …»).
+  const how = c.work.blocks[0].items.map((i) => i.en);
+  assert.equal(how.length, 3);
+  for (const line of how) assert.match(line, /^I [a-z]+ .+\.$/, line);
+  assert.doesNotMatch(how.join(' '), /^(Conducting|Going|Helping)\b/m);
+});
+
+test('sections are rendered as written: no deferred rendering, so nothing a section paints past its box is cut', () => {
+  // components.css used to defer the sections below the fold (content-visibility: auto). The
+  // containment it turns on clipped the focus ring of every link and button on a section's edge
+  // (17 cut rings on /privacy), once the underline of a «more» link, and a jump to an anchor
+  // landed by an estimate of the heights. The pages are a dozen short sections: the rule is gone,
+  // and with it the editor's override (which once named `.section` — a class no page has).
+  const app = read('admin-app.js');
+  for (const css of [read('ds/v1/components.css'), read('styles.css'), app]) {
+    assert.doesNotMatch(css.replace(/\/\*[\s\S]*?\*\//g, ''), /content-visibility|contain-intrinsic-size/);
+  }
+  assert.doesNotMatch(app, /(^|[^-\w])\.section\{/m);
+  let sections = 0;
+  for (const f of [...PAGES, 'thanks.html', 'en/thanks.html']) {
+    for (const [, cls] of read(f).matchAll(/<section id="[a-z]+" class="([^"]+)"/g)) {
+      sections++;
+      assert.equal(cls, 'v4-section', f);
+    }
+  }
+  assert.ok(sections > 30);
+});
+
+test('/uses software: the card grid every list of cards uses, set off from the line above it', () => {
+  // The software cards had a grid of their own (.v4-softs, three a row) for the same card as
+  // the homepage's products: one card — one grid.
+  for (const lang of ['ru', 'en']) {
+    const html = renderers.usesProducts(seed.uses, lang);
+    assert.match(html, /^<div class="v4-prose">\s*<p>[\s\S]+?<\/p>\s*<\/div>\s*<div class="v4-products v4-products--after">\s*<article class="v4-product">/, lang);
+    assert.equal((html.match(/<article class="v4-product">/g) || []).length, seed.uses.sections.software.cards.length, lang);
+  }
+  for (const f of ['uses.html', 'en/uses.html']) assert.match(read(f), /<div class="v4-products v4-products--after">/, f);
+  for (const f of ['uses.html', 'en/uses.html', 'styles.css', 'ds/v1/components.css', 'functions/_lib/render.js', 'admin-app.js', 'admin-app.css']) {
+    assert.doesNotMatch(read(f), /v4-softs/, f);
+  }
+  assert.match(read('styles.css'), /\.v4-products--after \{\s*margin-top: 24px;\s*\}/);
 });

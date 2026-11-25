@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Stamp the current git short SHA + asset hashes into all HTML files.
+"""Stamp the release version, the git short SHA and the asset hashes.
 
-Stamping passes (SHA, asset ?v=, image ?v=, the notes shell, site.js BUILD, seed images):
-  1. **Build SHA** in the footer:
-       <code>SHA</code>
-     Run before pushing so the deployed footer matches HEAD.
+Stamping passes (the version, asset ?v=, image ?v=, the notes shell, site.js VERSION/BUILD, seed images):
+  1. **The release** — the top entry of CHANGELOG.md — as the footer's build
+     mark `<a class="v4-build">vX.Y.Z</a>` in every page and as VERSION in
+     functions/_lib/site.js; the short SHA goes to BUILD there (the local
+     fallback of the X-Build header). Add the CHANGELOG entry first.
 
   2. **Cache busters** on /styles.css and /script.js:
        href="/styles.css?v=<HASH>"
@@ -23,10 +24,6 @@ Stamping passes (SHA, asset ?v=, image ?v=, the notes shell, site.js BUILD, seed
 
 Usage:
     python3 scripts/version-stamp.py
-
-Optional: install as a pre-push hook so it runs automatically:
-    cp scripts/version-stamp.py .git/hooks/pre-push
-    chmod +x .git/hooks/pre-push
 """
 
 import hashlib
@@ -72,7 +69,6 @@ IMAGE_GLOBS = ["images/uses/*.webp"]
 IMAGE_PATTERN = re.compile(
     r'(/images/uses/)([^"?\s]+\.webp)\?v=[0-9a-fA-F]+'
 )
-PATTERN_CODE = re.compile(r"(<code(?: [^>]*)?>)[0-9a-f]{7,40}(</code>)")
 
 
 def short_hash(path: Path) -> str:
@@ -123,7 +119,7 @@ def main() -> int:
             print(f"  SKIP    {rel}")
             continue
         text = path.read_text(encoding="utf-8")
-        new_text, n_code = PATTERN_CODE.subn(rf"\g<1>{sha}\g<2>", text)
+        new_text = text
         n_assets = 0
         for name, pat in ASSETS:
             h = asset_hashes.get(name)
@@ -132,15 +128,15 @@ def main() -> int:
             new_text, n = pat.subn(rf"\g<1>{h}", new_text)
             n_assets += n
         new_text, n_images = stamp_images(new_text)
-        if n_code == 0 and n_assets == 0 and n_images == 0:
+        if n_assets == 0 and n_images == 0:
             print(f"  NO-OP   {rel}")
             continue
         path.write_text(new_text, encoding="utf-8")
         print(
             f"  STAMPED {rel} "
-            f"(sha-code:{n_code}, assets:{n_assets}, images:{n_images})"
+            f"(assets:{n_assets}, images:{n_images})"
         )
-        total += n_code + n_assets + n_images
+        total += n_assets + n_images
 
     # Pass 4: the article/notes shell embeds the same cache-busters as JS string
     # constants (functions/_lib/article-template.js). It isn't an HTML file, so
@@ -149,8 +145,6 @@ def main() -> int:
     if tmpl.exists() and asset_hashes:
         text = tmpl.read_text(encoding="utf-8")
         n = 0
-        # The shell's footer carries the same build hash as the static pages.
-        text, k = PATTERN_CODE.subn(rf"\g<1>{sha}\g<2>", text); n += k
         if asset_hashes.get("styles.css"):
             text, k = re.subn(r"(STYLES_VER = 'v=)[0-9a-fA-F]+(')", rf"\g<1>{asset_hashes['styles.css']}\g<2>", text)
             n += k

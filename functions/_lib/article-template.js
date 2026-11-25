@@ -75,12 +75,12 @@ const T = {
   },
 };
 
-const STYLES_VER = 'v=3a965f09';
-const SCRIPT_VER = 'v=4aadf13a';
+const STYLES_VER = 'v=f5fae2e5';
+const SCRIPT_VER = 'v=f2317f0d';
 const FONTS_VER = 'v=64eea157';
-const TOKENS_VER = 'v=5629caeb';
-const BASE_VER = 'v=0e404315';
-const COMPONENTS_VER = 'v=9c2b749b';
+const TOKENS_VER = 'v=50fa198d';
+const BASE_VER = 'v=03b78c6e';
+const COMPONENTS_VER = 'v=544dc438';
 
 const L = (lang) => (lang === 'en' ? 'en' : 'ru');
 const p = (lang, path) => (L(lang) === 'en' ? '/en' : '') + path;
@@ -211,10 +211,12 @@ ${themeMenu(l)}
 function footChrome(lang, build) {
   const l = L(lang);
   const t = T[l];
-  return `    <footer class="v4-foot">
+  // Typeset like the footer of a static page (scripts/typo-static.mjs): a line
+  // never starts with «·».
+  return typo(`    <footer class="v4-foot">
       <span>morgunov.tech · 2026 · <a class="v4-build" href="${CHANGELOG_URL}" target="_blank" rel="noopener noreferrer">v${VERSION}</a> · <a href="${p(l, '/thanks')}">${t.thanks}</a></span>
       <span class="v4-foot-privacy">${t.privacy}</span>
-    </footer>`;
+    </footer>`, l);
 }
 
 // `ldScript`: the JSON-LD block sits at the end of <body> so the parser reaches

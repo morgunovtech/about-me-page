@@ -182,7 +182,7 @@
   grid-template-columns: 160px 280px minmax(0, 1fr);
   gap: 8px 24px;
   align-items: baseline;
-  padding: 20px 0;
+  padding: 24px 0;
   border-bottom: 1px solid var(--v4-line-soft);
 }
 
@@ -190,12 +190,12 @@
   padding-top: 0;
 }
 
-/* Data: a period, a year, a date — the one use of mono on a page. */
+/* The label column of a table — a period, a year, a date (with its source on
+   the homepage's feed): the one use of mono on a page. */
 .v4-career-row .period,
 .v4-venture .year,
 .v4-feed-meta,
-.v4-note-date,
-.v4-version {
+.v4-note-date {
   font-family: var(--v4-mono);
   font-size: 13px;
   line-height: 1.5;
@@ -298,34 +298,18 @@
   gap: 16px;
 }
 
-/* Three or more cards on a wide screen → three a row on a six-track grid, two
-   tracks a card: a last row of two splits the width in halves and a single
-   last card takes all of it, so 4, 5 or 7 cards leave no hole. Content-driven
-   (:has), so the CMS can add a card without a modifier class; /consulting's
-   two tiers keep 2-up. Browsers without :has() simply keep the 2-column grid.
-   :where() keeps the container rule at (0,1,0) so the later ≤640px `1fr` rule
-   wins by source order; :nth-of-type counts <article> cards only (the CMS
-   editor appends a <button> to this container). */
+/* Three or more cards on a wide screen → three a row. A card keeps the width
+   of its column in every row: a short last row leaves room after it and the
+   gutters of the rows stay on one line (the last cards used to stretch — a
+   row of three over a row of two halves, no two gutters aligned). Content-
+   driven (:has), so the CMS can add a card without a modifier class;
+   /consulting's two tiers keep 2-up. Browsers without :has() simply keep the
+   2-column grid. :where() keeps the container rule at (0,1,0) so the later
+   ≤640px `1fr` rule wins by source order; :nth-of-type counts <article> cards
+   only (the CMS editor appends a <button> to this container). */
 @media (min-width: 1101px) {
   .v4-products:where(:has(> .v4-product:nth-of-type(3))) {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-  .v4-products:where(:has(> .v4-product:nth-of-type(3))) > .v4-product {
-    grid-column: span 2;
-  }
-  .v4-products:where(:has(> .v4-product:nth-of-type(3))) > .v4-product:nth-of-type(3n+1):nth-last-of-type(2),
-  .v4-products:where(:has(> .v4-product:nth-of-type(3))) > .v4-product:nth-of-type(3n+2):last-of-type {
-    grid-column: span 3;
-  }
-  .v4-products:where(:has(> .v4-product:nth-of-type(3))) > .v4-product:nth-of-type(3n+1):last-of-type {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 1100px) {
-  /* An odd last card spans the row instead of leaving a hole. */
-  .v4-products > .v4-product:nth-of-type(odd):last-of-type {
-    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -341,8 +325,9 @@
 }
 
 /* The head of a card: what it is on the left (the caption), a fact on the
-   right — a version, a price, «скоро». No mark of «running»: a card under
-   «Работает» says it by standing there. */
+   right — a version, a price, «скоро» — in one secondary style, whatever the
+   fact is. No mark of «running»: a card under «Работает» says it by standing
+   there. */
 .v4-product-head {
   display: flex;
   justify-content: space-between;
@@ -419,9 +404,7 @@
 
 .v4-more {
   margin-top: 24px;
-  /* Room under the underline: the last «more» link of a section sat on the
-     edge where content-visibility clips painting, and Chrome on iOS cut the
-     line off. */
+  /* Room under the underline. */
   padding-bottom: 4px;
   font-weight: 500;
   line-height: 1.5;
@@ -482,7 +465,9 @@
   flex-direction: column;
   background: var(--v4-paper);
   border: 1px solid var(--v4-line);
-  padding: 16px;
+  /* The inset of every card of the site: the software cards under this grid
+     start their text on the same line. */
+  padding: 24px;
   /* No :hover, same as .v4-product: a photo card is not a control. */
   transition: border-color 0.15s ease, background-color 0.2s ease, color 0.2s ease;
 }
@@ -529,45 +514,24 @@
 
 /* --- /consulting --- */
 
-/* A price: the amount is a title of its card's fact, the unit a secondary
-   word. Ink, not orange — orange is what you can press or what is current. */
+/* A price is the fact in the head of its card — the head's secondary line.
+   Where the amount is marked («**$300** / сессия»), it alone is set in the ink
+   and the weight of a name, a step under the card's title; the unit stays
+   quiet. Ink, not orange — orange is what you can press or what is current. */
 .v4-pricing {
-  font-size: 18px;
-  line-height: 1.3;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--v4-fg);
   white-space: nowrap;
 }
 
 .v4-pricing strong {
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0;
-  color: var(--v4-muted);
-}
-
-.v4-spec {
-  display: grid;
-  grid-template-columns: 160px minmax(0, 1fr);
-  gap: 8px 24px;
-  margin: 0 0 24px;
-  padding: 0;
-}
-
-.v4-spec dt {
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--v4-muted);
-  padding-top: 2px;
-}
-
-.v4-spec dd {
-  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--v4-fg);
 }
 
 /* «Клиенты: …», «Выступления, менторство и жюри: …» — a word of what follows
-   and the names: the word is secondary, the names are the text. */
+   and the names: the word is secondary, the names are the text (the ink is
+   the difference; weight stays for titles and for things to press). */
 .v4-collab-clients {
   color: var(--v4-muted);
 }
@@ -584,7 +548,7 @@
 .v4-collab-clients b,
 .v4-collab-clients strong {
   color: var(--v4-fg);
-  font-weight: 500;
+  font-weight: 400;
 }
 
 /* --- Contact: one panel on every page ---
@@ -602,11 +566,10 @@
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
+/* Who should write: a sentence, in the size of every sentence. */
 .v4-contact-note {
   margin: 0;
-  max-width: 46ch;
-  font-size: 18px;
-  line-height: 1.5;
+  max-width: 52ch;
 }
 
 .v4-contact-act {
@@ -699,16 +662,23 @@
   margin-top: 48px;
 }
 
-.v4-h3 + .v4-prose + .v4-kit {
-  margin-top: 16px;
+/* A note under the caption of a group (why the last group is an exception):
+   the secondary line, so the group reads like the others — a caption, the
+   rule, the rows. */
+.v4-h3 + .v4-kit-note {
+  max-width: 78ch;
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--v4-muted);
 }
 
 .v4-kit-row {
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr) minmax(0, 340px);
-  gap: 8px 32px;
+  gap: 8px 24px;
   align-items: start;
-  padding: 20px 0;
+  padding: 24px 0;
   border-bottom: 1px solid var(--v4-line-soft);
 }
 
@@ -749,6 +719,13 @@
   line-height: 1.5;
 }
 
+/* A fact that wraps hangs under its own first line, a step in: the next line
+   is seen to continue it and not to start a fact without a term. */
+.v4-kit-facts > div {
+  padding-left: 12px;
+  text-indent: -12px;
+}
+
 .v4-kit-facts dt,
 .v4-kit-facts dd {
   display: inline;
@@ -779,11 +756,12 @@
 }
 
 /* A narrower window: the name and its line across the top, then why and the
-   proof side by side. */
+   proof side by side — the proof takes its share of the row (it was a fixed
+   260px beside a column whose text stopped at 62ch: every fact wrapped next
+   to an empty strip). */
 @media (max-width: 1100px) {
   .v4-kit-row {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 260px);
-    gap: 8px 24px;
+    grid-template-columns: minmax(0, 1.4fr) minmax(260px, 1fr);
   }
   .v4-kit-id {
     grid-column: 1 / -1;
@@ -811,7 +789,7 @@
   grid-template-columns: 160px minmax(0, 1fr);
   gap: 4px 24px;
   align-items: baseline;
-  padding: 14px 0;
+  padding: 16px 0;
   border-bottom: 1px solid var(--v4-line-soft);
 }
 
@@ -917,20 +895,33 @@
     grid-template-columns: minmax(0, 1fr);
   }
   .v4-product,
+  .v4-use,
   .v4-contact {
-    padding: 20px;
-  }
-  .v4-contact-note {
-    font-size: 16px;
+    padding: 16px;
   }
   .v4-more + .v4-tier,
   .v4-kit + .v4-h3,
   .v4-products + .v4-h3 {
     margin-top: 32px;
   }
-  .v4-spec {
-    grid-template-columns: 110px minmax(0, 1fr);
-    gap: 8px 16px;
+}
+
+/* The narrowest phones (320px): two figures a row left 124px a cell and broke
+   «своих проектов» in two. One figure a row there. */
+@media (max-width: 360px) {
+  .v4-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .v4-stat,
+  .v4-stat + .v4-stat {
+    padding: 16px 0;
+    border-left: none;
+  }
+  .v4-stat:nth-child(-n + 2) {
+    border-bottom: none;
+  }
+  .v4-stat + .v4-stat {
+    border-top: 1px solid var(--v4-line);
   }
 }
 
@@ -941,13 +932,22 @@
 /* The topics above the feed: where you can go from here, with how much is
    there. The page you are on is text with the bar's sign of «current». */
 .v4-notes-topics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 24px;
   margin: 0 0 32px;
   font-size: 14px;
-  line-height: 1.5;
+  /* 28px a row, as the on-page line. */
+  line-height: 2;
   color: var(--v4-muted);
+  /* Seven topics do not fit one line: they split evenly, four and three, and
+     the last one is not left alone on a row of its own. */
+  text-wrap: balance;
+}
+
+/* Like the on-page line: words of a line, set apart by space alone, never
+   broken inside. */
+.v4-notes-topics > * {
+  white-space: nowrap;
+  margin-right: 20px;
+  padding: 4px 0;
 }
 
 .v4-notes-topics a {
@@ -974,13 +974,13 @@
   text-underline-offset: 4px;
 }
 
-/* A count after a label: data, mono; inline-block keeps the underline of the
-   link off it (the gap is the no-break space the markup puts inside). */
+/* A count after a label: the line's own face, regular and quiet; inline-block
+   keeps the underline of the link off it (the gap is the no-break space the
+   markup puts inside). */
 .v4-count {
   display: inline-block;
-  font-family: var(--v4-mono);
-  font-size: 13px;
   font-weight: 400;
+  letter-spacing: 0;
   color: var(--v4-muted);
   font-variant-numeric: tabular-nums lining-nums;
 }
@@ -1042,7 +1042,7 @@
   grid-template-columns: 160px minmax(0, 1fr);
   gap: 4px 24px;
   align-items: baseline;
-  padding: 20px 0;
+  padding: 24px 0;
   border-bottom: 1px solid var(--v4-line-soft);
 }
 
@@ -1155,14 +1155,19 @@
   display: block;
 }
 
-/* Long reading is set a step up: the lead size. */
+/* Long reading is set a step up: the lead size, and its paragraphs a step
+   further apart (24px; 16px on a phone, where the text is 16px). */
 .v4-article-body {
   font-size: 18px;
-  line-height: 1.65;
+  line-height: 1.6;
+  /* A word that cannot fit a line of the column — an address, «a/b/c/d» in
+     brackets — breaks where it must instead of pushing the page sideways (a
+     320px screen scrolled by 27px on one note). */
+  overflow-wrap: break-word;
 }
 
 .v4-article-body p {
-  margin: 0 0 20px;
+  margin: 0 0 24px;
 }
 
 /* H2 renders like a page section head: the rule UNDER the title. */
@@ -1191,16 +1196,27 @@
   color: var(--v4-muted);
 }
 
+/* A caption right under a section title: the title's own gap is enough. */
+.v4-article-body h2 + h3 {
+  margin-top: 0;
+}
+
+/* The bar of a quote is as tall as its text: the last paragraph inside keeps
+   no margin (it used to push the bar 20px past the last line). */
 .v4-article-body blockquote {
-  margin: 0 0 20px;
-  padding: 2px 0 2px 20px;
+  margin: 0 0 24px;
+  padding: 0 0 0 24px;
   border-left: 2px solid var(--v4-orange);
   color: var(--v4-muted);
 }
 
+.v4-article-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
 .v4-article-body ul,
 .v4-article-body ol {
-  margin: 0 0 20px;
+  margin: 0 0 24px;
   padding-left: 24px;
 }
 
@@ -1240,32 +1256,68 @@
   font-family: var(--v4-mono);
   font-size: 14px;
   line-height: 1.6;
-  margin: 0 0 20px;
+  margin: 0 0 24px;
 }
 
+/* Inline code in a note: the site's code idiom (components.css), a step under
+   the note's 18px. */
 .v4-article-body code {
   font-family: var(--v4-mono);
-  font-size: 0.875em;
+  font-size: 16px;
+  padding: 0 4px;
+  background: var(--v4-paper);
+  border: 1px solid var(--v4-line-soft);
+  letter-spacing: 0;
+}
+
+.v4-article-body pre code {
+  font-size: inherit;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+/* An underline is the sign of a link. The author's underline (Telegram's
+   formatting) is emphasis, and emphasis here is the weight of <strong>. */
+.v4-article-body u {
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .v4-article-body hr {
   border: none;
   border-top: 1px solid var(--v4-line);
-  margin: 40px 0;
+  margin: 32px 0;
 }
 
-/* The thanks line under a note: one quiet sentence before «← Все публикации»,
-   a link to /thanks — not a button, not a box. */
+/* The end of a note is two quiet lines under its last rule: where the text
+   was first published (the note's own last paragraph, after its <hr>) and the
+   thanks line — a link to /thanks, not a button, not a box. The same
+   secondary style for both; upright — the family ships no italic. */
+.v4-article-body > hr + p:last-child,
 .v4-article-thanks {
-  margin: 40px 0 0;
-  color: var(--v4-muted);
   max-width: 62ch;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--v4-muted);
 }
 
+.v4-article-body > hr + p:last-child {
+  margin: 0;
+}
+
+.v4-article-body > hr + p:last-child em {
+  font-style: normal;
+}
+
+.v4-article-thanks {
+  margin: 8px 0 0;
+}
+
+/* «← Все публикации»: under the two lines, no rule of its own — the note's
+   last <hr> above and the footer's hairline below are the rules of this part. */
 .v4-article-foot {
   margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid var(--v4-line);
 }
 
 @media (max-width: 960px) {
@@ -1281,7 +1333,6 @@
   }
   .v4-article-body {
     font-size: 16px;
-    line-height: 1.6;
   }
   .v4-article-body p,
   .v4-article-body ul,
@@ -1290,10 +1341,19 @@
   .v4-article-body pre {
     margin-bottom: 16px;
   }
+  .v4-article-body blockquote {
+    padding-left: 16px;
+  }
+  .v4-article-body blockquote > :last-child,
+  .v4-article-body > hr + p:last-child {
+    margin-bottom: 0;
+  }
+  .v4-article-body code {
+    font-size: 14px;
+  }
   .v4-article-body h2 {
     font-size: 20px;
-    margin: 40px 0 16px;
-    padding-bottom: 10px;
+    margin: 32px 0 24px;
   }
   .v4-note-item {
     grid-template-columns: minmax(0, 1fr);
@@ -1330,13 +1390,17 @@ time {
    tap targets and a calmer rhythm. */
 @media (max-width: 480px) {
   .v4-hero .v4-cta-row,
-  .v4-contact .v4-cta-row {
+  .v4-contact .v4-cta-row,
+  .v4-contact-act,
+  .v4-help-cta {
     flex-direction: column;
     align-items: stretch;
     align-self: stretch;
   }
   .v4-hero .v4-cta-row .v4-btn,
-  .v4-contact .v4-cta-row .v4-btn {
+  .v4-contact .v4-cta-row .v4-btn,
+  .v4-contact-act .v4-btn,
+  .v4-help-cta .v4-btn {
     width: 100%;
   }
   .v4-hero .v4-cta-row > * + * {

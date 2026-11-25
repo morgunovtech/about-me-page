@@ -52,10 +52,13 @@ test('/consulting: the phrase first, tiers to Telegram, the home page reply time
   const c = seed.consulting.sections.consulting;
   assert.deepEqual(c.prose, PHRASE);
   assert.deepEqual(c.tiers.map((t) => t.cta.href), ['https://t.me/s_mrgnv', 'https://t.me/s_mrgnv']);
-  assert.deepEqual(c.tiers.map((t) => t.cta.label), [0, 1].map(() => ({ ru: 'Написать в Telegram →', en: 'Message me on Telegram →' })));
+  // One label for one action, on every page (tests/stage3.test.mjs keeps the rule): a button
+  // that opens the Telegram chat reads «Написать в Telegram», with no arrow.
+  assert.deepEqual(c.tiers.map((t) => t.cta.label), [0, 1].map(() => ({ ru: 'Написать в Telegram', en: 'Message me on Telegram' })));
   assert.deepEqual(c.note, seed.home.sections.contact.reply);
-  // Prices and the 75-minute session stay.
-  assert.deepEqual(c.tiers.map((t) => t.price.ru), ['$300 / **сессия**', '$2\u00a0000 / **месяц**']);
+  // Prices and the 75-minute session stay. (The emphasis of a price is the amount, the unit a
+  // plain word after it: «**$300** / сессия».)
+  assert.deepEqual(c.tiers.map((t) => t.price.ru), ['**$300** / сессия', '**$2\u00a0000** / месяц']);
   assert.equal(c.tiers[0].features[0].ru, '75 минут встречи + до 45 минут подготовки');
   for (const lang of ['ru', 'en']) {
     const html = renderers.collabConsulting(seed.consulting, lang);
@@ -108,17 +111,32 @@ test('llms.txt: the phrase, e-mail second, no angel or advisor claims, one Publi
     assert.ok(talks.includes(url), url);
   }
   assert.ok(t.includes('writing since 2022') && !t.includes('1–2 posts'));
+  // Geography as the pages say it — he worked in Russia and Uzbekistan and consults for
+  // companies in all three countries — in the summary and in «About» alike.
+  assert.equal((t.match(/worked in Russia and Uzbekistan; consults for companies in Russia, Uzbekistan and Kyrgyzstan/g) || []).length, 2);
+  assert.doesNotMatch(t, /consults companies|works in Russia/);
+  // The feed names every place its external materials come from.
+  assert.ok(t.includes('published elsewhere (vc.ru, YouTube, spot.uz)'));
+  // An English file links the English pages: both consulting links.
+  assert.ok(t.includes('[Consulting](https://s.morgunov.tech/en/consulting)'));
+  assert.ok(t.includes('[Strategic consulting](https://s.morgunov.tech/en/consulting#strategy)'));
+  assert.doesNotMatch(t, /\]\(https:\/\/s\.morgunov\.tech\/consulting/);
 });
 
 test('copy: no «two tools», the channel since 2022, the Korzinka Go video is a Click Data MeetUp talk', () => {
   // «Обо мне» names no count since v1.2.6 (the stats strip carries it).
   const about = seed.home.sections.about.prose;
   assert.doesNotMatch(about.ru + about.en, /два инструмента|two tools/);
+  // English as it is written: one consults FOR a company, and what is one's own is «my».
+  assert.ok(about.en.includes('I consult for companies in Russia, Uzbekistan, and Kyrgyzstan.'));
+  assert.equal(seed.home.sections.projects.title.en, 'My projects');
+  assert.equal(seed.home.stats[3].unit.en, 'projects of my own');
   for (const f of ['index.html', 'en/index.html']) assert.doesNotMatch(read(f), /два инструмента|two tools/, f);
-  const ch = seed.notes.channel.prose;
-  assert.match(ch.ru, /Пишу с 2022 года\.$/);
-  assert.match(ch.en, /Writing since 2022\.$/);
-  assert.doesNotMatch(ch.ru + ch.en, /1–2/);
+  // «Since 2022» is a fact of the channel panel's meta line now — after the counter — and no
+  // longer the tail of its prose; the prose promises no number of posts a week.
+  const ch = seed.notes.channel;
+  assert.deepEqual(ch.since, { ru: 'пишу с 2022 года', en: 'writing since 2022' });
+  assert.doesNotMatch(ch.prose.ru + ch.prose.en, /2022|1–2/);
   const talk = seed.notes.external.find((x) => x.href === 'https://youtu.be/BthlUR9eO1M');
   assert.equal(talk.tag, undefined);
   assert.match(feedItemHtml({ kind: 'external', item: talk }, 'ru'), /<p class="v4-note-meta">Click Data MeetUp \/ Product Edition · YouTube · 3 600\+ просмотров<\/p>/);

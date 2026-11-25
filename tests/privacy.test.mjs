@@ -1,13 +1,15 @@
 // v1.6.0 — /privacy: the owner's privacy tools and «Джентльменский набор».
 // The page recommends software to strangers, so its promises are checks:
-// every card of the kit is open source AND has a published independent audit,
-// each proof is a link to a primary source, the button is the official site,
-// and nothing on the page is a referral link.
+// every app of the kit is open source AND has a published independent audit,
+// each proof is a link to a primary source, the «Сайт» line is the official
+// site, and nothing on the page is a referral link. (The kit was cards with a
+// spec table and a button; it is rows now — an app a row.)
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-import { renderers, privacyRepos } from '../functions/_lib/render.js';
+import { renderers, privacyRepos, plainLabel } from '../functions/_lib/render.js';
+import { renderInline, escapeAttr } from '../functions/_lib/markdown.js';
 import { fillFromSeed, SEED_FILL } from '../functions/_lib/migrations.js';
 import { renderPageJsonLd } from '../functions/_lib/jsonld.js';
 import { PAGE_PATHS } from '../functions/_lib/cache.js';
@@ -49,7 +51,21 @@ test('the on-page line points at real sections; the language menu at the twin pa
   }
 });
 
-test('«Мои инструменты»: the live tools read as on the homepage; Good Pass is a pale card with no way in', () => {
+test('the page goes tools → articles → kit → contact, and the on-page line lists the sections in that order', () => {
+  // The articles come before the kit: the kit is the long part of the page, and what stood
+  // under it was not found.
+  const ORDER = [['tools', 'privacyTools'], ['articles', 'privacyArticles'], ['kit', 'privacyKit'], ['contact', 'collabContact']];
+  for (const f of ['privacy.html', 'en/privacy.html']) {
+    const page = read(f);
+    const sections = [...page.matchAll(/<section id="([a-z]+)" class="v4-section">[\s\S]*?data-cms-list="(\w+)"/g)].map((m) => [m[1], m[2]]);
+    assert.deepEqual(sections, ORDER, `${f}: the sections, each with its own slot`);
+    assert.equal((page.match(/<section id="/g) || []).length, ORDER.length, f);
+    const nav = /<nav class="v4-onpage"[^>]*>([\s\S]*?)<\/nav>/.exec(page)[1];
+    assert.deepEqual([...nav.matchAll(/href="#([a-z]+)"/g)].map((m) => m[1]), ORDER.map(([id]) => id), `${f}: the on-page line`);
+  }
+});
+
+test('«Мои инструменты»: the live tools read as on the homepage — the same card, with no live dot; Good Pass is a pale card with no way in', () => {
   const tools = doc.sections.tools.items;
   const home = Object.fromEntries(seed.home.sections.products.items.map((it) => [it.repo, it]));
   const live = tools.filter((it) => !it.soon);
@@ -63,23 +79,30 @@ test('«Мои инструменты»: the live tools read as on the homepage;
   const soon = tools.filter((it) => it.soon);
   assert.deepEqual(soon.map((it) => it.name), ['Good Pass']);
   assert.equal(soon[0].repo, undefined, 'no repo: the sync and the subbotnik leave the soon card alone');
+  // The flag that asked for a pulsing dot is gone from the seed with the dot.
+  for (const it of tools) assert.equal(it.live, undefined, it.name);
   for (const lang of LANGS) {
     const html = renderers.privacyTools(doc, lang);
+    // The head of a card: the caption and one fact. For a live tool the fact is its version
+    // (data: .v4-version); for the one that is not ready — the word «Скоро», plain.
+    const heads = [...html.matchAll(/<div class="v4-product-head">\s*<span class="v4-tag">([^<]+)<\/span>\s*<span( class="v4-version")?>([^<]+)<\/span>\s*<\/div>/g)].map((m) => [m[1], Boolean(m[2]), m[3]]);
+    assert.deepEqual(heads, [...live.map((it) => [it.tag, true, it.version]), [soon[0].tag, false, lang === 'en' ? 'Soon' : 'Скоро']], lang);
     const card = html.slice(html.indexOf('v4-product--soon'));
-    assert.match(card, lang === 'en' ? /<span>Soon<\/span>/ : /<span>Скоро<\/span>/);
-    assert.doesNotMatch(card, /<a |v4-btn|good-pass|v4-live-dot/, `${lang}: the soon card has no link, no button, no live dot`);
-    assert.equal((html.match(/v4-live-dot/g) || []).length, 2, lang);
+    assert.doesNotMatch(card, /<a |v4-btn|good-pass/, `${lang}: the soon card has no link and no button`);
+    // No card says «running» with a dot — the two live ones had one each: a tool under «Мои
+    // инструменты» with a version and a button says it by itself.
+    assert.doesNotMatch(html, /v4-live-dot|v4-product-tag-row|<span class="sr-only">(Работает|Live)<\/span>/, lang);
   }
 });
 
-test('«Джентльменский набор»: open source, a published independent audit, the official site — every card', () => {
+test('«Джентльменский набор»: open source, a published independent audit, the official site — every app', () => {
   const items = kitItems();
-  assert.ok(items.length >= 10, `${items.length} cards`);
+  assert.ok(items.length >= 10, `${items.length} apps`);
   const https = (h) => /^https:\/\/[a-z0-9.-]+\.[a-z]{2,}(\/|$)/i.test(String(h));
   const unaudited = new Set(doc.sections.kit.groups.filter((g) => g.unaudited).flatMap((g) => g.items));
   for (const it of items) {
     const name = it.name;
-    // Only a card in the marked group may come without an audit — and it must.
+    // Only an app in the marked group may come without an audit — and it must.
     if (unaudited.has(it)) assert.deepEqual(it.audits, [], `${name}: the unaudited group has no audits`);
     else assert.ok(it.audits && it.audits.length >= 1, `${name}: an audit`);
     for (const a of it.audits) {
@@ -89,32 +112,78 @@ test('«Джентльменский набор»: open source, a published inde
     }
     assert.ok(it.source && https(it.source.href), `${name}: source code`);
     assert.ok(it.cta && https(it.cta.href), `${name}: official site`);
-    // The button names the domain it leads to, so a reader sees where it goes.
+    // The «Сайт» line of a row reads the domain it leads to, so a reader sees the address to
+    // download from. (A stored label may still end with the «→» of the button it was: a typed
+    // glyph is the renderer's to drop.)
     const host = new URL(it.cta.href).hostname.replace(/^www\./, '');
-    for (const l of LANGS) assert.equal(it.cta.label[l], `${host} →`, `${name}: the button reads its domain`);
+    for (const l of LANGS) assert.equal(plainLabel(it.cta.label[l]), host, `${name}: the site line reads its domain`);
     for (const l of LANGS) {
       for (const k of ['tag', 'price', 'desc', 'platforms']) assert.ok(String(it[k] && it[k][l]).trim(), `${name}: ${k}.${l}`);
     }
     for (const alt of it.alternatives || []) assert.ok(https(alt.href), `${name}: alternative ${alt.href}`);
   }
-  // One product, one card.
+  // One product, one row.
   assert.equal(new Set(items.map((it) => it.name)).size, items.length);
   assert.doesNotMatch(JSON.stringify(doc), REFERRAL, 'no referral links on /privacy');
 });
 
-test('kit cards render the proof as off-site links with «↗» and one button', () => {
+test('the kit is rows — an app a row: its name and kind, why this one, and the proof as plain off-site links; no button, no arrows', () => {
+  const TERMS = {
+    ru: { site: 'Сайт', audit: 'Аудит', none: 'публичного нет', code: 'Код', os: 'Где работает', alt: 'Ещё' },
+    en: { site: 'Site', audit: 'Audit', none: 'none published', code: 'Code', os: 'Runs on', alt: 'Also' },
+  };
+  const NEW_TAB = { ru: ' (откроется в новой вкладке)', en: ' (opens in a new tab)' };
+  const items = kitItems();
   for (const lang of LANGS) {
+    const t = TERMS[lang];
+    // Every link of a row leaves the site: a new tab, and the note that says so to a screen reader.
+    const link = (href, label) => `<a href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer">${renderInline(label)}<span class="sr-only">${NEW_TAB[lang]}</span></a>`;
     const html = renderers.privacyKit(doc, lang);
-    const cards = html.split('<article class="v4-product"').slice(1);
-    assert.equal(cards.length, kitItems().length, lang);
-    for (const c of cards) {
-      assert.equal((c.match(/class="v4-btn/g) || []).length, 1, 'one button in a card');
-      assert.match(c, /<dl class="v4-spec v4-spec--card"><dt>(Аудит|Audit)<\/dt>/);
-      const dd = (c.match(/<dd>[\s\S]*?<\/dd>/g) || []).join('');
-      for (const [a] of dd.matchAll(/<a [^>]*>/g)) assert.match(a, /target="_blank" rel="noopener noreferrer"/);
-      assert.equal((dd.match(/<a /g) || []).length, (dd.match(/&nbsp;↗<\/span><span class="sr-only">/g) || []).length, 'every off-site link says so');
-    }
+    // A group of rows per task, a row per app.
+    assert.equal((html.match(/<div class="v4-kit">/g) || []).length, doc.sections.kit.groups.length, lang);
+    const rows = html.split('<article class="v4-kit-row">').slice(1).map((r) => r.slice(0, r.indexOf('</article>')));
+    assert.equal(rows.length, items.length, lang);
+    rows.forEach((row, i) => {
+      const it = items[i];
+      const where = `${lang}: ${it.name}`;
+      // Left: the name — a link to the official site — and under it what the app is and what it costs.
+      assert.match(row, /^\s*<div class="v4-kit-id">\s*<h4 class="v4-kit-name">[\s\S]*?<\/h4>\s*<p class="v4-kit-kind">[^<]*<\/p>\s*<\/div>\s*<p class="v4-kit-desc">[\s\S]*?<\/p>\s*<dl class="v4-kit-facts">[\s\S]*<\/dl>\s*$/, where);
+      assert.ok(row.includes(`<h4 class="v4-kit-name">${link(it.cta.href, it.name)}</h4>`), where);
+      assert.ok(row.includes(`<p class="v4-kit-kind">${renderInline(it.tag[lang])} · ${renderInline(it.price[lang])}</p>`), where);
+      // Middle: why this one.
+      assert.ok(row.includes(`<p class="v4-kit-desc">${renderInline(it.desc[lang])}</p>`), where);
+      // Right: the proof, a fact a line — the official site by its domain, so a reader sees the
+      // address to download from; the independent audits; the source code; where it runs; what else.
+      const host = new URL(it.cta.href).hostname.replace(/^www\./, '');
+      const facts = [...row.matchAll(/<div><dt>([^<]+)<\/dt> <dd>([\s\S]*?)<\/dd><\/div>/g)].map((m) => [m[1], m[2]]);
+      assert.deepEqual(facts, [
+        [t.site, link(it.cta.href, host)],
+        [t.audit, it.audits.length ? it.audits.map((a) => link(a.href, a.label[lang])).join('; ') : t.none],
+        [t.code, link(it.source.href, it.source.label[lang])],
+        [t.os, renderInline(it.platforms[lang])],
+        ...((it.alternatives || []).length ? [[t.alt, it.alternatives.map((a) => link(a.href, a.label[lang])).join(', ')]] : []),
+      ], where);
+      assert.match(row, /<dl class="v4-kit-facts">(?:<div><dt>[^<]+<\/dt> <dd>[\s\S]*?<\/dd><\/div>)+<\/dl>\s*$/, `${where}: nothing in the list but its facts`);
+      // No button — the name and the «Сайт» line lead to the site — and no arrow after a link:
+      // every link of the row leaves the site, so an arrow at each said nothing.
+      assert.doesNotMatch(row, /v4-btn|v4-ne|[→↗]/, where);
+      for (const [a] of row.matchAll(/<a [^>]*>/g)) assert.match(a, /^<a href="https:\/\/[^"]+" target="_blank" rel="noopener noreferrer">$/, where);
+      assert.equal((row.match(/<a /g) || []).length, (row.match(/<span class="sr-only">/g) || []).length, `${where}: every link says it opens a new tab`);
+    });
+    assert.doesNotMatch(html, /v4-btn|v4-product|v4-spec/, `${lang}: rows, not cards with a spec table and a button`);
     assert.match(html, /<p class="v4-terms">/, 'the date the list was checked');
+    // The text above the rows points at them in the page's own words: where the report is, and
+    // which line holds the address — named as the row names it.
+    const prose = doc.sections.kit.prose[lang];
+    assert.match(prose, lang === 'en' ? /The link to the report is in the app’s row\./ : /Ссылка на отчёт — в строке приложения\./, lang);
+    assert.ok(prose.includes(lang === 'en' ? `its address is in the “${t.site}” line.` : `его адрес указан в строке «${t.site}».`), lang);
+    assert.doesNotMatch(prose, /карточк|кнопк|\bcard\b|\bbutton\b/i, `${lang}: no card and no button to point at`);
+  }
+  // The committed pages are the twins of that render: as many rows, no button among them.
+  for (const f of ['privacy.html', 'en/privacy.html']) {
+    const kit = read(f).split('<section id="kit"')[1].split('</section>')[0];
+    assert.equal((kit.match(/<article class="v4-kit-row">/g) || []).length, items.length, f);
+    assert.doesNotMatch(kit, /v4-btn|v4-product|v4-ne|↗/, f);
   }
 });
 
@@ -181,9 +250,13 @@ test('the one exception — an ad blocker without an audit — is marked, last, 
     assert.match(doc.sections.kit.prose[lang], lang === 'en' ? /One exception/ : /Одно исключение/, `${lang}: the intro names the exception`);
     const html = renderers.privacyKit(doc, lang);
     const tail = html.slice(html.lastIndexOf('<h3 class="v4-h3">'));
-    assert.match(tail, /^<h3 class="v4-h3">[^<]+<\/h3>\s*<div class="v4-prose"><p>/, lang);
-    assert.match(tail, lang === 'en' ? /<dt>Audit<\/dt><dd>none published<\/dd>/ : /<dt>Аудит<\/dt><dd>публичного нет<\/dd>/, lang);
-    assert.equal((html.match(/публичного нет|none published/g) || []).length, marked[0].items.length, `${lang}: only the marked cards`);
+    // The why is the group's note: a secondary line under the caption — then the rule and the
+    // rows, like every group (it was a paragraph of the page's text between the caption and
+    // the rule, and the group read as another component).
+    assert.match(tail, /^<h3 class="v4-h3">[^<]+<\/h3>\s*<p class="v4-kit-note">[^<]+<\/p>\s*<div class="v4-kit">/, lang);
+    // The row says it where every other row links its audit — in the «Аудит» line, in words.
+    assert.match(tail, lang === 'en' ? /<div><dt>Audit<\/dt> <dd>none published<\/dd><\/div>/ : /<div><dt>Аудит<\/dt> <dd>публичного нет<\/dd><\/div>/, lang);
+    assert.equal((html.match(/публичного нет|none published/g) || []).length, marked[0].items.length, `${lang}: only the marked rows`);
   }
   // DNS made it into the audited part, and Mullvad's public DNS (shut down on 2 Nov 2026) did not.
   const audited = groups.filter((g) => !g.unaudited).flatMap((g) => g.items).map((it) => it.name);
@@ -254,6 +327,9 @@ test('fillFromSeed: a field the renderer starts reading is filled from the seed,
   assert.equal(fillFromSeed(null, 'home', seed, TABLE), null);
   // The rev 34 Save (2026-11-25) stored the link: nothing is filled any more.
   assert.deepEqual(SEED_FILL, {});
+  // No read-time migration is left either, so nothing reads the marker the gated ones wrote:
+  // `migration` is gone from every doc of the seed.
+  for (const page of ['home', 'uses', 'consulting', 'collaborate', 'privacy', 'notes']) assert.equal(seed[page].migration, undefined, page);
   const bare = { sections: { products: { items: [] } } };
   assert.equal(fillFromSeed(bare, 'home', seed).sections.products.privacy, undefined);
   assert.match(read('functions/_lib/content.js'), /fixStaleContent\(fillFromSeed\(await loadDocRaw\(env, page\), page, seed\)\)/);

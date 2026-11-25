@@ -5,7 +5,8 @@
 #   3. RU/EN structural parity (check-sync.py)
 #   4. inline critical CSS ↔ external layer (check-critical.py)
 #   5. static twins ≡ seed render (render-static.mjs --check)
-#   6. the Functions bundle the way Pages builds it (skip with NO_BUILD=1)
+#   6. the hand-written text of the static pages is typeset (typo-static.mjs --check)
+#   7. the Functions bundle the way Pages builds it (skip with NO_BUILD=1)
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -34,6 +35,10 @@ echo "  ok"
 
 echo "→ render-static.mjs --check (templates are the seed's twins)"
 node scripts/render-static.mjs --check >/dev/null
+echo "  ok"
+
+echo "→ typo-static.mjs --check (/thanks, /404 and the footers are typeset)"
+node scripts/typo-static.mjs --check >/dev/null
 echo "  ok"
 
 # Bundle Functions the way Pages does — catches cross-module import errors that

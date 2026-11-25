@@ -43,14 +43,14 @@ Paste into any service's `<head>`. Load order matters:
 ```html
 <!-- morgunov.tech design system v1 — non-blocking preload-swap -->
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/tokens.css?v=5629caeb" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/base.css?v=0e404315" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=9c2b749b" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/tokens.css?v=50fa198d" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/base.css?v=03b78c6e" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=544dc438" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript>
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/tokens.css?v=5629caeb" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/base.css?v=0e404315" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=9c2b749b" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/tokens.css?v=50fa198d" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/base.css?v=03b78c6e" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=544dc438" />
 </noscript>
 ```
 
@@ -90,7 +90,7 @@ only» is for two cases: a page other people host themselves (see
 | Bar | `header.v4-bar` | the full width of the shell, an ink rule under it |
 | Service mark | `a.v4-service` → `https://s.morgunov.tech/` | `MORGUNOV.TECH / NAME`; at 640px and below only the name shows |
 | Navigation | `nav.v4-nav.v4-dropdown` with `.v4-bar-mid` | at most five links; a «Меню» dropdown at 960px and below (640px before v4.0.0 of s.morgunov.tech — five links do not fit one line under ~750px); leave the whole `nav` out when the page has no sections. A service lists its own sections here, never the site's menu: the mark is its way back to the site (owner, 2026-11-25). The current page's link carries `aria-current="page"` (the orange underline; the round mark in the phone's panel). Links of one kind may share a group — `div.v4-dropdown.v4-nav-group` > `button.v4-nav-group-btn[aria-controls]` + `div.v4-menu.v4-nav-sub` of `a.v4-menu-item` (a disclosure, no `role="menu"`; `.is-current` on the group when one of its pages is), with `span.v4-nav-group-cap` for the phone's panel |
-| On-page line | `nav.v4-onpage` right after the hero | a page's sections when the bar lists the site's pages (s.morgunov.tech since v3.0.0): a quiet line of links in sentence case, set apart by space (no «·»: it started the second row on a phone), no buttons |
+| On-page line | `nav.v4-onpage` right after the hero | a page's sections when the bar lists the site's pages (s.morgunov.tech since v3.0.0): a quiet line of links in sentence case, set apart by space (no «·»: it started the second row on a phone), no buttons. The links are words of a line of text, one a line in the markup (the space between them is where the line wraps); a line that wraps splits evenly (`text-wrap: balance`) |
 | Language | `.v4-dropdown.v4-lang` | `RU ⌄`; the items are links to the same page in the other language |
 | Theme | `.v4-dropdown.v4-theme` | the icon button; four items in this order: light, dark, auto, high contrast |
 | Footer | `footer.v4-foot` | under a hairline: name · year · the build mark as a quiet line of text (then at most two links of the page's own), and the privacy line as a small framed nameplate on the right — and nothing else |
@@ -143,11 +143,11 @@ look-alikes.
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech / service · 2026 · <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.0.1</a></span>
+      <span>morgunov.tech / service&nbsp;· 2026&nbsp;· <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.1.0</a></span>
       <span class="v4-foot-privacy">Без cookies, трекеров и аналитики</span>
     </footer>
   </div>
-  <script defer src="https://s.morgunov.tech/ds/v1/chrome.js?v=5108ccd9"></script>
+  <script defer src="https://s.morgunov.tech/ds/v1/chrome.js?v=1730f2ec"></script>
 </body>
 ```
 <!-- chrome:snippet:end -->
@@ -171,9 +171,12 @@ is plain text — 14px, sentence case, the secondary ink — and the privacy lin
 a page under 12px). It says what the service promises in a few words («Без cookies, трекеров и
 аналитики», «Everything is computed in your browser»); on a phone it sits under the line. The
 markup is unchanged: two spans. It has one slot, as the bar has its nav:
-after the build mark a page may put **up to two links of its own**, each as `· <a>label</a>`, plain
+after the build mark a page may put **up to two links of its own**, each as `&nbsp;· <a>label</a>`, plain
 text links (this site has one: «сказать спасибо или сообщить об ошибке»). A third link does not fit the slot — it belongs
 on the page. A service with nothing to link leaves the slot empty, as the snippet above does.
+A «·» of the line is written with a no-break space before it (`&nbsp;·`), as in the snippet: on a
+phone the line wraps, and a row must not start with a separator. The build mark is a word of the
+line, in the line's own face (it was mono until v4.1.0 of the origin).
 
 `chrome.js` is the site's `script.js` without its site-only parts — a checked
 twin (`scripts/build-chrome.mjs`), so the menus of a service behave exactly as
@@ -197,8 +200,11 @@ a service keeps to them by reading this list.
 1. **One state — one sign, and never colour alone.** The selected item of a menu is a round mark
    before its label (`.v4-menu-item[aria-checked="true"]::before`), not coloured text in a frame.
    A toggle the script focused after a mouse click shows no focus ring (`chrome.js` marks that
-   focus with `data-pointer-focus`); reached from the keyboard, it keeps the ring. Hover is orange
-   text; do not add a frame, an underline or a fill to say the same thing twice.
+   focus with `data-pointer-focus`) and no focus colour either — it does not stay orange after
+   the click; reached from the keyboard, it keeps both. A toggle whose menu is open is orange.
+   Hover is orange text for a control and a menu item, the full ink for a link of the bar; do not
+   add a frame, an underline or a fill to say the same thing twice — in the bar the underline is
+   the current page's sign and nothing else's.
 2. **A number marks a sequence.** «Step 1 of 6» is a sequence. Sections of a page are not: a
    section head is a title and the rule under it, no «01».
 3. **A link that leads on names what is behind it**, as a noun phrase: «Все проекты на GitHub»,
@@ -207,12 +213,18 @@ a service keeps to them by reading this list.
    an `aria-hidden` span after the label, never typed into the label. The «↗» is not the
    character: the IBM Plex subsets carry no arrow but ↑ ↓, and a system «↗» is a hairline from a
    symbol font, so the mark is the line's own «→» turned 45° —
-   `<span aria-hidden="true">&nbsp;<span class="v4-ne">→</span></span>` (`.v4-ne` in
-   `components.css`).
-4. **A row in a list of publications says when and where**: `06.2025 · YouTube`, one mono line.
+   `<span class="v4-out" aria-hidden="true">&#8288;<span class="v4-ne">→</span></span>` (`.v4-ne`
+   and `.v4-out` in `components.css`). Copy it whole: the turned arrow is a box, and a line may
+   break before a box even after a no-break space — `.v4-out` does not wrap and opens with a word
+   joiner (`&#8288;`), so the arrow never starts a line alone; the gap before the arrow is its
+   margin, so the underline of a link ends at its last word.
+4. **A row in a list of publications says when and where**: `06.2025 · YouTube`, the label
+   column of the table — the one place a page uses mono.
    The place is the platform, taken from the address. No free-text tag, no filled chip.
 5. **One button in a block.** The second way to do the same thing is a line of text with a link
-   («или на почту: …»), not a second button. A link to read more first is not part of the
+   («Или на почту: …»), not a second button. One action has one label on every page: a button
+   that opens the Telegram chat reads «Написать в Telegram» / “Message me on Telegram” wherever
+   it stands. A link to read more first is not part of the
    button row.
 6. **The build mark** — see «Service chrome».
 7. **The only round shape is the live dot** (`.v4-live-dot`) and its two relatives, the busy mark
@@ -221,8 +233,10 @@ a service keeps to them by reading this list.
    next to a word that already says «now» — and not beside every item of a list titled «Работает»,
    where it says nothing (this site shows none since v4.1.0).
 8. **One voice.** Every size is one of the scale below; there is ONE caption style (sans caps);
-   mono is for data and is never caps and never a link; weight says the role (600 a title, 500
-   something to press, 400 text); no italics. Two caption styles side by side — sans caps and
+   mono is the label column of a table (a period, a year, a date) and inline code — never caps,
+   never a link, and not a number inside a line of text (a version, a count and the build mark
+   are set in the line's own face); weight says the role (600 a title, 500 something to press,
+   400 text); no italics. Two caption styles side by side — sans caps and
    mono caps — and six sizes for one kind of text read as noise, however each was justified.
 
 ## Type, space and button states
@@ -237,7 +251,9 @@ the atoms; a service's own stylesheet keeps to the same steps.
 | Item title (a card, a row of a list) | 18px | 600 |
 | Text — anything read as a sentence | **16px / 1.6 on every device** (`body.v4-page`; 14px on a desktop before v4.1.0) | 400; a lead may be 18px |
 | Secondary line (a source, a note under a button, the footer) | 14px | the secondary ink |
-| Data — a date, a period, a version, a count | 13px mono | plain: never caps, never a link style |
+| The label column of a table — a period, a year, a date | 13px mono | plain: never caps, never a link |
+| A number in a line of text — a version, a count, the build mark | the line's own size and face | tabular figures |
+| Inline `code` | mono, a step under its text: 14px in 16px text | a quiet ground and a hairline |
 | Caption — the bar, the menus, the buttons, the label over a group (`.v4-h3`) | 12px caps, 0.08em, 500, sans | the tokens `--v4-label-*`; `--v4-label-xs-*` hold the same values |
 
 There is no mono caps (until v4.1.0 a page had two caption styles, sans caps for chrome and mono
@@ -246,14 +262,19 @@ its captions and its bar simply follow with the next sync; a page that set its o
 keeps it — move it to 16px when you touch it.
 
 Space: every gap is one of 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64. Between sections 64 (48 on a
-phone), under a section head 24, between paragraphs 16. The shell (`.v4-root`) pads 32/48/48,
+phone), under a section head 24 on every device, between paragraphs 16, a row of a table 16 (one
+line) or 24 (several). A grid of cards keeps the width of its columns in every row. The shell (`.v4-root`) pads 32/48/48,
 24/32/40 up to 960px, 16/20/32 up to 640px.
 
 The menus hang from the bar's rule: a panel has no top border of its own. The first link of the
 bar starts on the content's left edge and the theme icon ends on its right edge.
 
 `components.css` styles every state of `.v4-btn` / `.v4-btn-primary`: hover,
-focus, pressed (`:active`), disabled and busy. A button is 44px high;
+focus, pressed (`:active`), disabled and busy. Under the pointer and under
+focus a button takes the ink fill — the primary one too (it used to lighten its
+orange by 6%, an answer nobody saw), so the orange focus ring never sits on an
+orange button. A link of the bar answers the pointer with the full ink alone:
+the orange underline is the sign of the current page and of nothing else. A button is 44px high;
 `.v4-btn--sm` is the small one beside a line of text (32px on screen, 44px to a
 finger). Disabled is `disabled` on a
 `<button>` or `aria-disabled="true"` on a link — a dashed outline in

@@ -37,6 +37,11 @@ test('the section is the page: no consulting blocks left, it sits before the con
     assert.equal(links.length, 1, `${f}: one button in a block`);
     // The contact route of the page: Telegram, like every other button on it.
     assert.equal(links[0], '<a class="v4-btn" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">', f);
+    // …and the only one: the hero has no button of its own. The same button stood there too,
+    // twice within one screen.
+    const hero = page.split('<section class="v4-hero')[1].split('</section>')[0];
+    assert.doesNotMatch(hero, /class="v4-btn/, `${f}: no button in the hero`);
+    assert.equal(seed.collaborate.hero.ctas[lang], '', `${f}: no stored hero button`);
     assert.equal((sec.match(/<li>/g) || []).length, s.items.length, f);
     assert.ok(sec.includes(renderers.collabPartnerships(seed.collaborate, lang).split('<div class="v4-prose">')[1].split('</p>')[0].trim()), `${f}: the template is the seed's twin`);
   }

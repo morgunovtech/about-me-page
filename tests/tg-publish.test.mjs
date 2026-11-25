@@ -12,9 +12,9 @@ const okFetch = (calls, results) => async (url, init) => {
   return { json: async () => r };
 };
 
-test('registry resolves telegram and linkedin', () => {
+test('registry resolves telegram; an unknown target is null (the LinkedIn stub is gone)', () => {
   assert.equal(getTarget('telegram').id, 'telegram');
-  assert.equal(getTarget('linkedin').id, 'linkedin');
+  assert.equal(getTarget('linkedin'), null);
   assert.equal(getTarget('nope'), null);
 });
 

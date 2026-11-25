@@ -58,10 +58,12 @@ release is tagged `vX.Y.Z`, and minor/major ones get a [GitHub Release](https://
 scripts/check.sh                           # everything below + node --check/--test + a Functions build
 python3 scripts/check-sync.py              # RU↔EN structural parity
 python3 scripts/check-critical.py          # inline critical CSS ↔ ds/v1 + styles.css
-node scripts/render-static.mjs --check     # list containers and JSON-LD are the seed's twins (--write regenerates; prose leaves are edited by hand)
+node scripts/render-static.mjs --check     # every hook of a template is the seed's twin: lists, JSON-LD and the leaves (--write regenerates)
+node scripts/typo-static.mjs --check       # /thanks, /404 and the footers are typeset (--write puts the no-break spaces in)
 python3 scripts/version-stamp.py           # build SHA + content-hash ?v= cache busters
 node scripts/sync-products.mjs --write     # product cards' versions + descriptions from their GitHub repos
 node scripts/kv-push.mjs home --yes        # put the seed doc live in KV, like an /admin Save (dry run without --yes)
+node scripts/kv-patch-notes.mjs scripts/patches/FILE.json --yes   # exact text corrections to notes, which live only in KV (dry run without --yes)
 ```
 
 Run `check.sh` before any commit — it catches an extra section in RU that's missing in EN,
