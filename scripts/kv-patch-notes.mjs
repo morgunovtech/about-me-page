@@ -16,7 +16,11 @@
 // nothing of it is written: a correction never lands in the wrong place. A change
 // of a title or an excerpt is repeated in the copies the doc keeps of them
 // (meta.title / share.title, meta.description / share.description) where those
-// still hold the old text. A second run changes nothing (the `from` is gone).
+// still hold the old text. A second run changes nothing (the `from` is gone) —
+// which is why `to` may not be empty and may not contain `from`: such an entry
+// would be applied again on every run, or could not be told from a mistyped
+// quote. To delete a fragment, quote it with a word of context on a side and
+// keep that word in `to`.
 // The edge cache is not purged from here: the pages update within 300 s.
 import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
@@ -44,6 +48,10 @@ export function applyPatch(doc, entries) {
     const m = FIELD.exec(e.field || '');
     if (!m) { log.push({ ...e, status: 'bad-field' }); continue; }
     const [, name, lang] = m;
+    if (typeof e.from !== 'string' || typeof e.to !== 'string' || !e.from || !e.to || e.to.includes(e.from)) {
+      log.push({ ...e, status: 'bad-entry' });
+      continue;
+    }
     const cur = out[name] && out[name][lang];
     if (typeof cur !== 'string') { log.push({ ...e, status: 'no-field' }); continue; }
     const want = e.count || 1;

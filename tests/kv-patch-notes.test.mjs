@@ -52,6 +52,27 @@ test('a quote that is missing or occurs twice stops the whole note', () => {
   assert.equal(applyPatch(note(), [{ field: 'body.en', from: 'Hello', to: 'Hi' }]).ok, true);
 });
 
+test('an entry that could not be applied exactly once is refused: an empty «to», a «to» that holds its «from»', () => {
+  // A second run must change nothing. «b» → «bc» would be applied again on every run; a deletion
+  // («to» empty) could not be told from a quote that never stood in the note.
+  for (const e of [
+    { field: 'body.ru', from: 'превет', to: 'превет!' },
+    { field: 'body.ru', from: ' Опечатка тут: превет.', to: '' },
+    { field: 'body.ru', from: '', to: 'x' },
+    { field: 'body.ru', from: 'превет' },
+  ]) {
+    const r = applyPatch(note(), [e]);
+    assert.equal(r.ok, false, JSON.stringify(e));
+    assert.equal(r.log[0].status, 'bad-entry');
+    assert.deepEqual(r.doc, note(), 'nothing is changed');
+  }
+  // A deletion is written with a word of context kept on a side.
+  const cut = applyPatch(note(), [{ field: 'body.ru', from: 'точек. И ещё раз до 20 000 точек.', to: 'точек.' }]);
+  assert.ok(cut.ok);
+  assert.equal(cut.doc.body.ru, '<p>Выросла до 20 000 точек.</p><p>Опечатка тут: превет.</p>');
+  assert.equal(applyPatch(cut.doc, [{ field: 'body.ru', from: 'точек. И ещё раз до 20 000 точек.', to: 'точек.' }]).log[0].status, 'already');
+});
+
 test('a second run changes nothing', () => {
   const entries = [{ field: 'body.ru', from: 'превет', to: 'привет' }];
   const first = applyPatch(note(), entries);

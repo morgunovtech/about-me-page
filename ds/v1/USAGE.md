@@ -45,12 +45,12 @@ Paste into any service's `<head>`. Load order matters:
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/tokens.css?v=50fa198d" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/base.css?v=03b78c6e" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=544dc438" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=8a12b6d5" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript>
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/fonts.css?v=64eea157" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/tokens.css?v=50fa198d" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/base.css?v=03b78c6e" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=544dc438" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=8a12b6d5" />
 </noscript>
 ```
 

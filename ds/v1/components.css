@@ -84,6 +84,13 @@
   color: var(--v4-fg);
 }
 
+/* In high contrast the secondary ink and the full ink are both white (1.15:1):
+   there the pointer is answered with the accent, as an item of a menu answers. */
+[data-theme="high-contrast"] .v4-bar-mid a:not([aria-current="page"]):hover,
+[data-theme="high-contrast"] .v4-bar-mid a:not([aria-current="page"]):focus-visible {
+  color: var(--v4-orange-text);
+}
+
 /* The current page in the site menu: the link of the page, or the «Work with
    me» group when the page is one of its items — full colour and the orange
    underline. One sign for one state. */
@@ -123,6 +130,11 @@
 .v4-nav-group-btn:focus-visible:not([data-pointer-focus]),
 .v4-nav-group.is-open > .v4-nav-group-btn {
   color: var(--v4-fg);
+}
+
+[data-theme="high-contrast"] .v4-nav-group:not(.is-current) > .v4-nav-group-btn:hover,
+[data-theme="high-contrast"] .v4-nav-group:not(.is-current) > .v4-nav-group-btn:focus-visible:not([data-pointer-focus]) {
+  color: var(--v4-orange-text);
 }
 
 .v4-nav-group-btn .v4-chevron {
@@ -1108,10 +1120,18 @@ p.v4-prose,
 }
 
 /* Inside a panel the ring stays within the item: a panel has 4px of padding,
-   and a ring outside the item re-framed the whole panel in orange. */
-.v4-page .v4-menu-item:focus-visible,
-.v4-page .v4-bar-mid a:focus-visible {
+   and a ring outside the item re-framed the whole panel in orange. The links of
+   the bar are items of a panel only while the menu is folded — in the open bar
+   they have no side padding, and a ring drawn inside would cross their first
+   and last letters. */
+.v4-page .v4-menu-item:focus-visible {
   outline-offset: -2px;
+}
+
+@media (max-width: 960px) {
+  .v4-page .v4-bar-mid a:focus-visible {
+    outline-offset: -2px;
+  }
 }
 
 /* The skip link is the first thing a keyboard visitor meets: a button of the
