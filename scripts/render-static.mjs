@@ -11,7 +11,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
-import { renderers } from '../functions/_lib/render.js';
+import { renderers, privacyRepos } from '../functions/_lib/render.js';
 import { renderPageJsonLd } from '../functions/_lib/jsonld.js';
 import { buildFeed } from '../functions/_lib/notes-feed.js';
 
@@ -61,7 +61,10 @@ function processPage(html, page, lang) {
   const doc = clone(seed[page]);
   // The «Публикации» block: the seed has no articles, so the twin holds the three
   // newest external materials (the live page adds published notes on top).
-  if (page === 'home') doc._feed = buildFeed([], seed.notes, lang).slice(0, 3);
+  if (page === 'home') {
+    doc._feed = buildFeed([], seed.notes, lang).slice(0, 3);
+    doc._privacyRepos = privacyRepos(seed.privacy);
+  }
   // /privacy «Статьи» lists notes from KV: the seed has none, so the twin holds the lead and the link.
   if (page === 'privacy') doc._articles = [];
   const drift = [];

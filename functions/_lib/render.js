@@ -391,6 +391,12 @@ function feedRow(e, lang) {
   return `<li class="v4-feed-row"><span class="v4-feed-meta">${meta}</span>${link}</li>`;
 }
 
+// The repos of the /privacy tools — the homepage groups those products (v2.2.2).
+export function privacyRepos(privacyDoc) {
+  const items = (privacyDoc && privacyDoc.sections && privacyDoc.sections.tools && privacyDoc.sections.tools.items) || [];
+  return items.map((it) => it && it.repo).filter(Boolean);
+}
+
 export const renderers = {
   heroCtas: (doc, lang, edit) =>
     doc.hero.ctas.map((c, i) => btn(c, lang, edit, 'hero.ctas.' + i, true)).join('\n          '),
@@ -407,8 +413,20 @@ export const renderers = {
   ventures: (doc, lang, edit) =>
     doc.sections.ventures.items.map((it, i) => ventureRow(it, lang, edit, 'sections.ventures.items.' + i)).join('\n          '),
 
-  products: (doc, lang, edit) =>
-    doc.sections.products.items.map((it, i) => productCard(it, lang, edit, 'sections.products.items.' + i)).join('\n        '),
+  // «Работает» (v2.2.2): the products that are also tools on /privacy (`_privacyRepos`,
+  // read from the privacy doc) get their own grid under the /privacy link —
+  // the link introduces them instead of sitting in a stack of «more» links.
+  // Without that list, or with nothing on one side, it is one grid as before.
+  products: (doc, lang, edit) => {
+    const sec = doc.sections.products;
+    const card = (it) => productCard(it, lang, edit, 'sections.products.items.' + sec.items.indexOf(it));
+    const grid = (list) => `<div class="v4-products">\n          ${list.map(card).join('\n          ')}\n        </div>`;
+    const repos = new Set(doc._privacyRepos || []);
+    const priv = sec.items.filter((it) => it.repo && repos.has(it.repo));
+    const rest = sec.items.filter((it) => !priv.includes(it));
+    if (!sec.privacy || !priv.length || !rest.length) return grid(sec.items);
+    return `${grid(rest)}\n        ${moreLink(sec.privacy, lang, edit, 'sections.products.privacy')}\n        ${grid(priv)}`;
+  },
 
   // «Публикации»: the three newest feed entries (own notes + external materials),
   // attached to the doc as `_feed` by _middleware.js / the admin preview /
@@ -464,19 +482,22 @@ export const renderers = {
             ${renderProse(pick(s.prose, lang))}
             ${liList(s.points, lang, 'v4-list v4-list--spaced')}
             <p class="v4-collab-clients">${renderInline(pick(s.clients, lang))}</p>
+            ${s.proof ? `<p class="v4-collab-clients">${renderInline(pick(s.proof, lang))}</p>` : ''}
           </div>
         </div>`;
   },
 
   // The one phrase «с чем ко мне приходить» above the tiers, the reply time
-  // under them (both optional: a doc saved before v1.2.7 has neither).
+  // under them, then who signs the contract (all optional: a doc saved before
+  // v1.2.7 has none of them, before v2.2.2 no `legal`).
   collabConsulting: (doc, lang) => {
     const s = doc.sections.consulting;
     const lead = pick(s.prose, lang);
     const note = pick(s.note, lang);
+    const legal = pick(s.legal, lang);
     return `${lead ? `<p class="v4-tagline v4-tagline--compact">${renderInline(lead)}</p>\n        ` : ''}<div class="v4-products">
           ${(s.tiers || []).map((t) => tierCard(t, lang)).join('\n          ')}
-        </div>${note ? `\n        <p class="v4-terms">${renderInline(note)}</p>` : ''}`;
+        </div>${note ? `\n        <p class="v4-terms">${renderInline(note)}</p>` : ''}${legal ? `\n        <p class="v4-terms">${renderInline(legal)}</p>` : ''}`;
   },
 
   collabStrategy: (doc, lang) => {

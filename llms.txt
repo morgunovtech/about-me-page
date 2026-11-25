@@ -7,11 +7,11 @@
 - Name: Semyon Morgunov (Семён Моргунов)
 - Positioning: builds products in Central Asia's fast-growing markets — assembles product, operations, and unit economics in parallel. Brings products to positive unit economics, not just to launch.
 - Current role: Head of FinTech @ Yandex Uzbekistan, Tashkent, Uzbekistan (since April 2026) — Yandex Split BNPL, FinTech for Yandex Pro, strategic fintech partnerships
-- Past roles: Director of E-commerce / CPO Korzinka Go @ Korzinka (2023–2026, orders ×23 in 3 years (peak 10,000/day), expansion 1 → 9 cities in 12 months, revenue ×2 YoY with positive EBITDA, payments module from scratch with 3 BNPL providers and PCI DSS 4.0, CSAT 4.2 → 4.5); Head of Product @ Yandex Services / Yandex.Uslugi (2022–2023, 30+ products in home services, ~6.5M MAU, GMV ×2.2, EBITDA turned positive); Head of Growth & Monetization @ Skyeng / Skysmart (2017–2022, activated 7M+ users, products that became top-3 acquisition channels with positive unit economics); Certified Sales Trainer @ Apple Russia (2018–2019, contractor)
+- Past roles: Director of E-commerce / CPO Korzinka Go @ Korzinka (2023–2026, orders ×23 in 3 years (peak 10,000/day), expansion 1 → 9 cities in 12 months, revenue ×2 YoY with positive EBITDA, payments module from scratch: Korzinka became the first retailer in Uzbekistan certified under PCI DSS 4.0, and Korzinka Go was among the first grocery chains in Uzbekistan with instalments on online orders (from May 2024; 3 BNPL providers), CSAT 4.2 → 4.5); Head of Product @ Yandex Services / Yandex.Uslugi (2022–2023, 30+ products in home services, ~6.5M MAU, GMV ×2.2, EBITDA turned positive); Head of Growth & Monetization @ Skyeng / Skysmart (2017–2022, activated 7M+ users, products that became top-3 acquisition channels with positive unit economics); Certified Sales Trainer @ Apple Russia (2018–2019, contractor)
 - Geography: works in Russia and Uzbekistan, consults companies in Kyrgyzstan
 - Skills: FinTech, P&L Management, Product Strategy, E-Commerce, Growth, Monetization, 0→1 Launches
 - Industries: FinTech, e-com, RetailTech, EdTech
-- Teaching: I-Corps instructor; one of five Apple-accredited sales trainers in Russia at the time
+- Teaching, mentoring and judging: completed the Startup Instructors Program based on the NSF I-Corps methodology (August 2023); mentor at the President Tech Award 2024 hackathon (IT Park, 120+ teams, $1M prize pool; https://www.it-park.uz/en/itpark/news/president-tech-award-2024-hackathon-results); judge at Techstars Startup Weekend Central Asia (Tashkent, March 2024) and at the TechGenius hackathon (UNDP and IT Park, Tashkent, November 2023); one of five Apple-accredited sales trainers in Russia at the time
 - Languages: Russian (primary), English
 
 ## Contact
@@ -64,7 +64,7 @@
 
 ## Collaboration
 
-- [Consulting](https://s.morgunov.tech/consulting) — in his words: “I help e-commerce and retail companies in Central Asia get products to positive unit economics: e-grocery and delivery, growth and monetization, product strategy and teams; FinTech outside Uzbekistan.” A one-off session or a monthly cycle; start with a Telegram message to https://t.me/s_mrgnv
+- [Consulting](https://s.morgunov.tech/consulting) — in his words: “I help e-commerce and retail companies in Central Asia get products to positive unit economics: e-grocery and delivery, growth and monetization, product strategy and teams; FinTech outside Uzbekistan.” A one-off session or a monthly cycle; contract and invoice from his company MOR TECH LLC, an IT Park resident (https://www.it-park.uz/en/itpark/residents/itpark-residents); start with a Telegram message to https://t.me/s_mrgnv
 - [Strategic consulting](https://s.morgunov.tech/consulting#strategy) — long-term retainer as an external strategist
 - [Partnerships & media](https://s.morgunov.tech/en/collaborate#partnerships) — open to relevant requests: independent product feedback, review units, beta programs, press invitations, open-source sponsorship. Editorial independence is non-negotiable: no guaranteed positive reviews, no recurring posting quotas. Start with a Telegram message to https://t.me/s_mrgnv
 - [GitHub Sponsors](https://github.com/sponsors/morgunovtech) — voluntary personal support for his open-source projects; not a charity collection and not a purchase

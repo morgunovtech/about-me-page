@@ -426,13 +426,6 @@
             "ru": "/privacy",
             "en": "/en/privacy"
           }
-        },
-        "support": {
-          "label": {
-            "ru": "Добровольная поддержка моих открытых проектов на GitHub Sponsors",
-            "en": "Voluntary support for my open-source work on GitHub Sponsors"
-          },
-          "href": "https://github.com/sponsors/morgunovtech"
         }
       },
       "ventures": {
@@ -1218,8 +1211,8 @@
           "en": "What I do"
         },
         "prose": {
-          "ru": "10 лет в продукте, e-com и FinTech. Сейчас — Head of FinTech в **Yandex Uzbekistan**: запускаю BNPL, платежи и кредит на одном из самых быстрорастущих рынков региона.\n\nДо этого 3 года руководил крупнейшим e-grocery в Узбекистане в **Korzinka** (заказы ×23, расширение в 9 городов, положительная EBITDA); управлял P&L в **Yandex Uslugi** (GMV ×2,2, положительная EBITDA); запускал эксперименты в **Skyeng** (7 млн пользователей).",
-          "en": "10 years in product, e-com, and FinTech. Currently Head of FinTech at **Yandex Uzbekistan** — shipping BNPL, payments, and credit in one of the fastest‑growing markets in the region.\n\nBefore that: 3 years leading the largest e-grocery in Uzbekistan at **Korzinka** (orders ×23, expansion to 9 cities, positive EBITDA); managed P&L at **Yandex Services** (GMV ×2.2, positive EBITDA); launched experiments at **Skyeng** (7M users)."
+          "ru": "10 лет в продукте, e-com и FinTech. Сейчас — Head of FinTech в **Yandex Uzbekistan**: запускаю BNPL, платежи и кредит на одном из самых быстрорастущих рынков региона.\n\nДо этого 3 года руководил крупнейшим e-grocery в Узбекистане в **Korzinka** (заказы ×23, расширение в 9 городов, положительная EBITDA) и собрал там платёжный модуль с нуля: Korzinka стала первым ритейлером в Узбекистане с сертификацией PCI DSS 4.0, а рассрочку на онлайн-заказы мы подключили одними из первых среди продуктовых сетей. Управлял P&L в **Yandex Uslugi** (GMV ×2,2, положительная EBITDA); запускал эксперименты в **Skyeng** (7 млн пользователей).",
+          "en": "10 years in product, e-com, and FinTech. Currently Head of FinTech at **Yandex Uzbekistan** — shipping BNPL, payments, and credit in one of the fastest‑growing markets in the region.\n\nBefore that: 3 years leading the largest e-grocery in Uzbekistan at **Korzinka** (orders ×23, expansion to 9 cities, positive EBITDA), where I built the payments module from scratch: Korzinka became the first retailer in Uzbekistan certified under PCI DSS 4.0, and we were among the first grocery chains to offer instalments on online orders. Managed P&L at **Yandex Services** (GMV ×2.2, positive EBITDA); launched experiments at **Skyeng** (7M users)."
         },
         "points": [
           {
@@ -1238,6 +1231,10 @@
         "clients": {
           "ru": "Клиенты: **UMAI Group · Bellissimo Pizza · Buildex · MediaPark**",
           "en": "Clients: **UMAI Group · Bellissimo Pizza · Buildex · MediaPark**"
+        },
+        "proof": {
+          "ru": "Выступления, менторство и жюри: **INMerge Tashkent · Click Data MeetUp · Managers Conf · President Tech Award · Startup Weekend (Techstars) · TechGenius (ПРООН)**",
+          "en": "Talks, mentoring and judging: **INMerge Tashkent · Click Data MeetUp · Managers Conf · President Tech Award · Startup Weekend (Techstars) · TechGenius (UNDP)**"
         }
       },
       "consulting": {
@@ -1328,6 +1325,10 @@
         "note": {
           "ru": "Обычно отвечаю в течение 10 рабочих дней.",
           "en": "I usually reply within 10 business days."
+        },
+        "legal": {
+          "ru": "Договор и счёт — от ООО «MOR TECH», [резидента IT Park](https://www.it-park.uz/ru/itpark/residents/itpark-residents).",
+          "en": "Contract and invoice from MOR TECH LLC, [an IT Park resident](https://www.it-park.uz/en/itpark/residents/itpark-residents)."
         }
       },
       "strategy": {

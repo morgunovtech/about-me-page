@@ -8,6 +8,7 @@
 import { loadDoc, loadSubscribers } from './_lib/content.js';
 import { loadHomeFeed, loadPublishedArticles } from './_lib/render-notes.js';
 import { overlay } from './_lib/overlay.js';
+import { privacyRepos } from './_lib/render.js';
 import { renderPageJsonLd } from './_lib/jsonld.js';
 import { cached } from './_lib/cache.js';
 import { buildOf } from './_lib/site.js';
@@ -105,12 +106,14 @@ async function handle(context) {
     // parallel. Only the home page renders the live subscribers stat and the
     // «Публикации» block (the three newest /notes feed entries).
     const isHome = route.page === 'home';
-    const [response, doc, subs, feed, articles] = await Promise.all([
+    const [response, doc, subs, feed, articles, privacyDoc] = await Promise.all([
       next(),
       loadDoc(env, route.page),
       isHome ? loadSubscribers(env) : null,
       isHome ? loadHomeFeed(env, route.lang) : null,
       route.page === 'privacy' ? loadPublishedArticles(env) : null,
+      // «Работает» groups the products that are also /privacy tools (v2.2.2).
+      isHome ? loadDoc(env, 'privacy') : null,
     ]);
     if (!(response.headers.get('content-type') || '').includes('text/html')) {
       return response;
@@ -119,6 +122,7 @@ async function handle(context) {
     if (subs) doc._live = { subscribers: subs };
     if (feed) doc._feed = feed;
     if (articles) doc._articles = articles;
+    if (privacyDoc) doc._privacyRepos = privacyRepos(privacyDoc);
     doc._build = buildOf(env);
 
     const transformed = overlay(response, doc, route.lang, false, (d, l) => renderPageJsonLd(d, l, route.page));
