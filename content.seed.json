@@ -552,8 +552,8 @@
               "en": "Consulting formats and pricing"
             },
             "href": {
-              "ru": "/collaborate#consulting",
-              "en": "/en/collaborate#consulting"
+              "ru": "/consulting#consulting",
+              "en": "/en/consulting#consulting"
             }
           }
         ]
@@ -1159,9 +1159,9 @@
     },
     "migration": 30
   },
-  "collaborate": {
+  "consulting": {
     "site": "s.morgunov.tech",
-    "page": "collaborate",
+    "page": "consulting",
     "rev": 1,
     "updatedAt": "2026-11-25T00:00:00Z",
     "dateModified": "2026-11-25",
@@ -1189,14 +1189,14 @@
         "en": "/images/og-card-en.png"
       },
       "imageAlt": {
-        "ru": "Сотрудничество — Семён Моргунов",
-        "en": "Collaborate — Semyon Morgunov"
+        "ru": "Консалтинг — Семён Моргунов",
+        "en": "Consulting — Semyon Morgunov"
       }
     },
     "hero": {
       "name": {
-        "ru": "Сотрудничество",
-        "en": "Collaborate"
+        "ru": "Консалтинг",
+        "en": "Consulting"
       },
       "tagline": {
         "ru": "Помогаю компаниям в e-com, ритейле и FinTech найти точки роста и выстроить продукт. Консультирую разово или веду долгосрочно.",
@@ -1242,8 +1242,8 @@
       },
       "consulting": {
         "title": {
-          "ru": "Консалтинг",
-          "en": "Consulting"
+          "ru": "Форматы и цены",
+          "en": "Formats and pricing"
         },
         "prose": {
           "ru": "Помогаю e-com и ритейлу в Центральной Азии довести продукт до положительной юнит-экономики: e-grocery и доставка, рост и монетизация, продуктовая стратегия и команда; финтех — вне Узбекистана.",
@@ -1459,6 +1459,81 @@
           }
         ]
       },
+      "contact": {
+        "title": {
+          "ru": "Не уверены, что вам нужно?",
+          "en": "Not sure what you need?"
+        },
+        "note": {
+          "ru": "Расскажите о вашей ситуации — подскажу, чем могу быть полезен. Или честно скажу, если не могу.",
+          "en": "Tell me about your situation — I'll suggest how I can help, or be upfront if I can't."
+        },
+        "ctas": [
+          {
+            "href": "https://t.me/s_mrgnv",
+            "label": {
+              "ru": "Написать →",
+              "en": "Get in touch →"
+            }
+          }
+        ]
+      }
+    },
+    "migration": 30
+  },
+  "collaborate": {
+    "site": "s.morgunov.tech",
+    "page": "collaborate",
+    "rev": 1,
+    "updatedAt": "2026-11-25T00:00:00Z",
+    "dateModified": "2026-11-25",
+    "meta": {
+      "title": {
+        "ru": "Партнёрства и медиа — Семён Моргунов",
+        "en": "Partnerships & Media — Semyon Morgunov"
+      },
+      "description": {
+        "ru": "Открыт к уместным предложениям: тестировать продукты, давать независимую обратную связь, участвовать в технологическом просвещении. Без обещаний положительных отзывов и обязательств по числу публикаций.",
+        "en": "Open to relevant opportunities: testing products, independent feedback, technology education. No guaranteed positive reviews and no posting quotas."
+      }
+    },
+    "share": {
+      "title": {
+        "ru": "Партнёрства и медиа — Семён Моргунов",
+        "en": "Partnerships & Media — Semyon Morgunov"
+      },
+      "description": {
+        "ru": "Открыт к уместным предложениям: тестировать продукты, давать независимую обратную связь, участвовать в технологическом просвещении. Без обещаний положительных отзывов и обязательств по числу публикаций.",
+        "en": "Open to relevant opportunities: testing products, independent feedback, technology education. No guaranteed positive reviews and no posting quotas."
+      },
+      "image": {
+        "ru": "/images/og-card-ru.png",
+        "en": "/images/og-card-en.png"
+      },
+      "imageAlt": {
+        "ru": "Сотрудничество — Семён Моргунов",
+        "en": "Collaborate — Semyon Morgunov"
+      }
+    },
+    "hero": {
+      "name": {
+        "ru": "Сотрудничество",
+        "en": "Collaborate"
+      },
+      "tagline": {
+        "ru": "Тестирую продукты, даю независимую обратную связь и участвую в технологическом просвещении.",
+        "en": "I test products, give independent feedback and contribute to technology education."
+      },
+      "ctas": {
+        "ru": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n<a class=\"v4-btn\" href=\"/\">← На главную</a>",
+        "en": "<a class=\"v4-btn v4-btn-primary\" href=\"https://t.me/s_mrgnv\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram</a>\n<a class=\"v4-btn\" href=\"/en/\">← Home</a>"
+      },
+      "eyebrow": {
+        "ru": "Партнёрства · Медиа",
+        "en": "Partnerships · Media"
+      }
+    },
+    "sections": {
       "partnerships": {
         "title": {
           "ru": "Партнёрства и медиа",
@@ -1500,19 +1575,22 @@
       },
       "contact": {
         "title": {
-          "ru": "Не уверены, что вам нужно?",
-          "en": "Not sure what you need?"
+          "ru": "Нужен консалтинг?",
+          "en": "Looking for consulting?"
         },
         "note": {
-          "ru": "Расскажите о вашей ситуации — подскажу, чем могу быть полезен. Или честно скажу, если не могу.",
-          "en": "Tell me about your situation — I'll suggest how I can help, or be upfront if I can't."
+          "ru": "Форматы и цены консалтинга — на отдельной странице.",
+          "en": "Consulting formats and pricing are on a separate page."
         },
         "ctas": [
           {
-            "href": "https://t.me/s_mrgnv",
+            "href": {
+              "ru": "/consulting",
+              "en": "/en/consulting"
+            },
             "label": {
-              "ru": "Написать →",
-              "en": "Get in touch →"
+              "ru": "Консалтинг →",
+              "en": "Consulting →"
             }
           }
         ]

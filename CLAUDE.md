@@ -14,11 +14,12 @@ Personal homepage for Semyon Morgunov, deployed on Cloudflare Pages.
 ```
 about-me-page/
 ├── index.html          # Main page, Russian language (lang="ru") — a template: data-cms-* hooks, seed twin
-├── collaborate.html    # Collaboration page: consulting and strategic consulting (RU)
+├── consulting.html     # Consulting: formats and prices, strategic consulting, how I work (RU) — the former /collaborate (v2.0.0)
+├── collaborate.html    # «Сотрудничество»: partnerships & media, a link to /consulting (RU)
 ├── about.html          # «Принципы» — how/why the site is built (RU); hidden since v0.31.2: noindex, out of the sitemap/footer/llms.txt, until the owner rewrites it
 ├── uses.html           # «Стек» — hardware & software (RU)
 ├── privacy.html        # «Приватность» — own privacy tools + «Джентльменский набор» (RU); privacy.morgunov.tech redirects here
-├── en/                 # English twins: index, collaborate, about, uses, privacy (lang="en")
+├── en/                 # English twins: index, consulting, collaborate, about, uses, privacy (lang="en")
 ├── content.seed.json   # Committed content fallback for every CMS page (KV wins when present)
 ├── CHANGELOG.md        # Release history (one entry per version); CLAUDE.md keeps conventions only
 ├── ds/v1/              # Shared design-system layer: fonts, tokens, base, components, chrome.js (+ USAGE.md)
@@ -55,7 +56,8 @@ about-me-page/
 
 - **`/`, `/en/`** — hero (eyebrow «Head of FinTech @ Yandex Uzbekistan», one «Написать в Telegram» button) → stats strip → `#about` → `#career` → `#projects` «Собственные проекты» (tier «Работает»: live product cards — TofsDevOps, Social Tracker Bot, Found You, Fingerprint — with the version synced from GitHub, then «Все проекты на GitHub ↗», the link to `/privacy` and — v1.7.0 — the site's one support link, «Добровольная поддержка моих открытых проектов на GitHub Sponsors ↗», `sections.products.support`; tier «До этого»: past ventures as rows) → `#notes` «Публикации» (the three newest feed entries, each «06.2025 · YouTube» + title, then «Все публикации →») → `#contact` «Связаться» (who writes → the one button «Написать в Telegram» with the reply time → «или на почту: `s@morgunov.tech`» as a line of text → «Форматы и цены консалтинга →»). Sections carry no numbers since v1.5.0. Menu items mirror the section titles (`data-cms-text`).
 - **`/notes`, `/en/notes`** — «Публикации»: own notes (KV articles) and external materials (vc.ru, YouTube — the seed-only `notes` doc) in one feed, newest first, under the Telegram channel block. RSS and the sitemap carry own notes only.
-- **`/collaborate`** — about · consulting (the one consulting phrase `sections.consulting.prose` → two tiers, both buttons «Написать в Telegram →» → the reply time `sections.consulting.note`) · strategic consulting · `#work` «Как работаю / Чего не делаю» · `#partnerships` «Партнёрства и медиа» (v1.7.0: what the owner is open to outside paid consulting — product feedback, review units, beta programs, press invitations, open-source sponsorship — with the independence terms and one Telegram button; no prices, no audience numbers, no employer, not in the menu and not in JSON-LD; `tests/partnerships.test.mjs`) · contact. Sections carry no numbers since v1.5.0; the angel section (`#angel`) and its menu item were removed in v1.2.8.
+- **`/consulting`** (v2.0.0; this content lived at `/collaborate` before) — about · consulting (the one consulting phrase `sections.consulting.prose` → two tiers, both buttons «Написать в Telegram →» → the reply time `sections.consulting.note`) · strategic consulting · `#work` «Как работаю / Чего не делаю» · contact. Sections carry no numbers since v1.5.0; the angel section (`#angel`) and its menu item were removed in v1.2.8.
+- **`/collaborate`** (v2.0.0) — «Сотрудничество»: `#partnerships` «Партнёрства и медиа» (what the owner is open to outside paid consulting, the independence terms, one Telegram button; no prices, no audience numbers, no employer) → `#contact` «Нужен консалтинг?» with one button to `/consulting`. Old links `/collaborate#consulting` stored in KV are rewritten at read time (`migrations.js`).
 - **`/uses`** — hardware groups + software cards.
 - **`/privacy`** (v1.6.0) — «Приватность»: `#tools` «Мои инструменты» (Fingerprint and Found You — the homepage product cards, version and description synced from GitHub by `sync-products.mjs` — then Good Pass as a pale «Скоро» card: no link, no button, `soon: true`) → `#kit` «Джентльменский набор» (how the list is made, then cards in groups by task; a card gets in only with open source **and** a published independent audit — the one exception is the last group, `unaudited: true` with a note under its caption: an ad blocker, uBlock Origin, since none has a public audit (v1.6.2); its spec reads «Аудит: публичного нет» — its spec links the audit report(s) and the code, its one button is the official site labelled with the domain; no referral links; the date the list was checked) → `#contact`. `privacy.morgunov.tech` is outside the repo (set 2026-11-25): a proxied A record `192.0.2.1` with the comment «Redirect only…», as for the apex and `www`, and the zone's Redirect Rule «privacy → s.morgunov.tech/privacy» (host equals `privacy.morgunov.tech` → 301 to `https://s.morgunov.tech/privacy`, query string kept).
 - **`/about`** «Принципы» — hidden until the owner rewrites it: `noindex`, not in the footer, sitemap or `llms.txt`; still served and editable in `/admin`.
@@ -103,7 +105,7 @@ Claude Design project «morgunov.tech Design System» (`fb2dcd4c-710d-43e3-8d7d-
 
 ### RU↔EN sync check
 
-`scripts/check-sync.py` verifies that the five RU and EN HTML pairs (`index.html`, `collaborate.html`, `uses.html`, `about.html`, `privacy.html` ↔ their `en/` twins) share the same DOM structure (tag tree + classes + ids). It ignores text, attribute values, and state classes (`is-active`).
+`scripts/check-sync.py` verifies that the six RU and EN HTML pairs (`index.html`, `consulting.html`, `collaborate.html`, `uses.html`, `about.html`, `privacy.html` ↔ their `en/` twins) share the same DOM structure (tag tree + classes + ids). It ignores text, attribute values, and state classes (`is-active`).
 
 Run before commit when touching layout:
 

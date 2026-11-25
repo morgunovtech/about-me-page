@@ -36,6 +36,7 @@ ROOT = Path(__file__).resolve().parent.parent
 HTML_PAGES = [
     "index.html", "en/index.html",
     "collaborate.html", "en/collaborate.html",
+    "consulting.html", "en/consulting.html",
     "about.html", "en/about.html",
     "uses.html", "en/uses.html",
     "privacy.html", "en/privacy.html",

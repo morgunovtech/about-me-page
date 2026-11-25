@@ -29,6 +29,10 @@ const STALE = [
   ['→ All publications', 'All publications'],
   ['→ Консалтинг: форматы и цены', 'Форматы и цены консалтинга'],
   ['→ Consulting: formats and pricing', 'Consulting formats and pricing'],
+  // v2.0.0 — consulting moved from /collaborate to /consulting; the homepage
+  // doc in KV (rev 33, read 2026-11-25) links `/collaborate#consulting` and
+  // `/en/collaborate#consulting`. One substring swap covers both.
+  ['/collaborate#consulting', '/consulting#consulting'],
 ];
 
 export function fixStaleContent(node) {

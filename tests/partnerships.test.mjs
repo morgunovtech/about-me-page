@@ -1,4 +1,6 @@
-// v1.7.0 — «Партнёрства и медиа» on /collaborate and the one support link on
+// v1.7.0 — «Партнёрства и медиа» and the one support link on the homepage;
+// v2.0.0 — the section is the /collaborate page itself, consulting moved to
+// /consulting. The support link stays on
 // the homepage. What the tests keep: the owner's wording, the limits he set
 // (no prices, no audience numbers, no employer, nothing promised), the page's
 // own contact, and that the support link reads as voluntary.
@@ -23,11 +25,12 @@ test('«Partnerships & Media»: the owner\'s text verbatim in English, a full Ru
   assert.match(s.prose.ru, /независимость/i);
 });
 
-test('the section sits before the contact block, under one h2, with one button to the page\'s contact', () => {
+test('the section is the page: no consulting blocks left, it sits before the contact block, under one h2, with one button to the page\'s contact', () => {
   for (const [f, lang] of [['collaborate.html', 'ru'], ['en/collaborate.html', 'en']]) {
     const page = read(f);
     const sec = page.split('<section id="partnerships"')[1].split('</section>')[0];
-    assert.ok(page.indexOf('<section id="work"') < page.indexOf('<section id="partnerships"') && page.indexOf('<section id="partnerships"') < page.indexOf('<section id="contact"'), f);
+    assert.deepEqual((page.match(/<section id="[a-z]+"/g) || []).map((m) => m.slice(13, -1)), ['partnerships', 'contact'], f);
+    assert.doesNotMatch(page, /v4-pricing|\$\s?\d/, `${f}: prices live on /consulting`);
     assert.equal((sec.match(/<h2 /g) || []).length, 1, f);
     assert.doesNotMatch(sec, /<h[13456]/, f);
     const links = sec.match(/<a\s[^>]*>/g) || [];
@@ -63,10 +66,36 @@ test('one support link on the site: the homepage, after the other «more» links
     assert.ok(projects.indexOf('sections.products.privacy.href') < projects.indexOf('sections.products.support.href'), f);
   }
   // Nowhere else: not in the footer (its slot is full), not on the other pages.
-  for (const f of ['collaborate.html', 'en/collaborate.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html', 'about.html', 'en/about.html', '404.html']) {
+  for (const f of ['collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html', 'about.html', 'en/about.html', '404.html']) {
     assert.doesNotMatch(read(f), /github\.com\/sponsors/, f);
   }
   const llms = read('llms.txt');
   assert.match(llms, /\[Partnerships & media\]\(https:\/\/s\.morgunov\.tech\/en\/collaborate#partnerships\)/);
   assert.match(llms, /\[GitHub Sponsors\]\(https:\/\/github\.com\/sponsors\/morgunovtech\) — voluntary/);
+});
+
+test('v2.0.0: /consulting holds what /collaborate held; /collaborate ends with one button to it', () => {
+  assert.deepEqual(Object.keys(seed.collaborate.sections), ['partnerships', 'contact']);
+  assert.deepEqual(Object.keys(seed.consulting.sections), ['about', 'consulting', 'strategy', 'work', 'contact']);
+  const c = seed.collaborate.sections.contact;
+  assert.deepEqual(c.ctas.map((x) => x.href), [{ ru: '/consulting', en: '/en/consulting' }]);
+  for (const [lang, href] of [['ru', '/consulting'], ['en', '/en/consulting']]) {
+    const html = renderers.collabContact(seed.collaborate, lang);
+    assert.ok(html.includes(`<a class="v4-btn v4-btn-primary" href="${href}">`), lang);
+    assert.doesNotMatch(html, /target="_blank"/, 'a page of this site opens in place');
+  }
+  for (const f of ['consulting.html', 'en/consulting.html']) {
+    const page = read(f);
+    assert.doesNotMatch(page, /\/collaborate/, `${f}: its own URLs only`);
+    assert.doesNotMatch(page, /id="partnerships"/, f);
+    assert.match(page, /"@type": "Service"/, f);
+  }
+  for (const f of ['collaborate.html', 'en/collaborate.html']) {
+    assert.doesNotMatch(read(f), /"@type": "Service"|OfferCatalog/, `${f}: the Service is consulting's`);
+    assert.match(read(f), /"@type": "BreadcrumbList"/, f);
+  }
+  // The route, the sitemap and the stored homepage link follow the move.
+  assert.match(read('functions/_middleware.js'), /'\/consulting': \{ page: 'consulting', lang: 'ru' \}/);
+  assert.match(read('functions/_lib/render-notes.js'), /loc: '\/en\/consulting'/);
+  assert.equal(seed.home.sections.contact ? JSON.stringify(seed.home).includes('/collaborate#consulting') : false, false);
 });

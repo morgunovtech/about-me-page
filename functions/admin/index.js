@@ -18,6 +18,7 @@ const SHELL = `<!DOCTYPE html>
       <select id="page-select" aria-label="Страница">
         <option value="home">home</option>
         <option value="collaborate">collaborate</option>
+        <option value="consulting">consulting</option>
         <option value="about">about</option>
         <option value="uses">uses</option>
         <option value="privacy">privacy</option>

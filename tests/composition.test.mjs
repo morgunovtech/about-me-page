@@ -19,7 +19,7 @@ import { VERSION, CHANGELOG_URL } from '../functions/_lib/site.js';
 
 const read = (f) => readFileSync(new URL('../' + f, import.meta.url), 'utf8');
 const seed = JSON.parse(read('content.seed.json'));
-const PAGES = ['index.html', 'en/index.html', 'collaborate.html', 'en/collaborate.html', 'uses.html', 'en/uses.html', 'about.html', 'en/about.html', 'privacy.html', 'en/privacy.html', '404.html'];
+const PAGES = ['index.html', 'en/index.html', 'collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'uses.html', 'en/uses.html', 'about.html', 'en/about.html', 'privacy.html', 'en/privacy.html', '404.html'];
 const HOME = ['index.html', 'en/index.html'];
 const COMPONENTS = read('ds/v1/components.css');
 const STYLES = read('styles.css');
