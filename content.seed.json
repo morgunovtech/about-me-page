@@ -2503,6 +2503,39 @@
     },
     "external": [
       {
+        "date": "2026-04-30",
+        "source": "tashkenttimes.uz",
+        "href": "https://tashkenttimes.uz/tech/17488-inmerge-innovation-summit-continues-its-roadshow-series-with-inmerge-tashkent",
+        "title": {
+          "ru": "Панель «Building Everyday Ecosystems» на INMerge Tashkent 2026: продукты вокруг пути клиента",
+          "en": "The “Building Everyday Ecosystems” panel at INMerge Tashkent 2026: designing products around the customer journey"
+        },
+        "tags": [
+          "career"
+        ]
+      },
+      {
+        "date": "2026-04-29",
+        "source": "spot.uz",
+        "href": "https://www.spot.uz/ru/2026/04/29/yandex/",
+        "title": {
+          "ru": "Yandex Uzbekistan собрал рестораторов, ритейл и фудтех: ключевые инсайты Big Table",
+          "en": "Yandex Uzbekistan’s Big Table for restaurants, retail and foodtech: the key insights"
+        },
+        "tags": [
+          "career"
+        ]
+      },
+      {
+        "date": "2026-03-02",
+        "source": "spot.uz",
+        "href": "https://www.spot.uz/ru/2026/03/02/wolt-opinion/",
+        "title": {
+          "ru": "«Это не диагноз рынку Узбекистана»: что думает эксперт об уходе Wolt из страны",
+          "en": "“Not a verdict on Uzbekistan’s market”: an expert on Wolt leaving the country"
+        }
+      },
+      {
         "date": "2026-02-06",
         "source": "spot.uz",
         "href": "https://www.spot.uz/ru/2026/02/06/semyon-books/",
@@ -2535,7 +2568,53 @@
           "en": "Two years of Korzinka Go: how we emerged, evolved, and ended up in a red ocean"
         },
         "views": 3611,
-        "viewsAt": "2026-11-09"
+        "viewsAt": "2026-11-09",
+        "tags": [
+          "career"
+        ]
+      },
+      {
+        "date": "2025-05-07",
+        "source": "t.me",
+        "href": "https://t.me/korzinkanews/594",
+        "title": {
+          "ru": "Кешбэк 5% от покупок: Korzinka Go и TBC Bank запустили партнёрскую программу",
+          "en": "5% cashback on purchases: Korzinka Go and TBC Bank launch a partner programme"
+        }
+      },
+      {
+        "date": "2025-03-05",
+        "source": "t.me",
+        "href": "https://t.me/korzinkanews/576",
+        "title": {
+          "ru": "В приложении Korzinka Go действует стандарт защиты клиентских данных PCI DSS 4.0",
+          "en": "The Korzinka Go app protects customer data to the PCI DSS 4.0 standard"
+        }
+      },
+      {
+        "date": "2025-01-28",
+        "source": "YouTube",
+        "href": "https://youtu.be/1aL2xFrcGkU",
+        "title": {
+          "ru": "Как планировать жизнь на годы вперёд и добиваться задуманного",
+          "en": "How to plan your life years ahead and achieve what you set out to do"
+        },
+        "views": 989,
+        "viewsAt": "2026-11-25",
+        "tags": [
+          "productivity"
+        ]
+      },
+      {
+        "date": "2024-09-05",
+        "source": "YouTube",
+        "href": "https://youtu.be/URi59Tq9Zu4",
+        "title": {
+          "ru": "Стартап для инвестиций или недоразумение: критический разбор PlovMe",
+          "en": "An investable startup or a misunderstanding? A critical review of PlovMe"
+        },
+        "views": 667,
+        "viewsAt": "2026-11-25"
       },
       {
         "date": "2024-02-18",
@@ -2562,7 +2641,7 @@
       {
         "date": "2022-07-08",
         "source": "vc.ru",
-        "href": "https://vc.ru/u/679509-semen-morgunov/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery",
+        "href": "https://vc.ru/id679509/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery",
         "title": {
           "ru": "На чём зарабатывают продуктовые дискаунтеры",
           "en": "How discount grocers make money"
@@ -2573,7 +2652,7 @@
       {
         "date": "2022-06-19",
         "source": "vc.ru",
-        "href": "https://vc.ru/u/679509-semen-morgunov/445698-na-chem-zarabatyvayut-loukostery",
+        "href": "https://vc.ru/id679509/445698-na-chem-zarabatyvayut-loukostery",
         "title": {
           "ru": "На чём зарабатывают авиакомпании-лоукостеры",
           "en": "How low-cost airlines make money"

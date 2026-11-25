@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-import { renderers } from '../functions/_lib/render.js';
+import { renderers, feedSource } from '../functions/_lib/render.js';
 import { buildFeed } from '../functions/_lib/notes-feed.js';
 import { renderJsonLd } from '../functions/_lib/jsonld.js';
 
@@ -68,10 +68,11 @@ test('notes block: up to three rows, own notes stay on site, external ones open 
   }
   doc._feed = buildFeed([], seed.notes, 'ru').slice(0, 3);
   const ext = renderers.notesFeed(doc, 'ru', false);
-  assert.match(ext, /target="_blank" rel="noopener noreferrer">2 года Korzinka Go[^<]*<span aria-hidden="true">&nbsp;↗<\/span><span class="sr-only"> \(откроется в новой вкладке\)<\/span>/);
+  assert.match(ext, /target="_blank" rel="noopener noreferrer">Панель «Building Everyday Ecosystems»[^<]*<span aria-hidden="true">&nbsp;↗<\/span><span class="sr-only"> \(откроется в новой вкладке\)<\/span>/);
   // The source is the platform, derived from the address: it cannot be mistyped.
-  assert.match(ext, /<span class="v4-feed-meta"><time datetime="2025-06-26">06\.2025<\/time> · YouTube<\/span>/);
-  assert.match(ext, /<time datetime="2026-02-06">02\.2026<\/time> · spot\.uz<\/span>/);
+  assert.match(ext, /<span class="v4-feed-meta"><time datetime="2026-04-30">04\.2026<\/time> · tashkenttimes\.uz<\/span>/);
+  assert.match(ext, /<time datetime="2026-03-02">03\.2026<\/time> · spot\.uz<\/span>/);
+  assert.equal(feedSource({ kind: 'external', item: { href: 'https://youtu.be/BthlUR9eO1M' } }, 'ru'), 'YouTube');
   // EN: untranslated notes drop out; the CTA points at /en/notes.
   doc._feed = buildFeed(notes(2).reverse(), seed.notes, 'en').slice(0, 3);
   const en = renderers.notesFeed(doc, 'en', false);
