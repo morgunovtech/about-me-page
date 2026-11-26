@@ -80,7 +80,7 @@ const SCRIPT_VER = 'v=f2317f0d';
 const FONTS_VER = 'v=499be680';
 const TOKENS_VER = 'v=50fa198d';
 const BASE_VER = 'v=03b78c6e';
-const COMPONENTS_VER = 'v=639adaab';
+const COMPONENTS_VER = 'v=6daefb5f';
 
 const L = (lang) => (lang === 'en' ? 'en' : 'ru');
 const p = (lang, path) => (L(lang) === 'en' ? '/en' : '') + path;
