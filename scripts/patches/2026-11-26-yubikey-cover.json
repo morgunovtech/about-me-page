@@ -1,0 +1,36 @@
+{
+  "notes": {
+    "yubikey": [
+      {
+        "field": "cover.src",
+        "from": "/assets/articles/c4348e61d0.jpg",
+        "to": "/images/notes/yubikey-5c-nfc.webp",
+        "why": "The old cover was 800 × 451 and was stretched to fill the 720px frame. The new one is 1600 × 900: a YubiKey 5C NFC on a key ring next to one in its package (Daniel Aleksandersen, Wikimedia Commons, CC BY 4.0)."
+      },
+      {
+        "field": "cover.alt.ru",
+        "from": "YubiKey 5C NFC между телефоном и ноутбуком",
+        "to": "YubiKey 5C NFC на связке ключей рядом с таким же ключом в упаковке",
+        "why": "The alt text describes the new picture."
+      },
+      {
+        "field": "cover.alt.en",
+        "from": "A YubiKey 5C NFC between a phone and a laptop",
+        "to": "A YubiKey 5C NFC on a key ring next to another one still in its package",
+        "why": "The alt text describes the new picture."
+      },
+      {
+        "field": "body.ru",
+        "from": "t.me/raschet7/248</a>.</em></p>",
+        "to": "t.me/raschet7/248</a>.</em><br /><em>Фото на обложке: Daniel Aleksandersen, <a href=\"https://commons.wikimedia.org/wiki/File:YubiKey_5C_NFC.jpg\" target=\"_blank\" rel=\"noopener noreferrer\">Wikimedia Commons</a>, <a href=\"https://creativecommons.org/licenses/by/4.0/deed.ru\" target=\"_blank\" rel=\"noopener noreferrer\">CC BY 4.0</a>; уменьшено и кадрировано.</em></p>",
+        "why": "CC BY 4.0 asks for the author, the source, the licence and a note of the changes. The credit sits in the note's last quiet line, so the ending keeps its two lines."
+      },
+      {
+        "field": "body.en",
+        "from": "t.me/raschet7/248</a>.</em></p>",
+        "to": "t.me/raschet7/248</a>.</em><br /><em>Cover photo: Daniel Aleksandersen, <a href=\"https://commons.wikimedia.org/wiki/File:YubiKey_5C_NFC.jpg\" target=\"_blank\" rel=\"noopener noreferrer\">Wikimedia Commons</a>, <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener noreferrer\">CC BY 4.0</a>; resized and cropped.</em></p>",
+        "why": "As in Russian."
+      }
+    ]
+  }
+}

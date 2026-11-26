@@ -11,7 +11,8 @@
 //
 // The patch file:
 //   { "notes": { "<slug>": [ { "field": "body.ru", "from": "…", "to": "…", "why": "…" } ] } }
-// `field` is title|excerpt|body + .ru|.en. `from` must occur in that field exactly
+// `field` is title|excerpt|body + .ru|.en, or the cover: cover.src (one address for
+// both languages) and cover.alt.ru|en. `from` must occur in that field exactly
 // once (or `"count": n` times) — otherwise the note is skipped and reported, and
 // nothing of it is written: a correction never lands in the wrong place. A change
 // of a title or an excerpt is repeated in the copies the doc keeps of them
@@ -31,7 +32,11 @@ import { tmpdir } from 'node:os';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 's.morgunov.tech';
 const HISTORY_MAX = 20; // as in functions/admin/api/save.js
-const FIELD = /^(title|excerpt|body)\.(ru|en)$/;
+const FIELD = /^(?:(?:title|excerpt|body)\.(?:ru|en)|cover\.src|cover\.alt\.(?:ru|en))$/;
+// A field name as the path into the doc: 'body.ru' → ['body', 'ru'].
+export const fieldPath = (field) => (FIELD.test(field || '') ? field.split('.') : null);
+const getPath = (o, path) => path.reduce((v, k) => (v && typeof v === 'object' ? v[k] : undefined), o);
+const setPath = (o, path, value) => { getPath(o, path.slice(0, -1))[path[path.length - 1]] = value; };
 const COPIES = { title: [['meta', 'title'], ['share', 'title']], excerpt: [['meta', 'description'], ['share', 'description']] };
 
 // npx by its full path — the one that ships with the Node running this script —
@@ -45,20 +50,20 @@ export function applyPatch(doc, entries) {
   const out = structuredClone(doc);
   const log = [];
   for (const e of entries) {
-    const m = FIELD.exec(e.field || '');
-    if (!m) { log.push({ ...e, status: 'bad-field' }); continue; }
-    const [, name, lang] = m;
+    const path = fieldPath(e.field);
+    if (!path) { log.push({ ...e, status: 'bad-field' }); continue; }
+    const [name, lang] = path;
     if (typeof e.from !== 'string' || typeof e.to !== 'string' || !e.from || !e.to || e.to.includes(e.from)) {
       log.push({ ...e, status: 'bad-entry' });
       continue;
     }
-    const cur = out[name] && out[name][lang];
+    const cur = getPath(out, path);
     if (typeof cur !== 'string') { log.push({ ...e, status: 'no-field' }); continue; }
     const want = e.count || 1;
     const n = count(cur, e.from);
     if (n === 0 && count(cur, e.to) >= 1) { log.push({ ...e, status: 'already' }); continue; }
     if (n !== want) { log.push({ ...e, status: n === 0 ? 'not-found' : 'ambiguous', found: n }); continue; }
-    out[name][lang] = cur.split(e.from).join(e.to);
+    setPath(out, path, cur.split(e.from).join(e.to));
     for (const [a, b] of COPIES[name] || []) {
       const copy = out[a] && out[a][b];
       if (copy && typeof copy[lang] === 'string' && count(copy[lang], e.from) === want) copy[lang] = copy[lang].split(e.from).join(e.to);
@@ -129,7 +134,7 @@ function main() {
     const applied = log.filter((x) => x.status === 'applied');
     console.log(`\n${slug} (rev ${cur.rev}): ${applied.length} of ${entries.length} correction(s)`);
     for (const x of log) {
-      if (x.status === 'applied') console.log(`  ${x.field}\n    - ${context(cur[x.field.split('.')[0]][x.field.split('.')[1]], x.from)}\n    + ${x.to.replace(/\s+/g, ' ').slice(0, 160)}`);
+      if (x.status === 'applied') console.log(`  ${x.field}\n    - ${context(getPath(cur, fieldPath(x.field)), x.from)}\n    + ${x.to.replace(/\s+/g, ' ').slice(0, 160)}`);
       else console.log(`  ${x.field}: ${x.status}${x.found != null ? ` (found ${x.found})` : ''} — «${String(x.from).slice(0, 70)}»`);
     }
     if (!ok) { console.log('  → this note is NOT written: fix the entries above in the patch file.'); skipped++; continue; }
