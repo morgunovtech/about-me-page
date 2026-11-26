@@ -45,12 +45,12 @@ Paste into any service's `<head>`. Load order matters:
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/fonts.css?v=499be680" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/tokens.css?v=50fa198d" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/base.css?v=03b78c6e" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=6daefb5f" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=418882f6" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript>
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/fonts.css?v=499be680" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/tokens.css?v=50fa198d" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/base.css?v=03b78c6e" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=6daefb5f" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=418882f6" />
 </noscript>
 ```
 
@@ -143,7 +143,7 @@ look-alikes.
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech / service&nbsp;· 2026&nbsp;· <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.1.2</a></span>
+      <span>morgunov.tech / service&nbsp;· 2026&nbsp;· <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.2.0</a></span>
       <span class="v4-foot-privacy">Без cookies, трекеров и аналитики</span>
     </footer>
   </div>
@@ -172,7 +172,7 @@ a page under 12px). It says what the service promises in a few words («Без c
 аналитики», «Everything is computed in your browser»); on a phone it sits under the line. The
 markup is unchanged: two spans. It has one slot, as the bar has its nav:
 after the build mark a page may put **up to two links of its own**, each as `&nbsp;· <a>label</a>`, plain
-text links (this site has one: «сказать спасибо или сообщить об ошибке»). A third link does not fit the slot — it belongs
+text links (this site has one: «Сказать спасибо или сообщить об ошибке»). A third link does not fit the slot — it belongs
 on the page. A service with nothing to link leaves the slot empty, as the snippet above does.
 A «·» of the line is written with a no-break space before it (`&nbsp;·`), as in the snippet: on a
 phone the line wraps, and a row must not start with a separator. The build mark is a word of the

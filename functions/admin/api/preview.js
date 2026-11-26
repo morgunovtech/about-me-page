@@ -4,8 +4,6 @@ import { loadSubscribers, isArticlePage } from '../../_lib/content.js';
 import { renderArticlePage } from '../../_lib/render-article.js';
 import { loadHomeFeed, loadPublishedArticles } from '../../_lib/render-notes.js';
 import { renderPageJsonLd } from '../../_lib/jsonld.js';
-import { privacyRepos } from '../../_lib/render.js';
-import { loadDoc } from '../../_lib/content.js';
 
 // Maps a page+lang to its static template. The raw template (fetched via the
 // ASSETS binding, bypassing the public middleware) is overlaid with the DRAFT
@@ -44,10 +42,9 @@ export async function onRequestPost({ request, env }) {
 
   const template = await env.ASSETS.fetch(new URL(tmplPath, request.url));
   if (page === 'home') {
-    const [subs, feed, privacyDoc] = await Promise.all([loadSubscribers(env), loadHomeFeed(env, lang), loadDoc(env, 'privacy')]);
+    const [subs, feed] = await Promise.all([loadSubscribers(env), loadHomeFeed(env, lang)]);
     if (subs) doc._live = { subscribers: subs };
     doc._feed = feed;
-    doc._privacyRepos = privacyRepos(privacyDoc);
   }
   if (page === 'privacy') doc._articles = await loadPublishedArticles(env);
   // Same per-page JSON-LD as the public render (_middleware.js) — the preview

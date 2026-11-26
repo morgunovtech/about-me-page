@@ -8,7 +8,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-import { renderers, privacyRepos, plainLabel } from '../functions/_lib/render.js';
+import { renderers, plainLabel } from '../functions/_lib/render.js';
 import { renderInline, escapeAttr } from '../functions/_lib/markdown.js';
 import { fillFromSeed, SEED_FILL } from '../functions/_lib/migrations.js';
 import { renderPageJsonLd } from '../functions/_lib/jsonld.js';
@@ -83,10 +83,13 @@ test('«Мои инструменты»: the live tools read as on the homepage 
   for (const it of tools) assert.equal(it.live, undefined, it.name);
   for (const lang of LANGS) {
     const html = renderers.privacyTools(doc, lang);
-    // The head of a card: the caption and one fact. For a live tool the fact is its version
-    // (data: .v4-version); for the one that is not ready — the word «Скоро», plain.
-    const heads = [...html.matchAll(/<div class="v4-product-head">\s*<span class="v4-tag">([^<]+)<\/span>\s*<span( class="v4-version")?>([^<]+)<\/span>\s*<\/div>/g)].map((m) => [m[1], Boolean(m[2]), m[3]]);
-    assert.deepEqual(heads, [...live.map((it) => [it.tag, true, it.version]), [soon[0].tag, false, lang === 'en' ? 'Soon' : 'Скоро']], lang);
+    // The head of a card (v4.2.0): the name, then quietly what it is and one fact — the version
+    // of a live tool, «скоро» for the one that is not ready. A live name links out; no button.
+    const heads = [...html.matchAll(/<div class="v4-product-head">\s*<h3 class="v4-product-name">(<a [^>]+>)?([^<]+)[\s\S]*?<\/h3>\s*<span class="v4-product-meta">([\s\S]*?)<\/span>\s*<\/div>/g)]
+      .map((m) => [m[2], Boolean(m[1]), m[3].replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ')]);
+    const web = lang === 'en' ? 'Web' : 'Веб';
+    assert.deepEqual(heads, [...live.map((it) => [it.name, true, `${web} · ${it.version}`]), [soon[0].name, false, `${web} · ${lang === 'en' ? 'soon' : 'скоро'}`]], lang);
+    assert.doesNotMatch(html, /v4-btn/, `${lang}: no buttons — the name is the way in`);
     const card = html.slice(html.indexOf('v4-product--soon'));
     assert.doesNotMatch(card, /<a |v4-btn|good-pass/, `${lang}: the soon card has no link and no button`);
     // No card says «running» with a dot — the two live ones had one each: a tool under «Мои
@@ -216,27 +219,20 @@ test('Sonar counts no copy-paste in the page templates and the chrome.js twin, a
   assert.match(read('functions/_middleware.js'), /'\/\.sonarcloud\.properties',/);
 });
 
-test('the homepage: the /privacy link introduces the privacy tools in «Работает», the GitHub link comes after (v2.2.2)', () => {
+test('the homepage (v4.2.0): the four products in one grid — no /privacy link inside it, no «Работает»; the GitHub link comes after', () => {
   for (const [f, lang] of [['index.html', 'ru'], ['en/index.html', 'en']]) {
     const projects = read(f).split('id="projects"')[1].split('</section>')[0];
-    const href = lang === 'en' ? '/en/privacy' : '/privacy';
-    const label = seed.home.sections.products.privacy.label[lang];
-    const link = `<div class="v4-more"><a href="${href}"><span>${label}</span><span aria-hidden="true">&nbsp;→</span></a></div>`;
-    assert.ok(projects.includes(link), f);
-    const at = (s) => projects.indexOf(s);
-    // Bots, then the link, then the two privacy tools in a grid of their own, then GitHub.
-    assert.ok(at('>TofsDevOps<') < at(link) && at(link) < at('>Found You<') && at('>Found You<') < at('>Fingerprint<'), f);
-    assert.ok(at('>Fingerprint<') < at('sections.products.more.href'), f);
-    assert.equal((projects.match(/<div class="v4-products">/g) || []).length, 2, f);
-    assert.equal(seed.home.sections.products.privacy.href[lang], href);
+    const at = (x) => projects.indexOf(x);
+    assert.equal((projects.match(/<div class="v4-products">/g) || []).length, 1, f);
+    assert.doesNotMatch(projects, /href="(\/en)?\/privacy"/, f);
+    assert.doesNotMatch(projects, /sections\.projects\.live|>(Работает|Live)</, f);
+    assert.ok(at('>TofsDevOps') < at('>Social Tracker') && at('>Social Tracker') < at('>Found You') && at('>Found You') < at('>Fingerprint'), f);
+    assert.ok(at('>Fingerprint') < at('sections.products.more.href'), f);
   }
-  // Which products are privacy tools comes from the /privacy doc; without it, one grid and no link inside.
-  assert.deepEqual(privacyRepos(seed.privacy), ['morgunovtech/Fingerprint', 'morgunovtech/FoundYou']);
-  const one = renderers.products({ sections: { products: seed.home.sections.products } }, 'ru', false);
-  assert.equal((one.match(/<div class="v4-products">/g) || []).length, 1);
-  assert.doesNotMatch(one, /v4-more/);
-  for (const f of ['functions/_middleware.js', 'functions/admin/api/preview.js', 'scripts/render-static.mjs']) {
-    assert.match(read(f), /_privacyRepos = privacyRepos\(/, f);
+  assert.equal(seed.home.sections.products.privacy, undefined, 'the link left the doc');
+  assert.equal(seed.home.sections.projects.live, undefined, 'the caption left the doc');
+  for (const f of ['functions/_middleware.js', 'functions/admin/api/preview.js', 'scripts/render-static.mjs', 'functions/_lib/render.js']) {
+    assert.doesNotMatch(read(f), /privacyRepos/, f);
   }
 });
 
@@ -311,18 +307,15 @@ test('«Статьи»: the notes the doc names, in its order; English only once
 });
 
 test('fillFromSeed: a field the renderer starts reading is filled from the seed, only when missing (v2.2.3; the table is empty since v4.0.1)', () => {
-  // v2.2.3's entry, kept here as the example: the home doc of KV rev 33 had products.items and .more, no .privacy.
-  const TABLE = { home: ['sections.products.privacy'] };
-  const kv = { page: 'home', sections: { products: { items: clone(seed.home.sections.products.items), more: { label: { ru: 'Все проекты на GitHub', en: 'All projects on GitHub' }, href: 'https://github.com/morgunovtech' } } } };
+  // The example (v2.2.3 filled sections.products.privacy, gone since v4.2.0): a doc without .more.
+  const TABLE = { home: ['sections.products.more'] };
+  const kv = { page: 'home', sections: { products: { items: clone(seed.home.sections.products.items) } } };
   fillFromSeed(kv, 'home', seed, TABLE);
-  assert.deepEqual(kv.sections.products.privacy, seed.home.sections.products.privacy);
-  assert.notEqual(kv.sections.products.privacy, seed.home.sections.products.privacy, 'a copy, not the seed object');
-  // The rendered page has the link above the privacy tools again.
-  const html = renderers.products({ ...kv, _privacyRepos: privacyRepos(seed.privacy) }, 'ru', false);
-  assert.match(html, /<div class="v4-more"><a href="\/privacy">/);
+  assert.deepEqual(kv.sections.products.more, seed.home.sections.products.more);
+  assert.notEqual(kv.sections.products.more, seed.home.sections.products.more, 'a copy, not the seed object');
   // What the owner saved wins; other pages and the seed itself are left alone.
-  const own = { sections: { products: { items: [], privacy: { label: { ru: 'Своё', en: 'Own' }, href: { ru: '/privacy', en: '/en/privacy' } } } } };
-  assert.equal(fillFromSeed(own, 'home', seed, TABLE).sections.products.privacy.label.ru, 'Своё');
+  const own = { sections: { products: { items: [], more: { label: { ru: 'Своё', en: 'Own' }, href: 'https://github.com/morgunovtech' } } } };
+  assert.equal(fillFromSeed(own, 'home', seed, TABLE).sections.products.more.label.ru, 'Своё');
   assert.equal(fillFromSeed(seed.home, 'home', seed, TABLE), seed.home);
   assert.equal(fillFromSeed(null, 'home', seed, TABLE), null);
   // The rev 34 Save (2026-11-25) stored the link: nothing is filled any more.
@@ -331,6 +324,6 @@ test('fillFromSeed: a field the renderer starts reading is filled from the seed,
   // `migration` is gone from every doc of the seed.
   for (const page of ['home', 'uses', 'consulting', 'collaborate', 'privacy', 'notes']) assert.equal(seed[page].migration, undefined, page);
   const bare = { sections: { products: { items: [] } } };
-  assert.equal(fillFromSeed(bare, 'home', seed).sections.products.privacy, undefined);
+  assert.equal(fillFromSeed(bare, 'home', seed).sections.products.more, undefined);
   assert.match(read('functions/_lib/content.js'), /fixStaleContent\(fillFromSeed\(await loadDocRaw\(env, page\), page, seed\)\)/);
 });

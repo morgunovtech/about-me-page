@@ -36,13 +36,13 @@ test('e-mail only where the owner put it: home «Связаться», llms.txt,
   assert.doesNotMatch(renderJsonLd(old, 'en'), /"email"/);
 });
 
-test('footer (v3.0.0): one link of its own — «сказать спасибо или сообщить об ошибке» → /thanks; no notes/about/uses links', () => {
+test('footer (v3.0.0): one link of its own — «Сказать спасибо или сообщить об ошибке» → /thanks; no notes/about/uses links', () => {
   const footers = PAGES.map((f) => read(f).match(/<footer class="v4-foot">[\s\S]*?<\/footer>/)[0]);
   footers.push(notesIndexHtml('ru', '', '{}', 'abc1234', { intro: 'x' }).match(/<footer class="v4-foot">[\s\S]*?<\/footer>/)[0]);
   for (const f of footers) {
     assert.doesNotMatch(f, /href="(\/en)?\/(notes|about|uses)"/);
     // Typeset: «об» stays with «ошибке» (an entity in a template, the character in the notes shell).
-    assert.match(f, /<a href="(\/en)?\/thanks">(сказать спасибо или сообщить об(?:&nbsp;|\s)ошибке|say thanks or report a bug)<\/a><\/span>/);
+    assert.match(f, /<a href="(\/en)?\/thanks">(Сказать спасибо или сообщить об(?:&nbsp;|\s)ошибке|Say thanks or report a bug)<\/a><\/span>/);
     // …and no «·» of the line can start a row of its own.
     assert.doesNotMatch(f, /[ \t\n]·/, 'a separator stays with the word before it');
     assert.doesNotMatch(f, /t\.me\/s_mrgnv/, 'mistakes are reported from /thanks');

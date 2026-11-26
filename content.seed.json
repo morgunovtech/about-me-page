@@ -299,10 +299,6 @@
           "ru": "Собственные проекты",
           "en": "My projects"
         },
-        "live": {
-          "ru": "Работает",
-          "en": "Live"
-        },
         "before": {
           "ru": "До этого",
           "en": "Before"
@@ -338,7 +334,7 @@
             "repo": "morgunovtech/social-tracker-bot",
             "tag": "BOT",
             "version": "v1.11",
-            "name": "Social Tracker Bot",
+            "name": "Social Tracker",
             "desc": {
               "ru": "Telegram-бот на вашем сервере для ваших соцсетей: подписчики в Telegram, YouTube, Instagram и LinkedIn, жизнь канала и безопасность аккаунтов — признаки угона, письма безопасности, опасные комментарии, — а ещё недельный отчёт о том, как вас находят люди и ИИ-ассистенты. Молчит, пока всё в порядке.",
               "en": "Self-hosted Telegram bot for your social accounts: followers on four networks, the life of your channel, account security alerts and a weekly reputation report."
@@ -411,16 +407,6 @@
             "en": "All projects on GitHub"
           },
           "href": "https://github.com/morgunovtech"
-        },
-        "privacy": {
-          "label": {
-            "ru": "Приватность: мои инструменты и джентльменский набор",
-            "en": "Privacy: my tools and the essential kit"
-          },
-          "href": {
-            "ru": "/privacy",
-            "en": "/en/privacy"
-          }
         }
       },
       "ventures": {
@@ -542,6 +528,16 @@
             "href": {
               "ru": "/consulting#consulting",
               "en": "/en/consulting#consulting"
+            }
+          },
+          {
+            "label": {
+              "ru": "Партнёрства и медиа",
+              "en": "Partnerships and media"
+            },
+            "href": {
+              "ru": "/collaborate",
+              "en": "/en/collaborate"
             }
           }
         ]

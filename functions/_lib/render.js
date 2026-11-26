@@ -200,22 +200,36 @@ function card({ item, cls, tag, meta, metaClass, metaPath, name, nameTag = 'h3',
         </article>`;
 }
 
+// The kind of a product, read in a line of text: the doc keeps the caption
+// word («BOT», «WEB»); the card says it in the line's own case.
+const KIND = { BOT: { ru: 'Бот', en: 'Bot' }, WEB: { ru: 'Веб', en: 'Web' } };
+function kindLabel(tag, lang) {
+  const t = String(tag || '').trim();
+  const k = KIND[t.toUpperCase()];
+  return k ? k[lang === 'en' ? 'en' : 'ru'] : renderInline(t);
+}
+
+// A product of mine (the homepage, /privacy «Мои инструменты»), v4.2.0: one
+// line — the name, which is the link to the product, and after it, quieter,
+// what it is and its version («Бот · v3.13»); then the description. No
+// button: the name is the action (owner, 2026-11-26). The version is synced
+// from GitHub by scripts/sync-products.mjs; the doc's `cta` gives the address.
 function productCard(it, lang, edit, path) {
-  // Head meta: the version (synced from GitHub by scripts/sync-products.mjs).
-  // The name links to the product like its button does — except in the
-  // editor, where a click edits.
   const href = it.cta ? safeHref(pick(it.cta.href, lang) || it.cta.href) : '';
   const name = renderInline(it.name);
-  return card({
-    item: true,
-    tag: renderInline(it.tag),
-    meta: renderInline(it.version),
-    metaClass: 'v4-version', // data: mono
-    name: !edit && href ? `<a href="${escapeAttr(href)}"${isExternal(href) ? ' target="_blank" rel="noopener noreferrer"' : ''}>${name}</a>` : name,
-    body: `<p class="v4-product-desc"${eText(edit, path + '.desc')}>${renderInline(pick(it.desc, lang))}</p>`,
-    cta: btn(it.cta, lang, edit, path + '.cta', false),
-    edit, path,
-  });
+  const link = !edit && href
+    ? `<a href="${escapeAttr(href)}"${isExternal(href) ? ` target="_blank" rel="noopener noreferrer">${name}${outMark(lang)}` : `>${name}`}</a>`
+    : name;
+  const kind = edit ? renderInline(it.tag) : kindLabel(it.tag, lang);
+  const version = it.version ? renderInline(it.version) : '';
+  return `<article class="v4-product"${eItem(edit, path)}>
+          <div class="v4-product-head">
+            <h3 class="v4-product-name"${eText(edit, path + '.name')}>${link}</h3>
+            <span class="v4-product-meta"><span${eText(edit, path + '.tag')}>${kind}</span>${
+      version ? `&nbsp;· <span${eText(edit, path + '.version')}>${version}</span>` : ''}</span>
+          </div>
+          <p class="v4-product-desc"${eText(edit, path + '.desc')}>${renderInline(pick(it.desc, lang))}</p>
+        </article>`;
 }
 
 // The Telegram channel block on /notes: a panel that says what the channel is
@@ -254,15 +268,13 @@ export function channelItem(it, lang, doc) {
 // tool that is not ready yet is a pale card — «скоро» in place of the version,
 // no link, no button.
 function soonCard(it, lang) {
-  return card({
-    cls: 'v4-product--soon',
-    tag: renderInline(it.tag),
-    meta: escapeHtml(lang === 'en' ? 'Soon' : 'Скоро'),
-    name: renderInline(it.name),
-    body: `<p class="v4-product-desc">${renderInline(pick(it.desc, lang))}</p>`,
-    cta: '',
-    edit: false, path: '',
-  });
+  return `<article class="v4-product v4-product--soon">
+          <div class="v4-product-head">
+            <h3 class="v4-product-name">${renderInline(it.name)}</h3>
+            <span class="v4-product-meta">${kindLabel(it.tag, lang)}&nbsp;· ${escapeHtml(lang === 'en' ? 'soon' : 'скоро')}</span>
+          </div>
+          <p class="v4-product-desc">${renderInline(pick(it.desc, lang))}</p>
+        </article>`;
 }
 
 // An off-site link inside a block of facts or a line of meta. `mark: false`
@@ -396,12 +408,6 @@ function feedRow(e, lang) {
   return `<li class="v4-feed-row"><span class="v4-feed-meta">${meta}</span>${link}</li>`;
 }
 
-// The repos of the /privacy tools — the homepage groups those products (v2.2.2).
-export function privacyRepos(privacyDoc) {
-  const items = (privacyDoc && privacyDoc.sections && privacyDoc.sections.tools && privacyDoc.sections.tools.items) || [];
-  return items.map((it) => it && it.repo).filter(Boolean);
-}
-
 export const renderers = {
   heroCtas: (doc, lang, edit) =>
     doc.hero.ctas.map((c, i) => btn(c, lang, edit, 'hero.ctas.' + i, true)).join('\n          '),
@@ -418,19 +424,13 @@ export const renderers = {
   ventures: (doc, lang, edit) =>
     doc.sections.ventures.items.map((it, i) => ventureRow(it, lang, edit, 'sections.ventures.items.' + i)).join('\n          '),
 
-  // «Работает» (v2.2.2): the products that are also tools on /privacy (`_privacyRepos`,
-  // read from the privacy doc) get their own grid under the /privacy link —
-  // the link introduces them instead of sitting in a stack of «more» links.
-  // Without that list, or with nothing on one side, it is one grid as before.
+  // The products: one grid (v4.2.0). The /privacy link that introduced the
+  // privacy tools inside the grid is gone — the menu has «Приватность»
+  // (owner, 2026-11-26).
   products: (doc, lang, edit) => {
     const sec = doc.sections.products;
-    const card = (it) => productCard(it, lang, edit, 'sections.products.items.' + sec.items.indexOf(it));
-    const grid = (list) => `<div class="v4-products">\n          ${list.map(card).join('\n          ')}\n        </div>`;
-    const repos = new Set(doc._privacyRepos || []);
-    const priv = sec.items.filter((it) => it.repo && repos.has(it.repo));
-    const rest = sec.items.filter((it) => !priv.includes(it));
-    if (!sec.privacy || !priv.length || !rest.length) return grid(sec.items);
-    return `${grid(rest)}\n        ${moreLink(sec.privacy, lang, edit, 'sections.products.privacy')}\n        ${grid(priv)}`;
+    const cards = sec.items.map((it, i) => productCard(it, lang, edit, 'sections.products.items.' + i));
+    return `<div class="v4-products">\n          ${cards.join('\n          ')}\n        </div>`;
   },
 
   // «Публикации»: the three newest feed entries (own notes + external materials),
@@ -443,11 +443,12 @@ export const renderers = {
     return `${rows ? `<ul class="v4-feed">\n            ${rows}\n          </ul>\n          ` : ''}${cta}`;
   },
 
-  // «Связаться»: one panel. Left — who writes and why. Right — ONE button
-  // (Telegram) and, under it, the lines that go with it: the reply time and
-  // the second channel as a line of text, never a second button. Under the
-  // panel, last — the link to read more first. A cta whose href is mailto: is
-  // the second channel: it never renders as a button.
+  // «Связаться»: one panel (v4.2.0 order, owner 2026-11-26). Left — who
+  // writes and why, and under it the pages to read first («Форматы и цены
+  // консалтинга», «Партнёрства и медиа»). Right, on the panel's right edge —
+  // ONE button (Telegram), under it the second channel as a line of text
+  // («Или на почту»), never a second button, and last the reply time. A cta
+  // whose href is mailto: is the second channel: it never renders as a button.
   contact: (doc, lang, edit) => {
     const sec = doc.sections.contact;
     const hrefOf = (c) => String(pick(c.href, lang) || c.href || '');
@@ -459,16 +460,18 @@ export const renderers = {
       ? `<a href="${escapeAttr(safeHref(hrefOf(c)))}"${eText(edit, 'sections.contact.ctas.' + i + '.label')}>${escapeHtml(pick(c.label, lang))}</a>`
       : '')).filter(Boolean);
     const alt = mails.length ? `\n            <p class="v4-contact-alt">${lang === 'en' ? 'Or by e-mail: ' : 'Или на почту: '}${mails.join(', ')}</p>` : '';
-    const links = (sec.links || []).map((l, i) => moreLink(l, lang, edit, 'sections.contact.links.' + i)).join('\n          ');
+    const links = (sec.links || []).map((l, i) => moreLink(l, lang, edit, 'sections.contact.links.' + i)).join('\n              ');
     return `<div class="v4-contact">
-          <p class="v4-contact-note"${eText(edit, 'sections.contact.note')}>${escapeHtml(pick(sec.note, lang))}</p>
+          <div class="v4-contact-text">
+            <p class="v4-contact-note"${eText(edit, 'sections.contact.note')}>${escapeHtml(pick(sec.note, lang))}</p>${
+      links ? `\n            <div class="v4-contact-links">\n              ${links}\n            </div>` : ''}
+          </div>
           <div class="v4-contact-act">
             <div class="v4-cta-row">
               ${buttons}
-            </div>${reply}${alt}
+            </div>${alt}${reply}
           </div>
-        </div>${
-      links ? `\n        <div class="v4-contact-links">\n          ${links}\n        </div>` : ''}`;
+        </div>`;
   },
 
   // «Как устроен этот сайт» on /uses (v4.0.0, the former /about «Принципы»):
