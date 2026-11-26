@@ -45,12 +45,12 @@ Paste into any service's `<head>`. Load order matters:
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/fonts.css?v=499be680" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/tokens.css?v=50fa198d" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" href="https://s.morgunov.tech/ds/v1/base.css?v=03b78c6e" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=639adaab" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" href="https://s.morgunov.tech/ds/v1/components.css?v=6daefb5f" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript>
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/fonts.css?v=499be680" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/tokens.css?v=50fa198d" />
   <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/base.css?v=03b78c6e" />
-  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=639adaab" />
+  <link rel="stylesheet" href="https://s.morgunov.tech/ds/v1/components.css?v=6daefb5f" />
 </noscript>
 ```
 
@@ -143,7 +143,7 @@ look-alikes.
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech / service&nbsp;· 2026&nbsp;· <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.1.1</a></span>
+      <span>morgunov.tech / service&nbsp;· 2026&nbsp;· <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.1.2</a></span>
       <span class="v4-foot-privacy">Без cookies, трекеров и аналитики</span>
     </footer>
   </div>
