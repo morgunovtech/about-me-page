@@ -270,7 +270,7 @@ ${barChrome(l, { ru: '/notes', en: '/en/notes', ruAttrs: ' data-cms-href="_pathR
         <header>
           <p class="v4-article-eyebrow"><a href="${notesHref}">${t.notes}</a></p>
           <h1 class="v4-article-title" data-cms-text="title"></h1>
-          <p class="v4-article-byline">${NAME[l]} · <span data-cms-html="_dateHtml"></span><span data-cms-html="_topicsHtml"></span></p>
+          <p class="v4-article-byline">${NAME[l]}&nbsp;· <span data-cms-html="_dateHtml"></span><span data-cms-html="_topicsHtml"></span></p>
           <figure class="v4-article-cover" data-cms-html="_coverHtml"></figure>
         </header>
         <div class="v4-article-body" data-cms-html="body"></div>

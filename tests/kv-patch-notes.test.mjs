@@ -36,6 +36,19 @@ test('a correction lands in the named field; a title is repeated in the copies t
   assert.equal(src.title.ru, 'Casio F91 — как создать продукт вне времени', 'the input doc is not mutated');
 });
 
+test('the cover is a field too: its address and its alt text per language', () => {
+  const src = note();
+  src.cover.alt.ru = 'Ключ между телефоном и ноутбуком';
+  const { doc, ok } = applyPatch(src, [
+    { field: 'cover.src', from: '/assets/articles/x.jpg', to: '/images/notes/y.webp' },
+    { field: 'cover.alt.ru', from: 'между телефоном и ноутбуком', to: 'на связке ключей' },
+  ]);
+  assert.ok(ok);
+  assert.equal(doc.cover.src, '/images/notes/y.webp');
+  assert.equal(doc.cover.alt.ru, 'Ключ на связке ключей');
+  assert.equal(applyPatch(note(), [{ field: 'cover.alt', from: 'a', to: 'b' }]).log[0].status, 'bad-field');
+});
+
 test('a quote that is missing or occurs twice stops the whole note', () => {
   const twice = applyPatch(note(), [{ field: 'body.ru', from: '20 000 точек', to: '20 000 точек' }]);
   assert.equal(twice.ok, false);

@@ -60,12 +60,14 @@ export async function renderArticlePage(env, slug, lang, request, opts = {}) {
     ? `<time datetime="${escapeAttr(doc.date)}">${escapeHtml(doc._dateDisplay)}</time>`
     : '';
   // The note's topics after the date, each a link to its page; their names are
-  // the JSON-LD keywords. A tag the notes doc does not name is skipped.
+  // the JSON-LD keywords. A tag the notes doc does not name is skipped. The «·»
+  // is tied to the date (&nbsp;), as the one after the name is in the shell:
+  // a line of the byline never starts with a separator.
   const known = new Map(topicsOf(notesDoc).map((t) => [t.key, pickL(t.name, lang)]));
   const topics = (Array.isArray(doc.tags) ? doc.tags : []).filter((k) => known.has(k));
   doc._keywords = topics.map((k) => known.get(k));
   doc._topicsHtml = topics.length
-    ? ' · ' + topics.map((k) => `<a href="${escapeAttr(topicUrl(k, lang))}">${escapeHtml(known.get(k))}</a>`).join(', ')
+    ? '&nbsp;· ' + topics.map((k) => `<a href="${escapeAttr(topicUrl(k, lang))}">${escapeHtml(known.get(k))}</a>`).join(', ')
     : '';
 
   const coverSrc = pick(doc.cover && doc.cover.src, lang);
