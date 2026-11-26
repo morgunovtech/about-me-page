@@ -274,9 +274,13 @@
   font-weight: 600;
 }
 
+/* The role is one unit: «· Co-founder» used to break at its hyphen on a phone
+   («Co-» at the end of a line, «founder» alone under it). The space before it
+   is tied by the typography pass, so the whole role goes with the last word. */
 .v4-venture .role-aside {
   color: var(--v4-muted);
   font-weight: 400;
+  white-space: nowrap;
 }
 
 .v4-venture .arc {
@@ -302,9 +306,11 @@
    /consulting's two tiers keep 2-up. Browsers without :has() simply keep the
    2-column grid. :where() keeps the container rule at (0,1,0) so the later
    ≤640px `1fr` rule wins by source order; :nth-of-type counts <article> cards
-   only (the CMS editor appends a <button> to this container). */
+   only (the CMS editor appends a <button> to this container). Exactly four
+   cards stay 2 × 2 (the homepage's products since v4.2.0): three a row left
+   the fourth alone under them. */
 @media (min-width: 1101px) {
-  .v4-products:where(:has(> .v4-product:nth-of-type(3))) {
+  .v4-products:where(:has(> .v4-product:nth-of-type(3)):not(:has(> .v4-product:nth-of-type(4):last-of-type))) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
