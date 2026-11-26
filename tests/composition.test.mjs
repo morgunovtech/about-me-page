@@ -16,7 +16,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 
-import { renderers, feedSource, feedMonth, plainLabel, privacyRepos } from '../functions/_lib/render.js';
+import { renderers, feedSource, feedMonth, plainLabel } from '../functions/_lib/render.js';
 import { NE_ARROW, outMark } from '../functions/_lib/i18n.js';
 import { buildFeed, feedListHtml, channelHtml, liveTopics, topicNavHtml } from '../functions/_lib/notes-feed.js';
 import { articleShell, notesIndexHtml } from '../functions/_lib/article-template.js';
@@ -63,7 +63,6 @@ function rendered(lang, edit = false) {
   for (const [key, file] of Object.entries(TEMPLATES)) {
     const doc = structuredClone(seed[key]);
     doc._feed = buildFeed([NOTE], seed.notes, lang).slice(0, 3);
-    doc._privacyRepos = privacyRepos(seed.privacy);
     doc._articles = [NOTE];
     for (const [, slot] of read(file).matchAll(/data-cms-list="(\w+)"/g)) out.push(renderers[slot](doc, lang, edit));
   }
@@ -184,21 +183,21 @@ test('4. a publication row says when and where; there is no free-text tag', () =
   assert.equal(feedMonth('2025-06-26'), '06.2025');
 });
 
-test('5. one button in the contact block; the e-mail is a line of text under it, the link to read more comes after the panel', () => {
+test('5. one button in the contact block; the e-mail is a line of text under it, the pages to read first under the sentence', () => {
   for (const f of HOME) {
     const contact = section(read(f), 'contact');
     assert.equal((contact.match(/class="v4-btn/g) || []).length, 1, f);
     assert.match(contact, /class="v4-btn v4-btn-primary" href="https:\/\/t\.me\//, f);
-    // One panel. Left — who should write. Right — the button and, under it, the lines that go
-    // with it: the reply time and the second channel as a sentence, never a second button.
+    // One panel (v4.2.0). Left — who should write, and under it the pages to read first.
+    // Right — the button; under it the second channel as a sentence, never a second button;
+    // last the reply time.
     const panel = element(contact, '<div class="v4-contact">');
+    const text = element(panel, '<div class="v4-contact-text">');
     const act = element(panel, '<div class="v4-contact-act">');
-    const note = panel.indexOf('<p class="v4-contact-note">');
-    assert.ok(note > 0 && note < panel.indexOf(act), `${f}: the note, then what to do`);
-    assert.match(act, /^<div class="v4-contact-act">\s*<div class="v4-cta-row">\s*<a class="v4-btn v4-btn-primary"[^>]*>[^<]+<\/a>\s*<\/div>\s*<p class="v4-contact-reply">[^<]+<\/p>\s*<p class="v4-contact-alt">(Или на почту|Or by e-mail): <a href="mailto:s@morgunov\.tech">s@morgunov\.tech<\/a><\/p>\s*<\/div>$/, f);
-    // The link to read more first is not a way to write: it is outside the panel, last.
-    assert.doesNotMatch(panel, /v4-more/, f);
-    assert.ok(contact.indexOf('<div class="v4-contact-links">') >= contact.indexOf(panel) + panel.length, f);
+    assert.ok(panel.indexOf(text) < panel.indexOf(act), `${f}: the sentence, then what to do`);
+    assert.match(text, /^<div class="v4-contact-text">\s*<p class="v4-contact-note">[^<]+<\/p>\s*<div class="v4-contact-links">\s*<div class="v4-more"><a href="(\/en)?\/consulting#consulting">[\s\S]+?<\/div>\s*<div class="v4-more"><a href="(\/en)?\/collaborate">[\s\S]+?<\/div>\s*<\/div>\s*<\/div>$/, f);
+    assert.match(act, /^<div class="v4-contact-act">\s*<div class="v4-cta-row">\s*<a class="v4-btn v4-btn-primary"[^>]*>[^<]+<\/a>\s*<\/div>\s*<p class="v4-contact-alt">(Или на почту|Or by e-mail): <a href="mailto:s@morgunov\.tech">s@morgunov\.tech<\/a><\/p>\s*<p class="v4-contact-reply">[^<]+<\/p>\s*<\/div>$/, f);
+    assert.equal((contact.match(/v4-contact-links/g) || []).length, 1, `${f}: the links only inside the panel`);
   }
   // Every other page ends with the same panel: one line, one button, nothing under it.
   for (const f of ['consulting.html', 'en/consulting.html', 'collaborate.html', 'en/collaborate.html', 'privacy.html', 'en/privacy.html']) {

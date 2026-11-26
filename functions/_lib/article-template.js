@@ -39,7 +39,7 @@ const T = {
     consulting: 'Консалтинг',
     collaborate: 'Партнёрства и медиа',
     usesNav: 'Стек',
-    thanks: 'сказать спасибо или сообщить об ошибке',
+    thanks: 'Сказать спасибо или сообщить об ошибке',
     thanksLine: 'Если заметка пригодилась — [вот как можно сказать спасибо]({href}).',
     back: '← Все публикации',
     menu: 'Меню',
@@ -61,7 +61,7 @@ const T = {
     consulting: 'Consulting',
     collaborate: 'Partnerships &amp; media',
     usesNav: 'Uses',
-    thanks: 'say thanks or report a bug',
+    thanks: 'Say thanks or report a bug',
     thanksLine: 'If this note was useful, [here’s how you can say thanks]({href}).',
     back: '← All publications',
     menu: 'Menu',
@@ -75,12 +75,12 @@ const T = {
   },
 };
 
-const STYLES_VER = 'v=a3958d28';
+const STYLES_VER = 'v=7100cb10';
 const SCRIPT_VER = 'v=f2317f0d';
 const FONTS_VER = 'v=499be680';
 const TOKENS_VER = 'v=50fa198d';
 const BASE_VER = 'v=03b78c6e';
-const COMPONENTS_VER = 'v=6daefb5f';
+const COMPONENTS_VER = 'v=418882f6';
 
 const L = (lang) => (lang === 'en' ? 'en' : 'ru');
 const p = (lang, path) => (L(lang) === 'en' ? '/en' : '') + path;

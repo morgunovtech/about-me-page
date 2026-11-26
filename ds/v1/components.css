@@ -35,13 +35,16 @@
 
 /* --- Top bar --- */
 
+/* The rule under the bar is a hairline (v4.2.0): it parts the chrome from
+   the page and does not compete with the ink rule under a section title
+   (owner, 2026-11-26). */
 .v4-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 0 16px;
   margin-bottom: 48px;
-  border-bottom: 1px solid var(--v4-fg);
+  border-bottom: 1px solid var(--v4-line);
   font-size: var(--v4-label-size);
   line-height: 1.4;
   text-transform: uppercase;

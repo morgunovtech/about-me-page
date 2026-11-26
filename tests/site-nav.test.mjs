@@ -45,7 +45,13 @@ test('every page has the same site menu, in order, with the current page marked 
 const onpage = (html) => /<\/section>\s*<nav class="v4-onpage" aria-label="(На этой странице|On this page)">([\s\S]*?)<\/nav>/.exec(html);
 
 test('a page\'s sections are in the on-page line under its hero: links only, in the page\'s order, each to a real section', () => {
-  for (const [f] of PAGES) {
+  // The homepage has none since v4.2.0: a page of a screen and a half needs no table of
+  // contents (owner, 2026-11-26). Its section ids stay — old links to /#contact keep working.
+  for (const f of ['index.html', 'en/index.html']) {
+    assert.doesNotMatch(read(f), /v4-onpage/, f);
+    for (const id of ['about', 'career', 'projects', 'notes', 'contact']) assert.match(read(f), new RegExp(`<section id="${id}" class="v4-section"`), `${f} #${id}`);
+  }
+  for (const [f] of PAGES.filter(([p]) => !/index\.html$/.test(p))) {
     const html = read(f);
     const line = onpage(html);
     assert.ok(line, `${f}: the line follows the hero`);
@@ -66,8 +72,6 @@ test('a page\'s sections are in the on-page line under its hero: links only, in 
   assert.match(css, /\.v4-onpage \{[^}]*\btext-wrap: balance;/);
   assert.match(css, /\.v4-onpage a \{[^}]*\bwhite-space: nowrap;[^}]*\bmargin-right: 20px;/);
   assert.doesNotMatch(css, /\.v4-onpage(?: a)? \{[^}]*\bdisplay:/);
-  // Home keeps the CMS hooks: the line mirrors the section titles.
-  assert.match(read('index.html'), /<nav class="v4-onpage"[^>]*>\s*<a href="#about" data-cms-text="sections\.about\.title">/);
   // The smooth-scroll handler covers the line.
   assert.match(read('script.js'), /\.v4-onpage a\[href\^="#"\]/);
 });
@@ -136,7 +140,7 @@ test('the 404 page carries the site menu like every page — both languages in o
   assert.ok(hero.includes('<p class="v4-tagline" data-i18n-ru="Такой страницы нет, или она была перемещена." data-i18n-en="This page doesn\'t exist or has been moved.">Такой страницы нет, или она была перемещена.</p>'));
   // The footer's own link, as on every page: after the build mark, in both languages.
   const foot = /<footer class="v4-foot">[\s\S]*?<\/footer>/.exec(html)[0];
-  assert.match(foot, /<a class="v4-build" [^>]*>v\d+\.\d+\.\d+<\/a>&nbsp;· <a href="\/thanks" data-i18n-href-en="\/en\/thanks" data-i18n-ru="сказать спасибо или сообщить об ошибке" data-i18n-en="say thanks or report a bug">сказать спасибо или сообщить об&nbsp;ошибке<\/a><\/span>/);
+  assert.match(foot, /<a class="v4-build" [^>]*>v\d+\.\d+\.\d+<\/a>&nbsp;· <a href="\/thanks" data-i18n-href-en="\/en\/thanks" data-i18n-ru="Сказать спасибо или сообщить об ошибке" data-i18n-en="Say thanks or report a bug">Сказать спасибо или сообщить об&nbsp;ошибке<\/a><\/span>/);
   // The language is switched by attributes handled in script.js — no inline script in <body>.
   assert.doesNotMatch(html.slice(html.indexOf('<body')), /<script(?![^>]*\ssrc=)/);
 });

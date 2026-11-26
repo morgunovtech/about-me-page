@@ -65,18 +65,12 @@
 }
 
 /* How many there are, beside the title of a list («Публикации 52»): data, so
-   it is quiet — the section-title size, regular, muted, on the cap line. */
+   it is quiet — the title's own size and baseline, regular, muted. It sat on
+   the cap line at 24px until v4.2.0 and read as a power (owner, 2026-11-26). */
 .v4-h1-count {
-  display: inline-block;
-  margin-left: 0.2em;
-  font-size: 24px;
-  line-height: 1;
+  margin-left: 0.15em;
   font-weight: 400;
-  letter-spacing: 0;
   color: var(--v4-muted);
-  vertical-align: top;
-  position: relative;
-  top: 0.22em;
   font-variant-numeric: tabular-nums lining-nums;
 }
 
@@ -131,8 +125,10 @@
 }
 
 /* --- Stats strip ---
-   Four figures in one band. The first one starts on the content's left edge;
-   the next ones are set off by a hairline. */
+   Four figures in one band, four a row down to 801px. The first one starts on
+   the content's left edge; the next ones are set off by a hairline. v4.2.0 made
+   the band tighter (owner, 2026-11-26): 16px of air over and under, the figure
+   32px; the words keep their 16 / 14px. */
 
 .v4-stats {
   display: grid;
@@ -143,23 +139,23 @@
 }
 
 .v4-stat {
-  padding: 24px 24px 24px 0;
+  padding: 16px 16px 16px 0;
 }
 
 .v4-stat + .v4-stat {
-  padding-left: 24px;
+  padding-left: 16px;
   border-left: 1px solid var(--v4-line);
 }
 
 .v4-stat-value {
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.025em;
 }
 
 .v4-stat-unit {
-  margin-top: 8px;
+  margin-top: 4px;
   line-height: 1.4;
 }
 
@@ -326,8 +322,9 @@
 
 /* The head of a card: what it is on the left (the caption), a fact on the
    right — a version, a price, «скоро» — in one secondary style, whatever the
-   fact is. No mark of «running»: a card under «Работает» says it by standing
-   there. */
+   fact is. A product of mine (v4.2.0) puts its name there instead of the
+   caption: the name is the link, and the quiet line on the right says what it
+   is and its version («Бот · v3.13»). */
 .v4-product-head {
   display: flex;
   justify-content: space-between;
@@ -338,6 +335,15 @@
   font-size: 14px;
   line-height: 1.5;
   color: var(--v4-muted);
+}
+
+.v4-product-head > .v4-product-name {
+  margin: 0;
+  color: var(--v4-fg);
+}
+
+.v4-product-meta {
+  white-space: nowrap;
 }
 
 /* The caption of a card: a word in the one caps style, no fill. */
@@ -445,10 +451,9 @@
   margin-top: 48px;
 }
 
-/* «Работает» on the homepage: the /privacy link introduces the privacy tools
-   — a step above it like a new group, the cards right under it. */
-.v4-product-groups > .v4-more {
-  margin: 32px 0 16px;
+/* «До этого» after the grid of products: a new group, a full step down. */
+.v4-product-groups + .v4-tier {
+  margin-top: 48px;
 }
 
 /* --- /uses (hardware and software) --- */
@@ -566,18 +571,22 @@
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-/* Who should write: a sentence, in the size of every sentence. */
+/* Who should write: a sentence, in the size of every sentence; under it the
+   pages to read first. */
 .v4-contact-note {
   margin: 0;
   max-width: 52ch;
 }
 
+/* The action on the panel's right edge (v4.2.0, owner 2026-11-26): the
+   button, under it the e-mail, last the reply time. */
 .v4-contact-act {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 12px;
-  max-width: 300px;
+  max-width: 320px;
+  text-align: right;
 }
 
 .v4-contact-reply,
@@ -588,7 +597,7 @@
   color: var(--v4-muted);
 }
 
-.v4-contact-reply + .v4-contact-alt {
+.v4-contact-alt + .v4-contact-reply {
   margin-top: -8px;
 }
 
@@ -607,9 +616,12 @@
   text-decoration-color: var(--v4-orange-text);
 }
 
-/* The link to read more first: under the panel, last. */
+/* The pages to read first, under the sentence: «more» links in a row. */
 .v4-contact-links {
-  margin: 24px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 16px 0 0;
 }
 
 .v4-contact-links .v4-more {
@@ -620,8 +632,11 @@
   .v4-contact {
     grid-template-columns: minmax(0, 1fr);
   }
+  /* One column: everything starts on the left edge again. */
   .v4-contact-act {
     max-width: none;
+    align-items: flex-start;
+    text-align: left;
   }
 }
 
@@ -820,16 +835,6 @@
   .v4-hero {
     gap: 32px;
   }
-  .v4-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .v4-stat:nth-child(odd) {
-    padding-left: 0;
-    border-left: none;
-  }
-  .v4-stat:nth-child(-n + 2) {
-    border-bottom: 1px solid var(--v4-line);
-  }
   /* The company and the role over the context, beside the period. */
   .v4-career-row {
     grid-template-columns: 160px minmax(0, 1fr);
@@ -839,6 +844,20 @@
   }
   .v4-uses {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Four figures need about 190px a column: two a row from 800px down. */
+@media (max-width: 800px) {
+  .v4-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .v4-stat:nth-child(odd) {
+    padding-left: 0;
+    border-left: none;
+  }
+  .v4-stat:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--v4-line);
   }
 }
 
@@ -857,9 +876,6 @@
     letter-spacing: -0.02em;
     overflow-wrap: break-word;
   }
-  .v4-h1-count {
-    font-size: 20px;
-  }
   .v4-stats {
     margin-bottom: 48px;
   }
@@ -873,7 +889,7 @@
     padding-left: 0;
   }
   .v4-stat-value {
-    font-size: 32px;
+    font-size: 28px;
   }
   /* Tables of «label | content» fold into one column: the label first. */
   .v4-career-row,
@@ -900,6 +916,7 @@
     padding: 16px;
   }
   .v4-more + .v4-tier,
+  .v4-product-groups + .v4-tier,
   .v4-kit + .v4-h3,
   .v4-products + .v4-h3 {
     margin-top: 32px;
