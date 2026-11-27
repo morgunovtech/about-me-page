@@ -9,7 +9,7 @@ import { articleShell } from './article-template.js';
 import { loadArticle } from './articles.js';
 import { loadDoc } from './content.js';
 import { topicsOf, topicUrl, pickL } from './notes-feed.js';
-import { ORIGIN, NAME, buildOf } from './site.js';
+import { ORIGIN, buildOf, withName } from './site.js';
 
 const nonEmpty = (v) => !!(v && String(v).trim());
 
@@ -70,10 +70,11 @@ export async function renderArticlePage(env, slug, lang, request, opts = {}) {
     ? '&nbsp;· ' + topics.map((k) => `<a href="${escapeAttr(topicUrl(k, lang))}">${escapeHtml(known.get(k))}</a>`).join(', ')
     : '';
 
+  // The cover is a note's LCP element: fetched first, as the homepage's portrait is (v4.9.1).
   const coverSrc = pick(doc.cover && doc.cover.src, lang);
   const coverAlt = pick(doc.cover && doc.cover.alt, lang) || pick(doc.title, lang) || '';
   doc._coverHtml = coverSrc
-    ? `<img src="${escapeAttr(coverSrc)}" alt="${escapeAttr(coverAlt)}" loading="eager" />`
+    ? `<img src="${escapeAttr(coverSrc)}" alt="${escapeAttr(coverAlt)}" loading="eager" fetchpriority="high" />`
     : '';
 
   // Resolve share/meta to scalars for the rendered language, with sensible
@@ -87,7 +88,7 @@ export async function renderArticlePage(env, slug, lang, request, opts = {}) {
   };
   const meta = doc.meta || {};
   doc.meta = {
-    title: (pick(meta.title, lang) || pick(doc.title, lang) || '') + ' — ' + NAME[lang === 'en' ? 'en' : 'ru'],
+    title: withName(pick(meta.title, lang) || pick(doc.title, lang) || '', lang),
     description: pick(meta.description, lang) || pick(doc.excerpt, lang) || '',
   };
 

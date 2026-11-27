@@ -1,0 +1,32 @@
+{
+ "notes": {
+  "pet-projects": [
+   {
+    "field": "body.ru",
+    "from": "(https://morgunov.tech/)",
+    "to": "(https://s.morgunov.tech/)",
+    "why": "SEO-аудит 2026-11-27: ссылка на свой сайт шла через 301 апекса (morgunov.tech → s.morgunov.tech); внутренняя ссылка ведёт прямо на канонический адрес."
+   },
+   {
+    "field": "body.en",
+    "from": "(https://morgunov.tech/)",
+    "to": "(https://s.morgunov.tech/)",
+    "why": "SEO audit 2026-11-27: the link to the site went through the apex 301; it now points at the canonical address."
+   }
+  ],
+  "clive-sinclair": [
+   {
+    "field": "body.ru",
+    "from": "(http://zxnext.narod.ru/)",
+    "to": "(https://zxnext.narod.ru/)",
+    "why": "SEO-аудит 2026-11-27: сайт отвечает по HTTPS и переадресует http:// на https:// — ссылка без лишнего перехода и без незашифрованного шага."
+   },
+   {
+    "field": "body.en",
+    "from": "(http://zxnext.narod.ru/)",
+    "to": "(https://zxnext.narod.ru/)",
+    "why": "SEO audit 2026-11-27: the site answers over HTTPS and redirects http:// there; the link skips the extra hop."
+   }
+  ]
+ }
+}

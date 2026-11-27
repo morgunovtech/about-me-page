@@ -238,7 +238,7 @@
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech&nbsp;· 2026&nbsp;· <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.9.0</a>&nbsp;· <a href="/thanks">Сказать спасибо или сообщить об&nbsp;ошибке</a></span>
+      <span>morgunov.tech&nbsp;· 2026&nbsp;· <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.9.1</a>&nbsp;· <a href="/thanks">Сказать спасибо или сообщить об&nbsp;ошибке</a></span>
       <span class="v4-foot-privacy">Без cookies, трекеров и&nbsp;аналитики</span>
     </footer>
   </div>
@@ -258,7 +258,10 @@
           "about": {
             "@id": "https://s.morgunov.tech/#person"
           },
-          "dateModified": "2026-11-25"
+          "dateModified": "2026-11-25",
+          "breadcrumb": {
+            "@id": "https://s.morgunov.tech/consulting#breadcrumb"
+          }
         },
         {
           "@type": "Service",
@@ -303,6 +306,24 @@
               }
             ]
           }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://s.morgunov.tech/consulting#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Главная",
+              "item": "https://s.morgunov.tech/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Консалтинг",
+              "item": "https://s.morgunov.tech/consulting"
+            }
+          ]
         }
       ]
     }
