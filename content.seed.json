@@ -317,8 +317,8 @@
             "version": "v3.13",
             "name": "TofsDevOps",
             "desc": {
-              "ru": "Сам себе DevOps в Telegram. Если сайт перестал открываться, сертификат скоро истечёт или поисковики и ИИ-ассистенты перестали его видеть, бот напишет первым и объяснит простыми словами, что делать. Что может, чинит сам; пока всё в порядке, молчит.",
-              "en": "Your personal DevOps in Telegram. If your site goes down, its certificate is about to expire or search engines and AI assistants stop seeing it, the bot tells you first and explains in plain words what to do. It fixes what it can and stays quiet while all is well."
+              "ru": "Мониторинг сайтов для тех, кто не знает, что такое DNS и ошибка 502. Если сайт перестал открываться, сертификат скоро истечёт или поисковики и ИИ-ассистенты перестали его видеть, бот напишет первым и объяснит простыми словами, что делать. Что может, чинит сам; пока всё в порядке, молчит.",
+              "en": "Website monitoring for people who have never heard of DNS or a 502. If your site goes down, its certificate is about to expire or search engines and AI assistants stop seeing it, the bot tells you first and explains in plain words what to do. It fixes what it can and stays quiet while all is well."
             },
             "cta": {
               "label": {

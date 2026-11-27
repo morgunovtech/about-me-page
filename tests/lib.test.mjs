@@ -328,6 +328,20 @@ test('fixStaleContent: a doc without stale text comes back untouched', () => {
   assert.equal(fixStaleContent('text'), 'text');
 });
 
+test('fixStaleContent v4.10.1: TofsDevOps opens with what it is, and the table holds no invisible character itself', async () => {
+  const nb = String.fromCharCode(0xa0);
+  const doc = { desc: { ru: 'Сам себе DevOps в' + nb + 'Telegram. Если сайт перестал открываться', en: 'Your personal DevOps in Telegram. If your site goes down' } };
+  fixStaleContent(doc);
+  assert.equal(doc.desc.ru, 'Мониторинг сайтов для тех, кто не знает, что такое DNS и ошибка 502. Если сайт перестал открываться');
+  assert.equal(doc.desc.en, 'Website monitoring for people who have never heard of DNS or a 502. If your site goes down');
+  const once = JSON.stringify(doc);
+  fixStaleContent(doc);
+  assert.equal(JSON.stringify(doc), once);
+  const { readFileSync } = await import('node:fs');
+  const src = readFileSync(new URL('../functions/_lib/migrations.js', import.meta.url), 'utf8');
+  assert.doesNotMatch(src, /[\u00a0\u2011\u2060]/, 'escapes, never the characters (CLAUDE.md, «Typography pass»)');
+});
+
 test('fixStaleContent v4.9.2: 7 working days, no «или e-com» — with plain or no-break spaces, and only once', () => {
   const nb = String.fromCharCode(0xa0);
   const doc = {
