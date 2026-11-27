@@ -280,7 +280,7 @@ test('/privacy has its own share card: the family template, 1200×630, per langu
 test('«Статьи»: the notes the doc names, in its order; English only once translated; a note change refreshes /privacy', async () => {
   const { NOTES_PATHS } = await import('../functions/_lib/cache.js');
   assert.ok(NOTES_PATHS.includes('/privacy') && NOTES_PATHS.includes('/en/privacy'));
-  assert.match(read('functions/_middleware.js'), /route\.page === 'privacy' \? loadPublishedArticles\(env\) : null/);
+  assert.match(read('functions/_middleware.js'), /route\.page === 'privacy' \|\| isCollab \? loadPublishedArticles\(env\) : null/);
   assert.match(read('functions/admin/api/preview.js'), /if \(page === 'privacy'\) doc\._articles = await loadPublishedArticles\(env\);/);
   // v2.2.0: the section follows a topic — every published note tagged with it, newest first.
   assert.equal(doc.sections.articles.topic, 'privacy');

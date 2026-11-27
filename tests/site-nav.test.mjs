@@ -89,11 +89,13 @@ test('the on-page lines of /consulting and /collaborate name what a section hold
   // /collaborate: its last block is «Нужен консалтинг?» with a button to /consulting, so the
   // link to it says «Консалтинг» — «Связаться» promised a way to write that is not there.
   // v4.6.0: what we can do together («Форматы»), who reads («Аудитория»), consulting.
-  assert.deepEqual(links('collaborate.html'), [['#partnerships', 'Форматы'], ['#audience', 'Аудитория'], ['#contact', 'Консалтинг']]);
-  assert.deepEqual(links('en/collaborate.html'), [['#partnerships', 'Formats'], ['#audience', 'Audience'], ['#contact', 'Consulting']]);
+  // /collaborate (v4.7.0, the owner's brief): the five parts a partner looks for; the principles
+  // and the way to consulting are read on the way down, not jumped to.
+  assert.deepEqual(links('collaborate.html'), [['#interests', 'Интересы'], ['#partnerships', 'Форматы'], ['#examples', 'Примеры'], ['#audience', 'Аудитория'], ['#contact', 'Контакты']]);
+  assert.deepEqual(links('en/collaborate.html'), [['#interests', 'Interests'], ['#partnerships', 'Formats'], ['#examples', 'Selected work'], ['#audience', 'Audience'], ['#contact', 'Contact']]);
   for (const f of ['collaborate.html', 'en/collaborate.html']) {
-    const contact = read(f).split('<section id="contact"')[1].split('</section>')[0];
-    assert.match(contact, /<a class="v4-btn v4-btn-primary" href="(\/en)?\/consulting">/, f);
+    const consulting = read(f).split('<section id="consulting"')[1].split('</section>')[0];
+    assert.match(consulting, /<div class="v4-more"><a href="(\/en)?\/consulting">/, f);
   }
 });
 

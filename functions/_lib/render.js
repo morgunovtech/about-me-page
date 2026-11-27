@@ -12,6 +12,7 @@
 // edit=false (the public render) emits none of these → output is byte-identical.
 
 import { pick, NEW_TAB, outMark } from './i18n.js';
+import { feedItemHtml } from './notes-feed.js';
 import { noteUrl } from './articles.js';
 import { escapeHtml, escapeAttr, isExternal, safeHref, renderInline, renderCtx, renderProse } from './markdown.js';
 
@@ -45,6 +46,9 @@ const CHANNELS = [
   ['telegram', 'TG', 'Telegram'],
   ['linkedin', 'LI', 'LinkedIn'],
   ['youtube', 'YT', 'YouTube'],
+  // v4.7.0: Social Tracker pushes every network it watches; the ingest kept
+  // three of them, so the total missed Instagram (6 295 against the owner's 6 476).
+  ['instagram', 'IG', 'Instagram'],
 ];
 
 // A single CTA / button anchor. Labels are plaintext (no markdown) — they are
@@ -90,17 +94,30 @@ export function fmtNum(n, lang) {
 // mentions followers (the stats strip, the /notes channel panel, llms.txt).
 // Live SocialBot numbers win when the subscribers stat is on auto; otherwise
 // the doc's own channel values. Formatted per language (RU nbsp / EN comma).
+// The live total is the sum of the channels as shown: a channel the live
+// record lacks (Instagram until the ingest stored it, v4.7.0) counts with the
+// doc's own value, so the total never drops a network it lists.
 export function counters(doc, lang) {
   const stat = (doc.stats || []).find((x) => x && x.kind === 'subscribers');
   const live = doc._live && doc._live.subscribers;
   const useLive = !!live && (!stat || stat.auto !== false);
   const out = {};
-  for (const ch of ['telegram', 'linkedin', 'youtube']) {
-    if (useLive && live[ch] != null) out[ch] = fmtNum(live[ch], lang);
-    else if (stat && stat.channels && stat.channels[ch] != null) out[ch] = escapeHtml(pick(stat.channels[ch], lang));
+  let sum = 0;
+  for (const [ch] of CHANNELS) {
+    if (useLive && live[ch] != null) {
+      out[ch] = fmtNum(live[ch], lang);
+      sum += Number(live[ch]) || 0;
+    } else if (stat && stat.channels && stat.channels[ch] != null) {
+      const v = pick(stat.channels[ch], lang);
+      out[ch] = escapeHtml(v);
+      sum += Number(String(v).replace(/\D/g, '')) || 0;
+    }
   }
-  if (useLive) out.total = fmtNum((+live.telegram || 0) + (+live.linkedin || 0) + (+live.youtube || 0), lang);
+  if (useLive) out.total = fmtNum(sum, lang);
   else if (stat && stat.value != null) out.total = escapeHtml(pick(stat.value, lang));
+  // A doc that stores the channels but no total of its own (/collaborate's
+  // `audience.channels`): the total is their sum, as the live one is.
+  else if (sum) out.total = fmtNum(sum, lang);
   return out;
 }
 
@@ -117,7 +134,7 @@ export function pluralRu(n, forms) {
 // The subscribers total is live, so its RU unit must agree with whatever
 // number arrives («6 069 подписчиков», «5 772 подписчика»). Recognised nouns
 // are declined from the stored unit; anything else (and EN) passes through.
-const RU_PLURALS = [['подписчик', 'подписчика', 'подписчиков']];
+const RU_PLURALS = [['подписчик', 'подписчика', 'подписчиков'], ['подписка', 'подписки', 'подписок']];
 export function unitFor(unit, lang, total) {
   if (lang !== 'ru' || total == null) return unit;
   const n = Number(String(total).replace(/\D/g, ''));
@@ -418,6 +435,26 @@ function feedRow(e, lang) {
   return `<li class="v4-feed-row"><span class="v4-feed-meta">${meta}</span>${link}</li>`;
 }
 
+// /collaborate (v4.7.0): the counters of the page — live, with the doc's
+// `audience.channels` as the fallback — and one figure of a stats strip: the
+// total of the follows (`total: true`) or a channel's count (`channel`), the
+// noun declined by the live number, or a snapshot `value` from the doc.
+function collabCounters(doc, lang) {
+  const a = (doc.sections && doc.sections.audience) || {};
+  return counters({ stats: [{ kind: 'subscribers', channels: a.channels || {} }], _live: doc._live }, lang);
+}
+function collabFigure(f, c, lang) {
+  const live = f.total ? c.total : f.channel ? c[f.channel] : null;
+  const value = f.total || f.channel ? live || '' : escapeHtml(pick(f.value, lang));
+  const unit = f.total || f.channel ? unitFor(pick(f.unit, lang), lang, live) : pick(f.unit, lang);
+  const aside = pick(f.aside, lang);
+  return `<div class="v4-stat">
+            <div class="v4-stat-value">${value}</div>
+            <div class="v4-stat-unit">${escapeHtml(unit)}</div>${aside ? `
+            <div class="v4-stat-aside">${renderInline(aside)}</div>` : ''}
+          </div>`;
+}
+
 export const renderers = {
   heroCtas: (doc, lang, edit) =>
     doc.hero.ctas.map((c, i) => btn(c, lang, edit, 'hero.ctas.' + i, true)).join('\n          '),
@@ -545,55 +582,133 @@ export const renderers = {
         </div>`;
   },
 
-  // «Что можно сделать вместе» (v1.7.0; v4.6.0 rewritten — the first outside
-  // reader did not see what the page was about): who writes and where, the
-  // formats, each opening with its point in bold, then the independence terms
-  // (`outro`, optional) and one button to the page's contact. No prices, no
-  // employer; the audience figures are the next section's.
+  // /collaborate (v4.7.0, the owner's brief of 2026-11-27): an invitation to
+  // technology companies, not a rate card. Interests → formats → selected work
+  // → audience by platform → principles → contact → consulting. The subscriber
+  // counts come from the same counters() as the homepage (live, the doc's
+  // `audience.channels` as the fallback); every other figure is a dated
+  // snapshot in the doc.
+
+  // Three figures under the hero: the follows across the networks (live), the
+  // seniority and the reach on LinkedIn (snapshot).
+  collabHeroStats: (doc, lang) => {
+    const c = collabCounters(doc, lang);
+    return (doc.heroStats || []).map((f) => collabFigure(f, c, lang)).join('\n      ');
+  },
+
+  // «Что мне интересно»: one line, then the six areas in the owner's order,
+  // each opening with its name in bold; then the stack, as a «more» link.
+  collabInterests: (doc, lang) => {
+    const s = doc.sections.interests;
+    if (!s) return '';
+    return `<div class="v4-prose">
+          ${renderProse(pick(s.prose, lang))}
+          ${liList(s.items, lang, 'v4-list v4-list--spaced')}
+        </div>${s.more ? `\n        ${moreLink(s.more, lang, false, '')}` : ''}`;
+  },
+
+  // «Как можем сотрудничать» (#partnerships since v1.7.0): the seven formats,
+  // each opening with its point in bold. No button: the page has one way to
+  // write, its «Есть что обсудить?» block. No prices.
   collabPartnerships: (doc, lang) => {
     const s = doc.sections.partnerships;
     if (!s) return '';
-    const outro = pick(s.outro, lang);
-    return `<div class="v4-body">
-          <div class="v4-body-aside"></div>
-          <div>
+    const prose = pick(s.prose, lang);
+    return `<div class="v4-prose">${prose ? `\n          ${renderProse(prose)}` : ''}
+          ${liList(s.items, lang, prose ? 'v4-list v4-list--spaced' : 'v4-list')}
+        </div>`;
+  },
+
+  // «Примеры работ»: a few real materials picked from the publications feed
+  // by slug (a note, `_articles`) or address (an external material of the
+  // `notes` doc, `_notes`) — the feed's own rows, so a title, a date, a source
+  // or a view count is never typed twice. A note without an English title is
+  // left out of /en/; the static twin has no notes (they live in KV).
+  collabExamples: (doc, lang) => {
+    const s = doc.sections.examples;
+    if (!s) return '';
+    const notes = new Map((doc._articles || []).map((a) => [a.slug, a]));
+    const ext = new Map(((doc._notes && doc._notes.external) || []).map((x) => [x.href, x]));
+    const titled = (t) => String((t && (lang === 'en' ? t.en : t.ru || t.en)) || '').trim();
+    const rows = (s.items || []).map((r) => {
+      const a = r.slug ? notes.get(r.slug) : null;
+      if (a) return titled(a.title) ? feedItemHtml({ kind: 'note', item: a }, lang, 'h3') : '';
+      const x = r.href ? ext.get(r.href) : null;
+      return x && titled(x.title) ? feedItemHtml({ kind: 'external', item: x }, lang, 'h3') : '';
+    }).filter(Boolean);
+    const lead = pick(s.prose, lang);
+    const more = (s.more || []).map((m) => moreLink(m, lang, false, '')).join('\n        ');
+    return `${lead ? `<p class="v4-tagline v4-tagline--compact">${renderInline(lead)}</p>\n        ` : ''}${
+      rows.length ? `<div class="v4-notes-feed">\n          ${rows.join('\n          ')}\n        </div>\n        ` : ''}${more}`;
+  },
+
+  // «Аудитория и площадки»: the follows with their parts (live), then one
+  // figure per platform with its own measures and period (LinkedIn, Telegram,
+  // vc.ru, YouTube), then who follows on LinkedIn — said to be LinkedIn's —
+  // and the languages, then where every figure comes from and when.
+  collabAudience: (doc, lang) => {
+    const s = doc.sections.audience;
+    if (!s) return '';
+    const c = collabCounters(doc, lang);
+    const summary = String(pick(s.summary, lang) || '').replace(/\{(total|telegram|linkedin|youtube|instagram)\}/g, (m, k) => (c[k] != null ? c[k] : m));
+    const figures = (s.figures || []).map((f) => collabFigure(f, c, lang)).join('\n          ');
+    const note = pick(s.note, lang);
+    const languages = pick(s.languages, lang);
+    return `${summary ? `<p class="v4-tagline v4-tagline--compact">${renderInline(summary)}</p>\n        ` : ''}<div class="v4-stats v4-stats--section">
+          ${figures}
+        </div>${s.profileTitle ? `\n        <h3 class="v4-h3">${escapeHtml(pick(s.profileTitle, lang))}</h3>` : ''}
+        <div class="v4-prose">
+          ${liList(s.items, lang, 'v4-list')}
+        </div>${languages ? `\n        <h3 class="v4-h3">${escapeHtml(pick(s.languagesTitle, lang))}</h3>\n        <div class="v4-prose">${renderProse(languages)}</div>` : ''}${
+      note ? `\n        <p class="v4-terms">${renderInline(note)}</p>` : ''}`;
+  },
+
+  // «Принципы сотрудничества»: the owner's terms, as prose.
+  collabPrinciples: (doc, lang) => {
+    const s = doc.sections.principles;
+    if (!s) return '';
+    return `<div class="v4-prose">
+          ${renderProse(pick(s.prose, lang))}
+        </div>`;
+  },
+
+  // «Есть что обсудить?»: the homepage's contact panel — on the left what to
+  // write and the three things a message needs; on the right ONE button, the
+  // e-mail with the subject filled in (international PR need not use
+  // Telegram), under it the address and Telegram as text you can copy, last
+  // where the owner lives and the languages he works in.
+  collabPitch: (doc, lang) => {
+    const s = doc.sections.contact;
+    if (!s || !s.email) return '';
+    const subject = pick(s.subject, lang);
+    const mail = `mailto:${s.email}${subject ? '?subject=' + encodeURIComponent(subject) : ''}`;
+    const alt = pick(s.alt, lang);
+    const note = pick(s.note, lang);
+    return `<div class="v4-contact">
+          <div class="v4-contact-text">
             <div class="v4-prose">
               ${renderProse(pick(s.prose, lang))}
-              ${liList(s.items, lang, 'v4-list v4-list--spaced')}${outro ? `\n              ${renderProse(outro)}` : ''}
+              ${liList(s.brief, lang, 'v4-list')}
             </div>
-            <div class="v4-help-cta">${btn(s.cta, lang, false, '', false, false)}</div>
+          </div>
+          <div class="v4-contact-act">
+            <div class="v4-cta-row">
+              <a class="v4-btn v4-btn-primary" href="${escapeAttr(mail)}">${escapeHtml(pick(s.label, lang))}</a>
+            </div>${alt ? `\n            <p class="v4-contact-alt">${renderInline(alt)}</p>` : ''}${
+      note ? `\n            <p class="v4-contact-reply">${renderInline(note)}</p>` : ''}
           </div>
         </div>`;
   },
 
-  // «Аудитория» on /collaborate (v4.6.0, owner 2026-11-27): who reads, in
-  // figures — the homepage's stats strip, the subscriber counts live from the
-  // same counters() (the doc's `channels` are the fallback), the other figures
-  // from the doc — then who they are, each item opening with its point in bold,
-  // then (v4.6.2) the one «more» link to the publications feed, where every
-  // article and talk the list counts can be checked, then where the figures
-  // come from and when they were taken.
-  collabAudience: (doc, lang) => {
-    const s = doc.sections.audience;
+  // The way to consulting, last and quieter than the page's own contact: a
+  // line and a «more» link (#consulting; it was #contact until v4.7.0).
+  collabConsultingLink: (doc, lang) => {
+    const s = doc.sections.consulting;
     if (!s) return '';
-    const c = counters({ stats: [{ kind: 'subscribers', channels: s.channels || {} }], _live: doc._live }, lang);
-    const figures = (s.figures || []).map((f) => {
-      const value = f.channel ? c[f.channel] || '' : escapeHtml(pick(f.value, lang));
-      const unit = f.channel ? unitFor(pick(f.unit, lang), lang, c[f.channel]) : pick(f.unit, lang);
-      return `<div class="v4-stat">
-            <div class="v4-stat-value">${value}</div>
-            <div class="v4-stat-unit">${escapeHtml(unit)}</div>
-            <div class="v4-stat-aside">${renderInline(pick(f.aside, lang))}</div>
-          </div>`;
-    }).join('\n          ');
-    const note = pick(s.note, lang);
-    const more = s.more ? moreLink(s.more, lang, false, '') : '';
-    return `<div class="v4-stats v4-stats--section">
-          ${figures}
+    return `<div class="v4-prose">
+          <p>${renderInline(pick(s.note, lang))}</p>
         </div>
-        <div class="v4-prose">
-          ${liList(s.items, lang, 'v4-list')}
-        </div>${more ? `\n        ${more}` : ''}${note ? `\n        <p class="v4-terms">${renderInline(note)}</p>` : ''}`;
+        ${moreLink(s.more, lang, false, '')}`;
   },
 
   // /privacy «Мои инструменты»: a lead line, then the cards.

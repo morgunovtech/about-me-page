@@ -115,14 +115,17 @@ async function handle(context) {
     // The template fetch and the KV reads are independent — run them in
     // parallel. The home page renders the live subscribers stat and the
     // «Публикации» block (the three newest /notes feed entries); /collaborate
-    // its «Аудитория» figures (v4.6.0).
+    // its «Аудитория» figures (v4.6.0) and «Примеры работ», picked from the
+    // published notes and the `notes` doc's external materials (v4.7.0).
     const isHome = route.page === 'home';
-    const [response, doc, subs, feed, articles] = await Promise.all([
+    const isCollab = route.page === 'collaborate';
+    const [response, doc, subs, feed, articles, notesDoc] = await Promise.all([
       next(),
       loadDoc(env, route.page),
-      isHome || route.page === 'collaborate' ? loadSubscribers(env) : null,
+      isHome || isCollab ? loadSubscribers(env) : null,
       isHome ? loadHomeFeed(env, route.lang) : null,
-      route.page === 'privacy' ? loadPublishedArticles(env) : null,
+      route.page === 'privacy' || isCollab ? loadPublishedArticles(env) : null,
+      isCollab ? loadDoc(env, 'notes') : null,
     ]);
     if (!(response.headers.get('content-type') || '').includes('text/html')) {
       return response;
@@ -131,6 +134,7 @@ async function handle(context) {
     if (subs) doc._live = { subscribers: subs };
     if (feed) doc._feed = feed;
     if (articles) doc._articles = articles;
+    if (notesDoc) doc._notes = notesDoc;
     doc._build = buildOf(env);
 
     const transformed = overlay(response, doc, route.lang, false, (d, l) => renderPageJsonLd(d, l, route.page));

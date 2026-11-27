@@ -1,6 +1,6 @@
 # Semyon Morgunov / Семён Моргунов
 
-> Head of FinTech at Yandex Uzbekistan — builds products in Central Asia's fast-growing markets, where product, operations, and unit economics are assembled in parallel. 10 years in tech: worked in Russia and Uzbekistan; consults for companies in any market, most often in Russia, Uzbekistan and Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees, two closed, one on pause). {total} followers across social channels (Telegram {telegram} · LinkedIn {linkedin} · YouTube {youtube}). Based in Tashkent, Uzbekistan.
+> Head of FinTech at Yandex Uzbekistan — builds products in Central Asia's fast-growing markets, where product, operations, and unit economics are assembled in parallel. 10 years in tech: worked in Russia and Uzbekistan; consults for companies in any market, most often in Russia, Uzbekistan and Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees, two closed, one on pause). {total} followers across social channels (Telegram {telegram} · LinkedIn {linkedin} · YouTube {youtube} · Instagram {instagram}). Based in Tashkent, Uzbekistan.
 
 ## About
 
@@ -26,9 +26,9 @@
 - [Publications / Публикации](https://s.morgunov.tech/notes) — one feed of own notes (the Telegram channel's writing, platform-independent and citable) and articles and talks published elsewhere (vc.ru, YouTube, spot.uz); English at https://s.morgunov.tech/en/notes
 - RSS feed (own notes only): https://s.morgunov.tech/notes/feed.xml
 - Topics: each has its own page at https://s.morgunov.tech/notes/topics/<topic> (English: /en/notes/topics/<topic>)
-- [How low-cost airlines make money](https://vc.ru/id679509/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 6,200+ views
-- [How discount grocers make money](https://vc.ru/id679509/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru, 30,500+ views
-- [Lessons from 3 years of personal finance management](https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami) — vc.ru, 38,100+ views
+- [How low-cost airlines make money](https://vc.ru/id679509/445698-na-chem-zarabatyvayut-loukostery) — vc.ru, 6,700+ views
+- [How discount grocers make money](https://vc.ru/id679509/448213-bez-izlishestv-na-chem-zarabatyvayut-magaziny-diskauntery) — vc.ru, 31,900+ views
+- [Lessons from 3 years of personal finance management](https://vc.ru/life/463596-chemu-ya-nauchilsya-za-3-goda-osoznannogo-upravleniya-semeinymi-finansami) — vc.ru, 41,000+ views
 - [Critical review of crowd-investing platform brainbox.vc](https://youtu.be/OJXtFmWNZMM) — YouTube, 3,300+ views
 - [Investable startup or a misunderstanding: a critical review of PlovMe](https://youtu.be/URi59Tq9Zu4) — YouTube, in Russian: a critical look at an Uzbek foodtech startup
 - [How to plan your life years ahead and achieve what you set out to do](https://youtu.be/1aL2xFrcGkU) — YouTube, in Russian: a long-range planning session
@@ -66,7 +66,7 @@
 
 - [Consulting](https://s.morgunov.tech/en/consulting) — in his words: “I help e-commerce and retail companies in Central Asia get products to positive unit economics: e-grocery and delivery, growth and monetization, product strategy and teams; FinTech outside Uzbekistan.” A one-off session or a monthly cycle; contract and invoice from his company MOR TECH LLC, an IT Park resident (https://www.it-park.uz/en/itpark/residents/itpark-residents); start with a Telegram message to https://t.me/s_mrgnv
 - [Strategic consulting](https://s.morgunov.tech/en/consulting#strategy) — long-term retainer as an external strategist
-- [Partnerships & media](https://s.morgunov.tech/en/collaborate#partnerships) — for companies, PR teams and event organisers: product and device reviews, beta tests, talks, panels and juries, comments for media and podcasts, invitations to launches and factories, open-source sponsorship. Editorial independence is non-negotiable: no guaranteed positive reviews, no recurring posting quotas. The [audience](https://s.morgunov.tech/en/collaborate#audience) section gives who reads him: {telegram} Telegram subscribers (in Russian; 46% of them have Telegram Premium) and {linkedin} LinkedIn followers (in English), most of them senior specialists and managers in tech, internet, finance and retail, above all in Moscow and Tashkent. Start with a Telegram message to https://t.me/s_mrgnv
+- [Partnerships & media](https://s.morgunov.tech/en/collaborate#partnerships) — an invitation to technology companies, PR teams, editors and event organisers: product testing and reviews, early access and beta testing, expert and long-term programs, interviews and research, talks and juries, behind-the-scenes visits, support for his open-source tools. He discloses paid collaborations, products provided for testing and affiliate links; a product provided does not guarantee coverage or a positive review; his views are his own, not his employer's. The [audience](https://s.morgunov.tech/en/collaborate#audience) section gives {total} follows across his social accounts (LinkedIn {linkedin}, Telegram {telegram}, Instagram {instagram}, YouTube {youtube}), per-platform figures (LinkedIn impressions, the Telegram channel with 46% of subscribers on Telegram Premium, vc.ru and YouTube views) and who follows him on LinkedIn. Start with an e-mail to s@morgunov.tech or a Telegram message to https://t.me/s_mrgnv
 - [Say thanks](https://s.morgunov.tech/en/thanks) — how to thank him if his work helped: help the dogs at the Mehr shelter (Tashkent); support him via [GitHub Sponsors](https://github.com/sponsors/morgunovtech) — voluntary, one-time or monthly — or Tribute; or for free: his Telegram channel (subscribe, forward, react, boost), GitHub stars, LinkedIn. The same page is where to report a mistake
 
 ## Privacy

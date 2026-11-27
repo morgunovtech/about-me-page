@@ -1,6 +1,6 @@
 import { overlay } from '../../_lib/overlay.js';
 import { json, sameOrigin } from '../../_lib/http.js';
-import { loadSubscribers, isArticlePage } from '../../_lib/content.js';
+import { loadSubscribers, loadDoc, isArticlePage } from '../../_lib/content.js';
 import { renderArticlePage } from '../../_lib/render-article.js';
 import { loadHomeFeed, loadPublishedArticles } from '../../_lib/render-notes.js';
 import { renderPageJsonLd } from '../../_lib/jsonld.js';
@@ -47,8 +47,11 @@ export async function onRequestPost({ request, env }) {
     doc._feed = feed;
   }
   if (page === 'collaborate') {
-    const subs = await loadSubscribers(env); // «Аудитория» shows the live counts
+    // «Аудитория» shows the live counts; «Примеры работ» picks notes and external materials.
+    const [subs, articles, notesDoc] = await Promise.all([loadSubscribers(env), loadPublishedArticles(env), loadDoc(env, 'notes')]);
     if (subs) doc._live = { subscribers: subs };
+    doc._articles = articles;
+    doc._notes = notesDoc;
   }
   if (page === 'privacy') doc._articles = await loadPublishedArticles(env);
   // Same per-page JSON-LD as the public render (_middleware.js) — the preview

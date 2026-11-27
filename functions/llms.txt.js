@@ -29,7 +29,7 @@ async function render(env, request) {
   if (doc) {
     if (subs) doc._live = { subscribers: subs };
     const c = counters(doc, 'en');
-    text = text.replace(/\{(telegram|linkedin|youtube|total)\}/g, (m, k) => (c[k] != null ? c[k] : m));
+    text = text.replace(/\{(telegram|linkedin|youtube|instagram|total)\}/g, (m, k) => (c[k] != null ? c[k] : m));
   }
   return new Response(request.method === 'HEAD' ? null : text, {
     status: 200,
