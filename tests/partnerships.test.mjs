@@ -1,11 +1,12 @@
-// /collaborate «Партнёрства и медиа». v1.7.0 — the section and the one support
-// link on the homepage; v2.0.0 — the section became the page, consulting moved
-// to /consulting; v4.6.0–v4.6.2 — «Аудитория»; v4.7.0 — the owner's brief of
-// 2026-11-27: an invitation to technology companies from a practitioner, not a
-// rate card. What the tests keep: the page's order, one way to write (the
-// e-mail button, Telegram as a line), no prices, the figures with their
-// sources and dates, the subscriber counts from the homepage's counters, the
-// selected work taken from the publications feed, consulting last and quiet.
+// /collaborate «Партнёрства и медиа». v1.7.0 — the section; v2.0.0 — the page;
+// v4.7.0–v4.8.0 — the owner's first brief; v4.9.0 — the brief v2 of
+// 2026-11-27: the page of an interesting person brands want to meet, not of
+// one looking for advertisers. Six parts, short copy, a portrait, cards of
+// real use and real work, the audience compact with its demography folded,
+// two ways to write. What the tests keep: that order and its limits (no
+// prices, no inbound brief, no long formats), the figures with their sources,
+// the counts from the homepage's counters, the bars on a 0–100% scale, the
+// selected work taken from the publications feed, the old anchors alive.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -19,144 +20,113 @@ const nb = String.fromCharCode(0xa0);
 const PAGES = [['collaborate.html', 'ru'], ['en/collaborate.html', 'en']];
 const section = (html, id) => html.split(`<section id="${id}"`)[1].split('</section>')[0];
 
-test('v4.7.0: the page in the brief\'s order — interests, formats, selected work, audience, principles, contact, consulting', () => {
-  assert.deepEqual(Object.keys(S), ['interests', 'partnerships', 'examples', 'audience', 'principles', 'contact', 'consulting']);
+test('v4.9.0: six parts — the hero, interests, formats, selected work, audience, contact — and no other section', () => {
+  assert.deepEqual(Object.keys(S), ['interests', 'partnerships', 'examples', 'audience', 'contact']);
   for (const [f] of PAGES) {
     const page = read(f);
     assert.deepEqual((page.match(/<section id="[a-z]+"/g) || []).map((m) => m.slice(13, -1)), Object.keys(S), f);
     assert.equal((page.match(/<h1 /g) || []).length, 1, `${f}: one h1`);
-    for (const id of Object.keys(S)) assert.equal((section(page, id).match(/<h2 /g) || []).length, 1, `${f} #${id}: one h2`);
+    assert.doesNotMatch(page, /v4-onpage/, `${f}: no on-page line`);
     assert.doesNotMatch(page, /v4-pricing|\$\s?\d/, `${f}: prices live on /consulting`);
+    // The old anchors land somewhere: the editorial terms and the way to consulting.
+    for (const id of ['principles', 'consulting']) assert.match(section(page, 'contact'), new RegExp(`id="${id}"`), `${f} #${id}`);
   }
-  for (const leaf of [c.hero.tagline, c.hero.lead, ...Object.values(S).map((s) => s.title)]) {
-    assert.ok(String(leaf.ru).trim() && String(leaf.en).trim());
-    assert.match(leaf.ru, /[а-яё]/i);
-  }
+  assert.equal(c.heroStats, undefined, 'no figures in the hero');
 });
 
-test('the hero: who the owner is and what he looks for, ONE button — to the page\'s contact — and three figures', () => {
-  assert.equal(c.hero.name.ru, 'Партнёрства и медиа');
-  // v4.8.0 (owner): no employer on the page of personal collaboration — «a large tech company».
-  assert.match(c.hero.tagline.ru, /^Я руковожу финтехом в крупной технологической компании/);
-  assert.match(c.hero.tagline.en, /^I lead FinTech at a large tech company/);
-  for (const [f] of PAGES) assert.doesNotMatch(read(f).split('</main>')[0], /Yandex|Яндекс/, `${f}: no employer named`);
+test('the hero: who he is in two short paragraphs, a real portrait, «Связаться со мной →» and «Чем я пользуюсь →»', () => {
+  assert.match(c.hero.tagline.ru, /^Руковожу финтехом в Yandex Uzbekistan, разрабатываю open source инструменты/);
+  assert.match(c.hero.tagline.en, /^I lead fintech at Yandex Uzbekistan, build open source tools/);
   for (const [f, lang] of PAGES) {
     const hero = read(f).split('<section class="v4-hero')[1].split('</section>')[0];
     const buttons = hero.match(/<a class="v4-btn[^"]*"[^>]*>[^<]*<\/a>/g) || [];
-    assert.deepEqual(buttons, [`<a class="v4-btn v4-btn-primary" href="#contact">${lang === 'en' ? 'Get in touch' : 'Предложить сотрудничество'}</a>`], f);
-    // The figures come after the text and the button — on a phone too.
-    assert.ok(hero.indexOf('v4-cta-row') < hero.indexOf('v4-stats--three'), f);
-    assert.equal((hero.match(/class="v4-stat"/g) || []).length, 3, f);
+    assert.deepEqual(buttons, lang === 'en'
+      ? ['<a class="v4-btn v4-btn-primary" href="#contact">Get in touch →</a>', '<a class="v4-btn" href="/en/uses">What I use →</a>']
+      : ['<a class="v4-btn v4-btn-primary" href="#contact">Связаться со мной →</a>', '<a class="v4-btn" href="/uses">Чем я пользуюсь →</a>'], f);
+    assert.match(hero, /<img class="v4-portrait"[^>]*src="\/images\/Hero_Photo_640\.webp"[^>]*alt="(Портрет Семёна Моргунова|Portrait of Semyon Morgunov)"[^>]*loading="eager"/, f);
+    assert.doesNotMatch(hero, /v4-stat/, `${f}: no figures on the first screen`);
   }
-  // One LinkedIn figure in the hero, not two (v4.8.0): the third is Telegram Premium.
-  assert.deepEqual(c.heroStats.map((x) => (x.total ? 'total' : x.value.ru)), ['total', '71%', '46%']);
-  assert.match(c.heroStats[2].unit.ru, /Telegram Premium/);
-  // The first figure is the total of the follows — the homepage's counters, Instagram included
-  // (v4.7.0: the owner's 6 476 = Telegram + LinkedIn + YouTube + Instagram).
-  assert.equal(c.heroStats[0].total, true);
-  const live = { ...c, _live: { subscribers: { telegram: 1157, linkedin: 5012, youtube: 126, instagram: 181 } } };
-  assert.match(renderers.collabHeroStats(live, 'ru'), new RegExp(`<div class="v4-stat-value">6${nb}476</div>\\s*<div class="v4-stat-unit">подписок в моих соцсетях</div>`));
-  assert.match(renderers.collabHeroStats(live, 'en'), /<div class="v4-stat-value">6,476<\/div>/);
-  // A live record without Instagram (before the ingest stored it) counts the doc's own value.
-  const noIg = { ...c, _live: { subscribers: { telegram: 1157, linkedin: 5012, youtube: 126 } } };
-  assert.match(renderers.collabHeroStats(noIg, 'ru'), new RegExp(`6${nb}476`));
-  // …the same total the homepage shows.
-  const home = { ...seed.home, _live: noIg._live };
-  assert.equal(counters(home, 'ru').total, `6${nb}476`);
 });
 
-test('interests and formats: each item opens with its point in bold; no button in the formats — the page has one way to write', () => {
-  assert.equal(S.interests.items.length, 6);
-  assert.equal(S.partnerships.items.length, 7);
-  for (const it of [...S.interests.items, ...S.partnerships.items]) {
-    for (const lang of ['ru', 'en']) assert.match(it[lang], /^\*\*[^*]+\.\*\* \S/, `${lang}: ${it[lang].slice(0, 40)}`);
+test('interests: four scenes of real use, a name and one line each; formats: six short lines', () => {
+  assert.equal(S.interests.items.length, 4);
+  for (const it of S.interests.items) {
+    for (const lang of ['ru', 'en']) assert.ok(pick(it.text, lang).split(' ').length <= 9, `${lang}: one short line`);
   }
-  assert.match(S.interests.items[4].ru, /конфликт интересов/, 'FinTech says the conflict of interest');
-  assert.match(S.interests.items[5].ru, /личное увлечение/, 'Outdoor is a personal interest');
-  for (const [f, lang] of PAGES) {
-    const page = read(f);
-    assert.doesNotMatch(section(page, 'partnerships'), /class="v4-btn/, f);
-    assert.match(section(page, 'interests'), new RegExp(`<div class="v4-more"><a href="${lang === 'en' ? '/en' : ''}/uses">`), `${f}: the stack`);
-  }
-  // No promise of coverage or of a positive review anywhere in the offer.
-  assert.doesNotMatch(JSON.stringify(S.partnerships), /гарантир|guarantee/i);
+  assert.doesNotMatch(JSON.stringify(S.interests), /личное увлечение|personal interest/);
+  assert.equal(S.partnerships.items.length, 6);
+  for (const it of S.partnerships.items) for (const lang of ['ru', 'en']) assert.ok(it[lang].split(' ').length <= 12, `${lang}: ${it[lang]}`);
+  assert.match(S.partnerships.items[0].ru, /^Тест-драйвы/);
+  assert.match(S.partnerships.items[2].ru, /съёмки и пользовательские истории для медиа и брендов/, 'the brand\'s own content');
+  for (const [f] of PAGES) assert.doesNotMatch(section(read(f), 'partnerships'), /class="v4-btn/, f);
+  // A card shows a photo only once the doc has one; never an empty frame.
+  assert.doesNotMatch(section(read('collaborate.html'), 'interests'), /v4-card-photo/);
 });
 
-test('selected work comes from the publications feed — notes by slug, external materials by address — never typed twice', () => {
-  assert.deepEqual(S.examples.items.map((x) => x.slug || x.href), ['yubikey', 'airalo', 'https://youtu.be/OJXtFmWNZMM', 'https://youtu.be/BthlUR9eO1M', 'https://www.spot.uz/ru/2026/03/02/wolt-opinion/']);
-  for (const x of S.examples.items) assert.deepEqual(Object.keys(x).length, 1, 'a reference, not a copy');
-  const ext = seed.notes.external.map((e) => e.href);
-  for (const x of S.examples.items.filter((i) => i.href)) assert.ok(ext.includes(x.href), x.href);
-  const note = (slug, title) => ({ slug, date: '2025-12-07', title: { ru: title, en: title + ' EN' }, excerpt: { ru: 'x', en: 'x' } });
-  const doc = { ...c, _articles: [note('yubikey', 'YubiKey'), note('airalo', 'Airalo')], _notes: seed.notes };
+const pick = (v, lang) => (v && typeof v === 'object' ? v[lang] : v);
+
+test('selected work: four cards picked from the publications feed by slug or address, a video with the owner in the frame among them', () => {
+  assert.deepEqual(S.examples.items.map((x) => x.slug || x.href), ['yubikey', 'https://youtu.be/BthlUR9eO1M', 'airalo', 'icloud-pmf']);
+  for (const x of S.examples.items) assert.equal(Object.keys(x).length, 1, 'a reference, not a copy');
+  const talk = seed.notes.external.find((e) => e.href === 'https://youtu.be/BthlUR9eO1M');
+  assert.equal(talk.cover.src, '/images/notes/clickdata-korzinka-go.webp', 'the talk\'s picture lives on the site');
+  const note = (slug, cover) => ({ slug, date: '2025-12-07', title: { ru: slug, en: slug + ' EN' }, ...(cover ? { cover: { src: cover } } : {}) });
+  const doc = { ...c, _articles: [note('yubikey', '/images/notes/yubikey-5c-nfc.webp'), note('airalo'), note('icloud-pmf')], _notes: seed.notes };
   const ru = renderers.collabExamples(doc, 'ru');
-  assert.equal((ru.match(/<h3 class="v4-note-title">/g) || []).length, 5, 'five rows, titles under the section\'s h2');
-  assert.ok(ru.indexOf('/notes/yubikey') < ru.indexOf('/notes/airalo') && ru.indexOf('/notes/airalo') < ru.indexOf('OJXtFmWNZMM'), 'the doc\'s order');
-  // The static twin has no notes (KV): it shows the external materials it names.
-  assert.equal((section(read('collaborate.html'), 'examples').match(/class="v4-note-item"/g) || []).length, 3);
-  // A note without an English title stays off /en/.
-  const untranslated = { ...doc, _articles: [{ ...note('yubikey', 'YubiKey'), title: { ru: 'YubiKey' } }] };
-  assert.doesNotMatch(renderers.collabExamples(untranslated, 'en'), /yubikey/);
-  // Under the rows: all the publications and the projects.
+  assert.equal((ru.match(/<article class="v4-product v4-work">/g) || []).length, 4);
+  assert.equal((ru.match(/class="v4-card-photo"/g) || []).length, 2, 'pictures where the material has one');
+  assert.ok(ru.indexOf('/notes/yubikey') < ru.indexOf('BthlUR9eO1M') && ru.indexOf('BthlUR9eO1M') < ru.indexOf('/notes/airalo'), 'the doc\'s order');
+  assert.match(ru, /<p class="v4-work-meta">Видео · <time datetime="2025-06-26">26 июня 2025<\/time><\/p>/);
+  assert.match(ru, new RegExp(`3${nb}600\\+ просмотров`));
+  // The talk's picture is a file of the site: no request to YouTube for it.
+  assert.doesNotMatch(read('collaborate.html'), /ytimg|youtube\.com\/embed/);
   assert.deepEqual(S.examples.more.map((m) => m.href.ru), ['/notes', '/#projects']);
+  assert.match(S.examples.prose.ru, /сертифицированным тренером Apple/);
 });
 
-test('the audience (v4.8.0): an infographic at a glance — where people follow (live), seniority, industries, cities (LinkedIn\'s, said so) — the reach in a line, the profiles to click through', () => {
+test('the audience: the total of follows (live) and two shares; a row a platform, the name its profile; the demography folded, its bars on a 0–100% scale', () => {
   assert.deepEqual(Object.keys(S.audience.channels).sort(), ['instagram', 'linkedin', 'telegram', 'youtube']);
-  assert.deepEqual(S.audience.groups.map((g) => g.kind || g.title.en), ['channels', 'Seniority · LinkedIn', 'Industries · LinkedIn', 'Cities · LinkedIn']);
-  for (const g of S.audience.groups.slice(1)) assert.match(g.title.ru, /LinkedIn$/, 'a LinkedIn share says it is LinkedIn\'s');
-  assert.match(S.audience.note.ru, /27 ноября 2026/);
-  for (const src of ['LinkedIn', 'Telegram', 'TGStat', 'vc.ru', 'YouTube']) assert.ok(S.audience.note.ru.includes(src), src);
+  assert.deepEqual(S.audience.platforms.map((p) => p.name), ['LinkedIn', 'Telegram', 'Instagram', 'YouTube', 'vc.ru', 'GitHub']);
   const live = { ...c, _live: { subscribers: { telegram: 1161, linkedin: 5022, youtube: 126, instagram: 181 } } };
   const ru = renderers.collabAudience(live, 'ru');
-  // Where people follow: the live counts, the bar of each the share of the largest.
-  assert.match(ru, new RegExp(`<li class="v4-meter-row"><span class="v4-meter-label">LinkedIn</span><span class="v4-meter-value">5${nb}022</span><span class="v4-meter" aria-hidden="true"><span class="v4-meter-fill" style="width: 100%"></span></span></li>`));
-  assert.match(ru, new RegExp(`<span class="v4-meter-label">Telegram</span><span class="v4-meter-value">1${nb}161</span><span class="v4-meter" aria-hidden="true"><span class="v4-meter-fill" style="width: 23%"></span>`));
-  // A LinkedIn share: its figure beside its label, the bar scaled to the group's largest.
-  assert.match(ru, /<span class="v4-meter-label">Москва<\/span><span class="v4-meter-value">15%<\/span><span class="v4-meter" aria-hidden="true"><span class="v4-meter-fill" style="width: 100%">/);
-  assert.match(ru, /<span class="v4-meter-label">Ташкент<\/span><span class="v4-meter-value">14%<\/span><span class="v4-meter" aria-hidden="true"><span class="v4-meter-fill" style="width: 93%">/);
-  // The profiles: every network the page counts, and vc.ru and GitHub — each opens in a new tab.
-  const profiles = S.audience.profiles.map((p) => p.href);
-  for (const host of ['linkedin.com/in/semyon-morgunov', 't.me/raschet7', 'instagram.com/semyon.morgunov', 'youtube.com/@semyon_morgunov', 'vc.ru/id679509', 'github.com/morgunovtech']) {
-    assert.ok(profiles.some((h) => h.includes(host)), host);
-  }
-  for (const [f] of PAGES) {
-    const links = section(read(f), 'audience').match(/<a\s[^>]*>/g) || [];
-    assert.equal(links.length, S.audience.profiles.length, `${f}: the profiles are the section's only links`);
-    for (const a of links) assert.match(a, /target="_blank" rel="noopener noreferrer"/, f);
-  }
-  // The page that shows the counts loads them and is purged when they arrive.
+  assert.match(ru, new RegExp(`<div class="v4-stat-value">6${nb}490</div>\\s*<div class="v4-stat-unit">подписок на четырёх площадках</div>`));
+  assert.match(ru, new RegExp(`<a class="v4-platform-name" href="https://www.linkedin.com/in/semyon-morgunov/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr-only"> \\(откроется в новой вкладке\\)</span></a><span class="v4-platform-count">5${nb}022</span>`));
+  // vc.ru and GitHub: no follows are claimed.
+  assert.match(ru, /vc\.ru<span class="sr-only">[^<]*<\/span><\/a><span class="v4-platform-count"><\/span>/);
+  // Folded, and the bars say the share itself: 26% is 26% of the width.
+  assert.match(ru, /<details class="v4-aud-details">\s*<summary>Подробнее об аудитории<\/summary>/);
+  assert.doesNotMatch(ru, /<details[^>]* open/);
+  assert.match(ru, /<span class="v4-meter-label">Senior-специалисты<\/span><span class="v4-meter-value">26%<\/span><span class="v4-meter" aria-hidden="true"><span class="v4-meter-fill" style="width: 26%"><\/span>/);
+  assert.match(ru, /<span class="v4-meter-label">Москва<\/span><span class="v4-meter-value">15%<\/span><span class="v4-meter" aria-hidden="true"><span class="v4-meter-fill" style="width: 15%">/);
+  // The 71% is the sum of LinkedIn's levels but entry and training — every one of them shown.
+  const levels = S.audience.details.groups[0].rows.map((r) => r.share);
+  assert.equal(levels.reduce((a, b) => a + b, 0) - 15, 71);
+  assert.match(S.audience.note.ru, /27 ноября 2026/);
+  assert.match(S.audience.note.ru, /не равны числу уникальных людей/);
+  // The total is the homepage's.
+  const home = { ...seed.home, _live: { subscribers: { telegram: 1161, linkedin: 5022, youtube: 126, instagram: 181 } } };
+  assert.equal(counters(home, 'ru').total, `6${nb}490`);
   assert.match(read('functions/api/ingest/subscribers.js'), /PAGE_PATHS\.collaborate/);
   assert.match(read('functions/_middleware.js'), /isHome \|\| isCollab \? loadSubscribers\(env\)/);
   assert.equal(renderers.collabAudience({ sections: {} }, 'ru'), '');
 });
 
-test('principles: disclosure, no guaranteed coverage, personal views — not the employer\'s; the conflict of interest', () => {
-  assert.match(S.principles.prose.ru, /обозначаю/);
-  assert.match(S.principles.prose.ru, /не гарантирует публикацию или положительный отзыв/);
-  assert.match(S.principles.prose.ru, /не позицию работодателя/);
-  assert.match(S.principles.prose.en, /not those of my employer/);
-});
-
-test('contact: ONE button — the e-mail with its subject; the address and Telegram as text to copy; where he lives and the languages', () => {
+test('contact: «Давайте знакомиться» — e-mail and Telegram, the address and the handle to copy, the place, two short lines of terms; no brief asked of the partner', () => {
   for (const [f, lang] of PAGES) {
     const contact = section(read(f), 'contact');
-    const buttons = contact.match(/class="v4-btn[^"]*"/g) || [];
-    assert.equal(buttons.length, 1, f);
-    const subject = lang === 'en' ? 'Partnership%20proposal' : encodeURIComponent('Предложение о сотрудничестве');
-    assert.ok(contact.includes(`<a class="v4-btn v4-btn-primary" href="mailto:s@morgunov.tech?subject=${subject}">`), f);
-    assert.match(contact, /<p class="v4-contact-alt"><a href="mailto:s@morgunov\.tech">s@morgunov\.tech<\/a> · [^<]*<a href="https:\/\/t\.me\/s_mrgnv"/, f);
-    assert.match(contact, /<p class="v4-contact-reply">[^<]*(Ташкент|Tashkent)/, f);
-    assert.equal((contact.match(/<li>/g) || []).length, 3, `${f}: the brief`);
+    const buttons = contact.match(/<a class="v4-btn[^"]*"[^>]*>[^<]*<\/a>/g) || [];
+    const subject = lang === 'en' ? 'Hello' : encodeURIComponent('Знакомство');
+    assert.deepEqual(buttons, [
+      `<a class="v4-btn v4-btn-primary" href="mailto:s@morgunov.tech?subject=${subject}">${lang === 'en' ? 'Email me' : 'Написать на почту'}</a>`,
+      `<a class="v4-btn" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">${lang === 'en' ? 'Message me on Telegram' : 'Написать в Telegram'}</a>`,
+    ], f);
+    assert.match(contact, /<p class="v4-contact-alt"><a href="mailto:s@morgunov\.tech">s@morgunov\.tech<\/a> · <a href="https:\/\/t\.me\/s_mrgnv"/, f);
+    assert.match(contact, /(Ташкент, Узбекистан|Tashkent, Uzbekistan) · RU \/ EN/, f);
+    assert.doesNotMatch(contact, /<li>|Почему считаете|Why you think/, `${f}: no brief`);
+    assert.match(contact, new RegExp(`id="consulting">[^<]*<a href="${lang === 'en' ? '/en' : ''}/consulting">`), f);
   }
-});
-
-test('consulting: last, and quieter than the page\'s own contact — a line and a «more» link', () => {
-  for (const [f, lang] of PAGES) {
-    const sec = section(read(f), 'consulting');
-    assert.doesNotMatch(sec, /class="v4-btn/, f);
-    assert.match(sec, new RegExp(`<div class="v4-more"><a href="${lang === 'en' ? '/en' : ''}/consulting">`), f);
-  }
+  assert.match(S.contact.policy.ru, /не позицию работодателя/);
+  assert.doesNotMatch(JSON.stringify(c), /не обсуждается|non-negotiable/, 'no defensive wording');
 });
 
 test('no support link on the pages (v2.2.2, owner): GitHub Sponsors stays in llms.txt only', () => {
@@ -169,10 +139,9 @@ test('no support link on the pages (v2.2.2, owner): GitHub Sponsors stays in llm
   assert.match(llms, /\[GitHub Sponsors\]\(https:\/\/github\.com\/sponsors\/morgunovtech\) — voluntary/);
 });
 
-test('v2.0.0: /consulting holds what /collaborate held; /collaborate points to it last', () => {
+test('v2.0.0: /consulting holds what /collaborate held', () => {
   assert.deepEqual(Object.keys(seed.consulting.sections), ['about', 'consulting', 'work', 'contact']);
   for (const f of ['consulting.html', 'en/consulting.html']) {
-    // The site menu (v3.0.0) links every page; the page itself keeps to its own URLs.
     const page = read(f).replace(/<header class="v4-bar"[\s\S]*?<\/header>/, '');
     assert.doesNotMatch(page, /\/collaborate/, `${f}: its own URLs only`);
     assert.doesNotMatch(page, /id="partnerships"/, f);
@@ -182,8 +151,6 @@ test('v2.0.0: /consulting holds what /collaborate held; /collaborate points to i
     assert.doesNotMatch(read(f), /"@type": "Service"|OfferCatalog/, `${f}: the Service is consulting's`);
     assert.match(read(f), /"@type": "BreadcrumbList"/, f);
   }
-  // The route, the sitemap and the stored homepage link follow the move.
   assert.match(read('functions/_middleware.js'), /'\/consulting': \{ page: 'consulting', lang: 'ru' \}/);
   assert.match(read('functions/_lib/render-notes.js'), /loc: '\/en\/consulting'/);
-  assert.equal(seed.home.sections.contact ? JSON.stringify(seed.home).includes('/collaborate#consulting') : false, false);
 });

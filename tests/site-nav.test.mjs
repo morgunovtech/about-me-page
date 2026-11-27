@@ -91,10 +91,10 @@ test('the on-page lines of /consulting and /collaborate name what a section hold
   // /collaborate: its last block is «Нужен консалтинг?» with a button to /consulting, so the
   // link to it says «Консалтинг» — «Связаться» promised a way to write that is not there.
   // v4.6.0: what we can do together («Форматы»), who reads («Аудитория»), consulting.
-  // /collaborate has no line since v4.8.0 (the page is short); its way to consulting is last.
+  // /collaborate has no line since v4.8.0 (the page is short); its way to consulting is a line
+  // at the end of its contact (#consulting, v4.9.0).
   for (const f of ['collaborate.html', 'en/collaborate.html']) {
-    const consulting = read(f).split('<section id="consulting"')[1].split('</section>')[0];
-    assert.match(consulting, /<div class="v4-more"><a href="(\/en)?\/consulting">/, f);
+    assert.match(read(f), /<p class="v4-terms" id="consulting">[^<]*<a href="(\/en)?\/consulting">/, f);
   }
 });
 
