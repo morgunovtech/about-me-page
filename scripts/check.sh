@@ -37,7 +37,7 @@ echo "→ render-static.mjs --check (templates are the seed's twins)"
 node scripts/render-static.mjs --check >/dev/null
 echo "  ok"
 
-echo "→ typo-static.mjs --check (/thanks, /social-tracker, /404 and the footers are typeset)"
+echo "→ typo-static.mjs --check (/thanks, /social-tracker, /tofsdevops, /404 and the footers are typeset)"
 node scripts/typo-static.mjs --check >/dev/null
 echo "  ok"
 

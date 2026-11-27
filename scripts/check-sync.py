@@ -28,6 +28,7 @@ PAIRS = [
     ("uses.html", "en/uses.html"),
     ("thanks.html", "en/thanks.html"),
     ("social-tracker.html", "en/social-tracker.html"),
+    ("tofsdevops.html", "en/tofsdevops.html"),
 ]
 SKIP_SUBTREE = {"style", "script", "svg", "noscript"}
 # Tags that we ignore entirely (no enter/exit events recorded). These are

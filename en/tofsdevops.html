@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TofsDevOps: your personal DevOps in Telegram — Semyon Morgunov</title>
+  <meta name="description" content="Open-source Telegram bot: watches your sites, fixes what it can, checks whether search engines and AI assistants can see you, and stays quiet while everything is fine. Free, MIT, runs on your side." />
+  <meta name="author" content="Semyon Morgunov" />
+  <meta name="theme-color" content="#edeae5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" media="(prefers-color-scheme: light)" />
+  <link rel="icon" href="/images/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="canonical" href="https://s.morgunov.tech/en/tofsdevops" />
+  <link rel="alternate" hreflang="ru" href="https://s.morgunov.tech/tofsdevops" />
+  <link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/tofsdevops" />
+  <link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/tofsdevops" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="TofsDevOps: your personal DevOps in Telegram — Semyon Morgunov" />
+  <meta property="og:description" content="Open-source Telegram bot: watches your sites, fixes what it can, checks whether search engines and AI assistants can see you, and stays quiet while everything is fine. Free, MIT, runs on your side." />
+  <meta property="og:url" content="https://s.morgunov.tech/en/tofsdevops" />
+  <meta property="og:image" content="https://s.morgunov.tech/images/og-card-tofsdevops-en.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="TofsDevOps: your personal DevOps in Telegram" />
+  <meta property="og:site_name" content="morgunov.tech" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ru_RU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TofsDevOps: your personal DevOps in Telegram — Semyon Morgunov" />
+  <meta name="twitter:description" content="Open-source Telegram bot: watches your sites, fixes what it can, checks whether search engines and AI assistants can see you, and stays quiet while everything is fine. Free, MIT, runs on your side." />
+  <meta name="twitter:image" content="https://s.morgunov.tech/images/og-card-tofsdevops-en.png" />
+  <meta name="twitter:image:alt" content="TofsDevOps: your personal DevOps in Telegram" />
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
+  <style>
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:12px;--v4-label-tracking:.08em;--v4-label-xs-size:12px;--v4-label-xs-tracking:.08em;--v4-label-weight:500;color-scheme:light dark}
+    [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f;color-scheme:dark}
+    [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000;color-scheme:dark}
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0}
+    body.no-transition,body.no-transition *{transition:none!important}
+    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:16px;line-height:1.6;letter-spacing:-0.005em}
+    .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:8px 12px;z-index:100;text-decoration:none;font-size:14px;transition:top .2s}
+    .v4-page .skip-link:focus{top:8px}
+  </style>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-600.woff2" crossorigin />
+  <!-- Mono renders above the fold (hero eyebrow 400, section numbers 500) — preload both so they don't FOUT. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-latin-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-latin-500.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-500.woff2" crossorigin />
+  <link rel="stylesheet" href="/ds/v1/fonts.css?v=499be680" />
+  <link rel="stylesheet" href="/ds/v1/tokens.css?v=50fa198d" />
+  <link rel="stylesheet" href="/ds/v1/base.css?v=03b78c6e" />
+  <link rel="stylesheet" href="/ds/v1/components.css?v=418882f6" />
+  <link rel="stylesheet" href="/styles.css?v=90244c91" />
+  <script data-cfasync="false">
+    (function () {
+      var d = document.documentElement;
+      var p = 'auto';
+      try { p = localStorage.getItem('theme-preference') || 'auto'; } catch (e) {}
+      var t = p === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : p;
+      d.setAttribute('data-theme', t);
+      d.setAttribute('data-theme-preference', p);
+      if (p !== 'auto') {
+        var c = t === 'dark' ? '#14130f' : t === 'high-contrast' ? '#000000' : '#edeae5';
+        var m = document.querySelectorAll('meta[name="theme-color"]');
+        for (var i = 0; i < m.length; i++) m[i].setAttribute('content', c);
+      }
+    })();
+  </script>
+</head>
+<body class="v4-page no-transition" data-lang="en">
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <div class="v4-root">
+    <header class="v4-bar" id="top">
+      <nav class="v4-nav v4-dropdown" aria-label="Main navigation">
+        <button class="v4-bar-btn v4-nav-toggle" type="button" aria-controls="site-nav">Menu<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+        <div class="v4-bar-mid" id="site-nav">
+          <a href="/en/">About</a>
+          <a href="/en/notes">Publications</a>
+          <a href="/en/privacy">Privacy</a>
+          <div class="v4-dropdown v4-nav-group">
+            <button class="v4-nav-group-btn" type="button" aria-controls="nav-work">Work with me<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+            <div class="v4-menu v4-nav-sub" id="nav-work">
+              <span class="v4-nav-group-cap" aria-hidden="true">Work with me</span>
+              <a class="v4-menu-item" href="/en/consulting">Consulting</a>
+              <a class="v4-menu-item" href="/en/collaborate">Partnerships &amp; media</a>
+            </div>
+          </div>
+          <a href="/en/uses">Uses</a>
+        </div>
+      </nav>
+      <div class="v4-bar-right">
+        <div class="v4-dropdown v4-lang">
+          <button class="v4-bar-btn v4-lang-btn" type="button" aria-haspopup="menu" aria-controls="lang-menu" id="lang-toggle" aria-label="EN — change language">EN<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+          <div class="v4-menu" id="lang-menu" role="menu" aria-labelledby="lang-toggle">
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="false" href="/tofsdevops" hreflang="ru" lang="ru">Русский</a>
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="true" href="/en/tofsdevops" hreflang="en" lang="en">English</a>
+          </div>
+        </div>
+        <div class="v4-dropdown v4-theme">
+          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-controls="theme-menu" id="theme-toggle" aria-label="Switch theme">
+            <svg class="v4-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+              <circle cx="8" cy="8" r="3"></circle>
+              <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"></path>
+            </svg>
+            <svg class="v4-icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M13.5 9A6 6 0 1 1 7 2.5a4.5 4.5 0 0 0 6.5 6.5z"></path>
+            </svg>
+            <svg class="v4-icon-contrast" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <circle cx="8" cy="8" r="6"></circle>
+              <path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path>
+            </svg>
+          </button>
+          <div class="v4-menu v4-theme-menu" id="theme-menu" role="menu" aria-labelledby="theme-toggle">
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">Light</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">Dark</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">Auto</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">High contrast</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="v4-hero v4-hero--simple" aria-labelledby="hero-title">
+        <div class="v4-hero-text">
+          <p class="v4-hero-meta">Telegram bot&nbsp;· Open source</p>
+          <h1 class="v4-h1" id="hero-title">TofsDevOps</h1>
+          <div class="v4-prose">
+            <p class="v4-tagline">Your personal DevOps in Telegram.</p>
+            <p>Watches your sites, fixes what it can, checks whether search engines and AI assistants can see you&nbsp;— and stays quiet while everything is fine. For people who don’t know what DNS or a 502&nbsp;error is: every alert says what happened, what it means for your visitors and what to do&nbsp;— for your hosting: Cloudflare, Vercel, Netlify, GitHub Pages or your own server.</p>
+          </div>
+          <div class="v4-cta-row">
+            <a class="v4-btn v4-btn-primary" href="https://github.com/morgunovtech/Tofs_DevOps_bot/blob/main/README.md#install--two-ways" target="_blank" rel="noopener noreferrer">Install&nbsp;→</a>
+            <a class="v4-btn" href="https://github.com/morgunovtech/Tofs_DevOps_bot" target="_blank" rel="noopener noreferrer">Code on GitHub&nbsp;→</a>
+          </div>
+        </div>
+      </section>
+      <nav class="v4-onpage" aria-label="On this page">
+        <a href="#what">What it does</a>
+        <a href="#data">Your data</a>
+        <a href="#cost">What it costs</a>
+        <a href="#install">How to install</a>
+        <a href="#honest">What this is, honestly</a>
+        <a href="#questions">Questions and ideas</a>
+      </nav>
+      <section id="what" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2">What it does</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <ul class="v4-list"><li><strong>Your site goes down&nbsp;— you know first.</strong> A check every 5&nbsp;minutes, and before it wakes you, the bot asks a second location outside; downtime in minutes, not percentages.</li><li><strong>Certificate, domain, DNS.</strong> It warns you if the certificate hasn’t renewed 10&nbsp;days before it expires, reminds you to renew the domain, and raises the alarm when the NS records change&nbsp;— that’s what a hijack looks like.</li><li><strong>Your Cloudflare account.</strong> A message with sound if a DNS record or a redirect rule is deleted, DNSSEC, NS or the SSL mode change, an API token is created, or someone signs in from a new address. It needs a read-only token.</li><li><strong>Whether search engines and AI assistants can see you:</strong> noindex, robots.txt, how much text there is without JavaScript, the sitemap, requests from GPTBot, ClaudeBot or PerplexityBot being refused, broken links in llms.txt. Each item comes with what it puts at risk for you and the steps for your hosting.</li><li><strong>Mail on your domain:</strong> who receives it, whether port 25 is open from outside, SPF, DKIM and DMARC&nbsp;— with a ready-made record, so your emails don’t land in spam.</li><li><strong>Security from the outside and broken links:</strong> <code>/.git</code> or <code>/.env</code> open to anyone, http without a redirect to https, missing security headers&nbsp;— with a ready-made block for your hosting; pages that answer with an error, and links to nowhere.</li><li><strong>Fixes what it can on its own:</strong> rebuilds the site on Cloudflare Pages and purges the cache; on your own server it restarts the container&nbsp;— only if you gave it access to Docker.</li><li><strong>Quiet while everything is fine:</strong> one morning message, a report on Sundays, quiet hours. A red circle means act now, with sound; an orange one means not today, without sound.</li></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="data" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2">Your data</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <p>The bot runs on your side. The addresses of your sites go to a few free public services: a check from another location, a snapshot of the page, Chrome’s speed data, the domain registry. Each one can be turned off. Internal addresses&nbsp;— 192.168…, .local and the like&nbsp;— go nowhere. On Sundays the bot sends a copy of its database to your private chat, without tokens or secrets.</p>
+            </div>
+            <div class="v4-more"><a href="https://github.com/morgunovtech/Tofs_DevOps_bot/blob/main/README.md#what-leaves-your-server" target="_blank" rel="noopener noreferrer"><span>What goes where&nbsp;— the full table on GitHub</span><span class="v4-out" aria-hidden="true">&#8288;<span class="v4-ne">→</span></span><span class="sr-only"> (opens in a new tab)</span></a></div>
+          </div>
+        </div>
+      </section>
+      <section id="cost" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2">What it costs</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <ul class="v4-list"><li>The bot is free.</li><li>On your own server with Docker: free&nbsp;— a VPS, a home server, a NAS or a Raspberry Pi will do.</li><li>Railway: the first 30&nbsp;days&nbsp;— $5 with no card, then the Hobby plan at $5 a month, which is enough for the bot; without it the bot stops after the trial month. You need a card that works for payments abroad. The bot will remind you to pay.</li></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="install" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2">How to install</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <p>Two ways&nbsp;— Railway or your own server with Docker.</p>
+              <h3 class="v4-h3">Railway&nbsp;— about 5&nbsp;minutes</h3>
+              <p><strong>Step 1.</strong> Create a bot with <a href="https://t.me/BotFather" target="_blank" rel="noopener noreferrer">@BotFather</a> and copy its token.</p>
+              <p><strong>Step 2.</strong> Press <a href="https://railway.com/deploy/tofsdevops?referralCode=7hTMqE" target="_blank" rel="noopener noreferrer">the Railway button</a>&nbsp;— the form has one field, the token; the database, the address and the rest are already in the template.</p>
+              <p class="v4-terms">The link carries my referral code: your price is the same. Without the code: <a href="https://railway.com/deploy/tofsdevops" target="_blank" rel="noopener noreferrer">railway.com/deploy/tofsdevops</a>.</p>
+              <p><strong>Step 3.</strong> Press <code>/start</code>&nbsp;— the bot asks for your first site right in the chat and offers a test alert and an outside watchdog.</p>
+              <h3 class="v4-h3">Your own server with Docker&nbsp;— one command</h3>
+              <p><code>curl -fsSL https://raw.githubusercontent.com/<wbr>morgunovtech/<wbr>Tofs_DevOps_bot/<wbr>main/<wbr>scripts/<wbr>install.sh | sh</code></p>
+              <p>It asks for the token, writes two files and starts the bot; running it again updates it. A server in Russia often can’t reach api.telegram.org directly&nbsp;— set a proxy, <code>TELEGRAM_PROXY</code> in <code>.env</code>.</p>
+            </div>
+            <div class="v4-more"><a href="https://github.com/morgunovtech/Tofs_DevOps_bot/blob/main/README.md#install--two-ways" target="_blank" rel="noopener noreferrer"><span>Step by step&nbsp;— on GitHub</span><span class="v4-out" aria-hidden="true">&#8288;<span class="v4-ne">→</span></span><span class="sr-only"> (opens in a new tab)</span></a></div>
+          </div>
+        </div>
+      </section>
+      <section id="honest" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2">What this is, honestly</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <ul class="v4-list"><li>A personal project, shared as is: I use it every day, but it’s not a service with support.</li><li>What can’t be seen from the outside, the bot says so: for example, it doesn’t promise which AI crawlers Cloudflare lets in&nbsp;— it shows where to look in the dashboard.</li><li>Access to Docker on your own server means root on the whole machine: give it only where everything is yours.</li><li>It speaks Russian or English and takes the language from your Telegram.</li><li>Named after Tofs&nbsp;— an Irish Terrier who takes uptime personally.</li></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="questions" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2">Questions and ideas</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <p>If something is missing or unclear, message me.</p>
+            </div>
+            <div class="v4-help-cta"><a class="v4-btn v4-btn-primary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Message me on Telegram</a></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="v4-foot">
+      <span>morgunov.tech&nbsp;· 2026&nbsp;· <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.5.0</a>&nbsp;· <a href="/en/thanks">Say thanks or report a bug</a></span>
+      <span class="v4-foot-privacy">No cookies, no trackers, no analytics</span>
+    </footer>
+  </div>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://s.morgunov.tech/en/tofsdevops#webpage",
+      "url": "https://s.morgunov.tech/en/tofsdevops",
+      "name": "TofsDevOps: your personal DevOps in Telegram — Semyon Morgunov",
+      "description": "Open-source Telegram bot: watches your sites, fixes what it can, checks whether search engines and AI assistants can see you, and stays quiet while everything is fine. Free, MIT, runs on your side.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://s.morgunov.tech/#website"
+      },
+      "about": {
+        "@id": "https://s.morgunov.tech/en/tofsdevops#app"
+      },
+      "mainEntity": {
+        "@id": "https://s.morgunov.tech/en/tofsdevops#app"
+      },
+      "dateModified": "2026-11-27",
+      "breadcrumb": {
+        "@id": "https://s.morgunov.tech/en/tofsdevops#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://s.morgunov.tech/en/tofsdevops#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://s.morgunov.tech/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "TofsDevOps",
+          "item": "https://s.morgunov.tech/en/tofsdevops"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://s.morgunov.tech/en/tofsdevops#app",
+      "name": "TofsDevOps",
+      "url": "https://s.morgunov.tech/en/tofsdevops",
+      "description": "An open-source Telegram bot that runs on the site owner’s side: checks your sites every 5 minutes and confirms an outage from a second location, watches the certificate, the domain, DNS and your Cloudflare account, checks whether search engines and AI assistants can see the site, fixes what it can, and stays quiet while everything is fine.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Telegram",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "license": "https://opensource.org/licenses/MIT",
+      "installUrl": "https://github.com/morgunovtech/Tofs_DevOps_bot/blob/main/README.md#install--two-ways",
+      "sameAs": "https://github.com/morgunovtech/Tofs_DevOps_bot",
+      "author": {
+        "@id": "https://s.morgunov.tech/#person"
+      }
+    }
+  ]
+}
+  </script>
+  <script data-cfasync="false" defer src="/script.js?v=f2317f0d"></script>
+</body>
+</html>
