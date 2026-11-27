@@ -1464,22 +1464,22 @@
               "en": "Telegram subscribers"
             },
             "aside": {
-              "ru": "канал «Семён расправил плечи», на русском",
-              "en": "the channel “Semyon raspravil plechi”, in Russian"
+              "ru": "канал «Семён расправил плечи»; у поста в среднем 384 просмотра",
+              "en": "the channel “Semyon raspravil plechi”; 384 views per post on average"
             }
           },
           {
             "value": {
-              "ru": "384",
-              "en": "384"
+              "ru": "46%",
+              "en": "46%"
             },
             "unit": {
-              "ru": "просмотра у поста в Telegram",
-              "en": "views per Telegram post"
+              "ru": "подписчиков канала — с Telegram Premium",
+              "en": "of channel subscribers have Telegram Premium"
             },
             "aside": {
-              "ru": "в среднем пост читает треть подписчиков",
-              "en": "on average a third of subscribers read a post"
+              "ru": "около 535 человек; 49 бустов канала",
+              "en": "about 535 people; 49 channel boosts"
             }
           },
           {
@@ -1518,6 +1518,10 @@
             "en": "**Where.** Moscow 15%, Tashkent 14%; then London, Saint Petersburg, Tbilisi, Belgrade, Berlin, Barcelona, the San Francisco Bay Area and Amsterdam."
           },
           {
+            "ru": "**Языки.** Канал пишется на русском, LinkedIn — на английском. У читателей канала Telegram чаще всего на русском, второй язык — английский, дальше узбекский, немецкий и украинский.",
+            "en": "**Languages.** The channel is in Russian, LinkedIn in English. Most channel readers use Telegram in Russian, English comes second, then Uzbek, German and Ukrainian."
+          },
+          {
             "ru": "**Отрасли.** IT-сервисы и консалтинг — 20%, интернет — 14%, финансы и банки — 10%, разработка ПО — 7%, ритейл — 5%.",
             "en": "**Industries.** IT services and consulting 20%, internet 14%, finance and banking 10%, software development 7%, retail 5%."
           },
@@ -1531,8 +1535,8 @@
           }
         ],
         "note": {
-          "ru": "Число подписчиков обновляется само; остальное — из аналитики LinkedIn и TGStat на 27 ноября 2026 года.",
-          "en": "Subscriber counts update by themselves; the rest is from LinkedIn analytics and TGStat as of 27 November 2026."
+          "ru": "Число подписчиков обновляется само; остальное — из статистики Telegram, аналитики LinkedIn и TGStat на 27 ноября 2026 года.",
+          "en": "Subscriber counts update by themselves; the rest is from Telegram’s own statistics, LinkedIn analytics and TGStat as of 27 November 2026."
         }
       },
       "contact": {
