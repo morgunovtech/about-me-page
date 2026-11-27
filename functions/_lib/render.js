@@ -570,7 +570,9 @@ export const renderers = {
   // figures — the homepage's stats strip, the subscriber counts live from the
   // same counters() (the doc's `channels` are the fallback), the other figures
   // from the doc — then who they are, each item opening with its point in bold,
-  // then where the figures come from and when they were taken.
+  // then (v4.6.2) the one «more» link to the publications feed, where every
+  // article and talk the list counts can be checked, then where the figures
+  // come from and when they were taken.
   collabAudience: (doc, lang) => {
     const s = doc.sections.audience;
     if (!s) return '';
@@ -585,12 +587,13 @@ export const renderers = {
           </div>`;
     }).join('\n          ');
     const note = pick(s.note, lang);
+    const more = s.more ? moreLink(s.more, lang, false, '') : '';
     return `<div class="v4-stats v4-stats--section">
           ${figures}
         </div>
         <div class="v4-prose">
           ${liList(s.items, lang, 'v4-list')}
-        </div>${note ? `\n        <p class="v4-terms">${renderInline(note)}</p>` : ''}`;
+        </div>${more ? `\n        ${more}` : ''}${note ? `\n        <p class="v4-terms">${renderInline(note)}</p>` : ''}`;
   },
 
   // /privacy «Мои инструменты»: a lead line, then the cards.

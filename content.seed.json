@@ -1532,8 +1532,22 @@
           {
             "ru": "**Цитирование.** Канал в Telegram упоминали 117 раз в 19 других каналах.",
             "en": "**Citations.** Other Telegram channels have mentioned mine 117 times, 19 channels in all."
+          },
+          {
+            "ru": "**Публикации.** Три статьи на vc.ru — почти 75 тыс. просмотров; колонки и комментарии для spot.uz; выступления и разборы на YouTube — около 8 тыс. просмотров.",
+            "en": "**Publications.** Three articles on vc.ru — almost 75K views; columns and comments for spot.uz; talks and reviews on YouTube — about 8K views."
           }
         ],
+        "more": {
+          "href": {
+            "ru": "/notes",
+            "en": "/en/notes"
+          },
+          "label": {
+            "ru": "Все публикации",
+            "en": "All publications"
+          }
+        },
         "note": {
           "ru": "Число подписчиков обновляется само; остальное — из статистики Telegram, аналитики LinkedIn и TGStat на 27 ноября 2026 года.",
           "en": "Subscriber counts update by themselves; the rest is from Telegram’s own statistics, LinkedIn analytics and TGStat as of 27 November 2026."
