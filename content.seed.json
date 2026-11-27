@@ -1420,6 +1420,15 @@
             "text": {
               "ru": "Компьютеры, смартфоны, софт, AI, продуктивность.",
               "en": "Computers, smartphones, software, AI and productivity."
+            },
+            "image": {
+              "src": "/images/collaborate/work.webp",
+              "width": 768,
+              "height": 432,
+              "alt": {
+                "ru": "USB-переходник Data Blocker на сотовом коврике",
+                "en": "A USB data blocker on a honeycomb mat"
+              }
             }
           },
           {
@@ -1430,6 +1439,15 @@
             "text": {
               "ru": "Open source, DevTools, self-hosting, приватность и безопасность.",
               "en": "Open source, developer tools, self-hosting, privacy and security."
+            },
+            "image": {
+              "src": "/images/collaborate/projects.webp",
+              "width": 900,
+              "height": 506,
+              "alt": {
+                "ru": "Домашний сервер: мини-ПК и два диска на картонной подставке",
+                "en": "A home server: a mini PC and two drives on a cardboard stand"
+              }
             }
           },
           {
@@ -1440,6 +1458,15 @@
             "text": {
               "ru": "Электромобили, автомобильные технологии, бездорожье, навигация.",
               "en": "Electric vehicles, automotive tech, off-roading and navigation."
+            },
+            "image": {
+              "src": "/images/collaborate/travel.webp",
+              "width": 1024,
+              "height": 576,
+              "alt": {
+                "ru": "Suzuki Jimny на холме в степи",
+                "en": "A Suzuki Jimny on a hill in the steppe"
+              }
             }
           },
           {
@@ -1450,6 +1477,15 @@
             "text": {
               "ru": "Часы, оптика, EDC, экипировка, автономное питание.",
               "en": "Watches, optics, everyday carry, outdoor gear and portable power."
+            },
+            "image": {
+              "src": "/images/collaborate/outdoor.webp",
+              "width": 1200,
+              "height": 675,
+              "alt": {
+                "ru": "Полевые часы на запястье, за ними заснеженные горы",
+                "en": "A field watch on the wrist, snowy mountains behind"
+              }
             }
           }
         ]

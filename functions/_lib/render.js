@@ -451,8 +451,11 @@ function collabMedia(img, lang) {
   if (!src) return '';
   const w = (img && img.width) || 1600;
   const h = (img && img.height) || 900;
+  // An interest card's own photo says something (his car, his server): it
+  // carries `alt`. A cover beside a title is decoration: alt="".
+  const alt = img && img.alt ? escapeAttr(pick(img.alt, lang)) : '';
   return `
-            <div class="v4-card-photo"><img src="${escapeAttr(safeHref(src))}" alt="" loading="lazy" decoding="async" width="${w}" height="${h}" /></div>`;
+            <div class="v4-card-photo"><img src="${escapeAttr(safeHref(src))}" alt="${alt}" loading="lazy" decoding="async" width="${w}" height="${h}" /></div>`;
 }
 
 function collabFigure(f, c, lang) {

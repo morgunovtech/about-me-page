@@ -59,8 +59,12 @@ test('interests: four scenes of real use, a name and one line each; formats: six
   assert.match(S.partnerships.items[0].ru, /^Тест-драйвы/);
   assert.match(S.partnerships.items[2].ru, /съёмки и пользовательские истории для медиа и брендов/, 'the brand\'s own content');
   for (const [f] of PAGES) assert.doesNotMatch(section(read(f), 'partnerships'), /class="v4-btn/, f);
-  // A card shows a photo only once the doc has one; never an empty frame.
-  assert.doesNotMatch(section(read('collaborate.html'), 'interests'), /v4-card-photo/);
+  // Each scene shows the owner's own photo, with an alt that says what is in it (a photo that
+  // says something is not decoration); a card without one would show no frame at all.
+  const interests = section(read('collaborate.html'), 'interests');
+  assert.equal((interests.match(/<div class="v4-card-photo"><img src="\/images\/collaborate\/[a-z]+\.webp" alt="[^"]+"/g) || []).length, 4);
+  const bare = { ...c, sections: { ...S, interests: { ...S.interests, items: [{ title: { ru: 'x' }, text: { ru: 'y' } }] } } };
+  assert.doesNotMatch(renderers.collabInterests(bare, 'ru'), /v4-card-photo/);
 });
 
 const pick = (v, lang) => (v && typeof v === 'object' ? v[lang] : v);
