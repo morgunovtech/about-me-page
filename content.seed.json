@@ -320,12 +320,15 @@
                 "ru": "Установить бота →",
                 "en": "Install the bot →"
               },
-              "href": "https://github.com/morgunovtech/Tofs_DevOps_bot"
+              "href": {
+                "ru": "/tofsdevops",
+                "en": "/en/tofsdevops"
+              }
             },
             "schema": {
               "type": "SoftwareApplication",
               "category": "DeveloperApplication",
-              "os": "Linux",
+              "os": "Telegram",
               "license": "https://opensource.org/licenses/MIT",
               "free": true
             }

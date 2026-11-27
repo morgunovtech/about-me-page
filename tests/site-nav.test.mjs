@@ -23,6 +23,7 @@ const PAGES = [
   ['uses.html', 'ru', '/uses'], ['en/uses.html', 'en', '/en/uses'],
   // v4.4.0: reached from the homepage's product card and from links, not from the menu.
   ['social-tracker.html', 'ru', null], ['en/social-tracker.html', 'en', null],
+  ['tofsdevops.html', 'ru', null], ['en/tofsdevops.html', 'en', null],
 ];
 const bar = (html) => /<div class="v4-bar-mid" id="site-nav">([\s\S]*?)\n        <\/div>\n      <\/nav>/.exec(html)[1];
 
@@ -251,10 +252,90 @@ test('/social-tracker (v4.4.0): the bot\'s page — install and code first, then
   for (const f of ['scripts/check-sync.py', 'scripts/check-critical.py', 'scripts/version-stamp.py', 'scripts/typo-static.mjs']) assert.match(read(f), /social-tracker/, f);
 });
 
+test('/tofsdevops (v4.5.0): the bot\'s page, built like /social-tracker — two ways to install, the data table, a question last', () => {
+  const REPO = 'https://github.com/morgunovtech/Tofs_DevOps_bot';
+  const EXT = 'target="_blank" rel="noopener noreferrer"';
+  const NE = '<span class="v4-out" aria-hidden="true">&#8288;<span class="v4-ne">→</span></span>';
+  for (const [f, lang] of [['tofsdevops.html', 'ru'], ['en/tofsdevops.html', 'en']]) {
+    const html = read(f);
+    const main = /<main id="main">[\s\S]*?<\/main>/.exec(html)[0];
+    const url = `https://s.morgunov.tech${lang === 'en' ? '/en' : ''}/tofsdevops`;
+    // The step-by-step guide is Russian only: the English page installs from the README.
+    const setup = lang === 'en' ? `${REPO}/blob/main/README.md#install--two-ways` : `${REPO}/blob/main/docs/SETUP.md`;
+    const ids = [...html.matchAll(/<section id="([a-z]+)" class="v4-section">/g)].map((m) => m[1]);
+    assert.deepEqual(ids, ['what', 'data', 'cost', 'install', 'honest', 'questions'], f);
+    const hero = /<section class="v4-hero v4-hero--simple"[\s\S]*?<\/section>/.exec(html)[0];
+    assert.match(hero, /<h1 class="v4-h1" id="hero-title">TofsDevOps<\/h1>/, f);
+    const buttons = [...hero.matchAll(/<a class="(v4-btn[^"]*)" href="([^"]+)" ([^>]+)>/g)].map((m) => [m[1], m[2], m[3]]);
+    assert.deepEqual(buttons, [['v4-btn v4-btn-primary', setup, EXT], ['v4-btn', REPO, EXT]], f);
+    // «Что он делает»: eight items, each opening with its point in bold.
+    const what = /<section id="what"[\s\S]*?<\/section>/.exec(html)[0];
+    assert.equal((what.match(/<li><strong>/g) || []).length, 8, f);
+    // The site's rule: no emoji — the bot's red and orange marks are said in words.
+    assert.doesNotMatch(main, /\p{Extended_Pictographic}/u, f);
+    // «Ваши данные» ends with the full table of what leaves the server, a link that leaves the site.
+    const data = /<section id="data"[\s\S]*?<\/section>/.exec(html)[0];
+    const table = lang === 'en' ? `${REPO}/blob/main/README.md#what-leaves-your-server` : `${REPO}/blob/main/README.ru.md#что-уходит-с-вашего-сервера`;
+    assert.ok(data.includes(`<div class="v4-more"><a href="${table}" ${EXT}><span>`) && data.includes(`</span>${NE}<span class="sr-only">`), f);
+    // Two ways: Railway in three steps (the referral link said so, the address without the code
+    // beside it) and the one command for your own server; the guide last.
+    const install = /<section id="install"[\s\S]*?<\/section>/.exec(html)[0];
+    assert.equal((install.match(/<h3 class="v4-h3">/g) || []).length, 2, f);
+    assert.equal((install.match(/<p><strong>(Шаг|Step) \d\.<\/strong>/g) || []).length, 3, f);
+    assert.ok(install.includes(`href="https://railway.com/deploy/tofsdevops?referralCode=7hTMqE" ${EXT}`), f);
+    const note = /<p class="v4-terms">([\s\S]*?)<\/p>/.exec(install)[1];
+    assert.match(note, lang === 'en' ? /referral code/ : /реферальным кодом/, f);
+    assert.ok(note.includes(`<a href="https://railway.com/deploy/tofsdevops" ${EXT}>railway.com/deploy/tofsdevops</a>`), f);
+    // The command in the site's code idiom; <wbr> lets it wrap on a phone and copies as nothing.
+    const cmd = /<p><code>(curl [^<]*(?:<wbr>[^<]*)*)<\/code><\/p>/.exec(install);
+    assert.ok(cmd, f);
+    assert.equal(cmd[1].replace(/<wbr>/g, ''), 'curl -fsSL https://raw.githubusercontent.com/morgunovtech/Tofs_DevOps_bot/main/scripts/install.sh | sh', f);
+    assert.match(install, /<code>TELEGRAM_PROXY<\/code>/, f);
+    assert.ok(install.includes(`<div class="v4-more"><a href="${setup}" ${EXT}><span>`), f);
+    // The last block: one button, the site's Telegram contact (its label is tests/stage3's).
+    const questions = /<section id="questions"[\s\S]*?<\/section>/.exec(html)[0];
+    assert.deepEqual(questions.match(/class="v4-btn[^"]*"/g), ['class="v4-btn v4-btn-primary"'], f);
+    assert.match(questions, /href="https:\/\/t\.me\/s_mrgnv"/, f);
+    assert.doesNotMatch(main, /<img|<picture|<svg/, f);
+    // Addresses, the share card, the language menu.
+    assert.match(html, new RegExp(`<link rel="canonical" href="${url}" />`), f);
+    for (const [hl, path] of [['ru', '/tofsdevops'], ['en', '/en/tofsdevops'], ['x-default', '/tofsdevops']]) {
+      assert.ok(html.includes(`<link rel="alternate" hreflang="${hl}" href="https://s.morgunov.tech${path}" />`), `${f}: ${hl}`);
+    }
+    assert.match(html, new RegExp(`<meta property="og:url" content="${url}" />`), f);
+    const card = `https://s.morgunov.tech/images/og-card-tofsdevops-${lang}.png`;
+    for (const tag of ['property="og:image"', 'name="twitter:image"']) assert.ok(html.includes(`<meta ${tag} content="${card}" />`), `${f}: ${tag}`);
+    const png = readFileSync(new URL(`../images/og-card-tofsdevops-${lang}.png`, import.meta.url));
+    assert.equal(png.toString('ascii', 1, 4), 'PNG', f);
+    assert.deepEqual([png.readUInt32BE(16), png.readUInt32BE(20)], [1200, 630], f);
+    assert.match(html, /class="v4-menu-item v4-lang-link"[^>]*href="\/tofsdevops" hreflang="ru"/, f);
+    assert.match(html, /class="v4-menu-item v4-lang-link"[^>]*href="\/en\/tofsdevops" hreflang="en"/, f);
+    const graph = JSON.parse(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(html)[1])['@graph'];
+    const app = graph.find((n) => n['@type'] === 'SoftwareApplication');
+    assert.equal(app.name, 'TofsDevOps', f);
+    assert.equal(app.url, url, f);
+    assert.equal(app.operatingSystem, 'Telegram', f);
+    assert.equal(app.isAccessibleForFree, true, f);
+    assert.deepEqual(app.offers, { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, f);
+    assert.equal(app.license, 'https://opensource.org/licenses/MIT', f);
+    assert.equal(app.sameAs, REPO, f);
+    assert.equal(app.installUrl, setup, f);
+    assert.deepEqual(graph.find((n) => n['@type'] === 'WebPage').mainEntity, { '@id': app['@id'] }, f);
+  }
+  const sm = read('functions/_lib/render-notes.js');
+  assert.match(sm, /\{ loc: '\/tofsdevops', ru: '\/tofsdevops', en: '\/en\/tofsdevops'/);
+  assert.match(sm, /\{ loc: '\/en\/tofsdevops', ru: '\/tofsdevops', en: '\/en\/tofsdevops'/);
+  const llms = read('llms.txt');
+  assert.match(llms, /\[TofsDevOps\]\(https:\/\/s\.morgunov\.tech\/en\/tofsdevops\)/);
+  assert.match(llms, /^- TofsDevOps, the Telegram bot \(RU\): https:\/\/s\.morgunov\.tech\/tofsdevops$/m);
+  assert.match(llms, /^- TofsDevOps, the Telegram bot \(EN\): https:\/\/s\.morgunov\.tech\/en\/tofsdevops$/m);
+  for (const f of ['scripts/check-sync.py', 'scripts/check-critical.py', 'scripts/version-stamp.py', 'scripts/typo-static.mjs']) assert.match(read(f), /tofsdevops/, f);
+});
+
 test('readers in Russia: a static page stays under 14 KB compressed (ISPs cut a Cloudflare response after about 16 KB)', () => {
   // Since June 2025 Russian ISPs stop every file served through Cloudflare after about 16 KB
   // of transferred bytes. gzip -9 stands for what Cloudflare sends (it is brotli or gzip).
-  for (const f of ['thanks.html', 'en/thanks.html', 'social-tracker.html', 'en/social-tracker.html']) {
+  for (const f of ['thanks.html', 'en/thanks.html', 'social-tracker.html', 'en/social-tracker.html', 'tofsdevops.html', 'en/tofsdevops.html']) {
     const size = gzipSync(readFileSync(new URL('../' + f, import.meta.url)), { level: 9 }).length;
     assert.ok(size < 14 * 1024, `${f}: ${size} bytes compressed`);
   }

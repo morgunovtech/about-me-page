@@ -39,6 +39,7 @@ HTML_PAGES = [
     "consulting.html", "en/consulting.html",
     "thanks.html", "en/thanks.html",
     "social-tracker.html", "en/social-tracker.html",
+    "tofsdevops.html", "en/tofsdevops.html",
     "uses.html", "en/uses.html",
     "privacy.html", "en/privacy.html",
     "404.html",

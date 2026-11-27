@@ -26,8 +26,8 @@ const read = (f) => readFileSync(new URL('../' + f, import.meta.url), 'utf8');
 const seed = JSON.parse(read('content.seed.json'));
 const PAGES = ['index.html', 'en/index.html', 'collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html', '404.html'];
 // Every page a visitor can open as a file: the CMS pages, the 404 and the static /thanks and
-// /social-tracker.
-const STATIC = [...PAGES, 'thanks.html', 'en/thanks.html', 'social-tracker.html', 'en/social-tracker.html'];
+// /social-tracker, /tofsdevops.
+const STATIC = [...PAGES, 'thanks.html', 'en/thanks.html', 'social-tracker.html', 'en/social-tracker.html', 'tofsdevops.html', 'en/tofsdevops.html'];
 const HOME = ['index.html', 'en/index.html'];
 const LANGS = ['ru', 'en'];
 const COMPONENTS = read('ds/v1/components.css');
