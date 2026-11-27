@@ -70,10 +70,11 @@ export async function renderArticlePage(env, slug, lang, request, opts = {}) {
     ? '&nbsp;· ' + topics.map((k) => `<a href="${escapeAttr(topicUrl(k, lang))}">${escapeHtml(known.get(k))}</a>`).join(', ')
     : '';
 
+  // The cover is a note's LCP element: fetched first, as the homepage's portrait is (v4.9.1).
   const coverSrc = pick(doc.cover && doc.cover.src, lang);
   const coverAlt = pick(doc.cover && doc.cover.alt, lang) || pick(doc.title, lang) || '';
   doc._coverHtml = coverSrc
-    ? `<img src="${escapeAttr(coverSrc)}" alt="${escapeAttr(coverAlt)}" loading="eager" />`
+    ? `<img src="${escapeAttr(coverSrc)}" alt="${escapeAttr(coverAlt)}" loading="eager" fetchpriority="high" />`
     : '';
 
   // Resolve share/meta to scalars for the rendered language, with sensible

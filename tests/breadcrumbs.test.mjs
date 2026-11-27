@@ -106,3 +106,7 @@ test('a note keeps the author’s name in <title> while the whole fits in 70 cha
   assert.equal(withName(edge + 'x', 'ru'), edge + 'x');
   assert.match(read('functions/_lib/render-article.js'), /title: withName\(pick\(meta\.title, lang\) \|\| pick\(doc\.title, lang\) \|\| '', lang\)/);
 });
+
+test('a note’s cover, its LCP element, is fetched with high priority', () => {
+  assert.match(read('functions/_lib/render-article.js'), /alt="\$\{escapeAttr\(coverAlt\)\}" loading="eager" fetchpriority="high" \/>/);
+});
