@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Social Tracker: followers and account security in one Telegram bot — Semyon Morgunov</title>
+  <meta name="description" content="Open-source Telegram bot: a weekly follower report for Telegram, YouTube, Instagram and LinkedIn, signs of a hijack, security emails and dangerous comments. Free, MIT, runs on your side." />
+  <meta name="author" content="Semyon Morgunov" />
+  <meta name="theme-color" content="#edeae5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" media="(prefers-color-scheme: light)" />
+  <link rel="icon" href="/images/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="canonical" href="https://s.morgunov.tech/en/social-tracker" />
+  <link rel="alternate" hreflang="ru" href="https://s.morgunov.tech/social-tracker" />
+  <link rel="alternate" hreflang="en" href="https://s.morgunov.tech/en/social-tracker" />
+  <link rel="alternate" hreflang="x-default" href="https://s.morgunov.tech/social-tracker" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Social Tracker: followers and account security in one Telegram bot — Semyon Morgunov" />
+  <meta property="og:description" content="Open-source Telegram bot: a weekly follower report for Telegram, YouTube, Instagram and LinkedIn, signs of a hijack, security emails and dangerous comments. Free, MIT, runs on your side." />
+  <meta property="og:url" content="https://s.morgunov.tech/en/social-tracker" />
+  <meta property="og:image" content="https://s.morgunov.tech/images/og-card-social-tracker-en.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Social Tracker: followers and account security in one Telegram bot" />
+  <meta property="og:site_name" content="morgunov.tech" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ru_RU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Social Tracker: followers and account security in one Telegram bot — Semyon Morgunov" />
+  <meta name="twitter:description" content="Open-source Telegram bot: a weekly follower report for Telegram, YouTube, Instagram and LinkedIn, signs of a hijack, security emails and dangerous comments. Free, MIT, runs on your side." />
+  <meta name="twitter:image" content="https://s.morgunov.tech/images/og-card-social-tracker-en.png" />
+  <meta name="twitter:image:alt" content="Social Tracker: followers and account security in one Telegram bot" />
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly content" />
+  <style>
+    :root{--v4-bg:#edeae5;--v4-paper:#f5f2ed;--v4-fg:#14110d;--v4-muted:#5a554c;--v4-dim:#6c6759;--v4-line:#c9c5bd;--v4-line-soft:#d8d4cc;--v4-orange:#d9531e;--v4-orange-text:#b03e10;--v4-on-accent:#14110d;--v4-on-fg:#f5f2ed;--v4-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;--v4-sans:"IBM Plex Sans",ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--v4-label-size:12px;--v4-label-tracking:.08em;--v4-label-xs-size:12px;--v4-label-xs-tracking:.08em;--v4-label-weight:500;color-scheme:light dark}
+    [data-theme="dark"]{--v4-bg:#14130f;--v4-paper:#1c1a16;--v4-fg:#ece7dd;--v4-muted:#b8b0a2;--v4-dim:#8a8378;--v4-line:#3a3530;--v4-line-soft:#2a2620;--v4-orange:#ff6a2e;--v4-orange-text:#ff6a2e;--v4-on-accent:#14130f;--v4-on-fg:#14130f;color-scheme:dark}
+    [data-theme="high-contrast"]{--v4-bg:#000;--v4-paper:#0a0a0a;--v4-fg:#fff;--v4-muted:#f1eee7;--v4-dim:#d6d0c8;--v4-line:#fff;--v4-line-soft:#c8c8c8;--v4-orange:#ffd166;--v4-orange-text:#ffd166;--v4-on-accent:#000;--v4-on-fg:#000;color-scheme:dark}
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0}
+    body.no-transition,body.no-transition *{transition:none!important}
+    body.v4-page{background:var(--v4-bg);color:var(--v4-fg);font-family:var(--v4-sans);font-size:16px;line-height:1.6;letter-spacing:-0.005em}
+    .v4-page .skip-link{position:fixed;top:-10rem;left:16px;background:var(--v4-orange);color:var(--v4-on-accent);padding:8px 12px;z-index:100;text-decoration:none;font-size:14px;transition:top .2s}
+    .v4-page .skip-link:focus{top:8px}
+  </style>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-600.woff2" crossorigin />
+  <!-- Mono renders above the fold (hero eyebrow 400, section numbers 500) — preload both so they don't FOUT. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-latin-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-mono-latin-500.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/plex-sans-latin-500.woff2" crossorigin />
+  <link rel="stylesheet" href="/ds/v1/fonts.css?v=499be680" />
+  <link rel="stylesheet" href="/ds/v1/tokens.css?v=50fa198d" />
+  <link rel="stylesheet" href="/ds/v1/base.css?v=03b78c6e" />
+  <link rel="stylesheet" href="/ds/v1/components.css?v=418882f6" />
+  <link rel="stylesheet" href="/styles.css?v=90244c91" />
+  <script data-cfasync="false">
+    (function () {
+      var d = document.documentElement;
+      var p = 'auto';
+      try { p = localStorage.getItem('theme-preference') || 'auto'; } catch (e) {}
+      var t = p === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : p;
+      d.setAttribute('data-theme', t);
+      d.setAttribute('data-theme-preference', p);
+      if (p !== 'auto') {
+        var c = t === 'dark' ? '#14130f' : t === 'high-contrast' ? '#000000' : '#edeae5';
+        var m = document.querySelectorAll('meta[name="theme-color"]');
+        for (var i = 0; i < m.length; i++) m[i].setAttribute('content', c);
+      }
+    })();
+  </script>
+</head>
+<body class="v4-page no-transition" data-lang="en">
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <div class="v4-root">
+    <header class="v4-bar" id="top">
+      <nav class="v4-nav v4-dropdown" aria-label="Main navigation">
+        <button class="v4-bar-btn v4-nav-toggle" type="button" aria-controls="site-nav">Menu<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+        <div class="v4-bar-mid" id="site-nav">
+          <a href="/en/">About</a>
+          <a href="/en/notes">Publications</a>
+          <a href="/en/privacy">Privacy</a>
+          <div class="v4-dropdown v4-nav-group">
+            <button class="v4-nav-group-btn" type="button" aria-controls="nav-work">Work with me<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+            <div class="v4-menu v4-nav-sub" id="nav-work">
+              <span class="v4-nav-group-cap" aria-hidden="true">Work with me</span>
+              <a class="v4-menu-item" href="/en/consulting">Consulting</a>
+              <a class="v4-menu-item" href="/en/collaborate">Partnerships &amp; media</a>
+            </div>
+          </div>
+          <a href="/en/uses">Uses</a>
+        </div>
+      </nav>
+      <div class="v4-bar-right">
+        <div class="v4-dropdown v4-lang">
+          <button class="v4-bar-btn v4-lang-btn" type="button" aria-haspopup="menu" aria-controls="lang-menu" id="lang-toggle" aria-label="EN — change language">EN<svg class="v4-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+          <div class="v4-menu" id="lang-menu" role="menu" aria-labelledby="lang-toggle">
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="false" href="/social-tracker" hreflang="ru" lang="ru">Русский</a>
+            <a class="v4-menu-item v4-lang-link" role="menuitemradio" aria-checked="true" href="/en/social-tracker" hreflang="en" lang="en">English</a>
+          </div>
+        </div>
+        <div class="v4-dropdown v4-theme">
+          <button class="v4-icon-btn" type="button" aria-haspopup="menu" aria-controls="theme-menu" id="theme-toggle" aria-label="Switch theme">
+            <svg class="v4-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+              <circle cx="8" cy="8" r="3"></circle>
+              <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"></path>
+            </svg>
+            <svg class="v4-icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M13.5 9A6 6 0 1 1 7 2.5a4.5 4.5 0 0 0 6.5 6.5z"></path>
+            </svg>
+            <svg class="v4-icon-contrast" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <circle cx="8" cy="8" r="6"></circle>
+              <path d="M8 2v12a6 6 0 0 0 0-12z" fill="currentColor"></path>
+            </svg>
+          </button>
+          <div class="v4-menu v4-theme-menu" id="theme-menu" role="menu" aria-labelledby="theme-toggle">
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="light" aria-checked="false">Light</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="dark" aria-checked="false">Dark</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="auto" aria-checked="false">Auto</button>
+            <button class="v4-menu-item v4-theme-btn" type="button" role="menuitemradio" data-theme-value="high-contrast" aria-checked="false">High contrast</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="v4-hero v4-hero--simple" aria-labelledby="hero-title">
+        <div class="v4-hero-text">
+          <p class="v4-hero-meta">Telegram bot&nbsp;· Open source</p>
+          <h1 class="v4-h1" id="hero-title">Social Tracker</h1>
+          <div class="v4-prose">
+            <p class="v4-tagline">Followers and account security in one Telegram bot.</p>
+            <p>A personal tool, shared as is: free and open source (MIT). The bot runs on your side&nbsp;— on your own server or on Railway&nbsp;— and messages you in Telegram.</p>
+          </div>
+          <div class="v4-cta-row">
+            <a class="v4-btn v4-btn-primary" href="https://github.com/morgunovtech/social-tracker-bot/blob/main/docs/SETUP.en.md" target="_blank" rel="noopener noreferrer">Install&nbsp;→</a>
+            <a class="v4-btn" href="https://github.com/morgunovtech/social-tracker-bot" target="_blank" rel="noopener noreferrer">Code on GitHub&nbsp;→</a>
+          </div>
+        </div>
+      </section>
+      <nav class="v4-onpage" aria-label="On this page">
+        <a href="#what">What it does</a>
+        <a href="#data">Your data</a>
+        <a href="#cost">What it costs</a>
+        <a href="#install">How to install</a>
+        <a href="#honest">What this is, honestly</a>
+        <a href="#cloud">A cloud version</a>
+      </nav>
+      <section id="what" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2">What it does</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <ul class="v4-list"><li>Once a week, one report across Telegram, YouTube, Instagram and LinkedIn: how many followers you gained over the day, the week and the month, with a 30-day chart.</li><li>Signs of a hijack: someone else’s link in your channel description or a new admin&nbsp;— a message within half an hour, with sound, even at night.</li><li>“New sign-in” and “password changed” emails reach you in Telegram within five minutes, not whenever you next open your mail.</li><li>Comments that get whole groups blocked by Telegram (drugs, scams, porn)&nbsp;— a card with “delete” and “ban” buttons. The bot deletes nothing on its own. You need your own paid Claude key, about a cent per comment.</li><li>Quiet while everything is fine: one message when something breaks, and one when it’s fixed.</li></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="data" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2">Your data</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <p>The database stays on your server. Once a week the bot sends you a copy of it in the chat, without the keys. No analytics. The only things that leave are requests to the networks themselves and, if you turn on the comment check, the comment texts, to Claude.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="cost" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2">What it costs</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <ul class="v4-list"><li>The bot is free.</li><li>Railway: a trial month, then $5 a month; you need a card that works for payments abroad.</li><li>On your own server: free.</li><li>The comment check: billed to your Anthropic account.</li></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="install" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2">How to install</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <p>It takes 10–&#8288;15&nbsp;minutes.</p>
+              <h3 class="v4-h3">Step 1</h3>
+              <p>Create a bot with <a href="https://t.me/BotFather" target="_blank" rel="noopener noreferrer">@BotFather</a> and copy its token.</p>
+              <h3 class="v4-h3">Step 2</h3>
+              <p>Press <a href="https://railway.com/deploy/social-tracker-bot?referralCode=7hTMqE" target="_blank" rel="noopener noreferrer">the Railway button</a>&nbsp;— the form has one field, the token.</p>
+              <p class="v4-terms">The link carries my referral code: your price is the same. Without the code: <a href="https://railway.com/deploy/social-tracker-bot" target="_blank" rel="noopener noreferrer">railway.com/deploy/social-tracker-bot</a>.</p>
+              <h3 class="v4-h3">Step 3</h3>
+              <p>Press <code>/start</code>&nbsp;— the bot tells you where to begin. A Telegram channel connects with one button, the other networks with step-by-step pages.</p>
+              <p>You can also do it together with Claude: <a href="https://github.com/morgunovtech/social-tracker-bot/blob/main/docs/SETUP.en.md#help-from-claude" target="_blank" rel="noopener noreferrer">a skill that walks you through the setup right in the browser</a>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="honest" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2">What this is, honestly</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <ul class="v4-list"><li>It’s not a service with support: if something breaks, you sort it out yourself, with the instructions.</li><li>The longest connections are Instagram and the security emails.</li><li>Telegram doesn’t give bots views or forwards&nbsp;— they stay in Telegram’s own statistics.</li></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="cloud" class="v4-section">
+        <div class="v4-section-head">
+          <h2 class="v4-h2">A cloud version</h2>
+        </div>
+        <div class="v4-body">
+          <div class="v4-body-aside"></div>
+          <div>
+            <div class="v4-prose">
+              <p>If it turns out many people need this, I’ll make a version with no installation and no keys. Message me if you’d use it.</p>
+            </div>
+            <div class="v4-help-cta"><a class="v4-btn v4-btn-primary" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Message me on Telegram</a></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="v4-foot">
+      <span>morgunov.tech&nbsp;· 2026&nbsp;· <a class="v4-build" href="https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.4.0</a>&nbsp;· <a href="/en/thanks">Say thanks or report a bug</a></span>
+      <span class="v4-foot-privacy">No cookies, no trackers, no analytics</span>
+    </footer>
+  </div>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://s.morgunov.tech/en/social-tracker#webpage",
+      "url": "https://s.morgunov.tech/en/social-tracker",
+      "name": "Social Tracker: followers and account security in one Telegram bot — Semyon Morgunov",
+      "description": "Open-source Telegram bot: a weekly follower report for Telegram, YouTube, Instagram and LinkedIn, signs of a hijack, security emails and dangerous comments. Free, MIT, runs on your side.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://s.morgunov.tech/#website"
+      },
+      "about": {
+        "@id": "https://s.morgunov.tech/en/social-tracker#app"
+      },
+      "mainEntity": {
+        "@id": "https://s.morgunov.tech/en/social-tracker#app"
+      },
+      "dateModified": "2026-11-27",
+      "breadcrumb": {
+        "@id": "https://s.morgunov.tech/en/social-tracker#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://s.morgunov.tech/en/social-tracker#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://s.morgunov.tech/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Social Tracker",
+          "item": "https://s.morgunov.tech/en/social-tracker"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://s.morgunov.tech/en/social-tracker#app",
+      "name": "Social Tracker",
+      "url": "https://s.morgunov.tech/en/social-tracker",
+      "description": "An open-source Telegram bot that runs on the account owner’s side: a weekly follower report for Telegram, YouTube, Instagram and LinkedIn, signs of a hijack, security emails in Telegram within five minutes, cards for dangerous comments. Quiet while everything is fine.",
+      "applicationCategory": "SocialNetworkingApplication",
+      "operatingSystem": "Telegram",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "license": "https://opensource.org/licenses/MIT",
+      "installUrl": "https://github.com/morgunovtech/social-tracker-bot/blob/main/docs/SETUP.en.md",
+      "sameAs": "https://github.com/morgunovtech/social-tracker-bot",
+      "author": {
+        "@id": "https://s.morgunov.tech/#person"
+      }
+    }
+  ]
+}
+  </script>
+  <script data-cfasync="false" defer src="/script.js?v=f2317f0d"></script>
+</body>
+</html>

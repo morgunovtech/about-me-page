@@ -8,14 +8,15 @@ Live at **[s.morgunov.tech](https://s.morgunov.tech)** — the apex `morgunov.te
 
 Pure static HTML/CSS/JS. **No build step, no npm, no framework.** Hosted on Cloudflare Pages.
 
-- 13 HTML templates (six RU + EN pairs and a bilingual `404.html`) plus the `/notes` shells rendered by Pages Functions:
+- 15 HTML templates (seven RU + EN pairs and a bilingual `404.html`) plus the `/notes` shells rendered by Pages Functions:
   - **home** — about, career, own projects (products + past ventures), publications, contact (Telegram, e-mail as the second channel);
   - **`/notes`** — publications: own notes and articles/talks published elsewhere, one feed;
   - **`/consulting`** — consulting formats and prices, strategic consulting, how I work;
   - **`/collaborate`** — partnerships & media: what I am open to outside paid consulting;
   - **`/uses`** — hardware, software and how this site is built (`/about` redirects here);
   - **`/privacy`** — my privacy tools and the essential kit: open-source apps with a published independent audit (`privacy.morgunov.tech` redirects here — a Redirect Rule in the zone);
-  - **`/thanks`** — how to say thanks and where to report a mistake
+  - **`/thanks`** — how to say thanks and where to report a mistake;
+  - **`/social-tracker`** — the page of my open-source Telegram bot [Social Tracker](https://github.com/morgunovtech/social-tracker-bot): what it does, your data, the cost, how to install it
 - A versioned design-system layer `ds/v1/` (fonts, tokens for 4 themes, base, components) + `styles.css` for page layout. Other projects reuse it: [Fingerprint](https://github.com/morgunovtech/Fingerprint) loads the four stylesheets straight from `https://s.morgunov.tech/ds/v1/`, [Found You](https://github.com/morgunovtech/FoundYou) vendors a copy in its `public/ds/v1/`, the [TofsDevOps](https://github.com/morgunovtech/Tofs_DevOps_bot) status page inlines the tokens and takes only the woff2 files from `/fonts/` (a bot other people self-host must not depend on this site), and the Lenses PDF report (private) uses the print palette with IBM Plex; see [`ds/v1/USAGE.md`](ds/v1/USAGE.md). Since v1.4.0 the layer also ships the behaviour of the bar (`ds/v1/chrome.js`, a checked twin of `script.js`) and a service must repeat the chrome — bar, language and theme menus, footer
 - One script — `script.js` (single IIFE, no dependencies, ≈ 320 lines)
 - Self-hosted IBM Plex Sans (with the italics, for emphasis in a note) + Plex Mono (latin + cyrillic woff2 subsets, `font-display: swap`)
@@ -59,7 +60,7 @@ scripts/check.sh                           # everything below + node --check/--t
 python3 scripts/check-sync.py              # RU↔EN structural parity
 python3 scripts/check-critical.py          # inline critical CSS ↔ ds/v1 + styles.css
 node scripts/render-static.mjs --check     # every hook of a template is the seed's twin: lists, JSON-LD and the leaves (--write regenerates)
-node scripts/typo-static.mjs --check       # /thanks, /404 and the footers are typeset (--write puts the no-break spaces in)
+node scripts/typo-static.mjs --check       # /thanks, /social-tracker, /404 and the footers are typeset (--write puts the no-break spaces in)
 python3 scripts/version-stamp.py           # build SHA + content-hash ?v= cache busters
 node scripts/sync-products.mjs --write     # product cards' versions + descriptions from their GitHub repos
 node scripts/kv-push.mjs home --yes        # put the seed doc live in KV, like an /admin Save (dry run without --yes)

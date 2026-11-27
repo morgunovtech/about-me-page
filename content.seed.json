@@ -344,12 +344,15 @@
                 "ru": "Установить бота →",
                 "en": "Install the bot →"
               },
-              "href": "https://github.com/morgunovtech/social-tracker-bot"
+              "href": {
+                "ru": "/social-tracker",
+                "en": "/en/social-tracker"
+              }
             },
             "schema": {
               "type": "SoftwareApplication",
               "category": "SocialNetworkingApplication",
-              "os": "Linux",
+              "os": "Telegram",
               "license": "https://opensource.org/licenses/MIT",
               "free": true
             }

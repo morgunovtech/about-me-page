@@ -26,10 +26,12 @@ test('product cards (v4.2.0): TofsDevOps first, bots then web apps; one line —
   const KIND = { BOT: { ru: 'Бот', en: 'Bot' }, WEB: { ru: 'Веб', en: 'Web' } };
   for (const lang of ['ru', 'en']) {
     const html = renderers.products(seed.home, lang, false);
-    // The head of a card: the name, which links out with the turned arrow and the new-tab note,
-    // then, quietly, what it is and its version (synced from GitHub by sync-products.mjs).
-    const heads = [...html.matchAll(/<div class="v4-product-head">\s*<h3 class="v4-product-name"><a href="[^"]+" target="_blank" rel="noopener noreferrer">([^<]+)<span class="v4-out" aria-hidden="true">&#8288;<span class="v4-ne">→<\/span><\/span><span class="sr-only">[^<]+<\/span><\/a><\/h3>\s*<span class="v4-product-meta"><span>([^<]+)<\/span>&nbsp;· <span>([^<]+)<\/span><\/span>\s*<\/div>/g)];
-    assert.deepEqual(heads.map((m) => [m[1], m[2], m[3]]), items.map((it) => [it.name, KIND[it.tag][lang], it.version]), lang);
+    // The head of a card: the name, which links out with the turned arrow and the new-tab note —
+    // or, for a product with a page on this site (Social Tracker, v4.4.0), to that page in the
+    // same tab with no mark — then, quietly, what it is and its version (synced from GitHub by
+    // sync-products.mjs).
+    const heads = [...html.matchAll(/<div class="v4-product-head">\s*<h3 class="v4-product-name"><a href="(?:https:\/\/[^"]+" target="_blank" rel="noopener noreferrer">([^<]+)<span class="v4-out" aria-hidden="true">&#8288;<span class="v4-ne">→<\/span><\/span><span class="sr-only">[^<]+<\/span>|\/[a-z/-]+">([^<]+))<\/a><\/h3>\s*<span class="v4-product-meta"><span>([^<]+)<\/span>&nbsp;· <span>([^<]+)<\/span><\/span>\s*<\/div>/g)];
+    assert.deepEqual(heads.map((m) => [m[1] || m[2], m[3], m[4]]), items.map((it) => [it.name, KIND[it.tag][lang], it.version]), lang);
     // The name is the action: no button in a card.
     assert.doesNotMatch(html, /v4-btn|v4-tag/, lang);
     assert.doesNotMatch(html, /v4-live-dot|v4-product-tag-row|<span class="sr-only">(Работает|Live)<\/span>/, lang);
@@ -66,6 +68,25 @@ test('web products: the Russian page links the root, the English page the produc
     assert.match(ldRu, new RegExp(`"url": "${esc(root)}"`), host + ' JSON-LD ru');
     assert.match(ldEn, new RegExp(`"url": "${esc(root)}en/"`), host + ' JSON-LD en');
   }
+});
+
+test('Social Tracker (v4.4.0): the card\'s name leads to its page on this site, in the visitor\'s language; JSON-LD names the absolute URL', () => {
+  const card = seed.home.sections.products.items.find((it) => it.name === 'Social Tracker');
+  assert.deepEqual(card.cta.href, { ru: '/social-tracker', en: '/en/social-tracker' });
+  for (const [lang, path] of [['ru', '/social-tracker'], ['en', '/en/social-tracker']]) {
+    const html = renderers.products(seed.home, lang, false);
+    // A page of the site opens in the same tab and carries no «leaves the site» mark.
+    assert.ok(html.includes(`<h3 class="v4-product-name"><a href="${path}">Social Tracker</a></h3>`), lang);
+    assert.doesNotMatch(html, /href="https:\/\/github\.com\/morgunovtech\/social-tracker-bot"/, lang);
+    const item = JSON.parse(renderJsonLd(seed.home, lang))['@graph']
+      .find((n) => n['@type'] === 'ItemList').itemListElement.map((li) => li.item).find((it) => it.name === 'Social Tracker');
+    assert.equal(item.url, 'https://s.morgunov.tech' + path, lang);
+    assert.equal(item.operatingSystem, 'Telegram', lang);
+  }
+  // An absolute address is kept as it is.
+  const ext = clone(seed.home);
+  ext.sections.products.items[1].cta.href = 'https://example.com/x';
+  assert.match(renderJsonLd(ext, 'ru'), /"url": "https:\/\/example\.com\/x"/);
 });
 
 test('notes block: up to three rows, own notes stay on site, external ones open a new tab', () => {

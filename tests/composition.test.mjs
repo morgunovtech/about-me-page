@@ -25,8 +25,9 @@ import { VERSION, CHANGELOG_URL } from '../functions/_lib/site.js';
 const read = (f) => readFileSync(new URL('../' + f, import.meta.url), 'utf8');
 const seed = JSON.parse(read('content.seed.json'));
 const PAGES = ['index.html', 'en/index.html', 'collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html', '404.html'];
-// Every page a visitor can open as a file: the CMS pages, the 404 and the static /thanks.
-const STATIC = [...PAGES, 'thanks.html', 'en/thanks.html'];
+// Every page a visitor can open as a file: the CMS pages, the 404 and the static /thanks and
+// /social-tracker.
+const STATIC = [...PAGES, 'thanks.html', 'en/thanks.html', 'social-tracker.html', 'en/social-tracker.html'];
 const HOME = ['index.html', 'en/index.html'];
 const LANGS = ['ru', 'en'];
 const COMPONENTS = read('ds/v1/components.css');
@@ -214,7 +215,7 @@ test('6. the build mark is the version, a link to the changelog on GitHub; the f
   const top = /^- v(\d+\.\d+\.\d+) — /m.exec(read('CHANGELOG.md'))[1];
   assert.equal(VERSION, top, 'site.js VERSION is the top entry of CHANGELOG.md (run scripts/version-stamp.py)');
   assert.equal(CHANGELOG_URL, 'https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md');
-  for (const f of PAGES) {
+  for (const f of STATIC) {
     const foot = /<footer class="v4-foot">[\s\S]*?<\/footer>/.exec(read(f))[0];
     assert.ok(foot.includes(`<a class="v4-build" href="${CHANGELOG_URL}" target="_blank" rel="noopener noreferrer">v${top}</a>`), f);
     assert.doesNotMatch(foot, /_build|<code/, f);

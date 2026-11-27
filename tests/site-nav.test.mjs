@@ -5,6 +5,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { gzipSync } from 'node:zlib';
 
 import { siteNav, notesIndexHtml, articleShell } from '../functions/_lib/article-template.js';
 
@@ -20,6 +21,8 @@ const PAGES = [
   ['privacy.html', 'ru', '/privacy'], ['en/privacy.html', 'en', '/en/privacy'],
   ['thanks.html', 'ru', null], ['en/thanks.html', 'en', null],
   ['uses.html', 'ru', '/uses'], ['en/uses.html', 'en', '/en/uses'],
+  // v4.4.0: reached from the homepage's product card and from links, not from the menu.
+  ['social-tracker.html', 'ru', null], ['en/social-tracker.html', 'en', null],
 ];
 const bar = (html) => /<div class="v4-bar-mid" id="site-nav">([\s\S]*?)\n        <\/div>\n      <\/nav>/.exec(html)[1];
 
@@ -172,6 +175,89 @@ test('/thanks: the dogs first, then support, the free ways and where to report a
   assert.match(read('functions/_lib/render-notes.js'), /\{ loc: '\/thanks', ru: '\/thanks', en: '\/en\/thanks'/);
   assert.match(read('llms.txt'), /\[Say thanks\]\(https:\/\/s\.morgunov\.tech\/en\/thanks\)/);
   for (const f of ['scripts/check-sync.py', 'scripts/check-critical.py', 'scripts/version-stamp.py']) assert.match(read(f), /thanks\.html/, f);
+});
+
+test('/social-tracker (v4.4.0): the bot\'s page — install and code first, then what it does, the data, the cost, the steps, the honest part, the cloud version', () => {
+  const REPO = 'https://github.com/morgunovtech/social-tracker-bot';
+  const EXT = 'target="_blank" rel="noopener noreferrer"';
+  for (const [f, lang] of [['social-tracker.html', 'ru'], ['en/social-tracker.html', 'en']]) {
+    const html = read(f);
+    const main = /<main id="main">[\s\S]*?<\/main>/.exec(html)[0];
+    const url = `https://s.morgunov.tech${lang === 'en' ? '/en' : ''}/social-tracker`;
+    const setup = `${REPO}/blob/main/docs/SETUP${lang === 'en' ? '.en' : ''}.md`;
+    const ids = [...html.matchAll(/<section id="([a-z]+)" class="v4-section">/g)].map((m) => m[1]);
+    assert.deepEqual(ids, ['what', 'data', 'cost', 'install', 'honest', 'cloud'], f);
+    // The hero: the name, two buttons — install (primary, first), the code.
+    const hero = /<section class="v4-hero v4-hero--simple"[\s\S]*?<\/section>/.exec(html)[0];
+    assert.match(hero, /<h1 class="v4-h1" id="hero-title">Social Tracker<\/h1>/, f);
+    const buttons = [...hero.matchAll(/<a class="(v4-btn[^"]*)" href="([^"]+)" ([^>]+)>/g)].map((m) => [m[1], m[2], m[3]]);
+    assert.deepEqual(buttons, [['v4-btn v4-btn-primary', setup, EXT], ['v4-btn', REPO, EXT]], f);
+    // Step 2: the Railway template with the referral code, said so in the line under it, with
+    // the address without the code.
+    assert.ok(main.includes(`href="https://railway.com/deploy/social-tracker-bot?referralCode=7hTMqE" ${EXT}`), f);
+    const note = /<p class="v4-terms">([\s\S]*?)<\/p>/.exec(main)[1];
+    assert.match(note, lang === 'en' ? /referral code/ : /реферальным кодом/, f);
+    assert.ok(note.includes(`<a href="https://railway.com/deploy/social-tracker-bot" ${EXT}>railway.com/deploy/social-tracker-bot</a>`), f);
+    // The Claude skill: the guide's own section.
+    assert.ok(main.includes(`href="${setup}#${lang === 'en' ? 'help-from-claude' : 'помощь-claude'}"`), f);
+    // The cloud version: one button, the site's Telegram contact (its label is tests/stage3's).
+    const cloud = /<section id="cloud"[\s\S]*?<\/section>/.exec(html)[0];
+    assert.deepEqual(cloud.match(/class="v4-btn[^"]*"/g), ['class="v4-btn v4-btn-primary"'], f);
+    assert.match(cloud, /href="https:\/\/t\.me\/s_mrgnv"/, f);
+    // No images in the page (the share card only feeds og:image); no word about cookies in it.
+    assert.doesNotMatch(main, /<img|<picture|<svg/, f);
+    assert.doesNotMatch(main, /cookie/i, f);
+    // Addresses and the share card.
+    assert.match(html, new RegExp(`<link rel="canonical" href="${url}" />`), f);
+    assert.match(html, /<link rel="alternate" hreflang="ru" href="https:\/\/s\.morgunov\.tech\/social-tracker" \/>/, f);
+    assert.match(html, /<link rel="alternate" hreflang="en" href="https:\/\/s\.morgunov\.tech\/en\/social-tracker" \/>/, f);
+    assert.match(html, /<link rel="alternate" hreflang="x-default" href="https:\/\/s\.morgunov\.tech\/social-tracker" \/>/, f);
+    assert.match(html, new RegExp(`<meta property="og:url" content="${url}" />`), f);
+    const card = `https://s.morgunov.tech/images/og-card-social-tracker-${lang}.png`;
+    for (const tag of ['property="og:image"', 'name="twitter:image"']) assert.ok(html.includes(`<meta ${tag} content="${card}" />`), `${f}: ${tag}`);
+    for (const tag of ['property="og:title"', 'property="og:description"', 'property="og:image:alt"', 'name="twitter:title"', 'name="twitter:description"', 'name="twitter:image:alt"', 'name="twitter:card"']) {
+      assert.match(html, new RegExp(`<meta ${tag} content="[^"]+" />`), `${f}: ${tag}`);
+    }
+    // The card is a 1200 × 630 PNG, like every share card of the site.
+    const png = readFileSync(new URL(`../images/og-card-social-tracker-${lang}.png`, import.meta.url));
+    assert.equal(png.toString('ascii', 1, 4), 'PNG', f);
+    assert.deepEqual([png.readUInt32BE(16), png.readUInt32BE(20)], [1200, 630], f);
+    // The language menu leads to the twin; the page's JSON-LD: the page, the way back, the app.
+    assert.match(html, /class="v4-menu-item v4-lang-link"[^>]*href="\/social-tracker" hreflang="ru"/, f);
+    assert.match(html, /class="v4-menu-item v4-lang-link"[^>]*href="\/en\/social-tracker" hreflang="en"/, f);
+    const graph = JSON.parse(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(html)[1])['@graph'];
+    const app = graph.find((n) => n['@type'] === 'SoftwareApplication');
+    assert.equal(app.name, 'Social Tracker', f);
+    assert.equal(app.url, url, f);
+    assert.equal(app.operatingSystem, 'Telegram', f);
+    assert.equal(app.applicationCategory, 'SocialNetworkingApplication', f);
+    assert.equal(app.isAccessibleForFree, true, f);
+    assert.deepEqual(app.offers, { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, f);
+    assert.equal(app.license, 'https://opensource.org/licenses/MIT', f);
+    assert.equal(app.sameAs, REPO, f);
+    assert.equal(app.installUrl, setup, f);
+    const page = graph.find((n) => n['@type'] === 'WebPage');
+    assert.equal(page.url, url, f);
+    assert.equal(page.inLanguage, lang, f);
+    assert.deepEqual(page.mainEntity, { '@id': app['@id'] }, f);
+    assert.ok(graph.some((n) => n['@type'] === 'BreadcrumbList'), f);
+  }
+  assert.match(read('functions/_lib/render-notes.js'), /\{ loc: '\/social-tracker', ru: '\/social-tracker', en: '\/en\/social-tracker'/);
+  assert.match(read('functions/_lib/render-notes.js'), /\{ loc: '\/en\/social-tracker', ru: '\/social-tracker', en: '\/en\/social-tracker'/);
+  const llms = read('llms.txt');
+  assert.match(llms, /\[Social Tracker Bot\]\(https:\/\/s\.morgunov\.tech\/en\/social-tracker\)/);
+  assert.match(llms, /^- Social Tracker, the Telegram bot \(RU\): https:\/\/s\.morgunov\.tech\/social-tracker$/m);
+  assert.match(llms, /^- Social Tracker, the Telegram bot \(EN\): https:\/\/s\.morgunov\.tech\/en\/social-tracker$/m);
+  for (const f of ['scripts/check-sync.py', 'scripts/check-critical.py', 'scripts/version-stamp.py', 'scripts/typo-static.mjs']) assert.match(read(f), /social-tracker/, f);
+});
+
+test('readers in Russia: a static page stays under 14 KB compressed (ISPs cut a Cloudflare response after about 16 KB)', () => {
+  // Since June 2025 Russian ISPs stop every file served through Cloudflare after about 16 KB
+  // of transferred bytes. gzip -9 stands for what Cloudflare sends (it is brotli or gzip).
+  for (const f of ['thanks.html', 'en/thanks.html', 'social-tracker.html', 'en/social-tracker.html']) {
+    const size = gzipSync(readFileSync(new URL('../' + f, import.meta.url)), { level: 9 }).length;
+    assert.ok(size < 14 * 1024, `${f}: ${size} bytes compressed`);
+  }
 });
 
 test('/uses («Стек и принципы», v4.0.0) is public: in the sitemap and llms.txt, with «Как устроен этот сайт»; every note ends with the thanks line', () => {
