@@ -61,7 +61,9 @@ export function fixStaleContent(node) {
 // a new channel of the subscribers stat) until `kv-push.mjs home` stored it
 // with the doc (rev 42, 2026-11-27), so the table is empty again. An entry is
 // { page: ['a.b.c'] }.
-export const SEED_FILL = {};
+// v4.10.2: «10 лет в IT» links the career (`stats.0.href`, as «8 своих проектов» links the
+// projects since v4.6.0); the home doc in KV has no href on its first stat.
+export const SEED_FILL = { home: ['stats.0.href'] };
 
 export function fillFromSeed(doc, page, from, table = SEED_FILL) {
   const paths = table[page];

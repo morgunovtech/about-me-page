@@ -319,8 +319,16 @@ test('fillFromSeed: a field the renderer starts reading is filled from the seed,
   assert.equal(fillFromSeed(seed.home, 'home', seed, TABLE), seed.home);
   assert.equal(fillFromSeed(null, 'home', seed, TABLE), null);
   // The rev 34 Save (2026-11-25) stored the link, the rev 42 push (2026-11-27) Instagram as a
-  // channel of the subscribers stat: nothing is filled any more.
-  assert.deepEqual(SEED_FILL, {});
+  // channel of the subscribers stat. v4.10.2 fills the career link of «10 лет в IT» until a Save
+  // stores it — only where the doc has none, and only on the first stat.
+  assert.deepEqual(SEED_FILL, { home: ['stats.0.href'] });
+  const kvHome = { stats: clone(seed.home.stats).map(({ href, ...s }) => s) };
+  kvHome.stats[3].href = '#projects';
+  fillFromSeed(kvHome, 'home', seed);
+  assert.equal(kvHome.stats[0].href, '#career');
+  assert.equal(kvHome.stats[1].href, undefined);
+  const own0 = { stats: [{ href: '#about' }] };
+  assert.equal(fillFromSeed(own0, 'home', seed).stats[0].href, '#about', 'what the owner saved wins');
   // No read-time migration is left either, so nothing reads the marker the gated ones wrote:
   // `migration` is gone from every doc of the seed.
   for (const page of ['home', 'uses', 'consulting', 'collaborate', 'privacy', 'notes']) assert.equal(seed[page].migration, undefined, page);

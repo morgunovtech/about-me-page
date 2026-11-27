@@ -197,3 +197,12 @@ test('seed home: five sections, the stats count matches the page', () => {
   assert.equal(S.contact.ctas[1].href, 'mailto:s@morgunov.tech');
   assert.equal(nb, ' ');
 });
+
+test('v4.10.2: «10 лет в IT» links the career and «8 своих проектов» the projects; the other two figures stay plain', () => {
+  for (const lang of ['ru', 'en']) {
+    const html = renderers.stats(seed.home, lang, false);
+    const links = [...html.matchAll(/<a class="v4-stat-link" href="([^"]+)">/g)].map((m) => m[1]);
+    assert.deepEqual(links, ['#career', '#projects'], lang);
+  }
+  assert.match(readFileSync(new URL('../index.html', import.meta.url), 'utf8'), /id="career"/);
+});
