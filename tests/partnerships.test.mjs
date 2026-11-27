@@ -51,7 +51,9 @@ test('the page: the offer, then the audience, then the contact — one h2 each, 
     assert.equal((sec.match(/<li>/g) || []).length, s.items.length, f);
     assert.ok(sec.includes(renderers.collabPartnerships(seed.collaborate, lang).split('<div class="v4-prose">')[1].split('</p>')[0].trim()), `${f}: the template is the seed's twin`);
     const aud = page.split('<section id="audience"')[1].split('</section>')[0];
-    assert.doesNotMatch(aud, /<a\s/, `${f}: the audience is figures, not links`);
+    // Figures, not links — but for one «more» link to the publications feed (v4.6.2), where
+    // every article and talk the «Публикации» item counts can be checked.
+    assert.deepEqual(aud.match(/<a\s[^>]*>/g), [`<a href="${lang === 'en' ? '/en' : ''}/notes">`], `${f}: one link, to the feed`);
     assert.equal((aud.match(/class="v4-stat"/g) || []).length, a.figures.length, f);
   }
 });
