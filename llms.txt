@@ -50,7 +50,7 @@
 ## Products
 
 - [TofsDevOps](https://github.com/morgunovtech/Tofs_DevOps_bot) — open-source (MIT) Telegram bot, your personal DevOps in Telegram: uptime, SSL, DNS, search and AI-assistant visibility; fixes what it can and stays quiet while everything is fine; self-hosted via Docker or Railway; named after Tofs the Irish terrier
-- [Social Tracker Bot](https://github.com/morgunovtech/social-tracker-bot) — open-source (MIT) self-hosted Telegram bot that watches your social accounts: followers on Telegram, YouTube, Instagram and LinkedIn with weekly trends, the life of your channel (joins, leaves, posts, reactions), comment cards for prohibited content and account-security alerts (profile changes, security emails, a 2FA checklist), plus a weekly reputation report on how people and AI assistants find you; deployed via Railway or Docker
+- [Social Tracker Bot](https://s.morgunov.tech/en/social-tracker) — open-source (MIT) self-hosted Telegram bot that watches your social accounts: followers on Telegram, YouTube, Instagram and LinkedIn with weekly trends, the life of your channel (joins, leaves, posts, reactions), comment cards for prohibited content and account-security alerts (profile changes, security emails, a 2FA checklist), plus a weekly reputation report on how people and AI assistants find you; deployed via Railway or Docker; in Russian: https://s.morgunov.tech/social-tracker; code: https://github.com/morgunovtech/social-tracker-bot
 - [Found You](https://foundyou.morgunov.tech/en/) — web app that shows what a photo reveals before you post it (EXIF and GPS, place context, device, people in the frame) and makes a clean privacy-safe copy; runs in the browser, the file is never uploaded
 - [Fingerprint](https://fprint.morgunov.tech/en/) — web page that explains online privacy in six steps, from opening your laptop to a loaded site: at each step, on your real data, who learns what about you and what to do; runs in the browser, free, no signup
 - [Telegram channel «Semyon raspravil plechi» / «Семён расправил плечи»](https://t.me/raschet7) — personal channel on product and career; writing what he'd want to read himself; case studies, working frameworks, personal observations; {telegram} followers; writing since 2022
@@ -91,6 +91,8 @@
 - Uses and principles (EN): https://s.morgunov.tech/en/uses
 - Say thanks (RU): https://s.morgunov.tech/thanks
 - Say thanks (EN): https://s.morgunov.tech/en/thanks
+- Social Tracker, the Telegram bot (RU): https://s.morgunov.tech/social-tracker
+- Social Tracker, the Telegram bot (EN): https://s.morgunov.tech/en/social-tracker
 
 ## Key facts
 

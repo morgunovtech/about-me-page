@@ -6,6 +6,9 @@ import { pick } from './i18n.js';
 import { ORIGIN } from './site.js';
 
 const HERO_IMAGE = ORIGIN + '/images/Hero_Photo.webp';
+// A product's address may be a page of this site (Social Tracker → /social-tracker, v4.4.0):
+// the card links the path, structured data names the absolute URL.
+const absUrl = (href) => (typeof href === 'string' && /^\/(?!\/)/.test(href) ? ORIGIN + href : href);
 // First commit of the site (v0.1) — ProfilePage.dateCreated. Google's profile
 // page markup takes a full ISO 8601 date-time with an offset: a bare date is
 // reported in Search Console as an invalid date/time value.
@@ -89,7 +92,7 @@ export function renderJsonLd(doc, lang) {
         {
           '@type': (it.schema && it.schema.type) || 'WebApplication',
           name: it.name,
-          url: pick(it.cta.href, lang),
+          url: absUrl(pick(it.cta.href, lang)),
           applicationCategory: (it.schema && it.schema.category) || 'PrivacyApplication',
           operatingSystem: (it.schema && it.schema.os) || 'Web',
           description: pick(it.desc, lang),

@@ -111,7 +111,7 @@ export async function renderSitemap(env) {
   // the live KV doc (save.js bumps dateModified on every admin save), so
   // the sitemap agrees with the JSON-LD freshness signal without a redeploy.
   // /about («Принципы») is a section of /uses since v4.0.0 (a 301 in _middleware.js).
-  // /thanks is a static page.
+  // /thanks and /social-tracker are static pages.
   const [home, collaborate, consulting, uses, privacy] = await Promise.all(
     ['home', 'collaborate', 'consulting', 'uses', 'privacy'].map((p) => loadDoc(env, p))
   );
@@ -135,6 +135,8 @@ export async function renderSitemap(env) {
     { loc: '/en/uses', ru: '/uses', en: '/en/uses', lastmod: mod(uses, '2026-11-25') },
     { loc: '/thanks', ru: '/thanks', en: '/en/thanks', lastmod: '2026-11-25' },
     { loc: '/en/thanks', ru: '/thanks', en: '/en/thanks', lastmod: '2026-11-25' },
+    { loc: '/social-tracker', ru: '/social-tracker', en: '/en/social-tracker', lastmod: '2026-11-27' },
+    { loc: '/en/social-tracker', ru: '/social-tracker', en: '/en/social-tracker', lastmod: '2026-11-27' },
     { loc: '/privacy', ru: '/privacy', en: '/en/privacy', lastmod: mod(privacy, '2026-11-25') },
     { loc: '/en/privacy', ru: '/privacy', en: '/en/privacy', lastmod: mod(privacy, '2026-11-25') },
     { loc: '/notes', ru: '/notes', en: '/en/notes', lastmod: notesMod },

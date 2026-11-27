@@ -37,7 +37,7 @@ test('e-mail only where the owner put it: home «Связаться», llms.txt,
 });
 
 test('footer (v3.0.0): one link of its own — «Сказать спасибо или сообщить об ошибке» → /thanks; no notes/about/uses links', () => {
-  const footers = PAGES.map((f) => read(f).match(/<footer class="v4-foot">[\s\S]*?<\/footer>/)[0]);
+  const footers = [...PAGES, 'thanks.html', 'en/thanks.html', 'social-tracker.html', 'en/social-tracker.html'].map((f) => read(f).match(/<footer class="v4-foot">[\s\S]*?<\/footer>/)[0]);
   footers.push(notesIndexHtml('ru', '', '{}', 'abc1234', { intro: 'x' }).match(/<footer class="v4-foot">[\s\S]*?<\/footer>/)[0]);
   for (const f of footers) {
     assert.doesNotMatch(f, /href="(\/en)?\/(notes|about|uses)"/);
@@ -51,7 +51,7 @@ test('footer (v3.0.0): one link of its own — «Сказать спасибо �
 
 test('v4.0.0: /about is a section of /uses — the pages are gone, the old URLs redirect, every page is indexable', () => {
   for (const f of ['about.html', 'en/about.html']) assert.throws(() => read(f), f);
-  for (const f of ['index.html', 'collaborate.html', 'consulting.html', 'privacy.html', 'uses.html', 'en/uses.html', 'thanks.html', 'en/thanks.html']) assert.doesNotMatch(read(f), /name="robots" content="noindex"/, f);
+  for (const f of ['index.html', 'collaborate.html', 'consulting.html', 'privacy.html', 'uses.html', 'en/uses.html', 'thanks.html', 'en/thanks.html', 'social-tracker.html', 'en/social-tracker.html']) assert.doesNotMatch(read(f), /name="robots" content="noindex"/, f);
   const mw = read('functions/_middleware.js');
   assert.match(mw, /'\/about': '\/uses#principles'/);
   assert.match(mw, /'\/en\/about': '\/en\/uses#principles'/);
@@ -101,7 +101,7 @@ test('ONE label for one action: every button that opens the Telegram chat reads 
   // template's hero.ctas block is not a list slot — render-static.mjs does not regenerate it —
   // so the pages are read as well as the seed.
   let seen = 0;
-  for (const f of [...PAGES, 'thanks.html', 'en/thanks.html', '404.html']) {
+  for (const f of [...PAGES, 'thanks.html', 'en/thanks.html', 'social-tracker.html', 'en/social-tracker.html', '404.html']) {
     const lang = f.startsWith('en/') ? 'en' : 'ru';
     for (const [, attrs, label] of read(f).matchAll(/<a ([^>]*)>([^<]*)<\/a>/g)) {
       if (!/class="v4-btn[ "]/.test(attrs) || !attrs.includes(`href="${CHAT}"`)) continue;
@@ -244,7 +244,7 @@ test('sections are rendered as written: no deferred rendering, so nothing a sect
   }
   assert.doesNotMatch(app, /(^|[^-\w])\.section\{/m);
   let sections = 0;
-  for (const f of [...PAGES, 'thanks.html', 'en/thanks.html']) {
+  for (const f of [...PAGES, 'thanks.html', 'en/thanks.html', 'social-tracker.html', 'en/social-tracker.html']) {
     for (const [, cls] of read(f).matchAll(/<section id="[a-z]+" class="([^"]+)"/g)) {
       sections++;
       assert.equal(cls, 'v4-section', f);

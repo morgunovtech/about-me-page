@@ -44,6 +44,8 @@ HTML_FILES = [
     "en/uses.html",
     "thanks.html",
     "en/thanks.html",
+    "social-tracker.html",
+    "en/social-tracker.html",
     "privacy.html",
     "en/privacy.html",
     "404.html",
