@@ -38,7 +38,8 @@ const STALE = [
   // says what he builds; the two superlatives nobody could check now name a source and say what
   // it says (Korzinka: the EBRD's «Uzbekistan's leading food retailer»; Skyeng: third by revenue in
   // Smart Ranking 2025); no «(ATH)»; the bullets lead with their subject; «Яндекс Услуги» in
-  // Russian; the About keeps the channel and Tofs; «публикацию», not «пост»; «Свои проекты».
+  // Russian; the About keeps the channel and Tofs; «публикацию», not «пост»; «Свои проекты»,
+  // and the past ventures under them are «Ранние проекты» (the stat counts all eight as projects).
   [/рынках,[ \u00a0]делаю[ \u00a0]инструменты[ \u00a0]про[ \u00a0]приватность/g, 'рынках, разрабатываю open source сервисы'],
   [/make privacy tools/g, 'develop open source services'],
   [/разрабатываю[ \u00a0]open[ \u00a0]source[ \u00a0]инструменты/g, 'разрабатываю open source сервисы'],
@@ -68,6 +69,8 @@ const STALE = [
   [/обсудить[ \u00a0]пост\./g, 'обсудить публикацию.'],
   [/discuss a post\./g, 'discuss a publication.'],
   [/^Собственные[ \u00a0]проекты$/g, 'Свои проекты'],
+  [/^До[ \u00a0]этого$/g, 'Ранние проекты'],
+  [/^Before$/g, 'Earlier projects'],
   [/руководил[ \u00a0]крупнейшим[ \u00a0]e[-\u2011]grocery[ \u00a0]в[ \u00a0]Узбекистане[ \u00a0]в[ \u00a0]\*\*Korzinka\*\*/g, 'руководил онлайн-супермаркетом **Korzinka**, [ведущей продуктовой сети Узбекистана](https://www.ebrd.com/home/news-and-events/news/2025/ebrd-welcomes-major-investment-in-uzbek-food-retailer-.html)'],
   [/3 years leading the largest e[-\u2011]grocery in Uzbekistan at \*\*Korzinka\*\*/g, '3 years leading the online supermarket of **Korzinka**, [Uzbekistan\'s leading food retailer](https://www.ebrd.com/home/news-and-events/news/2025/ebrd-welcomes-major-investment-in-uzbek-food-retailer-.html)'],
 ];

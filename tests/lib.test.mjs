@@ -372,7 +372,8 @@ test('fixStaleContent v4.10.3: the homepage pass reaches a KV doc — plain or n
     skyeng: { ru: 'Крупнейшая EdTech-компания Восточной Европы.\n\n- Активировал 7' + nb + 'млн+ пользователей' },
     about: { ru: 'одновременно.\n\nС 2009 года запустил четыре бизнеса — один продали сотрудникам, два закрыли, один на паузе. Сейчас делаю сервисы для бизнеса и авторов — мониторинг сайтов, безопасность аккаунтов, приватность; все бесплатные и с открытым' + nb + 'кодом. Веду [Telegram-канал](https://t.me/raschet7).' },
     title: { ru: 'Собственные проекты' },
-    untouched: ['подписчиков в LinkedIn — senior-специалисты', 'Собственные проекты на GitHub', 'followers on Telegram', 'Я делаю инструменты про приватность и не могу при этом следить за читателями.'],
+    before: { ru: 'До этого', en: 'Before' },
+    untouched: ['подписчиков в LinkedIn — senior-специалисты', 'Собственные проекты на GitHub', 'followers on Telegram', 'Я делаю инструменты про приватность и не могу при этом следить за читателями.', 'До этого 3 года руководил', 'Before that: 3 years'],
   };
   fixStaleContent(doc);
   assert.equal(doc.tagline.ru, 'Строю продукты на растущих рынках, разрабатываю open source сервисы и пишу о том, что понял по дороге.');
@@ -383,7 +384,8 @@ test('fixStaleContent v4.10.3: the homepage pass reaches a KV doc — plain or n
   assert.match(doc.skyeng.ru, /^\[Одна из трёх крупнейших EdTech-компаний России\]\(https:\/\/skillbox\.ru\/[^)]+\) по выручке\.\n\n- Активация: 7\u00a0млн\+ пользователей$/);
   assert.equal(doc.about.ru, 'одновременно.\n\nВеду [Telegram-канал](https://t.me/raschet7).');
   assert.equal(doc.title.ru, 'Свои проекты');
-  assert.deepEqual(doc.untouched, ['подписчиков в LinkedIn — senior-специалисты', 'Собственные проекты на GitHub', 'followers on Telegram', 'Я делаю инструменты про приватность и не могу при этом следить за читателями.']);
+  assert.deepEqual(doc.before, { ru: 'Ранние проекты', en: 'Earlier projects' });
+  assert.deepEqual(doc.untouched, ['подписчиков в LinkedIn — senior-специалисты', 'Собственные проекты на GitHub', 'followers on Telegram', 'Я делаю инструменты про приватность и не могу при этом следить за читателями.', 'До этого 3 года руководил', 'Before that: 3 years']);
   const once = JSON.stringify(doc);
   fixStaleContent(doc);
   assert.equal(JSON.stringify(doc), once, 'a second pass changes nothing');
