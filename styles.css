@@ -489,6 +489,24 @@
   margin-bottom: 0;
 }
 
+/* A link inside the text of a career row (a source for a claim, v4.10.2)
+   reads like a link of the prose: ink, a hairline underline, orange under
+   the pointer — never the browser's blue. */
+.v4-career-row .ctx a {
+  color: var(--v4-fg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--v4-line);
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.v4-career-row .ctx a:hover,
+.v4-career-row .ctx a:focus-visible {
+  color: var(--v4-orange-text);
+  text-decoration-color: var(--v4-orange-text);
+}
+
 /* --- Button row under a block --- */
 
 .v4-help-cta {

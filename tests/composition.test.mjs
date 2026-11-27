@@ -634,3 +634,42 @@ test('the bar: the menus hang from its rule, the group\'s items start under its 
   assert.equal(at('.v4-menu', 'right'), '0');
   assert.ok(!LAYER.some((r) => r.selectors.includes('.v4-theme > .v4-menu')), 'no offset of its own for the theme panel');
 });
+
+// v4.10.2 shipped two source links in the career's text that no rule styled: the browser drew
+// them in its own blue (rgb(0, 0, 238)). Every link without a class of its own, on every page,
+// sits inside a block whose stylesheet rule colours `… a` — the prose's ink and hairline.
+test('a link in running text is the layer\'s link, never the browser\'s blue: every bare <a> has a rule', () => {
+  const css = ['ds/v1/components.css', 'ds/v1/base.css', 'styles.css'].map(read).join('\n').replace(/\/\*[\s\S]*?\*\//g, '');
+  const rules = [];
+  for (const m of css.matchAll(/([^{}]+)\{([^}]*)\}/g)) {
+    if (!/(^|;|\s)color\s*:/.test(m[2])) continue;
+    for (const sel of m[1].split(',').map((s) => s.trim())) {
+      const parts = sel.split(/\s+|>/).filter(Boolean);
+      if (!/^a(:[a-z-]+(\([^)]*\))?)*$/.test(parts[parts.length - 1] || '')) continue;
+      const classes = parts.slice(0, -1).flatMap((p) => p.match(/\.[\w-]+/g) || []).map((c) => c.slice(1));
+      if (classes.length) rules.push(classes);
+    }
+  }
+  const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr']);
+  const pages = ['index', 'consulting', 'collaborate', 'uses', 'privacy', 'thanks', 'social-tracker', 'tofsdevops'].flatMap((p) => [p + '.html', 'en/' + p + '.html']).concat('404.html');
+  const bare = [];
+  for (const f of pages) {
+    const html = read(f).replace(/<script[\s\S]*?<\/script>/g, '').replace(/<style[\s\S]*?<\/style>/g, '');
+    const stack = [];
+    for (const [, close, tag, attrs] of html.matchAll(/<(\/?)([a-zA-Z][\w-]*)([^>]*)>/g)) {
+      const t = tag.toLowerCase();
+      if (close) {
+        const i = stack.map((s) => s.t).lastIndexOf(t);
+        if (i >= 0) stack.length = i;
+        continue;
+      }
+      const cls = ((attrs.match(/\bclass="([^"]*)"/) || [])[1] || '').split(/\s+/).filter(Boolean);
+      if (t === 'a' && !cls.length) {
+        const chain = new Set(stack.flatMap((s) => s.cls));
+        if (!rules.some((r) => r.every((c) => chain.has(c)))) bare.push(`${f}: <a${attrs.slice(0, 50)}> in .${stack.filter((s) => s.cls.length).slice(-2).map((s) => s.cls.join('.')).join(' .')}`);
+      }
+      if (!VOID.has(t) && !attrs.endsWith('/')) stack.push({ t, cls });
+    }
+  }
+  assert.deepEqual(bare, []);
+});
