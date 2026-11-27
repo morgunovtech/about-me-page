@@ -42,8 +42,12 @@ export function fixStaleContent(node) {
 // homepage /privacy link from the template into the products renderer, and
 // the home doc in KV (rev 33) had no `sections.products.privacy`: the link
 // vanished from the live page until v2.2.3 filled it here. The rev 34 Save
-// (v4.0.1) stored it, so the table is empty. An entry is { page: ['a.b.c'] }.
-export const SEED_FILL = {};
+// (v4.0.1) stored it. v4.7.0 made Instagram a channel of the subscribers stat
+// (the third figure of the homepage, `stats.2`): the home doc in KV (rev 41)
+// has no `channels.instagram`, so the homepage and `llms.txt` would leave it
+// out of the total until `kv-push.mjs home` stores it — then remove the entry.
+// An entry is { page: ['a.b.c'] }.
+export const SEED_FILL = { home: ['stats.2.channels.instagram'] };
 
 export function fillFromSeed(doc, page, from, table = SEED_FILL) {
   const paths = table[page];
