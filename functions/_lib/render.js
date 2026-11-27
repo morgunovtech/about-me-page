@@ -12,7 +12,7 @@
 // edit=false (the public render) emits none of these → output is byte-identical.
 
 import { pick, NEW_TAB, outMark, fmtDate } from './i18n.js';
-import { viewsLabel } from './notes-feed.js';
+import { viewsLabel, noteKind } from './notes-feed.js';
 import { noteUrl } from './articles.js';
 import { escapeHtml, escapeAttr, isExternal, safeHref, renderInline, renderCtx, renderProse } from './markdown.js';
 
@@ -404,9 +404,9 @@ function tierCard(t, lang) {
 
 // Where a feed entry lives, in one word: the platform of an external material
 // (derived from its address, so it cannot be mistyped) or «Заметка» for a note
-// of this site. It replaces the free-text tag (TALK / VIDEO / ARTICLE).
+// of this site — «Эссе» for one tagged `essays` (noteKind, v4.10.0). It replaces the free-text tag (TALK / VIDEO / ARTICLE).
 export function feedSource(e, lang) {
-  if (e.kind === 'note') return lang === 'en' ? 'Note' : 'Заметка';
+  if (e.kind === 'note') return noteKind(e.item, lang);
   let host = '';
   try { host = new URL(e.item.href).hostname.replace(/^www\./, ''); } catch { host = ''; }
   if (host === 'youtu.be' || host === 'youtube.com' || host.endsWith('.youtube.com')) return 'YouTube';
@@ -648,7 +648,7 @@ export const renderers = {
       if (!it || !titled(it.title)) return '';
       const href = a ? noteUrl(a.slug, lang) : safeHref(x.href);
       const out = a ? '' : ' target="_blank" rel="noopener noreferrer"';
-      const kind = a ? (en ? 'Note' : 'Заметка') : /youtu/.test(x.href) ? (en ? 'Video' : 'Видео') : (x.source || '');
+      const kind = a ? noteKind(a, lang) : /youtu/.test(x.href) ? (en ? 'Video' : 'Видео') : (x.source || '');
       const date = it.date ? `<time datetime="${escapeAttr(it.date)}">${escapeHtml(fmtDate(it.date, lang))}</time>` : '';
       const meta = [escapeHtml(kind), date].filter(Boolean).join(' · ');
       const under = a ? '' : [x.source && x.source !== kind ? escapeHtml(x.source) : '', x.views ? viewsLabel(x.views, lang) : ''].filter(Boolean).join(' · ');

@@ -41,6 +41,7 @@ const T = {
     usesNav: 'Стек',
     thanks: 'Сказать спасибо или сообщить об ошибке',
     thanksLine: 'Если заметка пригодилась — [вот как можно сказать спасибо]({href}).',
+    thanksLineEssay: 'Если эссе пригодилось — [вот как можно сказать спасибо]({href}).',
     back: '← Все публикации',
     menu: 'Меню',
     langLabel: 'сменить язык',
@@ -63,6 +64,7 @@ const T = {
     usesNav: 'Uses',
     thanks: 'Say thanks or report a bug',
     thanksLine: 'If this note was useful, [here’s how you can say thanks]({href}).',
+    thanksLineEssay: 'If this essay was useful, [here’s how you can say thanks]({href}).',
     back: '← All publications',
     menu: 'Menu',
     langLabel: 'change language',
@@ -228,6 +230,14 @@ function tailChrome(lang, ldScript) {
   <script data-cfasync="false" defer src="/script.js?${SCRIPT_VER}"></script>`;
 }
 
+// The line under a note's body: «Если заметка пригодилась…», «Если эссе
+// пригодилось…» under an essay (v4.10.0 — render-article.js puts it in
+// `_thanksHtml`; the shell holds the note's line).
+export function thanksLine(lang, essay) {
+  const l = L(lang);
+  return renderInline(T[l][essay ? 'thanksLineEssay' : 'thanksLine'].replace('{href}', p(l, '/thanks')));
+}
+
 export function articleShell(lang) {
   const l = L(lang);
   const t = T[l];
@@ -276,7 +286,7 @@ ${barChrome(l, { ru: '/notes', en: '/en/notes', ruAttrs: ' data-cms-href="_pathR
           <figure class="v4-article-cover" data-cms-html="_coverHtml"></figure>
         </header>
         <div class="v4-article-body" data-cms-html="body"></div>
-        <p class="v4-article-thanks">${typo(renderInline(t.thanksLine.replace('{href}', p(l, '/thanks'))), l)}</p>
+        <p class="v4-article-thanks" data-cms-html="_thanksHtml">${typo(thanksLine(l, false), l)}</p>
         <footer class="v4-article-foot">
           <a class="v4-btn" href="${notesHref}">${t.back}</a>
         </footer>

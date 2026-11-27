@@ -2761,6 +2761,17 @@
     },
     "topics": [
       {
+        "key": "essays",
+        "name": {
+          "ru": "Эссе",
+          "en": "Essays"
+        },
+        "intro": {
+          "ru": "Длинные тексты, в которых я подробно разбираю одну мысль: почему так происходит и что из этого следует.",
+          "en": "Longer pieces that take one idea apart in detail: why things happen this way and what follows from it."
+        }
+      },
+      {
         "key": "management",
         "name": {
           "ru": "Менеджмент команды",

@@ -358,8 +358,8 @@ test('/uses («Стек и принципы», v4.0.0) is public: in the sitemap
   // with the word before it (a no-break space), in the editor's preview too — nothing here is
   // the doc's to save.
   const ru = articleShell('ru');
-  assert.ok(ru.includes('<p class="v4-article-thanks">Если заметка пригодилась\u00a0— <a href="/thanks">вот как можно сказать спасибо</a>.</p>'));
-  assert.ok(articleShell('en').includes('<p class="v4-article-thanks">If this note was useful, <a href="/en/thanks">here’s how you can say thanks</a>.</p>'));
+  assert.ok(ru.includes('<p class="v4-article-thanks" data-cms-html="_thanksHtml">Если заметка пригодилась\u00a0— <a href="/thanks">вот как можно сказать спасибо</a>.</p>'));
+  assert.ok(articleShell('en').includes('<p class="v4-article-thanks" data-cms-html="_thanksHtml">If this note was useful, <a href="/en/thanks">here’s how you can say thanks</a>.</p>'));
   const at = (s) => ru.indexOf(s);
   assert.ok(at('class="v4-article-body"') < at('class="v4-article-thanks"') && at('class="v4-article-thanks"') < at('class="v4-article-foot"'));
 });
