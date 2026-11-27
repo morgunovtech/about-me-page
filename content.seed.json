@@ -1357,8 +1357,8 @@
         "en": "Partnerships & Media — Semyon Morgunov"
       },
       "description": {
-        "ru": "Сотрудничество с технологическими компаниями, тестирование продуктов, Open Source, экспертные комментарии и выступления. Темы, аудитория, примеры работ и контакты.",
-        "en": "Independent product testing, early access, open-source partnerships, media commentary and speaking. Interests, audience, selected work and contact details."
+        "ru": "Семён Моргунов — руководитель в финтехе, автор и разработчик open source инструментов. Тест-драйвы, ранний доступ, интервью, съёмки и выступления: как познакомиться и где посмотреть материалы.",
+        "en": "Semyon Morgunov — fintech leader, writer and open source developer. Test drives, early access, interviews, filming and talks: how to get in touch and where to see his work."
       }
     },
     "share": {
@@ -1367,8 +1367,8 @@
         "en": "Partnerships & Media — Semyon Morgunov"
       },
       "description": {
-        "ru": "Сотрудничество с технологическими компаниями, тестирование продуктов, Open Source, экспертные комментарии и выступления. Темы, аудитория, примеры работ и контакты.",
-        "en": "Independent product testing, early access, open-source partnerships, media commentary and speaking. Interests, audience, selected work and contact details."
+        "ru": "Семён Моргунов — руководитель в финтехе, автор и разработчик open source инструментов. Тест-драйвы, ранний доступ, интервью, съёмки и выступления: как познакомиться и где посмотреть материалы.",
+        "en": "Semyon Morgunov — fintech leader, writer and open source developer. Test drives, early access, interviews, filming and talks: how to get in touch and where to see his work."
       },
       "image": {
         "ru": "/images/og-card-ru.png",
@@ -1389,129 +1389,160 @@
         "en": "Partnerships & media"
       },
       "tagline": {
-        "ru": "Я руковожу финтехом в крупной технологической компании, делаю собственные инструменты и пишу о продуктах, технологиях и бизнесе.",
-        "en": "I lead FinTech at a large tech company, build my own tools, and write about products, technology and business."
+        "ru": "Руковожу финтехом в Yandex Uzbekistan, разрабатываю open source инструменты, много путешествую и люблю разбираться в технологиях.",
+        "en": "I lead fintech at Yandex Uzbekistan, build open source tools, travel a lot and enjoy figuring out how technology works."
       },
       "lead": {
-        "ru": "Мне интересно знакомиться с продуктами, которые решают реальные задачи, тестировать их в повседневной жизни и разбираться, почему они устроены именно так. Если вы создаёте такой продукт, работаете над исследованием или собираете профессиональное сообщество — давайте знакомиться.",
-        "en": "I’m interested in products that solve real problems, testing them in everyday use, and understanding the decisions behind them. If you’re building a product like that, working on a research piece, or bringing a professional community together, I’d love to hear from you."
+        "ru": "Пишу о продуктах, которыми пользуюсь, и о людях, которые их создают. Всегда рад знакомству с интересными компаниями и командами.",
+        "en": "I write about the products I use and the people who build them. I’m always happy to meet interesting companies and teams."
       },
       "ctas": {
-        "ru": "<a class=\"v4-btn v4-btn-primary\" href=\"#contact\">Предложить сотрудничество</a>",
-        "en": "<a class=\"v4-btn v4-btn-primary\" href=\"#contact\">Get in touch</a>"
+        "ru": "<a class=\"v4-btn v4-btn-primary\" href=\"#contact\">Связаться со мной →</a>\n<a class=\"v4-btn\" href=\"/uses\">Чем я пользуюсь →</a>",
+        "en": "<a class=\"v4-btn v4-btn-primary\" href=\"#contact\">Get in touch →</a>\n<a class=\"v4-btn\" href=\"/en/uses\">What I use →</a>"
+      },
+      "portraitAlt": {
+        "ru": "Портрет Семёна Моргунова",
+        "en": "Portrait of Semyon Morgunov"
       }
     },
     "sections": {
       "interests": {
         "title": {
           "ru": "Что мне интересно",
-          "en": "Areas of interest"
-        },
-        "prose": {
-          "ru": "Больше всего меня интересуют технологии, которыми можно пользоваться самому и в которых есть что разбирать с продуктовой или инженерной точки зрения.",
-          "en": "I’m most interested in technology I can use myself and explore from a product or engineering perspective."
+          "en": "What I’m into"
         },
         "items": [
           {
-            "ru": "**Приватность и безопасность.** Менеджеры паролей, passkeys, аппаратные ключи, VPN, приватные сервисы.",
-            "en": "**Privacy & security.** Password managers, passkeys, hardware security keys, VPNs, privacy-focused services."
+            "title": {
+              "ru": "Работа и технологии",
+              "en": "Work and technology"
+            },
+            "text": {
+              "ru": "Компьютеры, смартфоны, софт, AI, продуктивность.",
+              "en": "Computers, smartphones, software, AI and productivity."
+            },
+            "image": {
+              "src": "/images/collaborate/work.webp",
+              "width": 768,
+              "height": 432,
+              "alt": {
+                "ru": "USB-переходник Data Blocker на сотовом коврике",
+                "en": "A USB data blocker on a honeycomb mat"
+              }
+            }
           },
           {
-            "ru": "**Инструменты для разработчиков и open source.** Хостинг, мониторинг, DevOps, self-hosting, инфраструктура для небольших проектов.",
-            "en": "**Developer tools & open source.** Hosting, monitoring, DevOps, self-hosting, infrastructure for small projects."
+            "title": {
+              "ru": "Собственные проекты",
+              "en": "Side projects"
+            },
+            "text": {
+              "ru": "Open source, DevTools, self-hosting, приватность и безопасность.",
+              "en": "Open source, developer tools, self-hosting, privacy and security."
+            },
+            "image": {
+              "src": "/images/collaborate/projects.webp",
+              "width": 900,
+              "height": 506,
+              "alt": {
+                "ru": "Домашний сервер: мини-ПК и два диска на картонной подставке",
+                "en": "A home server: a mini PC and two drives on a cardboard stand"
+              }
+            }
           },
           {
-            "ru": "**Продуктивность и софт.** Браузеры, приложения для macOS, AI-инструменты, автоматизация.",
-            "en": "**Productivity & software.** Browsers, macOS apps, AI tools, automation."
+            "title": {
+              "ru": "Автомобили и путешествия",
+              "en": "Cars and travel"
+            },
+            "text": {
+              "ru": "Электромобили, автомобильные технологии, бездорожье, навигация.",
+              "en": "Electric vehicles, automotive tech, off-roading and navigation."
+            },
+            "image": {
+              "src": "/images/collaborate/travel.webp",
+              "width": 1024,
+              "height": 576,
+              "alt": {
+                "ru": "Suzuki Jimny на холме в степи",
+                "en": "A Suzuki Jimny on a hill in the steppe"
+              }
+            }
           },
           {
-            "ru": "**Устройства и электроника.** Компьютеры, гаджеты, NAS, периферия, сетевое оборудование.",
-            "en": "**Hardware & electronics.** Computers, gadgets, NAS, peripherals, networking gear."
-          },
-          {
-            "ru": "**Финтех и коммерция.** Платежи, BNPL, e-commerce, RetailTech, продукты для бизнеса — с оглядкой на конфликт интересов с моей работой.",
-            "en": "**FinTech & commerce.** Payments, BNPL, e-commerce, retail tech, business tools — mindful of conflicts of interest with my day job."
-          },
-          {
-            "ru": "**Outdoor и EDC.** Навигация, оптика, функциональные часы, автономное питание — это личное увлечение, а не основная тема.",
-            "en": "**Outdoor & everyday carry.** Navigation, optics, tool watches, portable power — a personal interest rather than a main topic."
+            "title": {
+              "ru": "Outdoor и повседневные вещи",
+              "en": "Outdoors and everyday gear"
+            },
+            "text": {
+              "ru": "Часы, оптика, EDC, экипировка, автономное питание.",
+              "en": "Watches, optics, everyday carry, outdoor gear and portable power."
+            },
+            "image": {
+              "src": "/images/collaborate/outdoor.webp",
+              "width": 1200,
+              "height": 675,
+              "alt": {
+                "ru": "Полевые часы на запястье, за ними заснеженные горы",
+                "en": "A field watch on the wrist, snowy mountains behind"
+              }
+            }
           }
-        ],
-        "more": {
-          "href": {
-            "ru": "/uses",
-            "en": "/en/uses"
-          },
-          "label": {
-            "ru": "Чем я пользуюсь",
-            "en": "My tech stack"
-          }
-        }
+        ]
       },
       "partnerships": {
         "title": {
-          "ru": "Как можем сотрудничать",
-          "en": "Ways to work together"
-        },
-        "prose": {
-          "ru": "",
-          "en": ""
+          "ru": "Что можем сделать вместе",
+          "en": "What we can do together"
         },
         "items": [
           {
-            "ru": "**Тестирование и продуктовые разборы.** Могу познакомиться с устройством или сервисом, встроить его в свои реальные сценарии и разобраться, что работает хорошо, а что можно улучшить. Если из опыта получится полезный материал, расскажу о нём в своих каналах.",
-            "en": "**Product testing & reviews.** I can try a device or service in my own workflows and explore what works well and what could be improved. If the experience makes for a useful story, I may write about it on my channels."
+            "ru": "Тест-драйвы, знакомство с устройствами и сервисами.",
+            "en": "Test drives, hands-on time with devices and trying out software or services."
           },
           {
-            "ru": "**Early access и бета-тестирование.** Интересны продукты на ранней стадии и новые функции существующих сервисов. Могу дать обратную связь как пользователь и продакт-менеджер: по сценариям, онбордингу, UX и продуктовым решениям. Глубокий аудит или регулярная работа — это уже [консалтинг](/consulting).",
-            "en": "**Early access & beta testing.** I’m interested in early-stage products and new features in existing services. I can share feedback as both a user and a product manager, focusing on workflows, onboarding, UX and product decisions. An in-depth audit or ongoing work is [consulting](/en/consulting)."
+            "ru": "Ранний доступ к продуктам, бета-тестирование и обратная связь.",
+            "en": "Early access, beta testing and product feedback."
           },
           {
-            "ru": "**Экспертные и долгосрочные программы.** Открыт к developer community, ambassador и expert programs, долгосрочному тестированию и партнёрским программам для продуктов, которыми действительно пользуюсь или хотел бы пользоваться. Формат и условия обсуждаем отдельно.",
-            "en": "**Expert & long-term partnerships.** I’m open to developer communities, ambassador and expert programs, long-term testing, and partner programs for products I genuinely use or would like to use. We can agree on the scope and terms separately."
+            "ru": "Интервью, съёмки и пользовательские истории для медиа и брендов.",
+            "en": "Interviews, filming and customer stories for media outlets and brands."
           },
           {
-            "ru": "**Интервью, исследования и СМИ.** Могу дать комментарий, написать авторскую колонку, поучаствовать в подкасте, совместном исследовании или поговорить с основателями о том, как и почему появился продукт. Мои профессиональные темы — продукт, управление, e-commerce, финтех и развивающиеся рынки.",
-            "en": "**Interviews, research & media.** I can contribute expert commentary, write a guest article, join a podcast or research project, or talk with founders about how and why a product came to be. My professional topics include product management, leadership, e-commerce, FinTech and emerging markets."
+            "ru": "Презентации, технологические выставки и посещение производств.",
+            "en": "Product launches, tech events and visits to manufacturing or R&D facilities."
           },
           {
-            "ru": "**Выступления и профессиональные сообщества.** Открыт к выступлениям, панельным дискуссиям, менторству и работе в жюри. Выступал на INMerge Tashkent, Click Data MeetUp и Managers Conf, был ментором President Tech Award и судьёй Startup Weekend и TechGenius.",
-            "en": "**Speaking & professional communities.** I’m open to talks, panel discussions, mentoring and judging. I’ve spoken at INMerge Tashkent, Click Data MeetUp and Managers Conf, mentored at the President Tech Award, and judged Startup Weekend and TechGenius."
+            "ru": "Выступления, подкасты и экспертные комментарии.",
+            "en": "Talks, podcasts and expert commentary."
           },
           {
-            "ru": "**Знакомство с технологиями изнутри.** Мне интересно увидеть, как продукты создаются: познакомиться с командой, посетить производство или R&D, узнать историю инженерных и продуктовых решений. Если будет о чём рассказать, из этого может получиться материал.",
-            "en": "**Behind the scenes.** I’m interested in seeing how products are made: meeting the team, visiting a factory or R&D facility, and learning about engineering and product decisions. If there’s a story worth telling, it may become an article."
-          },
-          {
-            "ru": "**Поддержка открытых проектов.** Делаю бесплатные инструменты с открытым кодом в области приватности, безопасности и мониторинга. Открыт к техническому сотрудничеству, инфраструктурной поддержке и спонсорству этих проектов.",
-            "en": "**Open-source project support.** I build free, open-source tools for privacy, security and monitoring. I’m open to technical collaboration, infrastructure support and sponsorship of these projects."
+            "ru": "Долгосрочные партнёрства и поддержка open source проектов.",
+            "en": "Long-term partnerships and support for open source projects."
           }
         ]
       },
       "examples": {
         "title": {
-          "ru": "Примеры работ",
+          "ru": "Избранные материалы",
           "en": "Selected work"
         },
         "prose": {
-          "ru": "Несколько примеров того, как я разбираюсь в технологиях и рассказываю о продуктах.",
-          "en": "A few examples of how I explore technology and write about products."
+          "ru": "Раньше был сертифицированным тренером Apple по продукту и продажам — обучил больше 700 сотрудников и руководителей. Сейчас, помимо основной работы, делаю собственные open source проекты.",
+          "en": "Previously, I was a certified Apple product and sales trainer and taught more than 700 staff and managers. Alongside my day job, I now build my own open source projects."
         },
         "items": [
           {
             "slug": "yubikey"
           },
           {
-            "slug": "airalo"
-          },
-          {
-            "href": "https://youtu.be/OJXtFmWNZMM"
-          },
-          {
             "href": "https://youtu.be/BthlUR9eO1M"
           },
           {
-            "href": "https://www.spot.uz/ru/2026/03/02/wolt-opinion/"
+            "slug": "airalo"
+          },
+          {
+            "slug": "icloud-pmf"
           }
         ],
         "more": [
@@ -1539,8 +1570,8 @@
       },
       "audience": {
         "title": {
-          "ru": "Аудитория",
-          "en": "Audience"
+          "ru": "Аудитория и публикации",
+          "en": "Audience & publications"
         },
         "channels": {
           "telegram": {
@@ -1560,314 +1591,359 @@
             "en": "181"
           }
         },
-        "groups": [
+        "figures": [
           {
-            "kind": "channels",
-            "title": {
-              "ru": "Где подписаны",
-              "en": "Where people follow me"
-            },
-            "order": [
-              "linkedin",
-              "telegram",
-              "instagram",
-              "youtube"
-            ]
-          },
-          {
-            "title": {
-              "ru": "Уровень · LinkedIn",
-              "en": "Seniority · LinkedIn"
-            },
-            "rows": [
-              {
-                "label": {
-                  "ru": "Senior-специалисты",
-                  "en": "Senior professionals"
-                },
-                "share": 26
-              },
-              {
-                "label": {
-                  "ru": "Директора",
-                  "en": "Directors"
-                },
-                "share": 17
-              },
-              {
-                "label": {
-                  "ru": "C-level",
-                  "en": "C-level"
-                },
-                "share": 13
-              },
-              {
-                "label": {
-                  "ru": "Менеджеры",
-                  "en": "Managers"
-                },
-                "share": 6
-              }
-            ],
-            "foot": {
-              "ru": "71% — senior и выше; чаще всего продакты, CEO, фаундеры и CPO",
-              "en": "71% senior and above; most often product managers, CEOs, founders and CPOs"
+            "total": true,
+            "unit": {
+              "ru": "подписок на четырёх площадках",
+              "en": "total follows across four platforms"
             }
           },
           {
-            "title": {
-              "ru": "Отрасли · LinkedIn",
-              "en": "Industries · LinkedIn"
+            "value": {
+              "ru": "71%",
+              "en": "71%"
             },
-            "rows": [
-              {
-                "label": {
-                  "ru": "IT-сервисы и консалтинг",
-                  "en": "IT services and consulting"
-                },
-                "share": 20
-              },
-              {
-                "label": {
-                  "ru": "Интернет",
-                  "en": "Internet"
-                },
-                "share": 14
-              },
-              {
-                "label": {
-                  "ru": "Финансы и банки",
-                  "en": "Finance and banking"
-                },
-                "share": 10
-              },
-              {
-                "label": {
-                  "ru": "Разработка ПО",
-                  "en": "Software development"
-                },
-                "share": 7
-              },
-              {
-                "label": {
-                  "ru": "Ритейл",
-                  "en": "Retail"
-                },
-                "share": 5
-              }
-            ]
+            "unit": {
+              "ru": "подписчиков в LinkedIn — senior-специалисты и руководители",
+              "en": "of my LinkedIn followers are senior professionals and leaders"
+            }
           },
           {
-            "title": {
-              "ru": "Города · LinkedIn",
-              "en": "Cities · LinkedIn"
+            "value": {
+              "ru": "46%",
+              "en": "46%"
             },
-            "rows": [
-              {
-                "label": {
-                  "ru": "Москва",
-                  "en": "Moscow"
-                },
-                "share": 15
-              },
-              {
-                "label": {
-                  "ru": "Ташкент",
-                  "en": "Tashkent"
-                },
-                "share": 14
-              },
-              {
-                "label": {
-                  "ru": "Лондон",
-                  "en": "London"
-                },
-                "share": 2
-              },
-              {
-                "label": {
-                  "ru": "Петербург",
-                  "en": "Saint Petersburg"
-                },
-                "share": 2
-              }
-            ],
-            "foot": {
-              "ru": "дальше Тбилиси, Белград, Берлин, Барселона, Сан-Франциско, Амстердам",
-              "en": "then Tbilisi, Belgrade, Berlin, Barcelona, San Francisco, Amsterdam"
+            "unit": {
+              "ru": "подписчиков Telegram-канала — с Telegram Premium",
+              "en": "of my Telegram channel’s subscribers have Telegram Premium"
             }
           }
         ],
-        "reach": {
-          "ru": "**Охват.** 114 тыс. показов в LinkedIn за 12 месяцев, в среднем 384 просмотра у поста в Telegram, 85 тыс. просмотров на vc.ru и 11 тыс. — на YouTube.",
-          "en": "**Reach.** 114K LinkedIn impressions over 12 months, 384 views per Telegram post on average, 85K views on vc.ru and 11K on YouTube."
-        },
-        "profilesTitle": {
-          "ru": "Профили",
-          "en": "Profiles"
-        },
-        "profiles": [
+        "platforms": [
           {
-            "label": {
-              "ru": "LinkedIn",
-              "en": "LinkedIn"
-            },
-            "href": "https://www.linkedin.com/in/semyon-morgunov/"
+            "name": "LinkedIn",
+            "href": "https://www.linkedin.com/in/semyon-morgunov/",
+            "channel": "linkedin",
+            "note": {
+              "ru": "114 тыс. показов за 12 месяцев",
+              "en": "114K impressions over 12 months"
+            }
           },
           {
-            "label": {
-              "ru": "Telegram-канал",
-              "en": "Telegram channel"
-            },
-            "href": "https://t.me/raschet7"
+            "name": "Telegram",
+            "href": "https://t.me/raschet7",
+            "channel": "telegram",
+            "note": {
+              "ru": "в среднем 384 просмотра у поста",
+              "en": "384 views per post on average"
+            }
           },
           {
-            "label": {
-              "ru": "Instagram",
-              "en": "Instagram"
-            },
-            "href": "https://www.instagram.com/semyon.morgunov/"
+            "name": "Instagram",
+            "href": "https://www.instagram.com/semyon.morgunov/",
+            "channel": "instagram"
           },
           {
-            "label": {
-              "ru": "YouTube",
-              "en": "YouTube"
-            },
-            "href": "https://www.youtube.com/@semyon_morgunov"
+            "name": "YouTube",
+            "href": "https://www.youtube.com/@semyon_morgunov",
+            "channel": "youtube",
+            "note": {
+              "ru": "11 тыс. просмотров видео — моих и с моим участием",
+              "en": "11K video views — mine and ones I appear in"
+            }
           },
           {
-            "label": {
-              "ru": "vc.ru",
-              "en": "vc.ru"
-            },
-            "href": "https://vc.ru/id679509"
+            "name": "vc.ru",
+            "href": "https://vc.ru/id679509",
+            "note": {
+              "ru": "85 тыс. просмотров статей",
+              "en": "85K article views"
+            }
           },
           {
-            "label": {
-              "ru": "GitHub",
-              "en": "GitHub"
-            },
-            "href": "https://github.com/morgunovtech"
+            "name": "GitHub",
+            "href": "https://github.com/morgunovtech",
+            "note": {
+              "ru": "открытый код моих проектов",
+              "en": "the open source code of my projects"
+            }
           }
         ],
+        "details": {
+          "summary": {
+            "ru": "Подробнее об аудитории",
+            "en": "Audience breakdown"
+          },
+          "groups": [
+            {
+              "title": {
+                "ru": "Уровень · LinkedIn",
+                "en": "Seniority · LinkedIn"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "ru": "Senior-специалисты",
+                    "en": "Senior"
+                  },
+                  "share": 26
+                },
+                {
+                  "label": {
+                    "ru": "Директора",
+                    "en": "Directors"
+                  },
+                  "share": 17
+                },
+                {
+                  "label": {
+                    "ru": "Начальный уровень",
+                    "en": "Entry level"
+                  },
+                  "share": 15
+                },
+                {
+                  "label": {
+                    "ru": "C-level",
+                    "en": "C-level"
+                  },
+                  "share": 13
+                },
+                {
+                  "label": {
+                    "ru": "Менеджеры",
+                    "en": "Managers"
+                  },
+                  "share": 6
+                },
+                {
+                  "label": {
+                    "ru": "Владельцы бизнеса",
+                    "en": "Owners"
+                  },
+                  "share": 5
+                },
+                {
+                  "label": {
+                    "ru": "Вице-президенты",
+                    "en": "VPs"
+                  },
+                  "share": 2
+                },
+                {
+                  "label": {
+                    "ru": "Партнёры",
+                    "en": "Partners"
+                  },
+                  "share": 2
+                }
+              ],
+              "foot": {
+                "ru": "71% — все уровни, кроме начального и стажёров",
+                "en": "71% is every level but entry and training"
+              }
+            },
+            {
+              "title": {
+                "ru": "Отрасли · LinkedIn",
+                "en": "Industries · LinkedIn"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "ru": "IT-сервисы и консалтинг",
+                    "en": "IT services and consulting"
+                  },
+                  "share": 20
+                },
+                {
+                  "label": {
+                    "ru": "Интернет",
+                    "en": "Internet"
+                  },
+                  "share": 14
+                },
+                {
+                  "label": {
+                    "ru": "Разработка ПО",
+                    "en": "Software development"
+                  },
+                  "share": 7
+                },
+                {
+                  "label": {
+                    "ru": "Финансовые услуги",
+                    "en": "Financial services"
+                  },
+                  "share": 6
+                },
+                {
+                  "label": {
+                    "ru": "Ритейл",
+                    "en": "Retail"
+                  },
+                  "share": 5
+                },
+                {
+                  "label": {
+                    "ru": "Банки",
+                    "en": "Banking"
+                  },
+                  "share": 4
+                }
+              ]
+            },
+            {
+              "title": {
+                "ru": "Города · LinkedIn",
+                "en": "Cities · LinkedIn"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "ru": "Москва",
+                    "en": "Moscow"
+                  },
+                  "share": 15
+                },
+                {
+                  "label": {
+                    "ru": "Ташкент",
+                    "en": "Tashkent"
+                  },
+                  "share": 14
+                },
+                {
+                  "label": {
+                    "ru": "Лондон",
+                    "en": "London"
+                  },
+                  "share": 2
+                },
+                {
+                  "label": {
+                    "ru": "Петербург",
+                    "en": "Saint Petersburg"
+                  },
+                  "share": 2
+                }
+              ],
+              "foot": {
+                "ru": "дальше по 1%: Тбилиси, Белград, Барселона, Берлин, Сан-Франциско, Амстердам",
+                "en": "then 1% each: Tbilisi, Belgrade, Barcelona, Berlin, San Francisco, Amsterdam"
+              }
+            },
+            {
+              "title": {
+                "ru": "Размер компании · LinkedIn",
+                "en": "Company size · LinkedIn"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "ru": "до 200 сотрудников",
+                    "en": "up to 200 people"
+                  },
+                  "share": 31
+                },
+                {
+                  "label": {
+                    "ru": "201–1 000",
+                    "en": "201–1,000"
+                  },
+                  "share": 15
+                },
+                {
+                  "label": {
+                    "ru": "1 001–10 000",
+                    "en": "1,001–10,000"
+                  },
+                  "share": 16
+                },
+                {
+                  "label": {
+                    "ru": "больше 10 000",
+                    "en": "over 10,000"
+                  },
+                  "share": 16
+                }
+              ]
+            }
+          ],
+          "notes": [
+            {
+              "ru": "**Должности.** Чаще всего — продакт-менеджеры (7%), CEO, сооснователи и фаундеры (по 4%), CPO (2%).",
+              "en": "**Titles.** Most often product managers (7%), CEOs, co-founders and founders (4% each), CPOs (2%)."
+            },
+            {
+              "ru": "**Telegram.** Около 535 подписчиков с Premium (46%), 49 бустов канала, 117 упоминаний в 19 других каналах. Язык приложения у читателей — чаще всего русский, затем английский, узбекский, немецкий, украинский.",
+              "en": "**Telegram.** About 535 subscribers with Premium (46%), 49 channel boosts, 117 mentions in 19 other channels. Readers’ app language: most often Russian, then English, Uzbek, German, Ukrainian."
+            },
+            {
+              "ru": "**YouTube и vc.ru.** 7 334 просмотра пяти роликов моего канала и 3 619 — выступление на канале CLICK UZ; каждый ролик учтён один раз. vc.ru — счётчик просмотров четырёх моих публикаций, а не дочитывания.",
+              "en": "**YouTube and vc.ru.** 7,334 views of five videos on my channel and 3,619 of a talk on the CLICK UZ channel, each video counted once. vc.ru is its view counter for my four posts, not completed reads."
+            }
+          ]
+        },
         "note": {
-          "ru": "Подписки обновляются сами раз в сутки. Доли — из аналитики LinkedIn; Premium — из статистики Telegram; охват — LinkedIn, TGStat, счётчики vc.ru и YouTube. Снимок на 27 ноября 2026 года.",
-          "en": "Follower counts update daily by themselves. Shares are LinkedIn analytics; Premium is Telegram’s statistics; reach is LinkedIn, TGStat and the vc.ru and YouTube counters. Snapshot as of 27 November 2026."
-        }
-      },
-      "principles": {
-        "title": {
-          "ru": "Принципы сотрудничества",
-          "en": "How I work with partners"
-        },
-        "prose": {
-          "ru": "Тестирую продукты в реальных сценариях и рассказываю о собственном опыте. Если сотрудничество оплачивается, продукт предоставлен для тестирования или используется партнёрская ссылка, я это обозначаю. Предоставление продукта само по себе не гарантирует публикацию или положительный отзыв. Условия и формат согласуем заранее.\n\nВсе материалы отражают моё личное мнение, а не позицию работодателя. Рассматриваю предложения с учётом возможных конфликтов интересов.",
-          "en": "I test products in real-world scenarios and write about my own experience. I disclose paid collaborations, products provided for testing, and affiliate links. Providing a product does not in itself guarantee coverage or a positive review. We agree on the scope and terms in advance.\n\nMy content reflects my personal views, not those of my employer. I consider potential conflicts of interest before accepting a proposal."
+          "ru": "Подписки обновляются ежедневно. Остальная статистика — из аналитики платформ и публичных счётчиков; данные на 27 ноября 2026. Подписки не равны числу уникальных людей.",
+          "en": "Follower counts are updated daily. Other figures come from platform analytics and public counters, as of 27 November 2026. Total follows are not unique people."
         }
       },
       "contact": {
         "title": {
-          "ru": "Есть что обсудить?",
-          "en": "Have something in mind?"
+          "ru": "Давайте знакомиться",
+          "en": "Let’s connect"
         },
         "prose": {
-          "ru": "Напишите, что вы делаете и какой формат сотрудничества предлагаете. Мне будет проще ответить, если в сообщении есть ссылка на продукт и немного контекста:",
-          "en": "Tell me what you’re working on and what kind of collaboration you have in mind. A product link and a little context help me give you a more useful response:"
+          "ru": "Если есть идея, продукт или проект, который хочется обсудить, — пишите. Буду рад познакомиться.",
+          "en": "If you have an idea, a product or a project you’d like to talk about, get in touch. I’d be happy to meet you."
         },
-        "brief": [
-          {
-            "ru": "Кто вы и что за продукт или проект (ссылка).",
-            "en": "Who you are and what you’re building (with a link)."
-          },
-          {
-            "ru": "Почему считаете, что это может быть мне интересно.",
-            "en": "Why you think it might be a good fit."
-          },
-          {
-            "ru": "Какой формат, сроки и условия предлагаете.",
-            "en": "The proposed format, timing and terms."
-          }
-        ],
         "email": "s@morgunov.tech",
         "subject": {
-          "ru": "Предложение о сотрудничестве",
-          "en": "Partnership proposal"
+          "ru": "Знакомство",
+          "en": "Hello"
         },
         "label": {
           "ru": "Написать на почту",
           "en": "Email me"
         },
+        "telegram": {
+          "href": "https://t.me/s_mrgnv",
+          "label": {
+            "ru": "Написать в Telegram",
+            "en": "Message me on Telegram"
+          }
+        },
         "alt": {
-          "ru": "[s@morgunov.tech](mailto:s@morgunov.tech) · или в Telegram: [@s_mrgnv](https://t.me/s_mrgnv)",
-          "en": "[s@morgunov.tech](mailto:s@morgunov.tech) · or on Telegram: [@s_mrgnv](https://t.me/s_mrgnv)"
+          "ru": "[s@morgunov.tech](mailto:s@morgunov.tech) · [@s_mrgnv](https://t.me/s_mrgnv)",
+          "en": "[s@morgunov.tech](mailto:s@morgunov.tech) · [@s_mrgnv](https://t.me/s_mrgnv)"
         },
-        "note": {
-          "ru": "Живу в Ташкенте, открыт к международному сотрудничеству. Работаю на русском и английском.",
-          "en": "Based in Tashkent, Uzbekistan. Open to international collaborations in English and Russian."
-        }
-      },
-      "consulting": {
-        "title": {
-          "ru": "Нужен консалтинг?",
-          "en": "Looking for consulting?"
+        "place": {
+          "ru": "Ташкент, Узбекистан · RU / EN",
+          "en": "Tashkent, Uzbekistan · RU / EN"
         },
-        "note": {
-          "ru": "Нужен полноценный продуктовый аудит, консультация или помощь с бизнес-задачей? Форматы и условия консалтинга — на отдельной странице.",
-          "en": "Looking for a product audit, consulting, or help with a business challenge? See the consulting page for formats and terms."
+        "policy": {
+          "ru": "Рассказываю о собственном опыте и сохраняю независимость выводов. О коммерческих партнёрствах и предоставленных для тестирования продуктах сообщаю открыто.\n\nВсе материалы отражают моё личное мнение, а не позицию работодателя.",
+          "en": "I share my own experience and keep my editorial conclusions independent. I disclose commercial partnerships and products provided for testing.\n\nThe views expressed are my own and do not represent my employer."
         },
-        "more": {
+        "consulting": {
+          "text": {
+            "ru": "Ищете продуктовый или бизнес-консалтинг?",
+            "en": "Looking for product or business consulting?"
+          },
           "href": {
             "ru": "/consulting",
             "en": "/en/consulting"
           },
           "label": {
-            "ru": "Консалтинг",
-            "en": "Consulting"
+            "ru": "Форматы и условия",
+            "en": "Formats and details"
           }
         }
       }
-    },
-    "heroStats": [
-      {
-        "total": true,
-        "unit": {
-          "ru": "подписок в моих соцсетях",
-          "en": "follows across my social accounts"
-        },
-        "aside": {
-          "ru": "LinkedIn, Telegram, Instagram, YouTube",
-          "en": "LinkedIn, Telegram, Instagram, YouTube"
-        }
-      },
-      {
-        "value": {
-          "ru": "71%",
-          "en": "71%"
-        },
-        "unit": {
-          "ru": "подписчиков в LinkedIn — senior-специалисты и руководители",
-          "en": "of my LinkedIn followers are senior professionals and leaders"
-        },
-        "aside": {
-          "ru": "по аналитике LinkedIn",
-          "en": "per LinkedIn analytics"
-        }
-      },
-      {
-        "value": {
-          "ru": "46%",
-          "en": "46%"
-        },
-        "unit": {
-          "ru": "подписчиков Telegram-канала — с Telegram Premium",
-          "en": "of my Telegram channel’s subscribers have Telegram Premium"
-        },
-        "aside": {
-          "ru": "около 535 человек; 49 бустов канала",
-          "en": "about 535 people; 49 channel boosts"
-        }
-      }
-    ]
+    }
   },
   "privacy": {
     "site": "s.morgunov.tech",
@@ -2825,7 +2901,12 @@
         "viewsAt": "2026-11-09",
         "tags": [
           "career"
-        ]
+        ],
+        "cover": {
+          "src": "/images/notes/clickdata-korzinka-go.webp",
+          "width": 412,
+          "height": 232
+        }
       },
       {
         "date": "2025-01-28",

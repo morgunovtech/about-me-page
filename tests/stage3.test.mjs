@@ -145,7 +145,7 @@ test('ONE label for one action: every button that opens the Telegram chat reads 
   assert.ok(stored >= 8, `${stored} Telegram chat buttons in the seed`);
   assert.deepEqual(off, [], 'a Telegram chat button with a label of its own');
   // A button that leads elsewhere keeps its own words and, where it starts a flow, its arrow.
-  assert.equal(seed.collaborate.sections.consulting.more.label.ru, 'Консалтинг');
+  assert.equal(seed.collaborate.sections.contact.consulting.label.ru, 'Форматы и условия');
 });
 
 test('/uses names its referral links and promises no bonus without one', () => {

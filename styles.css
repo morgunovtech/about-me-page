@@ -291,7 +291,132 @@
    first there. The hero's own gap and margin space them. */
 .v4-stats.v4-stats--three {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* /collaborate v4.9.0 — a card's picture (a note's cover, a material's
+   own image): the card's top, the whole width, cropped to 16:9 from its
+   middle; no picture, no frame. */
+.v4-card-photo {
+  margin: 0 0 16px;
+}
+
+.v4-card-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 1px solid var(--v4-line-soft);
+}
+
+/* A selected material: what it is and when, quiet, over its title; where it
+   was published and how often it was seen, quiet, under it. */
+.v4-work-meta {
+  margin: 0 0 4px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--v4-muted);
+}
+
+.v4-work .v4-product-name + .v4-work-meta {
+  margin: 4px 0 0;
+}
+
+/* The platforms: the site's table — the name (the link to the profile) in
+   the label column, the follows, then the platform's own measure. */
+.v4-platforms {
+  list-style: none;
   margin: 0;
+  padding: 0;
+}
+
+.v4-platform {
+  display: grid;
+  grid-template-columns: 160px 96px minmax(0, 1fr);
+  gap: 4px 24px;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--v4-line-soft);
+}
+
+.v4-platform:first-child {
+  padding-top: 0;
+}
+
+.v4-platform-name {
+  color: var(--v4-fg);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--v4-line);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.v4-platform-name:hover,
+.v4-platform-name:focus-visible {
+  color: var(--v4-orange-text);
+  text-decoration-color: var(--v4-orange-text);
+}
+
+.v4-platform-count {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.v4-platform-note {
+  font-size: 14px;
+  color: var(--v4-muted);
+}
+
+/* «Подробнее об аудитории»: closed by default; the summary reads like a
+   «more» link — the weight of a control, the orange line under the words —
+   and says with ↓ / ↑ which way it goes. */
+.v4-aud-details {
+  margin: 24px 0 0;
+}
+
+.v4-aud-details > summary {
+  display: inline-block;
+  list-style: none;
+  cursor: pointer;
+  font-weight: 500;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--v4-orange);
+  transition: color 0.15s ease;
+}
+
+.v4-aud-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.v4-aud-details > summary::after {
+  content: "\00a0↓";
+}
+
+.v4-aud-details[open] > summary::after {
+  content: "\00a0↑";
+}
+
+.v4-aud-details > summary:hover,
+.v4-aud-details > summary:focus-visible {
+  color: var(--v4-orange-text);
+}
+
+.v4-aud-details[open] > .v4-aud {
+  margin-top: 24px;
+}
+
+.v4-aud-notes p,
+.v4-terms-block p {
+  margin: 8px 0 0;
+  max-width: 62ch;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--v4-muted);
+}
+
+.v4-terms-block {
+  margin: 24px 0 0;
 }
 
 /* --- Career --- */
@@ -1093,11 +1218,17 @@
 }
 
 /* …and one a row on a phone, a rule between them; the audience's groups one a
-   row too. */
+   row too; a platform's name and follows on a line, its measure under them. */
 @media (max-width: 640px) {
   .v4-aud {
     grid-template-columns: minmax(0, 1fr);
     gap: 32px;
+  }
+  .v4-platform {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .v4-platform-note {
+    grid-column: 1 / -1;
   }
   .v4-stats.v4-stats--three {
     grid-template-columns: minmax(0, 1fr);

@@ -200,13 +200,14 @@ test('5. one button in the contact block; the e-mail is a line of text under it,
     assert.match(act, /^<div class="v4-contact-act">\s*<div class="v4-cta-row">\s*<a class="v4-btn v4-btn-primary"[^>]*>[^<]+<\/a>\s*<\/div>\s*<p class="v4-contact-alt">(Или на почту|Or by e-mail): <a href="mailto:s@morgunov\.tech">s@morgunov\.tech<\/a><\/p>\s*<p class="v4-contact-reply">[^<]+<\/p>\s*<\/div>$/, f);
     assert.equal((contact.match(/v4-contact-links/g) || []).length, 1, `${f}: the links only inside the panel`);
   }
-  // /collaborate (v4.7.0): the homepage's panel — what to write and the brief on the left; ONE
-  // button (the e-mail) on the right, the address and Telegram as a line under it, the place last.
+  // /collaborate (v4.9.0, the owner's brief v2): the homepage's panel — a line and the place on
+  // the left; on the right two equal ways to write, e-mail first (a company's PR need not use
+  // Telegram), the address and the handle as a line under them.
   for (const f of ['collaborate.html', 'en/collaborate.html']) {
     const contact = section(read(f), 'contact');
-    assert.equal((contact.match(/class="v4-btn/g) || []).length, 1, f);
+    assert.equal((contact.match(/class="v4-btn/g) || []).length, 2, f);
     const act = element(element(contact, '<div class="v4-contact">'), '<div class="v4-contact-act">');
-    assert.match(act, /^<div class="v4-contact-act">\s*<div class="v4-cta-row">\s*<a class="v4-btn v4-btn-primary" href="mailto:s@morgunov\.tech\?subject=[^"]+">[^<]+<\/a>\s*<\/div>\s*<p class="v4-contact-alt">[\s\S]+?<\/p>\s*<p class="v4-contact-reply">[^<]+<\/p>\s*<\/div>$/, f);
+    assert.match(act, /^<div class="v4-contact-act">\s*<div class="v4-cta-row">\s*<a class="v4-btn v4-btn-primary" href="mailto:s@morgunov\.tech\?subject=[^"]+">[^<]+<\/a>\s*<a class="v4-btn" href="https:\/\/t\.me\/s_mrgnv"[^>]*>[^<]+<\/a>\s*<\/div>\s*<p class="v4-contact-alt">[\s\S]+?<\/p>\s*<\/div>$/, f);
   }
   // Every other page ends with the same panel: one line, one button, nothing under it.
   for (const f of ['consulting.html', 'en/consulting.html', 'privacy.html', 'en/privacy.html']) {

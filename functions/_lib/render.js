@@ -11,8 +11,8 @@
 // The list container itself gets data-edit-list (set in overlay.js).
 // edit=false (the public render) emits none of these → output is byte-identical.
 
-import { pick, NEW_TAB, outMark } from './i18n.js';
-import { feedItemHtml } from './notes-feed.js';
+import { pick, NEW_TAB, outMark, fmtDate } from './i18n.js';
+import { viewsLabel } from './notes-feed.js';
 import { noteUrl } from './articles.js';
 import { escapeHtml, escapeAttr, isExternal, safeHref, renderInline, renderCtx, renderProse } from './markdown.js';
 
@@ -443,6 +443,21 @@ function collabCounters(doc, lang) {
   const a = (doc.sections && doc.sections.audience) || {};
   return counters({ stats: [{ kind: 'subscribers', channels: a.channels || {} }], _live: doc._live }, lang);
 }
+// A card's picture on /collaborate (v4.9.0): a note's or a material's own
+// image, in the frame of the site's pictures; decorative (alt="") — the title
+// beside it says what it is. No picture, no frame.
+function collabMedia(img, lang) {
+  const src = img && (typeof img === 'string' ? img : img.src);
+  if (!src) return '';
+  const w = (img && img.width) || 1600;
+  const h = (img && img.height) || 900;
+  // An interest card's own photo says something (his car, his server): it
+  // carries `alt`. A cover beside a title is decoration: alt="".
+  const alt = img && img.alt ? escapeAttr(pick(img.alt, lang)) : '';
+  return `
+            <div class="v4-card-photo"><img src="${escapeAttr(safeHref(src))}" alt="${alt}" loading="lazy" decoding="async" width="${w}" height="${h}" /></div>`;
+}
+
 function collabFigure(f, c, lang) {
   const live = f.total ? c.total : f.channel ? c[f.channel] : null;
   const value = f.total || f.channel ? live || '' : escapeHtml(pick(f.value, lang));
@@ -582,154 +597,147 @@ export const renderers = {
         </div>`;
   },
 
-  // /collaborate (v4.7.0, the owner's brief of 2026-11-27): an invitation to
-  // technology companies, not a rate card. Interests → formats → selected work
-  // → audience by platform → principles → contact → consulting. The subscriber
-  // counts come from the same counters() as the homepage (live, the doc's
-  // `audience.channels` as the fallback); every other figure is a dated
-  // snapshot in the doc.
+  // /collaborate (v4.9.0, the owner's brief v2 of 2026-11-27): the page of an
+  // interesting person technology brands want to meet, not of one looking for
+  // advertisers. Six parts: the hero (who, a portrait, the contact and /uses),
+  // what he is into, what we can do together, selected work, the audience,
+  // let's connect — the way to consulting a line at the end. The subscriber
+  // counts come from the homepage's counters() (live; `audience.channels` the
+  // fallback); every other figure is a dated snapshot in the doc.
 
-  // Three figures under the hero: the follows across the networks (live), the
-  // seniority and the reach on LinkedIn (snapshot).
-  collabHeroStats: (doc, lang) => {
-    const c = collabCounters(doc, lang);
-    return (doc.heroStats || []).map((f) => collabFigure(f, c, lang)).join('\n      ');
-  },
-
-  // «Что мне интересно»: one line, then the six areas in the owner's order,
-  // each opening with its name in bold; then the stack, as a «more» link.
+  // «Что мне интересно»: four scenes of real use, each a card — its name and
+  // one line; a card shows its photo once the doc has one (`image`), and is a
+  // card of text until then — never an empty frame.
   collabInterests: (doc, lang) => {
     const s = doc.sections.interests;
     if (!s) return '';
-    return `<div class="v4-prose">
-          ${renderProse(pick(s.prose, lang))}
-          ${liList(s.items, lang, 'v4-list v4-list--spaced')}
-        </div>${s.more ? `\n        ${moreLink(s.more, lang, false, '')}` : ''}`;
-  },
-
-  // «Как можем сотрудничать» (#partnerships since v1.7.0): the seven formats,
-  // each opening with its point in bold. No button: the page has one way to
-  // write, its «Есть что обсудить?» block. No prices.
-  collabPartnerships: (doc, lang) => {
-    const s = doc.sections.partnerships;
-    if (!s) return '';
-    const prose = pick(s.prose, lang);
-    return `<div class="v4-prose">${prose ? `\n          ${renderProse(prose)}` : ''}
-          ${liList(s.items, lang, prose ? 'v4-list v4-list--spaced' : 'v4-list')}
+    const cards = (s.items || []).map((it) => `<article class="v4-product">${collabMedia(it.image, lang)}
+            <h3 class="v4-product-name">${escapeHtml(pick(it.title, lang))}</h3>
+            <p class="v4-product-desc">${renderInline(pick(it.text, lang))}</p>
+          </article>`).join('\n          ');
+    return `<div class="v4-products">
+          ${cards}
         </div>`;
   },
 
-  // «Примеры работ»: a few real materials picked from the publications feed
-  // by slug (a note, `_articles`) or address (an external material of the
-  // `notes` doc, `_notes`) — the feed's own rows, so a title, a date, a source
-  // or a view count is never typed twice. A note without an English title is
-  // left out of /en/; the static twin has no notes (they live in KV).
+  // «Что можем сделать вместе» (#partnerships since v1.7.0): six short lines.
+  collabPartnerships: (doc, lang) => {
+    const s = doc.sections.partnerships;
+    if (!s) return '';
+    return `<div class="v4-prose">
+          ${liList(s.items, lang, 'v4-list')}
+        </div>`;
+  },
+
+  // «Избранные материалы»: one line of who the owner was before, then four
+  // cards picked from the publications feed — a note by slug (`_articles`), an
+  // external material by address (`_notes`) — with the feed's own title, date,
+  // source, view count and picture (a note's `cover`, an external one's
+  // `cover`), never copied; then all the publications and the projects.
   collabExamples: (doc, lang) => {
     const s = doc.sections.examples;
     if (!s) return '';
     const notes = new Map((doc._articles || []).map((a) => [a.slug, a]));
     const ext = new Map(((doc._notes && doc._notes.external) || []).map((x) => [x.href, x]));
-    const titled = (t) => String((t && (lang === 'en' ? t.en : t.ru || t.en)) || '').trim();
-    const rows = (s.items || []).map((r) => {
+    const en = lang === 'en';
+    const titled = (t) => String((t && (en ? t.en : t.ru || t.en)) || '').trim();
+    const cards = (s.items || []).map((r) => {
       const a = r.slug ? notes.get(r.slug) : null;
-      if (a) return titled(a.title) ? feedItemHtml({ kind: 'note', item: a }, lang, 'h3') : '';
-      const x = r.href ? ext.get(r.href) : null;
-      return x && titled(x.title) ? feedItemHtml({ kind: 'external', item: x }, lang, 'h3') : '';
+      const x = !a && r.href ? ext.get(r.href) : null;
+      const it = a || x;
+      if (!it || !titled(it.title)) return '';
+      const href = a ? noteUrl(a.slug, lang) : safeHref(x.href);
+      const out = a ? '' : ' target="_blank" rel="noopener noreferrer"';
+      const kind = a ? (en ? 'Note' : 'Заметка') : /youtu/.test(x.href) ? (en ? 'Video' : 'Видео') : (x.source || '');
+      const date = it.date ? `<time datetime="${escapeAttr(it.date)}">${escapeHtml(fmtDate(it.date, lang))}</time>` : '';
+      const meta = [escapeHtml(kind), date].filter(Boolean).join(' · ');
+      const under = a ? '' : [x.source && x.source !== kind ? escapeHtml(x.source) : '', x.views ? viewsLabel(x.views, lang) : ''].filter(Boolean).join(' · ');
+      return `<article class="v4-product v4-work">${collabMedia(it.cover, lang)}
+            <p class="v4-work-meta">${meta}</p>
+            <h3 class="v4-product-name"><a href="${escapeAttr(href)}"${out}>${escapeHtml(pick(it.title, lang))}${a ? '' : outMark(lang)}</a></h3>${
+        under ? `\n            <p class="v4-work-meta">${under}</p>` : ''}
+          </article>`;
     }).filter(Boolean);
     const lead = pick(s.prose, lang);
     const more = (s.more || []).map((m) => moreLink(m, lang, false, '')).join('\n        ');
     return `${lead ? `<p class="v4-tagline v4-tagline--compact">${renderInline(lead)}</p>\n        ` : ''}${
-      rows.length ? `<div class="v4-notes-feed">\n          ${rows.join('\n          ')}\n        </div>\n        ` : ''}${more}`;
+      cards.length ? `<div class="v4-products">\n          ${cards.join('\n          ')}\n        </div>\n        ` : ''}${more}`;
   },
 
-  // «Аудитория» (v4.8.0, the owner: «за один взгляд понятно, кто меня читает»):
-  // four small groups of bars — where people follow (the live counts of the
-  // networks) and, from LinkedIn's analytics, seniority, industries, cities —
-  // each a caption, a label and its figure on a line and a thin bar under them,
-  // the bar's length the share of the group's largest; then the reach in one
-  // line, the profiles to click through, and where it all comes from. The bars
-  // are drawing (aria-hidden): the figure beside the label is the data.
+  // «Аудитория и публикации»: the total of the follows (live) and two shares,
+  // then one row a platform — its name the link to the profile, its follows
+  // (live) where there are any, its own measure with the period — then the
+  // demography folded into «Подробнее об аудитории» (closed by default; bars
+  // on a 0–100% scale: 26% is a quarter of the width), then the sources.
   collabAudience: (doc, lang) => {
     const s = doc.sections.audience;
     if (!s) return '';
     const c = collabCounters(doc, lang);
-    const num = (v) => Number(String(v == null ? '' : v).replace(/\D/g, '')) || 0;
-    const NAMES = Object.fromEntries(CHANNELS.map(([ch, , name]) => [ch, name]));
-    const bars = (rows) => {
-      const max = Math.max(...rows.map((r) => r.n), 1);
-      return `<ul class="v4-meters">${rows.map((r) => `
-              <li class="v4-meter-row"><span class="v4-meter-label">${r.label}</span><span class="v4-meter-value">${r.value}</span><span class="v4-meter" aria-hidden="true"><span class="v4-meter-fill" style="width: ${Math.max(2, Math.round((r.n / max) * 100))}%"></span></span></li>`).join('')}
-            </ul>`;
-    };
-    const groups = (s.groups || []).map((g) => {
-      const rows = g.kind === 'channels'
-        ? (g.order || []).filter((ch) => c[ch] != null).map((ch) => ({ label: escapeHtml(NAMES[ch] || ch), value: c[ch], n: num(c[ch]) }))
-        : (g.rows || []).map((r) => ({ label: escapeHtml(pick(r.label, lang)), value: `${r.share}%`, n: Number(r.share) || 0 }));
+    const nt = NEW_TAB[lang === 'en' ? 'en' : 'ru'];
+    const figures = (s.figures || []).map((f) => collabFigure(f, c, lang)).join('\n          ');
+    const rows = (s.platforms || []).map((p) => {
+      const count = p.channel && c[p.channel] != null ? c[p.channel] : '';
+      const note = pick(p.note, lang);
+      return `<li class="v4-platform"><a class="v4-platform-name" href="${escapeAttr(safeHref(p.href))}" target="_blank" rel="noopener noreferrer">${escapeHtml(p.name)}<span class="sr-only">${nt}</span></a><span class="v4-platform-count">${count}</span><span class="v4-platform-note">${note ? renderInline(note) : ''}</span></li>`;
+    }).join('\n          ');
+    const d = s.details || {};
+    const groups = (d.groups || []).map((g) => {
+      const bars = (g.rows || []).map((r) => {
+        const share = Math.max(0, Math.min(100, Number(r.share) || 0));
+        return `
+              <li class="v4-meter-row"><span class="v4-meter-label">${escapeHtml(pick(r.label, lang))}</span><span class="v4-meter-value">${share}%</span><span class="v4-meter" aria-hidden="true"><span class="v4-meter-fill" style="width: ${share}%"></span></span></li>`;
+      }).join('');
       const foot = pick(g.foot, lang);
       return `<div class="v4-aud-group">
-            <h3 class="v4-h3">${escapeHtml(pick(g.title, lang))}</h3>
-            ${bars(rows)}${foot ? `\n            <p class="v4-aud-foot">${renderInline(foot)}</p>` : ''}
-          </div>`;
-    }).join('\n          ');
-    const reach = pick(s.reach, lang);
-    const profiles = (s.profiles || []).map((p) => {
-      const href = safeHref(p.href);
-      return `<a href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(pick(p.label, lang))}<span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span></a>`;
-    }).join('<span aria-hidden="true"> · </span>');
+              <h3 class="v4-h3">${escapeHtml(pick(g.title, lang))}</h3>
+              <ul class="v4-meters">${bars}
+              </ul>${foot ? `\n              <p class="v4-aud-foot">${renderInline(foot)}</p>` : ''}
+            </div>`;
+    }).join('\n            ');
+    const notes = (d.notes || []).map((n) => `<p>${renderInline(pick(n, lang))}</p>`).join('\n            ');
+    const details = groups || notes ? `
+        <details class="v4-aud-details">
+          <summary>${escapeHtml(pick(d.summary, lang))}</summary>
+          <div class="v4-aud">
+            ${groups}
+          </div>${notes ? `\n          <div class="v4-aud-notes">\n            ${notes}\n          </div>` : ''}
+        </details>` : '';
     const note = pick(s.note, lang);
-    return `<div class="v4-aud">
-          ${groups}
-        </div>${reach ? `\n        <div class="v4-prose">\n          <p>${renderInline(reach)}</p>\n        </div>` : ''}${
-      profiles ? `\n        <p class="v4-aud-profiles"><span class="v4-aud-profiles-title">${escapeHtml(pick(s.profilesTitle, lang))}:</span> ${profiles}</p>` : ''}${
-      note ? `\n        <p class="v4-terms">${renderInline(note)}</p>` : ''}`;
+    return `<div class="v4-stats v4-stats--three v4-stats--section">
+          ${figures}
+        </div>
+        <ul class="v4-platforms">
+          ${rows}
+        </ul>${details}${note ? `\n        <p class="v4-terms">${renderInline(note)}</p>` : ''}`;
   },
 
-  // «Принципы сотрудничества»: the owner's terms, as prose.
-  collabPrinciples: (doc, lang) => {
-    const s = doc.sections.principles;
-    if (!s) return '';
-    return `<div class="v4-prose">
-          ${renderProse(pick(s.prose, lang))}
-        </div>`;
-  },
-
-  // «Есть что обсудить?»: the homepage's contact panel — on the left what to
-  // write and the three things a message needs; on the right ONE button, the
-  // e-mail with the subject filled in (international PR need not use
-  // Telegram), under it the address and Telegram as text you can copy, last
-  // where the owner lives and the languages he works in.
+  // «Давайте знакомиться»: the homepage's panel — a line on the left with where
+  // the owner lives; two ways to write on the right, e-mail first (a company's
+  // PR need not use Telegram), the address and the handle as text to copy; then
+  // the editorial terms (#principles) and the way to consulting, a line
+  // (#consulting). Neither of the old sections' anchors is lost.
   collabPitch: (doc, lang) => {
     const s = doc.sections.contact;
     if (!s || !s.email) return '';
     const subject = pick(s.subject, lang);
     const mail = `mailto:${s.email}${subject ? '?subject=' + encodeURIComponent(subject) : ''}`;
+    const tg = s.telegram ? btn({ href: s.telegram.href, label: s.telegram.label }, lang, false, '', false, false) : '';
     const alt = pick(s.alt, lang);
-    const note = pick(s.note, lang);
+    const place = pick(s.place, lang);
+    const policy = pick(s.policy, lang);
+    const k = s.consulting;
     return `<div class="v4-contact">
           <div class="v4-contact-text">
-            <div class="v4-prose">
-              ${renderProse(pick(s.prose, lang))}
-              ${liList(s.brief, lang, 'v4-list')}
-            </div>
+            <p class="v4-contact-note">${renderInline(pick(s.prose, lang))}</p>${
+      place ? `\n            <p class="v4-contact-reply">${escapeHtml(place)}</p>` : ''}
           </div>
           <div class="v4-contact-act">
             <div class="v4-cta-row">
-              <a class="v4-btn v4-btn-primary" href="${escapeAttr(mail)}">${escapeHtml(pick(s.label, lang))}</a>
-            </div>${alt ? `\n            <p class="v4-contact-alt">${renderInline(alt)}</p>` : ''}${
-      note ? `\n            <p class="v4-contact-reply">${renderInline(note)}</p>` : ''}
+              <a class="v4-btn v4-btn-primary" href="${escapeAttr(mail)}">${escapeHtml(pick(s.label, lang))}</a>${tg ? `\n              ${tg}` : ''}
+            </div>${alt ? `\n            <p class="v4-contact-alt">${renderInline(alt)}</p>` : ''}
           </div>
-        </div>`;
-  },
-
-  // The way to consulting, last and quieter than the page's own contact: a
-  // line and a «more» link (#consulting; it was #contact until v4.7.0).
-  collabConsultingLink: (doc, lang) => {
-    const s = doc.sections.consulting;
-    if (!s) return '';
-    return `<div class="v4-prose">
-          <p>${renderInline(pick(s.note, lang))}</p>
-        </div>
-        ${moreLink(s.more, lang, false, '')}`;
+        </div>${policy ? `\n        <div class="v4-terms-block" id="principles">${renderProse(policy)}</div>` : ''}${
+      k ? `\n        <p class="v4-terms" id="consulting">${escapeHtml(pick(k.text, lang))} <a href="${escapeAttr(safeHref(pick(k.href, lang)))}">${escapeHtml(pick(k.label, lang))}<span aria-hidden="true">&nbsp;→</span></a></p>` : ''}`;
   },
 
   // /privacy «Мои инструменты»: a lead line, then the cards.
