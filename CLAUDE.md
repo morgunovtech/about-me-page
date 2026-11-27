@@ -27,15 +27,16 @@ about-me-page/
 ├── script.js           # Theme, generic dropdown controller, anchor smooth-scroll
 ├── admin-app.js/.css   # /admin inline editor client (public, no secrets)
 ├── functions/          # Pages Functions: edge render, CMS API, notes, sitemap, llms.txt, /404
-├── scripts/            # check.sh, check-sync.py, check-critical.py, render-static.mjs, typo-static.mjs, build-chrome.mjs, version-stamp.py, sync-products.mjs, kv-push.mjs, kv-patch-notes.mjs, hash-password.mjs (+ patches/: the files kv-patch-notes.mjs applied)
+├── scripts/            # check.sh, check-sync.py, check-critical.py, render-static.mjs, typo-static.mjs, build-chrome.mjs, version-stamp.py, sync-products.mjs, kv-push.mjs, kv-patch-notes.mjs, indexnow.mjs, hash-password.mjs (+ patches/: the files kv-patch-notes.mjs applied)
 ├── tests/              # node --test suites for the pure functions
 ├── llms.txt            # AI/LLM navigation file (llmstxt.org) — a template: {total}/{telegram}/… filled by functions/llms.txt.js
 ├── _headers            # Cloudflare: X-Robots-Tag, Cache-Control and Content-Type (LICENSE, NOTICE, fonts/OFL.txt → text/plain) for static assets
 ├── _routes.json        # Cloudflare: static paths excluded from Functions (CDN-cacheable, no invocations)
 ├── _redirects          # Cloudflare: real redirects only (none today — Pages handles clean URLs itself)
-├── robots.txt          # Allows all crawlers, content signals, references sitemap
+├── robots.txt          # One group for every crawler (AI ones named), one Content-Signal line, references sitemap
 ├── 404.html            # V4-styled 404 page (bilingual; functions/404.js serves it with a real 404 status, _middleware.js does the same for every unknown path)
 ├── yandex_c8faae431964bcca.html  # Yandex Search ownership verification
+├── s-morgunov-tech-indexnow.txt  # IndexNow key file (public by design; Bing, Yandex check it) — do not delete
 ├── fonts/                         # Self-hosted IBM Plex woff2 (latin + cyrillic subsets)
 │   ├── plex-sans-latin-{400,500,600}.woff2
 │   ├── plex-sans-cyr-{400,500,600}.woff2
@@ -220,7 +221,9 @@ together with check-sync before committing anything that touches CSS.
 - `llms.txt` follows the [llmstxt.org](https://llmstxt.org) convention; the committed file is a template — `{total}`, `{telegram}`, `{linkedin}`, `{youtube}` are filled by `functions/llms.txt.js` from the same `counters()` the homepage uses, so the AI-facing numbers never drift from the page
 - Available at `https://s.morgunov.tech/llms.txt`
 - Keep it in sync with major content changes (roles, products, contact info)
-- `robots.txt` allows all crawlers including AI (GPTBot, ClaudeBot, PerplexityBot) and carries `Content-Signal: search=yes, ai-input=yes, ai-train=yes` in every group (contentsignals.org) — the owner allowed AI training on 2026-11-24
+- `robots.txt` allows all crawlers including AI (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User, Google-Extended, Applebot-Extended) and carries `Content-Signal: search=yes, ai-input=yes, ai-train=yes` (contentsignals.org) — the owner allowed AI training on 2026-11-24. Since v4.3.0 it is **one group**: every `User-agent` line, the `*` first, then the one `Content-Signal` and `Allow: /`. Yandex Webmaster reports every `Content-Signal` line as «неизвестная директива» (it ignores the line); separate groups needed one per group — five notices — and a crawler with a group of its own never reads the `*` group, so the signal cannot sit there alone (`tests/indexnow.test.mjs`)
+- **IndexNow** (v4.3.0, `functions/_lib/indexnow.js`): an /admin Save of a page, a published note saved or unpublished, and the deletion of a published note POST the changed page URLs to `api.indexnow.org` (Bing, Yandex, Seznam, Naver share it; Google does not — it reads the sitemap) after the response, from production only (a preview or local save announces nothing). Drafts, imports and the subscriber ingest never announce. The key `s-morgunov-tech-indexnow` is public by design and served as `/s-morgunov-tech-indexnow.txt` (excluded from Functions in `_routes.json`); renaming it means a new file and the constant together. `node scripts/indexnow.mjs [--yes]` announces every URL of the live sitemap — after a release that adds or moves pages, or when an engine has fallen behind the sitemap (no login needed)
+- The RSS feeds (`/notes/feed.xml`, `/en/notes/feed.xml`) answer `X-Robots-Tag: noindex` (v4.3.0): Google listed the feed as «crawled, not indexed»; the links in it are still followed
 - JSON-LD `description` and `knowsAbout` help AI search engines attribute content
 
 ## Content management (CMS) — `/admin`

@@ -3,6 +3,7 @@ import { validPageKey, isArticlePage } from '../../_lib/content.js';
 import { INDEX_KEY, indexEntry, cleanTags } from '../../_lib/articles.js';
 import { sanitizeHtml, sanitizeButtons } from '../../_lib/sanitize.js';
 import { purge, PAGE_PATHS, articlePaths, topicPaths } from '../../_lib/cache.js';
+import { announce } from '../../_lib/indexnow.js';
 
 const SITE = 's.morgunov.tech';
 // v0.31.1: help → /collaborate, publications → the /notes feed; projects (tier
@@ -65,7 +66,8 @@ async function upsertIndex(env, doc) {
   await env.CONTENT.put(INDEX_KEY, JSON.stringify(idx));
 }
 
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost(context) {
+  const { request, env } = context;
   if (!sameOrigin(request)) return json({ error: 'cross-origin blocked' }, 403);
 
   let body;
@@ -112,9 +114,11 @@ export async function onRequestPost({ request, env }) {
   // Monotonic rev: bump past whatever is currently stored, so saving a restored
   // older revision can't collide with a newer rev number.
   let base = typeof doc.rev === 'number' ? doc.rev : 0;
+  let wasPublished = false;
   try {
     const cur = await env.CONTENT.get(`${SITE}:${page}`, 'json');
     if (cur && typeof cur.rev === 'number') base = Math.max(base, cur.rev);
+    wasPublished = !!cur && cur.status === 'published';
   } catch (e) {
     /* fall back to doc.rev */
   }
@@ -124,7 +128,11 @@ export async function onRequestPost({ request, env }) {
 
   await env.CONTENT.put(`${SITE}:${page}`, JSON.stringify(doc));
   // The edge cache holds rendered copies of every URL this doc feeds.
-  await purge(request, article ? [...articlePaths(page.slice('article:'.length)), ...topicPaths(doc.tags)] : PAGE_PATHS[page] || [], env);
+  const paths = article ? [...articlePaths(page.slice('article:'.length)), ...topicPaths(doc.tags)] : PAGE_PATHS[page] || [];
+  await purge(request, paths, env);
+  // Bing and Yandex hear of the change at once (IndexNow); a draft is not
+  // public, so only a published note — or one just taken down — is announced.
+  if (!article || doc.status === 'published' || wasPublished) announce(context, paths);
 
   // Keep the article index (feed/sitemap source) in sync with this save.
   if (article) {

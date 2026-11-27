@@ -1,22 +1,23 @@
-# Content signals: search, AI answers and AI training may use this site; see https://contentsignals.org
+# Search engines, AI answers and AI training may all use this site — the owner
+# allowed AI training on 2026-11-24; see https://contentsignals.org
+#
+# One group for everyone. The AI crawlers are named in it on purpose — an
+# explicit allow for policies that look for their own name — and share the
+# same rules and the one Content-Signal line. A crawler that matches a group
+# of its own ignores the `*` group, so separate groups needed the signal in
+# each of them, and Yandex reports every Content-Signal line as an unknown
+# directive (it ignores the line, as RFC 9309 asks): one line, one notice.
 User-agent: *
-Content-Signal: search=yes, ai-input=yes, ai-train=yes
-Allow: /
-
-# AI / LLM crawlers — explicit allow so opt-in policies treat us as friendly.
 User-agent: GPTBot
-Content-Signal: search=yes, ai-input=yes, ai-train=yes
-Allow: /
-
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
 User-agent: ClaudeBot
-Content-Signal: search=yes, ai-input=yes, ai-train=yes
-Allow: /
-
+User-agent: Claude-SearchBot
+User-agent: Claude-User
 User-agent: PerplexityBot
-Content-Signal: search=yes, ai-input=yes, ai-train=yes
-Allow: /
-
+User-agent: Perplexity-User
 User-agent: Google-Extended
+User-agent: Applebot-Extended
 Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 

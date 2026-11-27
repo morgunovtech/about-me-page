@@ -7,12 +7,14 @@
 import { json, sameOrigin } from '../../_lib/http.js';
 import { loadArticleIndex, articleKey, INDEX_KEY, validSlug, makeArticleDoc, indexEntry } from '../../_lib/articles.js';
 import { purge, articlePaths } from '../../_lib/cache.js';
+import { announce } from '../../_lib/indexnow.js';
 
 export async function onRequestGet({ env }) {
   return json({ articles: await loadArticleIndex(env) });
 }
 
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost(context) {
+  const { request, env } = context;
   if (!sameOrigin(request)) return json({ error: 'cross-origin blocked' }, 403);
   let body;
   try {
@@ -48,8 +50,11 @@ export async function onRequestPost({ request, env }) {
       /* best-effort */
     }
     const idx = (await loadArticleIndex(env)) || [];
+    const gone = idx.find((a) => a && a.slug === slug);
     await env.CONTENT.put(INDEX_KEY, JSON.stringify(idx.filter((a) => a && a.slug !== slug)));
     await purge(request, articlePaths(slug), env);
+    // A published note that is gone: the engines learn it from IndexNow (its URL now answers 404).
+    if (gone && gone.status === 'published') announce(context, articlePaths(slug));
     return json({ ok: true });
   }
 

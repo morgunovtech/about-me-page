@@ -189,6 +189,9 @@ export async function renderFeed(env, lang = 'ru') {
   const desc = l === 'en' ? `Notes and essays by ${NAME.en}.` : 'Заметки и эссе Семёна Моргунова.';
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n  <channel>\n    <title>${xmlEsc(title)}</title>\n    <link>${base}</link>\n    <atom:link href="${base}/feed.xml" rel="self" type="application/rss+xml" />\n    <description>${xmlEsc(desc)}</description>\n    <language>${l}</language>\n${built ? `    <lastBuildDate>${built}</lastBuildDate>\n` : ''}${entries}\n  </channel>\n</rss>\n`;
   return new Response(xml, {
-    headers: { 'content-type': 'application/rss+xml; charset=utf-8', 'Cache-Control': 'public, max-age=600, stale-while-revalidate=86400' },
+    // A feed is for readers and for discovering the notes, not a search result:
+    // Google listed /notes/feed.xml as «crawled, not indexed». noindex keeps it
+    // out of the index; its links are still followed.
+    headers: { 'content-type': 'application/rss+xml; charset=utf-8', 'Cache-Control': 'public, max-age=600, stale-while-revalidate=86400', 'X-Robots-Tag': 'noindex' },
   });
 }
