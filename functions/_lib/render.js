@@ -226,7 +226,7 @@ function card({ id, item, cls, tag, meta, metaClass, metaPath, name, nameTag = '
 
 // The kind of a product, read in a line of text: the doc keeps the caption
 // word («BOT», «WEB»); the card says it in the line's own case.
-const KIND = { BOT: { ru: 'Бот', en: 'Bot' }, WEB: { ru: 'Веб', en: 'Web' } };
+const KIND = { BOT: { ru: 'Telegram-бот', en: 'Telegram bot' }, WEB: { ru: 'Веб', en: 'Web' } };
 function kindLabel(tag, lang) {
   const t = String(tag || '').trim();
   const k = KIND[t.toUpperCase()];

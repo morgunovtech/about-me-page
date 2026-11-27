@@ -23,7 +23,7 @@ test('the seed home doc renders every slot, public and edit mode', () => {
 test('product cards (v4.2.0): TofsDevOps first, bots then web apps; one line — the name as the link, quietly what it is and the version; no button, no live dot', () => {
   const items = seed.home.sections.products.items;
   assert.deepEqual(items.map((it) => it.name), ['TofsDevOps', 'Social Tracker', 'Found You', 'Fingerprint']);
-  const KIND = { BOT: { ru: 'Бот', en: 'Bot' }, WEB: { ru: 'Веб', en: 'Web' } };
+  const KIND = { BOT: { ru: 'Telegram-бот', en: 'Telegram bot' }, WEB: { ru: 'Веб', en: 'Web' } };
   for (const lang of ['ru', 'en']) {
     const html = renderers.products(seed.home, lang, false);
     // The head of a card: the name, which links out with the turned arrow and the new-tab note —
