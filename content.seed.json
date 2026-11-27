@@ -89,8 +89,8 @@
         "en": "Semyon Morgunov"
       },
       "tagline": {
-        "ru": "Строю продукты на растущих рынках, делаю инструменты про приватность и пишу о том, что понял по дороге.",
-        "en": "I build products in growing markets, make privacy tools, and write about what I've learned along the way."
+        "ru": "Строю продукты на растущих рынках, разрабатываю open source сервисы и пишу о том, что понял по дороге.",
+        "en": "I build products in growing markets, develop open source services, and write about what I've learned along the way."
       },
       "portrait": "",
       "portraitAlt": {
@@ -116,12 +116,13 @@
         },
         "unit": {
           "ru": "лет в IT",
-          "en": "yrs in tech"
+          "en": "years in tech"
         },
         "aside": {
           "ru": "EdTech · E-com · FinTech",
           "en": "EdTech · E-com · FinTech"
-        }
+        },
+        "href": "#career"
       },
       {
         "value": {
@@ -145,8 +146,8 @@
           "en": "6,476"
         },
         "unit": {
-          "ru": "подписчиков",
-          "en": "followers"
+          "ru": "подписок",
+          "en": "follows"
         },
         "channels": {
           "telegram": {
@@ -190,8 +191,8 @@
           "en": "About"
         },
         "prose": {
-          "ru": "Запускаю цифровые продукты и довожу их до прибыли — продукт, операционку и юнит‑экономику собираю одновременно.\n\nКонсультирую компании на любых рынках, чаще всего — в России, Узбекистане и Кыргызстане. Среди клиентов [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about) и другие.\n\nС 2009 года запустил четыре бизнеса — один продали сотрудникам, два закрыли, один на паузе. Сейчас делаю сервисы для бизнеса и авторов — мониторинг сайтов, безопасность аккаунтов, приватность; все бесплатные и с открытым кодом. Веду [Telegram‑канал](https://t.me/raschet7). Живу в Ташкенте с ирландским терьером Тофсом.",
-          "en": "I launch digital products and take them to profit, building product, operations and unit economics at the same time.\n\nI consult for companies in any market — most often in Russia, Uzbekistan and Kyrgyzstan. Clients include [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about), and others.\n\nSince 2009 I've launched four businesses — one sold to employees, two closed, one on pause. Now I build services for businesses and creators — website monitoring, account security, privacy; all free and open source. I run a [Telegram channel](https://t.me/raschet7). I live in Tashkent with an Irish terrier named Tofs."
+          "ru": "Запускаю цифровые продукты и довожу их до прибыли — продукт, операционку и юнит‑экономику собираю одновременно.\n\nКонсультирую компании на любых рынках, чаще всего — в России, Узбекистане и Кыргызстане. Среди клиентов [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about) и другие.\n\nВеду [Telegram‑канал](https://t.me/raschet7). Живу в Ташкенте с ирландским терьером Тофсом.",
+          "en": "I launch digital products and take them to profit, building product, operations and unit economics at the same time.\n\nI consult for companies in any market — most often in Russia, Uzbekistan and Kyrgyzstan. Clients include [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about), and others.\n\nI run a [Telegram channel](https://t.me/raschet7). I live in Tashkent with an Irish terrier named Tofs."
         }
       },
       "career": {
@@ -214,8 +215,8 @@
               "en": "Head of FinTech"
             },
             "ctx": {
-              "ru": "BNPL, платежи, кредитные продукты. Строю и масштабирую продуктовые линейки.",
-              "en": "BNPL, payments, credit products. Building and scaling product lines."
+              "ru": "Развиваю BNPL-сервис «Сплит», строю кредитного брокера в приложениях Go и Pro; участвую в оптимизации платёжной инфраструктуры экосистемы в Узбекистане.",
+              "en": "Developing the BNPL service Split, building a credit broker in the Go and Pro apps; helping optimise the ecosystem’s payment infrastructure in Uzbekistan."
             }
           },
           {
@@ -232,8 +233,8 @@
               "en": "Director of e-commerce / CPO Korzinka Go"
             },
             "ctx": {
-              "ru": "Строил продукт, затем отвечал за P&L в крупнейшем e-grocery Узбекистана.\n\n- Заказы в день: ×23 за 3 года, пик — 10 000 (ATH)\n- Расширение: 1 → 9 городов за 12 месяцев\n- Выручка: ×2 год к году при положительной EBITDA\n- CSAT: 4,2 → 4,5",
-              "en": "Built the product, then owned the full P&L at Uzbekistan's largest e-grocery.\n\n- Daily orders: ×23 over 3 years, peaking at 10,000 (ATH)\n- Expansion: 1 → 9 cities in 12 months\n- Revenue: ×2 year-over-year at positive EBITDA\n- CSAT: 4.2 → 4.5"
+              "ru": "Строил продукт, затем отвечал за P&L онлайн-супермаркета [ведущей продуктовой сети Узбекистана](https://www.ebrd.com/home/news-and-events/news/2025/ebrd-welcomes-major-investment-in-uzbek-food-retailer-.html).\n\n- Заказы в день: ×23 за 3 года, пик — 10 000\n- Расширение: 1 → 9 городов за 12 месяцев\n- Выручка: ×2 год к году при положительной EBITDA\n- CSAT: 4,2 → 4,5",
+              "en": "Built the product, then owned the full P&L of the online supermarket of [Uzbekistan's leading food retailer](https://www.ebrd.com/home/news-and-events/news/2025/ebrd-welcomes-major-investment-in-uzbek-food-retailer-.html).\n\n- Daily orders: ×23 over 3 years, peaking at 10,000\n- Expansion: 1 → 9 cities in 12 months\n- Revenue: ×2 year-over-year at positive EBITDA\n- CSAT: 4.2 → 4.5"
             }
           },
           {
@@ -242,7 +243,7 @@
               "en": "2022 — 2023"
             },
             "company": {
-              "ru": "[Yandex Uslugi](https://uslugi.yandex.ru/)",
+              "ru": "[Яндекс Услуги](https://uslugi.yandex.ru/)",
               "en": "[Yandex Services](https://uslugi.yandex.ru/)"
             },
             "role": {
@@ -268,8 +269,8 @@
               "en": "Certified Sales Trainer (contractor)"
             },
             "ctx": {
-              "ru": "Сертифицировался как Sales Trainer в UK, присоединился к тренинговой команде в России.\n\n- Обучение продукту и продажам: 700+ сотрудников и руководителей\n- Мероприятия: 100+ событий в online / offline / blended-форматах, средняя оценка 4,9 из 5\n- Сертификация Apple Expert: 92% подопечных получили международный сертификат",
-              "en": "Became a Certified Sales Trainer in the UK and joined the training team in Russia.\n\n- Product and sales training: 700+ employees and managers\n- Events: 100+ online / offline / blended-format sessions, average rating 4.9 out of 5\n- Apple Expert Certification: 92% of trainees obtained the international certificate"
+              "ru": "Сертифицировался как Sales Trainer в UK, присоединился к тренинговой команде в России.\n\n- Обучение продукту и продажам: 700+ сотрудников и руководителей\n- Мероприятия: 100+ событий онлайн, офлайн и в смешанном формате, средняя оценка 4,9 из 5\n- Apple Expert: международный сертификат получили 92% подопечных",
+              "en": "Became a Certified Sales Trainer in the UK and joined the training team in Russia.\n\n- Product and sales training: 700+ employees and managers\n- Events: 100+ sessions online, offline and blended, average rating 4.9 out of 5\n- Apple Expert: 92% of trainees earned the international certificate"
             }
           },
           {
@@ -286,8 +287,8 @@
               "en": "Head of Growth & Monetization"
             },
             "ctx": {
-              "ru": "Крупнейшая EdTech-компания Восточной Европы.\n\n- Активировал 7 млн+ пользователей\n- Запустил продукты, которые вошли в топ-3 каналов привлечения пользователей с положительной юнит-экономикой",
-              "en": "Largest EdTech company in Eastern Europe.\n\n- Activated 7M+ users\n- Launched products that became top-3 user acquisition channels with positive unit economics"
+              "ru": "[Одна из трёх крупнейших EdTech-компаний России](https://skillbox.ru/media/edtech/v-2025-godu-rossiyskiy-edtech-vyros-vsego-na-12/) по выручке.\n\n- Активация: 7 млн+ пользователей\n- Каналы привлечения: запустил продукты, вошедшие в топ-3 каналов с положительной юнит-экономикой",
+              "en": "[One of Russia's three largest EdTech companies](https://skillbox.ru/media/edtech/v-2025-godu-rossiyskiy-edtech-vyros-vsego-na-12/) by revenue.\n\n- Activation: 7M+ users\n- Acquisition channels: launched products that became top-3 channels with positive unit economics"
             }
           }
         ],
@@ -301,12 +302,12 @@
       },
       "projects": {
         "title": {
-          "ru": "Собственные проекты",
+          "ru": "Свои проекты",
           "en": "My projects"
         },
         "before": {
-          "ru": "До этого",
-          "en": "Before"
+          "ru": "Ранние проекты",
+          "en": "Earlier projects"
         }
       },
       "products": {
@@ -506,8 +507,8 @@
           "en": "Get in touch"
         },
         "note": {
-          "ru": "Пишите, если нужен взгляд со стороны на продукт или хотите обсудить пост.",
-          "en": "Write if you need an outside view on a product, or want to discuss a post."
+          "ru": "Пишите, если нужен взгляд со стороны на продукт или хотите обсудить публикацию.",
+          "en": "Write if you need an outside view on a product, or want to discuss a publication."
         },
         "reply": {
           "ru": "Обычно отвечаю в течение 7 рабочих дней.",
@@ -1111,8 +1112,8 @@
           "en": "What I do"
         },
         "prose": {
-          "ru": "10 лет в продукте, e-com и FinTech. Сейчас — Head of FinTech в **Yandex Uzbekistan**: запускаю BNPL, платежи и кредит на одном из самых быстрорастущих рынков региона.\n\nДо этого 3 года руководил крупнейшим e-grocery в Узбекистане в **Korzinka** (заказы ×23, расширение в 9 городов, положительная EBITDA) и собрал там платёжный модуль с нуля: Korzinka стала первым ритейлером в Узбекистане с сертификацией PCI DSS 4.0, а рассрочку на онлайн-заказы мы подключили одними из первых среди продуктовых сетей. Управлял P&L в **Yandex Uslugi** (GMV ×2,2, положительная EBITDA); запускал эксперименты в **Skyeng** (7 млн пользователей).",
-          "en": "10 years in product, e-com, and FinTech. Currently Head of FinTech at **Yandex Uzbekistan** — shipping BNPL, payments, and credit in one of the fastest‑growing markets in the region.\n\nBefore that: 3 years leading the largest e-grocery in Uzbekistan at **Korzinka** (orders ×23, expansion to 9 cities, positive EBITDA), where I built the payments module from scratch: Korzinka became the first retailer in Uzbekistan certified under PCI DSS 4.0, and we were among the first grocery chains to offer instalments on online orders. Managed P&L at **Yandex Services** (GMV ×2.2, positive EBITDA); launched experiments at **Skyeng** (7M users)."
+          "ru": "10 лет в продукте, e-com и FinTech. Сейчас — Head of FinTech в **Yandex Uzbekistan**: запускаю BNPL, платежи и кредит на одном из самых быстрорастущих рынков региона.\n\nДо этого 3 года руководил онлайн-супермаркетом **Korzinka**, [ведущей продуктовой сети Узбекистана](https://www.ebrd.com/home/news-and-events/news/2025/ebrd-welcomes-major-investment-in-uzbek-food-retailer-.html) (заказы ×23, расширение в 9 городов, положительная EBITDA) и собрал там платёжный модуль с нуля: Korzinka стала первым ритейлером в Узбекистане с сертификацией PCI DSS 4.0, а рассрочку на онлайн-заказы мы подключили одними из первых среди продуктовых сетей. Управлял P&L в **Яндекс Услугах** (GMV ×2,2, положительная EBITDA); запускал эксперименты в **Skyeng** (7 млн пользователей).",
+          "en": "10 years in product, e-com, and FinTech. Currently Head of FinTech at **Yandex Uzbekistan** — shipping BNPL, payments, and credit in one of the fastest‑growing markets in the region.\n\nBefore that: 3 years leading the online supermarket of **Korzinka**, [Uzbekistan's leading food retailer](https://www.ebrd.com/home/news-and-events/news/2025/ebrd-welcomes-major-investment-in-uzbek-food-retailer-.html) (orders ×23, expansion to 9 cities, positive EBITDA), where I built the payments module from scratch: Korzinka became the first retailer in Uzbekistan certified under PCI DSS 4.0, and we were among the first grocery chains to offer instalments on online orders. Managed P&L at **Yandex Services** (GMV ×2.2, positive EBITDA); launched experiments at **Skyeng** (7M users)."
         },
         "points": [
           {
@@ -1389,8 +1390,8 @@
         "en": "Partnerships & media"
       },
       "tagline": {
-        "ru": "Руковожу финтехом в Yandex Uzbekistan, разрабатываю open source инструменты, много путешествую и люблю разбираться в технологиях.",
-        "en": "I lead fintech at Yandex Uzbekistan, build open source tools, travel a lot and enjoy figuring out how technology works."
+        "ru": "Руковожу финтехом в Yandex Uzbekistan, разрабатываю open source сервисы, много путешествую и люблю разбираться в технологиях.",
+        "en": "I lead fintech at Yandex Uzbekistan, build open source services, travel a lot and enjoy figuring out how technology works."
       },
       "lead": {
         "ru": "Пишу о продуктах, которыми пользуюсь, и о людях, которые их создают. Всегда рад знакомству с интересными компаниями и командами.",
@@ -1433,7 +1434,7 @@
           },
           {
             "title": {
-              "ru": "Собственные проекты",
+              "ru": "Свои проекты",
               "en": "Side projects"
             },
             "text": {

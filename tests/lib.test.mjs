@@ -352,12 +352,51 @@ test('fixStaleContent v4.9.2: 7 working days, no «или e-com» — with plain
   fixStaleContent(doc);
   assert.equal(doc.reply.ru, 'Обычно отвечаю в течение 7 рабочих дней.');
   assert.equal(doc.reply.en, 'I usually reply within 7' + nb + 'business days.');
-  assert.equal(doc.note.ru, 'Пишите, если нужен взгляд со стороны на продукт или хотите обсудить пост.');
-  assert.equal(doc.note.en, 'Write if you need an outside view on a product, or want to discuss a post.');
+  // v4.10.3 also turns «пост» into «публикацию» in the same pass.
+  assert.equal(doc.note.ru, 'Пишите, если нужен взгляд со стороны на продукт или хотите обсудить публикацию.');
+  assert.equal(doc.note.en, 'Write if you need an outside view on a product, or want to discuss a publication.');
   assert.deepEqual(doc.other, ['за 110 рабочих дней', 'В 2010 году'], 'a 10 inside another number stays');
   const once = JSON.stringify(doc);
   fixStaleContent(doc);
   assert.equal(JSON.stringify(doc), once, 'a second pass changes nothing');
+});
+
+test('fixStaleContent v4.10.3: the homepage pass reaches a KV doc — plain or no-break spaces, whole fields only where anchored, once', () => {
+  const nb = String.fromCharCode(0xa0);
+  const EBRD = 'https://www.ebrd.com/home/news-and-events/news/2025/ebrd-welcomes-major-investment-in-uzbek-food-retailer-.html';
+  const doc = {
+    tagline: { ru: 'Строю продукты на растущих рынках, делаю инструменты про' + nb + 'приватность и пишу о том, что понял по дороге.', en: 'I build products in growing markets, make privacy tools, and write about what I\'ve learned along the way.' },
+    stats: [{ unit: { en: 'yrs in tech' } }, { unit: { ru: 'подписчиков', en: 'followers' } }],
+    korzinka: { ru: 'Строил продукт, затем отвечал за P&L' + nb + 'в крупнейшем e-grocery Узбекистана.\n\n- Заказы в день: ×23 за 3 года, пик — 10' + nb + '000 (ATH)' },
+    yandex: { ru: '[Yandex Uslugi](https://uslugi.yandex.ru/)', prose: 'Управлял P&L в **Yandex Uslugi** (GMV ×2,2)' },
+    skyeng: { ru: 'Крупнейшая EdTech-компания Восточной Европы.\n\n- Активировал 7' + nb + 'млн+ пользователей' },
+    about: { ru: 'одновременно.\n\nС 2009 года запустил четыре бизнеса — один продали сотрудникам, два закрыли, один на паузе. Сейчас делаю сервисы для бизнеса и авторов — мониторинг сайтов, безопасность аккаунтов, приватность; все бесплатные и с открытым' + nb + 'кодом. Веду [Telegram-канал](https://t.me/raschet7).' },
+    title: { ru: 'Собственные проекты' },
+    before: { ru: 'До этого', en: 'Before' },
+    untouched: ['подписчиков в LinkedIn — senior-специалисты', 'Собственные проекты на GitHub', 'followers on Telegram', 'Я делаю инструменты про приватность и не могу при этом следить за читателями.', 'До этого 3 года руководил', 'Before that: 3 years'],
+  };
+  fixStaleContent(doc);
+  assert.equal(doc.tagline.ru, 'Строю продукты на растущих рынках, разрабатываю open source сервисы и пишу о том, что понял по дороге.');
+  assert.equal(doc.tagline.en, 'I build products in growing markets, develop open source services, and write about what I\'ve learned along the way.');
+  assert.deepEqual(doc.stats, [{ unit: { en: 'years in tech' } }, { unit: { ru: 'подписок', en: 'follows' } }]);
+  assert.equal(doc.korzinka.ru, 'Строил продукт, затем отвечал за P&L' + nb + 'онлайн-супермаркета [ведущей продуктовой сети Узбекистана](' + EBRD + ').\n\n- Заказы в день: ×23 за 3 года, пик — 10' + nb + '000');
+  assert.deepEqual(doc.yandex, { ru: '[Яндекс Услуги](https://uslugi.yandex.ru/)', prose: 'Управлял P&L в **Яндекс Услугах** (GMV ×2,2)' });
+  assert.match(doc.skyeng.ru, /^\[Одна из трёх крупнейших EdTech-компаний России\]\(https:\/\/skillbox\.ru\/[^)]+\) по выручке\.\n\n- Активация: 7\u00a0млн\+ пользователей$/);
+  assert.equal(doc.about.ru, 'одновременно.\n\nВеду [Telegram-канал](https://t.me/raschet7).');
+  assert.equal(doc.title.ru, 'Свои проекты');
+  assert.deepEqual(doc.before, { ru: 'Ранние проекты', en: 'Earlier projects' });
+  assert.deepEqual(doc.untouched, ['подписчиков в LinkedIn — senior-специалисты', 'Собственные проекты на GitHub', 'followers on Telegram', 'Я делаю инструменты про приватность и не могу при этом следить за читателями.', 'До этого 3 года руководил', 'Before that: 3 years']);
+  const once = JSON.stringify(doc);
+  fixStaleContent(doc);
+  assert.equal(JSON.stringify(doc), once, 'a second pass changes nothing');
+});
+
+test('fixStaleContent: the seed already holds every swap — the table changes nothing in it', async () => {
+  const { readFileSync } = await import('node:fs');
+  const seed = JSON.parse(readFileSync(new URL('../content.seed.json', import.meta.url), 'utf8'));
+  const before = JSON.stringify(seed);
+  for (const page of Object.keys(seed)) fixStaleContent(seed[page]);
+  assert.equal(JSON.stringify(seed), before);
 });
 
 test('noindexOnTechnicalHost marks pages.dev hosts only, replacing any earlier value', () => {
