@@ -80,7 +80,9 @@ test('/consulting: the contact goes to Telegram — the homepage\'s panel with o
   const c = seed.consulting;
   // The angel section with its «Отправить питч →» is gone since v1.2.8.
   assert.equal(c.sections.angel, undefined);
-  assert.equal(c.sections.strategy.cta.href, 'https://t.me/s_mrgnv');
+  // Strategic consulting is the third tier since v4.6.0; its button is a tier's.
+  assert.equal(c.sections.strategy, undefined);
+  assert.equal(c.sections.consulting.tiers.find((t) => t.id === 'strategy').cta.href, 'https://t.me/s_mrgnv');
   const html = renderers.collabContact(c, 'ru');
   assert.equal((html.match(/class="v4-btn/g) || []).length, 1);
   // One panel for every page: the line on the left, the button on the right. The reply time
@@ -193,12 +195,14 @@ test('home copy: Korzinka ×23, one channel line, a kiosk chain (seed = the save
 
 test('RU pages speak Russian: /consulting units, /uses headings, tags and prices', () => {
   const tiers = seed.consulting.sections.consulting.tiers;
-  assert.deepEqual(tiers.map((t) => t.price.ru), ['**$300** / сессия', '**$2 000** / месяц']);
+  assert.deepEqual(tiers.map((t) => t.price.ru), ['**$300** / сессия', '**$2 000** / месяц', 'по договорённости']);
   // The emphasis of a price is the amount — «**$300** / сессия» — and the unit is a plain word
   // after it, in the case it is shown. «SESSION» / «MONTH» were a style typed into the content:
   // the stylesheet set the <strong> of a price in caps, and the doc followed.
-  assert.deepEqual(tiers.map((t) => t.price.en), ['**$300** / session', '**$2,000** / month']);
-  for (const t of tiers) for (const l of ['ru', 'en']) assert.match(t.price[l], /^\*\*\$\d[\d,\u00a0]*\*\* \/ [a-zа-яё]+$/, `${l}: ${t.price[l]}`);
+  assert.deepEqual(tiers.map((t) => t.price.en), ['**$300** / session', '**$2,000** / month', 'by agreement']);
+  // A priced tier: the amount in bold, then its unit; the unpriced one (strategic consulting,
+  // v4.6.0) says how the price is set, in plain words.
+  for (const t of tiers.filter((x) => x.id !== 'strategy')) for (const l of ['ru', 'en']) assert.match(t.price[l], /^\*\*\$\d[\d,\u00a0]*\*\* \/ [a-zа-яё]+$/, `${l}: ${t.price[l]}`);
   assert.ok(renderers.collabConsulting(seed.consulting, 'en').includes('<span class="v4-pricing"><strong>$300</strong> / session</span>'));
   assert.ok(renderers.collabConsulting(seed.consulting, 'ru').includes('<span class="v4-pricing"><strong>$2\u00a0000</strong> / месяц</span>'));
   assert.doesNotMatch(read('styles.css').replace(/\/\*[\s\S]*?\*\//g, ''), /\.v4-pricing[^{}]*\{[^}]*text-transform/, 'the stylesheet no longer sets a price in caps');

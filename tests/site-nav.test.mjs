@@ -83,12 +83,14 @@ test('a page\'s sections are in the on-page line under its hero: links only, in 
 test('the on-page lines of /consulting and /collaborate name what a section holds', () => {
   const links = (f) => [...onpage(read(f))[2].matchAll(/<a href="(#[a-z]+)">([^<]+)<\/a>/g)].map((m) => [m[1], m[2]]);
   // /consulting: «Как работаю / Чего не делаю» is a section a client looks for — it is in the line.
-  assert.deepEqual(links('consulting.html'), [['#consulting', 'Форматы и цены'], ['#strategy', 'Стратегия'], ['#work', 'Как работаю'], ['#contact', 'Связаться']]);
-  assert.deepEqual(links('en/consulting.html'), [['#consulting', 'Formats and pricing'], ['#strategy', 'Strategy'], ['#work', 'How I work'], ['#contact', 'Contact']]);
+  // Strategic consulting is a card among the formats since v4.6.0, not a section of its own.
+  assert.deepEqual(links('consulting.html'), [['#consulting', 'Форматы и цены'], ['#work', 'Как работаю'], ['#contact', 'Связаться']]);
+  assert.deepEqual(links('en/consulting.html'), [['#consulting', 'Formats and pricing'], ['#work', 'How I work'], ['#contact', 'Contact']]);
   // /collaborate: its last block is «Нужен консалтинг?» with a button to /consulting, so the
   // link to it says «Консалтинг» — «Связаться» promised a way to write that is not there.
-  assert.deepEqual(links('collaborate.html'), [['#partnerships', 'Партнёрства и медиа'], ['#contact', 'Консалтинг']]);
-  assert.deepEqual(links('en/collaborate.html'), [['#partnerships', 'Partnerships &amp; Media'], ['#contact', 'Consulting']]);
+  // v4.6.0: what we can do together («Форматы»), who reads («Аудитория»), consulting.
+  assert.deepEqual(links('collaborate.html'), [['#partnerships', 'Форматы'], ['#audience', 'Аудитория'], ['#contact', 'Консалтинг']]);
+  assert.deepEqual(links('en/collaborate.html'), [['#partnerships', 'Formats'], ['#audience', 'Audience'], ['#contact', 'Consulting']]);
   for (const f of ['collaborate.html', 'en/collaborate.html']) {
     const contact = read(f).split('<section id="contact"')[1].split('</section>')[0];
     assert.match(contact, /<a class="v4-btn v4-btn-primary" href="(\/en)?\/consulting">/, f);

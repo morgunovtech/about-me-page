@@ -29,9 +29,11 @@ test('product cards (v4.2.0): TofsDevOps first, bots then web apps; one line —
     // The head of a card: the name, which links out with the turned arrow and the new-tab note —
     // or, for a product with a page on this site (Social Tracker v4.4.0, TofsDevOps v4.5.0), to that page in the
     // same tab with no mark — then, quietly, what it is and its version (synced from GitHub by
-    // sync-products.mjs).
-    const heads = [...html.matchAll(/<div class="v4-product-head">\s*<h3 class="v4-product-name"><a href="(?:https:\/\/[^"]+" target="_blank" rel="noopener noreferrer">([^<]+)<span class="v4-out" aria-hidden="true">&#8288;<span class="v4-ne">→<\/span><\/span><span class="sr-only">[^<]+<\/span>|\/[a-z/-]+">([^<]+))<\/a><\/h3>\s*<span class="v4-product-meta"><span>([^<]+)<\/span>&nbsp;· <span>([^<]+)<\/span><\/span>\s*<\/div>/g)];
-    assert.deepEqual(heads.map((m) => [m[1] || m[2], m[3], m[4]]), items.map((it) => [it.name, KIND[it.tag][lang], it.version]), lang);
+    // sync-products.mjs). The version links the product's CHANGELOG.md (v4.6.0), like the
+    // footer's build mark: no arrow; the screen reader hears what is behind it.
+    const heads = [...html.matchAll(/<div class="v4-product-head">\s*<h3 class="v4-product-name"><a href="(?:https:\/\/[^"]+" target="_blank" rel="noopener noreferrer">([^<]+)<span class="v4-out" aria-hidden="true">&#8288;<span class="v4-ne">→<\/span><\/span><span class="sr-only">[^<]+<\/span>|\/[a-z/-]+">([^<]+))<\/a><\/h3>\s*<span class="v4-product-meta"><span>([^<]+)<\/span>&nbsp;· <a href="https:\/\/github\.com\/([^"]+)\/blob\/main\/CHANGELOG\.md" target="_blank" rel="noopener noreferrer" aria-label="(?:Что нового в|What’s new in) [^"]+ \(([^)]+)\)">([^<]+)<\/a><\/span>\s*<\/div>/g)];
+    assert.deepEqual(heads.map((m) => [m[1] || m[2], m[3], m[4], m[6]]), items.map((it) => [it.name, KIND[it.tag][lang], it.repo, it.version]), lang);
+    for (const m of heads) assert.equal(m[5], lang === 'en' ? 'opens in a new tab' : 'откроется в новой вкладке', lang);
     // The name is the action: no button in a card.
     assert.doesNotMatch(html, /v4-btn|v4-tag/, lang);
     assert.doesNotMatch(html, /v4-live-dot|v4-product-tag-row|<span class="sr-only">(Работает|Live)<\/span>/, lang);

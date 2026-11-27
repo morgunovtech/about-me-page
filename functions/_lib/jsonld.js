@@ -242,13 +242,17 @@ export function renderPageJsonLd(doc, lang, page) {
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: SERVICE[l].catalog,
-        itemListElement: tiers.map((t) => ({
-          '@type': 'Offer',
-          name: plain(pick(t.name, l)),
-          description: plain(pick(t.features && t.features[0], l)),
-          price: priceOf(t),
-          priceCurrency: 'USD',
-        })),
+        // A tier priced «по договорённости» (strategic consulting, v4.6.0)
+        // is an Offer without a price — and then without a currency.
+        itemListElement: tiers.map((t) => {
+          const price = priceOf(t);
+          return {
+            '@type': 'Offer',
+            name: plain(pick(t.name, l)),
+            description: plain(pick(t.features && t.features[0], l)),
+            ...(price ? { price, priceCurrency: 'USD' } : {}),
+          };
+        }),
       },
     });
   } else {
