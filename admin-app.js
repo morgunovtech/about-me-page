@@ -1000,7 +1000,7 @@
     hardware: 'Железо', software: 'Софт', groups: 'Блоки', cards: 'Карточки', heading: 'Заголовок',
     desc: 'Описание', tag: 'Тег', price: 'Цена', alt: 'Alt', intro: 'Вступление', cta: 'Кнопка', href: 'Ссылка', label: 'Текст',
     about: 'О себе', consulting: 'Консалтинг', work: 'Как работаю', contact: 'Контакт',
-    partnerships: 'Что можно сделать вместе', audience: 'Аудитория', figures: 'Цифры', items: 'Пункты', outro: 'Текст после списка', aside: 'Пояснение', channel: 'Канал',
+    partnerships: 'Форматы', audience: 'Аудитория', interests: 'Интересы', examples: 'Примеры работ', principles: 'Принципы', brief: 'Бриф', summary: 'Сводка', languages: 'Языки', figures: 'Цифры', items: 'Пункты', outro: 'Текст после списка', aside: 'Пояснение', channel: 'Канал',
     prose: 'Текст', points: 'Пункты', clients: 'Клиенты', tiers: 'Тарифы', features: 'Пункты', kind: 'Тип',
     rows: 'Строки', term: 'Термин', def: 'Определение', terms: 'Условия', note: 'Заметка', tagline: 'Подзаголовок', ctas: 'Кнопки',
   };
@@ -1537,7 +1537,7 @@
     // /consulting and /collaborate: structured sections edited via the generic form engine
     // (tiers/groups/ctas add-reorder-delete + per-field). Re-render on demand.
     if ((page === 'consulting' || page === 'collaborate') && doc.sections) {
-      for (const k of ['about', 'consulting', 'work', 'partnerships', 'audience', 'contact']) {
+      for (const k of ['about', 'consulting', 'work', 'interests', 'partnerships', 'examples', 'audience', 'principles', 'contact']) {
         if (!doc.sections[k]) continue;
         const node = fieldRow(doc.sections, k);
         if (node.tagName === 'DETAILS') node.open = false;

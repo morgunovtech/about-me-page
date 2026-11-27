@@ -280,7 +280,7 @@ test('/privacy has its own share card: the family template, 1200×630, per langu
 test('«Статьи»: the notes the doc names, in its order; English only once translated; a note change refreshes /privacy', async () => {
   const { NOTES_PATHS } = await import('../functions/_lib/cache.js');
   assert.ok(NOTES_PATHS.includes('/privacy') && NOTES_PATHS.includes('/en/privacy'));
-  assert.match(read('functions/_middleware.js'), /route\.page === 'privacy' \? loadPublishedArticles\(env\) : null/);
+  assert.match(read('functions/_middleware.js'), /route\.page === 'privacy' \|\| isCollab \? loadPublishedArticles\(env\) : null/);
   assert.match(read('functions/admin/api/preview.js'), /if \(page === 'privacy'\) doc\._articles = await loadPublishedArticles\(env\);/);
   // v2.2.0: the section follows a topic — every published note tagged with it, newest first.
   assert.equal(doc.sections.articles.topic, 'privacy');
@@ -318,8 +318,13 @@ test('fillFromSeed: a field the renderer starts reading is filled from the seed,
   assert.equal(fillFromSeed(own, 'home', seed, TABLE).sections.products.more.label.ru, 'Своё');
   assert.equal(fillFromSeed(seed.home, 'home', seed, TABLE), seed.home);
   assert.equal(fillFromSeed(null, 'home', seed, TABLE), null);
-  // The rev 34 Save (2026-11-25) stored the link: nothing is filled any more.
-  assert.deepEqual(SEED_FILL, {});
+  // The rev 34 Save (2026-11-25) stored the link. v4.7.0 fills one field: Instagram as a channel
+  // of the homepage's subscribers stat, until `kv-push.mjs home` stores it with the doc.
+  assert.deepEqual(SEED_FILL, { home: ['stats.2.channels.instagram'] });
+  const kvHome = JSON.parse(JSON.stringify(seed.home));
+  delete kvHome.stats[2].channels.instagram;
+  assert.deepEqual(fillFromSeed(kvHome, 'home', seed).stats[2].channels.instagram, seed.home.stats[2].channels.instagram);
+  assert.equal(seed.home.stats[2].kind, 'subscribers', 'the path names the subscribers stat');
   // No read-time migration is left either, so nothing reads the marker the gated ones wrote:
   // `migration` is gone from every doc of the seed.
   for (const page of ['home', 'uses', 'consulting', 'collaborate', 'privacy', 'notes']) assert.equal(seed[page].migration, undefined, page);

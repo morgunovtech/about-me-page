@@ -80,6 +80,12 @@ function processPage(html, page, lang) {
   }
   // /privacy «Статьи» lists notes from KV: the seed has none, so the twin holds the lead and the link.
   if (page === 'privacy') doc._articles = [];
+  // /collaborate «Примеры работ»: the twin holds the external materials it names
+  // (the notes live in KV; the live page adds them in their places).
+  if (page === 'collaborate') {
+    doc._articles = [];
+    doc._notes = seed.notes;
+  }
   const drift = [];
   let out = '';
   let pos = 0;

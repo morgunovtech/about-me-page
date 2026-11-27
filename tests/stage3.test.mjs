@@ -13,9 +13,17 @@ const read = (p) => readFileSync(new URL('../' + p, import.meta.url), 'utf8');
 const seed = JSON.parse(read('content.seed.json'));
 const PAGES = ['index.html', 'en/index.html', 'collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html'];
 
-test('e-mail only where the owner put it: home «Связаться», llms.txt, JSON-LD; Telegram stays first', () => {
-  for (const f of ['collaborate.html', 'en/collaborate.html', 'consulting.html', 'en/consulting.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html', '.well-known/security.txt']) {
+test('e-mail only where the owner put it: home «Связаться», /collaborate «Есть что обсудить?», llms.txt, JSON-LD; Telegram stays first elsewhere', () => {
+  for (const f of ['consulting.html', 'en/consulting.html', 'uses.html', 'en/uses.html', 'privacy.html', 'en/privacy.html', '.well-known/security.txt']) {
     assert.doesNotMatch(read(f), /mailto:|s@morgunov\.tech/, f);
+  }
+  // /collaborate (v4.7.0, the owner's brief): a company's PR need not use Telegram — the
+  // e-mail is the button of the page's contact, Telegram the line under it; nowhere else.
+  for (const f of ['collaborate.html', 'en/collaborate.html']) {
+    const html = read(f);
+    const contact = html.split('<section id="contact"')[1].split('</section>')[0];
+    assert.equal((html.match(/mailto:/g) || []).length, (contact.match(/mailto:/g) || []).length, f);
+    assert.ok(contact.indexOf('href="mailto:') < contact.indexOf('href="https://t.me/s_mrgnv"'), f);
   }
   for (const f of ['index.html', 'en/index.html']) {
     // One mailto, in the contact panel, in a line under the Telegram button.
@@ -137,7 +145,7 @@ test('ONE label for one action: every button that opens the Telegram chat reads 
   assert.ok(stored >= 8, `${stored} Telegram chat buttons in the seed`);
   assert.deepEqual(off, [], 'a Telegram chat button with a label of its own');
   // A button that leads elsewhere keeps its own words and, where it starts a flow, its arrow.
-  assert.equal(seed.collaborate.sections.contact.ctas[0].label.ru, 'Консалтинг →');
+  assert.equal(seed.collaborate.sections.consulting.more.label.ru, 'Консалтинг');
 });
 
 test('/uses names its referral links and promises no bonus without one', () => {

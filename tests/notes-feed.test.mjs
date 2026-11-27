@@ -90,7 +90,7 @@ test('views are floored to hundreds with «+», never overstated', () => {
   assert.equal(viewsLabel(99, 'ru'), '');
   assert.equal(viewsLabel(undefined, 'ru'), '');
   const html = feedListHtml(buildFeed([], notes, 'ru'), 'ru');
-  assert.ok(html.includes(`vc.ru · 38${nb}100+ просмотров`));
+  assert.ok(html.includes(`vc.ru · 41${nb}000+ просмотров`));
   assert.ok(html.includes(`YouTube · 3${nb}600+ просмотров`));
 });
 
@@ -142,7 +142,7 @@ test('channel panel: what the channel is, how many read it — the live Telegram
     assert.doesNotMatch(html, /CHANNEL|v4-tag|v4-pub|\{telegram\}/);
   }
   // Without live numbers the counter is the home doc's own, declined all the same.
-  assert.ok(channelHtml(notes, seed.home, 'ru').includes(`<p class="v4-channel-meta">1${nb}141&nbsp;подписчик · `));
+  assert.ok(channelHtml(notes, seed.home, 'ru').includes(`<p class="v4-channel-meta">1${nb}157&nbsp;подписчиков · `));
   // No home doc at all: the line starts with the next fact.
   assert.ok(channelHtml(notes, null, 'ru').includes('<p class="v4-channel-meta">пишу с 2022 года · '));
   assert.equal(channelHtml({}, home, 'ru'), '');

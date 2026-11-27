@@ -1,94 +1,150 @@
-// v1.7.0 — «Партнёрства и медиа» and the one support link on the homepage;
-// v2.0.0 — the section is the /collaborate page itself, consulting moved to
-// /consulting; v4.6.0 — the first outside reader did not see what the page was
-// about: it says whom it is for, the formats open with their point in bold, and
-// a section «Аудитория» gives who reads, in figures (owner, 2026-11-27). What
-// the tests keep: the owner's independence terms verbatim, the limits he set
-// for the offer (no prices, no employer, nothing promised), the figures in
-// their own section with the counts live, the page's own contact.
+// /collaborate «Партнёрства и медиа». v1.7.0 — the section and the one support
+// link on the homepage; v2.0.0 — the section became the page, consulting moved
+// to /consulting; v4.6.0–v4.6.2 — «Аудитория»; v4.7.0 — the owner's brief of
+// 2026-11-27: an invitation to technology companies from a practitioner, not a
+// rate card. What the tests keep: the page's order, one way to write (the
+// e-mail button, Telegram as a line), no prices, the figures with their
+// sources and dates, the subscriber counts from the homepage's counters, the
+// selected work taken from the publications feed, consulting last and quiet.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { renderers } from '../functions/_lib/render.js';
+import { renderers, counters } from '../functions/_lib/render.js';
 
 const read = (f) => readFileSync(new URL('../' + f, import.meta.url), 'utf8');
 const seed = JSON.parse(read('content.seed.json'));
-const s = seed.collaborate.sections.partnerships;
-const a = seed.collaborate.sections.audience;
-const SPONSORS = 'https://github.com/sponsors/morgunovtech';
+const c = seed.collaborate;
+const S = c.sections;
+const nb = String.fromCharCode(0xa0);
+const PAGES = [['collaborate.html', 'ru'], ['en/collaborate.html', 'en']];
+const section = (html, id) => html.split(`<section id="${id}"`)[1].split('</section>')[0];
 
-test('«What we can do together»: whom the page is for, the formats with their point in bold, the owner\'s independence terms verbatim', () => {
-  assert.equal(s.title.en, 'What we can do together');
-  assert.equal(s.outro.en, 'Editorial independence is non-negotiable; I do not accept guaranteed positive reviews or recurring posting quotas.');
-  assert.match(s.outro.ru, /независимость не обсуждается/i);
-  assert.match(seed.collaborate.hero.tagline.ru, /^Для компаний, PR-команд и организаторов событий/);
-  for (const it of s.items) {
-    for (const lang of ['ru', 'en']) assert.match(it[lang], /^\*\*[^*]+\.\*\* \S/, `${lang}: the point first, in bold`);
+test('v4.7.0: the page in the brief\'s order — interests, formats, selected work, audience, principles, contact, consulting', () => {
+  assert.deepEqual(Object.keys(S), ['interests', 'partnerships', 'examples', 'audience', 'principles', 'contact', 'consulting']);
+  for (const [f] of PAGES) {
+    const page = read(f);
+    assert.deepEqual((page.match(/<section id="[a-z]+"/g) || []).map((m) => m.slice(13, -1)), Object.keys(S), f);
+    assert.equal((page.match(/<h1 /g) || []).length, 1, `${f}: one h1`);
+    for (const id of Object.keys(S)) assert.equal((section(page, id).match(/<h2 /g) || []).length, 1, `${f} #${id}: one h2`);
+    assert.doesNotMatch(page, /v4-pricing|\$\s?\d/, `${f}: prices live on /consulting`);
   }
-  for (const leaf of [s.title, s.prose, s.outro, s.cta.label, ...s.items]) {
+  for (const leaf of [c.hero.tagline, c.hero.lead, ...Object.values(S).map((s) => s.title)]) {
     assert.ok(String(leaf.ru).trim() && String(leaf.en).trim());
     assert.match(leaf.ru, /[а-яё]/i);
   }
 });
 
-test('the page: the offer, then the audience, then the contact — one h2 each, one button in the offer', () => {
-  for (const [f, lang] of [['collaborate.html', 'ru'], ['en/collaborate.html', 'en']]) {
-    const page = read(f);
-    const sec = page.split('<section id="partnerships"')[1].split('</section>')[0];
-    assert.deepEqual((page.match(/<section id="[a-z]+"/g) || []).map((m) => m.slice(13, -1)), ['partnerships', 'audience', 'contact'], f);
-    assert.doesNotMatch(page, /v4-pricing|\$\s?\d/, `${f}: prices live on /consulting`);
-    assert.equal((sec.match(/<h2 /g) || []).length, 1, f);
-    assert.doesNotMatch(sec, /<h[13456]/, f);
-    const links = sec.match(/<a\s[^>]*>/g) || [];
-    assert.equal(links.length, 1, `${f}: one button in a block`);
-    // The contact route of the page: Telegram, like every other button on it.
-    assert.equal(links[0], '<a class="v4-btn" href="https://t.me/s_mrgnv" target="_blank" rel="noopener noreferrer">', f);
-    // …and the only one: the hero has no button of its own. The same button stood there too,
-    // twice within one screen.
-    const hero = page.split('<section class="v4-hero')[1].split('</section>')[0];
-    assert.doesNotMatch(hero, /class="v4-btn/, `${f}: no button in the hero`);
-    assert.equal(seed.collaborate.hero.ctas[lang], '', `${f}: no stored hero button`);
-    assert.equal((sec.match(/<li>/g) || []).length, s.items.length, f);
-    assert.ok(sec.includes(renderers.collabPartnerships(seed.collaborate, lang).split('<div class="v4-prose">')[1].split('</p>')[0].trim()), `${f}: the template is the seed's twin`);
-    const aud = page.split('<section id="audience"')[1].split('</section>')[0];
-    // Figures, not links — but for one «more» link to the publications feed (v4.6.2), where
-    // every article and talk the «Публикации» item counts can be checked.
-    assert.deepEqual(aud.match(/<a\s[^>]*>/g), [`<a href="${lang === 'en' ? '/en' : ''}/notes">`], `${f}: one link, to the feed`);
-    assert.equal((aud.match(/class="v4-stat"/g) || []).length, a.figures.length, f);
+test('the hero: who the owner is and what he looks for, ONE button — to the page\'s contact — and three figures', () => {
+  assert.equal(c.hero.name.ru, 'Партнёрства и медиа');
+  assert.match(c.hero.tagline.ru, /^Я руковожу финтехом в Yandex Uzbekistan/);
+  assert.match(c.hero.tagline.en, /^I lead FinTech at Yandex Uzbekistan/);
+  for (const [f, lang] of PAGES) {
+    const hero = read(f).split('<section class="v4-hero')[1].split('</section>')[0];
+    const buttons = hero.match(/<a class="v4-btn[^"]*"[^>]*>[^<]*<\/a>/g) || [];
+    assert.deepEqual(buttons, [`<a class="v4-btn v4-btn-primary" href="#contact">${lang === 'en' ? 'Get in touch' : 'Предложить сотрудничество'}</a>`], f);
+    // The figures come after the text and the button — on a phone too.
+    assert.ok(hero.indexOf('v4-cta-row') < hero.indexOf('v4-stats--three'), f);
+    assert.equal((hero.match(/class="v4-stat"/g) || []).length, 3, f);
   }
+  // The first figure is the total of the follows — the homepage's counters, Instagram included
+  // (v4.7.0: the owner's 6 476 = Telegram + LinkedIn + YouTube + Instagram).
+  assert.equal(c.heroStats[0].total, true);
+  const live = { ...c, _live: { subscribers: { telegram: 1157, linkedin: 5012, youtube: 126, instagram: 181 } } };
+  assert.match(renderers.collabHeroStats(live, 'ru'), new RegExp(`<div class="v4-stat-value">6${nb}476</div>\\s*<div class="v4-stat-unit">подписок в моих соцсетях</div>`));
+  assert.match(renderers.collabHeroStats(live, 'en'), /<div class="v4-stat-value">6,476<\/div>/);
+  // A live record without Instagram (before the ingest stored it) counts the doc's own value.
+  const noIg = { ...c, _live: { subscribers: { telegram: 1157, linkedin: 5012, youtube: 126 } } };
+  assert.match(renderers.collabHeroStats(noIg, 'ru'), new RegExp(`6${nb}476`));
+  // …the same total the homepage shows.
+  const home = { ...seed.home, _live: noIg._live };
+  assert.equal(counters(home, 'ru').total, `6${nb}476`);
 });
 
-test('the offer has no rate card, no audience figures, no employer, no promise of coverage', () => {
-  const text = JSON.stringify(s);
-  assert.doesNotMatch(text, /\d/, 'no prices, no figures: they are «Аудитория»\'s');
-  assert.doesNotMatch(text, /[$€₽]|usd|руб/i);
-  assert.doesNotMatch(text, /yandex|яндекс|korzinka|корзинк/i);
-  assert.doesNotMatch(text, /подписчик|followers|subscribers|охват|reach/i);
-  // A doc saved before v1.7.0 has no such section: the slot renders empty, it does not throw.
-  assert.equal(renderers.collabPartnerships({ sections: {} }, 'ru'), '');
+test('interests and formats: each item opens with its point in bold; no button in the formats — the page has one way to write', () => {
+  assert.equal(S.interests.items.length, 6);
+  assert.equal(S.partnerships.items.length, 7);
+  for (const it of [...S.interests.items, ...S.partnerships.items]) {
+    for (const lang of ['ru', 'en']) assert.match(it[lang], /^\*\*[^*]+\.\*\* \S/, `${lang}: ${it[lang].slice(0, 40)}`);
+  }
+  assert.match(S.interests.items[4].ru, /конфликт интересов/, 'FinTech says the conflict of interest');
+  assert.match(S.interests.items[5].ru, /личное увлечение/, 'Outdoor is a personal interest');
+  for (const [f, lang] of PAGES) {
+    const page = read(f);
+    assert.doesNotMatch(section(page, 'partnerships'), /class="v4-btn/, f);
+    assert.match(section(page, 'interests'), new RegExp(`<div class="v4-more"><a href="${lang === 'en' ? '/en' : ''}/uses">`), `${f}: the stack`);
+  }
+  // No promise of coverage or of a positive review anywhere in the offer.
+  assert.doesNotMatch(JSON.stringify(S.partnerships), /гарантир|guarantee/i);
 });
 
-test('«Аудитория» (v4.6.0): the counts are live from the same counters as the homepage, the rest says where it comes from and when', () => {
-  assert.doesNotMatch(JSON.stringify(a), /yandex|яндекс|korzinka|корзинк/i, 'no employer, past or present');
-  assert.match(a.note.ru, /LinkedIn/);
-  assert.match(a.note.ru, /TGStat/);
-  assert.match(a.note.ru, /2026/);
-  assert.deepEqual(a.figures.filter((f) => f.channel).map((f) => f.channel), ['telegram', 'linkedin']);
-  // Live numbers win over the doc's own, and the Russian noun follows the number.
-  const live = { ...seed.collaborate, _live: { subscribers: { telegram: 1161, linkedin: 5022, youtube: 126 } } };
+test('selected work comes from the publications feed — notes by slug, external materials by address — never typed twice', () => {
+  assert.deepEqual(S.examples.items.map((x) => x.slug || x.href), ['yubikey', 'airalo', 'https://youtu.be/OJXtFmWNZMM', 'https://youtu.be/BthlUR9eO1M', 'https://www.spot.uz/ru/2026/03/02/wolt-opinion/']);
+  for (const x of S.examples.items) assert.deepEqual(Object.keys(x).length, 1, 'a reference, not a copy');
+  const ext = seed.notes.external.map((e) => e.href);
+  for (const x of S.examples.items.filter((i) => i.href)) assert.ok(ext.includes(x.href), x.href);
+  const note = (slug, title) => ({ slug, date: '2025-12-07', title: { ru: title, en: title + ' EN' }, excerpt: { ru: 'x', en: 'x' } });
+  const doc = { ...c, _articles: [note('yubikey', 'YubiKey'), note('airalo', 'Airalo')], _notes: seed.notes };
+  const ru = renderers.collabExamples(doc, 'ru');
+  assert.equal((ru.match(/<h3 class="v4-note-title">/g) || []).length, 5, 'five rows, titles under the section\'s h2');
+  assert.ok(ru.indexOf('/notes/yubikey') < ru.indexOf('/notes/airalo') && ru.indexOf('/notes/airalo') < ru.indexOf('OJXtFmWNZMM'), 'the doc\'s order');
+  // The static twin has no notes (KV): it shows the external materials it names.
+  assert.equal((section(read('collaborate.html'), 'examples').match(/class="v4-note-item"/g) || []).length, 3);
+  // A note without an English title stays off /en/.
+  const untranslated = { ...doc, _articles: [{ ...note('yubikey', 'YubiKey'), title: { ru: 'YubiKey' } }] };
+  assert.doesNotMatch(renderers.collabExamples(untranslated, 'en'), /yubikey/);
+  // Under the rows: all the publications and the projects.
+  assert.deepEqual(S.examples.more.map((m) => m.href.ru), ['/notes', '/#projects']);
+});
+
+test('the audience: the follows with their parts (live), one figure a platform with its period and source, LinkedIn\'s profile said to be LinkedIn\'s', () => {
+  assert.deepEqual(Object.keys(S.audience.channels).sort(), ['instagram', 'linkedin', 'telegram', 'youtube']);
+  assert.deepEqual(S.audience.figures.map((f) => f.channel || f.unit.en), ['linkedin', 'telegram', 'views of my vc.ru posts', 'YouTube views']);
+  // Percentages of impressions say so: «64% показов», not 64% of people.
+  assert.match(S.audience.figures[0].aside.ru, /64% показов/);
+  assert.match(S.audience.figures[1].aside.ru, /46% — с Telegram Premium/);
+  assert.match(S.audience.profileTitle.ru, /LinkedIn/);
+  assert.match(S.audience.summary.ru, /не уникальные люди/);
+  assert.match(S.audience.note.ru, /27 ноября 2026/);
+  for (const src of ['LinkedIn', 'Telegram', 'TGStat', 'vc.ru', 'YouTube']) assert.ok(S.audience.note.ru.includes(src), src);
+  const live = { ...c, _live: { subscribers: { telegram: 1161, linkedin: 5022, youtube: 126, instagram: 181 } } };
   const ru = renderers.collabAudience(live, 'ru');
-  assert.match(ru, /<div class="v4-stat-value">1\u00a0161<\/div>\s*<div class="v4-stat-unit">подписчик в Telegram<\/div>/);
-  assert.match(ru, /<div class="v4-stat-value">5\u00a0022<\/div>\s*<div class="v4-stat-unit">подписчика в LinkedIn<\/div>/);
-  const en = renderers.collabAudience(live, 'en');
-  assert.match(en, /<div class="v4-stat-value">1,161<\/div>\s*<div class="v4-stat-unit">Telegram subscribers<\/div>/);
-  // Without KV the doc's own counts render (the static twin).
-  assert.match(renderers.collabAudience(seed.collaborate, 'ru'), /<div class="v4-stat-value">1\u00a0158<\/div>/);
-  // The page that shows them is purged when the counts arrive, and loads them.
+  assert.match(ru, new RegExp(`Подписок в соцсетях — 6${nb}490: LinkedIn — 5${nb}022, Telegram — 1${nb}161, Instagram — 181, YouTube — 126`));
+  assert.match(ru, new RegExp(`<div class="v4-stat-value">1${nb}161</div>\\s*<div class="v4-stat-unit">подписчик в Telegram</div>`));
+  // The figures are figures: no links among them.
+  for (const [f] of PAGES) assert.doesNotMatch(section(read(f), 'audience'), /<a\s/, f);
+  // The page that shows the counts loads them and is purged when they arrive.
   assert.match(read('functions/api/ingest/subscribers.js'), /PAGE_PATHS\.collaborate/);
-  assert.match(read('functions/_middleware.js'), /route\.page === 'collaborate' \? loadSubscribers\(env\)/);
+  assert.match(read('functions/_middleware.js'), /isHome \|\| isCollab \? loadSubscribers\(env\)/);
   assert.equal(renderers.collabAudience({ sections: {} }, 'ru'), '');
 });
 
+test('principles: disclosure, no guaranteed coverage, personal views — not the employer\'s; the conflict of interest', () => {
+  assert.match(S.principles.prose.ru, /обозначаю/);
+  assert.match(S.principles.prose.ru, /не гарантирует публикацию или положительный отзыв/);
+  assert.match(S.principles.prose.ru, /не позицию работодателя/);
+  assert.match(S.principles.prose.en, /not those of my employer/);
+});
+
+test('contact: ONE button — the e-mail with its subject; the address and Telegram as text to copy; where he lives and the languages', () => {
+  for (const [f, lang] of PAGES) {
+    const contact = section(read(f), 'contact');
+    const buttons = contact.match(/class="v4-btn[^"]*"/g) || [];
+    assert.equal(buttons.length, 1, f);
+    const subject = lang === 'en' ? 'Partnership%20proposal' : encodeURIComponent('Предложение о сотрудничестве');
+    assert.ok(contact.includes(`<a class="v4-btn v4-btn-primary" href="mailto:s@morgunov.tech?subject=${subject}">`), f);
+    assert.match(contact, /<p class="v4-contact-alt"><a href="mailto:s@morgunov\.tech">s@morgunov\.tech<\/a> · [^<]*<a href="https:\/\/t\.me\/s_mrgnv"/, f);
+    assert.match(contact, /<p class="v4-contact-reply">[^<]*(Ташкент|Tashkent)/, f);
+    assert.equal((contact.match(/<li>/g) || []).length, 3, `${f}: the brief`);
+  }
+});
+
+test('consulting: last, and quieter than the page\'s own contact — a line and a «more» link', () => {
+  for (const [f, lang] of PAGES) {
+    const sec = section(read(f), 'consulting');
+    assert.doesNotMatch(sec, /class="v4-btn/, f);
+    assert.match(sec, new RegExp(`<div class="v4-more"><a href="${lang === 'en' ? '/en' : ''}/consulting">`), f);
+  }
+});
 
 test('no support link on the pages (v2.2.2, owner): GitHub Sponsors stays in llms.txt only', () => {
   assert.equal(seed.home.sections.products.support, undefined);
@@ -100,16 +156,8 @@ test('no support link on the pages (v2.2.2, owner): GitHub Sponsors stays in llm
   assert.match(llms, /\[GitHub Sponsors\]\(https:\/\/github\.com\/sponsors\/morgunovtech\) — voluntary/);
 });
 
-test('v2.0.0: /consulting holds what /collaborate held; /collaborate ends with one button to it', () => {
-  assert.deepEqual(Object.keys(seed.collaborate.sections), ['partnerships', 'audience', 'contact']);
+test('v2.0.0: /consulting holds what /collaborate held; /collaborate points to it last', () => {
   assert.deepEqual(Object.keys(seed.consulting.sections), ['about', 'consulting', 'work', 'contact']);
-  const c = seed.collaborate.sections.contact;
-  assert.deepEqual(c.ctas.map((x) => x.href), [{ ru: '/consulting', en: '/en/consulting' }]);
-  for (const [lang, href] of [['ru', '/consulting'], ['en', '/en/consulting']]) {
-    const html = renderers.collabContact(seed.collaborate, lang);
-    assert.ok(html.includes(`<a class="v4-btn v4-btn-primary" href="${href}">`), lang);
-    assert.doesNotMatch(html, /target="_blank"/, 'a page of this site opens in place');
-  }
   for (const f of ['consulting.html', 'en/consulting.html']) {
     // The site menu (v3.0.0) links every page; the page itself keeps to its own URLs.
     const page = read(f).replace(/<header class="v4-bar"[\s\S]*?<\/header>/, '');

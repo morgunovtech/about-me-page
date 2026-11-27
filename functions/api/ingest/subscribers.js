@@ -38,6 +38,12 @@ export async function onRequestPost({ request, env }) {
   if (telegram === null || youtube === null || linkedin === null) {
     return json({ error: 'telegram, youtube, linkedin must be non-negative numbers' }, 400);
   }
+  // Instagram is optional (v4.7.0): Social Tracker sends every network it
+  // watches, and an instance without Instagram sends none.
+  const instagram = body.instagram == null ? null : nonNegInt(body.instagram);
+  if (body.instagram != null && instagram === null) {
+    return json({ error: 'instagram must be a non-negative number' }, 400);
+  }
 
   // Accept a client-supplied ISO-8601 timestamp, but only if it's well-formed
   // and short — never store an arbitrary unbounded string.
@@ -48,6 +54,7 @@ export async function onRequestPost({ request, env }) {
     telegram,
     youtube,
     linkedin,
+    ...(instagram !== null ? { instagram } : {}),
     updatedAt: validUpdatedAt ? ua : new Date().toISOString(),
   };
   await env.CONTENT.put('stats:subscribers', JSON.stringify(record));

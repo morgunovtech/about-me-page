@@ -78,7 +78,10 @@ export function topicNavHtml(topics, lang, current, total) {
   return `<nav class="v4-notes-topics" aria-label="${l === 'en' ? 'Topics' : 'Темы'}">${[all, ...rest].join(' ')}</nav>`;
 }
 
-export function feedItemHtml(entry, lang) {
+// `heading`: the title's level — h2 on /notes, h3 where the rows sit under a
+// section's own h2 (/collaborate «Примеры работ», v4.7.0).
+export function feedItemHtml(entry, lang, heading = 'h2') {
+  const h = heading === 'h3' ? 'h3' : 'h2';
   const it = entry.item;
   const date = it.date
     ? `<time class="v4-note-date" datetime="${escapeAttr(it.date)}">${escapeHtml(fmtDate(it.date, lang))}</time>`
@@ -91,7 +94,7 @@ export function feedItemHtml(entry, lang) {
     return `<article class="v4-note-item">
           <div class="v4-note-head">${date}</div>
           <div class="v4-note-main">
-            <h2 class="v4-note-title"><a href="${noteUrl(it.slug, lang)}">${escapeHtml(pickL(it.title, lang))}</a></h2>${
+            <${h} class="v4-note-title"><a href="${noteUrl(it.slug, lang)}">${escapeHtml(pickL(it.title, lang))}</a></${h}>${
       ex ? `\n            <p class="v4-note-excerpt">${ex}</p>` : ''}
           </div>
         </article>`;
@@ -106,9 +109,9 @@ export function feedItemHtml(entry, lang) {
   return `<article class="v4-note-item">
           <div class="v4-note-head">${date}</div>
           <div class="v4-note-main">
-            <h2 class="v4-note-title"><a href="${escapeAttr(safeHref(it.href))}" target="_blank" rel="noopener noreferrer">${escapeHtml(
+            <${h} class="v4-note-title"><a href="${escapeAttr(safeHref(it.href))}" target="_blank" rel="noopener noreferrer">${escapeHtml(
               pickL(it.title, lang)
-            )}${outMark(lang)}</a></h2>${
+            )}${outMark(lang)}</a></${h}>${
       meta ? `\n            <p class="v4-note-meta">${meta}</p>` : ''}
           </div>
         </article>`;
