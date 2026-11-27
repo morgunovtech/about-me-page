@@ -24,10 +24,15 @@
 // swap is idempotent (its result no longer matches). Remove the entries once a
 // Save of home and consulting has stored the new text.
 const STALE = [
-  [/(?<![\d])10([  ])рабочих дней/g, '7$1рабочих дней'],
-  [/(?<![\d])10([  ])business days/g, '7$1business days'],
-  [/на продукт([  ])или e[-‑]com или хотите/g, 'на продукт$1или хотите'],
-  [/on a product or e[-‑]com, or want/g, 'on a product, or want'],
+  [/(?<![\d])10([ \u00a0])рабочих дней/g, '7$1рабочих дней'],
+  [/(?<![\d])10([ \u00a0])business days/g, '7$1business days'],
+  [/на продукт([ \u00a0])или e[-\u2011]com или хотите/g, 'на продукт$1или хотите'],
+  [/on a product or e[-\u2011]com, or want/g, 'on a product, or want'],
+  // v4.10.1 (owner, 2026-11-27): TofsDevOps' card opens with what it is and for whom, not
+  // «Сам себе DevOps в Telegram» — the card's «Telegram-бот» label says the rest. The RU text
+  // is the bot README's new lead (sync-products.mjs reads it); the EN one its repo description.
+  [/Сам[ \u00a0]себе[ \u00a0]DevOps[ \u00a0]в[ \u00a0]Telegram\./g, 'Мониторинг сайтов для тех, кто не знает, что такое DNS и ошибка 502.'],
+  [/Your personal DevOps in Telegram\./g, 'Website monitoring for people who have never heard of DNS or a 502.'],
 ];
 
 export function fixStaleContent(node) {
