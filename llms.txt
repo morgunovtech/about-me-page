@@ -1,12 +1,12 @@
 # Semyon Morgunov / Семён Моргунов
 
-> Head of FinTech at Yandex Uzbekistan — builds products in Central Asia's fast-growing markets, where product, operations, and unit economics are assembled in parallel. 10 years in tech: worked in Russia and Uzbekistan; consults for companies in any market, most often in Russia, Uzbekistan and Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees, two closed, one on pause). {total} followers across social channels (Telegram {telegram} · LinkedIn {linkedin} · YouTube {youtube} · Instagram {instagram}). Based in Tashkent, Uzbekistan.
+> Head of FinTech at Yandex Uzbekistan — builds products in Central Asia's fast-growing markets, where product, operations, and unit economics are assembled in parallel. 10 years in tech: worked in Russia and Uzbekistan; consults for companies in any market, most often in Russia, Uzbekistan and Kyrgyzstan. Since 2009 launched four of his own ventures (one sold to employees, two closed, one on pause). {total} follows across social channels (Telegram {telegram} · LinkedIn {linkedin} · YouTube {youtube} · Instagram {instagram}). Based in Tashkent, Uzbekistan.
 
 ## About
 
 - Name: Semyon Morgunov (Семён Моргунов)
 - Positioning: builds products in Central Asia's fast-growing markets — assembles product, operations, and unit economics in parallel. Brings products to positive unit economics, not just to launch.
-- Current role: Head of FinTech @ Yandex Uzbekistan, Tashkent, Uzbekistan (since April 2026) — Yandex Split BNPL, FinTech for Yandex Pro, strategic fintech partnerships
+- Current role: Head of FinTech @ Yandex Uzbekistan, Tashkent, Uzbekistan (since April 2026) — develops the BNPL service Yandex Split, builds a credit broker in the Yandex Go and Yandex Pro apps, helps optimise the ecosystem's payment infrastructure in Uzbekistan
 - Past roles: Director of E-commerce / CPO Korzinka Go @ Korzinka (2023–2026, orders ×23 in 3 years (peak 10,000/day), expansion 1 → 9 cities in 12 months, revenue ×2 YoY with positive EBITDA, payments module from scratch: Korzinka became the first retailer in Uzbekistan certified under PCI DSS 4.0, and Korzinka Go was among the first grocery chains in Uzbekistan with instalments on online orders (from May 2024; 3 BNPL providers), CSAT 4.2 → 4.5); Head of Product @ Yandex Services / Yandex.Uslugi (2022–2023, 30+ products in home services, ~6.5M MAU, GMV ×2.2, EBITDA turned positive); Head of Growth & Monetization @ Skyeng / Skysmart (2017–2022, activated 7M+ users, products that became top-3 acquisition channels with positive unit economics); Certified Sales Trainer @ Apple Russia (2018–2019, contractor)
 - Geography: worked in Russia and Uzbekistan; consults for companies in any market, most often in Russia, Uzbekistan and Kyrgyzstan
 - Skills: FinTech, P&L Management, Product Strategy, E-Commerce, Growth, Monetization, 0→1 Launches

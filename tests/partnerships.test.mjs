@@ -35,8 +35,8 @@ test('v4.9.0: six parts — the hero, interests, formats, selected work, audienc
 });
 
 test('the hero: who he is in two short paragraphs, a real portrait, «Связаться со мной →» and «Чем я пользуюсь →»', () => {
-  assert.match(c.hero.tagline.ru, /^Руковожу финтехом в Yandex Uzbekistan, разрабатываю open source инструменты/);
-  assert.match(c.hero.tagline.en, /^I lead fintech at Yandex Uzbekistan, build open source tools/);
+  assert.match(c.hero.tagline.ru, /^Руковожу финтехом в Yandex Uzbekistan, разрабатываю open source сервисы/);
+  assert.match(c.hero.tagline.en, /^I lead fintech at Yandex Uzbekistan, build open source services/);
   for (const [f, lang] of PAGES) {
     const hero = read(f).split('<section class="v4-hero')[1].split('</section>')[0];
     const buttons = hero.match(/<a class="v4-btn[^"]*"[^>]*>[^<]*<\/a>/g) || [];

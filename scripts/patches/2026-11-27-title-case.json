@@ -1,0 +1,12 @@
+{
+ "notes": {
+  "worse-or-louder": [
+   {
+    "field": "title.en",
+    "from": "Is It Getting Worse, or Just Getting Louder?",
+    "to": "Is it getting worse, or just getting louder?",
+    "why": "Homepage pass 2026-11-27: the English titles of the site are in sentence case (\"Moving to a new domain: from e-commerce to FinTech\", \"iCloud: a 17-year road to product-market fit\" and every other note); this one alone was in Title Case. meta.title and share.title follow where they still hold the old text."
+   }
+  ]
+ }
+}

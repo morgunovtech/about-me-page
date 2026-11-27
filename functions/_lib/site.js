@@ -18,7 +18,7 @@ export function withName(base, lang) {
 
 // Short SHA of the deployed commit, stamped by scripts/version-stamp.py and
 // resolved into the `{build}` placeholder of CMS prose (see overlay.js).
-export const BUILD = '4645d8e';
+export const BUILD = '9bf5e1f';
 
 // The release, as the top entry of CHANGELOG.md names it; stamped by
 // scripts/version-stamp.py. The footer shows it as the build mark, a link to

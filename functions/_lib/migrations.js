@@ -33,6 +33,43 @@ const STALE = [
   // is the bot README's new lead (sync-products.mjs reads it); the EN one its repo description.
   [/Сам[ \u00a0]себе[ \u00a0]DevOps[ \u00a0]в[ \u00a0]Telegram\./g, 'Мониторинг сайтов для тех, кто не знает, что такое DNS и ошибка 502.'],
   [/Your personal DevOps in Telegram\./g, 'Website monitoring for people who have never heard of DNS or a 502.'],
+  // v4.10.3 (owner, 2026-11-27): the homepage pass. «Сервисы», not «инструменты» (the hero,
+  // /collaborate); the follows stat counts follows, not people; «years in tech»; the current role
+  // says what he builds; the two superlatives nobody could check now name a source and say what
+  // it says (Korzinka: the EBRD's «Uzbekistan's leading food retailer»; Skyeng: third by revenue in
+  // Smart Ranking 2025); no «(ATH)»; the bullets lead with their subject; «Яндекс Услуги» in
+  // Russian; the About keeps the channel and Tofs; «публикацию», not «пост»; «Свои проекты».
+  [/рынках,[ \u00a0]делаю[ \u00a0]инструменты[ \u00a0]про[ \u00a0]приватность/g, 'рынках, разрабатываю open source сервисы'],
+  [/make privacy tools/g, 'develop open source services'],
+  [/разрабатываю[ \u00a0]open[ \u00a0]source[ \u00a0]инструменты/g, 'разрабатываю open source сервисы'],
+  [/build open source tools/g, 'build open source services'],
+  [/^подписчиков$/g, 'подписок'],
+  [/^followers$/g, 'follows'],
+  [/^yrs in tech$/g, 'years in tech'],
+  [/BNPL,[ \u00a0]платежи,[ \u00a0]кредитные[ \u00a0]продукты\.[ \u00a0]Строю[ \u00a0]и[ \u00a0]масштабирую[ \u00a0]продуктовые[ \u00a0]линейки\./g, 'Развиваю BNPL-сервис «Сплит», строю кредитного брокера в приложениях Go и Pro; участвую в оптимизации платёжной инфраструктуры экосистемы в Узбекистане.'],
+  [/BNPL, payments, credit products\. Building and scaling product lines\./g, 'Developing the BNPL service Split, building a credit broker in the Go and Pro apps; helping optimise the ecosystem’s payment infrastructure in Uzbekistan.'],
+  [/отвечал[ \u00a0]за[ \u00a0]P&L[ \u00a0]в[ \u00a0]крупнейшем[ \u00a0]e[-\u2011]grocery[ \u00a0]Узбекистана\./g, 'отвечал за P&L\u00a0онлайн-супермаркета [ведущей продуктовой сети Узбекистана](https://www.ebrd.com/home/news-and-events/news/2025/ebrd-welcomes-major-investment-in-uzbek-food-retailer-.html).'],
+  [/owned the full P&L at Uzbekistan['’]s largest e[-\u2011]grocery\./g, 'owned the full P&L of the online supermarket of [Uzbekistan\'s leading food retailer](https://www.ebrd.com/home/news-and-events/news/2025/ebrd-welcomes-major-investment-in-uzbek-food-retailer-.html).'],
+  [/[ \u00a0]\(ATH\)/g, ''],
+  [/Мероприятия:[ \u00a0]100\+[ \u00a0]событий[ \u00a0]в[ \u00a0]online[ \u00a0]\/[ \u00a0]offline[ \u00a0]\/[ \u00a0]blended[-\u2011]форматах/g, 'Мероприятия: 100+ событий онлайн, офлайн и в смешанном формате'],
+  [/Events: 100\+ online \/ offline \/ blended[-\u2011]format sessions/g, 'Events: 100+ sessions online, offline and blended'],
+  [/Сертификация[ \u00a0]Apple[ \u00a0]Expert:[ \u00a0]92%[ \u00a0]подопечных[ \u00a0]получили[ \u00a0]международный[ \u00a0]сертификат/g, 'Apple Expert: международный сертификат получили 92% подопечных'],
+  [/Apple Expert Certification: 92% of trainees obtained the international certificate/g, 'Apple Expert: 92% of trainees earned the international certificate'],
+  [/в[ \u00a0]\*\*Yandex[ \u00a0]Uslugi\*\*/g, 'в **Яндекс Услугах**'],
+  [/\[Yandex[ \u00a0]Uslugi\]\(/g, '[Яндекс Услуги]('],
+  [/Крупнейшая[ \u00a0]EdTech[-\u2011]компания[ \u00a0]Восточной[ \u00a0]Европы\./g, '[Одна из трёх крупнейших EdTech-компаний России](https://skillbox.ru/media/edtech/v-2025-godu-rossiyskiy-edtech-vyros-vsego-na-12/) по выручке.'],
+  [/Largest EdTech company in Eastern Europe\./g, '[One of Russia\'s three largest EdTech companies](https://skillbox.ru/media/edtech/v-2025-godu-rossiyskiy-edtech-vyros-vsego-na-12/) by revenue.'],
+  [/Активировал[ \u00a0]7[ \u00a0]млн\+[ \u00a0]пользователей/g, 'Активация: 7\u00a0млн+ пользователей'],
+  [/Запустил[ \u00a0]продукты,[ \u00a0]которые[ \u00a0]вошли[ \u00a0]в[ \u00a0]топ[-\u2011]3[ \u00a0]каналов[ \u00a0]привлечения[ \u00a0]пользователей[ \u00a0]с[ \u00a0]положительной[ \u00a0]юнит[-\u2011]экономикой/g, 'Каналы привлечения: запустил продукты, вошедшие в топ-3 каналов с положительной юнит-экономикой'],
+  [/Activated 7M\+ users/g, 'Activation: 7M+ users'],
+  [/Launched products that became top[-\u2011]3 user acquisition channels with positive unit economics/g, 'Acquisition channels: launched products that became top-3 channels with positive unit economics'],
+  [/С[ \u00a0]2009[ \u00a0]года[ \u00a0]запустил[^\n]*?открытым[ \u00a0]кодом\.[ \u00a0](?=Веду)/g, ''],
+  [/Since 2009 I['’]ve launched[^\n]*?open source\.[ \u00a0](?=I run)/g, ''],
+  [/обсудить[ \u00a0]пост\./g, 'обсудить публикацию.'],
+  [/discuss a post\./g, 'discuss a publication.'],
+  [/^Собственные[ \u00a0]проекты$/g, 'Свои проекты'],
+  [/руководил[ \u00a0]крупнейшим[ \u00a0]e[-\u2011]grocery[ \u00a0]в[ \u00a0]Узбекистане[ \u00a0]в[ \u00a0]\*\*Korzinka\*\*/g, 'руководил онлайн-супермаркетом **Korzinka**, [ведущей продуктовой сети Узбекистана](https://www.ebrd.com/home/news-and-events/news/2025/ebrd-welcomes-major-investment-in-uzbek-food-retailer-.html)'],
+  [/3 years leading the largest e[-\u2011]grocery in Uzbekistan at \*\*Korzinka\*\*/g, '3 years leading the online supermarket of **Korzinka**, [Uzbekistan\'s leading food retailer](https://www.ebrd.com/home/news-and-events/news/2025/ebrd-welcomes-major-investment-in-uzbek-food-retailer-.html)'],
 ];
 
 export function fixStaleContent(node) {
