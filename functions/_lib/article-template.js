@@ -204,7 +204,9 @@ ${themeMenu(l)}
     </header>`;
 }
 
-// Same footer as the static pages: name · year · version. The version is the
+// Same footer as the static pages: the version, then the page's own link (no
+// name, no year since v4.9.2 — the owner: the address bar names the site and the
+// changelog dates the release). The version is the
 // build mark of the family (ds/v1/USAGE.md, «Build mark»): it links to the
 // changelog on GitHub, the history of versions. `build` stays in the
 // signature for the callers; the deployed commit is the X-Build header.
@@ -214,7 +216,7 @@ function footChrome(lang, build) {
   // Typeset like the footer of a static page (scripts/typo-static.mjs): a line
   // never starts with «·».
   return typo(`    <footer class="v4-foot">
-      <span>morgunov.tech · 2026 · <a class="v4-build" href="${CHANGELOG_URL}" target="_blank" rel="noopener noreferrer">v${VERSION}</a> · <a href="${p(l, '/thanks')}">${t.thanks}</a></span>
+      <span><a class="v4-build" href="${CHANGELOG_URL}" target="_blank" rel="noopener noreferrer">v${VERSION}</a> · <a href="${p(l, '/thanks')}">${t.thanks}</a></span>
       <span class="v4-foot-privacy">${t.privacy}</span>
     </footer>`, l);
 }

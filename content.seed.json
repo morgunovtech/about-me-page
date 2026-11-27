@@ -506,12 +506,12 @@
           "en": "Get in touch"
         },
         "note": {
-          "ru": "Пишите, если нужен взгляд со стороны на продукт или e-com или хотите обсудить пост.",
-          "en": "Write if you need an outside view on a product or e-com, or want to discuss a post."
+          "ru": "Пишите, если нужен взгляд со стороны на продукт или хотите обсудить пост.",
+          "en": "Write if you need an outside view on a product, or want to discuss a post."
         },
         "reply": {
-          "ru": "Обычно отвечаю в течение 10 рабочих дней.",
-          "en": "I usually reply within 10 business days."
+          "ru": "Обычно отвечаю в течение 7 рабочих дней.",
+          "en": "I usually reply within 7 business days."
         },
         "ctas": [
           {
@@ -1263,8 +1263,8 @@
           }
         ],
         "note": {
-          "ru": "Обычно отвечаю в течение 10 рабочих дней.",
-          "en": "I usually reply within 10 business days."
+          "ru": "Обычно отвечаю в течение 7 рабочих дней.",
+          "en": "I usually reply within 7 business days."
         },
         "legal": {
           "ru": "Договор и счёт — от ООО «MOR TECH», [резидента IT Park](https://www.it-park.uz/ru/itpark/residents/itpark-residents).",

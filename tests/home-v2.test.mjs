@@ -150,15 +150,15 @@ test('contact (v4.2.0): one panel — who writes and the pages to read first; ON
     '<div class="v4-cta-row">',
     '<a class="v4-btn v4-btn-primary" href="https://t\\.me/s_mrgnv" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>',
     '</div>',
-    '<p class="v4-contact-alt">Или на почту: <a href="mailto:s@morgunov\\.tech">s@morgunov\\.tech</a></p>',
+    '<p class="v4-contact-alt">Или на почту <a href="mailto:s@morgunov\\.tech">s@morgunov\\.tech</a></p>',
     `<p class="v4-contact-reply">${re(c.reply.ru)}</p>`,
     '</div>',
     '</div>$',
   ].join('\\s*')));
-  assert.equal(c.reply.ru, 'Обычно отвечаю в течение 10 рабочих дней.');
+  assert.equal(c.reply.ru, 'Обычно отвечаю в течение 7 рабочих дней.');
   assert.doesNotMatch(ru, /#angel/);
   const en = renderers.contact(seed.home, 'en', false);
-  assert.match(en, /<p class="v4-contact-alt">Or by e-mail: <a href="mailto:s@morgunov\.tech">s@morgunov\.tech<\/a><\/p>\s*<p class="v4-contact-reply">[^<]+<\/p>\s*<\/div>\s*<\/div>$/);
+  assert.match(en, /<p class="v4-contact-alt">Or e-mail <a href="mailto:s@morgunov\.tech">s@morgunov\.tech<\/a><\/p>\s*<p class="v4-contact-reply">[^<]+<\/p>\s*<\/div>\s*<\/div>$/);
   assert.match(en, /<a class="v4-btn v4-btn-primary" href="https:\/\/t\.me\/s_mrgnv" target="_blank" rel="noopener noreferrer">Message me on Telegram<\/a>/);
   assert.match(en, /href="\/en\/consulting#consulting">/);
   assert.match(en, /href="\/en\/collaborate"><span>Partnerships and media<\/span>/);
