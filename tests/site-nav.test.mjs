@@ -55,7 +55,9 @@ test('a page\'s sections are in the on-page line under its hero: links only, in 
     assert.doesNotMatch(read(f), /v4-onpage/, f);
     for (const id of ['about', 'career', 'projects', 'notes', 'contact']) assert.match(read(f), new RegExp(`<section id="${id}" class="v4-section"`), `${f} #${id}`);
   }
-  for (const [f] of PAGES.filter(([p]) => !/index\.html$/.test(p))) {
+  // /collaborate has none since v4.8.0 either: a short page read top to bottom (owner).
+  for (const f of ['collaborate.html', 'en/collaborate.html']) assert.doesNotMatch(read(f), /v4-onpage/, f);
+  for (const [f] of PAGES.filter(([p]) => !/(index|collaborate)\.html$/.test(p))) {
     const html = read(f);
     const line = onpage(html);
     assert.ok(line, `${f}: the line follows the hero`);
@@ -89,10 +91,7 @@ test('the on-page lines of /consulting and /collaborate name what a section hold
   // /collaborate: its last block is «Нужен консалтинг?» with a button to /consulting, so the
   // link to it says «Консалтинг» — «Связаться» promised a way to write that is not there.
   // v4.6.0: what we can do together («Форматы»), who reads («Аудитория»), consulting.
-  // /collaborate (v4.7.0, the owner's brief): the five parts a partner looks for; the principles
-  // and the way to consulting are read on the way down, not jumped to.
-  assert.deepEqual(links('collaborate.html'), [['#interests', 'Интересы'], ['#partnerships', 'Форматы'], ['#examples', 'Примеры'], ['#audience', 'Аудитория'], ['#contact', 'Контакты']]);
-  assert.deepEqual(links('en/collaborate.html'), [['#interests', 'Interests'], ['#partnerships', 'Formats'], ['#examples', 'Selected work'], ['#audience', 'Audience'], ['#contact', 'Contact']]);
+  // /collaborate has no line since v4.8.0 (the page is short); its way to consulting is last.
   for (const f of ['collaborate.html', 'en/collaborate.html']) {
     const consulting = read(f).split('<section id="consulting"')[1].split('</section>')[0];
     assert.match(consulting, /<div class="v4-more"><a href="(\/en)?\/consulting">/, f);

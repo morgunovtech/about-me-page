@@ -1389,8 +1389,8 @@
         "en": "Partnerships & media"
       },
       "tagline": {
-        "ru": "Я руковожу финтехом в Yandex Uzbekistan, делаю собственные технологические инструменты и пишу о продуктах, технологиях и бизнесе.",
-        "en": "I lead FinTech at Yandex Uzbekistan, build my own tech tools, and write about products, technology and business."
+        "ru": "Я руковожу финтехом в крупной технологической компании, делаю собственные инструменты и пишу о продуктах, технологиях и бизнесе.",
+        "en": "I lead FinTech at a large tech company, build my own tools, and write about products, technology and business."
       },
       "lead": {
         "ru": "Мне интересно знакомиться с продуктами, которые решают реальные задачи, тестировать их в повседневной жизни и разбираться, почему они устроены именно так. Если вы создаёте такой продукт, работаете над исследованием или собираете профессиональное сообщество — давайте знакомиться.",
@@ -1539,8 +1539,8 @@
       },
       "audience": {
         "title": {
-          "ru": "Аудитория и площадки",
-          "en": "Audience & platforms"
+          "ru": "Аудитория",
+          "en": "Audience"
         },
         "channels": {
           "telegram": {
@@ -1560,95 +1560,199 @@
             "en": "181"
           }
         },
-        "summary": {
-          "ru": "Подписок в соцсетях — {total}: LinkedIn — {linkedin}, Telegram — {telegram}, Instagram — {instagram}, YouTube — {youtube}. Это подписки, а не уникальные люди.",
-          "en": "Follows across my social accounts: {total} — LinkedIn {linkedin}, Telegram {telegram}, Instagram {instagram}, YouTube {youtube}. These are follows, not unique people."
-        },
-        "figures": [
+        "groups": [
           {
-            "channel": "linkedin",
-            "unit": {
-              "ru": "подписчиков в LinkedIn",
-              "en": "LinkedIn followers"
+            "kind": "channels",
+            "title": {
+              "ru": "Где подписаны",
+              "en": "Where people follow me"
             },
-            "aside": {
-              "ru": "114 тыс. показов и 31 тыс. охваченных за 12 месяцев; 64% показов — вне моих контактов",
-              "en": "114K impressions and 31K members reached over 12 months; 64% of impressions outside my network"
+            "order": [
+              "linkedin",
+              "telegram",
+              "instagram",
+              "youtube"
+            ]
+          },
+          {
+            "title": {
+              "ru": "Уровень · LinkedIn",
+              "en": "Seniority · LinkedIn"
+            },
+            "rows": [
+              {
+                "label": {
+                  "ru": "Senior-специалисты",
+                  "en": "Senior professionals"
+                },
+                "share": 26
+              },
+              {
+                "label": {
+                  "ru": "Директора",
+                  "en": "Directors"
+                },
+                "share": 17
+              },
+              {
+                "label": {
+                  "ru": "C-level",
+                  "en": "C-level"
+                },
+                "share": 13
+              },
+              {
+                "label": {
+                  "ru": "Менеджеры",
+                  "en": "Managers"
+                },
+                "share": 6
+              }
+            ],
+            "foot": {
+              "ru": "71% — senior и выше; чаще всего продакты, CEO, фаундеры и CPO",
+              "en": "71% senior and above; most often product managers, CEOs, founders and CPOs"
             }
           },
           {
-            "channel": "telegram",
-            "unit": {
-              "ru": "подписчиков в Telegram",
-              "en": "Telegram subscribers"
+            "title": {
+              "ru": "Отрасли · LinkedIn",
+              "en": "Industries · LinkedIn"
             },
-            "aside": {
-              "ru": "46% — с Telegram Premium; в среднем 384 просмотра у поста (TGStat); 117 упоминаний в 19 каналах",
-              "en": "46% have Telegram Premium; 384 views per post on average (TGStat); 117 mentions in 19 channels"
-            }
+            "rows": [
+              {
+                "label": {
+                  "ru": "IT-сервисы и консалтинг",
+                  "en": "IT services and consulting"
+                },
+                "share": 20
+              },
+              {
+                "label": {
+                  "ru": "Интернет",
+                  "en": "Internet"
+                },
+                "share": 14
+              },
+              {
+                "label": {
+                  "ru": "Финансы и банки",
+                  "en": "Finance and banking"
+                },
+                "share": 10
+              },
+              {
+                "label": {
+                  "ru": "Разработка ПО",
+                  "en": "Software development"
+                },
+                "share": 7
+              },
+              {
+                "label": {
+                  "ru": "Ритейл",
+                  "en": "Retail"
+                },
+                "share": 5
+              }
+            ]
           },
           {
-            "value": {
-              "ru": "85 240",
-              "en": "85,240"
+            "title": {
+              "ru": "Города · LinkedIn",
+              "en": "Cities · LinkedIn"
             },
-            "unit": {
-              "ru": "просмотров публикаций на vc.ru",
-              "en": "views of my vc.ru posts"
-            },
-            "aside": {
-              "ru": "4 публикации, 106 подписчиков блога",
-              "en": "4 posts, 106 blog followers"
-            }
-          },
-          {
-            "value": {
-              "ru": "10 953",
-              "en": "10,953"
-            },
-            "unit": {
-              "ru": "просмотров на YouTube",
-              "en": "YouTube views"
-            },
-            "aside": {
-              "ru": "7 334 — пять роликов моего канала, 3 619 — выступление на канале CLICK UZ",
-              "en": "7,334 for five videos on my channel, 3,619 for a talk on the CLICK UZ channel"
+            "rows": [
+              {
+                "label": {
+                  "ru": "Москва",
+                  "en": "Moscow"
+                },
+                "share": 15
+              },
+              {
+                "label": {
+                  "ru": "Ташкент",
+                  "en": "Tashkent"
+                },
+                "share": 14
+              },
+              {
+                "label": {
+                  "ru": "Лондон",
+                  "en": "London"
+                },
+                "share": 2
+              },
+              {
+                "label": {
+                  "ru": "Петербург",
+                  "en": "Saint Petersburg"
+                },
+                "share": 2
+              }
+            ],
+            "foot": {
+              "ru": "дальше Тбилиси, Белград, Берлин, Барселона, Сан-Франциско, Амстердам",
+              "en": "then Tbilisi, Belgrade, Berlin, Barcelona, San Francisco, Amsterdam"
             }
           }
         ],
-        "profileTitle": {
-          "ru": "Кто читает меня в LinkedIn",
-          "en": "Who follows me on LinkedIn"
+        "reach": {
+          "ru": "**Охват.** 114 тыс. показов в LinkedIn за 12 месяцев, в среднем 384 просмотра у поста в Telegram, 85 тыс. просмотров на vc.ru и 11 тыс. — на YouTube.",
+          "en": "**Reach.** 114K LinkedIn impressions over 12 months, 384 views per Telegram post on average, 85K views on vc.ru and 11K on YouTube."
         },
-        "items": [
+        "profilesTitle": {
+          "ru": "Профили",
+          "en": "Profiles"
+        },
+        "profiles": [
           {
-            "ru": "**Кто.** 71% — senior-специалисты и руководители: директора — 17%, C-level — 13%. Чаще других — продакт-менеджеры, CEO, фаундеры и CPO.",
-            "en": "**Who.** 71% are senior professionals and leaders: directors 17%, C-level 13%. The most common titles: product manager, CEO, founder, CPO."
+            "label": {
+              "ru": "LinkedIn",
+              "en": "LinkedIn"
+            },
+            "href": "https://www.linkedin.com/in/semyon-morgunov/"
           },
           {
-            "ru": "**Где.** Москва — 15%, Ташкент — 14%; дальше Лондон, Петербург, Тбилиси, Белград, Берлин, Барселона, Сан-Франциско и Амстердам.",
-            "en": "**Where.** Moscow 15%, Tashkent 14%; then London, Saint Petersburg, Tbilisi, Belgrade, Berlin, Barcelona, the San Francisco Bay Area and Amsterdam."
+            "label": {
+              "ru": "Telegram-канал",
+              "en": "Telegram channel"
+            },
+            "href": "https://t.me/raschet7"
           },
           {
-            "ru": "**Отрасли.** IT-сервисы и консалтинг — 20%, интернет — 14%, финансы и банки — 10%, разработка ПО — 7%, ритейл — 5%.",
-            "en": "**Industries.** IT services and consulting 20%, internet 14%, finance and banking 10%, software development 7%, retail 5%."
+            "label": {
+              "ru": "Instagram",
+              "en": "Instagram"
+            },
+            "href": "https://www.instagram.com/semyon.morgunov/"
           },
           {
-            "ru": "**Компании.** От стартапов до корпораций: около трети — в компаниях от 1000 человек, ещё около трети — до 200.",
-            "en": "**Companies.** From startups to corporations: about a third at companies of 1,000+ people, another third at companies of up to 200."
+            "label": {
+              "ru": "YouTube",
+              "en": "YouTube"
+            },
+            "href": "https://www.youtube.com/@semyon_morgunov"
+          },
+          {
+            "label": {
+              "ru": "vc.ru",
+              "en": "vc.ru"
+            },
+            "href": "https://vc.ru/id679509"
+          },
+          {
+            "label": {
+              "ru": "GitHub",
+              "en": "GitHub"
+            },
+            "href": "https://github.com/morgunovtech"
           }
         ],
-        "languagesTitle": {
-          "ru": "Языки",
-          "en": "Languages"
-        },
-        "languages": {
-          "ru": "Канал в Telegram я веду на русском; по статистике Telegram, у его читателей приложение чаще всего на русском, затем на английском, узбекском, немецком и украинском. В LinkedIn пишу на английском.",
-          "en": "I write my Telegram channel in Russian; by Telegram’s statistics, most of its readers use the app in Russian, then English, Uzbek, German and Ukrainian. On LinkedIn I write in English."
-        },
         "note": {
-          "ru": "Подписки обновляются сами раз в сутки. Остальное — снимок на 27 ноября 2026 года: аналитика LinkedIn, статистика Telegram и TGStat, публичные счётчики vc.ru и YouTube.",
-          "en": "Follower counts update daily by themselves. The rest is a snapshot as of 27 November 2026: LinkedIn analytics, Telegram’s statistics and TGStat, public vc.ru and YouTube counters."
+          "ru": "Подписки обновляются сами раз в сутки. Доли — из аналитики LinkedIn; Premium — из статистики Telegram; охват — LinkedIn, TGStat, счётчики vc.ru и YouTube. Снимок на 27 ноября 2026 года.",
+          "en": "Follower counts update daily by themselves. Shares are LinkedIn analytics; Premium is Telegram’s statistics; reach is LinkedIn, TGStat and the vc.ru and YouTube counters. Snapshot as of 27 November 2026."
         }
       },
       "principles": {
@@ -1751,16 +1855,16 @@
       },
       {
         "value": {
-          "ru": "114 тыс.",
-          "en": "114K"
+          "ru": "46%",
+          "en": "46%"
         },
         "unit": {
-          "ru": "показов в LinkedIn за 12 месяцев",
-          "en": "LinkedIn impressions over 12 months"
+          "ru": "подписчиков Telegram-канала — с Telegram Premium",
+          "en": "of my Telegram channel’s subscribers have Telegram Premium"
         },
         "aside": {
-          "ru": "31 тыс. охваченных пользователей",
-          "en": "31K members reached"
+          "ru": "около 535 человек; 49 бустов канала",
+          "en": "about 535 people; 49 channel boosts"
         }
       }
     ]

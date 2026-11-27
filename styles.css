@@ -199,6 +199,93 @@
   margin-bottom: 24px;
 }
 
+/* /collaborate «Аудитория» (v4.8.0): four small groups of bars, two a row —
+   who reads at a glance. A group: the caption, then rows of a label and its
+   figure on one line with a thin bar under them. The bar is drawing in ink on
+   a hairline track: no colour of its own, no rounded ends, the length alone
+   says the share. */
+.v4-aud {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px 48px;
+  margin: 0 0 24px;
+}
+
+.v4-aud .v4-h3 {
+  margin: 0 0 12px;
+}
+
+.v4-meters {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.v4-meter-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 16px;
+  align-items: baseline;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.v4-meter-row + .v4-meter-row {
+  margin-top: 8px;
+}
+
+.v4-meter-value {
+  color: var(--v4-muted);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.v4-meter {
+  grid-column: 1 / -1;
+  display: block;
+  height: 4px;
+  background: var(--v4-line-soft);
+}
+
+.v4-meter-fill {
+  display: block;
+  height: 100%;
+  background: var(--v4-fg);
+}
+
+.v4-aud-foot {
+  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--v4-muted);
+}
+
+/* The profiles: words of one line you can click through, underlined by a
+   hairline like the footer's links. */
+.v4-aud-profiles {
+  margin: 16px 0 0;
+  line-height: 1.6;
+}
+
+.v4-aud-profiles-title {
+  color: var(--v4-muted);
+}
+
+.v4-aud-profiles a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--v4-line);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.v4-aud-profiles a:hover,
+.v4-aud-profiles a:focus-visible {
+  color: var(--v4-orange-text);
+  text-decoration-color: var(--v4-orange-text);
+}
+
 /* Three figures in the hero of /collaborate (v4.7.0), its second row: three
    a row down to 641px, one a row on a phone — the text and the button come
    first there. The hero's own gap and margin space them. */
@@ -1005,8 +1092,13 @@
   }
 }
 
-/* …and one a row on a phone, a rule between them. */
+/* …and one a row on a phone, a rule between them; the audience's groups one a
+   row too. */
 @media (max-width: 640px) {
+  .v4-aud {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
   .v4-stats.v4-stats--three {
     grid-template-columns: minmax(0, 1fr);
   }
