@@ -48,7 +48,7 @@ const SHELL = `<!DOCTYPE html>
     </div>
     <div class="ed-drawer-body" id="settings"></div>
   </aside>
-  <script data-cfasync="false" src="/admin-app.js?v=3c1280aa"></script>
+  <script data-cfasync="false" src="/admin-app.js?v=80b5430f"></script>
 </body>
 </html>`;
 

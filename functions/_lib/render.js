@@ -122,8 +122,11 @@ export function unitFor(unit, lang, total) {
   if (lang !== 'ru' || total == null) return unit;
   const n = Number(String(total).replace(/\D/g, ''));
   if (!Number.isFinite(n) || !String(total).replace(/\D/g, '')) return unit;
-  const forms = RU_PLURALS.find((f) => f.includes(String(unit).trim()));
-  return forms ? pluralRu(n, forms) : unit;
+  // The counted noun is the first word: «подписчиков в Telegram» (/collaborate)
+  // declines «подписчиков» and keeps the rest.
+  const [head, ...rest] = String(unit).trim().split(' ');
+  const forms = RU_PLURALS.find((f) => f.includes(head));
+  return forms ? [pluralRu(n, forms), ...rest].join(' ') : unit;
 }
 
 function statBlock(s, lang, doc, edit, path) {
@@ -139,9 +142,13 @@ function statBlock(s, lang, doc, edit, path) {
           .join('<span aria-hidden="true"> · </span>')}</div>
       </div>`;
   }
+  // A figure may lead to the section that holds what it counts («8 своих
+  // проектов» → #projects, v4.6.0): the figure and its words are one link.
+  const href = !edit && s.href ? safeHref(pick(s.href, lang) || s.href) : '';
+  const figure = `<div class="v4-stat-value"${eText(edit, path + '.value')}>${escapeHtml(pick(s.value, lang))}</div>
+        <div class="v4-stat-unit"${eText(edit, path + '.unit')}>${escapeHtml(pick(s.unit, lang))}</div>`;
   return `<div class="v4-stat"${eItem(edit, path)}>
-        <div class="v4-stat-value"${eText(edit, path + '.value')}>${escapeHtml(pick(s.value, lang))}</div>
-        <div class="v4-stat-unit"${eText(edit, path + '.unit')}>${escapeHtml(pick(s.unit, lang))}</div>
+        ${href ? `<a class="v4-stat-link" href="${escapeAttr(href)}">${figure}</a>` : figure}
         <div class="v4-stat-aside"${eText(edit, path + '.aside')}>${escapeHtml(pick(s.aside, lang))}</div>
       </div>`;
 }
@@ -187,10 +194,10 @@ function ventureRow(it, lang, edit, path) {
 // No «live» mark: a product under «Работает» says so by standing there (the
 // pulsing dot beside every card of the list told nothing, owner 2026-11-25);
 // a doc's `live` flag is simply not read.
-function card({ item, cls, tag, meta, metaClass, metaPath, name, nameTag = 'h3', body, cta, edit, path }) {
+function card({ id, item, cls, tag, meta, metaClass, metaPath, name, nameTag = 'h3', body, cta, edit, path }) {
   // metaPath: the meta's own edit leaf; null when the meta carries its own anchors.
   const metaLeaf = metaPath === undefined ? path + '.version' : metaPath;
-  return `<article class="v4-product${cls ? ' ' + cls : ''}"${item ? eItem(edit, path) : ''}>
+  return `<article${id ? ` id="${escapeAttr(id)}"` : ''} class="v4-product${cls ? ' ' + cls : ''}"${item ? eItem(edit, path) : ''}>
           <div class="v4-product-head">
             <span class="v4-tag"${eText(edit, path + '.tag')}>${tag}</span>
             <span${metaClass ? ` class="${metaClass}"` : ''}${metaLeaf ? eText(edit, metaLeaf) : ''}>${meta}</span>
@@ -214,6 +221,9 @@ function kindLabel(tag, lang) {
 // what it is and its version («Бот · v3.13»); then the description. No
 // button: the name is the action (owner, 2026-11-26). The version is synced
 // from GitHub by scripts/sync-products.mjs; the doc's `cta` gives the address.
+// The version links the product's CHANGELOG.md on GitHub (v4.6.0), the way the
+// footer's build mark links this site's: a word of the line, no arrow; a screen
+// reader hears what is behind it.
 function productCard(it, lang, edit, path) {
   const href = it.cta ? safeHref(pick(it.cta.href, lang) || it.cta.href) : '';
   const name = renderInline(it.name);
@@ -222,11 +232,18 @@ function productCard(it, lang, edit, path) {
     : name;
   const kind = edit ? renderInline(it.tag) : kindLabel(it.tag, lang);
   const version = it.version ? renderInline(it.version) : '';
+  const log = !edit && version && it.repo ? `https://github.com/${it.repo}/blob/main/CHANGELOG.md` : '';
+  const what = lang === 'en'
+    ? `What’s new in ${plainLabel(it.name)} ${plainLabel(it.version)}`
+    : `Что нового в ${plainLabel(it.name)} ${plainLabel(it.version)}`;
+  const ver = log
+    ? `<a href="${escapeAttr(log)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeAttr(what + NEW_TAB[lang === 'en' ? 'en' : 'ru'])}">${version}</a>`
+    : `<span${eText(edit, path + '.version')}>${version}</span>`;
   return `<article class="v4-product"${eItem(edit, path)}>
           <div class="v4-product-head">
             <h3 class="v4-product-name"${eText(edit, path + '.name')}>${link}</h3>
             <span class="v4-product-meta"><span${eText(edit, path + '.tag')}>${kind}</span>${
-      version ? `&nbsp;· <span${eText(edit, path + '.version')}>${version}</span>` : ''}</span>
+      version ? `&nbsp;· ${ver}` : ''}</span>
           </div>
           <p class="v4-product-desc"${eText(edit, path + '.desc')}>${renderInline(pick(it.desc, lang))}</p>
         </article>`;
@@ -355,16 +372,9 @@ function softCard(c, lang) {
 // --- /collaborate (structured) ---
 // Multi-paragraph prose is block markdown (\n\n-joined paragraphs, "- " lists).
 const liList = (items, lang, cls = 'v4-list') => `<ul class="${cls}">${(items || []).map((i) => `<li>${renderInline(pick(i, lang))}</li>`).join('')}</ul>`;
-function collabGroups(groups, lang) {
-  return (groups || []).map((g) => {
-    let inner = '';
-    if (g.kind === 'list') inner = liList(g.items, lang);
-    else inner = `<div class="v4-prose">${renderProse(pick(g.prose, lang))}</div>`;
-    return `<h3 class="v4-h3">${renderInline(pick(g.heading, lang))}</h3>\n            ${inner}`;
-  }).join('\n            ');
-}
 function tierCard(t, lang) {
   return card({
+    id: t.id,
     tag: renderInline(pick(t.tag, lang)),
     meta: renderInline(pick(t.price, lang)),
     metaClass: 'v4-pricing',
@@ -523,19 +533,6 @@ export const renderers = {
         </div>${note ? `\n        <p class="v4-terms">${renderInline(note)}</p>` : ''}${legal ? `\n        <p class="v4-terms">${renderInline(legal)}</p>` : ''}`;
   },
 
-  collabStrategy: (doc, lang) => {
-    const s = doc.sections.strategy;
-    return `<div class="v4-body">
-          <div class="v4-body-aside"></div>
-          <div>
-            <p class="v4-tagline v4-tagline--compact">${renderInline(pick(s.tagline, lang))}</p>
-            ${collabGroups(s.groups, lang)}
-            <p class="v4-terms">${renderInline(pick(s.terms, lang))}</p>
-            <div class="v4-help-cta">${btn(s.cta, lang, false, '', false, false)}</div>
-          </div>
-        </div>`;
-  },
-
   // «Как работаю / Чего не делаю» — moved here from the homepage (v0.31.1).
   collabWork: (doc, lang) => {
     const s = doc.sections.work;
@@ -548,22 +545,52 @@ export const renderers = {
         </div>`;
   },
 
-  // «Партнёрства и медиа» (v1.7.0): what the owner is open to outside paid
-  // consulting, the independence terms in the same paragraph, one button to the
-  // page's contact. No prices, no audience numbers.
+  // «Что можно сделать вместе» (v1.7.0; v4.6.0 rewritten — the first outside
+  // reader did not see what the page was about): who writes and where, the
+  // formats, each opening with its point in bold, then the independence terms
+  // (`outro`, optional) and one button to the page's contact. No prices, no
+  // employer; the audience figures are the next section's.
   collabPartnerships: (doc, lang) => {
     const s = doc.sections.partnerships;
     if (!s) return '';
+    const outro = pick(s.outro, lang);
     return `<div class="v4-body">
           <div class="v4-body-aside"></div>
           <div>
             <div class="v4-prose">
               ${renderProse(pick(s.prose, lang))}
-              ${liList(s.items, lang, 'v4-list v4-list--spaced')}
+              ${liList(s.items, lang, 'v4-list v4-list--spaced')}${outro ? `\n              ${renderProse(outro)}` : ''}
             </div>
             <div class="v4-help-cta">${btn(s.cta, lang, false, '', false, false)}</div>
           </div>
         </div>`;
+  },
+
+  // «Аудитория» on /collaborate (v4.6.0, owner 2026-11-27): who reads, in
+  // figures — the homepage's stats strip, the subscriber counts live from the
+  // same counters() (the doc's `channels` are the fallback), the other figures
+  // from the doc — then who they are, each item opening with its point in bold,
+  // then where the figures come from and when they were taken.
+  collabAudience: (doc, lang) => {
+    const s = doc.sections.audience;
+    if (!s) return '';
+    const c = counters({ stats: [{ kind: 'subscribers', channels: s.channels || {} }], _live: doc._live }, lang);
+    const figures = (s.figures || []).map((f) => {
+      const value = f.channel ? c[f.channel] || '' : escapeHtml(pick(f.value, lang));
+      const unit = f.channel ? unitFor(pick(f.unit, lang), lang, c[f.channel]) : pick(f.unit, lang);
+      return `<div class="v4-stat">
+            <div class="v4-stat-value">${value}</div>
+            <div class="v4-stat-unit">${escapeHtml(unit)}</div>
+            <div class="v4-stat-aside">${renderInline(pick(f.aside, lang))}</div>
+          </div>`;
+    }).join('\n          ');
+    const note = pick(s.note, lang);
+    return `<div class="v4-stats v4-stats--section">
+          ${figures}
+        </div>
+        <div class="v4-prose">
+          ${liList(s.items, lang, 'v4-list')}
+        </div>${note ? `\n        <p class="v4-terms">${renderInline(note)}</p>` : ''}`;
   },
 
   // /privacy «Мои инструменты»: a lead line, then the cards.

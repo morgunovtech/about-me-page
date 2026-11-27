@@ -75,7 +75,7 @@ const T = {
   },
 };
 
-const STYLES_VER = 'v=90244c91';
+const STYLES_VER = 'v=91abb7de';
 const SCRIPT_VER = 'v=f2317f0d';
 const FONTS_VER = 'v=499be680';
 const TOKENS_VER = 'v=50fa198d';

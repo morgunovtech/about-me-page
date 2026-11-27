@@ -113,13 +113,14 @@ async function handle(context) {
   // Edge-cached: a rendered copy per URL, purged by admin save / ingest.
   return cached(context, async () => {
     // The template fetch and the KV reads are independent — run them in
-    // parallel. Only the home page renders the live subscribers stat and the
-    // «Публикации» block (the three newest /notes feed entries).
+    // parallel. The home page renders the live subscribers stat and the
+    // «Публикации» block (the three newest /notes feed entries); /collaborate
+    // its «Аудитория» figures (v4.6.0).
     const isHome = route.page === 'home';
     const [response, doc, subs, feed, articles] = await Promise.all([
       next(),
       loadDoc(env, route.page),
-      isHome ? loadSubscribers(env) : null,
+      isHome || route.page === 'collaborate' ? loadSubscribers(env) : null,
       isHome ? loadHomeFeed(env, route.lang) : null,
       route.page === 'privacy' ? loadPublishedArticles(env) : null,
     ]);

@@ -46,6 +46,10 @@ export async function onRequestPost({ request, env }) {
     if (subs) doc._live = { subscribers: subs };
     doc._feed = feed;
   }
+  if (page === 'collaborate') {
+    const subs = await loadSubscribers(env); // «Аудитория» shows the live counts
+    if (subs) doc._live = { subscribers: subs };
+  }
   if (page === 'privacy') doc._articles = await loadPublishedArticles(env);
   // Same per-page JSON-LD as the public render (_middleware.js) — the preview
   // must not show the home graph on /collaborate.

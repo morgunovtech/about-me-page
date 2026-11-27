@@ -51,14 +51,18 @@ test('/consulting (v2.2.2): one proof line under the clients, no dates; who sign
 test('/consulting: the phrase first, tiers to Telegram, the home page reply time beside them', () => {
   const c = seed.consulting.sections.consulting;
   assert.deepEqual(c.prose, PHRASE);
-  assert.deepEqual(c.tiers.map((t) => t.cta.href), ['https://t.me/s_mrgnv', 'https://t.me/s_mrgnv']);
+  // Three tiers (v4.6.0): strategic consulting is a format of its own, not a part of the cycle —
+  // the first outside reader took it for one when it stood as a section under the cards.
+  assert.deepEqual(c.tiers.map((t) => t.cta.href), ['https://t.me/s_mrgnv', 'https://t.me/s_mrgnv', 'https://t.me/s_mrgnv']);
   // One label for one action, on every page (tests/stage3.test.mjs keeps the rule): a button
   // that opens the Telegram chat reads «Написать в Telegram», with no arrow.
-  assert.deepEqual(c.tiers.map((t) => t.cta.label), [0, 1].map(() => ({ ru: 'Написать в Telegram', en: 'Message me on Telegram' })));
+  assert.deepEqual(c.tiers.map((t) => t.cta.label), [0, 1, 2].map(() => ({ ru: 'Написать в Telegram', en: 'Message me on Telegram' })));
   assert.deepEqual(c.note, seed.home.sections.contact.reply);
   // Prices and the 75-minute session stay. (The emphasis of a price is the amount, the unit a
   // plain word after it: «**$300** / сессия».)
-  assert.deepEqual(c.tiers.map((t) => t.price.ru), ['**$300** / сессия', '**$2\u00a0000** / месяц']);
+  assert.deepEqual(c.tiers.map((t) => t.price.ru), ['**$300** / сессия', '**$2\u00a0000** / месяц', 'по договорённости']);
+  // Old links to the section land on its card.
+  assert.deepEqual(c.tiers.map((t) => t.id), [undefined, undefined, 'strategy']);
   assert.equal(c.tiers[0].features[0].ru, '75 минут встречи + до 45 минут подготовки');
   for (const lang of ['ru', 'en']) {
     const html = renderers.collabConsulting(seed.consulting, lang);
@@ -112,8 +116,9 @@ test('llms.txt: the phrase, e-mail second, no angel or advisor claims, one Publi
   }
   assert.ok(t.includes('writing since 2022') && !t.includes('1–2 posts'));
   // Geography as the pages say it — he worked in Russia and Uzbekistan and consults for
-  // companies in all three countries — in the summary and in «About» alike.
-  assert.equal((t.match(/worked in Russia and Uzbekistan; consults for companies in Russia, Uzbekistan and Kyrgyzstan/g) || []).length, 2);
+  // companies in any market, most often in those three (v4.6.0) — in the summary and in
+  // «About» alike.
+  assert.equal((t.match(/worked in Russia and Uzbekistan; consults for companies in any market, most often in Russia, Uzbekistan and Kyrgyzstan/g) || []).length, 2);
   assert.doesNotMatch(t, /consults companies|works in Russia/);
   // The feed names every place its external materials come from.
   assert.ok(t.includes('published elsewhere (vc.ru, YouTube, spot.uz)'));
@@ -128,7 +133,9 @@ test('copy: no «two tools», the channel since 2022, the Korzinka Go video is a
   const about = seed.home.sections.about.prose;
   assert.doesNotMatch(about.ru + about.en, /два инструмента|two tools/);
   // English as it is written: one consults FOR a company, and what is one's own is «my».
-  assert.ok(about.en.includes('I consult for companies in Russia, Uzbekistan, and Kyrgyzstan.'));
+  assert.ok(about.en.includes('I consult for companies in any market — most often in Russia, Uzbekistan and Kyrgyzstan.'));
+  // …and the door stays open to other markets (v4.6.0, an outside reader's note).
+  assert.ok(about.ru.includes('Консультирую компании на любых рынках, чаще всего — в России, Узбекистане и Кыргызстане.'));
   assert.equal(seed.home.sections.projects.title.en, 'My projects');
   assert.equal(seed.home.stats[3].unit.en, 'projects of my own');
   for (const f of ['index.html', 'en/index.html']) assert.doesNotMatch(read(f), /два инструмента|two tools/, f);
@@ -156,11 +163,13 @@ test('pages promise no angel investing or advisory (v1.2.8)', () => {
 });
 
 test('/consulting without #angel: sections in page order and unnumbered, menu points at real sections', () => {
-  assert.deepEqual(Object.keys(seed.consulting.sections), ['about', 'consulting', 'strategy', 'work', 'contact']);
+  assert.deepEqual(Object.keys(seed.consulting.sections), ['about', 'consulting', 'work', 'contact']);
   for (const f of ['consulting.html', 'en/consulting.html']) {
     const page = read(f);
     const ids = [...page.matchAll(/<section id="([^"]+)"/g)].map((m) => m[1]);
-    assert.deepEqual(ids, ['about', 'consulting', 'strategy', 'work', 'contact'], f);
+    assert.deepEqual(ids, ['about', 'consulting', 'work', 'contact'], f);
+    // #strategy (llms.txt, old links) is the third tier's card since v4.6.0.
+    assert.match(page, /<article id="strategy" class="v4-product">/, f);
     for (const [, id] of page.matchAll(/<a href="#([^"]+)"/g)) assert.ok(id === 'main' || ids.includes(id), `${f}: #${id}`);
     assert.doesNotMatch(page, /v4-section-num/, f);
   }

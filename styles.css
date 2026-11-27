@@ -171,6 +171,34 @@
   white-space: nowrap;
 }
 
+/* A figure that leads to the section holding what it counts («8 своих
+   проектов» → #projects, v4.6.0): the figure and its words are one link; the
+   words carry the orange line of a link that leads on (.v4-more), and the
+   pointer or the focus turns the figure orange. */
+.v4-stat-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.v4-stat-link .v4-stat-unit {
+  width: fit-content;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--v4-orange);
+}
+
+.v4-stat-link:hover,
+.v4-stat-link:focus-visible {
+  color: var(--v4-orange-text);
+}
+
+/* The strip inside a section (/collaborate «Аудитория»): what follows is the
+   section's own text, a head's step below — not the next section. */
+.v4-stats.v4-stats--section {
+  margin-bottom: 24px;
+}
+
 /* --- Career --- */
 
 .v4-career-row {
@@ -352,6 +380,23 @@
   white-space: nowrap;
 }
 
+/* The version → the product's changelog (v4.6.0): a word of the quiet line,
+   underlined by a hairline like the footer's build mark. */
+.v4-product-meta a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--v4-line);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.v4-product-meta a:hover,
+.v4-product-meta a:focus-visible {
+  color: var(--v4-orange-text);
+  text-decoration-color: var(--v4-orange-text);
+}
+
 /* The caption of a card: a word in the one caps style, no fill. */
 .v4-tag {
   font-size: var(--v4-label-size);
@@ -529,12 +574,19 @@
    Where the amount is marked («**$300** / сессия»), it alone is set in the ink
    and the weight of a name, a step under the card's title; the unit stays
    quiet. Ink, not orange — orange is what you can press or what is current. */
+/* The line is as tall as the 16px amount would make it, with or without one:
+   a tier priced in words («по договорённости», v4.6.0) keeps its head on the
+   line of its neighbours'. */
 .v4-pricing {
   white-space: nowrap;
+  line-height: 24px;
 }
 
 .v4-pricing strong {
   font-size: 16px;
+  /* Inside the 24px line, so the line of a card with an amount is the line of
+     one without. */
+  line-height: 1;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--v4-fg);

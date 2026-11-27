@@ -51,6 +51,7 @@ export async function onRequestPost({ request, env }) {
     updatedAt: validUpdatedAt ? ua : new Date().toISOString(),
   };
   await env.CONTENT.put('stats:subscribers', JSON.stringify(record));
-  await purge(request, PAGE_PATHS.home, env); // the counters render on / , /en/ and /llms.txt
+  // The counters render on /, /en/, /llms.txt and /collaborate «Аудитория».
+  await purge(request, [...PAGE_PATHS.home, ...PAGE_PATHS.collaborate], env);
   return json({ ok: true, stored: record });
 }

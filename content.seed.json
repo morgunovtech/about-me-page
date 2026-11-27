@@ -175,7 +175,8 @@
         "aside": {
           "ru": "с 2009 · 1 продан · 4 работают",
           "en": "since 2009 · 1 sold · 4 live"
-        }
+        },
+        "href": "#projects"
       }
     ],
     "sections": {
@@ -185,8 +186,8 @@
           "en": "About"
         },
         "prose": {
-          "ru": "Запускаю цифровые продукты на развивающихся рынках — там, где продукт, операционку и юнит‑экономику необходимо собирать параллельно, под локальный контекст.\n\nКонсультирую компании в России, Узбекистане и Кыргызстане. Среди клиентов [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about) и другие.\n\nС 2009 года запустил четыре бизнеса — один продали сотрудникам, два закрыли, один на паузе. Сейчас делаю небольшие инструменты про приватность, мониторинг и безопасность и веду [Telegram‑канал](https://t.me/raschet7). Живу в Ташкенте с ирландским терьером Тофсом.",
-          "en": "I launch digital products in emerging markets — places where product, operations, and unit economics have to be assembled in parallel, fitted to the local context.\n\nI consult for companies in Russia, Uzbekistan, and Kyrgyzstan. Clients include [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about), and others.\n\nSince 2009 I've launched four businesses — one sold to employees, two closed, one on pause. Currently building small privacy, monitoring and security tools and running a [Telegram channel](https://t.me/raschet7). I live in Tashkent with an Irish terrier named Tofs."
+          "ru": "Запускаю цифровые продукты и довожу их до прибыли — продукт, операционку и юнит‑экономику собираю одновременно.\n\nКонсультирую компании на любых рынках, чаще всего — в России, Узбекистане и Кыргызстане. Среди клиентов [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about) и другие.\n\nС 2009 года запустил четыре бизнеса — один продали сотрудникам, два закрыли, один на паузе. Сейчас делаю сервисы для бизнеса и авторов — мониторинг сайтов, безопасность аккаунтов, приватность; все бесплатные и с открытым кодом. Веду [Telegram‑канал](https://t.me/raschet7). Живу в Ташкенте с ирландским терьером Тофсом.",
+          "en": "I launch digital products and take them to profit, building product, operations and unit economics at the same time.\n\nI consult for companies in any market — most often in Russia, Uzbekistan and Kyrgyzstan. Clients include [UMAI Group](https://web.archive.org/web/20260123151317/https://www.umaigroup.kg/en/about), [Bellissimo Pizza](https://bellissimo.uz/ru/about/company), Buildex, [MediaPark](https://mediapark.uz/about), and others.\n\nSince 2009 I've launched four businesses — one sold to employees, two closed, one on pause. Now I build services for businesses and creators — website monitoring, account security, privacy; all free and open source. I run a [Telegram channel](https://t.me/raschet7). I live in Tashkent with an Irish terrier named Tofs."
         }
       },
       "career": {
@@ -209,8 +210,8 @@
               "en": "Head of FinTech"
             },
             "ctx": {
-              "ru": "BNPL, платежи, кредитные продукты. Строю и масштабирую продуктовую линейку.",
-              "en": "BNPL, payments, credit products. Building and scaling the product line."
+              "ru": "BNPL, платежи, кредитные продукты. Строю и масштабирую продуктовые линейки.",
+              "en": "BNPL, payments, credit products. Building and scaling product lines."
             }
           },
           {
@@ -312,8 +313,8 @@
             "version": "v3.13",
             "name": "TofsDevOps",
             "desc": {
-              "ru": "Сам себе DevOps в Telegram. Мониторит сайты, чинит что может, проверяет, что тебя видят поисковики и ИИ-ассистенты, — и молчит, пока всё в порядке.",
-              "en": "Your personal DevOps in Telegram: uptime, SSL, DNS, broken links, search and AI-assistant visibility. Fixes what it can and stays quiet while everything is fine."
+              "ru": "Ваш личный DevOps в Telegram. Если сайт перестал открываться, сертификат истекает или поисковики вас не видят, бот напишет первым и объяснит простыми словами, что делать. Что может, чинит сам; пока всё в порядке, молчит.",
+              "en": "Your personal DevOps in Telegram. If your site goes down, a certificate is about to expire or search engines can’t see you, it tells you first and explains in plain words what to do. It fixes what it can and stays quiet while all is well."
             },
             "cta": {
               "label": {
@@ -336,11 +337,11 @@
           {
             "repo": "morgunovtech/social-tracker-bot",
             "tag": "BOT",
-            "version": "v1.16",
+            "version": "v1.17",
             "name": "Social Tracker",
             "desc": {
-              "ru": "Telegram-бот на вашем сервере для ваших соцсетей: подписчики в Telegram, YouTube, Instagram и LinkedIn, жизнь канала и безопасность аккаунтов — признаки угона, письма безопасности, опасные комментарии, — а ещё недельный отчёт о том, как вас находят люди и ИИ-ассистенты. Молчит, пока всё в порядке.",
-              "en": "Self-hosted Telegram bot for your social accounts: followers on four networks, the life of your channel, account security alerts and a weekly reputation report."
+              "ru": "Сколько у вас подписчиков в Telegram, YouTube, Instagram и LinkedIn — одним отчётом раз в неделю. Бот сразу предупредит, если аккаунт пытаются угнать или в комментариях появилось то, за что блокируют группу. Пока всё в порядке, молчит.",
+              "en": "Your followers on Telegram, YouTube, Instagram and LinkedIn in one weekly report. The bot warns you at once if someone tries to take over an account or a comment appears that can get your group blocked. It stays quiet while all is well."
             },
             "cta": {
               "label": {
@@ -366,8 +367,8 @@
             "version": "v1.7",
             "name": "Found You",
             "desc": {
-              "ru": "Веб-приложение для тех, кто собирается поделиться фотографией: оно показывает, что снимок выдаёт о месте, времени, устройстве и людях в кадре, и делает очищенную копию, никуда не загружая файл.",
-              "en": "Check what a photo reveals before you post it: EXIF and GPS, place context, and a clean privacy-safe copy. Runs in your browser."
+              "ru": "Перед тем как выложить фото, проверьте его здесь: сервис покажет, что снимок выдаёт о месте, времени, телефоне и людях в кадре, и сделает чистую копию. Файл никуда не загружается.",
+              "en": "Before you post a photo, check it here: it shows what the picture gives away about the place, the time, your phone and the people in it, and makes a clean copy. The file never leaves your device."
             },
             "cta": {
               "label": {
@@ -389,8 +390,8 @@
             "version": "v3.3",
             "name": "Fingerprint",
             "desc": {
-              "ru": "Образовательная страница о приватности для людей без технической подготовки: шесть шагов от включения ноутбука до открытого сайта, и на каждом, на ваших реальных данных, кто и что о вас узнаёт и что с этим делать.",
-              "en": "Online privacy explained in six steps, from opening your laptop to a loaded site: who learns what about you at each step, on your real data, and what to do."
+              "ru": "Что о вас узнают, пока открывается сайт: шесть шагов от включения ноутбука до загруженной страницы — на ваших реальных данных и простыми словами. И что сделать на каждом шаге.",
+              "en": "What gets learned about you while a website opens: six steps from switching on your laptop to a loaded page, on your real data and in plain words — and what to do at each step."
             },
             "cta": {
               "label": {
@@ -1215,6 +1216,46 @@
                 "en": "Message me on Telegram"
               }
             }
+          },
+          {
+            "id": "strategy",
+            "tag": {
+              "ru": "ДОЛГОСРОЧНО",
+              "en": "LONG-TERM"
+            },
+            "price": {
+              "ru": "по договорённости",
+              "en": "by agreement"
+            },
+            "name": {
+              "ru": "Стратегический консалтинг",
+              "en": "Strategic consulting"
+            },
+            "features": [
+              {
+                "ru": "Работаю как внешний стратег: встречи 2–4 раза в месяц и async-доступ между ними",
+                "en": "I work as an external strategist: meetings 2–4 times a month, async access in between"
+              },
+              {
+                "ru": "Участвую в стратегических сессиях и ключевых решениях на уровне CEO / совета директоров",
+                "en": "I take part in strategic sessions and key decisions at the CEO / board level"
+              },
+              {
+                "ru": "Слежу за ключевыми метриками и сигнализирую, если что-то буксует; помогаю с наймом на senior-позиции",
+                "en": "I track key metrics and flag what stalls; I help hire for senior roles"
+              },
+              {
+                "ru": "Для фаундеров и CEO, которым важна «вторая голова» с операционным опытом",
+                "en": "For founders and CEOs who need a “second brain” with hands-on operating experience"
+              }
+            ],
+            "cta": {
+              "href": "https://t.me/s_mrgnv",
+              "label": {
+                "ru": "Написать в Telegram",
+                "en": "Message me on Telegram"
+              }
+            }
           }
         ],
         "note": {
@@ -1224,82 +1265,6 @@
         "legal": {
           "ru": "Договор и счёт — от ООО «MOR TECH», [резидента IT Park](https://www.it-park.uz/ru/itpark/residents/itpark-residents).",
           "en": "Contract and invoice from MOR TECH LLC, [an IT Park resident](https://www.it-park.uz/en/itpark/residents/itpark-residents)."
-        }
-      },
-      "strategy": {
-        "title": {
-          "ru": "Стратегический консалтинг",
-          "en": "Strategic consulting"
-        },
-        "groups": [
-          {
-            "heading": {
-              "ru": "Что делаю",
-              "en": "What I do"
-            },
-            "kind": "list",
-            "items": [
-              {
-                "ru": "Участвую в стратегических сессиях и ключевых решениях на уровне CEO / совета директоров",
-                "en": "Participate in strategic sessions and key decisions at the CEO / board level"
-              },
-              {
-                "ru": "Помогаю системно развивать продукт, маркетинг и операционную модель",
-                "en": "Help systematically develop product, marketing, and operating model"
-              },
-              {
-                "ru": "Слежу за прогрессом по ключевым метрикам и сигнализирую, если что-то буксует",
-                "en": "Track progress on key metrics and flag issues before they become problems"
-              },
-              {
-                "ru": "Делюсь контактами и помогаю с наймом на senior-позиции",
-                "en": "Share contacts and help hire for senior roles"
-              }
-            ]
-          },
-          {
-            "heading": {
-              "ru": "Формат",
-              "en": "Format"
-            },
-            "kind": "list",
-            "items": [
-              {
-                "ru": "Регулярные встречи 2–4 раза в месяц",
-                "en": "Regular meetings 2–4 times per month"
-              },
-              {
-                "ru": "Async-доступ между встречами",
-                "en": "Async access between meetings"
-              }
-            ]
-          },
-          {
-            "heading": {
-              "ru": "Кому подойдёт",
-              "en": "Best for"
-            },
-            "kind": "prose",
-            "prose": {
-              "ru": "Фаундерам, CPO/CEO в e-com, ритейле, FinTech и digital-продуктах, которым важна «вторая голова» с операционным опытом.",
-              "en": "Founders, CPOs, and CEOs in e-com, retail, FinTech, and digital products who need a “second brain” with hands-on operating experience."
-            }
-          }
-        ],
-        "terms": {
-          "ru": "Условия обсуждаются индивидуально.",
-          "en": "Terms discussed individually."
-        },
-        "cta": {
-          "href": "https://t.me/s_mrgnv",
-          "label": {
-            "ru": "Написать в Telegram",
-            "en": "Message me on Telegram"
-          }
-        },
-        "tagline": {
-          "ru": "Долгосрочное партнёрство: работаю как внешний стратег.",
-          "en": "Long-term partnership: I work as an external strategist."
         }
       },
       "work": {
@@ -1388,8 +1353,8 @@
         "en": "Partnerships & Media — Semyon Morgunov"
       },
       "description": {
-        "ru": "Открыт к уместным предложениям: тестировать продукты, давать независимую обратную связь, участвовать в технологическом просвещении. Без обещаний положительных отзывов и обязательств по числу публикаций.",
-        "en": "Open to relevant opportunities: testing products, independent feedback, technology education. No guaranteed positive reviews and no posting quotas."
+        "ru": "Обзоры, бета-тесты, выступления и комментарии для СМИ — для компаний, PR-команд и организаторов событий. Кто меня читает — в цифрах. Без обещаний положительных отзывов.",
+        "en": "Reviews, beta tests, talks and press comments — for companies, PR teams and event organisers. Who reads me, in figures. No promised positive reviews."
       }
     },
     "share": {
@@ -1398,8 +1363,8 @@
         "en": "Partnerships & Media — Semyon Morgunov"
       },
       "description": {
-        "ru": "Открыт к уместным предложениям: тестировать продукты, давать независимую обратную связь, участвовать в технологическом просвещении. Без обещаний положительных отзывов и обязательств по числу публикаций.",
-        "en": "Open to relevant opportunities: testing products, independent feedback, technology education. No guaranteed positive reviews and no posting quotas."
+        "ru": "Обзоры, бета-тесты, выступления и комментарии для СМИ — для компаний, PR-команд и организаторов событий. Кто меня читает — в цифрах. Без обещаний положительных отзывов.",
+        "en": "Reviews, beta tests, talks and press comments — for companies, PR teams and event organisers. Who reads me, in figures. No promised positive reviews."
       },
       "image": {
         "ru": "/images/og-card-ru.png",
@@ -1416,8 +1381,8 @@
         "en": "Partnerships & media"
       },
       "tagline": {
-        "ru": "Тестирую продукты, даю независимую обратную связь и участвую в технологическом просвещении.",
-        "en": "I test products, give independent feedback and contribute to technology education."
+        "ru": "Для компаний, PR-команд и организаторов событий, которым нужен честный взгляд практика: обзоры, бета-тесты, выступления, комментарии для СМИ.",
+        "en": "For companies, PR teams and event organisers who want an honest practitioner’s view: reviews, beta tests, talks, press comments."
       },
       "ctas": {
         "ru": "",
@@ -1431,33 +1396,37 @@
     "sections": {
       "partnerships": {
         "title": {
-          "ru": "Партнёрства и медиа",
-          "en": "Partnerships & Media"
+          "ru": "Что можно сделать вместе",
+          "en": "What we can do together"
         },
         "prose": {
-          "ru": "Открыт к уместным предложениям: тестировать продукты, давать независимую обратную связь, приезжать на производства и участвовать в технологическом просвещении. Редакционная независимость не обсуждается: не обещаю положительных отзывов и не беру обязательств по числу публикаций.",
-          "en": "I welcome relevant opportunities to test products, provide independent feedback, visit manufacturing facilities and contribute to technology education. Editorial independence is non-negotiable; I do not accept guaranteed positive reviews or recurring posting quotas."
+          "ru": "Десять лет делаю продукты — в EdTech, e-com и финтехе — и пишу о технологиях, продукте и управлении: в Telegram — на русском, в LinkedIn — на английском. Кто это читает — ниже, в «Аудитории».",
+          "en": "For ten years I’ve built products in EdTech, e-commerce and fintech, and I write about technology, product and management — in Russian on Telegram, in English on LinkedIn. Who reads it is below, under “Audience”."
         },
         "items": [
           {
-            "ru": "Независимая обратная связь по продукту",
-            "en": "Independent product feedback"
+            "ru": "**Обзор продукта или устройства.** Сначала пользуюсь сам, потом пишу как есть — в канале и в LinkedIn.",
+            "en": "**A product or device review.** I use it first, then write what I found — on Telegram and LinkedIn."
           },
           {
-            "ru": "Устройства на обзор",
-            "en": "Review units"
+            "ru": "**Бета-тест.** Смотрю на продукт глазами продакт-менеджера и говорю, где пользователь теряется.",
+            "en": "**A beta test.** I look at the product as a product manager and tell you where users get lost."
           },
           {
-            "ru": "Бета-программы",
-            "en": "Beta programs"
+            "ru": "**Выступление, панель или жюри.** Выступал на INMerge Tashkent, Click Data MeetUp и Managers Conf, был ментором President Tech Award и судьёй Startup Weekend и TechGenius.",
+            "en": "**A talk, a panel or a jury.** I’ve spoken at INMerge Tashkent, Click Data MeetUp and Managers Conf, mentored at the President Tech Award and judged Startup Weekend and TechGenius."
           },
           {
-            "ru": "Приглашения для прессы",
-            "en": "Press invitations"
+            "ru": "**Комментарий для СМИ или подкаста.** О e-com, запуске продуктов и управлении командами.",
+            "en": "**A comment for media or a podcast.** On e-commerce, launching products and managing teams."
           },
           {
-            "ru": "Спонсорство открытых проектов",
-            "en": "Open-source sponsorship"
+            "ru": "**Приглашение на запуск или производство.** Приеду, посмотрю, как всё устроено, и напишу, если будет о чём.",
+            "en": "**An invitation to a launch or a factory.** I’ll come, see how it works and write about it if there is something to tell."
+          },
+          {
+            "ru": "**Спонсорство открытых проектов.** Мои сервисы бесплатные и с открытым кодом.",
+            "en": "**Open-source sponsorship.** My services are free and open source."
           }
         ],
         "cta": {
@@ -1466,6 +1435,104 @@
             "ru": "Написать в Telegram",
             "en": "Message me on Telegram"
           }
+        },
+        "outro": {
+          "ru": "Редакционная независимость не обсуждается: не обещаю положительных отзывов и не беру обязательств по числу публикаций.",
+          "en": "Editorial independence is non-negotiable; I do not accept guaranteed positive reviews or recurring posting quotas."
+        }
+      },
+      "audience": {
+        "title": {
+          "ru": "Аудитория",
+          "en": "Audience"
+        },
+        "channels": {
+          "telegram": {
+            "ru": "1 158",
+            "en": "1,158"
+          },
+          "linkedin": {
+            "ru": "5 016",
+            "en": "5,016"
+          }
+        },
+        "figures": [
+          {
+            "channel": "telegram",
+            "unit": {
+              "ru": "подписчиков в Telegram",
+              "en": "Telegram subscribers"
+            },
+            "aside": {
+              "ru": "канал «Семён расправил плечи», на русском",
+              "en": "the channel “Semyon raspravil plechi”, in Russian"
+            }
+          },
+          {
+            "value": {
+              "ru": "384",
+              "en": "384"
+            },
+            "unit": {
+              "ru": "просмотра у поста в Telegram",
+              "en": "views per Telegram post"
+            },
+            "aside": {
+              "ru": "в среднем пост читает треть подписчиков",
+              "en": "on average a third of subscribers read a post"
+            }
+          },
+          {
+            "channel": "linkedin",
+            "unit": {
+              "ru": "подписчиков в LinkedIn",
+              "en": "LinkedIn followers"
+            },
+            "aside": {
+              "ru": "посты на английском",
+              "en": "posts in English"
+            }
+          },
+          {
+            "value": {
+              "ru": "114 тыс.",
+              "en": "114K"
+            },
+            "unit": {
+              "ru": "показов в LinkedIn за год",
+              "en": "LinkedIn impressions a year"
+            },
+            "aside": {
+              "ru": "31 тыс. человек, 64% — вне моих контактов",
+              "en": "31K people, 64% outside my network"
+            }
+          }
+        ],
+        "items": [
+          {
+            "ru": "**Кто.** 71% подписчиков в LinkedIn — senior-специалисты и руководители: директора — 17%, C-level — 13%. Чаще других — продакт-менеджеры, CEO, фаундеры и CPO.",
+            "en": "**Who.** 71% of my LinkedIn followers are senior specialists and managers: directors 17%, C-level 13%. The most common titles: product manager, CEO, founder, CPO."
+          },
+          {
+            "ru": "**Где.** Москва — 15%, Ташкент — 14%; дальше Лондон, Петербург, Тбилиси, Белград, Берлин, Барселона, Сан-Франциско и Амстердам.",
+            "en": "**Where.** Moscow 15%, Tashkent 14%; then London, Saint Petersburg, Tbilisi, Belgrade, Berlin, Barcelona, the San Francisco Bay Area and Amsterdam."
+          },
+          {
+            "ru": "**Отрасли.** IT-сервисы и консалтинг — 20%, интернет — 14%, финансы и банки — 10%, разработка ПО — 7%, ритейл — 5%.",
+            "en": "**Industries.** IT services and consulting 20%, internet 14%, finance and banking 10%, software development 7%, retail 5%."
+          },
+          {
+            "ru": "**Компании.** От стартапов до корпораций: треть подписчиков работает в компаниях от 1000 человек, ещё треть — до 200.",
+            "en": "**Companies.** From startups to corporations: a third work at companies of 1,000+ people, another third at companies of up to 200."
+          },
+          {
+            "ru": "**Цитирование.** Канал в Telegram упоминали 117 раз в 19 других каналах.",
+            "en": "**Citations.** Other Telegram channels have mentioned mine 117 times, 19 channels in all."
+          }
+        ],
+        "note": {
+          "ru": "Число подписчиков обновляется само; остальное — из аналитики LinkedIn и TGStat на 27 ноября 2026 года.",
+          "en": "Subscriber counts update by themselves; the rest is from LinkedIn analytics and TGStat as of 27 November 2026."
         }
       },
       "contact": {
@@ -1561,8 +1628,8 @@
             "version": "v3.3",
             "name": "Fingerprint",
             "desc": {
-              "ru": "Образовательная страница о приватности для людей без технической подготовки: шесть шагов от включения ноутбука до открытого сайта, и на каждом, на ваших реальных данных, кто и что о вас узнаёт и что с этим делать.",
-              "en": "Online privacy explained in six steps, from opening your laptop to a loaded site: who learns what about you at each step, on your real data, and what to do."
+              "ru": "Что о вас узнают, пока открывается сайт: шесть шагов от включения ноутбука до загруженной страницы — на ваших реальных данных и простыми словами. И что сделать на каждом шаге.",
+              "en": "What gets learned about you while a website opens: six steps from switching on your laptop to a loaded page, on your real data and in plain words — and what to do at each step."
             },
             "cta": {
               "label": {
@@ -1581,8 +1648,8 @@
             "version": "v1.7",
             "name": "Found You",
             "desc": {
-              "ru": "Веб-приложение для тех, кто собирается поделиться фотографией: оно показывает, что снимок выдаёт о месте, времени, устройстве и людях в кадре, и делает очищенную копию, никуда не загружая файл.",
-              "en": "Check what a photo reveals before you post it: EXIF and GPS, place context, and a clean privacy-safe copy. Runs in your browser."
+              "ru": "Перед тем как выложить фото, проверьте его здесь: сервис покажет, что снимок выдаёт о месте, времени, телефоне и людях в кадре, и сделает чистую копию. Файл никуда не загружается.",
+              "en": "Before you post a photo, check it here: it shows what the picture gives away about the place, the time, your phone and the people in it, and makes a clean copy. The file never leaves your device."
             },
             "cta": {
               "label": {
