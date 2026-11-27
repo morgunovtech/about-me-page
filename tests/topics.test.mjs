@@ -7,7 +7,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-import { topicsOf, buildFeed, liveTopics, topicNavHtml, topicUrl, notesList, feedItemHtml } from '../functions/_lib/notes-feed.js';
+import { topicsOf, buildFeed, liveTopics, topicNavHtml, topicUrl, notesList, feedItemHtml, isEssay, noteKind, ESSAYS } from '../functions/_lib/notes-feed.js';
+import { feedSource } from '../functions/_lib/render.js';
+import { thanksLine } from '../functions/_lib/article-template.js';
 import { cleanTags, indexEntry, makeArticleDoc } from '../functions/_lib/articles.js';
 import { notesIndexHtml } from '../functions/_lib/article-template.js';
 import { topicPaths, NOTES_PATHS } from '../functions/_lib/cache.js';
@@ -23,8 +25,8 @@ const articles = [
   A('n', '2023-01-01', []),
 ];
 
-test('the six topics of the owner’s table of contents, in its order', () => {
-  assert.deepEqual(topicsOf(notesDoc).map((t) => t.key), ['management', 'productivity', 'career', 'tech-history', 'tools', 'privacy']);
+test('essays first, then the six topics of the owner’s table of contents, in its order', () => {
+  assert.deepEqual(topicsOf(notesDoc).map((t) => t.key), ['essays', 'management', 'productivity', 'career', 'tech-history', 'tools', 'privacy']);
   for (const t of topicsOf(notesDoc)) {
     for (const l of ['ru', 'en']) {
       assert.ok(t.name[l].trim() && t.intro[l].trim(), `${t.key}.${l}`);
@@ -151,4 +153,34 @@ test('crawlers and assistants see the topics: sitemap, RSS categories, JSON-LD k
   assert.match(txt, /### Other notes\n\n- \[T n\]/);
   assert.equal(notesList([], notesDoc), '');
   assert.match(read('llms.txt'), /^\{notes\}$/m);
+});
+
+test('v4.10.0: an own publication tagged «essays» is an essay — its row says «Эссе», the filter is a topic line item, its page is a topic page', () => {
+  assert.equal(ESSAYS, 'essays');
+  const essay = A('w', '2026-11-08', ['essays', 'tech-history']);
+  const note = A('n2', '2026-06-09', ['career']);
+  assert.ok(isEssay(essay) && !isEssay(note) && !isEssay({}) && !isEssay(null));
+  assert.equal(noteKind(essay, 'ru'), 'Эссе');
+  assert.equal(noteKind(essay, 'en'), 'Essay');
+  assert.equal(noteKind(note, 'ru'), 'Заметка');
+  assert.equal(noteKind(note, 'en'), 'Note');
+  // The row's source slot: «Эссе» for the essay, «Заметка» for a note, the platform for an external material.
+  assert.equal(feedSource({ kind: 'note', item: essay }, 'ru'), 'Эссе');
+  assert.equal(feedSource({ kind: 'note', item: note }, 'ru'), 'Заметка');
+  assert.equal(feedSource({ kind: 'external', item: { href: 'https://www.spot.uz/ru/x' } }, 'ru'), 'spot.uz');
+  // The filter: «Эссе» right after «Все», with its count, a page of its own — only once there is one.
+  const feed = [essay, note];
+  const topics = liveTopics(feed, notesDoc, 'ru');
+  assert.equal(topics[0].key, 'essays');
+  assert.equal(topics[0].count, 1);
+  assert.deepEqual(buildFeed(feed, notesDoc, 'ru', 'essays').map((e) => e.item.slug), ['w']);
+  const nav = topicNavHtml(topics, 'ru', null, buildFeed(feed, notesDoc, 'ru').length);
+  assert.ok(nav.indexOf('>Все<') < nav.indexOf('>Эссе<') && nav.indexOf('>Эссе<') < nav.indexOf('>История технологий<'), nav);
+  assert.match(nav, /<a href="\/notes\/topics\/essays">Эссе<span class="v4-count">/);
+  assert.equal(topicUrl('essays', 'en'), '/en/notes/topics/essays');
+  assert.ok(!liveTopics([note], notesDoc, 'ru').some((t) => t.key === 'essays'), 'no essays, no filter');
+  // An essay ends with its own thanks line; the shell keeps the note's.
+  assert.equal(thanksLine('ru', true), 'Если эссе пригодилось — <a href="/thanks">вот как можно сказать спасибо</a>.');
+  assert.equal(thanksLine('en', true), 'If this essay was useful, <a href="/en/thanks">here’s how you can say thanks</a>.');
+  assert.match(read('functions/_lib/render-article.js'), /if \(isEssay\(doc\)\) doc\._thanksHtml = thanksLine\(lang, true\);/);
 });

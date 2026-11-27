@@ -37,6 +37,17 @@ export const TOPIC_KEY = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 export function topicsOf(notesDoc) {
   return ((notesDoc && notesDoc.topics) || []).filter((t) => t && TOPIC_KEY.test(String(t.key || '')));
 }
+// Essays (v4.10.0): an own publication tagged `essays` — the first topic of the
+// notes doc, a format rather than a subject — is an essay. It has the topic's page
+// like any topic (/notes/topics/essays), and where a row names what a publication
+// is («Заметка», «spot.uz», «YouTube») it reads «Эссе» instead of «Заметка».
+export const ESSAYS = 'essays';
+export const isEssay = (item) => !!item && Array.isArray(item.tags) && item.tags.includes(ESSAYS);
+export function noteKind(item, lang) {
+  const en = lang === 'en';
+  return isEssay(item) ? (en ? 'Essay' : 'Эссе') : en ? 'Note' : 'Заметка';
+}
+
 export const topicUrl = (key, lang) => (lang === 'en' ? '/en' : '') + '/notes/topics/' + key;
 const tagged = (x, topic) => !topic || (Array.isArray(x.tags) && x.tags.includes(topic));
 
