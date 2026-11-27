@@ -36,8 +36,10 @@ test('v4.7.0: the page in the brief\'s order — interests, formats, selected wo
 
 test('the hero: who the owner is and what he looks for, ONE button — to the page\'s contact — and three figures', () => {
   assert.equal(c.hero.name.ru, 'Партнёрства и медиа');
-  assert.match(c.hero.tagline.ru, /^Я руковожу финтехом в Yandex Uzbekistan/);
-  assert.match(c.hero.tagline.en, /^I lead FinTech at Yandex Uzbekistan/);
+  // v4.8.0 (owner): no employer on the page of personal collaboration — «a large tech company».
+  assert.match(c.hero.tagline.ru, /^Я руковожу финтехом в крупной технологической компании/);
+  assert.match(c.hero.tagline.en, /^I lead FinTech at a large tech company/);
+  for (const [f] of PAGES) assert.doesNotMatch(read(f).split('</main>')[0], /Yandex|Яндекс/, `${f}: no employer named`);
   for (const [f, lang] of PAGES) {
     const hero = read(f).split('<section class="v4-hero')[1].split('</section>')[0];
     const buttons = hero.match(/<a class="v4-btn[^"]*"[^>]*>[^<]*<\/a>/g) || [];
@@ -46,6 +48,9 @@ test('the hero: who the owner is and what he looks for, ONE button — to the pa
     assert.ok(hero.indexOf('v4-cta-row') < hero.indexOf('v4-stats--three'), f);
     assert.equal((hero.match(/class="v4-stat"/g) || []).length, 3, f);
   }
+  // One LinkedIn figure in the hero, not two (v4.8.0): the third is Telegram Premium.
+  assert.deepEqual(c.heroStats.map((x) => (x.total ? 'total' : x.value.ru)), ['total', '71%', '46%']);
+  assert.match(c.heroStats[2].unit.ru, /Telegram Premium/);
   // The first figure is the total of the follows — the homepage's counters, Instagram included
   // (v4.7.0: the owner's 6 476 = Telegram + LinkedIn + YouTube + Instagram).
   assert.equal(c.heroStats[0].total, true);
@@ -96,22 +101,30 @@ test('selected work comes from the publications feed — notes by slug, external
   assert.deepEqual(S.examples.more.map((m) => m.href.ru), ['/notes', '/#projects']);
 });
 
-test('the audience: the follows with their parts (live), one figure a platform with its period and source, LinkedIn\'s profile said to be LinkedIn\'s', () => {
+test('the audience (v4.8.0): an infographic at a glance — where people follow (live), seniority, industries, cities (LinkedIn\'s, said so) — the reach in a line, the profiles to click through', () => {
   assert.deepEqual(Object.keys(S.audience.channels).sort(), ['instagram', 'linkedin', 'telegram', 'youtube']);
-  assert.deepEqual(S.audience.figures.map((f) => f.channel || f.unit.en), ['linkedin', 'telegram', 'views of my vc.ru posts', 'YouTube views']);
-  // Percentages of impressions say so: «64% показов», not 64% of people.
-  assert.match(S.audience.figures[0].aside.ru, /64% показов/);
-  assert.match(S.audience.figures[1].aside.ru, /46% — с Telegram Premium/);
-  assert.match(S.audience.profileTitle.ru, /LinkedIn/);
-  assert.match(S.audience.summary.ru, /не уникальные люди/);
+  assert.deepEqual(S.audience.groups.map((g) => g.kind || g.title.en), ['channels', 'Seniority · LinkedIn', 'Industries · LinkedIn', 'Cities · LinkedIn']);
+  for (const g of S.audience.groups.slice(1)) assert.match(g.title.ru, /LinkedIn$/, 'a LinkedIn share says it is LinkedIn\'s');
   assert.match(S.audience.note.ru, /27 ноября 2026/);
   for (const src of ['LinkedIn', 'Telegram', 'TGStat', 'vc.ru', 'YouTube']) assert.ok(S.audience.note.ru.includes(src), src);
   const live = { ...c, _live: { subscribers: { telegram: 1161, linkedin: 5022, youtube: 126, instagram: 181 } } };
   const ru = renderers.collabAudience(live, 'ru');
-  assert.match(ru, new RegExp(`Подписок в соцсетях — 6${nb}490: LinkedIn — 5${nb}022, Telegram — 1${nb}161, Instagram — 181, YouTube — 126`));
-  assert.match(ru, new RegExp(`<div class="v4-stat-value">1${nb}161</div>\\s*<div class="v4-stat-unit">подписчик в Telegram</div>`));
-  // The figures are figures: no links among them.
-  for (const [f] of PAGES) assert.doesNotMatch(section(read(f), 'audience'), /<a\s/, f);
+  // Where people follow: the live counts, the bar of each the share of the largest.
+  assert.match(ru, new RegExp(`<li class="v4-meter-row"><span class="v4-meter-label">LinkedIn</span><span class="v4-meter-value">5${nb}022</span><span class="v4-meter" aria-hidden="true"><span class="v4-meter-fill" style="width: 100%"></span></span></li>`));
+  assert.match(ru, new RegExp(`<span class="v4-meter-label">Telegram</span><span class="v4-meter-value">1${nb}161</span><span class="v4-meter" aria-hidden="true"><span class="v4-meter-fill" style="width: 23%"></span>`));
+  // A LinkedIn share: its figure beside its label, the bar scaled to the group's largest.
+  assert.match(ru, /<span class="v4-meter-label">Москва<\/span><span class="v4-meter-value">15%<\/span><span class="v4-meter" aria-hidden="true"><span class="v4-meter-fill" style="width: 100%">/);
+  assert.match(ru, /<span class="v4-meter-label">Ташкент<\/span><span class="v4-meter-value">14%<\/span><span class="v4-meter" aria-hidden="true"><span class="v4-meter-fill" style="width: 93%">/);
+  // The profiles: every network the page counts, and vc.ru and GitHub — each opens in a new tab.
+  const profiles = S.audience.profiles.map((p) => p.href);
+  for (const host of ['linkedin.com/in/semyon-morgunov', 't.me/raschet7', 'instagram.com/semyon.morgunov', 'youtube.com/@semyon_morgunov', 'vc.ru/id679509', 'github.com/morgunovtech']) {
+    assert.ok(profiles.some((h) => h.includes(host)), host);
+  }
+  for (const [f] of PAGES) {
+    const links = section(read(f), 'audience').match(/<a\s[^>]*>/g) || [];
+    assert.equal(links.length, S.audience.profiles.length, `${f}: the profiles are the section's only links`);
+    for (const a of links) assert.match(a, /target="_blank" rel="noopener noreferrer"/, f);
+  }
   // The page that shows the counts loads them and is purged when they arrive.
   assert.match(read('functions/api/ingest/subscribers.js'), /PAGE_PATHS\.collaborate/);
   assert.match(read('functions/_middleware.js'), /isHome \|\| isCollab \? loadSubscribers\(env\)/);

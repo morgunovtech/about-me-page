@@ -642,24 +642,45 @@ export const renderers = {
       rows.length ? `<div class="v4-notes-feed">\n          ${rows.join('\n          ')}\n        </div>\n        ` : ''}${more}`;
   },
 
-  // «Аудитория и площадки»: the follows with their parts (live), then one
-  // figure per platform with its own measures and period (LinkedIn, Telegram,
-  // vc.ru, YouTube), then who follows on LinkedIn — said to be LinkedIn's —
-  // and the languages, then where every figure comes from and when.
+  // «Аудитория» (v4.8.0, the owner: «за один взгляд понятно, кто меня читает»):
+  // four small groups of bars — where people follow (the live counts of the
+  // networks) and, from LinkedIn's analytics, seniority, industries, cities —
+  // each a caption, a label and its figure on a line and a thin bar under them,
+  // the bar's length the share of the group's largest; then the reach in one
+  // line, the profiles to click through, and where it all comes from. The bars
+  // are drawing (aria-hidden): the figure beside the label is the data.
   collabAudience: (doc, lang) => {
     const s = doc.sections.audience;
     if (!s) return '';
     const c = collabCounters(doc, lang);
-    const summary = String(pick(s.summary, lang) || '').replace(/\{(total|telegram|linkedin|youtube|instagram)\}/g, (m, k) => (c[k] != null ? c[k] : m));
-    const figures = (s.figures || []).map((f) => collabFigure(f, c, lang)).join('\n          ');
+    const num = (v) => Number(String(v == null ? '' : v).replace(/\D/g, '')) || 0;
+    const NAMES = Object.fromEntries(CHANNELS.map(([ch, , name]) => [ch, name]));
+    const bars = (rows) => {
+      const max = Math.max(...rows.map((r) => r.n), 1);
+      return `<ul class="v4-meters">${rows.map((r) => `
+              <li class="v4-meter-row"><span class="v4-meter-label">${r.label}</span><span class="v4-meter-value">${r.value}</span><span class="v4-meter" aria-hidden="true"><span class="v4-meter-fill" style="width: ${Math.max(2, Math.round((r.n / max) * 100))}%"></span></span></li>`).join('')}
+            </ul>`;
+    };
+    const groups = (s.groups || []).map((g) => {
+      const rows = g.kind === 'channels'
+        ? (g.order || []).filter((ch) => c[ch] != null).map((ch) => ({ label: escapeHtml(NAMES[ch] || ch), value: c[ch], n: num(c[ch]) }))
+        : (g.rows || []).map((r) => ({ label: escapeHtml(pick(r.label, lang)), value: `${r.share}%`, n: Number(r.share) || 0 }));
+      const foot = pick(g.foot, lang);
+      return `<div class="v4-aud-group">
+            <h3 class="v4-h3">${escapeHtml(pick(g.title, lang))}</h3>
+            ${bars(rows)}${foot ? `\n            <p class="v4-aud-foot">${renderInline(foot)}</p>` : ''}
+          </div>`;
+    }).join('\n          ');
+    const reach = pick(s.reach, lang);
+    const profiles = (s.profiles || []).map((p) => {
+      const href = safeHref(p.href);
+      return `<a href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(pick(p.label, lang))}<span class="sr-only">${NEW_TAB[lang === 'en' ? 'en' : 'ru']}</span></a>`;
+    }).join('<span aria-hidden="true"> · </span>');
     const note = pick(s.note, lang);
-    const languages = pick(s.languages, lang);
-    return `${summary ? `<p class="v4-tagline v4-tagline--compact">${renderInline(summary)}</p>\n        ` : ''}<div class="v4-stats v4-stats--section">
-          ${figures}
-        </div>${s.profileTitle ? `\n        <h3 class="v4-h3">${escapeHtml(pick(s.profileTitle, lang))}</h3>` : ''}
-        <div class="v4-prose">
-          ${liList(s.items, lang, 'v4-list')}
-        </div>${languages ? `\n        <h3 class="v4-h3">${escapeHtml(pick(s.languagesTitle, lang))}</h3>\n        <div class="v4-prose">${renderProse(languages)}</div>` : ''}${
+    return `<div class="v4-aud">
+          ${groups}
+        </div>${reach ? `\n        <div class="v4-prose">\n          <p>${renderInline(reach)}</p>\n        </div>` : ''}${
+      profiles ? `\n        <p class="v4-aud-profiles"><span class="v4-aud-profiles-title">${escapeHtml(pick(s.profilesTitle, lang))}:</span> ${profiles}</p>` : ''}${
       note ? `\n        <p class="v4-terms">${renderInline(note)}</p>` : ''}`;
   },
 
