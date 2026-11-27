@@ -313,8 +313,8 @@
             "version": "v3.13",
             "name": "TofsDevOps",
             "desc": {
-              "ru": "Ваш личный DevOps в Telegram. Если сайт перестал открываться, сертификат истекает или поисковики вас не видят, бот напишет первым и объяснит простыми словами, что делать. Что может, чинит сам; пока всё в порядке, молчит.",
-              "en": "Your personal DevOps in Telegram. If your site goes down, a certificate is about to expire or search engines can’t see you, it tells you first and explains in plain words what to do. It fixes what it can and stays quiet while all is well."
+              "ru": "Сам себе DevOps в Telegram. Если сайт перестал открываться, сертификат скоро истечёт или поисковики и ИИ-ассистенты перестали его видеть, бот напишет первым и объяснит простыми словами, что делать. Что может, чинит сам; пока всё в порядке, молчит.",
+              "en": "Your personal DevOps in Telegram. If your site goes down, its certificate is about to expire or search engines and AI assistants stop seeing it, the bot tells you first and explains in plain words what to do. It fixes what it can and stays quiet while all is well."
             },
             "cta": {
               "label": {
@@ -367,8 +367,8 @@
             "version": "v1.7",
             "name": "Found You",
             "desc": {
-              "ru": "Перед тем как выложить фото, проверьте его здесь: сервис покажет, что снимок выдаёт о месте, времени, телефоне и людях в кадре, и сделает чистую копию. Файл никуда не загружается.",
-              "en": "Before you post a photo, check it here: it shows what the picture gives away about the place, the time, your phone and the people in it, and makes a clean copy. The file never leaves your device."
+              "ru": "Перед тем как выложить фото, проверьте, что оно о вас выдаёт: место, время, телефон и людей в кадре. Сервис сделает чистую копию, а файл никуда не загружается.",
+              "en": "Before you post a photo, see what it gives away: the place, the time, your phone and the people in it. The app makes a clean copy, and the file never leaves your device."
             },
             "cta": {
               "label": {
@@ -1648,8 +1648,8 @@
             "version": "v1.7",
             "name": "Found You",
             "desc": {
-              "ru": "Перед тем как выложить фото, проверьте его здесь: сервис покажет, что снимок выдаёт о месте, времени, телефоне и людях в кадре, и сделает чистую копию. Файл никуда не загружается.",
-              "en": "Before you post a photo, check it here: it shows what the picture gives away about the place, the time, your phone and the people in it, and makes a clean copy. The file never leaves your device."
+              "ru": "Перед тем как выложить фото, проверьте, что оно о вас выдаёт: место, время, телефон и людей в кадре. Сервис сделает чистую копию, а файл никуда не загружается.",
+              "en": "Before you post a photo, see what it gives away: the place, the time, your phone and the people in it. The app makes a clean copy, and the file never leaves your device."
             },
             "cta": {
               "label": {
