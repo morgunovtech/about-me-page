@@ -521,7 +521,7 @@ export const renderers = {
     const mails = sec.ctas.map((c, i) => (isMail(c)
       ? `<a href="${escapeAttr(safeHref(hrefOf(c)))}"${eText(edit, 'sections.contact.ctas.' + i + '.label')}>${escapeHtml(pick(c.label, lang))}</a>`
       : '')).filter(Boolean);
-    const alt = mails.length ? `\n            <p class="v4-contact-alt">${lang === 'en' ? 'Or by e-mail: ' : 'Или на почту: '}${mails.join(', ')}</p>` : '';
+    const alt = mails.length ? `\n            <p class="v4-contact-alt">${lang === 'en' ? 'Or e-mail ' : 'Или на почту '}${mails.join(', ')}</p>` : '';
     const links = (sec.links || []).map((l, i) => moreLink(l, lang, edit, 'sections.contact.links.' + i)).join('\n              ');
     return `<div class="v4-contact">
           <div class="v4-contact-text">

@@ -93,7 +93,7 @@ only» is for two cases: a page other people host themselves (see
 | On-page line | `nav.v4-onpage` right after the hero | a page's sections when the bar lists the site's pages (s.morgunov.tech since v3.0.0): a quiet line of links in sentence case, set apart by space (no «·»: it started the second row on a phone), no buttons. The links are words of a line of text, one a line in the markup (the space between them is where the line wraps); a line that wraps splits evenly (`text-wrap: balance`) |
 | Language | `.v4-dropdown.v4-lang` | `RU ⌄`; the items are links to the same page in the other language |
 | Theme | `.v4-dropdown.v4-theme` | the icon button; four items in this order: light, dark, auto, high contrast |
-| Footer | `footer.v4-foot` | under a hairline: name · year · the build mark as a quiet line of text (then at most two links of the page's own), and the privacy line as a small framed nameplate on the right — and nothing else |
+| Footer | `footer.v4-foot` | under a hairline: name · year · the build mark as a quiet line of text (s.morgunov.tech itself: the build mark alone) (then at most two links of the page's own), and the privacy line as a small framed nameplate on the right — and nothing else |
 | Build mark | `a.v4-build` in the footer | the release, `vX.Y.Z`; a link to the repository's `CHANGELOG.md` on GitHub, in a new tab |
 
 The right edge has one order everywhere: language, then theme at the very
@@ -143,7 +143,7 @@ look-alikes.
     </main>
 
     <footer class="v4-foot">
-      <span>morgunov.tech / service&nbsp;· 2026&nbsp;· <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.9.1</a></span>
+      <span>morgunov.tech / service&nbsp;· 2026&nbsp;· <a class="v4-build" href="https://github.com/morgunovtech/SERVICE/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">v4.9.2</a></span>
       <span class="v4-foot-privacy">Без cookies, трекеров и аналитики</span>
     </footer>
   </div>
@@ -163,8 +163,9 @@ visitor reads the history of versions. Not a modal, not the releases page (a rel
 the changelog is not), not a commit. A service whose repository is private has no build mark.
 
 **Footer.** One module for every page of the family, as the bar is. The left span reads
-`morgunov.tech / <service> · <year> · vX.Y.Z` (on this site, which is the family itself:
-`morgunov.tech · <year> · vX.Y.Z`), the right span is the privacy line, and nothing else goes in:
+`morgunov.tech / <service> · <year> · vX.Y.Z` (on this site, which is the family itself, the build
+mark alone: `vX.Y.Z` — since v4.9.2 of the origin it drops its own name, which the address bar
+already says, and the year, which the changelog dates), the right span is the privacy line, and nothing else goes in:
 no date, no commit, no icon, no button, no second line. Since v4.1.0 of the origin the left span
 is plain text — 14px, sentence case, the secondary ink — and the privacy line is a **nameplate**:
 11px caps in a thin frame, the way a maker's plate sits on the back of a device (the one text of
@@ -222,7 +223,7 @@ a service keeps to them by reading this list.
    column of the table — the one place a page uses mono.
    The place is the platform, taken from the address. No free-text tag, no filled chip.
 5. **One button in a block.** The second way to do the same thing is a line of text with a link
-   («Или на почту: …»), not a second button. One action has one label on every page: a button
+   («Или на почту …»), not a second button. One action has one label on every page: a button
    that opens the Telegram chat reads «Написать в Telegram» / “Message me on Telegram” wherever
    it stands. A link to read more first is not part of the
    button row.

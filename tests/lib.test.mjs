@@ -319,13 +319,31 @@ test('safeHref / isExternal treat protocol-relative //host as an external https 
 /* --- v0.30.1 / v0.30.4: dead content is rewritten at read time --- */
 import { fixStaleContent } from '../functions/_lib/migrations.js';
 
-test('fixStaleContent: with an empty table it hands every doc back untouched', () => {
+test('fixStaleContent: a doc without stale text comes back untouched', () => {
   const doc = { a: { b: 'Belissimo' }, list: ['x', { y: 'https://korzinka.uz/go' }] };
   const before = JSON.stringify(doc);
   assert.equal(fixStaleContent(doc), doc);
   assert.equal(JSON.stringify(doc), before);
   assert.equal(fixStaleContent(null), null);
   assert.equal(fixStaleContent('text'), 'text');
+});
+
+test('fixStaleContent v4.9.2: 7 working days, no «или e-com» — with plain or no-break spaces, and only once', () => {
+  const nb = String.fromCharCode(0xa0);
+  const doc = {
+    reply: { ru: 'Обычно отвечаю в течение 10 рабочих дней.', en: 'I usually reply within 10' + nb + 'business days.' },
+    note: { ru: 'Пишите, если нужен взгляд со стороны на продукт или e-com или хотите обсудить пост.', en: 'Write if you need an outside view on a product or e-com, or want to discuss a post.' },
+    other: ['за 110 рабочих дней', 'В 2010 году'],
+  };
+  fixStaleContent(doc);
+  assert.equal(doc.reply.ru, 'Обычно отвечаю в течение 7 рабочих дней.');
+  assert.equal(doc.reply.en, 'I usually reply within 7' + nb + 'business days.');
+  assert.equal(doc.note.ru, 'Пишите, если нужен взгляд со стороны на продукт или хотите обсудить пост.');
+  assert.equal(doc.note.en, 'Write if you need an outside view on a product, or want to discuss a post.');
+  assert.deepEqual(doc.other, ['за 110 рабочих дней', 'В 2010 году'], 'a 10 inside another number stays');
+  const once = JSON.stringify(doc);
+  fixStaleContent(doc);
+  assert.equal(JSON.stringify(doc), once, 'a second pass changes nothing');
 });
 
 test('noindexOnTechnicalHost marks pages.dev hosts only, replacing any earlier value', () => {

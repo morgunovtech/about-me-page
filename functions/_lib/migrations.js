@@ -18,7 +18,17 @@
 //
 // No imports on purpose: Node tests load this file directly.
 
-const STALE = [];
+// v4.9.2 (owner, 2026-11-27): the reply time is 7 working days, not 10 (home
+// «Связаться», /consulting), and the home contact note drops «или e-com». Regexes,
+// so a no-break space or hyphen the owner's text may hold still matches; each
+// swap is idempotent (its result no longer matches). Remove the entries once a
+// Save of home and consulting has stored the new text.
+const STALE = [
+  [/(?<![\d])10([  ])рабочих дней/g, '7$1рабочих дней'],
+  [/(?<![\d])10([  ])business days/g, '7$1business days'],
+  [/на продукт([  ])или e[-‑]com или хотите/g, 'на продукт$1или хотите'],
+  [/on a product or e[-‑]com, or want/g, 'on a product, or want'],
+];
 
 export function fixStaleContent(node) {
   if (!STALE.length) return node;
