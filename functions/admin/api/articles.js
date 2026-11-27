@@ -54,7 +54,7 @@ export async function onRequestPost(context) {
     await env.CONTENT.put(INDEX_KEY, JSON.stringify(idx.filter((a) => a && a.slug !== slug)));
     await purge(request, articlePaths(slug), env);
     // A published note that is gone: the engines learn it from IndexNow (its URL now answers 404).
-    if (gone && gone.status === 'published') announce(context, articlePaths(slug));
+    if (gone && gone.status === 'published') void announce(context, articlePaths(slug));
     return json({ ok: true });
   }
 

@@ -132,7 +132,7 @@ export async function onRequestPost(context) {
   await purge(request, paths, env);
   // Bing and Yandex hear of the change at once (IndexNow); a draft is not
   // public, so only a published note — or one just taken down — is announced.
-  if (!article || doc.status === 'published' || wasPublished) announce(context, paths);
+  if (!article || doc.status === 'published' || wasPublished) void announce(context, paths);
 
   // Keep the article index (feed/sitemap source) in sync with this save.
   if (article) {
