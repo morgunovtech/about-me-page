@@ -9,7 +9,7 @@ import { articleShell } from './article-template.js';
 import { loadArticle } from './articles.js';
 import { loadDoc } from './content.js';
 import { topicsOf, topicUrl, pickL } from './notes-feed.js';
-import { ORIGIN, NAME, buildOf } from './site.js';
+import { ORIGIN, buildOf, withName } from './site.js';
 
 const nonEmpty = (v) => !!(v && String(v).trim());
 
@@ -87,7 +87,7 @@ export async function renderArticlePage(env, slug, lang, request, opts = {}) {
   };
   const meta = doc.meta || {};
   doc.meta = {
-    title: (pick(meta.title, lang) || pick(doc.title, lang) || '') + ' — ' + NAME[lang === 'en' ? 'en' : 'ru'],
+    title: withName(pick(meta.title, lang) || pick(doc.title, lang) || '', lang),
     description: pick(meta.description, lang) || pick(doc.excerpt, lang) || '',
   };
 

@@ -10,8 +10,8 @@ import { loadHomeFeed, loadPublishedArticles } from './_lib/render-notes.js';
 import { overlay } from './_lib/overlay.js';
 import { renderPageJsonLd } from './_lib/jsonld.js';
 import { cached } from './_lib/cache.js';
-import { buildOf } from './_lib/site.js';
-import { noindexOnTechnicalHost, withSecurityHeaders } from './_lib/http.js';
+import { buildOf, ORIGIN } from './_lib/site.js';
+import { noindexOnTechnicalHost, technicalHostRedirect, withSecurityHeaders } from './_lib/http.js';
 import { notFound } from './_lib/render-article.js';
 
 // Keys are the clean URLs Pages actually serves (it 308-redirects /foo.html → /foo,
@@ -57,6 +57,8 @@ const blocked = (pathname) =>
   BLOCKED.some((p) => (p.endsWith('/') ? pathname.startsWith(p) : pathname === p));
 
 export async function onRequest(context) {
+  const moved = technicalHostRedirect(context.request, ORIGIN);
+  if (moved) return withSecurityHeaders(moved);
   return noindexOnTechnicalHost(await handle(context), context.request.url);
 }
 

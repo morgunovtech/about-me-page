@@ -35,6 +35,30 @@ export function noindexOnTechnicalHost(response, url) {
   return marked;
 }
 
+// The project's own technical host, <project>.pages.dev (not a preview, which has one more label:
+// <hash|branch>.<project>.pages.dev), answers a page request with a permanent redirect to the same
+// path on s.morgunov.tech (v4.9.1). noindex alone drops such a URL from an index only when its
+// crawler comes back, and points nowhere: on 2026-11-27 a web index that AI assistants answer from
+// still ranked about-me-page-cr2.pages.dev/en/ first for the owner's name and knew no page of
+// s.morgunov.tech. A 301 makes the next visit move the entry to the canonical address. Only GET and
+// HEAD move; previews stay reachable (and noindex) for checking a branch. Static files never reach
+// a Function (_routes.json), so they keep _headers' noindex on the technical host.
+const TECHNICAL_HOST = /^[a-z0-9-]+\.pages\.dev$/i;
+
+export function technicalHostRedirect(request, origin) {
+  const url = new URL(request.url);
+  if (!TECHNICAL_HOST.test(url.hostname)) return null;
+  if (request.method !== 'GET' && request.method !== 'HEAD') return null;
+  return new Response(null, {
+    status: 301,
+    headers: {
+      Location: origin + url.pathname + url.search,
+      'X-Robots-Tag': 'noindex',
+      'Cache-Control': 'public, max-age=3600',
+    },
+  });
+}
+
 export function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,

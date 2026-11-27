@@ -214,11 +214,11 @@ together with check-sync before committing anything that touches CSS.
 
 ## SEO / Meta
 
-- **Canonical URL:** `https://s.morgunov.tech/` — use this domain consistently everywhere. The apex `morgunov.tech` and `www.morgunov.tech` 301 to it through a Cloudflare Redirect Rule in the zone (outside the repo); the Pages project's technical host `about-me-page-cr2.pages.dev` and its previews get `X-Robots-Tag: noindex` — from `_headers` for static files, from `noindexOnTechnicalHost()` (`_lib/http.js`, applied in `_middleware.js`) for everything Functions build
+- **Canonical URL:** `https://s.morgunov.tech/` — use this domain consistently everywhere. The apex `morgunov.tech` and `www.morgunov.tech` 301 to it through a Cloudflare Redirect Rule in the zone (outside the repo); the Pages project's technical host `about-me-page-cr2.pages.dev` answers every page (GET/HEAD) with a 301 to the same path on s.morgunov.tech (`technicalHostRedirect()` in `_lib/http.js`, the first step of `_middleware.js`, v4.9.1 — `noindex` alone left it ranking in a web index AI assistants answer from); its previews `<hash|branch>.about-me-page-cr2.pages.dev` keep answering with `X-Robots-Tag: noindex` — from `_headers` for static files, from `noindexOnTechnicalHost()` (`_lib/http.js`, applied in `_middleware.js`) for everything Functions build
 - OG/Twitter images and JSON-LD images must use **absolute URLs**
 - **Share cards are renders of one template.** `images/og-card-{ru,en}.png` come from the design system's `templates/share-card` (cards `site-ru`, `site-en`; rules in its `guidelines/IMAGERY.md`), like the cards of every family service — a link to any morgunov.tech page looks the same in a feed. To change a card: edit its text in the template's `cards.js`, render there, copy the PNG here. The file keeps its name (KV docs point at it), so Telegram and LinkedIn show the new picture only after their own cache is refreshed (@WebpageBot, Post Inspector)
 - `<meta name="theme-color">` set for both light and dark schemes
-- JSON-LD Person schema: keep `description`, `knowsAbout`, `worksFor`, `sameAs` and `email` in sync
+- JSON-LD Person schema: keep `description`, `knowsAbout`, `worksFor`, `sameAs` and `email` in sync. Every sub-page carries a `BreadcrumbList` (`breadcrumbList()` in `_lib/jsonld.js`): the CMS pages, the static product pages, the notes, `/notes` and the topic pages (v4.9.1). A note's `<title>` carries the owner's name only while it fits in 70 characters (`withName()` in `_lib/site.js`)
 - `sitemap.xml` `lastmod` should be updated when content changes significantly
 - Yandex verification: `yandex_c8faae431964bcca.html` — do not delete
 

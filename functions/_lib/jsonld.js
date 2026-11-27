@@ -143,14 +143,16 @@ export function renderJsonLd(doc, lang) {
 // route, language-specific).
 export function renderArticleJsonLd(doc, lang) {
   const url = doc._url;
+  const l = lang === 'en' ? 'en' : 'ru';
   const image = pick(doc.cover && doc.cover.src, lang) || HERO_IMAGE;
+  const headline = pick(doc.title, lang);
   const graph = {
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': 'Article',
         '@id': url + '#article',
-        headline: pick(doc.title, lang),
+        headline,
         description: pick(doc.excerpt, lang),
         inLanguage: lang,
         url,
@@ -163,19 +165,23 @@ export function renderArticleJsonLd(doc, lang) {
         publisher: { '@id': ORIGIN + '/#person' },
         isPartOf: { '@id': ORIGIN + '/#website' },
       },
+      // Home → Publications → the note: the trail a search result shows instead of the bare URL.
+      breadcrumbList(url, l, [{ name: PUBLICATIONS[l], item: notesUrl(l) }, { name: headline, item: url }]),
       {
         '@type': 'Person',
         '@id': ORIGIN + '/#person',
         name: lang === 'en' ? 'Semyon Morgunov' : '\u0421\u0435\u043c\u0451\u043d \u041c\u043e\u0440\u0433\u0443\u043d\u043e\u0432',
-        url: ORIGIN + (lang === 'en' ? '/en/' : '/'),
+        // One entity, one url — the RU homepage — as the homepage's own graph names it: a node
+        // with the same @id and another url on the English notes made two values of one property.
+        url: ORIGIN + '/',
       },
     ],
   };
   return serializeLd(graph);
 }
 
-// --- Sub-pages: WebPage (+ Service/OfferCatalog on /consulting, BreadcrumbList
-// elsewhere) regenerated from the page doc, so name/dateModified/prices follow
+// --- Sub-pages: WebPage + BreadcrumbList (+ Service/OfferCatalog on /consulting)
+// regenerated from the page doc, so name/dateModified/prices follow
 // KV edits and agree with the sitemap. Home keeps its own richer graph.
 // The Service describes consulting only: angel investing and advisory stay off
 // the structured data until there is an example to show (owner's decision
@@ -194,6 +200,26 @@ const SERVICE = {
   },
 };
 const HOME_NAME = { ru: 'Главная', en: 'Home' };
+const PUBLICATIONS = { ru: 'Публикации', en: 'Publications' };
+const homeUrl = (l) => ORIGIN + (l === 'en' ? '/en/' : '/');
+const notesUrl = (l) => ORIGIN + (l === 'en' ? '/en' : '') + '/notes';
+
+// BreadcrumbList for a page at `url`: Home, then `trail` ({name, item}) down to the page itself.
+// Every sub-page, the notes and the topic pages included, carries one — the trail a search result
+// shows in place of the bare address.
+export function breadcrumbList(url, lang, trail) {
+  const l = lang === 'en' ? 'en' : 'ru';
+  return {
+    '@type': 'BreadcrumbList',
+    '@id': url + '#breadcrumb',
+    itemListElement: [{ name: HOME_NAME[l], item: homeUrl(l) }, ...trail].map((it, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: it.name,
+      item: it.item,
+    })),
+  };
+}
 
 // Text leaves are inline markdown (legacy KV docs may still carry HTML) —
 // JSON-LD wants plain text.
@@ -206,6 +232,35 @@ const plain = (md) =>
     .replace(/\*\*|`/g, '')
     .replace(/\u00a0/g, ' ')
     .trim();
+
+// /notes and a topic page (/notes/topics/<key>): the CollectionPage, its breadcrumb
+// (Home → Publications → the topic) and the feed as an ItemList, its main entity.
+// `items` are the feed's rows as {url, name}; `topic` is the topic's name or null.
+export function renderNotesIndexJsonLd({ url, lang, name, topic, items }) {
+  const l = lang === 'en' ? 'en' : 'ru';
+  return serializeLd({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': url + '#webpage',
+        url,
+        name,
+        inLanguage: l,
+        isPartOf: { '@id': ORIGIN + '/#website' },
+        about: topic ? { '@type': 'Thing', name: topic } : { '@id': ORIGIN + '/#person' },
+        breadcrumb: { '@id': url + '#breadcrumb' },
+        mainEntity: { '@id': url + '#feed' },
+      },
+      breadcrumbList(url, l, [{ name: PUBLICATIONS[l], item: notesUrl(l) }, ...(topic ? [{ name: topic, item: url }] : [])]),
+      {
+        '@type': 'ItemList',
+        '@id': url + '#feed',
+        itemListElement: items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, url: it.url, name: it.name })),
+      },
+    ],
+  });
+}
 
 export function renderPageJsonLd(doc, lang, page) {
   if (page === 'home') return renderJsonLd(doc, lang);
@@ -255,17 +310,10 @@ export function renderPageJsonLd(doc, lang, page) {
         }),
       },
     });
-  } else {
-    webpage.breadcrumb = { '@id': url + '#breadcrumb' };
-    graph.push({
-      '@type': 'BreadcrumbList',
-      '@id': url + '#breadcrumb',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: HOME_NAME[l], item: ORIGIN + (l === 'en' ? '/en/' : '/') },
-        { '@type': 'ListItem', position: 2, name: plain(pick(doc.hero && doc.hero.name, l)) || title, item: url },
-      ],
-    });
   }
+  // /consulting too (it had none until v4.9.1): Home → the page.
+  webpage.breadcrumb = { '@id': url + '#breadcrumb' };
+  graph.push(breadcrumbList(url, l, [{ name: plain(pick(doc.hero && doc.hero.name, l)) || title, item: url }]));
   // /privacy: the kit as an ItemList of the recommended apps — each by its
   // official site, the same link the card's button carries.
   if (page === 'privacy') {

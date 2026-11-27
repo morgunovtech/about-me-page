@@ -4,7 +4,7 @@
 import { loadArticleIndex, publishedSorted, noteUrl } from './articles.js';
 import { loadDoc, loadSubscribers } from './content.js';
 import { notesIndexHtml } from './article-template.js';
-import { serializeLd } from './jsonld.js';
+import { renderNotesIndexJsonLd } from './jsonld.js';
 import { escapeAttr, typo } from './markdown.js';
 import { ORIGIN, NAME, buildOf } from './site.js';
 import { pickL, forLang, buildFeed, feedListHtml, channelHtml, liveTopics, topicNavHtml, topicUrl, topicsOf } from './notes-feed.js';
@@ -62,28 +62,15 @@ export async function renderNotesIndex(env, lang, topicKey) {
 
   const path = topic ? topicUrl(topic.key, 'ru') : '/notes';
   const self = ORIGIN + (topic ? topicUrl(topic.key, l) : (l === 'en' ? '/en' : '') + '/notes');
-  const jsonLd = serializeLd({
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'CollectionPage',
-        '@id': self + '#webpage',
-        url: self,
-        name: (topic ? heading + ' — ' + publications : publications) + ' — ' + NAME[l],
-        inLanguage: l,
-        isPartOf: { '@id': ORIGIN + '/#website' },
-        about: topic ? { '@type': 'Thing', name: heading } : { '@id': ORIGIN + '/#person' },
-      },
-      {
-        '@type': 'ItemList',
-        itemListElement: feed.map((e, i) => ({
-          '@type': 'ListItem',
-          position: i + 1,
-          url: e.kind === 'note' ? ORIGIN + noteUrl(e.item.slug, lang) : e.item.href,
-          name: pickL(e.item.title, lang),
-        })),
-      },
-    ],
+  const jsonLd = renderNotesIndexJsonLd({
+    url: self,
+    lang: l,
+    name: (topic ? heading + ' — ' + publications : publications) + ' — ' + NAME[l],
+    topic: topic ? heading : null,
+    items: feed.map((e) => ({
+      url: e.kind === 'note' ? ORIGIN + noteUrl(e.item.slug, lang) : e.item.href,
+      name: pickL(e.item.title, lang),
+    })),
   });
 
   const page = notesIndexHtml(l, listHtml, jsonLd, buildOf(env), {

@@ -5,14 +5,25 @@ export const ORIGIN = 'https://s.morgunov.tech';
 // string per language, so RU routes never fall back to the Latin spelling.
 export const NAME = { ru: 'Семён Моргунов', en: 'Semyon Morgunov' };
 
+// A note's <title> is its headline + « — Семён Моргунов» while the whole stays within TITLE_MAX
+// characters; a longer headline goes alone (v4.9.1). Google shows about 60 characters of a title
+// and Yandex about 70: past that the name was cut off in the result anyway, and 30 of the 86
+// notes ran to 75–103 characters with it. The author is still in the byline and in the JSON-LD;
+// a note's own `meta.title` (Settings in /admin) overrides the headline here as before.
+export const TITLE_MAX = 70;
+export function withName(base, lang) {
+  const full = base + ' — ' + NAME[lang === 'en' ? 'en' : 'ru'];
+  return !base || full.length <= TITLE_MAX ? full : base;
+}
+
 // Short SHA of the deployed commit, stamped by scripts/version-stamp.py and
 // resolved into the `{build}` placeholder of CMS prose (see overlay.js).
-export const BUILD = '4bc0bfa';
+export const BUILD = '7747ec0';
 
 // The release, as the top entry of CHANGELOG.md names it; stamped by
 // scripts/version-stamp.py. The footer shows it as the build mark, a link to
 // the changelog on GitHub (ds/v1/USAGE.md, «Build mark»).
-export const VERSION = '4.9.0';
+export const VERSION = '4.9.1';
 export const CHANGELOG_URL = 'https://github.com/morgunovtech/about-me-page/blob/main/CHANGELOG.md';
 
 // The commit actually deployed: Pages exposes CF_PAGES_COMMIT_SHA to Functions;
